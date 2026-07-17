@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Kuesioner | Karirlink Tracer Study</title>
+    <link rel="icon" href="./assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="./assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="./assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+    <link rel="stylesheet" href="./assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <style>
+        .builder-layout { display: flex; gap: 1.5rem; }
+        .builder-sidebar { width: 220px; flex-shrink: 0; }
+        .builder-main { flex: 1; min-width: 0; }
+        .section-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+        .section-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.625rem 0.75rem; border: 1px solid var(--qn-neutral-200); border-radius: 0.5rem; background: white; cursor: pointer; transition: all .15s; }
+        .section-item:hover, .section-item.active { border-color: var(--qn-primary-500); background: var(--qn-primary-50); }
+        .section-item.active { border-width: 2px; }
+        .section-item__number { width: 1.5rem; height: 1.5rem; display: flex; align-items: center; justify-content: center; background: var(--qn-primary-500); color: white; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600; flex-shrink: 0; }
+        .section-item__name { flex: 1; font-size: 0.8125rem; font-weight: 500; color: var(--qn-neutral-800); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+        .section-item__delete { padding: 0.25rem; cursor: pointer; color: var(--qn-neutral-400); flex-shrink: 0; }
+        .section-item__delete:hover { color: var(--qn-danger-500); }
+        .btn-add-section { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.75rem; background: var(--qn-primary-500); color: white; border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; }
+        .btn-add-section:hover { background: var(--qn-primary-600); }
+        
+        .title-input { font-size: 1.5rem; font-weight: 600; border: none; width: 100%; padding: 0; margin-bottom: 1.5rem; outline: none; }
+        .title-input:focus { border-bottom: 2px solid var(--qn-primary-500); }
+        .title-input::placeholder { color: var(--qn-neutral-400); }
+        
+        .section-card { background: white; border: 1px solid var(--qn-neutral-200); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1rem; }
+        .section-title-input { font-size: 1.125rem; font-weight: 600; border: none; width: 100%; padding: 0; margin-bottom: 1.5rem; outline: none; }
+        .section-title-input:focus { border-bottom: 2px solid var(--qn-primary-500); }
+        
+        /* Toast Alert Styles */
+        .toast-alert { position: fixed; top: 5rem; left: 50%; transform: translateX(-50%); padding: 0.875rem 1.5rem; background: #FEF2F2; border: 1px solid #FECACA; color: #DC2626; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; opacity: 0; transition: opacity .3s; z-index: 9999; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .toast-alert.show { opacity: 1; }
+        .toast-alert .icon { font-size: 1.125rem; }
+</style>
+</head>
+<body class="body body_kl-white">
+<style>
+        /* Question Card - Inline Editing Style */
+        .question-card { border: 2px solid var(--qn-primary-200); border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; background: white; transition: all .15s; }
+        .question-card:hover { border-color: var(--qn-primary-400); }
+        .question-card:focus-within { border-color: var(--qn-primary-500); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+        
+        .question-header { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .question-number { display: flex; align-items: center; justify-content: center; min-width: 1.5rem; height: 1.5rem; background: var(--qn-primary-100); color: var(--qn-primary-700); border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600; }
+        .question-text-input { flex: 1; border: none; font-size: 0.9375rem; font-weight: 500; padding: 0; outline: none; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
+        .question-text-input:focus { text-decoration: none; }
+        
+        .question-type-badge { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.25rem 0.5rem; background: var(--qn-neutral-100); border: 1px solid var(--qn-neutral-200); border-radius: 0.25rem; font-size: 0.75rem; color: var(--qn-neutral-600); cursor: pointer; }
+        .question-type-select { border: 1px solid var(--qn-neutral-300); border-radius: 0.25rem; padding: 0.25rem 0.5rem; font-size: 0.75rem; outline: none; }
+        
+        .question-actions { display: flex; gap: 0.25rem; margin-left: auto; }
+        .question-actions button { padding: 0.375rem; border: none; background: none; cursor: pointer; color: var(--qn-neutral-400); border-radius: 0.25rem; }
+        .question-actions button:hover { background: var(--qn-neutral-100); color: var(--qn-neutral-700); }
+        
+        .question-desc { margin: 0.5rem 0 0.75rem 2.25rem; }
+        .question-desc-input { width: 100%; border: none; font-size: 0.8125rem; color: var(--qn-neutral-500); padding: 0; outline: none; }
+        .question-desc-input::placeholder { color: var(--qn-neutral-400); }
+        
+        .option-list { margin-left: 2.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
+        .option-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--qn-neutral-200); border-radius: 0.375rem; background: var(--qn-neutral-50); }
+        .option-item__number { min-width: 1.25rem; height: 1.25rem; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 500; color: var(--qn-neutral-500); }
+        .option-item__input { flex: 1; border: none; background: transparent; font-size: 0.875rem; outline: none; }
+        .option-item__delete { padding: 0.25rem; border: none; background: none; cursor: pointer; color: var(--qn-neutral-400); }
+        .option-item__delete:hover { color: var(--qn-danger-500); }
+        
+        .add-option-row { display: flex; align-items: center; gap: 0.75rem; margin-left: 2.25rem; margin-top: 0.5rem; font-size: 0.8125rem; color: var(--qn-neutral-500); }
+        .add-option-link { color: var(--qn-primary-500); cursor: pointer; text-decoration: underline; }
+        .add-option-link:hover { color: var(--qn-primary-700); }
+        
+        .question-footer { display: flex; align-items: center; justify-content: flex-end; gap: 0.75rem; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--qn-neutral-100); }
+        .required-toggle { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--qn-neutral-600); }
+        
+        .add-question-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem; border: 2px dashed var(--qn-neutral-300); border-radius: 0.5rem; color: var(--qn-neutral-500); cursor: pointer; transition: all .15s; margin-top: 1rem; }
+        .add-question-btn:hover { border-color: var(--qn-primary-400); color: var(--qn-primary-600); background: var(--qn-primary-50); }
+        
+        /* Toggle Switch */
+        .toggle-switch { position: relative; width: 2.5rem; height: 1.25rem; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: var(--qn-neutral-300); border-radius: 1rem; transition: .2s; }
+        .toggle-slider:before { position: absolute; content: ""; height: 1rem; width: 1rem; left: 0.125rem; bottom: 0.125rem; background: white; border-radius: 50%; transition: .2s; }
+        .toggle-switch input:checked + .toggle-slider { background: var(--qn-primary-500); }
+        .toggle-switch input:checked + .toggle-slider:before { transform: translateX(1.25rem); }
+
+        /* Header compact */
+        .page-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; margin-bottom: 1rem; }
+        .page-header__left { display: flex; align-items: center; gap: 0.75rem; }
+        .page-header__title { font-size: 1rem; font-weight: 600; color: var(--qn-neutral-800); }
+        .page-header__actions { display: flex; gap: 0.5rem; }
+        
+        /* Toast */
+        .toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); padding: 0.75rem 1.5rem; background: #10B981; color: white; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; opacity: 0; transition: opacity .3s; z-index: 9999; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .toast.show { opacity: 1; }
+    </style>
+
+    <!-- Header -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="./assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a class="nav__link" href="./dashboard.html"><span class="icon icon-chart-bar-square"></span><span>Dasbor</span></a></li>
+                        <li class="nav__item active"><a class="nav__link" href="./index.html"><span class="icon icon-clipboard-document-list"></span><span>Kuesioner</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="./alumni.html"><span class="icon icon-academic-cap"></span><span>Alumni</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="./publikasi.html"><span class="icon icon-document-text"></span><span>Publikasi</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <a href="./portal-karir.html" target="_blank" class="btn btn_outline btn_xs">Portal Karir <span class="icon icon-arrow-up-right-mini"></span></a>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="avatar avatar_sm"><img src="./assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User" width="32"></span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main" style="padding-top: 4.5rem;">
+        <div class="container" style="max-width: 1100px; padding: 1.5rem;">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-header__left">
+                    <a href="./index.html" style="color: var(--qn-neutral-500);"><span class="icon icon-home" style="font-size: 1.25rem;"></span></a>
+                    <span class="page-header__title">Template Lengkap</span>
+                </div>
+                <div class="page-header__actions">
+                    <a href="./kuesioner-preview.html" class="btn btn_outline btn_sm">Pratinjau</a>
+                    <button class="btn btn_primary btn_sm" onclick="saveAll()">Simpan ke Draft</button>
+                </div>
+            </div>
+
+            <!-- Builder Layout -->
+            <div class="builder-layout">
+                <!-- Sidebar - Section List -->
+                <div class="builder-sidebar">
+                    <div class="form-control__label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">Bagian Kuesioner <span class="important">*</span></div>
+                    
+                    <!-- Default Section (Locked) -->
+                    <div class="section-item section-item--locked" style="background: #f0fdf4; border-color: #86efac; cursor: default; margin-bottom: 0.75rem;" onclick="showDefaultSectionInfo()">
+                        <span class="section-item__number" style="background: #22c55e;">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </span>
+                        <span class="section-item__name" style="color: #16a34a;">Informasi Pribadi</span>
+                        <span style="font-size: 0.625rem; color: #22c55e; background: #dcfce7; padding: 0.125rem 0.375rem; border-radius: 0.25rem;">Default</span>
+                    </div>
+                    
+                    <div class="section-list" id="sectionList"></div>
+                    <button class="btn-add-section" onclick="addSection()">
+                        <span class="icon icon-plus-mini"></span> Tambah Bagian
+                    </button>
+                </div>
+
+                <!-- Main Content -->
+                <div class="builder-main">
+                    <div class="form-control" style="margin-bottom: 0.5rem;">
+                        <label class="form-control__label">Judul Kuesioner <span class="important">*</span></label>
+                    </div>
+                    <input type="text" class="title-input" id="questionnaireTitle" value="" placeholder="Masukkan Judul Kuesioner">
+                    
+                    <div id="sectionContent"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast" id="toast"></div>
+    <div class="toast-alert" id="toastAlert"><span class="icon icon-exclamation-circle"></span><span id="toastAlertMsg"></span></div>
+
+    <script src="./assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+
+    <script>
+    // Data Model
+    let data = {
+        title: '',
+        sections: [
+            {
+                id: 1, name: 'Informasi Umum',
+                questions: [
+                    { id: 1, text: 'Jelaskan status Anda saat ini?', desc: '', type: 'radio', required: true, options: ['Bekerja (full time / part time)', 'Belum memungkinkan bekerja', 'Wiraswasta (Wirausaha)', 'Melanjutkan pendidikan', 'Tidak kerja, tetapi sedang mencari kerja'] },
+                    { id: 2, text: 'Sumber dana apa yang Anda gunakan untuk membiayai kuliah?', desc: '', type: 'radio', required: true, options: ['Biaya Sendiri/Keluarga', 'Beasiswa ADIK', 'BIDIKMISI', 'PPA'] }
+                ]
+            },
+            { id: 2, name: 'Bekerja', questions: [] },
+            { id: 3, name: 'Wiraswasta', questions: [] },
+            { id: 4, name: 'Melanjutkan Pendidikan', questions: [] },
+            { id: 5, name: 'Belum Bekerja', questions: [] },
+            { id: 6, name: 'Tingkat Kompetensi', questions: [] }
+        ]
+    };
+    let currentSection = 0;
+
+    // Render Section List
+    function renderSectionList() {
+        const container = document.getElementById('sectionList');
+        container.innerHTML = data.sections.map((s, i) => `
+            <div class="section-item ${i === currentSection ? 'active' : ''}" onclick="selectSection(${i})">
+                <span class="section-item__number">${i + 1}</span>
+                <span class="section-item__name">${s.name}</span>
+                <span class="section-item__delete" onclick="event.stopPropagation(); deleteSection(${i})">
+                    <span class="icon icon-trash-mini"></span>
+                </span>
+            </div>
+        `).join('');
+    }
+
+    // Render Questions with Inline Editing
+    function renderQuestions() {
+        const section = data.sections[currentSection];
+        const container = document.getElementById('sectionContent');
+        
+        let html = `
+            <div class="section-card">
+                <input type="text" class="section-title-input" value="${currentSection + 1}. ${section.name}" 
+                    onchange="updateSectionName(this.value)" placeholder="Nama bagian...">
+                
+                <div id="questionList">`;
+        
+        section.questions.forEach((q, qi) => {
+            html += renderQuestionCard(q, qi);
+        });
+        
+        html += `</div>
+                <div class="add-question-btn" onclick="addQuestion()">
+                    <span class="icon icon-plus-mini"></span> Tambah Pertanyaan
+                </div>
+            </div>`;
+        
+        container.innerHTML = html;
+    }
+
+    function renderQuestionCard(q, qi) {
+        const typeOptions = [
+            { value: 'radio', label: 'Pilihan ganda' },
+            { value: 'checkbox', label: 'Kotak centang' },
+            { value: 'text', label: 'Teks singkat' },
+            { value: 'textarea', label: 'Paragraf' },
+            { value: 'number', label: 'Angka' },
+            { value: 'date', label: 'Tanggal' },
+            { value: 'scale', label: 'Skala' }
+        ];
+        
+        let html = `
+            <div class="question-card" data-index="${qi}">
+                <div class="question-header">
+                    <span class="question-number">${qi + 1}.</span>
+                    <input type="text" class="question-text-input" value="${q.text}" 
+                        onchange="updateQuestion(${qi}, 'text', this.value)" placeholder="Ketik pertanyaan...">
+                    
+                    <select class="question-type-select" onchange="updateQuestion(${qi}, 'type', this.value)">
+                        ${typeOptions.map(opt => `<option value="${opt.value}" ${q.type === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
+                    </select>
+                    
+                    <div class="question-actions">
+                        <button onclick="duplicateQuestion(${qi})" title="Duplikat"><span class="icon icon-document-duplicate-mini"></span></button>
+                        <button onclick="deleteQuestion(${qi})" title="Hapus"><span class="icon icon-trash-mini"></span></button>
+                        <button title="Lainnya"><span class="icon icon-ellipsis-vertical-mini"></span></button>
+                    </div>
+                </div>
+                
+                <div class="question-desc">
+                    <input type="text" class="question-desc-input" value="${q.desc || ''}" 
+                        onchange="updateQuestion(${qi}, 'desc', this.value)" placeholder="Deskripsi">
+                </div>`;
+        
+        // Render options for radio/checkbox
+        if (['radio', 'checkbox'].includes(q.type)) {
+            html += `<div class="option-list">`;
+            q.options.forEach((opt, oi) => {
+                html += `
+                    <div class="option-item">
+                        <span class="option-item__number">${oi + 1}</span>
+                        <input type="text" class="option-item__input" value="${opt}" 
+                            onchange="updateOption(${qi}, ${oi}, this.value)" placeholder="Opsi ${oi + 1}">
+                        <button class="option-item__delete" onclick="deleteOption(${qi}, ${oi})" ${q.options.length <= 1 ? 'style="visibility:hidden"' : ''}>
+                            <span class="icon icon-x-mark-mini"></span>
+                        </button>
+                    </div>`;
+            });
+            html += `</div>
+                <div class="add-option-row">
+                    Tambahkan opsi atau <span class="add-option-link" onclick="addOption(${qi})">Tambahkan Lainnya</span>
+                    <span style="margin-left: auto; color: var(--qn-neutral-400);">Buka bagian berdasarkan jawaban</span>
+                </div>`;
+        } else if (q.type === 'scale') {
+            html += `<div class="option-list" style="flex-direction: row; gap: 0.5rem;">`;
+            for (let i = 1; i <= 5; i++) {
+                html += `<div class="option-item" style="flex: 1; justify-content: center; padding: 0.75rem;"><span>${i}</span></div>`;
+            }
+            html += `</div>`;
+        } else {
+            html += `<div style="margin-left: 2.25rem;">
+                <input type="${q.type === 'textarea' ? 'text' : q.type}" class="form-control__input" 
+                    placeholder="Jawaban responden akan muncul di sini..." disabled style="max-width: 300px; background: var(--qn-neutral-50);">
+            </div>`;
+        }
+        
+        html += `
+                <div class="question-footer">
+                    <div class="required-toggle">
+                        <span>Wajib diisi</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" ${q.required ? 'checked' : ''} onchange="updateQuestion(${qi}, 'required', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>`;
+        
+        return html;
+    }
+
+    // Section Functions
+    function selectSection(index) {
+        currentSection = index;
+        renderSectionList();
+        renderQuestions();
+    }
+
+    function addSection() {
+        const newId = Math.max(...data.sections.map(s => s.id), 0) + 1;
+        data.sections.push({ id: newId, name: 'Bagian Baru', questions: [] });
+        currentSection = data.sections.length - 1;
+        renderSectionList();
+        renderQuestions();
+        showToast('Bagian baru ditambahkan');
+    }
+
+    function deleteSection(index) {
+        if (data.sections.length <= 1) { showToast('Minimal harus ada 1 bagian'); return; }
+        if (confirm(`Hapus bagian "${data.sections[index].name}"?`)) {
+            data.sections.splice(index, 1);
+            if (currentSection >= data.sections.length) currentSection = data.sections.length - 1;
+            renderSectionList();
+            renderQuestions();
+            showToast('Bagian dihapus');
+        }
+    }
+
+    function updateSectionName(value) {
+        const match = value.match(/^\d+\.\s*(.+)$/);
+        if (match) data.sections[currentSection].name = match[1].trim();
+        else data.sections[currentSection].name = value.trim();
+        renderSectionList();
+    }
+
+    // Question Functions
+    function addQuestion() {
+        const section = data.sections[currentSection];
+        const newId = Math.max(...section.questions.map(q => q.id), 0) + 1;
+        section.questions.push({ id: newId, text: '', desc: '', type: 'radio', required: true, options: ['Opsi 1', 'Opsi 2'] });
+        renderQuestions();
+        showToast('Pertanyaan ditambahkan');
+    }
+
+    function updateQuestion(qi, field, value) {
+        const q = data.sections[currentSection].questions[qi];
+        q[field] = value;
+        if (field === 'type' && ['radio', 'checkbox'].includes(value) && (!q.options || q.options.length === 0)) {
+            q.options = ['Opsi 1', 'Opsi 2'];
+        }
+        renderQuestions();
+    }
+
+    function duplicateQuestion(qi) {
+        const section = data.sections[currentSection];
+        const original = section.questions[qi];
+        const copy = JSON.parse(JSON.stringify(original));
+        copy.id = Math.max(...section.questions.map(q => q.id), 0) + 1;
+        section.questions.splice(qi + 1, 0, copy);
+        renderQuestions();
+        showToast('Pertanyaan diduplikat');
+    }
+
+    function deleteQuestion(qi) {
+        if (confirm('Hapus pertanyaan ini?')) {
+            data.sections[currentSection].questions.splice(qi, 1);
+            renderQuestions();
+            showToast('Pertanyaan dihapus');
+        }
+    }
+
+    // Option Functions
+    function addOption(qi) {
+        const q = data.sections[currentSection].questions[qi];
+        q.options.push(`Opsi ${q.options.length + 1}`);
+        renderQuestions();
+    }
+
+    function updateOption(qi, oi, value) {
+        data.sections[currentSection].questions[qi].options[oi] = value;
+    }
+
+    function deleteOption(qi, oi) {
+        const q = data.sections[currentSection].questions[qi];
+        if (q.options.length > 1) {
+            q.options.splice(oi, 1);
+            renderQuestions();
+        }
+    }
+
+    // Utility
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.innerHTML = '<span style="font-size: 16px;">✓</span> ' + msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+    
+    function showAlertToast(msg) {
+        const toast = document.getElementById('toastAlert');
+        document.getElementById('toastAlertMsg').textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+    
+    function showDefaultSectionInfo() {
+        // Show info toast about default section
+        const existingInfo = document.querySelector('.default-section-info');
+        if (existingInfo) existingInfo.remove();
+        
+        const info = document.createElement('div');
+        info.className = 'default-section-info';
+        info.style.cssText = `
+            position: fixed;
+            top: 5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            color: #166534;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            max-width: 400px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 9999;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        `;
+        info.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <div>
+                <strong style="display: block; margin-bottom: 0.25rem;">Section "Informasi Pribadi"</strong>
+                <span style="color: #15803d;">Section ini ditambahkan secara otomatis oleh sistem dan berisi pertanyaan wajib: Alamat Email, Nomor HP, NIK/No. KTP, dan NPWP. Section ini tidak dapat dihapus atau diubah.</span>
+            </div>
+            <button onclick="this.parentElement.remove()" style="background: none; border: none; cursor: pointer; color: #166534; padding: 0.25rem; margin-left: auto;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        `;
+        document.body.appendChild(info);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (info.parentElement) info.remove();
+        }, 5000);
+    }
+
+    function saveAll() {
+        const titleInput = document.getElementById('questionnaireTitle');
+        const title = titleInput.value.trim();
+        
+        // Validate title is not empty
+        if (!title) {
+            showAlertToast('Judul Kuesioner harus diisi terlebih dahulu');
+            titleInput.focus();
+            titleInput.style.borderBottom = '2px solid #DC2626';
+            setTimeout(() => {
+                titleInput.style.borderBottom = '';
+            }, 3000);
+            return;
+        }
+        
+        data.title = title;
+        console.log('Saved data:', data);
+        
+        // Show success toast
+        showToast('Kuesioner berhasil disimpan!');
+        
+        // Redirect to draft page after short delay
+        setTimeout(() => {
+            // Store flag in sessionStorage to show toast on index page
+            sessionStorage.setItem('showDraftToast', 'true');
+            sessionStorage.setItem('draftTitle', title);
+            window.location.href = './index.html';
+        }, 1500);
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set template from URL
+        const params = new URLSearchParams(window.location.search);
+        const template = params.get('template');
+        if (template) {
+            const titles = { full: 'Template Lengkap', kemdikbud: 'Template Kemdikbud', alumni: 'Template Pengguna Lulusan', empty: 'Template Kosong' };
+            document.querySelector('.page-header__title').textContent = titles[template] || 'Template Lengkap';
+            if (template === 'empty') {
+                data = { title: '', sections: [{ id: 1, name: 'Bagian 1', questions: [] }] };
+                document.getElementById('questionnaireTitle').value = '';
+            }
+        }
+        renderSectionList();
+        renderQuestions();
+    });
+    </script>
+</body>
+</html>
