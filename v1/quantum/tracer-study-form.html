@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuesioner Tracer Study | Karirlink</title>
+    <link rel="icon" href="./assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="./assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <style>
+        :root { --base-font-size: 16px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f9fafb; min-height: 100vh; font-size: var(--base-font-size); line-height: 1.6; }
+        
+        /* Accessibility: Focus Styles */
+        :focus { outline: 3px solid #3b82f6; outline-offset: 2px; }
+        :focus:not(:focus-visible) { outline: none; }
+        :focus-visible { outline: 3px solid #3b82f6; outline-offset: 2px; }
+        
+        /* Accessibility: Skip Link */
+        .skip-link { position: absolute; top: -40px; left: 0; background: #1e40af; color: white; padding: 0.75rem 1rem; z-index: 100; font-weight: 500; border-radius: 0 0 0.5rem 0; text-decoration: none; }
+        .skip-link:focus { top: 0; }
+        
+        /* Accessibility: High Contrast Mode */
+        @media (prefers-contrast: high) {
+            .question-card { border-width: 2px; }
+            .option-item { border-width: 2px; }
+            .form-input { border-width: 2px; }
+        }
+        
+        /* Accessibility: Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+        
+        /* Accessibility: Font Size Controls */
+        .a11y-controls { position: fixed; bottom: 7rem; right: 1rem; z-index: 50; display: flex; flex-direction: column; gap: 0.5rem; }
+        .a11y-btn { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 2px solid #d1d5db; background: white; color: #374151; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .a11y-btn:hover { background: #f3f4f6; border-color: #3b82f6; }
+        .a11y-btn:focus { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4); }
+
+        /* Header */
+        .ts-header { position: sticky; top: 0; z-index: 50; background: white; border-bottom: 1px solid #e5e7eb; padding: 0.75rem 1rem; }
+        .ts-header__inner { max-width: 42rem; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+        .ts-header__left { display: flex; align-items: center; gap: 0.75rem; }
+        .ts-header__logo { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid #e5e7eb; object-fit: cover; }
+        .ts-header__info p { margin: 0; }
+        .ts-header__info p:first-child { font-size: 0.875em; color: #6b7280; }
+        .ts-header__info p:last-child { font-weight: 500; color: #111827; }
+        .ts-header__user { display: flex; align-items: center; gap: 0.75rem; }
+        .ts-header__avatar { width: 2.5rem; height: 2.5rem; border-radius: 50%; background: #3b82f6; color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.875em; }
+        
+        /* Main Content */
+        .ts-main { padding: 1.5rem 1rem 7rem; }
+        .ts-container { max-width: 42rem; margin: 0 auto; }
+        
+        /* Welcome Banner */
+        .welcome-banner { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; color: white; }
+        .welcome-banner__title { font-size: 1.125em; font-weight: 600; margin-bottom: 0.375rem; }
+        .welcome-banner__desc { font-size: 0.9375em; opacity: 0.95; line-height: 1.6; }
+        .welcome-banner__info { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1rem; font-size: 0.875em; }
+        .welcome-banner__item { display: flex; align-items: center; gap: 0.375rem; }
+        .welcome-banner__item svg { width: 1.125rem; height: 1.125rem; opacity: 0.9; }
+        
+        /* Section Header */
+        .section-header { display: flex; align-items: center; gap: 0.5rem; background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.25rem 1.5rem; margin-bottom: 0.75rem; font-size: 1.125em; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .section-header__icon { width: 1.75rem; height: 1.75rem; border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8125em; font-weight: 700; flex-shrink: 0; }
+        .section-header--default { background: #f0fdf4; border-color: #86efac; }
+        .section-header--default .section-header__icon { background: #22c55e; }
+        .section-header--normal .section-header__icon { background: #3b82f6; }
+        .section-header__badge { margin-left: auto; font-size: 0.6875em; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.625rem; border-radius: 9999px; }
+        .section-header__badge--default { color: #16a34a; background: #dcfce7; }
+
+        /* Question Card */
+        .question-card { background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 0.75rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .question-card--default { border-left: 3px solid #22c55e; }
+        
+        /* Conditional Question Card - appears based on previous answers */
+        .question-card--conditional { 
+            border-left: 3px solid #f59e0b; 
+            background: linear-gradient(to right, #fffbeb, white);
+            animation: slideIn 0.3s ease-out;
+        }
+        .question-card--conditional::before {
+            content: "↳ Pertanyaan lanjutan";
+            display: block;
+            font-size: 0.75rem;
+            color: #d97706;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-card__header { display: flex; gap: 0.375rem; margin-bottom: 0.75rem; }
+        .question-card__number { font-size: 0.9375em; color: #6b7280; font-weight: 500; }
+        .question-card__content { flex: 1; }
+        .question-card__text { font-size: 1em; color: #111827; font-weight: 500; line-height: 1.5; }
+        .question-card__text .required { color: #ef4444; margin-left: 0.125rem; }
+        .question-card__desc { font-size: 0.875em; color: #6b7280; margin-top: 0.25rem; line-height: 1.5; }
+        
+        /* Form Inputs */
+        .form-input { width: 100%; padding: 0.875rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1em; color: #111827; background: white; margin-top: 0.75rem; }
+        .form-input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); }
+        .form-input::placeholder { color: #9ca3af; }
+        .form-input:disabled { background: #f9fafb; color: #6b7280; cursor: not-allowed; }
+        .form-input--readonly { background: #f3f4f6; border-color: #e5e7eb; }
+        
+        /* Option List - Accessible */
+        .option-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem; }
+        .option-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; border: 2px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; transition: all 0.15s; }
+        .option-item:hover { border-color: #93c5fd; background: #f9fafb; }
+        .option-item:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); }
+        .option-item.selected { border-color: #3b82f6; background: #eff6ff; }
+        .option-item__letter { width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; border: 2px solid #d1d5db; border-radius: 50%; font-size: 0.875em; font-weight: 600; color: #6b7280; flex-shrink: 0; }
+        .option-item.selected .option-item__letter { border-color: #3b82f6; background: #3b82f6; color: white; }
+        .option-item__text { flex: 1; font-size: 0.9375em; color: #374151; line-height: 1.5; }
+        
+        /* Scale - Accessible */
+        .scale-wrapper { display: flex; flex-direction: column; gap: 0.625rem; margin-top: 0.75rem; }
+        .scale-labels { display: flex; justify-content: space-between; font-size: 0.8125em; color: #6b7280; }
+        .scale-options { display: flex; gap: 0.5rem; }
+        .scale-option { flex: 1; padding: 0.875rem; text-align: center; border: 2px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; font-size: 1em; font-weight: 600; }
+        .scale-option:hover { border-color: #93c5fd; background: #f9fafb; }
+        .scale-option:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); }
+        .scale-option.selected { border-color: #3b82f6; background: #3b82f6; color: white; }
+
+        /* Footer */
+        .ts-footer { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; padding: 1rem; z-index: 40; }
+        .ts-footer__inner { max-width: 42rem; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+        .progress-bar { height: 0.5rem; background: #e5e7eb; border-radius: 9999px; overflow: hidden; }
+        .progress-bar__fill { height: 100%; background: #3b82f6; border-radius: 9999px; }
+        .pagination { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+        .pagination__info { font-size: 0.875em; color: #6b7280; }
+        .pagination__buttons { display: flex; gap: 0.5rem; }
+        .pagination__btn { padding: 0.75rem 1.25rem; border-radius: 0.5rem; font-size: 0.9375em; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 0.375rem; min-height: 44px; }
+        .pagination__btn--outline { background: white; border: 2px solid #d1d5db; color: #374151; }
+        .pagination__btn--outline:hover { background: #f9fafb; border-color: #9ca3af; }
+        .pagination__btn--primary { background: #3b82f6; border: 2px solid #3b82f6; color: white; }
+        .pagination__btn--primary:hover { background: #2563eb; border-color: #2563eb; }
+        .pagination__btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        /* Toast - Accessible */
+        .toast { position: fixed; bottom: 6rem; left: 50%; transform: translateX(-50%); background: #166534; color: white; padding: 0.875rem 1.25rem; border-radius: 0.5rem; font-size: 0.9375em; font-weight: 500; display: none; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .toast.show { display: flex; align-items: center; gap: 0.5rem; }
+        
+        /* Branding */
+        .sevima-branding { text-align: center; padding: 1.5rem 0; font-size: 0.8125em; color: #9ca3af; }
+        .sevima-branding a { color: #6b7280; text-decoration: underline; }
+        .sevima-branding a:hover { color: #374151; }
+        
+        /* Screen Reader Only */
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    </style>
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Langsung ke Konten Utama</a>
+
+    <!-- Accessibility Controls -->
+    <div class="a11y-controls" role="group" aria-label="Pengaturan Aksesibilitas">
+        <button class="a11y-btn" onclick="increaseFontSize()" aria-label="Perbesar Teks" title="Perbesar Teks">A+</button>
+        <button class="a11y-btn" onclick="decreaseFontSize()" aria-label="Perkecil Teks" title="Perkecil Teks">A-</button>
+    </div>
+
+    <!-- Header -->
+    <header class="ts-header" role="banner">
+        <div class="ts-header__inner">
+            <div class="ts-header__left">
+                <img src="./assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo Universitas Contoh" class="ts-header__logo">
+                <div class="ts-header__info">
+                    <p>Universitas Contoh</p>
+                    <p>Tracer Study Alumni 2024</p>
+                </div>
+            </div>
+            <div class="ts-header__user">
+                <div class="ts-header__info" style="text-align: right;">
+                    <p>Lulusan S1 - Teknik Informatika</p>
+                    <p>Ahmad Dimas Pratama</p>
+                </div>
+                <div class="ts-header__avatar" aria-hidden="true">AD</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <span id="toast-message">Jawaban berhasil disimpan</span>
+    </div>
+
+    <!-- Main Content -->
+    <main class="ts-main" id="main-content" role="main">
+        <div class="ts-container">
+            <!-- Welcome Banner -->
+            <section class="welcome-banner" aria-labelledby="welcome-title">
+                <h1 class="welcome-banner__title" id="welcome-title">Selamat datang, Ahmad Dimas Pratama!</h1>
+                <p class="welcome-banner__desc">Terima kasih telah berpartisipasi dalam Tracer Study. Mohon isi kuesioner ini dengan jujur untuk membantu kampus meningkatkan kualitas pendidikan.</p>
+                <div class="welcome-banner__info">
+                    <div class="welcome-banner__item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span>Estimasi 15-20 menit</span>
+                    </div>
+                    <div class="welcome-banner__item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>6 bagian pertanyaan</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 0: Informasi Pribadi (Default System) -->
+            <section aria-labelledby="section-pribadi">
+                <div class="section-header section-header--default">
+                    <span class="section-header__icon" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </span>
+                    <h2 id="section-pribadi">Informasi Pribadi</h2>
+                    <span class="section-header__badge section-header__badge--default">Data Default</span>
+                </div>
+
+                <!-- Default Question 1 - Email -->
+                <article class="question-card question-card--default">
+                    <div class="question-card__header">
+                        <span class="question-card__number" aria-hidden="true">1.</span>
+                        <div class="question-card__content">
+                            <label for="input-email" class="question-card__text">Alamat Email<span class="required" aria-label="wajib diisi">*</span></label>
+                            <p class="question-card__desc" id="email-desc">Data ini diambil dari profil Anda</p>
+                        </div>
+                    </div>
+                    <input type="email" id="input-email" class="form-input form-input--readonly" value="ahmad.dimas@email.com" readonly aria-describedby="email-desc">
+                </article>
+
+                <!-- Default Question 2 - Phone -->
+                <article class="question-card question-card--default">
+                    <div class="question-card__header">
+                        <span class="question-card__number" aria-hidden="true">2.</span>
+                        <div class="question-card__content">
+                            <label for="input-phone" class="question-card__text">Nomor HP<span class="required" aria-label="wajib diisi">*</span></label>
+                        </div>
+                    </div>
+                    <input type="tel" id="input-phone" class="form-input" placeholder="Masukkan nomor HP Anda" required aria-required="true">
+                </article>
+
+                <!-- Default Question 3 - NIK -->
+                <article class="question-card question-card--default">
+                    <div class="question-card__header">
+                        <span class="question-card__number" aria-hidden="true">3.</span>
+                        <div class="question-card__content">
+                            <label for="input-nik" class="question-card__text">NIK/No. KTP<span class="required" aria-label="wajib diisi">*</span></label>
+                        </div>
+                    </div>
+                    <input type="text" id="input-nik" class="form-input" placeholder="Masukkan 16 digit NIK Anda" maxlength="16" required aria-required="true" inputmode="numeric">
+                </article>
+
+                <!-- Default Question 4 - NPWP -->
+                <article class="question-card question-card--default">
+                    <div class="question-card__header">
+                        <span class="question-card__number" aria-hidden="true">4.</span>
+                        <div class="question-card__content">
+                            <label for="input-npwp" class="question-card__text">NPWP</label>
+                            <p class="question-card__desc" id="npwp-desc">Opsional, jika Anda memiliki NPWP</p>
+                        </div>
+                    </div>
+                    <input type="text" id="input-npwp" class="form-input" placeholder="Masukkan nomor NPWP (opsional)" aria-describedby="npwp-desc">
+                </article>
+            </section>
+
+            <!-- Section 1: Informasi Umum -->
+            <section aria-labelledby="section-umum" style="margin-top: 1.5rem;">
+                <div class="section-header section-header--normal">
+                    <span class="section-header__icon" aria-hidden="true">1</span>
+                    <h2 id="section-umum">Informasi Umum</h2>
+                </div>
+
+                <!-- Question 5 - Radio -->
+                <article class="question-card" role="radiogroup" aria-labelledby="q5-label">
+                    <div class="question-card__header">
+                        <span class="question-card__number" aria-hidden="true">5.</span>
+                        <div class="question-card__content">
+                            <p class="question-card__text" id="q5-label">Jelaskan status Anda saat ini?<span class="required" aria-label="wajib diisi">*</span></p>
+                        </div>
+                    </div>
+                    <div class="option-list">
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">A</span>
+                            <span class="option-item__text">Bekerja (full time / part time)</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">B</span>
+                            <span class="option-item__text">Belum memungkinkan bekerja</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">C</span>
+                            <span class="option-item__text">Wiraswasta (Wirausaha)</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">D</span>
+                            <span class="option-item__text">Melanjutkan pendidikan</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">E</span>
+                            <span class="option-item__text">Tidak kerja, tetapi sedang mencari kerja</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Question 6 - Radio: Sumber Dana -->
+                <article class="question-card" role="radiogroup" aria-labelledby="q6-label">
+                    <div class="question-card__header">
+                        <span class="question-card__number" aria-hidden="true">6.</span>
+                        <div class="question-card__content">
+                            <p class="question-card__text" id="q6-label">Sumber dana apa yang Anda gunakan untuk membiayai kuliah?<span class="required" aria-label="wajib diisi">*</span></p>
+                            <p class="question-card__desc">Boleh ketika studi lanjut</p>
+                        </div>
+                    </div>
+                    <div class="option-list">
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">A</span>
+                            <span class="option-item__text">Biaya Sendiri / Keluarga</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">B</span>
+                            <span class="option-item__text">Beasiswa ADIK</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">C</span>
+                            <span class="option-item__text">Beasiswa BIDIKMISI</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">D</span>
+                            <span class="option-item__text">Beasiswa PPA</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">E</span>
+                            <span class="option-item__text">Beasiswa AFIRMASI</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">F</span>
+                            <span class="option-item__text">Beasiswa Perusahaan / Swasta</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">G</span>
+                            <span class="option-item__text">Lainnya</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Question 7 - Radio: Pekerjaan sebelum lulus (CONDITIONAL TRIGGER) -->
+                <article class="question-card" role="radiogroup" aria-labelledby="q7-label" id="question-7">
+                    <div class="question-card__header">
+                        <span class="question-card__number" aria-hidden="true">7.</span>
+                        <div class="question-card__content">
+                            <p class="question-card__text" id="q7-label">Apakah Anda mendapatkan pekerjaan pertama / melanjutkan pendidikan sebelum lulus?<span class="required" aria-label="wajib diisi">*</span></p>
+                        </div>
+                    </div>
+                    <div class="option-list">
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOptionWithLogic(this, 'q7', 'ya')" onkeypress="handleKeyPressWithLogic(event, this, 'q7', 'ya')">
+                            <span class="option-item__letter" aria-hidden="true">A</span>
+                            <span class="option-item__text">Ya</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOptionWithLogic(this, 'q7', 'tidak')" onkeypress="handleKeyPressWithLogic(event, this, 'q7', 'tidak')">
+                            <span class="option-item__letter" aria-hidden="true">B</span>
+                            <span class="option-item__text">Tidak</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Question 8 - Number Input: Waktu tunggu (CONDITIONAL - only shows if Q7 = Tidak) -->
+                <article class="question-card question-card--conditional" id="question-8" style="display: none;" aria-hidden="true">
+                    <div class="question-card__header">
+                        <span class="question-card__number" aria-hidden="true">8.</span>
+                        <div class="question-card__content">
+                            <label for="input-waiting-time" class="question-card__text">Dalam berapa bulan Anda mendapatkan pekerjaan pertama / melanjutkan studi setelah lulus?<span class="required" aria-label="wajib diisi">*</span></label>
+                        </div>
+                    </div>
+                    <input type="number" id="input-waiting-time" class="form-input" placeholder="Jawaban angka (dalam bulan)" min="0" max="120" aria-required="true" inputmode="numeric">
+                </article>
+
+                <!-- Question 9 - Radio: Aktif mencari pekerjaan -->
+                <article class="question-card" role="radiogroup" aria-labelledby="q9-label">
+                    <div class="question-card__header">
+                        <span class="question-card__number" aria-hidden="true">9.</span>
+                        <div class="question-card__content">
+                            <p class="question-card__text" id="q9-label">Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir? Pilih satu jawaban.<span class="required" aria-label="wajib diisi">*</span></p>
+                        </div>
+                    </div>
+                    <div class="option-list">
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">A</span>
+                            <span class="option-item__text">Tidak</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">B</span>
+                            <span class="option-item__text">Tidak, tapi saya sedang menunggu hasil lamaran kerja</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">C</span>
+                            <span class="option-item__text">Ya, saya akan mulai bekerja dalam 2 minggu ke depan</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">D</span>
+                            <span class="option-item__text">Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan</span>
+                        </div>
+                        <div class="option-item" role="radio" tabindex="0" aria-checked="false" onclick="selectOption(this)" onkeypress="handleKeyPress(event, this)">
+                            <span class="option-item__letter" aria-hidden="true">E</span>
+                            <span class="option-item__text">Lainnya</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- SEVIMA Branding -->
+            <footer class="sevima-branding">
+                Powered by <a href="https://karirlink.id" target="_blank" rel="noopener">Karirlink</a> · <a href="https://sevima.com" target="_blank" rel="noopener">SEVIMA</a>
+            </footer>
+        </div>
+    </main>
+
+    <!-- Footer with Pagination -->
+    <footer class="ts-footer" role="navigation" aria-label="Navigasi Halaman">
+        <div class="ts-footer__inner">
+            <div class="progress-bar" role="progressbar" aria-valuenow="17" aria-valuemin="0" aria-valuemax="100" aria-label="Progress pengisian: 17%">
+                <div class="progress-bar__fill" style="width: 16.67%;"></div>
+            </div>
+            <div class="pagination">
+                <span class="pagination__info">Bagian 1 dari 6 · <span id="answered-count">0</span> pertanyaan dijawab</span>
+                <div class="pagination__buttons">
+                    <button class="pagination__btn pagination__btn--outline" disabled aria-disabled="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M15 18l-6-6 6-6"></path>
+                        </svg>
+                        Sebelumnya
+                    </button>
+                    <button class="pagination__btn pagination__btn--primary" onclick="nextSection()">
+                        Selanjutnya
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M9 18l6-6-6-6"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Accessibility: Font Size Control
+        let currentFontSize = 16;
+        const minFontSize = 14;
+        const maxFontSize = 24;
+
+        function increaseFontSize() {
+            if (currentFontSize < maxFontSize) {
+                currentFontSize += 2;
+                document.documentElement.style.setProperty('--base-font-size', currentFontSize + 'px');
+                showToast('Ukuran teks diperbesar: ' + currentFontSize + 'px');
+            }
+        }
+
+        function decreaseFontSize() {
+            if (currentFontSize > minFontSize) {
+                currentFontSize -= 2;
+                document.documentElement.style.setProperty('--base-font-size', currentFontSize + 'px');
+                showToast('Ukuran teks diperkecil: ' + currentFontSize + 'px');
+            }
+        }
+
+        // Keyboard navigation for options
+        function handleKeyPress(event, element) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                if (element.classList.contains('scale-option')) {
+                    selectScale(element);
+                } else {
+                    selectOption(element);
+                }
+            }
+        }
+
+        // Keyboard navigation for options with conditional logic
+        function handleKeyPressWithLogic(event, element, questionId, value) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                selectOptionWithLogic(element, questionId, value);
+            }
+        }
+
+        // Select option for radio questions
+        function selectOption(element) {
+            const questionCard = element.closest('.question-card');
+            const optionList = questionCard.querySelector('.option-list');
+            
+            optionList.querySelectorAll('.option-item').forEach(opt => {
+                opt.classList.remove('selected');
+                opt.setAttribute('aria-checked', 'false');
+            });
+            
+            element.classList.add('selected');
+            element.setAttribute('aria-checked', 'true');
+            showToast('Jawaban disimpan');
+            updateAnsweredCount();
+        }
+
+        // =====================================================
+        // CONDITIONAL LOGIC: Show/hide questions based on answers
+        // =====================================================
+        
+        // Define conditional rules: which questions depend on which answers
+        const conditionalRules = {
+            // Q7 "Apakah Anda mendapatkan pekerjaan pertama sebelum lulus?"
+            // If answered "Tidak" (value: 'tidak'), show Q8
+            'q7': {
+                'tidak': { show: ['question-8'] },   // Show Q8 if "Tidak"
+                'ya': { hide: ['question-8'] }       // Hide Q8 if "Ya"
+            }
+        };
+
+        // Select option with conditional logic
+        function selectOptionWithLogic(element, questionId, value) {
+            // First, do the normal selection
+            const questionCard = element.closest('.question-card');
+            const optionList = questionCard.querySelector('.option-list');
+            
+            optionList.querySelectorAll('.option-item').forEach(opt => {
+                opt.classList.remove('selected');
+                opt.setAttribute('aria-checked', 'false');
+            });
+            
+            element.classList.add('selected');
+            element.setAttribute('aria-checked', 'true');
+            
+            // Then, apply conditional logic
+            applyConditionalLogic(questionId, value);
+            
+            showToast('Jawaban disimpan');
+            updateAnsweredCount();
+        }
+
+        // Apply conditional show/hide logic
+        function applyConditionalLogic(questionId, value) {
+            const rules = conditionalRules[questionId];
+            if (!rules) return;
+
+            // First, hide all questions that could be affected by this question
+            Object.values(rules).forEach(rule => {
+                if (rule.show) {
+                    rule.show.forEach(qId => {
+                        hideQuestion(qId);
+                    });
+                }
+            });
+
+            // Then, show questions based on the selected value
+            const selectedRule = rules[value];
+            if (selectedRule && selectedRule.show) {
+                selectedRule.show.forEach(qId => {
+                    showQuestion(qId);
+                });
+            }
+        }
+
+        // Show a conditional question with animation
+        function showQuestion(questionId) {
+            const question = document.getElementById(questionId);
+            if (!question) return;
+            
+            question.style.display = 'block';
+            question.setAttribute('aria-hidden', 'false');
+            
+            // Make inputs required
+            const inputs = question.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                if (input.hasAttribute('data-was-required') || input.closest('.question-card__text .required')) {
+                    input.setAttribute('required', '');
+                    input.setAttribute('aria-required', 'true');
+                }
+            });
+
+            // Smooth scroll into view
+            setTimeout(() => {
+                question.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        // Hide a conditional question
+        function hideQuestion(questionId) {
+            const question = document.getElementById(questionId);
+            if (!question) return;
+            
+            question.style.display = 'none';
+            question.setAttribute('aria-hidden', 'true');
+            
+            // Remove required from hidden inputs
+            const inputs = question.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                if (input.hasAttribute('required')) {
+                    input.setAttribute('data-was-required', 'true');
+                }
+                input.removeAttribute('required');
+                input.removeAttribute('aria-required');
+            });
+
+            // Clear selections in hidden questions
+            const optionItems = question.querySelectorAll('.option-item.selected');
+            optionItems.forEach(item => {
+                item.classList.remove('selected');
+                item.setAttribute('aria-checked', 'false');
+            });
+            
+            // Clear input values
+            inputs.forEach(input => {
+                input.value = '';
+            });
+        }
+
+        // Select scale option
+        function selectScale(element) {
+            const scaleWrapper = element.closest('.scale-options');
+            
+            scaleWrapper.querySelectorAll('.scale-option').forEach(opt => {
+                opt.classList.remove('selected');
+                opt.setAttribute('aria-checked', 'false');
+            });
+            
+            element.classList.add('selected');
+            element.setAttribute('aria-checked', 'true');
+            showToast('Jawaban disimpan');
+            updateAnsweredCount();
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // Navigation
+        function nextSection() {
+            showToast('Pindah ke bagian selanjutnya...');
+        }
+
+        // Update answered questions counter
+        function updateAnsweredCount() {
+            let count = 0;
+            
+            // Count selected radio options (excluding hidden conditional questions)
+            document.querySelectorAll('.question-card:not([aria-hidden="true"]) .option-item.selected').forEach(() => {
+                count++;
+            });
+            
+            // Count filled text inputs (excluding readonly and hidden)
+            document.querySelectorAll('.question-card:not([aria-hidden="true"]) .form-input:not(.form-input--readonly)').forEach(input => {
+                if (input.value.trim() !== '') {
+                    count++;
+                }
+            });
+            
+            // Count selected scale options
+            document.querySelectorAll('.question-card:not([aria-hidden="true"]) .scale-option.selected').forEach(() => {
+                count++;
+            });
+            
+            // Update display
+            const counterEl = document.getElementById('answered-count');
+            if (counterEl) {
+                counterEl.textContent = count;
+            }
+            
+            // Update progress bar (assuming ~9 questions visible in section 1)
+            const totalQuestions = document.querySelectorAll('.question-card:not([aria-hidden="true"])').length;
+            const progressPercent = totalQuestions > 0 ? Math.round((count / totalQuestions) * 100 / 6) : 0; // Divide by 6 sections
+            const progressBar = document.querySelector('.progress-bar__fill');
+            if (progressBar) {
+                progressBar.style.width = progressPercent + '%';
+            }
+        }
+
+        // Initialize: ensure conditional questions start hidden
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide all conditional questions on load
+            document.querySelectorAll('.question-card--conditional').forEach(q => {
+                q.style.display = 'none';
+                q.setAttribute('aria-hidden', 'true');
+            });
+            
+            // Add input listeners for text fields to update counter
+            document.querySelectorAll('.form-input:not(.form-input--readonly)').forEach(input => {
+                input.addEventListener('input', updateAnsweredCount);
+                input.addEventListener('change', updateAnsweredCount);
+            });
+            
+            // Initial count
+            updateAnsweredCount();
+        });
+    </script>
+</body>
+</html>
