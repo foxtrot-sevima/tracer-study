@@ -81,6 +81,23 @@ Rewrite hanya bekerja untuk request yang **tetap berada di dalam prefix `/v1/`**
 ```
 Path absolut selalu dicari dari root project, bukan dari folder versi.
 
+### Kenapa masih perlu `<base href="/v1/">`
+
+`./assets/...` di atas hanya resolve dengan benar kalau URL yang terlihat browser diakhiri trailing slash setelah `v1` (mis. `/v1/` atau `/v1/index.html`). Kalau user mengakses tanpa trailing slash (`/v1`) atau lewat sub-path lain, resolusi path relatif bisa meleset dan aset gagal dimuat.
+
+Untuk menghindari itu, tiap halaman punya `<base>` tag di awal `<head>`, dipasang tetap (hardcode) sesuai prefix versinya:
+
+```html
+<head>
+    <base href="/v1/">
+    ...
+</head>
+```
+
+Ini memaksa semua path relatif (`./assets/...`, `./dashboard.html`, dll.) selalu di-resolve dari `/v1/`, apapun URL persis yang diketik user — lalu tetap diteruskan ke rewrite di `vercel.json` seperti biasa.
+
+> **Trade-off:** karena `<base href="/v1/">` berupa path absolut dari root domain, membuka file HTML langsung secara lokal (double-click / `file://`) tidak akan menemukan asetnya. Untuk preview lokal yang akurat, jalankan lewat local server (mis. `vercel dev`) atau `python -m http.server` dari root project lalu akses `http://localhost:<port>/v1/...`.
+
 ---
 
 ## Menambah Versi Baru (v2, v3, dst.)
@@ -93,7 +110,8 @@ Path absolut selalu dicari dari root project, bukan dari folder versi.
    └── assets/
    ```
 2. Pastikan semua path asset di HTML pakai `./assets/...` (relatif same-level), bukan `../` atau `/`.
-3. Tambahkan satu rewrite baru di `vercel.json`:
+3. Tambahkan `<base href="/v2/">` di awal `<head>` tiap halaman (sesuaikan prefix dengan nomor versi).
+4. Tambahkan satu rewrite baru di `vercel.json`:
    ```json
    {
      "rewrites": [
