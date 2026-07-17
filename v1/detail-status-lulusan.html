@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Detail Pengisian Tracer Study | Karirlink</title>
-    <link rel="icon" href="./assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <title>Detail Status Lulusan | Karirlink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
 
     <!-- Choices CSS -->
-    <link rel="stylesheet" href="./assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
     <!-- Choices JavaScript -->
-    <script src="./assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
 
     <!-- Quantum CSS -->
-    <link rel="stylesheet" href="./assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
 
     <!-- Karirlink CSS -->
-    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css">
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -29,8 +29,8 @@
         <div class="header__left">
             <div class="header__group">
                 <a href="./index.html" class="header__identity">
-                    <img class="header__logo" src="./assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
-                    <img class="header__logo header__logo_square" src="./assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
                 </a>
             </div>
             <div class="header__navigation">
@@ -83,7 +83,7 @@
                     <span class="header__user-wrapper">
                         <span class="header__user-avatar">
                             <span class="avatar avatar_sm">
-                                <img src="./assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
                             </span>
                         </span>
                         <span class="header__user-info">
@@ -98,7 +98,7 @@
                         <li class="dropdown__avatar">
                             <div class="avatar avatar_sm">
                                 <div class="avatar__circle">
-                                    <img src="./assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
+                                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
                                 </div>
                                 <div class="avatar__text">
                                     <span class="avatar__title">Admin Karirlink</span>
@@ -135,8 +135,8 @@
                         Kembali ke Dashboard
                     </a>
                     <div class="main__wrapper">
-                        <h1 class="main__title">Detail Pengisian Tracer Study</h1>
-                        <p class="main__subtitle">Ringkasan pengisian kuesioner tracer study oleh lulusan</p>
+                        <h1 class="main__title">Detail Status Lulusan</h1>
+                        <p class="main__subtitle">Distribusi status pekerjaan lulusan berdasarkan hasil tracer study</p>
                     </div>
                 </div>
             </div>
@@ -183,68 +183,63 @@
 
                 <!-- Summary Statistics -->
                 <div class="grid dashboard-grid">
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-6">
                         <div class="card card_dashboard">
+                            <div class="card__header">
+                                <h3 class="card__title">Distribusi Status Lulusan</h3>
+                            </div>
                             <div class="card__body">
-                                <div class="chart-legend">
-                                    <div class="chart-legend__item">
-                                        <span class="chart-legend__color" style="background: var(--qn-primary-400);"></span>
-                                        <span class="chart-legend__text">Sudah mengisi: 4%</span>
-                                    </div>
-                                    <div class="chart-legend__item">
-                                        <span class="chart-legend__color" style="background: var(--qn-danger-400);"></span>
-                                        <span class="chart-legend__text">Belum mengisi: 96%</span>
-                                    </div>
-                                </div>
-                                <div class="chart-container chart-container_donut">
-                                    <canvas id="chart-pengisian"></canvas>
-                                    <div class="chart-center">
-                                        <span class="chart-center__value">98</span>
-                                        <span class="chart-center__total">dari 2088</span>
-                                    </div>
+                                <div class="chart-container chart-container_bar">
+                                    <canvas id="chart-status-lulusan"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-8">
+                    <div class="col-12 col-md-6">
                         <div class="card card_dashboard">
                             <div class="card__header">
-                                <h3 class="card__title">Ringkasan Pengisian</h3>
+                                <h3 class="card__title">Ringkasan Status</h3>
                             </div>
                             <div class="card__body">
                                 <div class="grid">
-                                    <div class="col-6 col-md-3">
+                                    <div class="col-6">
                                         <div class="stat-item">
-                                            <span class="stat-item__label">Total Lulusan</span>
-                                            <span class="stat-item__value">2.088</span>
+                                            <span class="stat-item__label">Total Responden</span>
+                                            <span class="stat-item__value">98</span>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-md-3">
+                                    <div class="col-6">
                                         <div class="stat-item">
-                                            <span class="stat-item__label">Sudah Mengisi</span>
-                                            <span class="stat-item__value stat-item__value_success">98</span>
+                                            <span class="stat-item__label">Sudah Bekerja</span>
+                                            <span class="stat-item__value stat-item__value_success">51</span>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-md-3">
+                                    <div class="col-6">
                                         <div class="stat-item">
-                                            <span class="stat-item__label">Belum Mengisi</span>
-                                            <span class="stat-item__value stat-item__value_danger">1.990</span>
+                                            <span class="stat-item__label">Wiraswasta</span>
+                                            <span class="stat-item__value" style="color: var(--qn-primary-400);">11</span>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-md-3">
+                                    <div class="col-6">
                                         <div class="stat-item">
-                                            <span class="stat-item__label">Target Akreditasi</span>
-                                            <span class="stat-item__value stat-item__value_warning">20%</span>
+                                            <span class="stat-item__label">Melanjutkan Studi</span>
+                                            <span class="stat-item__value" style="color: var(--qn-info-500);">7</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="stat-item">
+                                            <span class="stat-item__label">Mencari Pekerjaan</span>
+                                            <span class="stat-item__value stat-item__value_warning">29</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-insight" style="margin-top: 1.5rem;">
-                                    <div class="card-insight__icon card-insight__icon_warning">
-                                        <span class="icon icon-exclamation-circle-mini"></span>
+                                <div class="card-insight" style="margin-top: 1rem;">
+                                    <div class="card-insight__icon card-insight__icon_info">
+                                        <span class="icon icon-information-circle-mini"></span>
                                     </div>
                                     <p class="card-insight__text">
-                                        Sebesar <strong>4%</strong> responden lulusan yang mengisi Tracer Study. 
-                                        Untuk mencapai akreditasi unggul, pengisian Tracer Study minimum <strong>20%</strong>
+                                        Lulusan saat ini berstatus <strong>52%</strong> sudah bekerja, <strong>11%</strong> sebagai wiraswasta, 
+                                        <strong>7%</strong> sedang melanjutkan studi, dan <strong>30%</strong> sedang mencari pekerjaan.
                                     </p>
                                 </div>
                             </div>
@@ -263,23 +258,29 @@
                                 <thead>
                                     <tr>
                                         <th>Nama Kuesioner</th>
-                                        <th>Sudah Mengisi</th>
-                                        <th>Belum Mengisi</th>
-                                        <th>Persentase</th>
+                                        <th>Bekerja</th>
+                                        <th>Wiraswasta</th>
+                                        <th>Studi Lanjut</th>
+                                        <th>Mencari Kerja</th>
+                                        <th>Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>Tracer Study DIKTI 2024</td>
+                                        <td>30</td>
+                                        <td>6</td>
+                                        <td>4</td>
+                                        <td>16</td>
                                         <td>56</td>
-                                        <td>1.032</td>
-                                        <td><span class="badge badge_warning">5%</span></td>
                                     </tr>
                                     <tr>
                                         <td>Tracer Study DIKTI 2023</td>
+                                        <td>21</td>
+                                        <td>5</td>
+                                        <td>3</td>
+                                        <td>13</td>
                                         <td>42</td>
-                                        <td>958</td>
-                                        <td><span class="badge badge_warning">4%</span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -304,8 +305,8 @@
                                         <th>NIM</th>
                                         <th>Program Studi</th>
                                         <th>Tahun Lulus</th>
-                                        <th>Status Pengisian</th>
-                                        <th>Tanggal Mengisi</th>
+                                        <th>Status</th>
+                                        <th>Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -314,23 +315,23 @@
                                         <td>2019101001</td>
                                         <td>S1 - Teknik Informatika</td>
                                         <td>2024</td>
-                                        <td><span class="badge badge_success">Sudah Mengisi</span></td>
-                                        <td>15 Jan 2025</td>
+                                        <td><span class="badge badge_success">Bekerja</span></td>
+                                        <td>PT Teknologi Indonesia</td>
                                     </tr>
                                     <tr>
                                         <td>Siti Nurhaliza</td>
                                         <td>2019101002</td>
                                         <td>S1 - Sistem Informasi</td>
                                         <td>2024</td>
-                                        <td><span class="badge badge_success">Sudah Mengisi</span></td>
-                                        <td>12 Jan 2025</td>
+                                        <td><span class="badge badge_primary">Wiraswasta</span></td>
+                                        <td>Startup Digital</td>
                                     </tr>
                                     <tr>
                                         <td>Budi Santoso</td>
                                         <td>2019101003</td>
                                         <td>S1 - Akuntansi</td>
                                         <td>2024</td>
-                                        <td><span class="badge badge_danger">Belum Mengisi</span></td>
+                                        <td><span class="badge badge_warning">Mencari Kerja</span></td>
                                         <td>-</td>
                                     </tr>
                                     <tr>
@@ -338,55 +339,55 @@
                                         <td>2019101004</td>
                                         <td>S1 - Manajemen</td>
                                         <td>2024</td>
-                                        <td><span class="badge badge_success">Sudah Mengisi</span></td>
-                                        <td>10 Jan 2025</td>
+                                        <td><span class="badge badge_success">Bekerja</span></td>
+                                        <td>Bank Mandiri</td>
                                     </tr>
                                     <tr>
                                         <td>Eko Prasetyo</td>
                                         <td>2019101005</td>
                                         <td>S1 - Teknik Informatika</td>
                                         <td>2024</td>
-                                        <td><span class="badge badge_danger">Belum Mengisi</span></td>
-                                        <td>-</td>
+                                        <td><span class="badge" style="background: var(--qn-info-50); color: var(--qn-info-600);">Studi Lanjut</span></td>
+                                        <td>S2 ITB</td>
                                     </tr>
                                     <tr>
                                         <td>Fitri Handayani</td>
                                         <td>2019101006</td>
                                         <td>S1 - Sistem Informasi</td>
                                         <td>2024</td>
-                                        <td><span class="badge badge_danger">Belum Mengisi</span></td>
-                                        <td>-</td>
+                                        <td><span class="badge badge_success">Bekerja</span></td>
+                                        <td>Gojek</td>
                                     </tr>
                                     <tr>
                                         <td>Gunawan Wibowo</td>
                                         <td>2019101007</td>
                                         <td>S1 - Akuntansi</td>
                                         <td>2024</td>
-                                        <td><span class="badge badge_success">Sudah Mengisi</span></td>
-                                        <td>8 Jan 2025</td>
+                                        <td><span class="badge badge_warning">Mencari Kerja</span></td>
+                                        <td>-</td>
                                     </tr>
                                     <tr>
                                         <td>Hesti Rahayu</td>
                                         <td>2019101008</td>
                                         <td>S1 - Manajemen</td>
                                         <td>2024</td>
-                                        <td><span class="badge badge_danger">Belum Mengisi</span></td>
-                                        <td>-</td>
+                                        <td><span class="badge badge_primary">Wiraswasta</span></td>
+                                        <td>Toko Online</td>
                                     </tr>
                                     <tr>
                                         <td>Irfan Hakim</td>
                                         <td>2019101009</td>
                                         <td>S1 - Teknik Informatika</td>
                                         <td>2024</td>
-                                        <td><span class="badge badge_success">Sudah Mengisi</span></td>
-                                        <td>5 Jan 2025</td>
+                                        <td><span class="badge badge_success">Bekerja</span></td>
+                                        <td>Tokopedia</td>
                                     </tr>
                                     <tr>
                                         <td>Juwita Sari</td>
                                         <td>2019101010</td>
                                         <td>S1 - Sistem Informasi</td>
                                         <td>2024</td>
-                                        <td><span class="badge badge_danger">Belum Mengisi</span></td>
+                                        <td><span class="badge badge_warning">Mencari Kerja</span></td>
                                         <td>-</td>
                                     </tr>
                                 </tbody>
@@ -395,12 +396,12 @@
                     </div>
                     <div class="card__footer">
                         <div class="pagination-wrapper" style="display: flex; align-items: center; justify-content: space-between;">
-                            <span class="pagination__info">Menampilkan 1-10 dari 2.088 data</span>
+                            <span class="pagination__info">Menampilkan 1-10 dari 98 data</span>
                             <div class="pagination">
                                 <button class="pagination__btn" disabled>
                                     <span class="icon icon-chevron-left-mini"></span>
                                 </button>
-                                <span class="pagination__info">Halaman 1 dari 209</span>
+                                <span class="pagination__info">Halaman 1 dari 10</span>
                                 <button class="pagination__btn">
                                     <span class="icon icon-chevron-right-mini"></span>
                                 </button>
@@ -438,28 +439,44 @@
             });
         });
 
-        // Donut Chart - Pengisian Tracer Study
-        const ctxPengisian = document.getElementById('chart-pengisian').getContext('2d');
-        new Chart(ctxPengisian, {
-            type: 'doughnut',
+        // Bar Chart - Status Lulusan
+        const ctxStatusLulusan = document.getElementById('chart-status-lulusan').getContext('2d');
+        new Chart(ctxStatusLulusan, {
+            type: 'bar',
             data: {
-                labels: ['Sudah Mengisi', 'Belum Mengisi'],
+                labels: ['Bekerja', 'Wiraswasta', 'Studi Lanjut', 'Mencari Kerja'],
                 datasets: [{
-                    data: [98, 1990],
+                    data: [51, 11, 7, 29],
                     backgroundColor: [
+                        'rgb(34, 197, 94)',   // Success
                         'rgb(99, 102, 241)',  // Primary
-                        'rgb(239, 68, 68)'    // Danger
+                        'rgb(59, 130, 246)',  // Info
+                        'rgb(245, 158, 11)'   // Warning
                     ],
                     borderWidth: 0,
-                    cutout: '70%'
+                    borderRadius: 4
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                indexAxis: 'y',
                 plugins: {
                     legend: {
                         display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
                     }
                 }
             }

@@ -1,8 +1,8 @@
-# Setup Vercel - URL Sederhana untuk Banyak Versi Mockup
+# Setup Versi Mockup (v1, v2, dst.)
 
 ## Tujuan
 
-Tiap versi mockup (v1, v2, dst.) disimpan dalam folder nested (karena mengikuti struktur template/vendor aslinya), tapi URL yang diakses user tetap pendek dan konsisten:
+Tiap versi mockup punya folder sendiri, diakses lewat URL sederhana:
 
 ```text
 tracer-study.vercel.app/v1/index.html
@@ -10,82 +10,30 @@ tracer-study.vercel.app/v1/dashboard.html
 tracer-study.vercel.app/v1/alumni.html
 ```
 
-Ini dicapai dengan **rewrite** di `vercel.json`, bukan dengan memindahkan file secara fisik.
+Polanya mengikuti struktur project [DimsPorf](https://dimsporf.vercel.app): **tidak ada rewrite, tidak ada folder nested** — folder versi (`v1/`, `v2/`, dst.) langsung berisi semua halaman HTML dan `assets/`-nya di level yang sama. Karena struktur fisik sudah 1:1 dengan URL yang diakses, tidak perlu `vercel.json` atau konfigurasi tambahan apa pun.
 
 ---
 
-## Struktur Project Saat Ini
+## Struktur Project
 
 ```text
 tracer-study/
-├── vercel.json
 └── v1/
-    └── quantum/              <- nama folder mengikuti nama template ("quantum")
-        ├── index.html
-        ├── dashboard.html
-        ├── alumni.html
-        ├── ...html lainnya
-        └── assets/
-            ├── css/          (main.css, portal-karir.css — override khusus halaman)
-            ├── karirlink/    (css & gambar brand Karirlink)
-            └── vendors/      (Quantum, Choices.js, dll.)
+    ├── index.html
+    ├── dashboard.html
+    ├── alumni.html
+    ├── ...html lainnya
+    └── assets/
+        ├── css/          (main.css, portal-karir.css — override khusus halaman)
+        ├── karirlink/    (css & gambar brand Karirlink)
+        └── vendors/      (Quantum, Choices.js, dll.)
 ```
-
-> Semua HTML dan semua asetnya berada **dalam satu folder yang sama** (`v1/quantum/`). Ini wajib — lihat aturan path di bawah.
 
 ---
 
-## Konfigurasi `vercel.json`
+## Aturan Path Asset: `<base>` + Path Relatif
 
-```json
-{
-  "rewrites": [
-    {
-      "source": "/v1/:path*",
-      "destination": "/v1/quantum/:path*"
-    }
-  ]
-}
-```
-
-Artinya: setiap request ke `/v1/...` — baik file HTML maupun asset (css/js/gambar) — diarahkan ke `/v1/quantum/...` di belakang layar. Browser tetap melihat URL pendek (`/v1/index.html`), tapi file yang benar-benar dibuka ada di `/v1/quantum/index.html`.
-
-| URL yang diakses user   | File yang sebenarnya dibuka           |
-| ------------------------ | -------------------------------------- |
-| `/v1/index.html`         | `/v1/quantum/index.html`               |
-| `/v1/dashboard.html`     | `/v1/quantum/dashboard.html`            |
-| `/v1/assets/css/main.css`| `/v1/quantum/assets/css/main.css`      |
-
----
-
-## Aturan Wajib: Path Asset Harus Relatif Same-Level (`./`)
-
-Rewrite hanya bekerja untuk request yang **tetap berada di dalam prefix `/v1/`**. Karena browser me-resolve path relatif berdasarkan URL yang terlihat (`/v1/index.html`), bukan lokasi file sebenarnya, maka:
-
-✅ **Benar** — pakai `./` (tetap di dalam `/v1/`, ikut ter-rewrite):
-```html
-<link rel="stylesheet" href="./assets/css/main.css">
-<script src="./assets/vendors/.../qn-202310260001.js"></script>
-<img src="./assets/karirlink/images/logo/karirlink-colored.webp">
-```
-
-❌ **Salah** — pakai `../` (keluar dari prefix `/v1/`, jadi 404):
-```html
-<link rel="stylesheet" href="../assets/css/main.css">
-```
-`../assets/...` dari `/v1/index.html` akan diminta browser sebagai `/assets/...` — sudah keluar dari `/v1/`, sehingga rewrite tidak berlaku dan file tidak ditemukan.
-
-❌ **Salah** — pakai path absolut (`/...`):
-```html
-<link rel="stylesheet" href="/assets/css/main.css">
-```
-Path absolut selalu dicari dari root project, bukan dari folder versi.
-
-### Kenapa masih perlu `<base href="/v1/">`
-
-`./assets/...` di atas hanya resolve dengan benar kalau URL yang terlihat browser diakhiri trailing slash setelah `v1` (mis. `/v1/` atau `/v1/index.html`). Kalau user mengakses tanpa trailing slash (`/v1`) atau lewat sub-path lain, resolusi path relatif bisa meleset dan aset gagal dimuat.
-
-Untuk menghindari itu, tiap halaman punya `<base>` tag di awal `<head>`, dipasang tetap (hardcode) sesuai prefix versinya:
+Tiap halaman punya `<base>` tag di awal `<head>`, sesuai prefix foldernya:
 
 ```html
 <head>
@@ -94,54 +42,53 @@ Untuk menghindari itu, tiap halaman punya `<base>` tag di awal `<head>`, dipasan
 </head>
 ```
 
-Ini memaksa semua path relatif (`./assets/...`, `./dashboard.html`, dll.) selalu di-resolve dari `/v1/`, apapun URL persis yang diketik user — lalu tetap diteruskan ke rewrite di `vercel.json` seperti biasa.
+Dengan `<base>` terpasang, semua path relatif di halaman itu (asset maupun link antar halaman) otomatis di-resolve dari `/v1/` — jadi cukup tulis biasa, tanpa awalan apa pun:
 
-> **Trade-off:** karena `<base href="/v1/">` berupa path absolut dari root domain, membuka file HTML langsung secara lokal (double-click / `file://`) tidak akan menemukan asetnya. Untuk preview lokal yang akurat, jalankan lewat local server (mis. `vercel dev`) atau `python -m http.server` dari root project lalu akses `http://localhost:<port>/v1/...`.
+```html
+<link rel="stylesheet" href="assets/css/main.css">
+<script src="assets/vendors/.../qn-202310260001.js"></script>
+<img src="assets/karirlink/images/logo/karirlink-colored.webp">
+<a href="dashboard.html">Dasbor</a>
+```
+
+Karena folder `v1/` **memang** folder yang diakses lewat URL `/v1/`, path relatif ini valid persis, di produksi maupun lokal — tidak ada mismatch antara lokasi file asli dan URL yang terlihat.
+
+---
+
+## Preview Lokal
+
+Karena tidak ada rewrite yang perlu ditiru, preview lokal otomatis identik dengan produksi — cukup buka lewat local server mana pun (bukan `file://` double-click, karena `<base href="/v1/">` adalah path absolut yang butuh sebuah origin/server).
+
+Termudah: pakai extension **Live Preview** di VS Code. `.vscode/settings.json` di project ini sudah diarahkan supaya langsung membuka halaman v1:
+
+```json
+{
+    "livePreview.defaultPreviewPath": "/v1/index.html"
+}
+```
+
+Alternatif tanpa VS Code: jalankan static server apa pun dari root project, mis. `npx serve .`, lalu buka `http://localhost:<port>/v1/index.html`.
 
 ---
 
 ## Menambah Versi Baru (v2, v3, dst.)
 
-1. Buat folder versi baru dengan pola yang sama — semua HTML + `assets/` dalam satu folder nested:
+1. Buat folder versi baru dengan pola yang sama — semua HTML + `assets/` langsung di root folder versi (bukan nested):
    ```text
-   v2/<nama-folder-template>/
+   v2/
    ├── index.html
    ├── ...
    └── assets/
    ```
-2. Pastikan semua path asset di HTML pakai `./assets/...` (relatif same-level), bukan `../` atau `/`.
-3. Tambahkan `<base href="/v2/">` di awal `<head>` tiap halaman (sesuaikan prefix dengan nomor versi).
-4. Tambahkan satu rewrite baru di `vercel.json`:
-   ```json
-   {
-     "rewrites": [
-       { "source": "/v1/:path*", "destination": "/v1/quantum/:path*" },
-       { "source": "/v2/:path*", "destination": "/v2/<nama-folder-template>/:path*" }
-     ]
-   }
-   ```
+2. Tambahkan `<base href="/v2/">` di awal `<head>` tiap halaman.
+3. Tulis semua path asset & link antar halaman relatif biasa (`assets/...`, `dashboard.html`, dll.) — tidak perlu awalan `./`, `../`, atau path absolut.
 
-### Alternatif: satu rule untuk semua versi
-
-Jika semua versi kebetulan memakai nama folder template yang sama (mis. semua `quantum`), rewrite bisa disederhanakan dengan wildcard versi:
-
-```json
-{
-  "rewrites": [
-    {
-      "source": "/:version(v1|v2|v3)/:path*",
-      "destination": "/:version/quantum/:path*"
-    }
-  ]
-}
-```
-
-Tapi karena nama folder template **bisa berbeda-beda per versi** (sesuai catatan awal project ini), cara paling aman tetap menuliskan satu rule eksplisit per versi seperti pada langkah 3 di atas.
+Tidak perlu menyentuh `vercel.json` (project ini tidak memakainya) — Vercel otomatis serve `v2/index.html` di URL `/v2/index.html` karena strukturnya memang sudah cocok.
 
 ---
 
 ## Troubleshooting
 
-- **CSS/JS/gambar tidak muncul (404) saat diakses lewat domain Vercel, tapi normal saat dibuka lokal** → cek apakah ada path asset yang masih pakai `../` atau `/`. Ganti ke `./`.
-- **Halaman lain (`dashboard.html`, dll.) 404** → pastikan file itu ada di dalam folder nested yang sama (`v1/quantum/`), dan rewrite `source` mencakup path tersebut (`/v1/:path*` sudah mencakup semua sub-path).
+- **CSS/JS/gambar tidak muncul (404)** → pastikan halaman itu punya `<base href="/vX/">` di awal `<head>`, dan path assetnya ditulis relatif tanpa `./` atau `../`.
+- **Buka file HTML langsung (`file://`, double-click) → asset tidak kebaca** → ini diharapkan, karena `<base>` berupa path absolut yang butuh sebuah server/origin. Pakai Live Preview atau `npx serve` (lihat bagian Preview Lokal).
 - **Setelah deploy, perlu cek ulang** → jalankan preview Vercel dan buka tab Network di browser untuk memastikan tidak ada request 404 ke asset.
