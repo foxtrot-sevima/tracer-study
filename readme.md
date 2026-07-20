@@ -5,12 +5,12 @@
 Tiap versi mockup punya folder sendiri, diakses lewat URL sederhana:
 
 ```text
-tracer-study.vercel.app/v1/index.html
-tracer-study.vercel.app/v1/dashboard.html
+tracer-study.vercel.app/v1/index.html      (Dashboard - halaman utama)
+tracer-study.vercel.app/v1/kuesioner.html
 tracer-study.vercel.app/v1/alumni.html
 ```
 
-Polanya mengikuti struktur project [DimsPorf](https://dimsporf.vercel.app): **tidak ada rewrite, tidak ada folder nested** — folder versi (`v1/`, `v2/`, dst.) langsung berisi semua halaman HTML dan `assets/`-nya di level yang sama. Karena struktur fisik sudah 1:1 dengan URL yang diakses, tidak perlu `vercel.json` atau konfigurasi tambahan apa pun.
+Polanya mengikuti struktur project [DimsPorf](https://dimsporf.vercel.app): **tidak ada rewrite, tidak ada folder nested** - folder versi (`v1/`, `v2/`, dst.) langsung berisi semua halaman HTML dan `assets/`-nya di level yang sama. Karena struktur fisik sudah 1:1 dengan URL yang diakses, tidak perlu `vercel.json` atau konfigurasi tambahan apa pun.
 
 ---
 
@@ -19,12 +19,12 @@ Polanya mengikuti struktur project [DimsPorf](https://dimsporf.vercel.app): **ti
 ```text
 tracer-study/
 └── v1/
-    ├── index.html
-    ├── dashboard.html
+    ├── index.html      (Dashboard - halaman utama/landing)
+    ├── kuesioner.html
     ├── alumni.html
     ├── ...html lainnya
     └── assets/
-        ├── css/          (main.css, portal-karir.css — override khusus halaman)
+        ├── css/          (main.css, portal-karir.css - override khusus halaman)
         ├── karirlink/    (css & gambar brand Karirlink)
         └── vendors/      (Quantum, Choices.js, dll.)
 ```
@@ -42,22 +42,22 @@ Tiap halaman punya `<base>` tag di awal `<head>`, sesuai prefix foldernya:
 </head>
 ```
 
-Dengan `<base>` terpasang, semua path relatif di halaman itu (asset maupun link antar halaman) otomatis di-resolve dari `/v1/` — jadi cukup tulis biasa, tanpa awalan apa pun:
+Dengan `<base>` terpasang, semua path relatif di halaman itu (asset maupun link antar halaman) otomatis di-resolve dari `/v1/` - jadi cukup tulis biasa, tanpa awalan apa pun:
 
 ```html
 <link rel="stylesheet" href="assets/css/main.css">
 <script src="assets/vendors/.../qn-202310260001.js"></script>
 <img src="assets/karirlink/images/logo/karirlink-colored.webp">
-<a href="dashboard.html">Dasbor</a>
+<a href="kuesioner.html">Kuesioner</a>
 ```
 
-Karena folder `v1/` **memang** folder yang diakses lewat URL `/v1/`, path relatif ini valid persis, di produksi maupun lokal — tidak ada mismatch antara lokasi file asli dan URL yang terlihat.
+Karena folder `v1/` **memang** folder yang diakses lewat URL `/v1/`, path relatif ini valid persis, di produksi maupun lokal - tidak ada mismatch antara lokasi file asli dan URL yang terlihat.
 
 ---
 
 ## Preview Lokal
 
-Karena tidak ada rewrite yang perlu ditiru, preview lokal otomatis identik dengan produksi — cukup buka lewat local server mana pun (bukan `file://` double-click, karena `<base href="/v1/">` adalah path absolut yang butuh sebuah origin/server).
+Karena tidak ada rewrite yang perlu ditiru, preview lokal otomatis identik dengan produksi - cukup buka lewat local server mana pun (bukan `file://` double-click, karena `<base href="/v1/">` adalah path absolut yang butuh sebuah origin/server).
 
 Termudah: pakai extension **Live Preview** di VS Code. `.vscode/settings.json` di project ini sudah diarahkan supaya langsung membuka halaman v1:
 
@@ -73,7 +73,7 @@ Alternatif tanpa VS Code: jalankan static server apa pun dari root project, mis.
 
 ## Menambah Versi Baru (v2, v3, dst.)
 
-1. Buat folder versi baru dengan pola yang sama — semua HTML + `assets/` langsung di root folder versi (bukan nested):
+1. Buat folder versi baru dengan pola yang sama - semua HTML + `assets/` langsung di root folder versi (bukan nested):
    ```text
    v2/
    ├── index.html
@@ -81,9 +81,9 @@ Alternatif tanpa VS Code: jalankan static server apa pun dari root project, mis.
    └── assets/
    ```
 2. Tambahkan `<base href="/v2/">` di awal `<head>` tiap halaman.
-3. Tulis semua path asset & link antar halaman relatif biasa (`assets/...`, `dashboard.html`, dll.) — tidak perlu awalan `./`, `../`, atau path absolut.
+3. Tulis semua path asset & link antar halaman relatif biasa (`assets/...`, `dashboard.html`, dll.) - tidak perlu awalan `./`, `../`, atau path absolut.
 
-Tidak perlu menyentuh `vercel.json` (project ini tidak memakainya) — Vercel otomatis serve `v2/index.html` di URL `/v2/index.html` karena strukturnya memang sudah cocok.
+Tidak perlu menyentuh `vercel.json` (project ini tidak memakainya) - Vercel otomatis serve `v2/index.html` di URL `/v2/index.html` karena strukturnya memang sudah cocok.
 
 ---
 

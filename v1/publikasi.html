@@ -50,70 +50,6 @@
             color: var(--qn-primary-600);
         }
 
-        /* Tutorial Card */
-        .tutorial-card {
-            display: flex;
-            gap: 1.5rem;
-            background: white;
-            border-radius: 0.75rem;
-            padding: 1.25rem;
-            border: 1px solid var(--qn-neutral-200);
-            min-height: 180px;
-        }
-        .tutorial-card__video {
-            width: 200px;
-            flex-shrink: 0;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            position: relative;
-            background: #1a1a2e;
-        }
-        .tutorial-card__video img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .tutorial-card__play {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 3rem;
-            height: 3rem;
-            background: #ff0000;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-        }
-        .tutorial-card__content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .tutorial-card__title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--qn-neutral-900);
-            margin: 0 0 0.5rem;
-        }
-        .tutorial-card__desc {
-            font-size: 0.875rem;
-            color: var(--qn-neutral-600);
-            margin: 0 0 1rem;
-        }
-        .tutorial-card__link {
-            color: var(--qn-primary-500);
-            font-weight: 500;
-            text-decoration: none;
-        }
-        .tutorial-card__link:hover {
-            text-decoration: underline;
-        }
-
         /* Report List */
         .report-list {
             display: flex;
@@ -217,13 +153,13 @@
                 <nav class="nav">
                     <ul class="nav__list" data-more-text="Lainnya">
                         <li class="nav__item">
-                            <a class="nav__link" href="./dashboard.html">
+                            <a class="nav__link" href="./index.html">
                                 <span class="icon icon-chart-bar-square"></span>
-                                <span>Dasbor</span>
+                                <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="nav__item">
-                            <a class="nav__link" href="./index.html">
+                            <a class="nav__link" href="./kuesioner.html">
                                 <span class="icon icon-clipboard-document-list"></span>
                                 <span>Kuesioner</span>
                             </a>
@@ -240,6 +176,18 @@
                                 <span>Publikasi</span>
                             </a>
                         </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./kerja-sama.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Aktivitas</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./portal-karir.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Portal Karir</span>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -250,12 +198,6 @@
                     <button class="btn btn_icon btn_nav" data-toggle="dropdown">
                         <span class="icon icon-bell"></span>
                     </button>
-                </div>
-                <div class="dropdown dropdown_nav dropdown_module">
-                    <a href="./portal-karir.html" target="_blank" class="btn btn_outline btn_xs btn_nav">
-                        Portal Karir
-                        <span class="icon icon-arrow-up-right-mini"></span>
-                    </a>
                 </div>
             </div>
             <div class="dropdown dropdown_nav dropdown_profile">
@@ -302,37 +244,32 @@
     <!-- [START] Main Content -->
     <main class="main">
         <div class="container">
-            <!-- Top Section: Upload & Tutorial -->
-            <div class="grid" style="gap: 1.5rem; margin-top: 1.5rem;">
-                <!-- Upload Card -->
-                <div class="col-12 col-md-4">
-                    <div class="upload-card" onclick="document.getElementById('fileInput').click()">
-                        <svg class="upload-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
-                        </svg>
-                        <span class="upload-card__text">Upload Dokumen Hasil<br>Tracer Study</span>
-                        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx" style="display: none;" onchange="handleFileUpload(this)">
+            <div class="grid">
+            <div class="col-12">
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Publikasi</h1>
+                        <p class="main__subtitle">Unggah dan kelola laporan hasil tracer study untuk dipublikasikan</p>
                     </div>
                 </div>
+            </div>
 
-                <!-- Tutorial Card -->
-                <div class="col-12 col-md-8">
-                    <div class="tutorial-card">
-                        <div class="tutorial-card__video">
-                            <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Tutorial Thumbnail" style="filter: brightness(0.7);">
-                            <div class="tutorial-card__play">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M8 5v14l11-7z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="tutorial-card__content">
-                            <h3 class="tutorial-card__title">Tutorial Pembuatan Kuesioner</h3>
-                            <p class="tutorial-card__desc">Pelajari proses pembuatan kuesioner baru untuk keperluan tracer study.</p>
-                            <a href="#" class="tutorial-card__link">Pelajari Selengkapnya</a>
-                        </div>
-                    </div>
+            <!-- Info Tips -->
+            <div class="alert alert_helper" style="margin-top: 1.25rem; margin-bottom: 1rem;">
+                <div class="alert__content">
+                    <span class="alert__heading">Tips Publikasi Laporan</span>
+                    <p class="alert__description">Unggah laporan hasil tracer study dalam format PDF, DOC, atau XLS agar mudah diakses pimpinan dan tim akreditasi. Laporan yang berhasil diunggah otomatis tampil di daftar publikasi di bawah, lengkap dengan riwayat unduhan.</p>
                 </div>
+            </div>
+
+            <!-- Upload Card -->
+            <div class="upload-card" onclick="document.getElementById('fileInput').click()" style="margin-bottom: 1.5rem;">
+                <svg class="upload-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                </svg>
+                <span class="upload-card__text">Upload Dokumen Hasil<br>Tracer Study</span>
+                <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx" style="display: none;" onchange="handleFileUpload(this)">
             </div>
 
             <!-- Report List Section -->
@@ -420,7 +357,20 @@
                     </div>
                 </div>
             </div>
+            </div>
+            </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
     <!-- [END] Main Content -->
 

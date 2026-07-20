@@ -1010,6 +1010,11 @@
 .main__header {
   padding: 0;
 }
+.main__header_kl-list .main__wrapper {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
 .main__header + .card_empty {
   padding-top: 1rem;
 }

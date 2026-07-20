@@ -301,7 +301,7 @@ function updateMultiselectTags(dropdownId) {
    TAHUN LULUS MULTISELECT FUNCTIONS
    ======================================== */
 
-// Tahun Lulus - Modal Kirim (Template Kosong/Kemdikbud)
+// Tahun Lulus - Modal Kirim (Campaign)
 function selectAllTahun(checkbox) {
   const dropdown = document.getElementById('tahun-dropdown');
   const otherCheckboxes = dropdown.querySelectorAll('.multiselect-option:not(.multiselect-option-all) input[type="checkbox"]');
@@ -357,7 +357,7 @@ function removeTahunTag(event, value) {
   }
 }
 
-// Tahun Lulus - Modal Kirim Lengkap (Template Lengkap)
+// Tahun Lulus - Modal Kirim (Campaign, versi lengkap)
 function selectAllTahunLengkap(checkbox) {
   const dropdown = document.getElementById('tahun-dropdown-lengkap');
   const otherCheckboxes = dropdown.querySelectorAll('.multiselect-option:not(.multiselect-option-all) input[type="checkbox"]');
@@ -475,7 +475,7 @@ function removeProdiTag(event, value) {
   }
 }
 
-// Template Lengkap modal functions
+// Modal Kirim Campaign functions
 function selectAllProdiLengkap(checkbox) {
   const dropdown = document.getElementById('prodi-dropdown-lengkap');
   const otherCheckboxes = dropdown.querySelectorAll('.multiselect-option:not(.multiselect-option-all) input[type="checkbox"]');

@@ -5,529 +5,535 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beranda | KarirLink</title>
+    <title>Portal Karir | KarirLink</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
-                    colors: {
-                        primary50: "#EAEDF5", primary100: "#D4DBEB", primary200: "#A9B7D7",
-                        primary300: "#7F92C2", primary400: "#546EAE", primary500: "#294A9A",
-                        primary600: '#1F3874', primary700: "#15254D", primary800: "#0A1327",
-                        bgprimary: "#F6F8FF"
-                    },
-                    boxShadow: { default: "0px 11px 20px rgba(0, 0, 0, 0.04)" }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
     <style>
-        * { font-family: 'Poppins', sans-serif; }
-        .form-label { @apply block mb-2 text-sm font-medium text-gray-600 capitalize; }
-        .form-control { @apply focus:outline-none focus:ring-1 bg-white placeholder-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary500 focus:border-primary500 block w-full p-4; }
-        .btn { @apply font-medium rounded-lg text-base px-8 py-4 text-center capitalize; }
-        .btn-primary { @apply focus:outline-none focus:ring-4 focus:ring-primary200 text-white bg-primary500 hover:bg-primary600; }
+        /* Hero / intro strip for Portal Karir */
+        .pk-hero {
+            background: linear-gradient(135deg, var(--qn-primary-600) 0%, var(--qn-primary-500) 100%);
+            border-radius: 0.75rem;
+            padding: 1.75rem 2rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        /* Quantum has a global `h1,h2,h3,h4,h5,h6,p{color:#222}` reset that
+           wins over the white text color inherited from .pk-hero - an
+           element selector always overrides inheritance, so the color
+           must be set explicitly here rather than relied on cascading down. */
+        .pk-hero__title { font-size: 1.375rem; font-weight: 700; margin: 0 0 0.375rem; color: white; }
+        .pk-hero__desc { font-size: 0.875rem; color: var(--qn-primary-100); max-width: 34rem; margin: 0; }
+        .pk-hero__action { background: white; color: var(--qn-primary-600); }
+        .pk-hero__action:hover { background: var(--qn-primary-100); color: var(--qn-primary-600); }
+        .pk-hero__action .icon { color: var(--qn-primary-600); }
+
+        /* KPI stat cards */
+        .pk-stat-grid { margin-bottom: 1.5rem; }
+        .pk-stat { display: flex; align-items: center; gap: 0.875rem; padding: 1.125rem 1.25rem; }
+        .pk-stat__icon { flex-shrink: 0; width: 2.75rem; height: 2.75rem; border-radius: 0.625rem; display: flex; align-items: center; justify-content: center; background: var(--qn-primary-100); color: var(--qn-primary-600); font-size: 1.25rem; }
+        .pk-stat__value { display: block; font-size: 1.5rem; font-weight: 700; color: var(--qn-neutral-900); line-height: 1.2; }
+        .pk-stat__label { display: block; font-size: 0.8125rem; color: var(--qn-neutral-500); }
+
+        /* Stacks multiple .card elements in one column. Quantum's
+           `.grid>*>.card{block-size:100%}` rule stretches any .card that is
+           a DIRECT child of a grid column to the full stretched row height -
+           fine for one-card-per-column layouts, but it made every stacked
+           card here balloon to the same huge height. Wrapping the stack in
+           a plain (non-.card) flex container breaks that direct-child match
+           and lets each card size to its own content again. */
+        .pk-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+
+        /* Composer + shortcuts */
+        .pk-composer { width: 100%; text-align: left; background: white; border: 1px solid var(--qn-neutral-300); border-radius: 0.625rem; padding: 0.875rem 1rem; font-size: 0.875rem; color: var(--qn-neutral-400); cursor: pointer; margin-bottom: 1rem; }
+        .pk-composer:hover { border-color: var(--qn-primary-300); background: var(--qn-primary-100); }
+        .pk-shortcut { display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; color: var(--qn-neutral-700); text-decoration: none; transition: background .15s; }
+        .pk-shortcut:hover { background: var(--qn-neutral-100); }
+        .pk-shortcut__icon { width: 2rem; height: 2rem; border-radius: 0.5rem; background: var(--qn-neutral-100); display: flex; align-items: center; justify-content: center; color: var(--qn-neutral-600); flex-shrink: 0; }
+
+        /* Feed posts */
+        .pk-feed-post__meta { display: flex; align-items: center; gap: 0.75rem; }
+        .pk-feed-post__author { font-weight: 600; color: var(--qn-neutral-900); text-decoration: none; }
+        .pk-feed-post__time { font-size: 0.75rem; color: var(--qn-neutral-500); margin-top: 0.125rem; }
+        .pk-feed-post__body { font-size: 0.875rem; color: var(--qn-neutral-700); margin: 0.875rem 0; line-height: 1.6; }
+        .pk-feed-post__engagement { display: flex; gap: 1rem; font-size: 0.75rem; color: var(--qn-neutral-500); margin-bottom: 0.75rem; }
+        .pk-feed-post__actions { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--qn-neutral-200); padding-top: 0.5rem; }
+        .pk-feed-post__action { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.5rem; border-radius: 0.5rem; font-size: 0.8125rem; color: var(--qn-neutral-500); background: none; border: none; cursor: pointer; }
+        .pk-feed-post__action:hover { background: var(--qn-neutral-100); color: var(--qn-neutral-700); }
+
+        /* Sidebar profile */
+        .pk-profile { display: flex; align-items: center; gap: 0.875rem; margin-bottom: 1.125rem; }
+        .pk-profile__avatar { width: 3.5rem; height: 3.5rem; border-radius: 50%; object-fit: cover; border: 1px solid var(--qn-neutral-200); }
+        .pk-profile__name { font-size: 1.0625rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
+        .pk-profile__location { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
+        .pk-profile-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+        .pk-profile-stat { text-align: center; background: var(--qn-neutral-100); border-radius: 0.5rem; padding: 0.625rem 0.375rem; }
+        .pk-profile-stat__value { display: block; font-size: 1.125rem; font-weight: 700; color: var(--qn-neutral-800); }
+        .pk-profile-stat__label { display: block; font-size: 0.6875rem; color: var(--qn-neutral-500); line-height: 1.3; margin-top: 0.125rem; }
+
+        /* Aktivitas lamaran - satu list tenang (dot kecil + label + angka)
+           dipakai daripada 4 kotak berwarna penuh bersisian, supaya tidak
+           "ramai" warna yang saling kontras. Warna cukup jadi aksen kecil. */
+        .pk-application-total { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1rem; }
+        .pk-application-total__value { font-size: 1.75rem; font-weight: 700; color: var(--qn-primary-600); }
+        .pk-application-total__label { font-size: 0.8125rem; color: var(--qn-neutral-500); }
+        .pk-application-list { display: flex; flex-direction: column; margin-bottom: 1rem; }
+        .pk-application-row { display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.125rem; border-bottom: 1px solid var(--qn-neutral-100); }
+        .pk-application-row:last-child { border-bottom: none; }
+        .pk-application-row__dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; flex-shrink: 0; }
+        .pk-application-row__dot_success { background: var(--qn-success-500); }
+        .pk-application-row__dot_neutral { background: var(--qn-neutral-400); }
+        .pk-application-row__dot_warning { background: var(--qn-warning-400); }
+        .pk-application-row__dot_danger { background: var(--qn-danger-400); }
+        .pk-application-row__label { flex: 1; font-size: 0.8125rem; color: var(--qn-neutral-600); }
+        .pk-application-row__value { font-size: 0.9375rem; font-weight: 700; color: var(--qn-neutral-800); }
+
+        /* Perusahaan mitra */
+        .pk-company-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--qn-neutral-100); }
+        .pk-company-item:last-of-type { border-bottom: none; }
+        .pk-company-item__logo { width: 2.5rem; height: 2.5rem; border-radius: 50%; object-fit: cover; border: 1px solid var(--qn-neutral-200); flex-shrink: 0; }
+        .pk-company-item__name { font-size: 0.875rem; font-weight: 500; color: var(--qn-neutral-800); margin: 0 0 0.25rem; }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <!-- Navbar -->
-    <nav class="bg-white fixed w-full z-30 top-0 start-0 border-b border-gray-200">
-        <div class="max-w-screen-xl flex items-center justify-between mx-auto px-4 xl:px-8 py-3">
-            <!-- Logo -->
-            <a href="portal-karir.html" class="flex items-center">
-                <img src="assets/karirlink/images/logo/karirlink-colored.webp" class="h-8" alt="Karirlink Logo">
-            </a>
-
-            <!-- Main Navigation - Center -->
-            <div class="hidden lg:flex items-center space-x-8">
-                <a href="dashboard.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
-                    </svg>
-                    Dashboard
-                </a>
-                <a href="index.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    Kuesioner
-                </a>
-                <a href="alumni.html" class="flex items-center text-sm text-primary500 font-semibold">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                    </svg>
-                    Alumni
-                </a>
-                <a href="publikasi.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                    </svg>
-                    Publikasi
+<body class="body body_kl-white">
+    <!-- [START] Header (shell sama dengan halaman admin lain) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
                 </a>
             </div>
-
-            <!-- Right Side: Icons & Profile -->
-            <div class="flex items-center space-x-3">
-                <!-- Message Icon -->
-                <a href="#" class="p-2 rounded-lg hover:bg-gray-100">
-                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                    </svg>
-                </a>
-                
-                <!-- Notification Bell -->
-                <button type="button" class="p-2 rounded-lg hover:bg-gray-100">
-                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-                    </svg>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./index.html">
+                                <span class="icon icon-chart-bar-square"></span>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./kuesioner.html">
+                                <span class="icon icon-clipboard-document-list"></span>
+                                <span>Kuesioner</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./alumni.html">
+                                <span class="icon icon-academic-cap"></span>
+                                <span>Alumni</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./publikasi.html">
+                                <span class="icon icon-document-text"></span>
+                                <span>Publikasi</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./kerja-sama.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Aktivitas</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./portal-karir.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Portal Karir</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification">
+                        <span class="icon icon-bell"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
                 </button>
-                
-                <!-- Portal Karir Button -->
-                <a href="portal-karir.html" class="hidden md:flex items-center text-sm text-gray-700 hover:text-primary500 font-medium border border-gray-300 rounded-lg px-3 py-2">
-                    Portal Karir
-                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                    </svg>
-                </a>
-                
-                <!-- Profile Avatar -->
-                <div class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 rounded-lg px-2 py-1" id="profileDropdownBtn">
-                    <img src="../../../karir_prompt/reference/karirlink-mockup-quantum/Beranda _ KarirLink (Portal Karir)_files/e7246459-7a84-4a1d-9928-543bc00caa73.jpg" alt="" class="rounded-full h-8 w-8 object-cover border border-gray-200">
-                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle">
+                                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
+                                </div>
+                                <div class="avatar__text">
+                                    <span class="avatar__title">Admin Karirlink</span>
+                                    <span class="avatar__subtitle">admin@university.ac.id</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Lihat Profil</a></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Landing Page</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger">
+                            <a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
+    <!-- [END] Header -->
 
-    <!-- Profile Dropdown -->
-    <div id="profileDropdown" class="p-3 z-30 hidden bg-white rounded-lg shadow-lg max-w-xs divide-y divide-gray-100 absolute right-4 top-14">
-        <div class="flex items-center mb-3">
-            <img src="../../../karir_prompt/reference/karirlink-mockup-quantum/Beranda _ KarirLink (Portal Karir)_files/e7246459-7a84-4a1d-9928-543bc00caa73.jpg" alt="" class="rounded-full border border-gray-300 object-cover h-12 w-12 mr-3">
-            <section>
-                <p class="text-sm text-gray-800 font-medium">Demo siAkadcloud</p>
-                <small class="text-xs text-gray-500">Perguruan Tinggi</small>
-            </section>
-        </div>
-        <ul class="text-sm text-gray-700 divide-y divide-gray-100">
-            <li>
-                <a href="#" class="block p-2 rounded-md hover:bg-gray-100">
-                    <svg class="inline w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 12.75C8.83 12.75 6.25 10.17 6.25 7C6.25 3.83 8.83 1.25 12 1.25C15.17 1.25 17.75 3.83 17.75 7C17.75 10.17 15.17 12.75 12 12.75Z"></path>
-                    </svg>
-                    Lihat Profil
-                </a>
-            </li>
-            <li>
-                <a href="#" class="block p-2 rounded-md hover:bg-gray-100">
-                    <svg class="inline w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 15.75C9.93 15.75 8.25 14.07 8.25 12C8.25 9.93 9.93 8.25 12 8.25C14.07 8.25 15.75 9.93 15.75 12C15.75 14.07 14.07 15.75 12 15.75Z"></path>
-                    </svg>
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero -->
+            <div class="pk-hero">
+                <div>
+                    <h1 class="pk-hero__title">Portal Karir Universitas Foxtrot</h1>
+                    <p class="pk-hero__desc">Kelola lowongan, event, dan perusahaan mitra yang tayang untuk alumni Anda - semuanya terhubung dalam satu sistem KarirLink.</p>
+                </div>
+                <a href="#" class="btn pk-hero__action">
+                    <span class="icon icon-cog-6-tooth-mini"></span>
                     Pengaturan Landing Page
                 </a>
-            </li>
-            <li>
-                <a href="#" class="text-red-600 block p-2 rounded-md hover:bg-gray-100">
-                    <svg class="inline w-4 h-4 mr-2 text-red-600" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M17.44 15.37c-.19 0-.38-.07-.53-.22-.29-.29-.29-.77 0-1.06l2.03-2.03-2.03-2.03c-.29-.29-.29-.77 0-1.06.29-.29.77-.29 1.06 0l2.56 2.56c.29.29.29.77 0 1.06l-2.56 2.56c-.15.15-.34.22-.53.22z"></path>
-                    </svg>
-                    Keluar
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <!-- Main Content -->
-    <div class="mx-auto pt-28 px-4 xl:px-24 lg:max-w-7xl lg:gap-6 gap-4 lg:flex pb-4">
-        <!-- Left Sidebar -->
-        <aside class="lg:basis-2/5">
-            <!-- Profile Card -->
-            <div class="bg-white rounded-lg lg:p-6 p-4 w-auto shadow">
-                <section class="items-center md:flex md:space-x-3">
-                    <img src="../../../karir_prompt/reference/karirlink-mockup-quantum/Beranda _ KarirLink (Portal Karir)_files/e7246459-7a84-4a1d-9928-543bc00caa73.jpg" alt="Profile Image" class="w-16 h-16 md:w-18 md:h-18 border border-gray-300 rounded-full object-cover">
-                    <div class="md:mt-0 mt-2">
-                        <h2 class="text-xl md:text-2xl text-gray-800 font-semibold">Demo siAkadcloud</h2>
-                        <p class="text-sm text-gray-500 font-medium mt-1">Surabaya, Jawa Timur</p>
-                    </div>
-                </section>
-                
-                <section class="grid md:grid-cols-3 lg:grid-cols-2 md:grid-rows-1 grid-rows-3 gap-3 mt-4">
-                    <a href="#" class="rounded-lg lg:p-4 p-2 bg-gray-100 hover:bg-gray-200 text-center transition focus:outline-none focus:ring-4 focus:ring-gray-300 lg:block flex justify-between items-center">
-                        <p class="text-sm text-gray-500 font-medium lg:mb-3">Pengikut</p>
-                        <span class="lg:text-3xl text-base text-gray-700 font-semibold">103</span>
-                    </a>
-                    <a href="#" class="rounded-lg lg:p-4 p-2 bg-gray-100 hover:bg-gray-200 text-center transition focus:outline-none focus:ring-4 focus:ring-gray-300 lg:block flex justify-between items-center">
-                        <p class="text-sm text-gray-500 font-medium lg:mb-3">Diikuti</p>
-                        <span class="lg:text-3xl text-base text-gray-700 font-semibold">17</span>
-                    </a>
-                    <a href="#" class="rounded-lg lg:p-4 p-2 bg-gray-100 text-center lg:col-span-2 lg:block lg:justify-normal flex justify-between items-center">
-                        <p class="text-sm text-gray-500 font-medium lg:mb-3">Alumni terdaftar di Karirlink</p>
-                        <span class="lg:text-3xl text-base text-gray-700 font-semibold">110</span>
-                    </a>
-                </section>
             </div>
 
-            <!-- Aktivitas Lamaran Alumni Card -->
-            <div class="bg-white rounded-lg lg:p-6 p-4 w-auto shadow mt-4">
-                <div class="flex items-center gap-2 mb-4">
-                    <h2 class="lg:text-xl text-lg font-semibold text-gray-800">Aktivitas Lamaran Alumni</h2>
-                </div>
-                
-                <div class="mb-4">
-                    <div class="flex items-baseline gap-2">
-                        <span class="text-3xl font-bold text-primary500">0</span>
-                        <span class="text-sm text-gray-500 font-medium">Alumni Melamar Juli 2026</span>
-                    </div>
-                    <div class="flex items-start gap-1 mt-1 text-xs text-gray-500">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M9 2C6.38 2 4.25 4.13 4.25 6.75C4.25 9.32 6.26 11.4 8.88 11.49C8.96 11.48 9.04 11.48 9.1 11.49C9.12 11.49 9.13 11.49 9.15 11.49C9.16 11.49 9.16 11.49 9.17 11.49C11.73 11.4 13.74 9.32 13.75 6.75C13.75 4.13 11.62 2 9 2Z"></path>
-                        </svg>
-                        <span>0 Total Lamaran</span>
-                        <span class="cursor-default text-gray-400 hover:text-gray-600" title="1 alumni dapat melamar lebih dari 1 lowongan">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
-                                <path stroke-linecap="round" stroke-width="1.5" d="M12 8v5M12 16h.01"></path>
-                            </svg>
+            <!-- KPI Row -->
+            <div class="grid pk-stat-grid">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card pk-stat">
+                        <span class="pk-stat__icon"><span class="icon icon-user-group"></span></span>
+                        <span>
+                            <span class="pk-stat__value">110</span>
+                            <span class="pk-stat__label">Alumni Terdaftar</span>
                         </span>
                     </div>
                 </div>
-                
-                <div class="grid grid-cols-2 gap-2 mb-2 pb-3 border-b border-gray-100">
-                    <div class="rounded-lg p-3 bg-green-50 text-center">
-                        <p class="text-xs text-green-600 mt-0.5 leading-tight font-medium">Diterima</p>
-                        <p class="text-xl font-bold text-green-600">0</p>
-                    </div>
-                    <div class="rounded-lg p-3 bg-slate-100 text-center">
-                        <p class="text-xs text-slate-500 mt-0.5 leading-tight font-medium">Menunggu</p>
-                        <p class="text-xl font-bold text-slate-500">0</p>
-                    </div>
-                    <div class="rounded-lg p-3 bg-amber-50 text-center">
-                        <p class="text-xs text-amber-600 mt-0.5 leading-tight font-medium">Dalam Proses</p>
-                        <p class="text-xl font-bold text-amber-600">0</p>
-                    </div>
-                    <div class="rounded-lg p-3 bg-red-50 text-center">
-                        <p class="text-xs text-red-500 mt-0.5 leading-tight font-medium">Ditolak</p>
-                        <p class="text-xl font-bold text-red-500">0</p>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card pk-stat">
+                        <span class="pk-stat__icon"><span class="icon icon-briefcase"></span></span>
+                        <span>
+                            <span class="pk-stat__value">8</span>
+                            <span class="pk-stat__label">Lowongan Aktif</span>
+                        </span>
                     </div>
                 </div>
-                
-                <div class="mt-5 pt-4 border-t border-gray-100">
-                    <a href="#" class="text-sm text-primary500 font-medium underline inline-flex items-center gap-1">
-                        Lihat Semua
-                    </a>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card pk-stat">
+                        <span class="pk-stat__icon"><span class="icon icon-document-text"></span></span>
+                        <span>
+                            <span class="pk-stat__value">0</span>
+                            <span class="pk-stat__label">Lamaran Bulan Ini</span>
+                        </span>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Perusahaan Mitra Card -->
-            <div class="bg-white rounded-lg lg:p-6 p-4 mt-6 shadow">
-                <section class="flex items-center justify-between mb-8">
-                    <h2 class="lg:text-xl text-lg font-semibold text-gray-800">Perusahaan Mitra</h2>
-                    <a href="#" class="text-sm font-medium underline text-primary500">Lihat Semua</a>
-                </section>
-                
-                <div class="flex flex-col space-y-2 mb-5">
-                    <section>
-                        <h2 class="text-base font-medium mb-1 text-gray-800">PT Sentra Vidya Utama</h2>
-                        <div class="flex items-center mb-4">
-                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.71 15.18L12.61 13.33C12.07 13.01 11.63 12.24 11.63 11.61V7.51"></path>
-                            </svg>
-                            <p class="text-sm font-medium text-yellow-600 ml-1">Menunggu Persetujuan</p>
-                        </div>
-                        <hr>
-                    </section>
-                </div>
-                
-                <div class="flex flex-col space-y-2 mb-5">
-                    <section>
-                        <h2 class="text-base font-medium mb-1 text-gray-800">PT Fit Jaya Raya Tri</h2>
-                        <div class="flex items-center mb-4">
-                            <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.75 12L10.58 14.83L16.25 9.17"></path>
-                            </svg>
-                            <p class="text-sm font-medium text-green-700 ml-1">Berhasil Bergabung</p>
-                        </div>
-                        <hr>
-                    </section>
-                </div>
-                
-                <div class="flex flex-col space-y-2 mb-5">
-                    <section>
-                        <h2 class="text-base font-medium mb-1 text-gray-800">PT ABC</h2>
-                        <div class="flex items-center mb-4">
-                            <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.75 12L10.58 14.83L16.25 9.17"></path>
-                            </svg>
-                            <p class="text-sm font-medium text-green-700 ml-1">Berhasil Bergabung</p>
-                        </div>
-                        <hr>
-                    </section>
-                </div>
-                
-                <button type="button" class="w-full flex justify-center items-center font-medium rounded-lg text-base px-8 py-4 text-center text-white bg-primary500 hover:bg-primary600 focus:outline-none focus:ring-4 focus:ring-primary200" onclick="openModal('companyInviteModal')">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 12H18M12 18V6"></path>
-                    </svg>
-                    <span class="ml-2">Undang Perusahaan</span>
-                </button>
-            </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="lg:basis-3/5 mt-4 lg:mt-0">
-            <!-- Bagikan Sesuatu Card -->
-            <div class="bg-white lg:p-6 p-4 rounded-lg shadow-default">
-                <h2 class="lg:text-xl text-lg text-gray-700 font-semibold mb-3">Bagikan Sesuatu</h2>
-                
-                <div class="text-sm rounded-lg text-gray-400 border border-gray-300 p-4 mb-5 cursor-pointer bg-white" onclick="openModal('postModal')">
-                    Apa yang ingin Anda bagikan di Beranda?
-                </div>
-                
-                <div class="grid lg:grid-cols-3 gap-4">
-                    <a href="lowongan.html" class="h-8 flex items-center rounded focus:ring-4 focus:outline-none focus:ring-gray-200">
-                        <div class="h-8 w-8 rounded bg-gray-100 flex items-center justify-center">
-                            <svg class="h-4 w-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        <p class="text-sm ml-2">Buat Lowongan</p>
-                    </a>
-                    
-                    <a href="event.html" class="h-8 flex items-center rounded focus:ring-4 focus:outline-none focus:ring-gray-200">
-                        <div class="h-8 w-8 rounded bg-gray-100 flex items-center justify-center">
-                            <svg class="h-4 w-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        <p class="text-sm ml-2">Buat Event</p>
-                    </a>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card pk-stat">
+                        <span class="pk-stat__icon"><span class="icon icon-building-office-2"></span></span>
+                        <span>
+                            <span class="pk-stat__value">3</span>
+                            <span class="pk-stat__label">Perusahaan Mitra</span>
+                        </span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Feed Posts -->
-            <div class="space-y-6 pb-6 mt-6">
-                <!-- Post 1 -->
-                <div class="bg-white lg:p-6 p-4 rounded-lg shadow-default">
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center gap-3">
-                            <!-- Karirlink Logo (Blue K with red accent) -->
-                            <div class="w-12 h-12 rounded-full flex items-center justify-center relative overflow-hidden border border-gray-300">
-                                <img src="../../../karir_prompt/reference/karirlink-mockup-quantum/Beranda _ KarirLink (Portal Karir)_files/7a28b830-df9a-4685-a803-e2477f562d26.jpg" alt="PT Karirlink" class="w-12 h-12 rounded-full object-cover">
-                            </div>
-                            <div>
-                                <a href="#" class="font-medium text-gray-900">PT Karirlink</a>
-                                <div class="text-xs mt-1 text-gray-500">Maju Bersama Kami - 2 tahun yang lalu</div>
+            <div class="grid">
+                <!-- Main Column -->
+                <div class="col-12 col-lg-8">
+                    <div class="pk-stack">
+                    <!-- Composer -->
+                    <div class="card">
+                        <div class="card__body">
+                            <h2 class="card__title" style="margin-bottom: 0.75rem;">Bagikan Sesuatu</h2>
+                            <button type="button" class="pk-composer" data-toggle="modal" data-target="#modal-post">
+                                Apa yang ingin Anda bagikan di Beranda?
+                            </button>
+                            <div class="grid cols-1 cols-sm-2">
+                                <a href="./lowongan.html" class="pk-shortcut">
+                                    <span class="pk-shortcut__icon"><span class="icon icon-briefcase-mini"></span></span>
+                                    Buat Lowongan
+                                </a>
+                                <a href="./event.html" class="pk-shortcut">
+                                    <span class="pk-shortcut__icon"><span class="icon icon-calendar-mini"></span></span>
+                                    Buat Event
+                                </a>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="my-5">
-                        <p class="text-sm text-gray-700">selamat siang..</p>
+
+                    <!-- Feed Post 1 -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="pk-feed-post__meta">
+                                <span class="avatar avatar_sm">
+                                    <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Karirlink">
+                                </span>
+                                <div>
+                                    <a href="#" class="pk-feed-post__author">PT Karirlink</a>
+                                    <p class="pk-feed-post__time">Maju Bersama Kami · 2 tahun yang lalu</p>
+                                </div>
+                            </div>
+                            <p class="pk-feed-post__body">selamat siang..</p>
+                            <div class="pk-feed-post__engagement">
+                                <span>0 suka</span>
+                                <span>0 komentar</span>
+                            </div>
+                            <div class="pk-feed-post__actions">
+                                <button class="pk-feed-post__action"><span class="icon icon-heart-mini"></span> Suka</button>
+                                <button class="pk-feed-post__action"><span class="icon icon-chat-bubble-left-mini"></span> Komentar</button>
+                                <button class="pk-feed-post__action"><span class="icon icon-share-mini"></span> Bagikan</button>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="flex space-x-4 text-xs text-gray-500">
-                        <p>0 suka</p>
-                        <p>0 komentar</p>
+
+                    <!-- Feed Post 2 -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="pk-feed-post__meta">
+                                <span class="avatar avatar_sm">
+                                    <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Karirlink">
+                                </span>
+                                <div>
+                                    <a href="#" class="pk-feed-post__author">PT Karirlink</a>
+                                    <p class="pk-feed-post__time">Maju Bersama Kami · 2 tahun yang lalu</p>
+                                </div>
+                            </div>
+                            <p class="pk-feed-post__body">Selamat pagi rekan-rekan semua! Semoga hari ini penuh semangat dan produktif.</p>
+                            <div class="pk-feed-post__engagement">
+                                <span>5 suka</span>
+                                <span>2 komentar</span>
+                            </div>
+                            <div class="pk-feed-post__actions">
+                                <button class="pk-feed-post__action"><span class="icon icon-heart-mini"></span> Suka</button>
+                                <button class="pk-feed-post__action"><span class="icon icon-chat-bubble-left-mini"></span> Komentar</button>
+                                <button class="pk-feed-post__action"><span class="icon icon-share-mini"></span> Bagikan</button>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <hr class="text-gray-200 my-3">
-                    
-                    <div class="grid grid-cols-3">
-                        <button class="flex items-center justify-center w-full text-sm p-2 rounded-lg hover:bg-gray-100 text-gray-500">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-                            Suka
-                        </button>
-                        <button class="flex items-center justify-center w-full text-sm text-gray-500 p-2 rounded-lg hover:bg-gray-100">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                            </svg>
-                            Komentar
-                        </button>
-                        <button class="flex items-center justify-center w-full text-sm text-gray-500 p-2 rounded-lg hover:bg-gray-100">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                            </svg>
-                            Bagikan
-                        </button>
                     </div>
                 </div>
 
-                <!-- Post 2 -->
-                <div class="bg-white lg:p-6 p-4 rounded-lg shadow-default">
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full flex items-center justify-center relative overflow-hidden border border-gray-300">
-                                <img src="../../../karir_prompt/reference/karirlink-mockup-quantum/Beranda _ KarirLink (Portal Karir)_files/7a28b830-df9a-4685-a803-e2477f562d26.jpg" alt="PT Karirlink" class="w-12 h-12 rounded-full object-cover">
+                <!-- Sidebar -->
+                <div class="col-12 col-lg-4">
+                    <div class="pk-stack">
+                    <!-- Profile Card -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="pk-profile">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Profile" class="pk-profile__avatar">
+                                <div>
+                                    <p class="pk-profile__name">Universitas Foxtrot</p>
+                                    <p class="pk-profile__location"><span class="icon icon-map-pin-mini"></span> Surabaya, Jawa Timur</p>
+                                </div>
                             </div>
-                            <div>
-                                <a href="#" class="font-medium text-gray-900">PT Karirlink</a>
-                                <div class="text-xs mt-1 text-gray-500">Maju Bersama Kami - 2 tahun yang lalu</div>
+                            <div class="pk-profile-stats">
+                                <div class="pk-profile-stat">
+                                    <span class="pk-profile-stat__value">103</span>
+                                    <span class="pk-profile-stat__label">Pengikut</span>
+                                </div>
+                                <div class="pk-profile-stat">
+                                    <span class="pk-profile-stat__value">17</span>
+                                    <span class="pk-profile-stat__label">Diikuti</span>
+                                </div>
+                                <div class="pk-profile-stat">
+                                    <span class="pk-profile-stat__value">110</span>
+                                    <span class="pk-profile-stat__label">Alumni</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="my-5">
-                        <p class="text-sm text-gray-700">Selamat pagi rekan-rekan semua! Semoga hari ini penuh semangat dan produktif. 🌟</p>
+
+                    <!-- Aktivitas Lamaran Alumni -->
+                    <div class="card">
+                        <div class="card__body">
+                            <h3 class="card__title" style="margin-bottom: 0.75rem;">Aktivitas Lamaran Alumni</h3>
+                            <div class="pk-application-total">
+                                <span class="pk-application-total__value">0</span>
+                                <span class="pk-application-total__label">Alumni melamar Juli 2026 · 0 total lamaran</span>
+                            </div>
+                            <div class="pk-application-list">
+                                <div class="pk-application-row">
+                                    <span class="pk-application-row__dot pk-application-row__dot_success"></span>
+                                    <span class="pk-application-row__label">Diterima</span>
+                                    <span class="pk-application-row__value">0</span>
+                                </div>
+                                <div class="pk-application-row">
+                                    <span class="pk-application-row__dot pk-application-row__dot_neutral"></span>
+                                    <span class="pk-application-row__label">Menunggu</span>
+                                    <span class="pk-application-row__value">0</span>
+                                </div>
+                                <div class="pk-application-row">
+                                    <span class="pk-application-row__dot pk-application-row__dot_warning"></span>
+                                    <span class="pk-application-row__label">Dalam Proses</span>
+                                    <span class="pk-application-row__value">0</span>
+                                </div>
+                                <div class="pk-application-row">
+                                    <span class="pk-application-row__dot pk-application-row__dot_danger"></span>
+                                    <span class="pk-application-row__label">Ditolak</span>
+                                    <span class="pk-application-row__value">0</span>
+                                </div>
+                            </div>
+                            <a href="#" class="link">
+                                Lihat Semua
+                                <span class="icon icon-chevron-right-mini"></span>
+                            </a>
+                        </div>
                     </div>
-                    
-                    <div class="flex space-x-4 text-xs text-gray-500">
-                        <p>5 suka</p>
-                        <p>2 komentar</p>
+
+                    <!-- Perusahaan Mitra -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <h3 class="card__title">Perusahaan Mitra</h3>
+                                <a href="./perusahaan.html" class="link">Lihat Semua</a>
+                            </div>
+
+                            <div class="pk-company-item">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Sentra Vidya Utama" class="pk-company-item__logo">
+                                <div>
+                                    <p class="pk-company-item__name">PT Sentra Vidya Utama</p>
+                                    <span class="badge badge_secondary-warning badge_sm">Menunggu Persetujuan</span>
+                                </div>
+                            </div>
+                            <div class="pk-company-item">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Fit Jaya Raya Tri" class="pk-company-item__logo">
+                                <div>
+                                    <p class="pk-company-item__name">PT Fit Jaya Raya Tri</p>
+                                    <span class="badge badge_secondary-success badge_sm">Berhasil Bergabung</span>
+                                </div>
+                            </div>
+                            <div class="pk-company-item">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT ABC" class="pk-company-item__logo">
+                                <div>
+                                    <p class="pk-company-item__name">PT ABC</p>
+                                    <span class="badge badge_secondary-success badge_sm">Berhasil Bergabung</span>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn_primary btn_full" style="margin-top: 1rem;" data-toggle="modal" data-target="#modal-undang-perusahaan">
+                                <span class="icon icon-plus-circle-solid"></span>
+                                Undang Perusahaan
+                            </button>
+                        </div>
                     </div>
-                    
-                    <hr class="text-gray-200 my-3">
-                    
-                    <div class="grid grid-cols-3">
-                        <button class="flex items-center justify-center w-full text-sm p-2 rounded-lg hover:bg-gray-100 text-gray-500">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-                            Suka
-                        </button>
-                        <button class="flex items-center justify-center w-full text-sm text-gray-500 p-2 rounded-lg hover:bg-gray-100">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                            </svg>
-                            Komentar
-                        </button>
-                        <button class="flex items-center justify-center w-full text-sm text-gray-500 p-2 rounded-lg hover:bg-gray-100">
-                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                            </svg>
-                            Bagikan
-                        </button>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
+    
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
 
-    <!-- Post Modal -->
-    <div id="postModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
-        <div class="fixed inset-0 bg-gray-900 bg-opacity-50" onclick="closeModal('postModal')"></div>
-        <div class="flex min-h-screen items-center justify-center p-4">
-            <div class="relative bg-white rounded-lg shadow max-w-xl w-full">
-                <div class="flex justify-between items-center px-6 pt-6 mb-5 rounded-t">
-                    <h3 class="text-xl font-semibold text-gray-800">Bagikan informasi di beranda</h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-100 rounded-full text-sm p-1.5 ml-auto inline-flex items-center" onclick="closeModal('postModal')">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                        </svg>
+    <!-- [START] Modal: Bagikan Post -->
+    <div class="modal modal_qnaire-action" id="modal-post">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper" style="max-width: 560px;">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title">Bagikan Informasi di Beranda</h3>
+                </div>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <div class="form-control">
+                    <div class="form-control__group">
+                        <textarea class="form-control__input" rows="5" placeholder="Tulis deskripsi disini..."></textarea>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+                    <button type="button" class="btn btn_outline btn_sm btn_icon" data-tooltip="Gambar">
+                        <span class="icon icon-photo-mini"></span>
+                    </button>
+                    <button type="button" class="btn btn_outline btn_sm btn_icon" data-tooltip="Video">
+                        <span class="icon icon-video-camera-mini"></span>
+                    </button>
+                    <button type="button" class="btn btn_outline btn_sm btn_icon" data-tooltip="Dokumen">
+                        <span class="icon icon-clipboard-document-list"></span>
                     </button>
                 </div>
-                <div class="px-6 overflow-y-auto" style="min-height: 240px; max-height: 480px;">
-                    <textarea name="content" placeholder="Tulis deskripsi disini..." class="w-full h-[240px] p-5 text-sm text-gray-800 rounded-lg border border-gray-300 focus:ring-primary500 focus:border-primary500"></textarea>
+            </div>
+            <div class="modal__footer">
+                <button type="button" class="btn btn_primary btn_full">Bagikan</button>
+            </div>
+        </div>
+    </div>
+    <!-- [END] Modal: Bagikan Post -->
+
+    <!-- [START] Modal: Undang Perusahaan -->
+    <div class="modal modal_qnaire-action" id="modal-undang-perusahaan">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title">Undang Perusahaan</h3>
                 </div>
-                <div class="flex items-center justify-between p-6">
-                    <div class="flex space-x-1">
-                        <label class="p-2 cursor-pointer rounded-full hover:bg-gray-100">
-                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                        </label>
-                        <label class="p-2 cursor-pointer rounded-full hover:bg-gray-100">
-                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                            </svg>
-                        </label>
-                        <label class="p-2 cursor-pointer rounded-full hover:bg-gray-100">
-                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                        </label>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <div class="grid cols-1">
+                    <p class="modal__paragraph">Perusahaan mana yang ingin Anda undang untuk bergabung di Portal Karir?</p>
+                    <div class="form-control">
+                        <label for="company_name" class="form-control__label">Nama Perusahaan<span class="important">*</span></label>
+                        <div class="form-control__group">
+                            <input type="text" id="company_name" class="form-control__input" placeholder="Masukkan nama perusahaan">
+                        </div>
                     </div>
-                    <button type="button" class="font-medium rounded-lg text-sm px-8 py-3 text-center text-white bg-primary500 hover:bg-primary600">Bagikan</button>
+                    <div class="form-control">
+                        <label for="company_email" class="form-control__label">Email<span class="important">*</span></label>
+                        <div class="form-control__group">
+                            <input type="email" id="company_email" class="form-control__input" placeholder="Contoh: nama@email.com">
+                        </div>
+                    </div>
+                    <div class="form-control">
+                        <label for="company_phone" class="form-control__label">No. Telepon<span class="important">*</span></label>
+                        <div class="form-control__group">
+                            <input type="tel" id="company_phone" class="form-control__input" placeholder="Contoh: 08123456789">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <div class="grid cols-1 cols-sm-2">
+                    <button class="btn btn_outline" data-dismiss="modal">Batal</button>
+                    <button class="btn btn_primary">Undang</button>
                 </div>
             </div>
         </div>
     </div>
+    <!-- [END] Modal: Undang Perusahaan -->
 
-    <!-- Company Invite Modal -->
-    <div id="companyInviteModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
-        <div class="fixed inset-0 bg-gray-900 bg-opacity-50" onclick="closeModal('companyInviteModal')"></div>
-        <div class="flex min-h-screen items-center justify-center p-4">
-            <div class="relative bg-white rounded-lg shadow max-w-xl w-full">
-                <div class="flex justify-between items-center border-b px-6 p-6 rounded-t">
-                    <h3 class="text-xl font-semibold text-gray-800">Undang Perusahaan</h3>
-                    <button type="button" class="hover:bg-gray-100 rounded-full text-sm p-1.5 ml-auto inline-flex items-center" onclick="closeModal('companyInviteModal')">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="p-6 overflow-y-auto" style="max-height: 500px">
-                    <div class="flex flex-col space-y-5 mb-10">
-                        <h4 class="text-base text-gray-800 font-medium">Perusahaan mana yang ingin Anda undang?</h4>
-                        <div>
-                            <label for="company_name" class="block mb-2 text-sm font-medium text-gray-600">Nama Perusahaan <span class="text-red-500">*</span></label>
-                            <input type="text" id="company_name" class="focus:outline-none focus:ring-1 bg-white placeholder-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary500 focus:border-primary500 block w-full p-4" placeholder="Masukkan Nama Perusahaan">
-                        </div>
-                        <div>
-                            <label for="company_email" class="block mb-2 text-sm font-medium text-gray-600">Email <span class="text-red-500">*</span></label>
-                            <input type="email" id="company_email" class="focus:outline-none focus:ring-1 bg-white placeholder-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary500 focus:border-primary500 block w-full p-4" placeholder="Contoh: name@email.com">
-                        </div>
-                        <div>
-                            <label for="company_phone" class="block mb-2 text-sm font-medium text-gray-600">No. Telepon <span class="text-red-500">*</span></label>
-                            <input type="tel" id="company_phone" class="focus:outline-none focus:ring-1 bg-white placeholder-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary500 focus:border-primary500 block w-full p-4" placeholder="Contoh: 08123456789">
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center justify-end p-6 border-t">
-                    <button type="button" class="font-medium rounded-lg text-base px-8 py-4 text-center text-white bg-primary500 hover:bg-primary600">Undang</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript -->
-    <script>
-        // Modal functions
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-        
-        // Profile dropdown toggle
-        document.getElementById('profileDropdownBtn').addEventListener('click', function() {
-            const dropdown = document.getElementById('profileDropdown');
-            dropdown.classList.toggle('hidden');
-        });
-        
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const dropdown = document.getElementById('profileDropdown');
-            const btn = document.getElementById('profileDropdownBtn');
-            if (!btn.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.classList.add('hidden');
-            }
-        });
-        
-        // Close modal on ESC key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                const modals = document.querySelectorAll('[id$="Modal"]');
-                modals.forEach(modal => {
-                    if (!modal.classList.contains('hidden')) {
-                        closeModal(modal.id);
-                    }
-                });
-            }
-        });
-    </script>
+    <!-- Quantum JavaScript (dropdown, notifikasi, modal semuanya lewat data-toggle) -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
     <base href="/v1/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Template Lengkap | Tracer Study | Karirlink</title>
+    <title>Template Tracer Study - v3 | Karirlink</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
     <style>
@@ -38,7 +38,6 @@
         .section-btn.active .section-btn__num { background: #2563eb; color: white; }
         .section-btn:not(.active) .section-btn__num { border: 1px solid #d1d5db; background: #f9fafb; color: #374151; }
         .section-btn__label { flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: #1f2937; }
-    </style>
 
         /* ===== MAIN CONTENT ===== */
         .main { margin-left: 20rem; padding: 1.5rem; min-height: calc(100vh - 57px); }
@@ -48,6 +47,10 @@
         .section-title-card { display: flex; align-items: center; gap: 0.75rem; background: white; border: 2px solid #2563eb; border-radius: 0.5rem; padding: 1.25rem 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .section-title-card__num { font-size: 1.125rem; color: #374151; font-weight: 500; }
         .section-title-card__input { flex: 1; font-size: 1.125rem; border: none; outline: none; color: #111827; background: transparent; cursor: default; }
+        .section-wave-badge { flex-shrink: 0; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; padding: 0.25rem 0.625rem; border-radius: 9999px; }
+        .section-wave-badge--core { color: #16a34a; background: #dcfce7; }
+        .section-wave-badge--optional { color: #475569; background: #f1f5f9; }
+        .section-wave-badge--wave { color: #b45309; background: #fef3c7; }
 
         /* ===== QUESTION CARD ===== */
         .q-card { background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.5rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
@@ -104,15 +107,15 @@
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar">
     <div class="navbar-left">
-        <a href="./kuesioner-create.html">
+        <a href="./kuesioner.html">
             <button class="navbar-home-btn" title="Kembali ke Daftar Kuesioner">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z"/><path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z"/></svg>
             </button>
         </a>
-        <span class="navbar-title">Tes Dimas</span>
+        <span class="navbar-title">Template Tracer Study</span>
     </div>
     <div class="navbar-right">
-        <div class="badge-template">Template Lengkap</div>
+        <div class="badge-template" title="Versi template yang dipublikasikan">v3 · Dipublikasikan</div>
         <div class="badge-sent">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd"/></svg>
             Kuesioner telah dikirimkan
@@ -167,6 +170,7 @@
                 <div class="section-title-card">
                     <span class="section-title-card__num">1.</span>
                     <input class="section-title-card__input" value="Informasi Umum" disabled>
+                    <span class="section-wave-badge section-wave-badge--core">Core</span>
                 </div>
 
                 <!-- Q1: Status -->
@@ -263,6 +267,7 @@
                 <div class="section-title-card">
                     <span class="section-title-card__num">2.</span>
                     <input class="section-title-card__input" value="Alumni Bekerja" disabled>
+                    <span class="section-wave-badge section-wave-badge--core">Core</span>
                 </div>
                 <!-- Q1 -->
                 <div class="q-card">
@@ -434,6 +439,7 @@
                 <div class="section-title-card">
                     <span class="section-title-card__num">3.</span>
                     <input class="section-title-card__input" value="Alumni Wiraswasta" disabled>
+                    <span class="section-wave-badge section-wave-badge--core">Core</span>
                 </div>
                 <!-- Q1 -->
                 <div class="q-card">
@@ -583,6 +589,7 @@
                 <div class="section-title-card">
                     <span class="section-title-card__num">4.</span>
                     <input class="section-title-card__input" value="Alumni Melanjutkan Pendidikan" disabled>
+                    <span class="section-wave-badge section-wave-badge--core">Core</span>
                 </div>
                 <div class="q-card">
                     <div class="q-card__header"><span class="q-card__num">1.</span><div class="q-card__body"><p class="q-card__text req">Di universitas mana Anda melanjutkan studi?</p></div></div>
@@ -628,6 +635,7 @@
                 <div class="section-title-card">
                     <span class="section-title-card__num">5.</span>
                     <input class="section-title-card__input" value="Alumni Sudah Bekerja" disabled>
+                    <span class="section-wave-badge section-wave-badge--optional" title="Bisa dimatikan per campaign">Optional</span>
                 </div>
                 <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:0.5rem;padding:0.875rem 1rem;font-size:0.8125rem;color:#1e40af;display:flex;gap:0.5rem;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -651,13 +659,14 @@
                 <div class="section-title-card">
                     <span class="section-title-card__num">6.</span>
                     <input class="section-title-card__input" value="Tingkat Kompetensi" disabled>
+                    <span class="section-wave-badge section-wave-badge--optional" title="Bisa dimatikan per campaign">Optional</span>
                 </div>
                 <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:0.5rem;padding:0.875rem 1rem;font-size:0.8125rem;color:#166534;display:flex;gap:0.5rem;margin-bottom:0.25rem;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                     Section ini muncul untuk semua alumni, setelah section sesuai status mereka selesai diisi.
                 </div>
                 <div class="q-card">
-                    <div class="q-card__header"><span class="q-card__num">1.</span><div class="q-card__body"><p class="q-card__text req">Seberapa besar penekanan pada metode pembelajaran di bawah ini dilaksanakan di program studi Anda?</p><p class="q-card__hint">Skala 1 (Sangat Rendah) — 4 (Sangat Tinggi)</p></div></div>
+                    <div class="q-card__header"><span class="q-card__num">1.</span><div class="q-card__body"><p class="q-card__text req">Seberapa besar penekanan pada metode pembelajaran di bawah ini dilaksanakan di program studi Anda?</p><p class="q-card__hint">Skala 1 (Sangat Rendah) - 4 (Sangat Tinggi)</p></div></div>
                     <div style="overflow-x:auto;margin-top:0.75rem;">
                         <table style="width:100%;border-collapse:collapse;font-size:0.8125rem;">
                             <thead><tr style="background:#f9fafb;">
@@ -684,6 +693,16 @@
             </div>
 
         </div><!-- /main-inner -->
+
+        <footer class="footer" style="margin-top: 1.5rem; border-top: 1px solid #e5e7eb;">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
 </div><!-- /layout -->
 
