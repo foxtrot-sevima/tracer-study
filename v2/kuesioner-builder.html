@@ -109,7 +109,7 @@
             </div>
             <div class="header__navigation">
                 <nav class="nav">
-                    <ul class="nav__list">
+                    <ul class="nav__list" data-more-text="Lainnya">
                         <li class="nav__item"><a class="nav__link" href="./dashboard.html"><span class="icon icon-chart-bar-square"></span><span>Dasbor</span></a></li>
                         <li class="nav__item active"><a class="nav__link" href="./index.html"><span class="icon icon-clipboard-document-list"></span><span>Kuesioner</span></a></li>
                         <li class="nav__item"><a class="nav__link" href="./alumni.html"><span class="icon icon-academic-cap"></span><span>Alumni</span></a></li>
@@ -120,12 +120,30 @@
         </div>
         <div class="header__right">
             <div class="header__action">
-                <a href="./portal-karir.html" target="_blank" class="btn btn_outline btn_xs">Portal Karir <span class="icon icon-arrow-up-right-mini"></span></a>
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification">
+                        <span class="icon icon-bell"></span>
+                    </button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./portal-karir.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-portal-karir">
+                        Portal Karir
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
             </div>
             <div class="dropdown dropdown_nav dropdown_profile">
                 <button class="header__user" data-toggle="dropdown">
                     <span class="header__user-wrapper">
-                        <span class="avatar avatar_sm"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User" width="32"></span>
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
                     </span>
                     <span class="icon icon-chevron-down-solid"></span>
                 </button>
