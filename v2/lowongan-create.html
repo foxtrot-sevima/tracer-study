@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Lowongan | KarirLink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary50: "#EAEDF5", primary100: "#D4DBEB", primary200: "#A9B7D7",
+                        primary300: "#7F92C2", primary400: "#546EAE", primary500: "#294A9A",
+                        primary600: '#1F3874', primary700: "#15254D", primary800: "#0A1327"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Poppins', sans-serif; }
+        .ql-container { min-height: 160px; font-family: 'Poppins', sans-serif; font-size: 14px; }
+        .ql-editor { min-height: 160px; }
+        .ql-toolbar.ql-snow { border-radius: 8px 8px 0 0; border-color: #d1d5db; }
+        .ql-container.ql-snow { border-radius: 0 0 8px 8px; border-color: #d1d5db; }
+        /* Toggle Switch */
+        .toggle-slider {
+            position: relative; width: 44px; height: 24px; background-color: #e5e7eb;
+            border-radius: 9999px; transition: background-color 0.2s;
+        }
+        .toggle-slider::after {
+            content: ''; position: absolute; top: 2px; left: 2px;
+            width: 20px; height: 20px; background-color: white;
+            border: 1px solid #d1d5db; border-radius: 9999px; transition: transform 0.2s;
+        }
+        .toggle-input:checked + .toggle-slider { background-color: #294A9A; }
+        .toggle-input:checked + .toggle-slider::after { transform: translateX(20px); border-color: white; }
+    </style>
+</head>
+<body class="bg-white min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white fixed w-full z-30 top-0 start-0 border-b border-gray-200">
+        <div class="max-w-screen-xl flex items-center justify-between mx-auto px-4 xl:px-8 py-3">
+            <div class="flex items-center space-x-4">
+                <a href="./portal-karir.html" class="flex items-center">
+                    <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" class="h-9 w-9 rounded" alt="Karirlink Logo">
+                </a>
+                <div class="hidden md:flex items-center space-x-2 text-sm text-gray-400 border border-gray-200 rounded-full px-4 py-2 bg-gray-50 cursor-pointer hover:border-gray-300">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M21 21l-4.35-4.35"/></svg>
+                    <span>Cari Pengguna</span>
+                </div>
+            </div>
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="./portal-karir.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Beranda
+                </a>
+                <a href="#" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    Aktivitas
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </a>
+                <a href="./perusahaan-mitra.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    Perusahaan
+                </a>
+                <a href="./perusahaan-mitra.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    Kerja Sama
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </a>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button type="button" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                </button>
+                <a href="#" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </a>
+                <a href="./index.html" class="hidden md:flex items-center text-sm text-gray-700 hover:text-primary500 font-medium px-3 py-2 gap-1">
+                    Tracer Study
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+                <div class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 rounded-lg px-2 py-1">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="" class="rounded-full h-8 w-8 object-cover border border-gray-200">
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-28 min-h-screen max-w-2xl mx-auto px-6 pb-16">
+        <!-- Back Link -->
+        <a href="./portal-karir.html" class="text-primary500 text-sm inline-flex items-center gap-1 mb-6 hover:underline">
+            ← Kembali
+        </a>
+
+        <!-- Title -->
+        <h1 class="text-xl font-bold text-gray-900 mb-1">Informasikan Lowongan ke Lulusan dan Mahasiswa</h1>
+        <p class="text-gray-500 text-sm mb-8">Lowongan Pekerjaan, Magang, Paruh Waktu, atau Pekerja Lepas dari Perguruan Tinggi dan Mitra Perusahaan</p>
+
+        <!-- Form -->
+        <form class="space-y-6">
+
+            <!-- 1. Judul Lowongan -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Judul Lowongan <span class="text-red-500">*</span></label>
+                <input type="text" class="w-full px-4 py-3 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500" placeholder="Masukkan judul lowongan" maxlength="60">
+            </div>
+
+            <!-- 2. Jenis Pekerjaan -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-2">Jenis Pekerjaan <span class="text-red-500">*</span></label>
+                <div class="flex flex-col gap-2">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="jenis_pekerjaan" value="full_time" class="w-4 h-4 text-primary500 border-gray-300 focus:ring-primary200">
+                        <span class="text-sm text-gray-600">Full Time</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="jenis_pekerjaan" value="part_time" class="w-4 h-4 text-primary500 border-gray-300 focus:ring-primary200">
+                        <span class="text-sm text-gray-600">Part Time</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="jenis_pekerjaan" value="kontrak" class="w-4 h-4 text-primary500 border-gray-300 focus:ring-primary200">
+                        <span class="text-sm text-gray-600">Kontrak</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="jenis_pekerjaan" value="magang" class="w-4 h-4 text-primary500 border-gray-300 focus:ring-primary200">
+                        <span class="text-sm text-gray-600">Magang</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="jenis_pekerjaan" value="freelance" class="w-4 h-4 text-primary500 border-gray-300 focus:ring-primary200">
+                        <span class="text-sm text-gray-600">Freelance</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 3. Tipe Pekerjaan -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-2">Tipe Pekerjaan <span class="text-red-500">*</span></label>
+                <div class="flex flex-col gap-2">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="tipe_pekerjaan" value="onsite" class="w-4 h-4 text-primary500 border-gray-300 focus:ring-primary200">
+                        <span class="text-sm text-gray-600">Onsite</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="tipe_pekerjaan" value="remote" class="w-4 h-4 text-primary500 border-gray-300 focus:ring-primary200">
+                        <span class="text-sm text-gray-600">Remote</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="tipe_pekerjaan" value="hybrid" class="w-4 h-4 text-primary500 border-gray-300 focus:ring-primary200">
+                        <span class="text-sm text-gray-600">Hybrid</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 4. Penyelenggara -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-2">Penyelenggara <span class="text-red-500">*</span></label>
+                <div class="flex flex-col gap-2">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="penyelenggara" value="perguruan_tinggi" class="w-4 h-4 text-primary500 border-gray-300 focus:ring-primary200" checked>
+                        <span class="text-sm text-gray-600">Demo eAkadcloud</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="penyelenggara" value="perusahaan_mitra" class="w-4 h-4 text-primary500 border-gray-300 focus:ring-primary200">
+                        <span class="text-sm text-gray-600">Mitra Perusahaan</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 5. Lokasi -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Lokasi <span class="text-red-500">*</span></label>
+                <div class="relative">
+                    <select class="w-full px-4 py-3 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500 pr-10">
+                        <option value="kota_simeulue_aceh" selected>Kota Simeulue, Aceh</option>
+                        <option value="surabaya">Surabaya, Jawa Timur</option>
+                        <option value="jakarta">Jakarta</option>
+                        <option value="bandung">Bandung, Jawa Barat</option>
+                        <option value="malang">Malang, Jawa Timur</option>
+                    </select>
+                    <svg class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+            </div>
+
+            <!-- 6. Batasi Domisili Pelamar -->
+            <div class="flex items-center justify-between py-2">
+                <div class="pr-4">
+                    <label class="text-sm font-semibold text-gray-800 block">Batasi Domisili Pelamar</label>
+                    <p class="text-xs text-gray-400 mt-0.5">Batasi lowongan ini hanya untuk pelamar dengan domisili lokasi yang terpilih</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                    <input type="checkbox" class="sr-only peer toggle-input">
+                    <div class="toggle-slider"></div>
+                </label>
+            </div>
+
+            <!-- 7. Dokumen Tambahan -->
+            <div class="flex items-center justify-between py-2">
+                <div class="pr-4">
+                    <label class="text-sm font-semibold text-gray-800 block">Dokumen Tambahan</label>
+                    <p class="text-xs text-gray-400 mt-0.5">Pelamar dapat menambahkan portofolio atau dokumen pendukung lainnya.</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                    <input type="checkbox" class="sr-only peer toggle-input">
+                    <div class="toggle-slider"></div>
+                </label>
+            </div>
+
+            <!-- 8. Deskripsi Pekerjaan -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Deskripsi Pekerjaan <span class="text-red-500">*</span></label>
+                <div id="editor-deskripsi"></div>
+            </div>
+
+            <!-- 9. Persyaratan Pekerjaan -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Persyaratan Pekerjaan</label>
+                <div id="editor-persyaratan"></div>
+            </div>
+
+            <!-- 10. Preferensi Program Studi -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 mb-1 block">Preferensi Program Studi <span class="text-gray-400 font-normal">Cari program studi...</span></label>
+                <input type="text" class="w-full px-4 py-3 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500" placeholder="">
+                <label class="flex items-center gap-2 mt-3 cursor-pointer">
+                    <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-primary500 focus:ring-primary200">
+                    <span class="text-sm text-gray-600">Semua Program Studi</span>
+                </label>
+            </div>
+
+            <!-- 11. Tingkat Pendidikan -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Tingkat Pendidikan</label>
+                <div class="relative">
+                    <select class="w-full px-4 py-3 text-sm text-gray-500 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500 pr-10">
+                        <option value="" disabled selected>Masukkan tingkat pendidikan</option>
+                        <option value="sma">SMA / Sederajat</option>
+                        <option value="d3">D3</option>
+                        <option value="d4">D4</option>
+                        <option value="s1">S1</option>
+                        <option value="s2">S2</option>
+                        <option value="s3">S3</option>
+                    </select>
+                    <svg class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+            </div>
+
+            <!-- 12. Tingkat Pengalaman Kerja -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Tingkat Pengalaman Kerja</label>
+                <div class="relative">
+                    <select class="w-full px-4 py-3 text-sm text-gray-500 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500 pr-10">
+                        <option value="" disabled selected>Masukkan tingkat pengalaman kerja</option>
+                        <option value="fresh_graduate">Fresh Graduate</option>
+                        <option value="1-2">1 - 2 Tahun</option>
+                        <option value="3-5">3 - 5 Tahun</option>
+                        <option value="5-10">5 - 10 Tahun</option>
+                        <option value="10+">Lebih dari 10 Tahun</option>
+                    </select>
+                    <svg class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+            </div>
+
+            <!-- 13. Keahlian -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Keahlian <span class="text-gray-400 font-normal">Masukkan keahlian</span></label>
+                <input type="text" class="w-full px-4 py-3 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500" placeholder="">
+            </div>
+
+            <!-- 14. Kategori Pekerjaan -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Kategori Pekerjaan <span class="text-red-500">*</span></label>
+                <div class="relative">
+                    <select class="w-full px-4 py-3 text-sm text-gray-500 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500 pr-10">
+                        <option value="" disabled selected>Masukkan kategori pekerjaan</option>
+                        <option value="it">Teknologi Informasi</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="marketing">Marketing & Sales</option>
+                        <option value="finance">Finance & Accounting</option>
+                        <option value="hr">Human Resources</option>
+                        <option value="design">Design & Creative</option>
+                        <option value="education">Pendidikan</option>
+                        <option value="healthcare">Kesehatan</option>
+                        <option value="others">Lainnya</option>
+                    </select>
+                    <svg class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+            </div>
+
+            <!-- 15. Poster -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-2">Poster</label>
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-10 text-center cursor-pointer hover:border-primary400 transition-colors" id="upload-poster" onclick="document.getElementById('input-poster').click()">
+                    <input type="file" id="input-poster" class="hidden" accept="image/png,image/jpeg">
+                    <svg class="mx-auto w-12 h-12 text-gray-800 mb-4" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                    </svg>
+                    <p class="text-sm text-gray-700"><span class="font-bold text-primary500 underline">Klik untuk tambahkan</span> atau seret dan lepas</p>
+                    <p class="text-sm text-gray-700">file kedalam kotak ini.</p>
+                    <p class="text-xs text-gray-400 mt-2">PNG, JPG (Maksimal 6 Mb)</p>
+                </div>
+            </div>
+
+            <!-- 16. Kisaran Gaji -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Kisaran Gaji</label>
+                <div class="relative mb-3">
+                    <select class="w-full px-4 py-3 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500 pr-10">
+                        <option value="bulanan" selected>per Bulan</option>
+                        <option value="tahunan">per Tahun</option>
+                    </select>
+                    <svg class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div class="flex gap-3">
+                    <div class="flex flex-1">
+                        <span class="inline-flex items-center px-3 text-sm font-medium text-gray-700 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg">Rp</span>
+                        <input type="text" class="w-full px-3 py-3 text-sm text-gray-900 bg-white border border-gray-300 rounded-r-lg focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500" placeholder="Minimal Gaji">
+                    </div>
+                    <div class="flex flex-1">
+                        <span class="inline-flex items-center px-3 text-sm font-medium text-gray-700 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg">Rp</span>
+                        <input type="text" class="w-full px-3 py-3 text-sm text-gray-900 bg-white border border-gray-300 rounded-r-lg focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500" placeholder="Maksimal Gaji">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 17. Tanggal Publikasi -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Tanggal Publikasi <span class="text-red-500">*</span></label>
+                <div class="relative">
+                    <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <input type="text" class="w-full pl-12 pr-4 py-3 text-sm text-gray-500 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500" placeholder="Pilih tanggal publikasi" onfocus="(this.type='date')" onblur="if(!this.value)(this.type='text')">
+                </div>
+            </div>
+
+            <!-- 18. Batasi Lowongan -->
+            <div class="flex items-center justify-between py-2">
+                <div class="pr-4">
+                    <label class="text-sm font-semibold text-gray-800 block">Batasi Lowongan</label>
+                    <p class="text-xs text-gray-400 mt-0.5">Batasi lowongan ini hanya untuk internal perguruan tinggi</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                    <input type="checkbox" class="sr-only peer toggle-input">
+                    <div class="toggle-slider"></div>
+                </label>
+            </div>
+
+            <!-- Spacer -->
+            <div class="pt-4"></div>
+
+            <!-- 19. Action Buttons -->
+            <div class="flex items-center justify-between">
+                <button type="submit" class="font-semibold rounded-lg text-sm px-6 py-3 text-center text-white bg-primary500 hover:bg-primary600 focus:outline-none focus:ring-4 focus:ring-primary200">Publish Lowongan</button>
+                <button type="button" class="font-semibold rounded-lg text-sm px-6 py-3 text-center border border-primary500 text-primary500 hover:bg-primary50">Simpan Draft</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Quill editors
+        document.addEventListener('DOMContentLoaded', function() {
+            const toolbarOptions = [
+                [{ 'header': [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline'],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'indent': '-1'}, { 'indent': '+1' }],
+                ['link'],
+            ];
+
+            new Quill('#editor-deskripsi', {
+                theme: 'snow',
+                placeholder: '',
+                modules: { toolbar: toolbarOptions }
+            });
+
+            new Quill('#editor-persyaratan', {
+                theme: 'snow',
+                placeholder: '',
+                modules: { toolbar: toolbarOptions }
+            });
+        });
+
+        // Drag and drop for poster upload
+        const uploadArea = document.getElementById('upload-poster');
+        const inputPoster = document.getElementById('input-poster');
+
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('border-primary500');
+            this.style.backgroundColor = '#EAEDF5';
+        });
+
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.classList.remove('border-primary500');
+            this.style.backgroundColor = '';
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('border-primary500');
+            this.style.backgroundColor = '';
+            const files = e.dataTransfer.files;
+            if (files.length > 0) handleFileUpload(files[0]);
+        });
+
+        inputPoster.addEventListener('change', function() {
+            if (this.files.length > 0) handleFileUpload(this.files[0]);
+        });
+
+        function handleFileUpload(file) {
+            if (file.size > 6 * 1024 * 1024) {
+                alert('Ukuran file melebihi 6 MB');
+                return;
+            }
+            const allowed = ['image/png', 'image/jpeg'];
+            if (!allowed.includes(file.type)) {
+                alert('Format file tidak didukung. Gunakan PNG atau JPG.');
+                return;
+            }
+            uploadArea.innerHTML = '<div class="flex items-center justify-center gap-3 py-4"><svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><div class="text-left"><p class="text-sm font-medium text-gray-700">' + file.name + '</p><p class="text-xs text-gray-400">' + (file.size / 1024).toFixed(1) + ' KB</p></div></div>';
+        }
+    </script>
+</body>
+</html>

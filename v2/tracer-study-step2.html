@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Alumni | Pengisian Tracer Study | Karirlink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f9fafb; min-height: 100vh; }
+
+        /* Header */
+        .ts-header { position: sticky; top: 0; z-index: 50; background: white; border-bottom: 1px solid #e5e7eb; padding: 0.75rem 1rem; }
+        .ts-header__inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 0.75rem; }
+        .ts-header__logo { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid #e5e7eb; object-fit: cover; }
+        .ts-header__info p { margin: 0; }
+        .ts-header__info p:first-child { font-size: 0.875rem; color: #6b7280; }
+        .ts-header__info p:last-child { font-weight: 500; color: #111827; }
+
+        /* Main */
+        .ts-main { padding: 2rem 1rem 5rem; max-width: 50rem; margin: 0 auto; }
+
+        /* Back link */
+        .back-link { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.875rem; font-weight: 500; color: #2563eb; text-decoration: none; margin-bottom: 1.25rem; }
+        .back-link:hover { text-decoration: underline; }
+
+        /* Page header */
+        .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .page-header__title { font-size: 1.375rem; font-weight: 700; color: #111827; margin-bottom: 0.25rem; }
+        .page-header__subtitle { font-size: 0.875rem; color: #6b7280; }
+
+        /* Search */
+        .search-input { display: flex; align-items: center; gap: 0.5rem; border: 1px solid #d1d5db; border-radius: 0.5rem; padding: 0.5rem 0.75rem; background: white; min-width: 14rem; }
+        .search-input__icon { color: #9ca3af; flex-shrink: 0; }
+        .search-input__field { border: none; outline: none; font-size: 0.875rem; color: #374151; width: 100%; background: transparent; }
+        .search-input__field::placeholder { color: #9ca3af; }
+
+        /* Table */
+        .table-wrapper { background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        thead { background: #f9fafb; }
+        th { text-align: left; padding: 0.75rem 1rem; font-weight: 600; color: #374151; border-bottom: 1px solid #e5e7eb; }
+        td { padding: 0.875rem 1rem; color: #374151; border-bottom: 1px solid #f3f4f6; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: #f9fafb; }
+
+        /* Status badge */
+        .status-badge { display: inline-flex; align-items: center; padding: 0.25rem 0.625rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 500; }
+        .status-badge--pending { background: #fef3c7; color: #92400e; }
+        .status-badge--done { background: #dcfce7; color: #166534; }
+
+        /* Link */
+        .action-link { color: #2563eb; text-decoration: none; font-weight: 500; font-size: 0.875rem; }
+        .action-link:hover { text-decoration: underline; }
+
+        /* Pagination footer */
+        .table-footer { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; font-size: 0.8125rem; color: #6b7280; border-top: 1px solid #e5e7eb; }
+        .pagination { display: flex; align-items: center; gap: 0.25rem; }
+        .pagination__btn { width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; border: 1px solid #d1d5db; border-radius: 0.375rem; background: white; color: #374151; cursor: pointer; font-size: 0.8125rem; text-decoration: none; }
+        .pagination__btn:hover { background: #f3f4f6; }
+        .pagination__btn.active { background: #2563eb; border-color: #2563eb; color: white; }
+        .pagination__btn--disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+        /* Footer */
+        .ts-footer { background: #1d4ed8; padding: 1rem; text-align: center; position: fixed; bottom: 0; left: 0; right: 0; }
+        .ts-footer p { color: white; font-size: 0.875rem; margin: 0; }
+        .ts-footer a { color: white; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="ts-header">
+        <div class="ts-header__inner">
+            <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo" class="ts-header__logo">
+            <div class="ts-header__info">
+                <p>Portal Alumni dan Pusat Karir</p>
+                <p>Demo siAkadcloud</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="ts-main">
+        <!-- Back link -->
+        <a href="./tracer-study-step1.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Kembali
+        </a>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-header__title">Daftar Alumni</h1>
+                <p class="page-header__subtitle">Lulusan 2025 • S1 - Akuntansi - S1</p>
+            </div>
+            <div class="search-input">
+                <svg class="search-input__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <input type="text" class="search-input__field" placeholder="Cari nama alumni">
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>NIM</th>
+                        <th>Nama Lengkap</th>
+                        <th>Status Pengisian</th>
+                        <th>Link Pengisian</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>3700412023</td>
+                        <td>Henni</td>
+                        <td><span class="status-badge status-badge--pending">Belum Mengisi</span></td>
+                        <td><a href="./tracer-study-verify.html" class="action-link">Isi Kuesioner</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>00000010122</td>
+                        <td>Ruka Babymon</td>
+                        <td><span class="status-badge status-badge--pending">Belum Mengisi</span></td>
+                        <td><a href="./tracer-study-verify.html" class="action-link">Isi Kuesioner</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="table-footer">
+                <span>Menampilkan 1-2 dari 2 Data</span>
+                <div class="pagination">
+                    <a class="pagination__btn pagination__btn--disabled">&lt;</a>
+                    <a class="pagination__btn active">1</a>
+                    <a class="pagination__btn pagination__btn--disabled">&gt;</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="ts-footer">
+        <p>© 2026 <a href="https://sevima.com">SEVIMA</a> All Right Reserved, Powered by <a href="https://karirlink.id">Karirlink</a></p>
+    </footer>
+</body>
+</html>

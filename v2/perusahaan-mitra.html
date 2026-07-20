@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perusahaan Mitra | KarirLink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary50: "#EAEDF5", primary100: "#D4DBEB", primary200: "#A9B7D7",
+                        primary300: "#7F92C2", primary400: "#546EAE", primary500: "#294A9A",
+                        primary600: '#1F3874', primary700: "#15254D", primary800: "#0A1327",
+                        bgprimary: "#F6F8FF"
+                    },
+                    boxShadow: { default: "0px 11px 20px rgba(0, 0, 0, 0.04)" }
+                }
+            }
+        }
+    </script>
+    <style>* { font-family: 'Poppins', sans-serif; }</style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white fixed w-full z-30 top-0 start-0 border-b border-gray-200">
+        <div class="max-w-screen-xl flex items-center justify-between mx-auto px-4 xl:px-8 py-3">
+            <!-- Logo + Search -->
+            <div class="flex items-center space-x-4">
+                <a href="./portal-karir.html" class="flex items-center">
+                    <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" class="h-9 w-9 rounded" alt="Karirlink Logo">
+                </a>
+                <div class="hidden md:flex items-center space-x-2 text-sm text-gray-400 border border-gray-200 rounded-full px-4 py-2 bg-gray-50 cursor-pointer hover:border-gray-300">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M21 21l-4.35-4.35"/></svg>
+                    <span>Cari Pengguna</span>
+                </div>
+            </div>
+
+            <!-- Main Navigation - Center -->
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="./portal-karir.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Beranda
+                </a>
+                <a href="./alumni-activity.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    Aktivitas
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </a>
+                <a href="#" class="flex items-center text-sm text-primary500 font-semibold gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    Perusahaan
+                </a>
+                <a href="#" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    Kerja Sama
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </a>
+            </div>
+
+            <!-- Right Side: Icons & Profile -->
+            <div class="flex items-center space-x-2">
+                <button type="button" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                </button>
+                <a href="#" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </a>
+                <a href="./index.html" class="hidden md:flex items-center text-sm text-gray-700 hover:text-primary500 font-medium px-3 py-2 gap-1">
+                    Tracer Study
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                </a>
+                <div class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 rounded-lg px-2 py-1">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="" class="rounded-full h-8 w-8 object-cover border border-gray-200">
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-28 bg-gray-100 min-h-screen">
+        <div class="max-w-7xl mx-auto px-24 pb-12">
+            <!-- Success Alert (hidden by default) -->
+            <div id="alert-success" class="hidden mb-4 border-2 border-green-300 bg-green-50 rounded-lg p-4">
+                <h4 class="font-semibold text-green-800 text-base">Berhasil Mengundang</h4>
+                <p class="text-sm text-green-700 mt-0.5">Perusahaan berhasil diundang!</p>
+            </div>
+
+            <!-- Error Alert (hidden by default) -->
+            <div id="alert-error" class="hidden mb-4 border-2 border-red-300 bg-red-50 rounded-lg p-4">
+                <h4 class="font-semibold text-red-700 text-base flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-4V7h2v6h-2z"/></svg>
+                    Terjadi Kesalahan
+                </h4>
+                <p class="text-sm text-red-600 mt-0.5" id="alert-error-msg">Email fauzan@sevima.com sudah terdaftar</p>
+            </div>
+
+            <div class="grid grid-cols-12 gap-6">
+                <!-- Left Column -->
+                <div class="col-span-8">
+                    <!-- Invite Banner Card -->
+                    <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                        <div class="flex items-center gap-6">
+                            <!-- Illustration SVG -->
+                            <div class="flex-shrink-0">
+                                <svg width="140" height="100" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Building -->
+                                    <rect x="45" y="20" width="50" height="60" rx="4" fill="#D4DBEB"/>
+                                    <rect x="55" y="30" width="10" height="10" rx="2" fill="#294A9A"/>
+                                    <rect x="75" y="30" width="10" height="10" rx="2" fill="#294A9A"/>
+                                    <rect x="55" y="48" width="10" height="10" rx="2" fill="#294A9A"/>
+                                    <rect x="75" y="48" width="10" height="10" rx="2" fill="#294A9A"/>
+                                    <rect x="62" y="62" width="16" height="18" rx="2" fill="#546EAE"/>
+                                    <!-- Person left -->
+                                    <circle cx="25" cy="55" r="8" fill="#A9B7D7"/>
+                                    <rect x="17" y="65" width="16" height="20" rx="8" fill="#A9B7D7"/>
+                                    <!-- Person right -->
+                                    <circle cx="115" cy="55" r="8" fill="#7F92C2"/>
+                                    <rect x="107" y="65" width="16" height="20" rx="8" fill="#7F92C2"/>
+                                    <!-- Ground -->
+                                    <rect x="10" y="82" width="120" height="4" rx="2" fill="#EAEDF5"/>
+                                </svg>
+                            </div>
+                            <!-- Text + Button -->
+                            <div class="flex-1">
+                                <p class="text-gray-700 text-sm mb-4">Tahu perusahaan bagus yang belum bergabung dengan KarirLink?</p>
+                                <button class="bg-primary500 text-white text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-primary600 transition-colors" onclick="document.getElementById('inviteModal').classList.remove('hidden')">
+                                    Undang Perusahaan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Perusahaan Mitra Anda Card -->
+                    <div class="bg-white rounded-lg p-6 mt-6 shadow-sm border border-gray-200">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">Perusahaan Mitra Anda</h2>
+
+                        <!-- Tab Buttons -->
+                        <div class="flex items-center gap-2 mb-5">
+                            <button class="bg-primary500 text-white rounded-lg px-3 py-2 text-sm font-medium">
+                                Semua (51)
+                            </button>
+                            <button class="border border-primary500 text-primary500 bg-white rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-50">
+                                Menunggu Bergabung (41)
+                            </button>
+                            <button class="border border-primary500 text-primary500 bg-white rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-50">
+                                Berhasil Bergabung (10)
+                            </button>
+                        </div>
+
+                        <!-- Company List -->
+                        <div class="divide-y divide-gray-200">
+                            <!-- Row 1 -->
+                            <div class="flex items-center justify-between py-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-base text-gray-900">PT Sentra Vidya Utama</p>
+                                        <div class="flex items-center gap-1.5 mt-1">
+                                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                            <span class="text-sm text-gray-500">fifinnur30@gmail.com</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+                                    <span class="text-sm font-medium text-yellow-500">Menunggu Bergabung</span>
+                                </div>
+                            </div>
+
+                            <!-- Row 2 -->
+                            <div class="flex items-center justify-between py-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-base text-gray-900">PT Fit Jaya Raya Tri</p>
+                                        <div class="flex items-center gap-1.5 mt-1">
+                                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                            <span class="text-sm text-gray-500">fitrinailah29@gmail.com</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-green-800" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                    <span class="text-sm font-medium text-green-800">Berhasil Bergabung</span>
+                                </div>
+                            </div>
+
+                            <!-- Row 3 -->
+                            <div class="flex items-center justify-between py-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-base text-gray-900">PT ABC</p>
+                                        <div class="flex items-center gap-1.5 mt-1">
+                                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                            <span class="text-sm text-gray-500">sf.sunflower12@gmail.com</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-green-800" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                    <span class="text-sm font-medium text-green-800">Berhasil Bergabung</span>
+                                </div>
+                            </div>
+
+                            <!-- Row 4 -->
+                            <div class="flex items-center justify-between py-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-base text-gray-900">Perusahaan D</p>
+                                        <div class="flex items-center gap-1.5 mt-1">
+                                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                            <span class="text-sm text-gray-500">test@email.com</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+                                    <span class="text-sm font-medium text-yellow-500">Menunggu Bergabung</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-span-4">
+                    <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-primary50 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-primary500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <h3 class="text-sm font-semibold text-gray-800">Informasi</h3>
+                        </div>
+                        <p class="text-sm text-gray-500 leading-relaxed">
+                            Halaman ini menampilkan daftar perusahaan mitra yang telah Anda undang untuk bergabung dengan KarirLink. Anda dapat melihat status undangan dan mengundang perusahaan baru.
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-gray-500">Total Mitra</span>
+                                <span class="font-semibold text-gray-800">51</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm mt-2">
+                                <span class="text-gray-500">Berhasil Bergabung</span>
+                                <span class="font-semibold text-green-700">10</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm mt-2">
+                                <span class="text-gray-500">Menunggu</span>
+                                <span class="font-semibold text-yellow-600">41</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Undang Perusahaan Modal -->
+    <div id="inviteModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-50" onclick="document.getElementById('inviteModal').classList.add('hidden')"></div>
+        <div class="flex min-h-screen items-center justify-center p-4">
+            <div class="relative bg-white rounded-xl shadow-lg max-w-lg w-full max-h-[90vh] overflow-y-auto">
+                <!-- Header -->
+                <div class="flex items-center justify-between px-6 pt-6 pb-4">
+                    <h3 class="text-xl font-semibold text-gray-900">Undang Perusahaan</h3>
+                    <button class="text-gray-400 hover:text-gray-600 p-1" onclick="document.getElementById('inviteModal').classList.add('hidden')">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+                <!-- Body -->
+                <div class="px-6 pb-6 space-y-5">
+                    <p class="text-base font-medium text-gray-800">Perusahaan mana yang ingin Anda undang?</p>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Nama Perusahaan <span class="text-red-500">*</span></label>
+                        <input type="text" placeholder="Masukkan Nama Perusahaan" class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-1 focus:ring-primary500 focus:border-primary500 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Email <span class="text-red-500">*</span></label>
+                        <input type="email" placeholder="Contoh: name@email.com" class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-1 focus:ring-primary500 focus:border-primary500 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">No. Telepon <span class="text-red-500">*</span></label>
+                        <input type="tel" placeholder="Contoh: 08123456789" class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-1 focus:ring-primary500 focus:border-primary500 outline-none">
+                    </div>
+
+                    <hr class="border-gray-200">
+
+                    <p class="text-base font-medium text-gray-800">Siapa yang mengundang?</p>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Nama Lengkap Anda <span class="text-red-500">*</span></label>
+                        <input type="text" placeholder="Masukkan Nama Lengkap" class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-1 focus:ring-primary500 focus:border-primary500 outline-none">
+                    </div>
+
+                    <div class="pt-2">
+                        <button class="w-full bg-primary500 text-white font-medium rounded-lg py-3 text-sm hover:bg-primary600" onclick="submitInvite()">Undang</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitInvite() {
+            // Close modal
+            document.getElementById('inviteModal').classList.add('hidden');
+            // Hide all alerts first
+            document.getElementById('alert-success').classList.add('hidden');
+            document.getElementById('alert-error').classList.add('hidden');
+            // Show success (demo: randomly show success or error)
+            const isSuccess = Math.random() > 0.4;
+            if (isSuccess) {
+                document.getElementById('alert-success').classList.remove('hidden');
+            } else {
+                const errors = [
+                    'Email fauzan@sevima.com sudah terdaftar',
+                    'Nomor telepon 082122324798 sudah terdaftar',
+                    'company phone maksimal berisi 20 karakter.'
+                ];
+                document.getElementById('alert-error-msg').textContent = errors[Math.floor(Math.random() * errors.length)];
+                document.getElementById('alert-error').classList.remove('hidden');
+            }
+            // Scroll to top to see alert
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

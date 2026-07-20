@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Daftar Kuesioner | Karirlink Tracer Study</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header Tracer Study -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./dashboard.html">
+                                <span class="icon icon-chart-bar-square"></span>
+                                <span>Dasbor</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./index.html">
+                                <span class="icon icon-clipboard-document-list"></span>
+                                <span>Kuesioner</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./alumni.html">
+                                <span class="icon icon-academic-cap"></span>
+                                <span>Alumni</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./publikasi.html">
+                                <span class="icon icon-document-text"></span>
+                                <span>Publikasi</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification">
+                        <span class="icon icon-bell"></span>
+                    </button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./portal-karir.html" target="_blank" class="btn btn_outline btn_xs btn_nav" id="kl-nav-portal-karir">
+                        Portal Karir
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle">
+                                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
+                                </div>
+                                <div class="avatar__text">
+                                    <span class="avatar__title">Admin Karirlink</span>
+                                    <span class="avatar__subtitle">admin@university.ac.id</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item">
+                            <a href="#">Pengaturan Akun</a>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger">
+                            <a href="#">
+                                <span class="icon icon-arrow-left-on-rectangle-mini"></span>
+                                Keluar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <div class="grid">
+                <!-- Video Tutorial Sidebar -->
+                <div class="col-12 col-md-3 col_video-tutorial">
+                    <div class="card card_video-tutorial">
+                        <a href="#" class="card__thumbnail-wrapper">
+                            <img src="assets/karirlink/images/icons/play-circle-solid.svg" alt="icon play" class="icon">
+                        </a>
+                        <div class="card__body">
+                            <div class="card__text-wrapper">
+                                <span class="card__title">Video Tutorial</span>
+                                <p class="card__desc">Pelajari proses pembuatan kuesioner baru untuk keperluan tracer study.</p>
+                            </div>
+                            <a href="#" class="link">
+                                Pelajari Selengkapnya
+                                <span class="icon icon-chevron-right-mini"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content Area -->
+                <div class="col-12 col-md-9">
+                    <div class="main__header main__header_kl-list">
+                        <div class="main__location">
+                            <div class="main__wrapper">
+                                <h1 class="main__title">Daftar Kuesioner</h1>
+                            </div>
+                        </div>
+                        <div class="main__action">
+                            <button class="btn btn_primary" data-toggle="modal" data-target="#modal-create-new-qnaire">
+                                <span class="icon icon-plus-circle-solid"></span>
+                                <span class="btn__text">Buat Kuesioner Baru</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card card_empty card_qnaire">
+                        <!-- Tabs -->
+                        <nav class="nav-tab">
+                            <ul class="nav-tab__wrapper">
+                                <li class="nav-tab__item active" data-toggle="tab" data-target="#kuesioner-draft">
+                                    Draft (99)  
+                                </li>
+                                <li class="nav-tab__item" data-toggle="tab" data-target="#kuesioner-siap-kirim">
+                                    Siap Kirim (99)
+                                </li>
+                                <li class="nav-tab__item" data-toggle="tab" data-target="#kuesioner-terkirim">
+                                    Terkirim (99)
+                                </li>
+                            </ul>
+                        </nav>
+
+
+                        <!-- Tab Content -->
+                        <div class="tab-content">
+                            <!-- Tab: Draft -->
+                            <div class="tab-pane" id="kuesioner-draft">
+                                <div class="grid grid_qnaire-list-head">
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-control">
+                                            <div class="form-control__group">
+                                                <span data-input-icon="search"></span>
+                                                <input type="search" class="form-control__input" placeholder="Cari kuesioner...">
+                                                <span data-clear="input"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-start-sm-8 col-start-lg-9 col-end-sm-12">
+                                        <select class="select-default">
+                                            <option value="" selected>Jenis Template</option>
+                                            <option value="1">Template Lengkap</option>
+                                            <option value="2">Template Kemdikbud</option>
+                                            <option value="3">Template Pengguna Lulusan</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Kuesioner List Items -->
+                                <div class="qnaire-lists">
+                                    <!-- Item 1: Tes Dimas -->
+                                    <div class="card card_qnaire-list">
+                                        <div class="card__body">
+                                            <div class="card__body-left">
+                                                <div class="card__header">
+                                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                                        <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                                        <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                                                    </svg>
+                                                    <div class="card__header-wrapper">
+                                                        <a href="./kuesioner-builder.html?template=full" class="card__title" style="color: var(--qn-primary-500);">Tes Dimas</a>
+                                                        <p class="card__desc">Dibuat pada 08 Juli 2026, 13:31</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card__body-right">
+                                                <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-finalisasi">
+                                                    <span class="icon icon-check-circle-mini"></span>
+                                                    Finalisasi
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="card__footer">
+                                            <div class="card__footer-left">
+                                                <span class="tag tag_neutral">
+                                                    <span class="icon icon-squares-2x2-mini"></span>
+                                                    Template Lengkap
+                                                </span>
+                                            </div>
+                                            <div class="card__footer-right" style="display: flex; gap: 0.5rem;">
+                                                <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Hapus">
+                                                    <span class="icon icon-trash-mini"></span>
+                                                </button>
+                                                <a href="./kuesioner-builder.html?template=full" class="btn btn_outline btn_sm btn_icon" data-tooltip="Edit">
+                                                    <span class="icon icon-pencil-mini"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Item 2: Test Fauzan -->
+                                    <div class="card card_qnaire-list">
+                                        <div class="card__body">
+                                            <div class="card__body-left">
+                                                <div class="card__header">
+                                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                                        <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                                        <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                                                    </svg>
+                                                    <div class="card__header-wrapper">
+                                                        <a href="./kuesioner-builder.html?template=full" class="card__title" style="color: var(--qn-primary-500);">Test Fauzan</a>
+                                                        <p class="card__desc">Dibuat pada 25 Juni 2026, 08:32</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card__body-right">
+                                                <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-finalisasi">
+                                                    <span class="icon icon-check-circle-mini"></span>
+                                                    Finalisasi
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="card__footer">
+                                            <div class="card__footer-left">
+                                                <span class="tag tag_neutral">
+                                                    <span class="icon icon-squares-2x2-mini"></span>
+                                                    Template Lengkap
+                                                </span>
+                                            </div>
+                                            <div class="card__footer-right" style="display: flex; gap: 0.5rem;">
+                                                <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Hapus">
+                                                    <span class="icon icon-trash-mini"></span>
+                                                </button>
+                                                <a href="./kuesioner-builder.html?template=full" class="btn btn_outline btn_sm btn_icon" data-tooltip="Edit">
+                                                    <span class="icon icon-pencil-mini"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Pagination -->
+                                <div class="box-table box-table_qnaire">
+                                    <div class="box-table__footer">
+                                        <div class="box-table__action">
+                                            <div class="box-table__action-left">
+                                                <div class="box-table__result">
+                                                    Menampilkan 
+                                                    <div class="form-control form-control_stand-alone">
+                                                        <select class="select-default">
+                                                            <option value="5">5 Baris</option>
+                                                            <option value="20">20 Baris</option>
+                                                            <option value="40">40 Baris</option>
+                                                            <option value="100">100 Baris</option>
+                                                        </select>
+                                                    </div>
+                                                    1-5 dari Total 99 data
+                                                </div>
+                                            </div>
+                                            <div class="box-table__action-right">
+                                                <div id="paginate-draft"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Tab: Siap Kirim -->
+                            <div class="tab-pane" id="kuesioner-siap-kirim">
+                                <div class="grid grid_qnaire-list-head">
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-control">
+                                            <div class="form-control__group">
+                                                <span data-input-icon="search"></span>
+                                                <input type="search" class="form-control__input" placeholder="Cari kuesioner...">
+                                                <span data-clear="input"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-start-sm-8 col-start-lg-9 col-end-sm-12">
+                                        <select class="select-default">
+                                            <option value="" selected>Jenis Template</option>
+                                            <option value="1">Template Lengkap</option>
+                                            <option value="2">Template Kemdikbud</option>
+                                            <option value="3">Template Pengguna Lulusan</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="qnaire-lists">
+                                    <!-- Item Siap Kirim -->
+                                    <div class="card card_qnaire-list">
+                                        <div class="card__body">
+                                            <div class="card__body-left">
+                                                <div class="card__header">
+                                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                                        <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                                        <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                                                    </svg>
+                                                    <div class="card__header-wrapper">
+                                                        <a href="#" class="card__title">Tracer Study Lulusan Tahun 2024</a>
+                                                        <p class="card__desc">Difinalisasi pada 01 Juni 2025</p>
+                                                    </div>
+                                                </div>
+                                                <div class="card__body-action">
+                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Hapus">
+                                                        <span class="icon icon-trash-mini"></span>
+                                                    </button>
+                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Duplikasi">
+                                                        <span class="icon icon-document-duplicate-mini"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card__body-right">
+                                                <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-kirim">
+                                                    <span class="icon icon-paper-airplane-mini"></span>
+                                                    Kirim
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="card__footer">
+                                            <div class="card__footer-left">
+                                                <span class="tag tag_neutral">
+                                                    <span class="icon icon-bolt-mini"></span>
+                                                    Template Kemdikbud
+                                                </span>
+                                                <span class="tag tag_neutral">
+                                                    <span class="icon icon-squares-2x2-mini"></span>
+                                                    Template Lengkap
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box-table box-table_qnaire">
+                                    <div class="box-table__footer">
+                                        <div class="box-table__action">
+                                            <div class="box-table__action-left">
+                                                <div class="box-table__result">
+                                                    Menampilkan 
+                                                    <div class="form-control form-control_stand-alone">
+                                                        <select class="select-default">
+                                                            <option value="5">5 Baris</option>
+                                                            <option value="20">20 Baris</option>
+                                                        </select>
+                                                    </div>
+                                                    1-5 dari Total 99 data
+                                                </div>
+                                            </div>
+                                            <div class="box-table__action-right">
+                                                <div id="paginate-siap-kirim"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Tab: Terkirim -->
+                            <div class="tab-pane" id="kuesioner-terkirim">
+                                <div class="grid grid_qnaire-list-head">
+                                    <div class="col-12 col-md-4">
+                                        <div class="form-control">
+                                            <div class="form-control__group">
+                                                <span data-input-icon="search"></span>
+                                                <input type="search" class="form-control__input" placeholder="Cari kuesioner...">
+                                                <span data-clear="input"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-start-md-5 col-end-md-12">
+                                        <div class="grid cols-2 cols-sm-3">
+                                            <select class="select-default">
+                                                <option value="" selected>Jenis Template</option>
+                                                <option value="1">Template Lengkap</option>
+                                                <option value="2">Template Kemdikbud</option>
+                                            </select>
+                                            <select class="select-search">
+                                                <option value="" selected disabled>Tahun Lulus</option>
+                                                <option value="2024">2024</option>
+                                                <option value="2023">2023</option>
+                                            </select>
+                                            <div class="col-2 col-sm-1">
+                                                <select class="select-search">
+                                                    <option value="" selected disabled>Program Studi</option>
+                                                    <option value="1">S1 - Teknik Informatika</option>
+                                                    <option value="2">S1 - Sistem Informasi</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="qnaire-lists">
+                                    <!-- Item Terkirim: Expandable card with sub-templates -->
+                                    <div class="card card_qnaire-list" id="terkirim-card-1">
+                                        <!-- Main card header (collapsible toggle) -->
+                                        <div class="card__body card__body_with-info" style="cursor:pointer;" onclick="toggleTemplateExpand('terkirim-card-1')">
+                                            <div class="card__body-left">
+                                                <div class="card__header">
+                                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                                        <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                                        <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                                                    </svg>
+                                                    <div class="card__header-wrapper">
+                                                        <span class="card__title">Tracer Study Lulusan Tahun 2023</span>
+                                                        <p class="card__desc">Dikirim pada 05 September 2024, 15:35</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card__body-right" style="display:flex;align-items:center;gap:0.5rem;">
+                                                <span class="icon icon-chevron-down-mini" style="font-size:1.25rem;color:var(--qn-neutral-500);transition:transform 0.2s;" id="terkirim-card-1-chevron"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Expanded: Sub-templates list -->
+                                        <div class="card__expand" id="terkirim-card-1-expand" style="display:none;border-top:1px solid var(--qn-neutral-200);padding:0.75rem 1rem;">
+                                            <!-- Sub-template 1: Template Lengkap -->
+                                            <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid var(--qn-neutral-200);border-radius:0.5rem;margin-bottom:0.5rem;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+                                                    <circle cx="12" cy="12" r="11" fill="#ea580c"/>
+                                                    <path d="M7 8h10M7 12h10M7 16h6" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                                </svg>
+                                                <div style="flex:1;min-width:0;">
+                                                    <a href="./kuesioner-template-view.html" style="font-size:0.875rem;font-weight:500;color:var(--qn-primary-500);text-decoration:none;">Template Lengkap</a>
+                                                    <p style="font-size:0.75rem;color:var(--qn-neutral-500);margin:0;">Tracer Study Lulusan Tahun 2023</p>
+                                                </div>
+                                                <div style="display:flex;align-items:center;gap:1.5rem;">
+                                                    <div style="text-align:center;">
+                                                        <span style="font-size:0.9375rem;font-weight:600;color:var(--qn-neutral-800);">0 / 7</span>
+                                                        <p style="font-size:0.6875rem;color:var(--qn-neutral-500);margin:0;">Sudah Mengisi</p>
+                                                    </div>
+                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Download">
+                                                        <span class="icon icon-arrow-down-tray-mini"></span>
+                                                    </button>
+                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Opsi lainnya">
+                                                        <span class="icon icon-ellipsis-horizontal-mini"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Sub-template 2: Template Pengguna Lulusan -->
+                                            <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid var(--qn-neutral-200);border-radius:0.5rem;margin-bottom:0.75rem;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+                                                    <circle cx="12" cy="12" r="11" fill="#22c55e"/>
+                                                    <path d="M8 8h8v8H8z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M11 11h2v2h-2z" fill="white"/>
+                                                </svg>
+                                                <div style="flex:1;min-width:0;">
+                                                    <a href="#" style="font-size:0.875rem;font-weight:500;color:var(--qn-primary-500);text-decoration:none;">Template Pengguna Lulusan</a>
+                                                    <p style="font-size:0.75rem;color:var(--qn-neutral-500);margin:0;">Tracer Study Lulusan Tahun 2023</p>
+                                                </div>
+                                                <div style="display:flex;align-items:center;gap:1.5rem;">
+                                                    <div style="text-align:center;">
+                                                        <span style="font-size:0.9375rem;font-weight:600;color:var(--qn-neutral-800);">0</span>
+                                                        <p style="font-size:0.6875rem;color:var(--qn-neutral-500);margin:0;">Sudah Mengisi</p>
+                                                    </div>
+                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Download">
+                                                        <span class="icon icon-arrow-down-tray-mini"></span>
+                                                    </button>
+                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Opsi lainnya">
+                                                        <span class="icon icon-ellipsis-horizontal-mini"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Footer: template tags + detail penerima -->
+                                        <div class="card__footer">
+                                            <div class="card__footer-left">
+                                                <span class="tag tag_neutral">
+                                                    <span class="icon icon-bolt-mini"></span>
+                                                    Template Kemdikbud
+                                                </span>
+                                                <span class="tag tag_neutral">
+                                                    <span class="icon icon-squares-2x2-mini"></span>
+                                                    Template Lengkap
+                                                </span>
+                                            </div>
+                                            <div class="card__footer-wrapper" style="display:flex;align-items:center;gap:0.5rem;">
+                                                <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Hapus">
+                                                    <span class="icon icon-trash-mini"></span>
+                                                </button>
+                                                <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Salin tautan">
+                                                    <span class="icon icon-link-mini"></span>
+                                                </button>
+                                                <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Reset hasil">
+                                                    <span class="icon icon-arrow-path-mini"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="collapse" id="terkirim-collapse-1">
+                                            <div class="card__footer card__footer_collapse">
+                                                <div class="card__footer-left">
+                                                    <span class="card__footer-title">Tahun Lulus</span>
+                                                    <div class="card__footer-tags">
+                                                        <span class="tag tag_outline tag_sm">2021</span>
+                                                        <span class="tag tag_outline tag_sm">2022</span>
+                                                        <span class="tag tag_outline tag_sm">2023</span>
+                                                    </div>
+                                                </div>
+                                                <div class="card__footer-right">
+                                                    <span class="card__footer-title">Program Studi</span>
+                                                    <div class="card__footer-tags">
+                                                        <span class="tag tag_outline tag_sm">S1 - Teknik Informatika</span>
+                                                        <span class="tag tag_outline tag_sm">S1 - Sistem Informasi</span>
+                                                        <span class="tag tag_outline tag_sm">S1 - Akuntansi</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box-table box-table_qnaire">
+                                    <div class="box-table__footer">
+                                        <div class="box-table__action">
+                                            <div class="box-table__action-left">
+                                                <div class="box-table__result">
+                                                    Menampilkan 
+                                                    <div class="form-control form-control_stand-alone">
+                                                        <select class="select-default">
+                                                            <option value="5">5 Baris</option>
+                                                            <option value="20">20 Baris</option>
+                                                        </select>
+                                                    </div>
+                                                    1-5 dari Total 99 data
+                                                </div>
+                                            </div>
+                                            <div class="box-table__action-right">
+                                                <div id="paginate-terkirim"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- [START] Modal: Buat Kuesioner Baru -->
+    <div class="modal modal_create-qnaire-template" id="modal-create-new-qnaire">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title">Buat Kuesioner</h3>
+                </div>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <div class="grid cols-1 cols-md-2">
+                    <a href="./kuesioner-builder.html?template=full" class="modal__template modal__template_full">
+                        <div class="modal__illustration-wrapper">
+                            <span class="icon icon-squares-2x2"></span>
+                        </div>
+                        <div class="modal__template-wrapper">
+                            <span class="modal__template-title">Template Lengkap</span>
+                            <p class="modal__template-desc">Membuat kuesioner lulusan berdasarkan kebutuhan Kemdikbud, IKU PTN, BAN-PT dan semua LAM.</p>
+                        </div>
+                    </a>
+                    <a href="./kuesioner-builder.html?template=kemdikbud" class="modal__template modal__template_kemdikbud">
+                        <div class="modal__illustration-wrapper">
+                            <span class="icon icon-bolt"></span>
+                        </div>
+                        <div class="modal__template-wrapper">
+                            <span class="modal__template-title">Template Kemdikbud</span>
+                            <p class="modal__template-desc">Membuat kuesioner lulusan berdasarkan kebutuhan Kemdikbud.</p>
+                        </div>
+                    </a>
+                    <a href="./kuesioner-builder.html?template=alumni" class="modal__template modal__template_alumni">
+                        <div class="modal__illustration-wrapper">
+                            <span class="icon icon-face-smile"></span>
+                        </div>
+                        <div class="modal__template-wrapper">
+                            <span class="modal__template-title">Template Pengguna Lulusan</span>
+                            <p class="modal__template-desc">Membuat kuesioner kepuasan pengguna lulusan berdasarkan kebutuhan BAN-PT & LAM.</p>
+                        </div>
+                    </a>
+                    <a href="./kuesioner-builder.html?template=empty" class="modal__template modal__template_empty">
+                        <div class="modal__illustration-wrapper">
+                            <span class="icon icon-document"></span>
+                        </div>
+                        <div class="modal__template-wrapper">
+                            <span class="modal__template-title">Template Kosong</span>
+                            <p class="modal__template-desc">Membuat kuesioner dari awal tanpa template untuk survei lulusan.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [END] Modal: Buat Kuesioner Baru -->
+
+
+    <!-- [START] Modal: Finalisasi -->
+    <div class="modal modal_qnaire-action" id="modal-finalisasi">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title">Finalisasi Kuesioner</h3>
+                </div>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <div class="grid cols-1">
+                    <p class="modal__paragraph">Kuesioner yang telah difinalisasi akan pindah ke tab "Siap Kirim", sehingga Anda tidak dapat mengubah kuesioner</p>
+                    <div class="alert alert_dark alert_checkbox">
+                        <input type="checkbox" class="form-control__checkbox" id="input-draft-agree" name="group">
+                        <div class="alert__content">
+                            <label for="input-draft-agree" class="alert__heading">Kirimkan Juga "Template Pengguna Lulusan"</label>
+                            <p class="alert__description">Sertakan Template Pengguna Lulusan dan kirimkan secara otomatis ke email Pimpinan Perusahaan setiap alumni.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <div class="grid cols-1 cols-sm-2">
+                    <button class="btn btn_outline" data-dismiss="modal">Batal</button>
+                    <button class="btn btn_primary">Finalisasi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [END] Modal: Finalisasi -->
+
+    <!-- [START] Modal: Kirim -->
+    <div class="modal modal_qnaire-action" id="modal-kirim">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper" style="max-width: 520px;">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title">Kirim Kuesioner</h3>
+                </div>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <div class="grid cols-1">
+                    <p class="modal__paragraph" style="color: #64748b; font-size: 14px; margin-bottom: 16px;">Link pengisian kuesioner akan dikirim ke email lulusan</p>
+                    
+                    <!-- Tahun Lulus - Multi Select -->
+                    <div class="form-control">
+                        <label class="form-control__label">
+                            Tahun Lulus<span class="important">*</span>
+                            <span class="icon icon-question-mark-circle-mini" style="color: #94a3b8; font-size: 14px; margin-left: 4px;" title="Pilih tahun lulus yang akan menerima kuesioner"></span>
+                        </label>
+                        <div class="multiselect-container" id="tahun-lulus-container">
+                            <div class="multiselect-input" onclick="toggleDropdown('tahun-lulus')">
+                                <div class="multiselect-tags" id="tahun-lulus-tags">
+                                    <span class="multiselect-placeholder">Pilih Tahun Lulus</span>
+                                </div>
+                                <span class="icon icon-chevron-down-mini multiselect-arrow"></span>
+                            </div>
+                            <div class="multiselect-dropdown" id="tahun-lulus-dropdown">
+                                <div class="multiselect-option multiselect-option-all" onclick="toggleSelectAll('tahun-lulus')">
+                                    <input type="checkbox" id="tahun-lulus-all">
+                                    <label>Pilih Semua</label>
+                                </div>
+                                <div class="multiselect-option" data-value="2026">
+                                    <input type="checkbox" id="tahun-2026" onchange="updateMultiselect('tahun-lulus')">
+                                    <label for="tahun-2026">2026</label>
+                                </div>
+                                <div class="multiselect-option" data-value="2025">
+                                    <input type="checkbox" id="tahun-2025" onchange="updateMultiselect('tahun-lulus')">
+                                    <label for="tahun-2025">2025</label>
+                                </div>
+                                <div class="multiselect-option" data-value="2024">
+                                    <input type="checkbox" id="tahun-2024" onchange="updateMultiselect('tahun-lulus')">
+                                    <label for="tahun-2024">2024</label>
+                                </div>
+                                <div class="multiselect-option" data-value="2023">
+                                    <input type="checkbox" id="tahun-2023" onchange="updateMultiselect('tahun-lulus')">
+                                    <label for="tahun-2023">2023</label>
+                                </div>
+                                <div class="multiselect-option" data-value="2022">
+                                    <input type="checkbox" id="tahun-2022" onchange="updateMultiselect('tahun-lulus')">
+                                    <label for="tahun-2022">2022</label>
+                                </div>
+                                <div class="multiselect-option" data-value="2021">
+                                    <input type="checkbox" id="tahun-2021" onchange="updateMultiselect('tahun-lulus')">
+                                    <label for="tahun-2021">2021</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Program Studi - Multi Select -->
+                    <div class="form-control">
+                        <label class="form-control__label">
+                            Program Studi<span class="important">*</span>
+                            <span class="icon icon-question-mark-circle-mini" style="color: #94a3b8; font-size: 14px; margin-left: 4px;" title="Pilih program studi yang akan menerima kuesioner"></span>
+                        </label>
+                        <div class="multiselect-container" id="prodi-container">
+                            <div class="multiselect-input" onclick="toggleDropdown('prodi')">
+                                <div class="multiselect-tags" id="prodi-tags">
+                                    <span class="multiselect-placeholder">Pilih Program Studi</span>
+                                </div>
+                                <span class="icon icon-chevron-down-mini multiselect-arrow"></span>
+                            </div>
+                            <div class="multiselect-dropdown" id="prodi-dropdown">
+                                <div class="multiselect-option multiselect-option-all" onclick="toggleSelectAll('prodi')">
+                                    <input type="checkbox" id="prodi-all">
+                                    <label>Semua Program Studi</label>
+                                </div>
+                                <div class="multiselect-option" data-value="S1 - (PTI) Pendidikan Teknologi Informasi">
+                                    <input type="checkbox" id="prodi-pti" onchange="updateMultiselect('prodi')">
+                                    <label for="prodi-pti">S1 - (PTI) Pendidikan Teknologi Informasi</label>
+                                </div>
+                                <div class="multiselect-option" data-value="S1 - Administrasi Publik">
+                                    <input type="checkbox" id="prodi-ap" onchange="updateMultiselect('prodi')">
+                                    <label for="prodi-ap">S1 - Administrasi Publik</label>
+                                </div>
+                                <div class="multiselect-option" data-value="S1 - Akuntansi">
+                                    <input type="checkbox" id="prodi-akun" onchange="updateMultiselect('prodi')">
+                                    <label for="prodi-akun">S1 - Akuntansi</label>
+                                </div>
+                                <div class="multiselect-option" data-value="S1 - Teknik Informatika">
+                                    <input type="checkbox" id="prodi-ti" onchange="updateMultiselect('prodi')">
+                                    <label for="prodi-ti">S1 - Teknik Informatika</label>
+                                </div>
+                                <div class="multiselect-option" data-value="S1 - Sistem Informasi">
+                                    <input type="checkbox" id="prodi-si" onchange="updateMultiselect('prodi')">
+                                    <label for="prodi-si">S1 - Sistem Informasi</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Batas Akhir Pengisian -->
+                    <div class="form-control" id="deadline-field">
+                        <label for="input-send-deadline" class="form-control__label">
+                            Batas Akhir Pengisian<span class="important">*</span>
+                        </label>
+                        <div class="form-control__group">
+                            <div class="form-control__group-icon" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none;">
+                                <span class="icon icon-calendar" style="color: #94a3b8;"></span>
+                            </div>
+                            <input type="date" class="form-control__input" id="input-send-deadline" placeholder="Atur batas akhir pengisian kuesioner" style="padding-left: 40px;">
+                        </div>
+                    </div>
+                    
+                    <!-- Checkbox: Tidak ada batas waktu -->
+                    <div class="form-control" style="margin-top: -8px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" class="form-control__checkbox" id="input-no-deadline" name="no-deadline" onchange="toggleDeadlineField()">
+                            <label for="input-no-deadline" style="font-size: 14px; color: #475569; cursor: pointer;">Tidak ada batas waktu pengisian</label>
+                        </div>
+                    </div>
+                    
+                    <!-- Alert Info Box -->
+                    <div style="background-color: #EFF6FF; border-radius: 8px; padding: 12px 16px; display: flex; align-items: flex-start; gap: 12px; margin-top: 8px;">
+                        <span class="icon icon-information-circle" style="color: #3B82F6; font-size: 18px; flex-shrink: 0; margin-top: 2px;"></span>
+                        <p style="color: #1e40af; font-size: 13px; margin: 0; line-height: 1.5;">Kuesioner ini menyertakan Kuesioner Pengguna Lulusan yang dikirimkan secara otomatis.</p>
+                    </div>
+                    
+                    <!-- Checkbox Konfirmasi -->
+                    <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; margin-top: 12px;">
+                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                            <input type="checkbox" class="form-control__checkbox" id="input-send-agree" name="group" onchange="toggleKirimButton()" style="margin-top: 2px;">
+                            <label for="input-send-agree" style="font-size: 13px; color: #334155; cursor: pointer; line-height: 1.5;">Saya yakin untuk mengirim kuesioner untuk lulusan dengan <strong>Tahun Lulus</strong> dan <strong>Program Studi</strong> tersebut</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <div class="grid cols-1 cols-sm-2">
+                    <button class="btn btn_outline" data-dismiss="modal">Batal</button>
+                    <button class="btn btn_primary" id="btn-kirim-kuesioner" disabled style="opacity: 0.5; cursor: not-allowed;">Kirim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [END] Modal: Kirim -->
+    
+    <!-- Multiselect Styles -->
+    <style>
+        .multiselect-container {
+            position: relative;
+            width: 100%;
+        }
+        .multiselect-input {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 44px;
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .multiselect-input:hover {
+            border-color: #cbd5e1;
+        }
+        .multiselect-input:focus-within {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .multiselect-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex: 1;
+        }
+        .multiselect-placeholder {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .multiselect-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .multiselect-tag-remove {
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+            opacity: 0.8;
+        }
+        .multiselect-tag-remove:hover {
+            opacity: 1;
+        }
+        .multiselect-arrow {
+            color: #64748b;
+            transition: transform 0.2s;
+        }
+        .multiselect-container.open .multiselect-arrow {
+            transform: rotate(180deg);
+        }
+        .multiselect-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 4px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 240px;
+            overflow-y: auto;
+        }
+        .multiselect-container.open .multiselect-dropdown {
+            display: block;
+        }
+        .multiselect-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-size: 14px;
+        }
+        .multiselect-option:hover {
+            background: #f1f5f9;
+        }
+        .multiselect-option.selected {
+            background: #eff6ff;
+        }
+        .multiselect-option-all {
+            background: #3b82f6;
+            color: white;
+        }
+        .multiselect-option-all:hover {
+            background: #2563eb;
+        }
+        .multiselect-option-all.selected {
+            background: #1d4ed8;
+        }
+        .multiselect-option input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #3b82f6;
+        }
+        .multiselect-option label {
+            cursor: pointer;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+
+
+    <!-- [START] Modal: Unduh -->
+    <div class="modal modal_qnaire-action" id="modal-unduh">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title">Pilih Format Laporan</h3>
+                </div>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <div class="grid cols-1">
+                    <div class="form-control">
+                        <label for="input-download-format" class="form-control__label">
+                            Format Laporan<span class="important">*</span>
+                        </label>
+                        <div class="form-control__group">
+                            <select class="select-default" id="input-download-format">
+                                <option value="apt" selected>APT</option>
+                                <option value="excel">Excel (.xlsx)</option>
+                                <option value="pdf">PDF</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <div class="grid cols-1 cols-sm-2">
+                    <button class="btn btn_outline" data-dismiss="modal">Batal</button>
+                    <button class="btn btn_primary">Unduh</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [END] Modal: Unduh -->
+
+    <!-- Quantum JS -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+
+    <!-- Custom Script -->
+    <script>
+        // Check if redirected from kuesioner-builder after saving draft
+        document.addEventListener('DOMContentLoaded', function() {
+            const showDraftToast = sessionStorage.getItem('showDraftToast');
+            const draftTitle = sessionStorage.getItem('draftTitle');
+            
+            if (showDraftToast === 'true') {
+                // Clear the flag
+                sessionStorage.removeItem('showDraftToast');
+                sessionStorage.removeItem('draftTitle');
+                
+                // Show success toast
+                setTimeout(() => {
+                    showToast('Kuesioner berhasil disimpan!', 'success');
+                }, 300);
+            }
+        });
+        
+        const paginateGlobalLang = {
+            page: "Halaman",
+            of: "dari",
+        };
+        
+        // Pagination for Draft tab
+        if (document.getElementById("paginate-draft")) {
+            new Pagination(document.getElementById("paginate-draft"), {
+                url: "#",
+                total: 20,
+                current: 1,
+                prevText: "",
+                nextText: "",
+                lang: paginateGlobalLang
+            });
+        }
+        
+        // Pagination for Siap Kirim tab
+        if (document.getElementById("paginate-siap-kirim")) {
+            new Pagination(document.getElementById("paginate-siap-kirim"), {
+                url: "#",
+                total: 20,
+                current: 1,
+                prevText: "",
+                nextText: "",
+                lang: paginateGlobalLang
+            });
+        }
+        
+        // Pagination for Terkirim tab
+        if (document.getElementById("paginate-terkirim")) {
+            new Pagination(document.getElementById("paginate-terkirim"), {
+                url: "#",
+                total: 20,
+                current: 1,
+                prevText: "",
+                nextText: "",
+                lang: paginateGlobalLang
+            });
+        }
+        
+        // Toggle Expand/Collapse for multi-template questionnaires
+        function toggleExpand(cardId) {
+            const card = document.getElementById(cardId);
+            if (!card) return;
+            
+            const content = card.querySelector('.card__expanded-content');
+            const toggle = card.querySelector('.expand-toggle .icon');
+            
+            if (content.style.display === 'none' || !content.style.display) {
+                content.style.display = 'block';
+                toggle.classList.remove('icon-chevron-down-mini');
+                toggle.classList.add('icon-chevron-up-mini');
+                card.classList.add('expanded');
+            } else {
+                content.style.display = 'none';
+                toggle.classList.remove('icon-chevron-up-mini');
+                toggle.classList.add('icon-chevron-down-mini');
+                card.classList.remove('expanded');
+            }
+        }
+        
+        // Handle Finalisasi button click - redirect to "Siap Kirim" tab
+        document.addEventListener('DOMContentLoaded', function() {
+            const finalisasiModal = document.getElementById('modal-finalisasi');
+            if (finalisasiModal) {
+                const finalisasiBtn = finalisasiModal.querySelector('.modal__footer .btn_primary');
+                if (finalisasiBtn) {
+                    finalisasiBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        // Close the modal properly (Quantum framework style)
+                        finalisasiModal.classList.remove('active');
+                        finalisasiModal.style.display = 'none';
+                        document.body.classList.remove('modal-open');
+                        document.body.style.overflow = '';
+                        
+                        // Remove any modal backdrop/overlay if exists
+                        const backdrop = document.querySelector('.modal-backdrop');
+                        if (backdrop) backdrop.remove();
+                        
+                        // Also try clicking the dismiss button programmatically as fallback
+                        const dismissBtn = finalisasiModal.querySelector('[data-dismiss="modal"]');
+                        if (dismissBtn) {
+                            dismissBtn.click();
+                        }
+                        
+                        // Switch to "Siap Kirim" tab after a short delay
+                        setTimeout(function() {
+                            const siapKirimTab = document.querySelector('[data-target="#kuesioner-siap-kirim"]');
+                            const siapKirimContent = document.getElementById('kuesioner-siap-kirim');
+                            
+                            // Remove active from all tabs and contents
+                            document.querySelectorAll('.nav-tab__item').forEach(tab => tab.classList.remove('active'));
+                            document.querySelectorAll('.tab-pane').forEach(content => content.classList.remove('active'));
+                            
+                            // Activate Siap Kirim tab
+                            if (siapKirimTab) siapKirimTab.classList.add('active');
+                            if (siapKirimContent) siapKirimContent.classList.add('active');
+                            
+                            // Add newly finalized questionnaire at top of Siap Kirim list
+                            addFinalizedQuestionnaire();
+                            
+                            // Show success toast notification
+                            showToast('Kuesioner berhasil difinalisasi', 'success');
+                        }, 100);
+                    });
+                }
+            }
+        });
+        
+        // Function to add newly finalized questionnaire to Siap Kirim tab
+        function addFinalizedQuestionnaire() {
+            const siapKirimList = document.querySelector('#kuesioner-siap-kirim .qnaire-lists');
+            if (!siapKirimList) return;
+            
+            // Check if already added (to prevent duplicates on demo)
+            if (document.getElementById('new-finalized-card')) return;
+            
+            // Create new card HTML for the finalized questionnaire (matching existing card structure)
+            const newCard = document.createElement('div');
+            newCard.id = 'new-finalized-card';
+            newCard.className = 'card card_qnaire-list';
+            newCard.style.cssText = 'animation: highlightNew 2s ease-out; border: 2px solid #10B981; border-radius: 8px;';
+            newCard.innerHTML = `
+                <div class="card__body">
+                    <div class="card__body-left">
+                        <div class="card__header">
+                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                            </svg>
+                            <div class="card__header-wrapper">
+                                <a href="#" class="card__title">Tes Dimas</a>
+                                <p class="card__desc">Difinalisasi pada 13 Juli 2026, 10:30</p>
+                            </div>
+                        </div>
+                        <div class="card__body-action">
+                            <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Hapus">
+                                <span class="icon icon-trash-mini"></span>
+                            </button>
+                            <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Duplikasi">
+                                <span class="icon icon-document-duplicate-mini"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card__body-right">
+                        <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-kirim">
+                            <span class="icon icon-paper-airplane-mini"></span>
+                            Kirim
+                        </a>
+                    </div>
+                </div>
+                <div class="card__footer">
+                    <div class="card__footer-left">
+                        <span class="tag tag_neutral">
+                            <span class="icon icon-squares-2x2-mini"></span>
+                            Template Lengkap
+                        </span>
+                    </div>
+                </div>
+            `;
+            
+            // Insert at the beginning of the list
+            siapKirimList.insertBefore(newCard, siapKirimList.firstChild);
+            
+            // Add highlight animation style
+            if (!document.getElementById('highlight-style')) {
+                const style = document.createElement('style');
+                style.id = 'highlight-style';
+                style.textContent = `
+                    @keyframes highlightNew {
+                        0% { background-color: #D1FAE5; border-color: #10B981; }
+                        100% { background-color: white; border-color: #e5e7eb; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Remove highlight after animation
+            setTimeout(() => {
+                newCard.style.animation = '';
+                newCard.style.border = '';
+            }, 2000);
+        }
+        
+        // Toast notification function
+        function showToast(message, type = 'success') {
+            // Remove existing toast if any
+            const existingToast = document.querySelector('.toast-notification');
+            if (existingToast) existingToast.remove();
+            
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 24px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: ${type === 'success' ? '#10B981' : '#EF4444'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 500;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                animation: slideUp 0.3s ease-out;
+            `;
+            
+            // Add icon
+            const icon = type === 'success' ? '✓' : '✕';
+            toast.innerHTML = `<span style="font-size: 16px;">${icon}</span> ${message}`;
+            
+            // Add animation style
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideUp {
+                    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Append to body
+            document.body.appendChild(toast);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                toast.style.animation = 'slideUp 0.3s ease-out reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        // ========== MULTISELECT FUNCTIONS ==========
+        
+        // Toggle dropdown visibility
+        function toggleDropdown(type) {
+            const container = document.getElementById(type + '-container');
+            const allContainers = document.querySelectorAll('.multiselect-container');
+            
+            // Close all other dropdowns
+            allContainers.forEach(c => {
+                if (c !== container) c.classList.remove('open');
+            });
+            
+            // Toggle current dropdown
+            container.classList.toggle('open');
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.multiselect-container')) {
+                document.querySelectorAll('.multiselect-container').forEach(c => {
+                    c.classList.remove('open');
+                });
+            }
+        });
+        
+        // Toggle select all
+        function toggleSelectAll(type) {
+            const container = document.getElementById(type + '-container');
+            const allCheckbox = document.getElementById(type + (type === 'tahun-lulus' ? '-all' : '-all'));
+            const options = container.querySelectorAll('.multiselect-option:not(.multiselect-option-all) input[type="checkbox"]');
+            const selectAllOption = container.querySelector('.multiselect-option-all');
+            
+            // Toggle the "all" state
+            const newState = !allCheckbox.checked;
+            allCheckbox.checked = newState;
+            
+            // Update visual state
+            if (newState) {
+                selectAllOption.classList.add('selected');
+            } else {
+                selectAllOption.classList.remove('selected');
+            }
+            
+            // Check/uncheck all options
+            options.forEach(opt => {
+                opt.checked = newState;
+                if (newState) {
+                    opt.closest('.multiselect-option').classList.add('selected');
+                } else {
+                    opt.closest('.multiselect-option').classList.remove('selected');
+                }
+            });
+            
+            // Update tags display
+            updateMultiselect(type);
+        }
+        
+        // Update multiselect display
+        function updateMultiselect(type) {
+            const container = document.getElementById(type + '-container');
+            const tagsContainer = document.getElementById(type + '-tags');
+            const options = container.querySelectorAll('.multiselect-option:not(.multiselect-option-all) input[type="checkbox"]');
+            const allCheckbox = document.getElementById(type + '-all');
+            const selectAllOption = container.querySelector('.multiselect-option-all');
+            
+            // Get selected values
+            const selectedValues = [];
+            options.forEach(opt => {
+                if (opt.checked) {
+                    const value = opt.closest('.multiselect-option').dataset.value;
+                    selectedValues.push(value);
+                    opt.closest('.multiselect-option').classList.add('selected');
+                } else {
+                    opt.closest('.multiselect-option').classList.remove('selected');
+                }
+            });
+            
+            // Check if all are selected
+            const allSelected = selectedValues.length === options.length && options.length > 0;
+            allCheckbox.checked = allSelected;
+            if (allSelected) {
+                selectAllOption.classList.add('selected');
+            } else {
+                selectAllOption.classList.remove('selected');
+            }
+            
+            // Update tags display
+            if (selectedValues.length === 0) {
+                tagsContainer.innerHTML = '<span class="multiselect-placeholder">' + 
+                    (type === 'tahun-lulus' ? 'Pilih Tahun Lulus' : 'Pilih Program Studi') + '</span>';
+            } else {
+                let tagsHtml = '';
+                selectedValues.forEach(val => {
+                    // Shorten display for long values
+                    let displayVal = val;
+                    if (val.length > 20) {
+                        displayVal = val.substring(0, 18) + '...';
+                    }
+                    tagsHtml += `<span class="multiselect-tag">${displayVal}<span class="multiselect-tag-remove" onclick="removeTag(event, '${type}', '${val}')">×</span></span>`;
+                });
+                tagsContainer.innerHTML = tagsHtml;
+            }
+        }
+        
+        // Remove individual tag
+        function removeTag(event, type, value) {
+            event.stopPropagation();
+            const container = document.getElementById(type + '-container');
+            const option = container.querySelector(`.multiselect-option[data-value="${value}"] input[type="checkbox"]`);
+            if (option) {
+                option.checked = false;
+                updateMultiselect(type);
+            }
+        }
+        
+        // Toggle deadline field based on checkbox
+        function toggleDeadlineField() {
+            const checkbox = document.getElementById('input-no-deadline');
+            const deadlineField = document.getElementById('deadline-field');
+            const deadlineInput = document.getElementById('input-send-deadline');
+            
+            if (checkbox.checked) {
+                deadlineField.style.opacity = '0.5';
+                deadlineField.style.pointerEvents = 'none';
+                deadlineInput.value = '';
+                deadlineInput.removeAttribute('required');
+            } else {
+                deadlineField.style.opacity = '1';
+                deadlineField.style.pointerEvents = 'auto';
+                deadlineInput.setAttribute('required', 'required');
+            }
+        }
+        
+        // Toggle Kirim button based on confirmation checkbox
+        function toggleKirimButton() {
+            const confirmCheckbox = document.getElementById('input-send-agree');
+            const kirimBtn = document.getElementById('btn-kirim-kuesioner');
+            
+            if (confirmCheckbox.checked) {
+                kirimBtn.disabled = false;
+                kirimBtn.style.opacity = '1';
+                kirimBtn.style.cursor = 'pointer';
+            } else {
+                kirimBtn.disabled = true;
+                kirimBtn.style.opacity = '0.5';
+                kirimBtn.style.cursor = 'not-allowed';
+            }
+        }
+        
+        // Reset modal state when opened
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalKirim = document.getElementById('modal-kirim');
+            if (modalKirim) {
+                // Observer to detect when modal is shown
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.attributeName === 'class' || mutation.attributeName === 'style') {
+                            const isVisible = modalKirim.classList.contains('active') || 
+                                            modalKirim.style.display === 'block' ||
+                                            getComputedStyle(modalKirim).display !== 'none';
+                            if (isVisible) {
+                                // Reset form when modal opens
+                                resetKirimModal();
+                            }
+                        }
+                    });
+                });
+                observer.observe(modalKirim, { attributes: true });
+            }
+        });
+        
+        // Reset Kirim modal to initial state
+        function resetKirimModal() {
+            // Reset multiselects
+            ['tahun-lulus', 'prodi'].forEach(type => {
+                const container = document.getElementById(type + '-container');
+                if (container) {
+                    const options = container.querySelectorAll('input[type="checkbox"]');
+                    options.forEach(opt => {
+                        opt.checked = false;
+                        const optionEl = opt.closest('.multiselect-option');
+                        if (optionEl) optionEl.classList.remove('selected');
+                    });
+                    updateMultiselect(type);
+                }
+            });
+            
+            // Reset deadline
+            const deadlineInput = document.getElementById('input-send-deadline');
+            if (deadlineInput) deadlineInput.value = '';
+            
+            const noDeadlineCheckbox = document.getElementById('input-no-deadline');
+            if (noDeadlineCheckbox) {
+                noDeadlineCheckbox.checked = false;
+                toggleDeadlineField();
+            }
+            
+            // Reset confirmation
+            const confirmCheckbox = document.getElementById('input-send-agree');
+            if (confirmCheckbox) {
+                confirmCheckbox.checked = false;
+                toggleKirimButton();
+            }
+        }
+        
+        // Handle Kirim Kuesioner button click
+        document.addEventListener('DOMContentLoaded', function() {
+            const kirimBtn = document.getElementById('btn-kirim-kuesioner');
+            if (kirimBtn) {
+                kirimBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Only proceed if button is enabled
+                    if (kirimBtn.disabled) return;
+                    
+                    // Get selected values for the card
+                    const selectedTahun = getSelectedValues('tahun-lulus');
+                    const selectedProdi = getSelectedValues('prodi');
+                    
+                    // Close the modal
+                    const modalKirim = document.getElementById('modal-kirim');
+                    if (modalKirim) {
+                        modalKirim.classList.remove('active');
+                        modalKirim.style.display = 'none';
+                        document.body.classList.remove('modal-open');
+                        document.body.style.overflow = '';
+                        
+                        // Also try clicking the dismiss button
+                        const dismissBtn = modalKirim.querySelector('[data-dismiss="modal"]');
+                        if (dismissBtn) dismissBtn.click();
+                    }
+                    
+                    // Switch to "Terkirim" tab after short delay
+                    setTimeout(function() {
+                        const terkirimTab = document.querySelector('[data-target="#kuesioner-terkirim"]');
+                        const terkirimContent = document.getElementById('kuesioner-terkirim');
+                        
+                        // Remove active from all tabs and contents
+                        document.querySelectorAll('.nav-tab__item').forEach(tab => tab.classList.remove('active'));
+                        document.querySelectorAll('.tab-pane').forEach(content => content.classList.remove('active'));
+                        
+                        // Activate Terkirim tab
+                        if (terkirimTab) terkirimTab.classList.add('active');
+                        if (terkirimContent) terkirimContent.classList.add('active');
+                        
+                        // Add sent questionnaire card to Terkirim list
+                        addSentQuestionnaire(selectedTahun, selectedProdi);
+                        
+                        // Show success toast
+                        showToast('Kuesioner berhasil dikirim', 'success');
+                    }, 100);
+                });
+            }
+        });
+        
+        // Get selected values from multiselect
+        function getSelectedValues(type) {
+            const container = document.getElementById(type + '-container');
+            if (!container) return [];
+            
+            const values = [];
+            const options = container.querySelectorAll('.multiselect-option:not(.multiselect-option-all) input[type="checkbox"]:checked');
+            options.forEach(opt => {
+                const value = opt.closest('.multiselect-option').dataset.value;
+                values.push(value);
+            });
+            return values;
+        }
+
+        // Toggle expand/collapse for sub-template cards in Terkirim
+        function toggleTemplateExpand(cardId) {
+            const expand = document.getElementById(cardId + '-expand');
+            const chevron = document.getElementById(cardId + '-chevron');
+            if (!expand) return;
+            
+            if (expand.style.display === 'none') {
+                expand.style.display = 'block';
+                if (chevron) chevron.style.transform = 'rotate(180deg)';
+            } else {
+                expand.style.display = 'none';
+                if (chevron) chevron.style.transform = 'rotate(0deg)';
+            }
+        }
+        
+        // Add sent questionnaire card to Terkirim tab
+        function addSentQuestionnaire(tahunLulus, prodi) {
+            const terkirimList = document.querySelector('#kuesioner-terkirim .qnaire-lists');
+            if (!terkirimList) return;
+            
+            // Check if already added (to prevent duplicates on demo)
+            if (document.getElementById('new-sent-card')) return;
+            
+            // Format current date
+            const now = new Date();
+            const options = { day: '2-digit', month: 'long', year: 'numeric' };
+            const dateStr = now.toLocaleDateString('id-ID', options);
+            const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            
+            // Generate tahun lulus tags
+            let tahunTags = tahunLulus.map(t => `<span class="tag tag_outline tag_sm">${t}</span>`).join('');
+            if (!tahunTags) tahunTags = '<span class="tag tag_outline tag_sm">2024</span>';
+            
+            // Generate prodi tags (shorten if too long)
+            let prodiTags = prodi.map(p => {
+                const shortName = p.length > 25 ? p.substring(0, 22) + '...' : p;
+                return `<span class="tag tag_outline tag_sm">${shortName}</span>`;
+            }).join('');
+            if (!prodiTags) prodiTags = '<span class="tag tag_outline tag_sm">Semua Program Studi</span>';
+            
+            // Create new card
+            const newCard = document.createElement('div');
+            newCard.id = 'new-sent-card';
+            newCard.className = 'card card_qnaire-list';
+            newCard.style.cssText = 'animation: highlightNew 2s ease-out; border: 2px solid #10B981; border-radius: 8px;';
+            newCard.innerHTML = `
+                <div class="card__body card__body_with-info">
+                    <div class="card__body-left">
+                        <div class="card__header">
+                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                            </svg>
+                            <div class="card__header-wrapper">
+                                <a href="#" class="card__title">Tes Dimas</a>
+                                <p class="card__desc">Dikirim pada ${dateStr}, ${timeStr}</p>
+                            </div>
+                        </div>
+                        <div class="card__body-action">
+                            <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Hapus">
+                                <span class="icon icon-trash-mini"></span>
+                            </button>
+                            <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Salin tautan">
+                                <span class="icon icon-link-mini"></span>
+                            </button>
+                            <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Reset hasil">
+                                <span class="icon icon-arrow-path-mini"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card__body-info">
+                        <a href="#" class="info">
+                            <div class="info__value-wrapper">
+                                <span class="info__value">0</span>
+                                <span class="info__subtitle">Lulusan</span>
+                            </div>
+                            <p class="info__desc">Menerima Kuesioner</p>
+                        </a>
+                        <a href="#" class="info">
+                            <div class="info__value-wrapper">
+                                <span class="info__value">0</span>
+                                <span class="info__subtitle">Lulusan</span>
+                            </div>
+                            <p class="info__desc">Mengisi Kuesioner</p>
+                        </a>
+                    </div>
+                    <div class="card__body-right">
+                        <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-unduh">
+                            <span class="icon icon-arrow-down-tray-mini"></span>
+                            Unduh
+                        </a>
+                    </div>
+                </div>
+                <div class="card__footer">
+                    <div class="card__footer-left">
+                        <span class="tag tag_neutral">
+                            <span class="icon icon-squares-2x2-mini"></span>
+                            Template Lengkap
+                        </span>
+                    </div>
+                    <div class="card__footer-wrapper">
+                        <button class="btn btn_outline btn_sm" onclick="toggleCollapse('new-sent-collapse')">
+                            Detail Penerima
+                            <span class="icon icon-chevron-down-mini"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="collapse" id="new-sent-collapse" style="display: none;">
+                    <div class="card__footer card__footer_collapse">
+                        <div class="card__footer-left">
+                            <span class="card__footer-title">Tahun Lulus</span>
+                            <div class="card__footer-tags">
+                                ${tahunTags}
+                            </div>
+                        </div>
+                        <div class="card__footer-right">
+                            <span class="card__footer-title">Program Studi</span>
+                            <div class="card__footer-tags">
+                                ${prodiTags}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Insert at the beginning of the list
+            terkirimList.insertBefore(newCard, terkirimList.firstChild);
+            
+            // Remove highlight after animation
+            setTimeout(() => {
+                newCard.style.animation = '';
+                newCard.style.border = '';
+            }, 2000);
+        }
+        
+        // Toggle collapse for detail penerima
+        function toggleCollapse(collapseId) {
+            const collapse = document.getElementById(collapseId);
+            if (collapse) {
+                if (collapse.style.display === 'none' || !collapse.style.display) {
+                    collapse.style.display = 'block';
+                } else {
+                    collapse.style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
