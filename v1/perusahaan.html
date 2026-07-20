@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Perusahaan | Portal Karir Karirlink</title>
+    <title>Perusahaan Mitra | Karirlink Tracer Study</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
 
     <!-- Choices CSS & JS -->
@@ -21,45 +21,52 @@
     <link rel="stylesheet" href="assets/css/portal-karir.css">
 </head>
 <body class="body body_kl-white">
-    <!-- [START] Header Portal Karir -->
-    <header class="header header_compact header_portal">
+    <!-- [START] Header (shell sama dengan halaman admin lain) -->
+    <header class="header header_compact">
         <div class="header__left">
             <div class="header__group">
-                <a href="./portal-karir.html" class="header__identity">
+                <a href="./index.html" class="header__identity">
                     <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
                     <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
                 </a>
-            </div>
-            <div class="header__search">
-                <div class="form-control form-control_sm">
-                    <div class="form-control__group">
-                        <span data-input-icon="search"></span>
-                        <input type="search" class="form-control__input" placeholder="Cari Pengguna">
-                    </div>
-                </div>
             </div>
             <div class="header__navigation">
                 <nav class="nav">
                     <ul class="nav__list" data-more-text="Lainnya">
                         <li class="nav__item">
-                            <a class="nav__link" href="./portal-karir.html">
-                                <span class="icon icon-home"></span><span>Beranda</span>
+                            <a class="nav__link" href="./index.html">
+                                <span class="icon icon-chart-bar-square"></span>
+                                <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="nav__item">
-                            <a class="nav__link" href="#">
-                                <span class="icon icon-sparkles"></span><span>Aktivitas</span>
-                                <span class="icon icon-chevron-down-mini"></span>
+                            <a class="nav__link" href="./kuesioner.html">
+                                <span class="icon icon-clipboard-document-list"></span>
+                                <span>Kuesioner</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./alumni.html">
+                                <span class="icon icon-academic-cap"></span>
+                                <span>Alumni</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./publikasi.html">
+                                <span class="icon icon-document-text"></span>
+                                <span>Publikasi</span>
                             </a>
                         </li>
                         <li class="nav__item active">
-                            <a class="nav__link" href="./perusahaan.html">
-                                <span class="icon icon-building-office-2"></span><span>Perusahaan</span>
+                            <a class="nav__link" href="./kerja-sama.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Aktivitas</span>
                             </a>
                         </li>
                         <li class="nav__item">
-                            <a class="nav__link" href="./kerja-sama.html">
-                                <span class="icon icon-puzzle-piece"></span><span>Kerja Sama</span>
+                            <a class="nav__link" href="./portal-karir.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Portal Karir</span>
                             </a>
                         </li>
                     </ul>
@@ -71,14 +78,6 @@
                 <div class="dropdown dropdown_nav dropdown_notification">
                     <button class="btn btn_icon btn_nav" data-toggle="dropdown"><span class="icon icon-bell"></span></button>
                 </div>
-                <div class="dropdown dropdown_nav dropdown_notification">
-                    <button class="btn btn_icon btn_nav" data-toggle="dropdown"><span class="icon icon-envelope"></span></button>
-                </div>
-                <div class="dropdown dropdown_nav dropdown_module">
-                    <a href="./dashboard.html" target="_blank" class="btn btn_outline btn_xs btn_nav">
-                        Tracer Study<span class="icon icon-arrow-up-right-mini"></span>
-                    </a>
-                </div>
             </div>
             <div class="dropdown dropdown_nav dropdown_profile">
                 <button class="header__user" data-toggle="dropdown">
@@ -88,6 +87,10 @@
                                 <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
                             </span>
                         </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
                     </span>
                     <span class="icon icon-chevron-down-solid"></span>
                 </button>
@@ -96,12 +99,11 @@
                         <li class="dropdown__avatar">
                             <div class="avatar avatar_sm">
                                 <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
-                                <div class="avatar__text"><span class="avatar__title">Ahmad Fauzi</span><span class="avatar__subtitle">Alumni 2023</span></div>
+                                <div class="avatar__text"><span class="avatar__title">Admin Karirlink</span><span class="avatar__subtitle">admin@university.ac.id</span></div>
                             </div>
                         </li>
                         <li class="dropdown__line"></li>
-                        <li class="dropdown__item"><a href="#">Profil Saya</a></li>
-                        <li class="dropdown__item"><a href="./lamaran-saya.html">Lamaran Saya</a></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
                         <li class="dropdown__line"></li>
                         <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
                     </ul>
@@ -112,14 +114,27 @@
     <!-- [END] Header -->
 
     <!-- [START] Main Content -->
-    <main class="main main_portal">
+    <main class="main">
         <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./index.html">Dashboard</a></li>
+                <li class="breadcrumb__item"><a href="./kerja-sama.html">Aktivitas</a></li>
+                <li class="breadcrumb__item active"><a href="#">Perusahaan Mitra</a></li>
+            </ul>
+
             <div class="main__header main__header_kl-list">
                 <div class="main__location">
                     <div class="main__wrapper">
                         <h1 class="main__title">Perusahaan Mitra</h1>
                         <p class="main__subtitle">500+ perusahaan terhubung dengan Karirlink</p>
                     </div>
+                </div>
+                <div class="main__action">
+                    <a href="./kerja-sama.html" class="btn btn_outline">
+                        <span class="icon icon-sparkles"></span>
+                        <span class="btn__text">Lihat Kerja Sama</span>
+                    </a>
                 </div>
             </div>
 
@@ -162,7 +177,7 @@
                     <div class="card card_dashboard" style="text-align: center;">
                         <div class="card__body">
                             <div style="width: 64px; height: 64px; border-radius: 0.75rem; border: 1px solid var(--qn-neutral-200); overflow: hidden; margin: 0 auto 1rem;">
-                                <img src="https://logo.clearbit.com/google.com" alt="Google" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Google" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                             <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem;">Google Indonesia</h3>
                             <p style="font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 0.75rem;">Teknologi</p>
@@ -179,7 +194,7 @@
                     <div class="card card_dashboard" style="text-align: center;">
                         <div class="card__body">
                             <div style="width: 64px; height: 64px; border-radius: 0.75rem; border: 1px solid var(--qn-neutral-200); overflow: hidden; margin: 0 auto 1rem;">
-                                <img src="https://logo.clearbit.com/tokopedia.com" alt="Tokopedia" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Tokopedia" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                             <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem;">Tokopedia</h3>
                             <p style="font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 0.75rem;">E-commerce</p>
@@ -196,7 +211,7 @@
                     <div class="card card_dashboard" style="text-align: center;">
                         <div class="card__body">
                             <div style="width: 64px; height: 64px; border-radius: 0.75rem; border: 1px solid var(--qn-neutral-200); overflow: hidden; margin: 0 auto 1rem;">
-                                <img src="https://logo.clearbit.com/gojek.com" alt="Gojek" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Gojek" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                             <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem;">Gojek</h3>
                             <p style="font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 0.75rem;">Teknologi</p>
@@ -213,7 +228,7 @@
                     <div class="card card_dashboard" style="text-align: center;">
                         <div class="card__body">
                             <div style="width: 64px; height: 64px; border-radius: 0.75rem; border: 1px solid var(--qn-neutral-200); overflow: hidden; margin: 0 auto 1rem;">
-                                <img src="https://logo.clearbit.com/shopee.com" alt="Shopee" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Shopee" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                             <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem;">Shopee Indonesia</h3>
                             <p style="font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 0.75rem;">E-commerce</p>
@@ -230,7 +245,7 @@
                     <div class="card card_dashboard" style="text-align: center;">
                         <div class="card__body">
                             <div style="width: 64px; height: 64px; border-radius: 0.75rem; border: 1px solid var(--qn-neutral-200); overflow: hidden; margin: 0 auto 1rem;">
-                                <img src="https://logo.clearbit.com/bukalapak.com" alt="Bukalapak" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Bukalapak" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                             <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem;">Bukalapak</h3>
                             <p style="font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 0.75rem;">E-commerce</p>
@@ -247,7 +262,7 @@
                     <div class="card card_dashboard" style="text-align: center;">
                         <div class="card__body">
                             <div style="width: 64px; height: 64px; border-radius: 0.75rem; border: 1px solid var(--qn-neutral-200); overflow: hidden; margin: 0 auto 1rem;">
-                                <img src="https://logo.clearbit.com/traveloka.com" alt="Traveloka" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Traveloka" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                             <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem;">Traveloka</h3>
                             <p style="font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 0.75rem;">Travel</p>
@@ -264,7 +279,7 @@
                     <div class="card card_dashboard" style="text-align: center;">
                         <div class="card__body">
                             <div style="width: 64px; height: 64px; border-radius: 0.75rem; border: 1px solid var(--qn-neutral-200); overflow: hidden; margin: 0 auto 1rem;">
-                                <img src="https://logo.clearbit.com/telkom.co.id" alt="Telkom" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Telkom" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                             <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem;">Telkom Indonesia</h3>
                             <p style="font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 0.75rem;">Telekomunikasi</p>
@@ -281,7 +296,7 @@
                     <div class="card card_dashboard" style="text-align: center;">
                         <div class="card__body">
                             <div style="width: 64px; height: 64px; border-radius: 0.75rem; border: 1px solid var(--qn-neutral-200); overflow: hidden; margin: 0 auto 1rem;">
-                                <img src="https://logo.clearbit.com/bca.co.id" alt="BCA" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="BCA" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                             <h3 style="font-size: 1rem; font-weight: 600; margin: 0 0 0.25rem;">Bank BCA</h3>
                             <p style="font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 0.75rem;">Finansial</p>
@@ -303,6 +318,17 @@
                 </nav>
             </div>
         </div>
+    
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
     <!-- [END] Main Content -->
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buat Kuesioner | Karirlink Tracer Study</title>
+    <title>Edit Template Tracer Study | Karirlink</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
     <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
@@ -20,7 +20,8 @@
         .section-item:hover, .section-item.active { border-color: var(--qn-primary-500); background: var(--qn-primary-50); }
         .section-item.active { border-width: 2px; }
         .section-item__number { width: 1.5rem; height: 1.5rem; display: flex; align-items: center; justify-content: center; background: var(--qn-primary-500); color: white; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600; flex-shrink: 0; }
-        .section-item__name { flex: 1; font-size: 0.8125rem; font-weight: 500; color: var(--qn-neutral-800); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+        .section-item__name { flex: 1; font-size: 0.8125rem; font-weight: 500; color: var(--qn-neutral-800); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 90px; }
+        .section-item__wave-scope { flex-shrink: 0; font-size: 0.6875rem; font-weight: 500; color: var(--qn-neutral-700); background: var(--qn-neutral-100); border: 1px solid var(--qn-neutral-200); border-radius: 0.25rem; padding: 0.125rem 0.25rem; max-width: 82px; cursor: pointer; }
         .section-item__delete { padding: 0.25rem; cursor: pointer; color: var(--qn-neutral-400); flex-shrink: 0; }
         .section-item__delete:hover { color: var(--qn-danger-500); }
         .btn-add-section { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.75rem; background: var(--qn-primary-500); color: white; border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; }
@@ -109,40 +110,83 @@
             </div>
             <div class="header__navigation">
                 <nav class="nav">
-                    <ul class="nav__list">
-                        <li class="nav__item"><a class="nav__link" href="./dashboard.html"><span class="icon icon-chart-bar-square"></span><span>Dasbor</span></a></li>
-                        <li class="nav__item active"><a class="nav__link" href="./index.html"><span class="icon icon-clipboard-document-list"></span><span>Kuesioner</span></a></li>
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item"><a class="nav__link" href="./index.html"><span class="icon icon-chart-bar-square"></span><span>Dashboard</span></a></li>
+                        <li class="nav__item active"><a class="nav__link" href="./kuesioner.html"><span class="icon icon-clipboard-document-list"></span><span>Kuesioner</span></a></li>
                         <li class="nav__item"><a class="nav__link" href="./alumni.html"><span class="icon icon-academic-cap"></span><span>Alumni</span></a></li>
                         <li class="nav__item"><a class="nav__link" href="./publikasi.html"><span class="icon icon-document-text"></span><span>Publikasi</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="./kerja-sama.html"><span class="icon icon-sparkles"></span><span>Aktivitas</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="./portal-karir.html"><span class="icon icon-briefcase"></span><span>Portal Karir</span></a></li>
                     </ul>
                 </nav>
             </div>
         </div>
         <div class="header__right">
             <div class="header__action">
-                <a href="./portal-karir.html" target="_blank" class="btn btn_outline btn_xs">Portal Karir <span class="icon icon-arrow-up-right-mini"></span></a>
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification">
+                        <span class="icon icon-bell"></span>
+                    </button>
+                </div>
             </div>
             <div class="dropdown dropdown_nav dropdown_profile">
                 <button class="header__user" data-toggle="dropdown">
                     <span class="header__user-wrapper">
-                        <span class="avatar avatar_sm"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User" width="32"></span>
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
                     </span>
                     <span class="icon icon-chevron-down-solid"></span>
                 </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle">
+                                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
+                                </div>
+                                <div class="avatar__text">
+                                    <span class="avatar__title">Admin Karirlink</span>
+                                    <span class="avatar__subtitle">admin@university.ac.id</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item">
+                            <a href="#">Pengaturan Akun</a>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger">
+                            <a href="#">
+                                <span class="icon icon-arrow-left-on-rectangle-mini"></span>
+                                Keluar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="main" style="padding-top: 4.5rem;">
-        <div class="container" style="max-width: 1100px; padding: 1.5rem;">
+    <main class="main">
+        <div class="container" style="max-width: 1100px; padding-left: 1.5rem; padding-right: 1.5rem;">
             <!-- Page Header -->
-            <div class="page-header">
-                <div class="page-header__left">
-                    <a href="./index.html" style="color: var(--qn-neutral-500);"><span class="icon icon-home" style="font-size: 1.25rem;"></span></a>
-                    <span class="page-header__title">Template Lengkap</span>
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <a href="./kuesioner.html" class="link link_back" style="color: var(--qn-neutral-500);"><span class="icon icon-home" style="font-size: 1.25rem;"></span></a>
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Template Tracer Study</h1>
+                        <p class="main__subtitle">Draft v4 · tandai section per Core, Optional, atau Wave</p>
+                    </div>
                 </div>
-                <div class="page-header__actions">
+                <div class="main__action">
                     <a href="./kuesioner-preview.html" class="btn btn_outline btn_sm">Pratinjau</a>
                     <button class="btn btn_primary btn_sm" onclick="saveAll()">Simpan ke Draft</button>
                 </div>
@@ -162,7 +206,7 @@
                             </svg>
                         </span>
                         <span class="section-item__name" style="color: #16a34a;">Informasi Pribadi</span>
-                        <span style="font-size: 0.625rem; color: #22c55e; background: #dcfce7; padding: 0.125rem 0.375rem; border-radius: 0.25rem;">Default</span>
+                        <span style="font-size: 0.625rem; color: #22c55e; background: #dcfce7; padding: 0.125rem 0.375rem; border-radius: 0.25rem;">Core · Default</span>
                     </div>
                     
                     <div class="section-list" id="sectionList"></div>
@@ -182,6 +226,17 @@
                 </div>
             </div>
         </div>
+    
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
 
     <div class="toast" id="toast"></div>
@@ -190,22 +245,34 @@
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
 
     <script>
+    // Wave scope: which wave(s) a section belongs to.
+    // core = selalu ada di semua wave; optional = bisa dimatikan per campaign;
+    // exit/gs-1/gs-2 = hanya muncul untuk wave tersebut.
+    const WAVE_SCOPE_LABELS = {
+        core: 'Core',
+        optional: 'Optional',
+        exit: 'Khusus Exit',
+        'gs-1': 'Khusus GS-I',
+        'gs-2': 'Khusus GS-II'
+    };
+
     // Data Model
     let data = {
         title: '',
         sections: [
             {
-                id: 1, name: 'Informasi Umum',
+                id: 1, name: 'Informasi Umum', waveScope: 'core',
                 questions: [
                     { id: 1, text: 'Jelaskan status Anda saat ini?', desc: '', type: 'radio', required: true, options: ['Bekerja (full time / part time)', 'Belum memungkinkan bekerja', 'Wiraswasta (Wirausaha)', 'Melanjutkan pendidikan', 'Tidak kerja, tetapi sedang mencari kerja'] },
                     { id: 2, text: 'Sumber dana apa yang Anda gunakan untuk membiayai kuliah?', desc: '', type: 'radio', required: true, options: ['Biaya Sendiri/Keluarga', 'Beasiswa ADIK', 'BIDIKMISI', 'PPA'] }
                 ]
             },
-            { id: 2, name: 'Bekerja', questions: [] },
-            { id: 3, name: 'Wiraswasta', questions: [] },
-            { id: 4, name: 'Melanjutkan Pendidikan', questions: [] },
-            { id: 5, name: 'Belum Bekerja', questions: [] },
-            { id: 6, name: 'Tingkat Kompetensi', questions: [] }
+            { id: 2, name: 'Bekerja', waveScope: 'core', questions: [] },
+            { id: 3, name: 'Wiraswasta', waveScope: 'core', questions: [] },
+            { id: 4, name: 'Melanjutkan Pendidikan', waveScope: 'core', questions: [] },
+            { id: 5, name: 'Belum Bekerja', waveScope: 'core', questions: [] },
+            { id: 6, name: 'Tingkat Kompetensi', waveScope: 'optional', questions: [] },
+            { id: 7, name: 'Rencana Karier Lanjutan', waveScope: 'gs-2', questions: [] }
         ]
     };
     let currentSection = 0;
@@ -217,6 +284,9 @@
             <div class="section-item ${i === currentSection ? 'active' : ''}" onclick="selectSection(${i})">
                 <span class="section-item__number">${i + 1}</span>
                 <span class="section-item__name">${s.name}</span>
+                <select class="section-item__wave-scope" onclick="event.stopPropagation()" onchange="updateSectionWaveScope(${i}, this.value)" title="Wave scope bagian ini">
+                    ${Object.entries(WAVE_SCOPE_LABELS).map(([value, label]) => `<option value="${value}" ${s.waveScope === value ? 'selected' : ''}>${label}</option>`).join('')}
+                </select>
                 <span class="section-item__delete" onclick="event.stopPropagation(); deleteSection(${i})">
                     <span class="icon icon-trash-mini"></span>
                 </span>
@@ -339,11 +409,16 @@
 
     function addSection() {
         const newId = Math.max(...data.sections.map(s => s.id), 0) + 1;
-        data.sections.push({ id: newId, name: 'Bagian Baru', questions: [] });
+        data.sections.push({ id: newId, name: 'Bagian Baru', waveScope: 'core', questions: [] });
         currentSection = data.sections.length - 1;
         renderSectionList();
         renderQuestions();
         showToast('Bagian baru ditambahkan');
+    }
+
+    function updateSectionWaveScope(index, value) {
+        data.sections[index].waveScope = value;
+        showToast(`Bagian "${data.sections[index].name}" diatur sebagai ${WAVE_SCOPE_LABELS[value]}`);
     }
 
     function deleteSection(index) {
@@ -510,23 +585,12 @@
             // Store flag in sessionStorage to show toast on index page
             sessionStorage.setItem('showDraftToast', 'true');
             sessionStorage.setItem('draftTitle', title);
-            window.location.href = './index.html';
+            window.location.href = './kuesioner.html';
         }, 1500);
     }
 
     // Init
     document.addEventListener('DOMContentLoaded', function() {
-        // Set template from URL
-        const params = new URLSearchParams(window.location.search);
-        const template = params.get('template');
-        if (template) {
-            const titles = { full: 'Template Lengkap', kemdikbud: 'Template Kemdikbud', alumni: 'Template Pengguna Lulusan', empty: 'Template Kosong' };
-            document.querySelector('.page-header__title').textContent = titles[template] || 'Template Lengkap';
-            if (template === 'empty') {
-                data = { title: '', sections: [{ id: 1, name: 'Bagian 1', questions: [] }] };
-                document.getElementById('questionnaireTitle').value = '';
-            }
-        }
         renderSectionList();
         renderQuestions();
     });

@@ -21,7 +21,7 @@
         .ts-header__info p:last-child { font-weight: 500; color: #111827; }
         
         /* Main */
-        .ts-main { min-height: calc(100vh - 140px); display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; }
+        .ts-main { min-height: calc(100vh - 140px); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 1rem; }
         .ts-card { max-width: 28rem; width: 100%; background: white; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         
         .ts-card__header { margin-bottom: 1.5rem; }
@@ -67,7 +67,13 @@
         
         .btn-group { display: flex; gap: 0.75rem; }
         .btn-group .btn { flex: 1; }
-        
+
+        /* Demo Mode Banner */
+        .demo-banner { max-width: 28rem; width: 100%; margin: 1rem auto 0; background: #fffbeb; border: 1px dashed #fbbf24; border-radius: 0.5rem; padding: 0.75rem 1rem; }
+        .demo-banner__title { font-size: 0.75rem; font-weight: 600; color: #92400e; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .demo-banner__links { display: flex; flex-direction: column; gap: 0.375rem; }
+        .demo-banner__links a { font-size: 0.8125rem; color: #b45309; text-decoration: underline; }
+
         /* Footer */
         .ts-footer { background: #1d4ed8; padding: 1rem; text-align: center; }
         .ts-footer p { color: white; font-size: 0.875rem; margin: 0; }
@@ -82,7 +88,7 @@
                 <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo" class="ts-header__logo">
                 <div class="ts-header__info">
                     <p>Portal Alumni dan Pusat Karir</p>
-                    <p>Universitas Contoh</p>
+                    <p>Universitas Foxtrot</p>
                 </div>
             </div>
         </div>
@@ -160,6 +166,16 @@
                     </button>
                 </div>
             </form>
+        </div>
+
+        <!-- Demo Mode Banner: alur nyata dicek server (cohort match & histori submit); di mockup ini dipilih manual -->
+        <div class="demo-banner">
+            <p class="demo-banner__title">Mode Demo - Hasil Verifikasi</p>
+            <div class="demo-banner__links">
+                <a href="./tracer-study-form.html">→ Lanjut ke Form (cohort match, belum isi)</a>
+                <a href="./tracer-study-sudah-mengisi.html">→ Sudah Mengisi</a>
+                <a href="./tracer-study-belum-aktif.html">→ Belum Ada Survei Aktif</a>
+            </div>
         </div>
     </main>
 
