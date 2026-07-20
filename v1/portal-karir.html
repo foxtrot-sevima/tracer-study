@@ -137,17 +137,36 @@
                                 <span>Publikasi</span>
                             </a>
                         </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="./kerja-sama.html">
-                                <span class="icon icon-sparkles"></span>
-                                <span>Aktivitas</span>
-                            </a>
+                                                <li class="nav__item">
+                            <div class="dropdown dropdown_nav">
+                                <a class="nav__link" href="#" data-toggle="dropdown">
+                                    <span class="icon icon-sparkles"></span>
+                                    <span>Aktivitas</span>
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </a>
+                                <div class="dropdown__box">
+                                    <ul class="dropdown__list">
+                                        <li class="dropdown__item"><a href="./lowongan.html">Lowongan</a></li>
+                                        <li class="dropdown__item"><a href="./event.html">Event</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </li>
-                        <li class="nav__item active">
-                            <a class="nav__link" href="./portal-karir.html">
-                                <span class="icon icon-briefcase"></span>
-                                <span>Portal Karir</span>
-                            </a>
+                                                <li class="nav__item active">
+                            <div class="dropdown dropdown_nav">
+                                <a class="nav__link" href="#" data-toggle="dropdown">
+                                    <span class="icon icon-briefcase"></span>
+                                    <span>Portal Karir</span>
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </a>
+                                <div class="dropdown__box">
+                                    <ul class="dropdown__list">
+                                        <li class="dropdown__item"><a href="./portal-karir.html">Beranda</a></li>
+                                        <li class="dropdown__item"><a href="./kerja-sama.html">Mitra</a></li>
+                                        <li class="dropdown__item"><a href="./perusahaan.html">Perusahaan Mitra</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </nav>
@@ -270,7 +289,7 @@
                                 Apa yang ingin Anda bagikan di Beranda?
                             </button>
                             <div class="grid cols-1 cols-sm-2">
-                                <a href="./lowongan.html" class="pk-shortcut">
+                                <a href="./lowongan-create.html" class="pk-shortcut">
                                     <span class="pk-shortcut__icon"><span class="icon icon-briefcase-mini"></span></span>
                                     Buat Lowongan
                                 </a>
