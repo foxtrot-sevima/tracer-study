@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda | KarirLink</title>
+    <link rel="icon" href="../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary50: "#EAEDF5", primary100: "#D4DBEB", primary200: "#A9B7D7",
+                        primary300: "#7F92C2", primary400: "#546EAE", primary500: "#294A9A",
+                        primary600: '#1F3874', primary700: "#15254D", primary800: "#0A1327",
+                        bgprimary: "#F6F8FF"
+                    },
+                    boxShadow: { default: "0px 11px 20px rgba(0, 0, 0, 0.04)" }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Poppins', sans-serif; }
+        .form-label { @apply block mb-2 text-sm font-medium text-gray-600 capitalize; }
+        .form-control { @apply focus:outline-none focus:ring-1 bg-white placeholder-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary500 focus:border-primary500 block w-full p-4; }
+        .btn { @apply font-medium rounded-lg text-base px-8 py-4 text-center capitalize; }
+        .btn-primary { @apply focus:outline-none focus:ring-4 focus:ring-primary200 text-white bg-primary500 hover:bg-primary600; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white fixed w-full z-30 top-0 start-0 border-b border-gray-200">
+        <div class="max-w-screen-xl flex items-center justify-between mx-auto px-4 xl:px-8 py-3">
+            <!-- Logo + Search -->
+            <div class="flex items-center space-x-4">
+                <a href="portal-karir.html" class="flex items-center">
+                    <img src="../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp" class="h-9 w-9 rounded" alt="Karirlink Logo">
+                </a>
+                <div class="hidden md:flex items-center space-x-2 text-sm text-gray-400 border border-gray-200 rounded-full px-4 py-2 bg-gray-50 cursor-pointer hover:border-gray-300">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M21 21l-4.35-4.35"/></svg>
+                    <span>Cari Pengguna</span>
+                </div>
+            </div>
+
+            <!-- Main Navigation - Center -->
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="portal-karir.html" class="flex items-center text-sm text-primary500 font-semibold gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Beranda
+                </a>
+                <a href="#" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    Aktivitas
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </a>
+                <a href="perusahaan.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    Perusahaan
+                </a>
+                <a href="kerja-sama.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    Kerja Sama
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </a>
+            </div>
+
+            <!-- Right Side: Icons & Profile -->
+            <div class="flex items-center space-x-2">
+                <!-- Notification Bell -->
+                <button type="button" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                    </svg>
+                </button>
+                
+                <!-- Message Icon -->
+                <a href="#" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </a>
+
+                <!-- Tracer Study Link -->
+                <a href="index.html" class="hidden md:flex items-center text-sm text-gray-700 hover:text-primary500 font-medium px-3 py-2 gap-1">
+                    Tracer Study
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                </a>
+                
+                <!-- Profile Avatar -->
+                <div class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 rounded-lg px-2 py-1" id="profileDropdownBtn">
+                    <img src="../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="" class="rounded-full h-8 w-8 object-cover border border-gray-200">
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Dropdown -->
+    <div id="profileDropdown" class="p-3 z-30 hidden bg-white rounded-lg shadow-lg max-w-xs divide-y divide-gray-100 absolute right-4 top-14">
+        <div class="flex items-center mb-3">
+            <img src="../../../karir_prompt/reference/karirlink-mockup-quantum/Beranda _ KarirLink (Portal Karir)_files/e7246459-7a84-4a1d-9928-543bc00caa73.jpg" alt="" class="rounded-full border border-gray-300 object-cover h-12 w-12 mr-3">
+            <section>
+                <p class="text-sm text-gray-800 font-medium">Demo siAkadcloud</p>
+                <small class="text-xs text-gray-500">Perguruan Tinggi</small>
+            </section>
+        </div>
+        <ul class="text-sm text-gray-700 divide-y divide-gray-100">
+            <li>
+                <a href="#" class="block p-2 rounded-md hover:bg-gray-100">
+                    <svg class="inline w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12.75C8.83 12.75 6.25 10.17 6.25 7C6.25 3.83 8.83 1.25 12 1.25C15.17 1.25 17.75 3.83 17.75 7C17.75 10.17 15.17 12.75 12 12.75Z"></path>
+                    </svg>
+                    Lihat Profil
+                </a>
+            </li>
+            <li>
+                <a href="#" class="block p-2 rounded-md hover:bg-gray-100">
+                    <svg class="inline w-4 h-4 mr-2 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 15.75C9.93 15.75 8.25 14.07 8.25 12C8.25 9.93 9.93 8.25 12 8.25C14.07 8.25 15.75 9.93 15.75 12C15.75 14.07 14.07 15.75 12 15.75Z"></path>
+                    </svg>
+                    Pengaturan Landing Page
+                </a>
+            </li>
+            <li>
+                <a href="#" class="text-red-600 block p-2 rounded-md hover:bg-gray-100">
+                    <svg class="inline w-4 h-4 mr-2 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.44 15.37c-.19 0-.38-.07-.53-.22-.29-.29-.29-.77 0-1.06l2.03-2.03-2.03-2.03c-.29-.29-.29-.77 0-1.06.29-.29.77-.29 1.06 0l2.56 2.56c.29.29.29.77 0 1.06l-2.56 2.56c-.15.15-.34.22-.53.22z"></path>
+                    </svg>
+                    Keluar
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="mx-auto pt-28 px-4 xl:px-24 lg:max-w-7xl lg:gap-6 gap-4 lg:flex pb-4">
+        <!-- Left Sidebar -->
+        <aside class="lg:basis-2/5">
+            <!-- Profile Card -->
+            <div class="bg-white rounded-lg lg:p-6 p-4 w-auto shadow">
+                <section class="items-center md:flex md:space-x-3">
+                    <img src="../../../karir_prompt/reference/karirlink-mockup-quantum/Beranda _ KarirLink (Portal Karir)_files/e7246459-7a84-4a1d-9928-543bc00caa73.jpg" alt="Profile Image" class="w-16 h-16 md:w-18 md:h-18 border border-gray-300 rounded-full object-cover">
+                    <div class="md:mt-0 mt-2">
+                        <h2 class="text-xl md:text-2xl text-gray-800 font-semibold">Demo siAkadcloud</h2>
+                        <p class="text-sm text-gray-500 font-medium mt-1">Surabaya, Jawa Timur</p>
+                    </div>
+                </section>
+                
+                <section class="grid md:grid-cols-3 lg:grid-cols-2 md:grid-rows-1 grid-rows-3 gap-3 mt-4">
+                    <a href="#" class="rounded-lg lg:p-4 p-2 bg-gray-100 hover:bg-gray-200 text-center transition focus:outline-none focus:ring-4 focus:ring-gray-300 lg:block flex justify-between items-center">
+                        <p class="text-sm text-gray-500 font-medium lg:mb-3">Pengikut</p>
+                        <span class="lg:text-3xl text-base text-gray-700 font-semibold">103</span>
+                    </a>
+                    <a href="#" class="rounded-lg lg:p-4 p-2 bg-gray-100 hover:bg-gray-200 text-center transition focus:outline-none focus:ring-4 focus:ring-gray-300 lg:block flex justify-between items-center">
+                        <p class="text-sm text-gray-500 font-medium lg:mb-3">Diikuti</p>
+                        <span class="lg:text-3xl text-base text-gray-700 font-semibold">17</span>
+                    </a>
+                    <a href="#" class="rounded-lg lg:p-4 p-2 bg-gray-100 text-center lg:col-span-2 lg:block lg:justify-normal flex justify-between items-center">
+                        <p class="text-sm text-gray-500 font-medium lg:mb-3">Alumni terdaftar di Karirlink</p>
+                        <span class="lg:text-3xl text-base text-gray-700 font-semibold">110</span>
+                    </a>
+                </section>
+            </div>
+
+            <!-- Aktivitas Lamaran Alumni Card -->
+            <div class="bg-white rounded-lg lg:p-6 p-4 w-auto shadow mt-4">
+                <div class="flex items-center gap-2 mb-4">
+                    <h2 class="lg:text-xl text-lg font-semibold text-gray-800">Aktivitas Lamaran Alumni</h2>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-3xl font-bold text-primary500">0</span>
+                        <span class="text-sm text-gray-500 font-medium">Alumni Melamar Juli 2026</span>
+                    </div>
+                    <div class="flex items-start gap-1 mt-1 text-xs text-gray-500">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 2C6.38 2 4.25 4.13 4.25 6.75C4.25 9.32 6.26 11.4 8.88 11.49C8.96 11.48 9.04 11.48 9.1 11.49C9.12 11.49 9.13 11.49 9.15 11.49C9.16 11.49 9.16 11.49 9.17 11.49C11.73 11.4 13.74 9.32 13.75 6.75C13.75 4.13 11.62 2 9 2Z"></path>
+                        </svg>
+                        <span>0 Total Lamaran</span>
+                        <span class="cursor-default text-gray-400 hover:text-gray-600" title="1 alumni dapat melamar lebih dari 1 lowongan">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
+                                <path stroke-linecap="round" stroke-width="1.5" d="M12 8v5M12 16h.01"></path>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-2 mb-2 pb-3 border-b border-gray-100">
+                    <div class="rounded-lg p-3 bg-green-50 text-center">
+                        <p class="text-xs text-green-600 mt-0.5 leading-tight font-medium">Diterima</p>
+                        <p class="text-xl font-bold text-green-600">0</p>
+                    </div>
+                    <div class="rounded-lg p-3 bg-slate-100 text-center">
+                        <p class="text-xs text-slate-500 mt-0.5 leading-tight font-medium">Menunggu</p>
+                        <p class="text-xl font-bold text-slate-500">0</p>
+                    </div>
+                    <div class="rounded-lg p-3 bg-amber-50 text-center">
+                        <p class="text-xs text-amber-600 mt-0.5 leading-tight font-medium">Dalam Proses</p>
+                        <p class="text-xl font-bold text-amber-600">0</p>
+                    </div>
+                    <div class="rounded-lg p-3 bg-red-50 text-center">
+                        <p class="text-xs text-red-500 mt-0.5 leading-tight font-medium">Ditolak</p>
+                        <p class="text-xl font-bold text-red-500">0</p>
+                    </div>
+                </div>
+                
+                <div class="mt-5 pt-4 border-t border-gray-100">
+                    <a href="alumni-activity.html" class="text-sm text-primary500 font-medium underline inline-flex items-center gap-1">
+                        Lihat Semua
+                    </a>
+                </div>
+            </div>
+
+            <!-- Perusahaan Mitra Card -->
+            <div class="bg-white rounded-lg lg:p-6 p-4 mt-6 shadow">
+                <section class="flex items-center justify-between mb-8">
+                    <h2 class="lg:text-xl text-lg font-semibold text-gray-800">Perusahaan Mitra</h2>
+                    <a href="perusahaan-mitra.html" class="text-sm font-medium underline text-primary500">Lihat Semua</a>
+                </section>
+                
+                <div class="flex flex-col space-y-2 mb-5">
+                    <section>
+                        <h2 class="text-base font-medium mb-1 text-gray-800">PT Sentra Vidya Utama</h2>
+                        <div class="flex items-center mb-4">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.71 15.18L12.61 13.33C12.07 13.01 11.63 12.24 11.63 11.61V7.51"></path>
+                            </svg>
+                            <p class="text-sm font-medium text-yellow-600 ml-1">Menunggu Persetujuan</p>
+                        </div>
+                        <hr>
+                    </section>
+                </div>
+                
+                <div class="flex flex-col space-y-2 mb-5">
+                    <section>
+                        <h2 class="text-base font-medium mb-1 text-gray-800">PT Fit Jaya Raya Tri</h2>
+                        <div class="flex items-center mb-4">
+                            <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.75 12L10.58 14.83L16.25 9.17"></path>
+                            </svg>
+                            <p class="text-sm font-medium text-green-700 ml-1">Berhasil Bergabung</p>
+                        </div>
+                        <hr>
+                    </section>
+                </div>
+                
+                <div class="flex flex-col space-y-2 mb-5">
+                    <section>
+                        <h2 class="text-base font-medium mb-1 text-gray-800">PT ABC</h2>
+                        <div class="flex items-center mb-4">
+                            <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" stroke-width="1.5"></circle>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.75 12L10.58 14.83L16.25 9.17"></path>
+                            </svg>
+                            <p class="text-sm font-medium text-green-700 ml-1">Berhasil Bergabung</p>
+                        </div>
+                        <hr>
+                    </section>
+                </div>
+                
+                <button type="button" class="w-full flex justify-center items-center font-medium rounded-lg text-base px-8 py-4 text-center text-white bg-primary500 hover:bg-primary600 focus:outline-none focus:ring-4 focus:ring-primary200" onclick="openModal('companyInviteModal')">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 12H18M12 18V6"></path>
+                    </svg>
+                    <span class="ml-2">Undang Perusahaan</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="lg:basis-3/5 mt-4 lg:mt-0">
+            <!-- Bagikan Sesuatu Card -->
+            <div class="bg-white lg:p-6 p-4 rounded-lg shadow-default">
+                <h2 class="lg:text-xl text-lg text-gray-700 font-semibold mb-3">Bagikan Sesuatu</h2>
+                
+                <div class="text-sm rounded-lg text-gray-400 border border-gray-300 p-4 mb-5 cursor-pointer bg-white" onclick="openModal('postModal')">
+                    Apa yang ingin Anda bagikan di Beranda?
+                </div>
+                
+                <div class="grid lg:grid-cols-3 gap-4">
+                    <a href="lowongan-create.html" class="h-8 flex items-center rounded focus:ring-4 focus:outline-none focus:ring-gray-200">
+                        <div class="h-8 w-8 rounded bg-gray-100 flex items-center justify-center">
+                            <svg class="h-4 w-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-sm ml-2">Buat Lowongan</p>
+                    </a>
+                    
+                    <a href="event.html" class="h-8 flex items-center rounded focus:ring-4 focus:outline-none focus:ring-gray-200">
+                        <div class="h-8 w-8 rounded bg-gray-100 flex items-center justify-center">
+                            <svg class="h-4 w-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-sm ml-2">Buat Event</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Feed Posts -->
+            <div class="space-y-6 pb-6 mt-6">
+                <!-- Post 1 -->
+                <div class="bg-white lg:p-6 p-4 rounded-lg shadow-default">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3">
+                            <!-- Karirlink Logo (Blue K with red accent) -->
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center relative overflow-hidden border border-gray-300">
+                                <img src="../../../karir_prompt/reference/karirlink-mockup-quantum/Beranda _ KarirLink (Portal Karir)_files/7a28b830-df9a-4685-a803-e2477f562d26.jpg" alt="PT Karirlink" class="w-12 h-12 rounded-full object-cover">
+                            </div>
+                            <div>
+                                <a href="#" class="font-medium text-gray-900">PT Karirlink</a>
+                                <div class="text-xs mt-1 text-gray-500">Maju Bersama Kami - 2 tahun yang lalu</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="my-5">
+                        <p class="text-sm text-gray-700">selamat siang..</p>
+                    </div>
+                    
+                    <div class="flex space-x-4 text-xs text-gray-500">
+                        <p>0 suka</p>
+                        <p>0 komentar</p>
+                    </div>
+                    
+                    <hr class="text-gray-200 my-3">
+                    
+                    <div class="grid grid-cols-3">
+                        <button class="flex items-center justify-center w-full text-sm p-2 rounded-lg hover:bg-gray-100 text-gray-500">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                            Suka
+                        </button>
+                        <button class="flex items-center justify-center w-full text-sm text-gray-500 p-2 rounded-lg hover:bg-gray-100">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                            Komentar
+                        </button>
+                        <button class="flex items-center justify-center w-full text-sm text-gray-500 p-2 rounded-lg hover:bg-gray-100">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                            Bagikan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Post 2 -->
+                <div class="bg-white lg:p-6 p-4 rounded-lg shadow-default">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center relative overflow-hidden border border-gray-300">
+                                <img src="../../../karir_prompt/reference/karirlink-mockup-quantum/Beranda _ KarirLink (Portal Karir)_files/7a28b830-df9a-4685-a803-e2477f562d26.jpg" alt="PT Karirlink" class="w-12 h-12 rounded-full object-cover">
+                            </div>
+                            <div>
+                                <a href="#" class="font-medium text-gray-900">PT Karirlink</a>
+                                <div class="text-xs mt-1 text-gray-500">Maju Bersama Kami - 2 tahun yang lalu</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="my-5">
+                        <p class="text-sm text-gray-700">Selamat pagi rekan-rekan semua! Semoga hari ini penuh semangat dan produktif. 🌟</p>
+                    </div>
+                    
+                    <div class="flex space-x-4 text-xs text-gray-500">
+                        <p>5 suka</p>
+                        <p>2 komentar</p>
+                    </div>
+                    
+                    <hr class="text-gray-200 my-3">
+                    
+                    <div class="grid grid-cols-3">
+                        <button class="flex items-center justify-center w-full text-sm p-2 rounded-lg hover:bg-gray-100 text-gray-500">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                            Suka
+                        </button>
+                        <button class="flex items-center justify-center w-full text-sm text-gray-500 p-2 rounded-lg hover:bg-gray-100">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                            Komentar
+                        </button>
+                        <button class="flex items-center justify-center w-full text-sm text-gray-500 p-2 rounded-lg hover:bg-gray-100">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                            Bagikan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Post Modal -->
+    <div id="postModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-50" onclick="closeModal('postModal')"></div>
+        <div class="flex min-h-screen items-center justify-center p-4">
+            <div class="relative bg-white rounded-lg shadow max-w-xl w-full">
+                <div class="flex justify-between items-center px-6 pt-6 mb-5 rounded-t">
+                    <h3 class="text-xl font-semibold text-gray-800">Bagikan informasi di beranda</h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-100 rounded-full text-sm p-1.5 ml-auto inline-flex items-center" onclick="closeModal('postModal')">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="px-6 overflow-y-auto" style="min-height: 240px; max-height: 480px;">
+                    <textarea name="content" placeholder="Tulis deskripsi disini..." class="w-full h-[240px] p-5 text-sm text-gray-800 rounded-lg border border-gray-300 focus:ring-primary500 focus:border-primary500"></textarea>
+                </div>
+                <div class="flex items-center justify-between p-6">
+                    <div class="flex space-x-1">
+                        <label class="p-2 cursor-pointer rounded-full hover:bg-gray-100">
+                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </label>
+                        <label class="p-2 cursor-pointer rounded-full hover:bg-gray-100">
+                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                        </label>
+                        <label class="p-2 cursor-pointer rounded-full hover:bg-gray-100">
+                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </label>
+                    </div>
+                    <button type="button" class="font-medium rounded-lg text-sm px-8 py-3 text-center text-white bg-primary500 hover:bg-primary600">Bagikan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Company Invite Modal -->
+    <div id="companyInviteModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-50" onclick="closeModal('companyInviteModal')"></div>
+        <div class="flex min-h-screen items-center justify-center p-4">
+            <div class="relative bg-white rounded-lg shadow max-w-xl w-full">
+                <div class="flex justify-between items-center border-b px-6 p-6 rounded-t">
+                    <h3 class="text-xl font-semibold text-gray-800">Undang Perusahaan</h3>
+                    <button type="button" class="hover:bg-gray-100 rounded-full text-sm p-1.5 ml-auto inline-flex items-center" onclick="closeModal('companyInviteModal')">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-6 overflow-y-auto" style="max-height: 500px">
+                    <div class="flex flex-col space-y-5 mb-10">
+                        <h4 class="text-base text-gray-800 font-medium">Perusahaan mana yang ingin Anda undang?</h4>
+                        <div>
+                            <label for="company_name" class="block mb-2 text-sm font-medium text-gray-600">Nama Perusahaan <span class="text-red-500">*</span></label>
+                            <input type="text" id="company_name" class="focus:outline-none focus:ring-1 bg-white placeholder-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary500 focus:border-primary500 block w-full p-4" placeholder="Masukkan Nama Perusahaan">
+                        </div>
+                        <div>
+                            <label for="company_email" class="block mb-2 text-sm font-medium text-gray-600">Email <span class="text-red-500">*</span></label>
+                            <input type="email" id="company_email" class="focus:outline-none focus:ring-1 bg-white placeholder-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary500 focus:border-primary500 block w-full p-4" placeholder="Contoh: name@email.com">
+                        </div>
+                        <div>
+                            <label for="company_phone" class="block mb-2 text-sm font-medium text-gray-600">No. Telepon <span class="text-red-500">*</span></label>
+                            <input type="tel" id="company_phone" class="focus:outline-none focus:ring-1 bg-white placeholder-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary500 focus:border-primary500 block w-full p-4" placeholder="Contoh: 08123456789">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-end p-6 border-t">
+                    <button type="button" class="font-medium rounded-lg text-base px-8 py-4 text-center text-white bg-primary500 hover:bg-primary600">Undang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Profile dropdown toggle
+        document.getElementById('profileDropdownBtn').addEventListener('click', function() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('hidden');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('profileDropdown');
+            const btn = document.getElementById('profileDropdownBtn');
+            if (!btn.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+        
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.querySelectorAll('[id$="Modal"]');
+                modals.forEach(modal => {
+                    if (!modal.classList.contains('hidden')) {
+                        closeModal(modal.id);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

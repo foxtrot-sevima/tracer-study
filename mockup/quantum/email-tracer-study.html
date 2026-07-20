@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Undangan Tracer Study | Mockup</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f3f4f6; min-height: 100vh; padding: 2rem 1rem; }
+
+        /* Mockup indicator */
+        .mockup-badge { position: fixed; top: 1rem; right: 1rem; background: #1e40af; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 600; z-index: 50; }
+
+        /* Email wrapper */
+        .email-wrapper { max-width: 38rem; margin: 0 auto; background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+
+        /* Email header bar (simulating inbox UI) */
+        .email-meta { background: #fafafa; border-bottom: 1px solid #e5e7eb; padding: 1rem 1.5rem; }
+        .email-meta__subject { font-size: 1rem; font-weight: 600; color: #111827; margin-bottom: 0.5rem; }
+        .email-meta__from { font-size: 0.8125rem; color: #6b7280; display: flex; align-items: center; gap: 0.375rem; }
+        .email-meta__from strong { color: #374151; }
+        .email-meta__date { font-size: 0.75rem; color: #9ca3af; margin-top: 0.25rem; }
+
+        /* Email body */
+        .email-body { padding: 2rem 2.5rem; }
+
+        /* Logo */
+        .email-logo { text-align: center; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #f3f4f6; }
+        .email-logo__text { font-size: 1.5rem; font-weight: 700; color: #92704a; letter-spacing: -0.025em; }
+
+        /* Content */
+        .email-greeting { font-size: 0.9375rem; color: #374151; margin-bottom: 1.25rem; }
+        .email-greeting strong { color: #111827; }
+        .email-text { font-size: 0.9375rem; color: #374151; line-height: 1.7; margin-bottom: 1rem; }
+        .email-text strong { color: #111827; }
+        .email-highlight { font-weight: 700; color: #111827; }
+
+        /* Cara mengisi section */
+        .email-section-title { font-size: 0.9375rem; font-weight: 600; color: #111827; margin: 1.5rem 0 0.75rem; }
+        .email-method { margin-bottom: 1.25rem; padding-left: 0.5rem; }
+        .email-method__title { font-size: 0.875rem; font-weight: 600; color: #111827; margin-bottom: 0.375rem; display: flex; align-items: center; gap: 0.5rem; }
+        .email-method__desc { font-size: 0.875rem; color: #6b7280; line-height: 1.6; margin-bottom: 0.5rem; }
+        .email-link { color: #2563eb; text-decoration: none; font-size: 0.875rem; word-break: break-all; }
+        .email-link:hover { text-decoration: underline; }
+
+        /* CTA Button */
+        .email-cta { text-align: center; margin: 2rem 0; }
+        .email-cta__btn { display: inline-block; padding: 0.875rem 2rem; background: #1e3a5f; color: white; text-decoration: none; border-radius: 0.375rem; font-size: 0.9375rem; font-weight: 600; transition: background 0.15s; }
+        .email-cta__btn:hover { background: #1e40af; }
+
+        /* Footer */
+        .email-footer { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #f3f4f6; }
+        .email-footer__text { font-size: 0.8125rem; color: #6b7280; line-height: 1.6; }
+        .email-footer__brand { font-size: 0.875rem; font-weight: 600; color: #92704a; margin-bottom: 0.5rem; }
+
+        /* Emoji styling */
+        .emoji { font-style: normal; }
+    </style>
+</head>
+<body>
+    <!-- Mockup indicator -->
+    <div class="mockup-badge">📧 Mockup Email — Prototyping Only</div>
+
+    <div class="email-wrapper">
+        <!-- Email metadata -->
+        <div class="email-meta">
+            <p class="email-meta__subject">Halo, Yuk bagikan pengalaman setelah lulus, dan temukan ratusan lowongan pekerjaan</p>
+            <p class="email-meta__from">
+                <strong>KarirLink - No Reply</strong> &lt;notification-noreply-karirlink@sevima.com&gt;
+            </p>
+            <p class="email-meta__date">Wednesday, July 15, 2026 10:36:36 AM</p>
+        </div>
+
+        <!-- Email body -->
+        <div class="email-body">
+            <!-- Logo -->
+            <div class="email-logo">
+                <span class="email-logo__text">KarirLink</span>
+            </div>
+
+            <!-- Greeting -->
+            <p class="email-greeting">Halo, <strong>Ruka Babymon</strong> <span class="emoji">👋</span></p>
+
+            <!-- Body text -->
+            <p class="email-text">
+                Ayo, bagikan pengalaman Anda setelah lulus dari <strong>Demo siAkadcloud</strong>, 
+                dengan mengisi Tracer Study untuk meningkatkan kualitas pendidikan.<br>
+                <span class="email-highlight">Raih kesempatan emas untuk berkarir di ratusan Perusahaan yang ada di Karirlink.</span>
+            </p>
+
+            <!-- How to fill -->
+            <p class="email-section-title">Cara mudah mengisi Tracer Study :</p>
+
+            <!-- Method 1: Web -->
+            <div class="email-method">
+                <p class="email-method__title">
+                    <span>🌐</span> <span>📋</span> Melalui Web Browser
+                </p>
+                <p class="email-method__desc">
+                    Akses Tracer Study dengan smartphone atau desktop melalui 
+                    web browser favorit Anda. Langsung saja tekan link di bawah <span class="emoji">👇</span>
+                </p>
+                <a href="./tracer-study-step1.html" class="email-link">https://karirlink.page.link/cUC7Xa2sy26z1hEr7</a>
+            </div>
+
+            <!-- Method 2: App -->
+            <div class="email-method">
+                <p class="email-method__title">
+                    <span>📱</span> Melalui Aplikasi Karirlink
+                </p>
+                <p class="email-method__desc">
+                    Jika di smartphone Anda sudah memiliki aplikasi Karirlink, 
+                    langsung saja tekan button di bawah <span class="emoji">👇👇</span>
+                </p>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="email-cta">
+                <a href="./tracer-study-step1.html" class="email-cta__btn">Kunjungi Kuesioner</a>
+            </div>
+
+            <!-- Closing -->
+            <p class="email-text" style="margin-top: 1.5rem;">
+                Terima kasih atas waktu dan partisipasi Anda.
+            </p>
+
+            <!-- Footer -->
+            <div class="email-footer">
+                <p class="email-footer__brand">KarirLink</p>
+                <p class="email-footer__text">
+                    Email ini dikirim secara otomatis oleh sistem Karirlink. 
+                    Mohon jangan membalas email ini.<br><br>
+                    Jika Anda memiliki pertanyaan, silakan hubungi pusat karir kampus Anda.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
