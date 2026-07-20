@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Kerja Sama | Portal Karir Karirlink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/portal-karir.css">
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header Portal Karir -->
+    <header class="header header_compact header_portal">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./portal-karir.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__search">
+                <div class="form-control form-control_sm">
+                    <div class="form-control__group">
+                        <span data-input-icon="search"></span>
+                        <input type="search" class="form-control__input" placeholder="Cari Pengguna">
+                    </div>
+                </div>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./portal-karir.html">
+                                <span class="icon icon-home"></span><span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="#">
+                                <span class="icon icon-sparkles"></span><span>Aktivitas</span>
+                                <span class="icon icon-chevron-down-mini"></span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./perusahaan.html">
+                                <span class="icon icon-building-office-2"></span><span>Perusahaan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./kerja-sama.html">
+                                <span class="icon icon-puzzle-piece"></span><span>Kerja Sama</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown"><span class="icon icon-bell"></span></button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown"><span class="icon icon-envelope"></span></button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./dashboard.html" target="_blank" class="btn btn_outline btn_xs btn_nav">
+                        Tracer Study<span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Admin PT</span><span class="avatar__subtitle">Admin Perguruan Tinggi</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Profil</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main main_portal">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./portal-karir.html">Beranda</a></li>
+                <li class="breadcrumb__item"><a href="./kerja-sama.html">Kerja Sama</a></li>
+                <li class="breadcrumb__item active"><a href="#">Daftar Mitra</a></li>
+            </ul>
+
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Daftar Mitra</h1>
+                        <p class="main__subtitle">Daftar mitra yang bekerja sama dengan Perguruan Tinggi Anda</p>
+                    </div>
+                </div>
+                <div class="main__action">
+                    <a href="#" class="btn btn_primary">
+                        <span class="icon icon-plus-circle-solid"></span>
+                        <span class="btn__text">Tambah Mitra</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card Table -->
+            <div class="card card_empty">
+                <!-- Tabs -->
+                <div class="collab-tabs">
+                    <a href="#" class="collab-tabs__item active">
+                        <span class="icon icon-building-office"></span>
+                        <span>Semua Mitra</span>
+                    </a>
+                    <a href="#" class="collab-tabs__item">
+                        <span class="icon icon-inbox"></span>
+                        <span>Permintaan Kerja Sama</span>
+                    </a>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="dashboard-filter" style="border-bottom: 1px solid var(--qn-neutral-200);">
+                    <div class="grid">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <span data-input-icon="search"></span>
+                                    <input type="search" class="form-control__input" placeholder="Cari nama mitra...">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3 col-sm-offset-3" style="display: flex; justify-content: flex-end;">
+                            <button class="btn btn_outline">
+                                <span class="icon icon-funnel"></span>
+                                <span class="btn__text">Filter</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table class="table table-collab">
+                        <thead>
+                            <tr>
+                                <th>Nama Mitra</th>
+                                <th>Lokasi</th>
+                                <th>Jumlah Lowongan</th>
+                                <th>Status Kerja Sama</th>
+                                <th>Nama PIC</th>
+                                <th class="text-center">Kontak PIC</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Row 1 -->
+                            <tr>
+                                <td>
+                                    <div class="mitra-cell">
+                                        <div class="mitra-cell__logo">
+                                            <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo">
+                                        </div>
+                                        <div class="mitra-cell__info">
+                                            <span class="mitra-cell__name">PT Google Indonesia</span>
+                                            <span class="mitra-cell__category">Teknologi</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Jakarta Selatan, DKI Jakarta</td>
+                                <td>12</td>
+                                <td>
+                                    <div class="status-badge status-badge_success">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Pengajuan Diterima</span>
+                                    </div>
+                                </td>
+                                <td>John Doe</td>
+                                <td>
+                                    <div class="contact-cell">
+                                        <span><span class="icon icon-envelope"></span> john@google.com</span>
+                                        <span><span class="icon icon-phone"></span> 081234567890</span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="action-buttons">
+                                        <button class="btn btn_outline btn_sm">
+                                            <span class="icon icon-eye"></span> Detail
+                                        </button>
+                                        <div class="dropdown">
+                                            <button class="btn btn_outline btn_sm btn_icon" data-toggle="dropdown">
+                                                <span class="icon icon-ellipsis-vertical"></span>
+                                            </button>
+                                            <div class="dropdown__box dropdown__box_menu-end">
+                                                <ul class="dropdown__list">
+                                                    <li class="dropdown__item"><a href="#">Pengajuan Kegiatan</a></li>
+                                                    <li class="dropdown__item"><a href="#">Selesaikan Kerja Sama</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 2 -->
+                            <tr>
+                                <td>
+                                    <div class="mitra-cell">
+                                        <div class="mitra-cell__logo">
+                                            <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo">
+                                        </div>
+                                        <div class="mitra-cell__info">
+                                            <span class="mitra-cell__name">PT Tokopedia</span>
+                                            <span class="mitra-cell__category">E-commerce</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Jakarta Selatan, DKI Jakarta</td>
+                                <td>8</td>
+                                <td>
+                                    <div class="status-badge status-badge_success">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Pengajuan Diterima</span>
+                                    </div>
+                                </td>
+                                <td>Jane Smith</td>
+                                <td>
+                                    <div class="contact-cell">
+                                        <span><span class="icon icon-envelope"></span> jane@tokopedia.com</span>
+                                        <span><span class="icon icon-phone"></span> 081234567891</span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="action-buttons">
+                                        <button class="btn btn_outline btn_sm">
+                                            <span class="icon icon-eye"></span> Detail
+                                        </button>
+                                        <div class="dropdown">
+                                            <button class="btn btn_outline btn_sm btn_icon" data-toggle="dropdown">
+                                                <span class="icon icon-ellipsis-vertical"></span>
+                                            </button>
+                                            <div class="dropdown__box dropdown__box_menu-end">
+                                                <ul class="dropdown__list">
+                                                    <li class="dropdown__item"><a href="#">Pengajuan Kegiatan</a></li>
+                                                    <li class="dropdown__item"><a href="#">Selesaikan Kerja Sama</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Row 3 -->
+                            <tr>
+                                <td>
+                                    <div class="mitra-cell">
+                                        <div class="mitra-cell__logo">
+                                            <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo">
+                                        </div>
+                                        <div class="mitra-cell__info">
+                                            <span class="mitra-cell__name">PT Gojek Indonesia</span>
+                                            <span class="mitra-cell__category">Teknologi</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Jakarta Selatan, DKI Jakarta</td>
+                                <td>15</td>
+                                <td>
+                                    <div class="status-badge status-badge_warning">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Menunggu Persetujuan</span>
+                                    </div>
+                                </td>
+                                <td>Admin Gojek</td>
+                                <td>
+                                    <div class="contact-cell">
+                                        <span><span class="icon icon-envelope"></span> partner@gojek.com</span>
+                                        <span><span class="icon icon-phone"></span> 081234567892</span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="action-buttons">
+                                        <button class="btn btn_outline btn_sm">
+                                            <span class="icon icon-eye"></span> Detail
+                                        </button>
+                                        <div class="dropdown">
+                                            <button class="btn btn_outline btn_sm btn_icon" data-toggle="dropdown">
+                                                <span class="icon icon-ellipsis-vertical"></span>
+                                            </button>
+                                            <div class="dropdown__box dropdown__box_menu-end">
+                                                <ul class="dropdown__list">
+                                                    <li class="dropdown__item"><a href="#">Pengajuan Kegiatan</a></li>
+                                                    <li class="dropdown__item"><a href="#">Selesaikan Kerja Sama</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Row 4 -->
+                            <tr>
+                                <td>
+                                    <div class="mitra-cell">
+                                        <div class="mitra-cell__logo">
+                                            <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo">
+                                        </div>
+                                        <div class="mitra-cell__info">
+                                            <span class="mitra-cell__name">PT Shopee Indonesia</span>
+                                            <span class="mitra-cell__category">E-commerce</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Jakarta Barat, DKI Jakarta</td>
+                                <td>10</td>
+                                <td>
+                                    <div class="status-badge status-badge_success">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Pengajuan Diterima</span>
+                                    </div>
+                                </td>
+                                <td>HR Shopee</td>
+                                <td>
+                                    <div class="contact-cell">
+                                        <span><span class="icon icon-envelope"></span> hr@shopee.co.id</span>
+                                        <span><span class="icon icon-phone"></span> 081234567893</span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="action-buttons">
+                                        <button class="btn btn_outline btn_sm">
+                                            <span class="icon icon-eye"></span> Detail
+                                        </button>
+                                        <div class="dropdown">
+                                            <button class="btn btn_outline btn_sm btn_icon" data-toggle="dropdown">
+                                                <span class="icon icon-ellipsis-vertical"></span>
+                                            </button>
+                                            <div class="dropdown__box dropdown__box_menu-end">
+                                                <ul class="dropdown__list">
+                                                    <li class="dropdown__item"><a href="#">Pengajuan Kegiatan</a></li>
+                                                    <li class="dropdown__item"><a href="#">Selesaikan Kerja Sama</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-wrapper">
+                    <nav class="pagination">
+                        <button class="pagination__btn" disabled><span class="icon icon-chevron-left-mini"></span></button>
+                        <span class="pagination__info">Halaman 1 dari 5</span>
+                        <button class="pagination__btn"><span class="icon icon-chevron-right-mini"></span></button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+</body>
+</html>

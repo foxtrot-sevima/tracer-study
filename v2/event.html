@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Event | Portal Karir Karirlink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/portal-karir.css">
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header Portal Karir -->
+    <header class="header header_compact header_portal">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./portal-karir.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__search">
+                <div class="form-control form-control_sm">
+                    <div class="form-control__group">
+                        <span data-input-icon="search"></span>
+                        <input type="search" class="form-control__input" placeholder="Cari Pengguna">
+                    </div>
+                </div>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./portal-karir.html">
+                                <span class="icon icon-home"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="#">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Aktivitas</span>
+                                <span class="icon icon-chevron-down-mini"></span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./perusahaan.html">
+                                <span class="icon icon-building-office-2"></span>
+                                <span>Perusahaan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./kerja-sama.html">
+                                <span class="icon icon-puzzle-piece"></span>
+                                <span>Kerja Sama</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown"><span class="icon icon-bell"></span></button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown"><span class="icon icon-envelope"></span></button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./dashboard.html" target="_blank" class="btn btn_outline btn_xs btn_nav">
+                        Tracer Study<span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Ahmad Fauzi</span><span class="avatar__subtitle">Alumni 2023</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Profil Saya</a></li>
+                        <li class="dropdown__item"><a href="./lamaran-saya.html">Lamaran Saya</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main main_portal">
+        <div class="container">
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Event Karir</h1>
+                        <p class="main__subtitle">Job fair, workshop, dan seminar karir</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="card card_empty">
+                <nav class="nav-tab">
+                    <ul class="nav-tab__wrapper">
+                        <li class="nav-tab__item active" data-toggle="tab" data-target="#tab-semua">Semua Event</li>
+                        <li class="nav-tab__item" data-toggle="tab" data-target="#tab-jobfair">Job Fair</li>
+                        <li class="nav-tab__item" data-toggle="tab" data-target="#tab-workshop">Workshop</li>
+                        <li class="nav-tab__item" data-toggle="tab" data-target="#tab-seminar">Seminar</li>
+                    </ul>
+                </nav>
+
+                <div class="tab-content">
+                    <div class="tab-pane" id="tab-semua">
+                        <div class="grid" style="gap: 1rem; margin-top: 1rem;">
+                            <!-- Event Card 1 -->
+                            <div class="col-12 col-md-6">
+                                <div class="card card_event">
+                                    <div class="card__thumbnail">
+                                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400" alt="Event Image">
+                                        <div class="event-date"><span class="event-date__day">25</span><span class="event-date__month">Jul</span></div>
+                                    </div>
+                                    <div class="card__body">
+                                        <h3 class="card__title">Virtual Job Fair 2026</h3>
+                                        <p class="card__desc">Temui lebih dari 50 perusahaan terkemuka dalam satu platform</p>
+                                        <div class="event-meta">
+                                            <span class="event-meta__item"><span class="icon icon-clock-mini"></span>09:00 - 17:00 WIB</span>
+                                            <span class="event-meta__item"><span class="icon icon-video-camera-mini"></span>Online Event</span>
+                                        </div>
+                                    </div>
+                                    <div class="card__footer">
+                                        <button class="btn btn_outline btn_sm">Detail</button>
+                                        <button class="btn btn_primary btn_sm">Daftar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Event Card 2 -->
+                            <div class="col-12 col-md-6">
+                                <div class="card card_event">
+                                    <div class="card__thumbnail">
+                                        <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400" alt="Event Image">
+                                        <div class="event-date"><span class="event-date__day">02</span><span class="event-date__month">Aug</span></div>
+                                    </div>
+                                    <div class="card__body">
+                                        <h3 class="card__title">Workshop: Interview Skills</h3>
+                                        <p class="card__desc">Pelajari teknik wawancara kerja yang efektif dari praktisi HR</p>
+                                        <div class="event-meta">
+                                            <span class="event-meta__item"><span class="icon icon-clock-mini"></span>14:00 - 16:00 WIB</span>
+                                            <span class="event-meta__item"><span class="icon icon-map-pin-mini"></span>Auditorium Kampus</span>
+                                        </div>
+                                    </div>
+                                    <div class="card__footer">
+                                        <button class="btn btn_outline btn_sm">Detail</button>
+                                        <button class="btn btn_primary btn_sm">Daftar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Event Card 3 -->
+                            <div class="col-12 col-md-6">
+                                <div class="card card_event">
+                                    <div class="card__thumbnail">
+                                        <img src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=400" alt="Event Image">
+                                        <div class="event-date"><span class="event-date__day">10</span><span class="event-date__month">Aug</span></div>
+                                    </div>
+                                    <div class="card__body">
+                                        <h3 class="card__title">Seminar: Tech Career Path</h3>
+                                        <p class="card__desc">Mengenal berbagai jalur karir di industri teknologi bersama praktisi</p>
+                                        <div class="event-meta">
+                                            <span class="event-meta__item"><span class="icon icon-clock-mini"></span>09:00 - 12:00 WIB</span>
+                                            <span class="event-meta__item"><span class="icon icon-video-camera-mini"></span>Online Event</span>
+                                        </div>
+                                    </div>
+                                    <div class="card__footer">
+                                        <button class="btn btn_outline btn_sm">Detail</button>
+                                        <button class="btn btn_primary btn_sm">Daftar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Event Card 4 -->
+                            <div class="col-12 col-md-6">
+                                <div class="card card_event">
+                                    <div class="card__thumbnail">
+                                        <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400" alt="Event Image">
+                                        <div class="event-date"><span class="event-date__day">15</span><span class="event-date__month">Aug</span></div>
+                                    </div>
+                                    <div class="card__body">
+                                        <h3 class="card__title">Workshop: CV & Portfolio</h3>
+                                        <p class="card__desc">Belajar membuat CV dan portfolio yang menarik perhatian recruiter</p>
+                                        <div class="event-meta">
+                                            <span class="event-meta__item"><span class="icon icon-clock-mini"></span>13:00 - 15:00 WIB</span>
+                                            <span class="event-meta__item"><span class="icon icon-map-pin-mini"></span>Ruang 301</span>
+                                        </div>
+                                    </div>
+                                    <div class="card__footer">
+                                        <button class="btn btn_outline btn_sm">Detail</button>
+                                        <button class="btn btn_primary btn_sm">Daftar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="tab-jobfair">
+                        <div class="empty-state" style="padding: 3rem; text-align: center;">
+                            <span class="icon icon-calendar" style="font-size: 3rem; color: var(--qn-neutral-400);"></span>
+                            <h3 style="margin: 1rem 0 0.5rem; color: var(--qn-neutral-700);">Tidak ada job fair</h3>
+                            <p style="color: var(--qn-neutral-500);">Belum ada job fair yang dijadwalkan</p>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="tab-workshop">
+                        <div class="empty-state" style="padding: 3rem; text-align: center;">
+                            <span class="icon icon-academic-cap" style="font-size: 3rem; color: var(--qn-neutral-400);"></span>
+                            <h3 style="margin: 1rem 0 0.5rem; color: var(--qn-neutral-700);">Lihat semua workshop</h3>
+                            <p style="color: var(--qn-neutral-500);">Filter sedang diterapkan</p>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="tab-seminar">
+                        <div class="empty-state" style="padding: 3rem; text-align: center;">
+                            <span class="icon icon-microphone" style="font-size: 3rem; color: var(--qn-neutral-400);"></span>
+                            <h3 style="margin: 1rem 0 0.5rem; color: var(--qn-neutral-700);">Lihat semua seminar</h3>
+                            <p style="color: var(--qn-neutral-500);">Filter sedang diterapkan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+</body>
+</html>

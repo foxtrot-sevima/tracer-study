@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Detail Tingkat Tempat Kerja | Karirlink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <!-- Choices JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./dashboard.html">
+                                <span class="icon icon-chart-bar-square"></span>
+                                <span>Dasbor</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./index.html">
+                                <span class="icon icon-clipboard-document-list"></span>
+                                <span>Kuesioner</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./alumni.html">
+                                <span class="icon icon-academic-cap"></span>
+                                <span>Alumni</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./publikasi.html">
+                                <span class="icon icon-document-text"></span>
+                                <span>Publikasi</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification">
+                        <span class="icon icon-bell"></span>
+                    </button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./portal-karir.html" target="_blank" class="btn btn_outline btn_xs btn_nav" id="kl-nav-portal-karir">
+                        Portal Karir
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle">
+                                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
+                                </div>
+                                <div class="avatar__text">
+                                    <span class="avatar__title">Admin Karirlink</span>
+                                    <span class="avatar__subtitle">admin@university.ac.id</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item">
+                            <a href="#">Pengaturan Akun</a>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger">
+                            <a href="#">
+                                <span class="icon icon-arrow-left-on-rectangle-mini"></span>
+                                Keluar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Back Navigation & Title -->
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <a href="./dashboard.html" class="link link_back">
+                        <span class="icon icon-arrow-left-mini"></span>
+                        Kembali ke Dashboard
+                    </a>
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Detail Tingkat Tempat Kerja</h1>
+                        <p class="main__subtitle">Distribusi tingkat/skala tempat kerja lulusan</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="card card_empty">
+                <div class="dashboard-filter">
+                    <div class="grid">
+                        <div class="col-12 col-sm-3">
+                            <select class="select-default" id="filter-tahun">
+                                <option value="" selected>Semua Tahun Lulus</option>
+                                <option value="2026">2026</option>
+                                <option value="2025">2025</option>
+                                <option value="2024">2024</option>
+                                <option value="2023">2023</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <select class="select-default select-multiple" id="filter-prodi" multiple>
+                                <option value="" selected>Semua Program Studi</option>
+                                <option value="ti">S1 - Teknik Informatika</option>
+                                <option value="si">S1 - Sistem Informasi</option>
+                                <option value="akuntansi">S1 - Akuntansi</option>
+                                <option value="manajemen">S1 - Manajemen</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <div class="dropdown dropdown_action">
+                                <button class="btn btn_primary btn_block" data-toggle="dropdown">
+                                    <span class="icon icon-arrow-down-tray-mini"></span>
+                                    Unduh Laporan
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </button>
+                                <div class="dropdown__box dropdown__box_menu-end">
+                                    <ul class="dropdown__list">
+                                        <li class="dropdown__item"><a href="#">Excel (.xlsx)</a></li>
+                                        <li class="dropdown__item"><a href="#">PDF (.pdf)</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Statistics -->
+                <div class="grid dashboard-grid">
+                    <div class="col-12 col-md-6">
+                        <div class="card card_dashboard">
+                            <div class="card__header">
+                                <h3 class="card__title">Distribusi Tingkat Tempat Kerja</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="chart-container chart-container_bar">
+                                    <canvas id="chart-tingkat-kerja"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="card card_dashboard">
+                            <div class="card__header">
+                                <h3 class="card__title">Ringkasan Tingkat Tempat Kerja</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="grid">
+                                    <div class="col-6">
+                                        <div class="stat-item">
+                                            <span class="stat-item__label">Total Responden</span>
+                                            <span class="stat-item__value">62</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="stat-item">
+                                            <span class="stat-item__label">Multinasional</span>
+                                            <span class="stat-item__value stat-item__value_success">15</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="stat-item">
+                                            <span class="stat-item__label">Nasional</span>
+                                            <span class="stat-item__value" style="color: var(--qn-primary-400);">23</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="stat-item">
+                                            <span class="stat-item__label">Lokal/Regional</span>
+                                            <span class="stat-item__value stat-item__value_warning">18</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="stat-item">
+                                            <span class="stat-item__label">Wiraswasta/UMKM</span>
+                                            <span class="stat-item__value" style="color: var(--qn-info-500);">6</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-insight" style="margin-top: 1rem;">
+                                    <div class="card-insight__icon card-insight__icon_info">
+                                        <span class="icon icon-information-circle-mini"></span>
+                                    </div>
+                                    <p class="card-insight__text">
+                                        Sebesar <strong>62%</strong> lulusan bekerja pada Perusahaan nasional dan multinasional.
+                                        Hal ini menunjukkan daya saing lulusan di tingkat nasional dan internasional.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sumber Data Table -->
+                <div class="card card_dashboard" style="margin-bottom: 1rem;">
+                    <div class="card__header">
+                        <h3 class="card__title">Sumber Data per Kuesioner</h3>
+                    </div>
+                    <div class="card__body" style="padding: 0;">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Kuesioner</th>
+                                        <th>Multinasional</th>
+                                        <th>Nasional</th>
+                                        <th>Lokal/Regional</th>
+                                        <th>Wiraswasta</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tracer Study DIKTI 2024</td>
+                                        <td>9</td>
+                                        <td>14</td>
+                                        <td>10</td>
+                                        <td>3</td>
+                                        <td>36</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tracer Study DIKTI 2023</td>
+                                        <td>6</td>
+                                        <td>9</td>
+                                        <td>8</td>
+                                        <td>3</td>
+                                        <td>26</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Response Detail Table -->
+                <div class="card card_dashboard">
+                    <div class="card__header" style="display: flex; align-items: center; justify-content: space-between;">
+                        <h3 class="card__title">Detail Responden</h3>
+                        <div class="form-control" style="margin: 0; width: 250px;">
+                            <input type="text" class="form-control__input" placeholder="Cari nama atau NIM...">
+                        </div>
+                    </div>
+                    <div class="card__body" style="padding: 0;">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Lulusan</th>
+                                        <th>NIM</th>
+                                        <th>Program Studi</th>
+                                        <th>Tahun Lulus</th>
+                                        <th>Tingkat</th>
+                                        <th>Nama Perusahaan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Ahmad Rizki Pratama</td>
+                                        <td>2019101001</td>
+                                        <td>S1 - Teknik Informatika</td>
+                                        <td>2024</td>
+                                        <td><span class="badge badge_success">Multinasional</span></td>
+                                        <td>Google Indonesia</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Siti Nurhaliza</td>
+                                        <td>2019101002</td>
+                                        <td>S1 - Sistem Informasi</td>
+                                        <td>2024</td>
+                                        <td><span class="badge badge_primary">Nasional</span></td>
+                                        <td>Gojek</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Budi Santoso</td>
+                                        <td>2019101003</td>
+                                        <td>S1 - Akuntansi</td>
+                                        <td>2024</td>
+                                        <td><span class="badge badge_primary">Nasional</span></td>
+                                        <td>Bank BCA</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dewi Lestari</td>
+                                        <td>2019101004</td>
+                                        <td>S1 - Manajemen</td>
+                                        <td>2024</td>
+                                        <td><span class="badge badge_warning">Lokal/Regional</span></td>
+                                        <td>PT Maju Bersama</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Eko Prasetyo</td>
+                                        <td>2019101005</td>
+                                        <td>S1 - Teknik Informatika</td>
+                                        <td>2024</td>
+                                        <td><span class="badge badge_success">Multinasional</span></td>
+                                        <td>Microsoft Indonesia</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fitri Handayani</td>
+                                        <td>2019101006</td>
+                                        <td>S1 - Sistem Informasi</td>
+                                        <td>2024</td>
+                                        <td><span class="badge badge_primary">Nasional</span></td>
+                                        <td>Tokopedia</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gunawan Wibowo</td>
+                                        <td>2019101007</td>
+                                        <td>S1 - Akuntansi</td>
+                                        <td>2024</td>
+                                        <td><span class="badge badge_warning">Lokal/Regional</span></td>
+                                        <td>KAP Susanto & Rekan</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hesti Rahayu</td>
+                                        <td>2019101008</td>
+                                        <td>S1 - Manajemen</td>
+                                        <td>2024</td>
+                                        <td><span class="badge" style="background: var(--qn-info-50); color: var(--qn-info-600);">Wiraswasta</span></td>
+                                        <td>Hesti Collection</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Irfan Hakim</td>
+                                        <td>2019101009</td>
+                                        <td>S1 - Teknik Informatika</td>
+                                        <td>2024</td>
+                                        <td><span class="badge badge_primary">Nasional</span></td>
+                                        <td>Bukalapak</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Juwita Sari</td>
+                                        <td>2019101010</td>
+                                        <td>S1 - Sistem Informasi</td>
+                                        <td>2024</td>
+                                        <td><span class="badge badge_warning">Lokal/Regional</span></td>
+                                        <td>CV Teknologi Mandiri</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card__footer">
+                        <div class="pagination-wrapper" style="display: flex; align-items: center; justify-content: space-between;">
+                            <span class="pagination__info">Menampilkan 1-10 dari 62 data</span>
+                            <div class="pagination">
+                                <button class="pagination__btn" disabled>
+                                    <span class="icon icon-chevron-left-mini"></span>
+                                </button>
+                                <span class="pagination__info">Halaman 1 dari 7</span>
+                                <button class="pagination__btn">
+                                    <span class="icon icon-chevron-right-mini"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Chart.js Initialization -->
+    <script>
+        // Initialize Choices.js for select elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectElements = document.querySelectorAll('.select-default');
+            selectElements.forEach(function(el) {
+                new Choices(el, {
+                    searchEnabled: false,
+                    itemSelectText: '',
+                    shouldSort: false
+                });
+            });
+
+            const selectMultiple = document.querySelectorAll('.select-multiple');
+            selectMultiple.forEach(function(el) {
+                new Choices(el, {
+                    removeItemButton: true,
+                    searchEnabled: true,
+                    itemSelectText: '',
+                    shouldSort: false,
+                    placeholderValue: 'Pilih Program Studi'
+                });
+            });
+        });
+
+        // Bar Chart - Tingkat Tempat Kerja
+        const ctxTingkatKerja = document.getElementById('chart-tingkat-kerja').getContext('2d');
+        new Chart(ctxTingkatKerja, {
+            type: 'bar',
+            data: {
+                labels: ['Multinasional', 'Nasional', 'Lokal/Regional', 'Wiraswasta/UMKM'],
+                datasets: [{
+                    data: [15, 23, 18, 6],
+                    backgroundColor: [
+                        'rgb(34, 197, 94)',   // Success
+                        'rgb(99, 102, 241)',  // Primary
+                        'rgb(245, 158, 11)',  // Warning
+                        'rgb(59, 130, 246)'   // Info
+                    ],
+                    borderWidth: 0,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
