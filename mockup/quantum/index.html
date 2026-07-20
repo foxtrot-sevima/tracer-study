@@ -441,9 +441,10 @@
                                 </div>
 
                                 <div class="qnaire-lists">
-                                    <!-- Item Terkirim with Statistics -->
-                                    <div class="card card_qnaire-list">
-                                        <div class="card__body card__body_with-info">
+                                    <!-- Item Terkirim: Expandable card with sub-templates -->
+                                    <div class="card card_qnaire-list" id="terkirim-card-1">
+                                        <!-- Main card header (collapsible toggle) -->
+                                        <div class="card__body card__body_with-info" style="cursor:pointer;" onclick="toggleTemplateExpand('terkirim-card-1')">
                                             <div class="card__body-left">
                                                 <div class="card__header">
                                                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -451,45 +452,69 @@
                                                         <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
                                                     </svg>
                                                     <div class="card__header-wrapper">
-                                                        <a href="#" class="card__title">Tracer Study Lulusan Tahun 2023</a>
+                                                        <span class="card__title">Tracer Study Lulusan Tahun 2023</span>
                                                         <p class="card__desc">Dikirim pada 05 September 2024, 15:35</p>
                                                     </div>
                                                 </div>
-                                                <div class="card__body-action">
-                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Hapus">
-                                                        <span class="icon icon-trash-mini"></span>
+                                            </div>
+                                            <div class="card__body-right" style="display:flex;align-items:center;gap:0.5rem;">
+                                                <span class="icon icon-chevron-down-mini" style="font-size:1.25rem;color:var(--qn-neutral-500);transition:transform 0.2s;" id="terkirim-card-1-chevron"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Expanded: Sub-templates list -->
+                                        <div class="card__expand" id="terkirim-card-1-expand" style="display:none;border-top:1px solid var(--qn-neutral-200);padding:0.75rem 1rem;">
+                                            <!-- Sub-template 1: Template Lengkap -->
+                                            <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid var(--qn-neutral-200);border-radius:0.5rem;margin-bottom:0.5rem;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+                                                    <circle cx="12" cy="12" r="11" fill="#ea580c"/>
+                                                    <path d="M7 8h10M7 12h10M7 16h6" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                                </svg>
+                                                <div style="flex:1;min-width:0;">
+                                                    <a href="./kuesioner-template-view.html" style="font-size:0.875rem;font-weight:500;color:var(--qn-primary-500);text-decoration:none;">Template Lengkap</a>
+                                                    <p style="font-size:0.75rem;color:var(--qn-neutral-500);margin:0;">Tracer Study Lulusan Tahun 2023</p>
+                                                </div>
+                                                <div style="display:flex;align-items:center;gap:1.5rem;">
+                                                    <div style="text-align:center;">
+                                                        <span style="font-size:0.9375rem;font-weight:600;color:var(--qn-neutral-800);">0 / 7</span>
+                                                        <p style="font-size:0.6875rem;color:var(--qn-neutral-500);margin:0;">Sudah Mengisi</p>
+                                                    </div>
+                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Download">
+                                                        <span class="icon icon-arrow-down-tray-mini"></span>
                                                     </button>
-                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Salin tautan">
-                                                        <span class="icon icon-link-mini"></span>
-                                                    </button>
-                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Reset hasil">
-                                                        <span class="icon icon-arrow-path-mini"></span>
+                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Opsi lainnya">
+                                                        <span class="icon icon-ellipsis-horizontal-mini"></span>
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="card__body-info">
-                                                <a href="#" class="info">
-                                                    <div class="info__value-wrapper">
-                                                        <span class="info__value">2088</span>
-                                                        <span class="info__subtitle">Lulusan</span>
+
+                                            <!-- Sub-template 2: Template Pengguna Lulusan -->
+                                            <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid var(--qn-neutral-200);border-radius:0.5rem;margin-bottom:0.75rem;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+                                                    <circle cx="12" cy="12" r="11" fill="#22c55e"/>
+                                                    <path d="M8 8h8v8H8z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M11 11h2v2h-2z" fill="white"/>
+                                                </svg>
+                                                <div style="flex:1;min-width:0;">
+                                                    <a href="#" style="font-size:0.875rem;font-weight:500;color:var(--qn-primary-500);text-decoration:none;">Template Pengguna Lulusan</a>
+                                                    <p style="font-size:0.75rem;color:var(--qn-neutral-500);margin:0;">Tracer Study Lulusan Tahun 2023</p>
+                                                </div>
+                                                <div style="display:flex;align-items:center;gap:1.5rem;">
+                                                    <div style="text-align:center;">
+                                                        <span style="font-size:0.9375rem;font-weight:600;color:var(--qn-neutral-800);">0</span>
+                                                        <p style="font-size:0.6875rem;color:var(--qn-neutral-500);margin:0;">Sudah Mengisi</p>
                                                     </div>
-                                                    <p class="info__desc">Menerima Kuesioner</p>
-                                                </a>
-                                                <a href="#" class="info">
-                                                    <div class="info__value-wrapper">
-                                                        <span class="info__value">98</span>
-                                                        <span class="info__subtitle">Lulusan</span>
-                                                    </div>
-                                                    <p class="info__desc">Mengisi Kuesioner</p>
-                                                </a>
-                                            </div>
-                                            <div class="card__body-right">
-                                                <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-unduh">
-                                                    <span class="icon icon-arrow-down-tray-mini"></span>
-                                                    Unduh
-                                                </a>
+                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Download">
+                                                        <span class="icon icon-arrow-down-tray-mini"></span>
+                                                    </button>
+                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Opsi lainnya">
+                                                        <span class="icon icon-ellipsis-horizontal-mini"></span>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <!-- Footer: template tags + detail penerima -->
                                         <div class="card__footer">
                                             <div class="card__footer-left">
                                                 <span class="tag tag_neutral">
@@ -501,10 +526,15 @@
                                                     Template Lengkap
                                                 </span>
                                             </div>
-                                            <div class="card__footer-wrapper">
-                                                <button class="btn btn_outline btn_sm" data-toggle="collapse" data-target="#terkirim-collapse-1">
-                                                    Detail Penerima
-                                                    <span class="icon icon-chevron-down-mini"></span>
+                                            <div class="card__footer-wrapper" style="display:flex;align-items:center;gap:0.5rem;">
+                                                <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Hapus">
+                                                    <span class="icon icon-trash-mini"></span>
+                                                </button>
+                                                <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Salin tautan">
+                                                    <span class="icon icon-link-mini"></span>
+                                                </button>
+                                                <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Reset hasil">
+                                                    <span class="icon icon-arrow-path-mini"></span>
                                                 </button>
                                             </div>
                                         </div>
@@ -1491,6 +1521,21 @@
                 values.push(value);
             });
             return values;
+        }
+
+        // Toggle expand/collapse for sub-template cards in Terkirim
+        function toggleTemplateExpand(cardId) {
+            const expand = document.getElementById(cardId + '-expand');
+            const chevron = document.getElementById(cardId + '-chevron');
+            if (!expand) return;
+            
+            if (expand.style.display === 'none') {
+                expand.style.display = 'block';
+                if (chevron) chevron.style.transform = 'rotate(180deg)';
+            } else {
+                expand.style.display = 'none';
+                if (chevron) chevron.style.transform = 'rotate(0deg)';
+            }
         }
         
         // Add sent questionnaire card to Terkirim tab
