@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KarirLink | Formulir Pengajuan Kegiatan</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary50: "#EAEDF5", primary100: "#D4DBEB", primary200: "#A9B7D7",
+                        primary300: "#7F92C2", primary400: "#546EAE", primary500: "#294A9A",
+                        primary600: '#1F3874', primary700: "#15254D", primary800: "#0A1327"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>* { font-family: 'Poppins', sans-serif; }</style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Top Nav -->
+    <nav class="bg-white fixed w-full z-30 top-0 start-0 border-b border-gray-200">
+        <div class="max-w-screen-xl flex items-center justify-between mx-auto px-4 xl:px-8 py-3">
+            <a href="./company-daftar-mitra.html" class="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary500">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                Kembali
+            </a>
+            <span class="text-sm text-gray-700 font-medium">Kerja Sama / <strong>Pengajuan Kegiatan</strong></span>
+            <button type="submit" form="formKegiatan" class="bg-primary500 hover:bg-primary600 text-white text-sm font-semibold py-2.5 px-5 rounded-lg">
+                Buat Pengajuan
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="pt-20 px-4 lg:px-8 xl:px-24 max-w-screen-xl mx-auto flex-1 w-full pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center text-sm text-gray-500 mb-4 mt-4">
+            <a href="#" class="hover:text-primary500">🏠</a>
+            <svg class="w-4 h-4 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <a href="#" class="hover:text-primary500">Kerja Sama</a>
+            <svg class="w-4 h-4 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <a href="#" class="hover:text-primary500">Kegiatan Kerja Sama</a>
+            <svg class="w-4 h-4 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <span class="text-gray-700 font-medium">Formulir Pengajuan Kegiatan</span>
+        </nav>
+        <h1 class="text-xl font-bold text-gray-900 mb-6">Formulir Pengajuan Kegiatan</h1>
+
+        <div class="flex gap-8">
+            <!-- Sidebar -->
+            <aside class="hidden lg:block w-48 flex-shrink-0">
+                <div class="sticky top-24">
+                    <h3 class="text-sm font-semibold text-gray-800 mb-3">Table of Content</h3>
+                    <ul class="space-y-1">
+                        <li><a href="#section-kegiatan" class="block text-sm py-1.5 px-3 rounded-md bg-primary50 text-primary500 font-medium border-l-2 border-primary500">Data Kegiatan</a></li>
+                        <li><a href="#section-pic" class="block text-sm py-1.5 px-3 rounded-md text-gray-600 hover:bg-gray-100 border-l-2 border-transparent">Kontak PIC</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Form -->
+            <div class="flex-1">
+                <form id="formKegiatan" onsubmit="event.preventDefault(); window.location.href='company-kegiatan-kerja-sama.html?success=1';">
+                    <!-- Section: Data Kegiatan -->
+                    <div id="section-kegiatan" class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">Nama Mitra yang sudah bekerja sama <span class="text-red-500">*</span></label>
+                                <input type="text" value="Testing Foxtrot" disabled class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-500 bg-gray-100 cursor-not-allowed">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">Jenis Kegiatan Kerja Sama <span class="text-red-500">*</span></label>
+                                <select required class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500">
+                                    <option value="" disabled>----- Pilih Salah Satu -----</option>
+                                    <option value="kunjungan" selected>Kunjungan Industri</option>
+                                    <option value="kuliah_tamu">Kuliah Tamu</option>
+                                    <option value="campus_hiring">Campus Hiring</option>
+                                    <option value="praktikal">Praktikal Insight</option>
+                                </select>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-800 mb-1.5">Tanggal Mulai <span class="text-red-500">*</span></label>
+                                    <div class="relative">
+                                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                        <input type="date" required class="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-primary500">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-800 mb-1.5">Tanggal Berakhir</label>
+                                    <div class="relative">
+                                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                        <input type="date" class="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-primary500">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">Deskripsi Kegiatan</label>
+                                <textarea rows="4" placeholder="Masukkan Deskripsi Kegiatan" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-primary500 resize-none placeholder-gray-400"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">Dokumen / Proposal Kegiatan <span class="text-red-500">*</span></label>
+                                <div class="border border-gray-300 rounded-lg p-4 flex items-center gap-3 cursor-pointer hover:border-primary500 transition-colors" onclick="document.getElementById('fileKegiatan').click()">
+                                    <input type="file" id="fileKegiatan" accept=".pdf,.doc,.docx" class="hidden" onchange="if(this.files[0]) document.getElementById('fileLabelKegiatan').innerHTML='<span class=\'text-primary500 font-medium\'>' + this.files[0].name + '</span>'">
+                                    <svg class="w-8 h-8 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                                    <div id="fileLabelKegiatan">
+                                        <p class="text-sm text-gray-700"><span class="text-primary500 font-medium underline">Klik untuk pilih file</span> atau seret file ke sini</p>
+                                        <p class="text-xs text-gray-400 mt-0.5">PDF, DOC, atau DOCX (max. 5mb)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section: Kontak PIC -->
+                    <div id="section-pic" class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <h2 class="text-base font-semibold text-gray-900 mb-5">Kontak PIC Perusahaan</h2>
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">Nama Lengkap <span class="text-red-500">*</span></label>
+                                <input type="text" value="Admin PT Foxtrot" disabled class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-500 bg-gray-100 cursor-not-allowed">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">Email <span class="text-red-500">*</span></label>
+                                <input type="email" value="ptfoxtrot@yopmail.com" disabled class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-500 bg-gray-100 cursor-not-allowed">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">No. Telepon (WhatsApp) <span class="text-red-500">*</span></label>
+                                <input type="tel" value="78924934989" disabled class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-500 bg-gray-100 cursor-not-allowed">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-6 px-4 lg:px-8 xl:px-24 max-w-screen-xl mx-auto w-full">
+        <div class="flex items-center justify-between text-xs text-gray-400">
+            <span>&copy; 2005-2026 SEVIMA. All Rights Reserved</span>
+            <span>SEVIMA Platform</span>
+        </div>
+    </footer>
+</body>
+</html>

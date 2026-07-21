@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Lowongan | KarirLink - Perusahaan</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary50: "#EAEDF5", primary100: "#D4DBEB", primary200: "#A9B7D7",
+                        primary300: "#7F92C2", primary400: "#546EAE", primary500: "#294A9A",
+                        primary600: '#1F3874', primary700: "#15254D", primary800: "#0A1327"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Poppins', sans-serif; }
+        .ql-container { min-height: 160px; font-family: 'Poppins', sans-serif; font-size: 14px; }
+        .ql-editor { min-height: 160px; }
+        .ql-toolbar.ql-snow { border-radius: 8px 8px 0 0; border-color: #d1d5db; }
+        .ql-container.ql-snow { border-radius: 0 0 8px 8px; border-color: #d1d5db; }
+        /* Toggle Switch - Pure CSS */
+        .toggle-switch { position: relative; width: 44px; height: 24px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #e5e7eb; border-radius: 9999px; transition: 0.3s; }
+        .toggle-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 2px; bottom: 2px;
+            background-color: white; border-radius: 50%; transition: 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .toggle-switch input:checked + .toggle-slider { background-color: #294A9A; }
+        .toggle-switch input:checked + .toggle-slider:before { transform: translateX(20px); }
+        /* Tag Input Styles */
+        .tag-container { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 12px; min-height: 48px;
+            border: 1px solid #d1d5db; border-radius: 8px; background: white; align-items: center; }
+        .tag-item { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px;
+            background-color: #EAEDF5; color: #294A9A; font-size: 13px; border-radius: 6px; font-weight: 500; }
+        .tag-item button { background: none; border: none; cursor: pointer; padding: 0; display: flex;
+            color: #294A9A; font-size: 16px; line-height: 1; }
+        .tag-input { border: none; outline: none; flex: 1; min-width: 150px; font-size: 14px; padding: 4px 0; }
+    </style>
+</head>
+<body class="bg-white min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white fixed w-full z-30 top-0 start-0 border-b border-gray-200">
+        <div class="max-w-screen-xl flex items-center justify-between mx-auto px-4 xl:px-8 py-3">
+            <div class="flex items-center space-x-4">
+                <a href="./portal-karir.html" class="flex items-center">
+                    <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" class="h-9 w-9 rounded" alt="Karirlink Logo">
+                </a>
+                <div class="hidden md:flex items-center space-x-2 text-sm text-gray-400 border border-gray-200 rounded-full px-4 py-2 bg-gray-50 cursor-pointer hover:border-gray-300">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M21 21l-4.35-4.35"/></svg>
+                    <span>Cari Pengguna</span>
+                </div>
+            </div>
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="./portal-karir.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Beranda
+                </a>
+                <a href="#" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    Aktivitas
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </a>
+                <a href="./perusahaan-mitra.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    Perusahaan
+                </a>
+                <a href="./kerja-sama.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    Kerja Sama
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </a>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button type="button" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                </button>
+                <a href="#" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </a>
+                <a href="./index.html" class="hidden md:flex items-center text-sm text-gray-700 hover:text-primary500 font-medium px-3 py-2 gap-1">
+                    Tracer Study
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+                <div class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 rounded-lg px-2 py-1">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="" class="rounded-full h-8 w-8 object-cover border border-gray-200">
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-28 min-h-screen max-w-2xl mx-auto px-6 pb-16">
+        <!-- Back Link -->
+        <a href="./company-lowongan.html" class="text-primary500 text-sm inline-flex items-center gap-1 mb-6 hover:underline">
+            ← Kembali
+        </a>
+
+        <!-- Title -->
+        <h1 class="text-xl font-bold text-gray-900 mb-1">Informasikan Lowongan ke Lulusan dan Mahasiswa</h1>
+        <p class="text-gray-500 text-sm mb-8">Lowongan Pekerjaan, Magang, Paruh Waktu, atau Pekerja Lepas dari Perguruan Tinggi dan Mitra Perusahaan</p>
+
+        <!-- Form -->
+        <form class="space-y-6" id="formLowongan">
+
+            <!-- 1. Judul Lowongan -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Judul Lowongan <span class="text-red-500">*</span></label>
+                <input type="text" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 16px; width: 100%; font-size: 14px; outline: none; box-sizing: border-box;" placeholder="Masukkan judul lowongan" maxlength="60">
+            </div>
+
+            <!-- 2. Jenis Pekerjaan (employment_type char(1): F=Full Time, P=Part Time, K=Kontrak, M=Magang, L=Freelance) -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-2">Jenis Pekerjaan <span class="text-red-500">*</span></label>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="employment_type" value="F" style="width: 16px; height: 16px; accent-color: #294A9A;">
+                        <span style="font-size: 14px; color: #4b5563;">Full Time</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="employment_type" value="P" style="width: 16px; height: 16px; accent-color: #294A9A;">
+                        <span style="font-size: 14px; color: #4b5563;">Part Time</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="employment_type" value="K" style="width: 16px; height: 16px; accent-color: #294A9A;">
+                        <span style="font-size: 14px; color: #4b5563;">Kontrak</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="employment_type" value="M" style="width: 16px; height: 16px; accent-color: #294A9A;">
+                        <span style="font-size: 14px; color: #4b5563;">Magang</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="employment_type" value="L" style="width: 16px; height: 16px; accent-color: #294A9A;">
+                        <span style="font-size: 14px; color: #4b5563;">Freelance</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 3. Tipe Pekerjaan (workplace_type char(1): O=Onsite, R=Remote, H=Hybrid) -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-2">Tipe Pekerjaan <span class="text-red-500">*</span></label>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="workplace_type" value="O" style="width: 16px; height: 16px; accent-color: #294A9A;">
+                        <span style="font-size: 14px; color: #4b5563;">Onsite</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="workplace_type" value="R" style="width: 16px; height: 16px; accent-color: #294A9A;">
+                        <span style="font-size: 14px; color: #4b5563;">Remote</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="workplace_type" value="H" style="width: 16px; height: 16px; accent-color: #294A9A;">
+                        <span style="font-size: 14px; color: #4b5563;">Hybrid</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 4. Penyelenggara (type: 'university' / 'company') -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-2">Penyelenggara <span class="text-red-500">*</span></label>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="type" value="university" checked style="width: 16px; height: 16px; accent-color: #294A9A;">
+                        <span style="font-size: 14px; color: #4b5563;">Demo eAkadcloud</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="type" value="company" style="width: 16px; height: 16px; accent-color: #294A9A;">
+                        <span style="font-size: 14px; color: #4b5563;">Mitra Perusahaan</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 5. Lokasi (city_id → kotas table) -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Lokasi <span class="text-red-500">*</span></label>
+                <div style="position: relative;">
+                    <select name="city_id" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 40px 12px 16px; width: 100%; font-size: 14px; outline: none; appearance: none; background: white; box-sizing: border-box; color: #111827;">
+                        <option value="" disabled selected>Masukkan nama lokasi</option>
+                        <option value="3578">Kota Surabaya, Jawa Timur</option>
+                        <option value="3173">Kota Jakarta Pusat, DKI Jakarta</option>
+                        <option value="3273">Kota Bandung, Jawa Barat</option>
+                        <option value="3573">Kota Malang, Jawa Timur</option>
+                        <option value="3574">Kota Kediri, Jawa Timur</option>
+                    </select>
+                    <svg style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; pointer-events: none;" fill="none" stroke="#9ca3af" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+            </div>
+
+            <!-- 6. Batasi Domisili Pelamar (is_restricted_city boolean) -->
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0;">
+                <div style="padding-right: 16px;">
+                    <label class="text-sm font-semibold text-gray-800 block">Batasi Domisili Pelamar</label>
+                    <p style="font-size: 12px; color: #9ca3af; margin-top: 2px;">Batasi lowongan ini hanya untuk pelamar dengan domisili lokasi yang terpilih</p>
+                </div>
+                <label class="toggle-switch" style="flex-shrink: 0;">
+                    <input type="checkbox" name="is_restricted_city">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <!-- 7. Dokumen Tambahan (is_required_document boolean) -->
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0;">
+                <div style="padding-right: 16px;">
+                    <label class="text-sm font-semibold text-gray-800 block">Dokumen Tambahan</label>
+                    <p style="font-size: 12px; color: #9ca3af; margin-top: 2px;">Pelamar dapat menambahkan portofolio atau dokumen pendukung lainnya.</p>
+                </div>
+                <label class="toggle-switch" style="flex-shrink: 0;">
+                    <input type="checkbox" name="is_required_document">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <!-- 8. Deskripsi Pekerjaan -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Deskripsi Pekerjaan <span class="text-red-500">*</span></label>
+                <div id="editor-deskripsi"></div>
+            </div>
+
+            <!-- 9. Persyaratan Pekerjaan -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Persyaratan Pekerjaan</label>
+                <div id="editor-persyaratan"></div>
+            </div>
+
+            <!-- 10. Preferensi Program Studi -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Preferensi Program Studi</label>
+                <div class="tag-container" id="prodi-container" onclick="document.getElementById('prodi-input').focus()">
+                    <span class="tag-item">S1 AKUNTANSI <button type="button" onclick="this.parentElement.remove()">×</button></span>
+                    <span class="tag-item">S1 MANAJEMEN <button type="button" onclick="this.parentElement.remove()">×</button></span>
+                    <input type="text" class="tag-input" id="prodi-input" placeholder="Cari program studi...">
+                </div>
+                <label style="display: flex; align-items: center; gap: 8px; margin-top: 12px; cursor: pointer;">
+                    <input type="checkbox" style="width: 16px; height: 16px; accent-color: #294A9A; border-radius: 4px;">
+                    <span style="font-size: 14px; color: #4b5563;">Semua Program Studi</span>
+                </label>
+            </div>
+
+            <!-- 11. Tingkat Pendidikan (education_level char(1): A=SMA/SMK, B=Diploma, C=Sarjana, D=Magister, E=Doktor) -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Tingkat Pendidikan</label>
+                <div style="position: relative;">
+                    <select name="education_level" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 40px 12px 16px; width: 100%; font-size: 14px; outline: none; appearance: none; background: white; box-sizing: border-box; color: #6b7280;">
+                        <option value="" disabled selected>Masukkan tingkat pendidikan</option>
+                        <option value="A">SMA/SMK</option>
+                        <option value="B">Diploma (D1-D4)</option>
+                        <option value="C">Sarjana (S1)</option>
+                        <option value="D">Magister (S2)</option>
+                        <option value="E">Doktor (S3)</option>
+                    </select>
+                    <svg style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; pointer-events: none;" fill="none" stroke="#9ca3af" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+            </div>
+
+            <!-- 12. Tingkat Pengalaman Kerja (experience_level char(1): F=Fresh Graduate, J=Junior, M=Mid, S=Senior) -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Tingkat Pengalaman Kerja</label>
+                <div style="position: relative;">
+                    <select name="experience_level" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 40px 12px 16px; width: 100%; font-size: 14px; outline: none; appearance: none; background: white; box-sizing: border-box; color: #6b7280;">
+                        <option value="" disabled selected>Masukkan tingkat pengalaman kerja</option>
+                        <option value="F">Fresh Graduate</option>
+                        <option value="J">Junior (Pengalaman 1-3 tahun)</option>
+                        <option value="M">Mid (Pengalaman 4-5 tahun)</option>
+                        <option value="S">Senior (Pengalaman > 5 tahun)</option>
+                    </select>
+                    <svg style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; pointer-events: none;" fill="none" stroke="#9ca3af" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+            </div>
+
+            <!-- 13. Keahlian -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Keahlian</label>
+                <div class="tag-container" id="keahlian-container" onclick="document.getElementById('keahlian-input').focus()">
+                    <span class="tag-item">Komunikasi <button type="button" onclick="this.parentElement.remove()">×</button></span>
+                    <span class="tag-item">MANAJEMEN <button type="button" onclick="this.parentElement.remove()">×</button></span>
+                    <input type="text" class="tag-input" id="keahlian-input" placeholder="Masukkan keahlian">
+                </div>
+            </div>
+
+            <!-- 14. Kategori Pekerjaan (job_category_id → job_categories table) -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Kategori Pekerjaan <span class="text-red-500">*</span></label>
+                <div style="position: relative;">
+                    <select name="job_category_id" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 40px 12px 16px; width: 100%; font-size: 14px; outline: none; appearance: none; background: white; box-sizing: border-box; color: #6b7280;">
+                        <option value="" disabled selected>Masukkan kategori pekerjaan</option>
+                        <option value="1">Akuntansi / Keuangan</option>
+                        <option value="2">Sumber Daya Manusia / Personalia</option>
+                        <option value="3">Penjualan / Pemasaran</option>
+                        <option value="4">Seni / Media / Komunikasi</option>
+                        <option value="5">Hotel / Restoran</option>
+                        <option value="6">Teknik</option>
+                        <option value="7">Teknologi Informasi</option>
+                        <option value="8">Pendidikan</option>
+                        <option value="9">Kesehatan</option>
+                        <option value="10">Lainnya</option>
+                    </select>
+                    <svg style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; pointer-events: none;" fill="none" stroke="#9ca3af" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+            </div>
+
+            <!-- 15. Poster -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-2">Poster</label>
+                <div id="upload-poster" onclick="document.getElementById('input-poster').click()" style="border: 2px dashed #d1d5db; border-radius: 8px; padding: 40px 20px; text-align: center; cursor: pointer; transition: border-color 0.2s;">
+                    <input type="file" id="input-poster" style="display: none;" accept="image/png,image/jpeg">
+                    <svg style="width: 48px; height: 48px; color: #1f2937; margin: 0 auto 16px;" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                    </svg>
+                    <p style="font-size: 14px; color: #374151;"><span style="font-weight: 600; color: #294A9A; text-decoration: underline;">Klik untuk tambahkan</span> atau seret dan lepas</p>
+                    <p style="font-size: 14px; color: #374151;">file kedalam kotak ini.</p>
+                    <p style="font-size: 12px; color: #9ca3af; margin-top: 8px;">PNG, JPG (Maksimal 6 Mb)</p>
+                </div>
+            </div>
+
+            <!-- 16. Kisaran Gaji (salary_type char(1): B=Bulanan, T=Tahunan; salary_min, salary_max bigint) -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Kisaran Gaji</label>
+                <div style="position: relative; margin-bottom: 12px;">
+                    <select name="salary_type" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 40px 12px 16px; width: 100%; font-size: 14px; outline: none; appearance: none; background: white; box-sizing: border-box; color: #111827;">
+                        <option value="B" selected>per Bulan</option>
+                        <option value="T">per Tahun</option>
+                    </select>
+                    <svg style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; pointer-events: none;" fill="none" stroke="#9ca3af" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <div style="flex: 1; display: flex;">
+                        <span style="display: inline-flex; align-items: center; padding: 0 12px; font-size: 14px; font-weight: 500; color: #374151; background: #f3f4f6; border: 1px solid #d1d5db; border-right: none; border-radius: 8px 0 0 8px;">Rp</span>
+                        <input type="text" name="salary_min" style="border: 1px solid #d1d5db; border-radius: 0 8px 8px 0; padding: 12px; width: 100%; font-size: 14px; outline: none; box-sizing: border-box;" placeholder="Minimal Gaji">
+                    </div>
+                    <div style="flex: 1; display: flex;">
+                        <span style="display: inline-flex; align-items: center; padding: 0 12px; font-size: 14px; font-weight: 500; color: #374151; background: #f3f4f6; border: 1px solid #d1d5db; border-right: none; border-radius: 8px 0 0 8px;">Rp</span>
+                        <input type="text" name="salary_max" style="border: 1px solid #d1d5db; border-radius: 0 8px 8px 0; padding: 12px; width: 100%; font-size: 14px; outline: none; box-sizing: border-box;" placeholder="Maksimal Gaji">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 17. Tanggal Publikasi (started_at timestamp) -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Tanggal Publikasi <span class="text-red-500">*</span></label>
+                <div style="position: relative;">
+                    <svg style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;" fill="none" stroke="#9ca3af" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <input type="text" name="started_at" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 16px 12px 48px; width: 100%; font-size: 14px; outline: none; box-sizing: border-box; color: #6b7280;" placeholder="Pilih tanggal publikasi" onfocus="(this.type='date')" onblur="if(!this.value)(this.type='text')">
+                </div>
+            </div>
+
+            <!-- 17b. Batas Akhir Lamaran (ended_at timestamp) -->
+            <div>
+                <label class="text-sm font-semibold text-gray-800 block mb-1">Batas Akhir Lamaran</label>
+                <div style="position: relative;">
+                    <svg style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;" fill="none" stroke="#9ca3af" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <input type="text" name="ended_at" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 16px 12px 48px; width: 100%; font-size: 14px; outline: none; box-sizing: border-box; color: #6b7280;" placeholder="Pilih batas akhir lamaran" onfocus="(this.type='date')" onblur="if(!this.value)(this.type='text')">
+                </div>
+            </div>
+
+            <!-- 18. Batasi Lowongan -->
+            <div style="padding: 8px 0;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="padding-right: 16px;">
+                        <label class="text-sm font-semibold text-gray-800 block">Batasi Lowongan</label>
+                        <p style="font-size: 12px; color: #9ca3af; margin-top: 2px;">Batasi lowongan ini hanya untuk perguruan tinggi tertentu</p>
+                    </div>
+                    <label class="toggle-switch" style="flex-shrink: 0;">
+                        <input type="checkbox" id="toggleBatasi" onchange="toggleBatasiLowongan()">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <!-- Pilih Universitas (hidden by default, shown when toggle is ON) -->
+                <div id="pilihUniversitas" style="display: none; margin-top: 12px;">
+                    <label class="text-sm font-semibold text-gray-800 block mb-1">Pilih Universitas</label>
+                    <div style="position: relative;">
+                        <select name="special_vacancies" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 40px 12px 16px; width: 100%; font-size: 14px; outline: none; appearance: none; background: white; box-sizing: border-box; color: #6b7280;">
+                            <option value="" disabled selected>Pilih perguruan tinggi...</option>
+                            <option value="1">Demo siAkadcloud</option>
+                            <option value="2">Universitas Airlangga</option>
+                            <option value="3">Institut Teknologi Sepuluh Nopember</option>
+                            <option value="4">Universitas Brawijaya</option>
+                            <option value="5">Universitas Gadjah Mada</option>
+                        </select>
+                        <svg style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; pointer-events: none;" fill="none" stroke="#9ca3af" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spacer -->
+            <div style="padding-top: 16px;"></div>
+
+            <!-- 19. Action Buttons -->
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <button type="button" onclick="showConfirmModal()" style="font-weight: 600; border-radius: 8px; font-size: 14px; padding: 12px 24px; color: white; background: #294A9A; border: none; cursor: pointer;">Publish Lowongan</button>
+                <button type="button" style="font-weight: 600; border-radius: 8px; font-size: 14px; padding: 12px 24px; color: #294A9A; background: transparent; border: 1px solid #294A9A; cursor: pointer;">Simpan Draft</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 50; align-items: center; justify-content: center;">
+        <div style="background: white; border-radius: 12px; padding: 24px; max-width: 400px; width: 90%; margin: auto; text-align: center;">
+            <div style="width: 64px; height: 64px; background: #FEF3C7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+                <svg style="width: 32px; height: 32px; color: #F59E0B;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+            </div>
+            <h3 style="font-size: 18px; font-weight: 600; color: #111827; margin-bottom: 8px;">Konfirmasi Publikasi Lowongan</h3>
+            <p style="font-size: 14px; color: #6b7280; margin-bottom: 24px;">Apakah Anda yakin ingin mempublikasikan lowongan ini?</p>
+            <div style="display: flex; gap: 12px; justify-content: center;">
+                <button type="button" onclick="hideConfirmModal()" style="font-weight: 600; border-radius: 8px; font-size: 14px; padding: 10px 24px; color: #374151; background: white; border: 1px solid #d1d5db; cursor: pointer; min-width: 100px;">Batal</button>
+                <button type="button" onclick="confirmPublish()" style="font-weight: 600; border-radius: 8px; font-size: 14px; padding: 10px 24px; color: white; background: #294A9A; border: none; cursor: pointer; min-width: 100px;">Ya, Yakin</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Quill editors
+        document.addEventListener('DOMContentLoaded', function() {
+            const toolbarOptions = [
+                [{ 'header': [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline'],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'indent': '-1'}, { 'indent': '+1' }],
+                ['link'],
+            ];
+
+            new Quill('#editor-deskripsi', {
+                theme: 'snow',
+                placeholder: '',
+                modules: { toolbar: toolbarOptions }
+            });
+
+            new Quill('#editor-persyaratan', {
+                theme: 'snow',
+                placeholder: '',
+                modules: { toolbar: toolbarOptions }
+            });
+        });
+
+        // Tag Input functionality for Prodi
+        document.getElementById('prodi-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && this.value.trim()) {
+                e.preventDefault();
+                addTag('prodi-container', 'prodi-input', this.value.trim().toUpperCase());
+                this.value = '';
+            }
+        });
+
+        // Tag Input functionality for Keahlian
+        document.getElementById('keahlian-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && this.value.trim()) {
+                e.preventDefault();
+                addTag('keahlian-container', 'keahlian-input', this.value.trim());
+                this.value = '';
+            }
+        });
+
+        function addTag(containerId, inputId, value) {
+            const container = document.getElementById(containerId);
+            const input = document.getElementById(inputId);
+            const tag = document.createElement('span');
+            tag.className = 'tag-item';
+            tag.innerHTML = value + ' <button type="button" onclick="this.parentElement.remove()">×</button>';
+            container.insertBefore(tag, input);
+        }
+
+        // Confirmation Modal functions
+        function showConfirmModal() {
+            document.getElementById('confirmModal').style.display = 'flex';
+        }
+
+        function hideConfirmModal() {
+            document.getElementById('confirmModal').style.display = 'none';
+        }
+
+        function confirmPublish() {
+            window.location.href = 'company-lowongan.html';
+        }
+
+        // Toggle Batasi Lowongan - show/hide Pilih Universitas
+        function toggleBatasiLowongan() {
+            var el = document.getElementById('pilihUniversitas');
+            var toggle = document.getElementById('toggleBatasi');
+            el.style.display = toggle.checked ? 'block' : 'none';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('confirmModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideConfirmModal();
+            }
+        });
+
+        // Drag and drop for poster upload
+        const uploadArea = document.getElementById('upload-poster');
+        const inputPoster = document.getElementById('input-poster');
+
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#294A9A';
+            this.style.backgroundColor = '#EAEDF5';
+        });
+
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#d1d5db';
+            this.style.backgroundColor = '';
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#d1d5db';
+            this.style.backgroundColor = '';
+            const files = e.dataTransfer.files;
+            if (files.length > 0) handleFileUpload(files[0]);
+        });
+
+        inputPoster.addEventListener('change', function() {
+            if (this.files.length > 0) handleFileUpload(this.files[0]);
+        });
+
+        function handleFileUpload(file) {
+            if (file.size > 6 * 1024 * 1024) {
+                alert('Ukuran file melebihi 6 MB');
+                return;
+            }
+            const allowed = ['image/png', 'image/jpeg'];
+            if (!allowed.includes(file.type)) {
+                alert('Format file tidak didukung. Gunakan PNG atau JPG.');
+                return;
+            }
+            uploadArea.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px 0;"><svg style="width: 32px; height: 32px; color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><div style="text-align: left;"><p style="font-size: 14px; font-weight: 500; color: #374151;">' + file.name + '</p><p style="font-size: 12px; color: #9ca3af;">' + (file.size / 1024).toFixed(1) + ' KB</p></div></div>';
+        }
+    </script>
+</body>
+</html>

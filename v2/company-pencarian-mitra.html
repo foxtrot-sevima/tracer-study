@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pencarian Mitra | KarirLink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary50: "#EAEDF5", primary100: "#D4DBEB", primary200: "#A9B7D7",
+                        primary300: "#7F92C2", primary400: "#546EAE", primary500: "#294A9A",
+                        primary600: '#1F3874', primary700: "#15254D", primary800: "#0A1327",
+                        bgprimary: "#F6F8FF"
+                    },
+                    boxShadow: { default: "0px 11px 20px rgba(0, 0, 0, 0.04)" }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Poppins', sans-serif; }
+        .tab-active { color: #294A9A; border-bottom: 2px solid #294A9A; font-weight: 600; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Navbar (Company perspective) -->
+    <nav class="bg-white fixed w-full z-30 top-0 start-0 border-b border-gray-200">
+        <div class="max-w-screen-xl flex items-center justify-between mx-auto px-4 xl:px-8 py-3">
+            <div class="flex items-center space-x-4">
+                <a href="./company-beranda.html" class="flex items-center">
+                    <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" class="h-9 w-9 rounded" alt="Karirlink Logo">
+                </a>
+                <div class="hidden md:flex items-center space-x-2 text-sm text-gray-400 border border-gray-200 rounded-full px-4 py-2 bg-gray-50 cursor-pointer hover:border-gray-300">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M21 21l-4.35-4.35"/></svg>
+                    <span>Cari Pengguna</span>
+                </div>
+            </div>
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="./company-beranda.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Beranda
+                </a>
+                <a href="./company-lowongan.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    Lowongan
+                </a>
+                <a href="#" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    Talent
+                </a>
+                <div class="relative" id="kerjaSamaDropdownWrapper">
+                    <button onclick="toggleKerjaSama()" class="flex items-center text-sm text-primary500 font-semibold gap-1.5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        Kerja Sama
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div id="kerjaSamaDropdown" class="hidden absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-40 min-w-[180px]">
+                        <a href="./company-pencarian-mitra.html" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100">Pencarian Mitra</a>
+                        <a href="./company-daftar-mitra.html" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100">Daftar Mitra</a>
+                        <a href="./company-kegiatan-kerja-sama.html" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100">Kegiatan Kerja Sama</a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button type="button" class="p-2 rounded-lg hover:bg-gray-100 relative">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                </button>
+                <a href="#" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </a>
+                <button class="hidden md:flex items-center text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-3 py-1.5 gap-1 hover:bg-amber-100 transition">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                    Premium
+                </button>
+                <div class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 rounded-lg px-2 py-1" onclick="toggleProfileDropdown()">
+                    <div class="rounded-full h-8 w-8 flex items-center justify-center text-white text-sm font-semibold" style="background-color: #294A9A;">F</div>
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Dropdown -->
+    <div id="profileDropdown" class="p-3 z-30 hidden bg-white rounded-lg shadow-lg max-w-xs divide-y divide-gray-100 absolute right-4 top-14">
+        <div class="flex items-center mb-3">
+            <div class="rounded-full h-12 w-12 flex items-center justify-center text-white font-semibold mr-3" style="background-color: #294A9A;">F</div>
+            <section>
+                <p class="text-sm text-gray-800 font-medium">PT Foxtrot</p>
+                <small class="text-xs text-gray-500">Perusahaan</small>
+            </section>
+        </div>
+        <ul class="text-sm text-gray-700 divide-y divide-gray-100">
+            <li><a href="#" class="block p-2 rounded-md hover:bg-gray-100">Lihat Profil</a></li>
+            <li><a href="#" class="block p-2 rounded-md hover:bg-gray-100">Pengaturan</a></li>
+            <li><a href="./company-register.html" class="text-red-600 block p-2 rounded-md hover:bg-gray-100">Keluar</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <main class="pt-20 px-4 lg:px-8 xl:px-24 max-w-screen-xl mx-auto flex-1 w-full">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center text-sm text-gray-500 mb-6 mt-4" aria-label="Breadcrumb">
+            <a href="./company-beranda.html" class="hover:text-primary500">Beranda</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <span class="text-gray-400">Kerja Sama</span>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <span class="text-gray-700 font-medium">Pencarian Mitra</span>
+        </nav>
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h1 class="text-2xl font-semibold text-gray-900">Pencarian Mitra</h1>
+                <p class="text-sm text-gray-500 mt-1">Daftar perguruan tinggi yang terbuka untuk kerja sama</p>
+            </div>
+            <a href="./company-pengajuan-kegiatan.html" class="bg-primary500 hover:bg-primary600 text-white text-sm font-semibold py-3 px-5 rounded-lg inline-block">
+                Ajukan Kerja Sama
+            </a>
+        </div>
+
+        <!-- Success Alert -->
+        <div id="alert-success" class="hidden mb-4 flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-lg">
+            <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span class="text-sm font-medium text-green-800 flex-1">Pengajuan kerja sama berhasil dilakukan.</span>
+            <button onclick="this.parentElement.classList.add('hidden')" class="text-green-600 hover:text-green-800">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+
+        <!-- Content Card -->
+        <div class="bg-white rounded-lg shadow-sm">
+            <!-- Tabs -->
+            <div class="border-b border-gray-200 px-6">
+                <nav class="flex gap-6 -mb-px text-sm">
+                    <a href="#" onclick="switchTab('semua')" id="tab-semua" class="tab-active pb-3 pt-4 px-1 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                        Semua Perguruan Tinggi
+                    </a>
+                    <a href="#" onclick="switchTab('pengajuan')" id="tab-pengajuan" class="text-gray-500 hover:text-gray-700 pb-3 pt-4 px-1 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        Pengajuan Kerja Sama
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Filter Row -->
+            <div class="p-6 flex items-center gap-3 border-b border-gray-200">
+                <div class="relative flex-1 max-w-sm">
+                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M21 21l-4.35-4.35"/></svg>
+                    <input type="text" placeholder="Cari nama perguruan tinggi..." class="w-full pl-10 pr-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500">
+                </div>
+                <button onclick="openFilterPanel()" class="flex items-center gap-2 text-sm font-medium text-gray-700 border border-gray-300 rounded-lg px-4 py-2.5 hover:bg-gray-50">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                    Filter
+                </button>
+            </div>
+
+            <!-- Tab: Semua Perguruan Tinggi (empty state) -->
+            <div id="content-semua" class="overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Nama Perguruan Tinggi</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Lokasi</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Jumlah Kerja Sama</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4" class="px-6 py-16 text-center text-gray-400">
+                                <div class="flex flex-col items-center">
+                                    <svg class="w-12 h-12 text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                    <p class="text-sm">Silakan lakukan filter untuk mendapatkan mitra yang sesuai</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tab: Pengajuan Kerja Sama -->
+            <div id="content-pengajuan" class="overflow-x-auto hidden">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Nama Perguruan Tinggi</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Lokasi</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Tanggal Pengajuan</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status Pengajuan</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 bg-blue-100 rounded-full flex items-center justify-center"><span class="text-blue-600 font-semibold text-xs">US</span></div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Universitas Surabaya</p>
+                                        <p class="text-xs text-gray-500">Perguruan Tinggi Swasta</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-600">Kota Surabaya, Jawa Timur</td>
+                            <td class="px-6 py-4 text-gray-600">20 Juli 2026</td>
+                            <td class="px-6 py-4"><span class="inline-flex items-center gap-1.5 text-sm text-yellow-700"><span class="w-2 h-2 bg-yellow-500 rounded-full"></span>Menunggu Persetujuan</span></td>
+                            <td class="px-6 py-4 text-center"><button onclick="openDetail('Universitas Surabaya','Menunggu Persetujuan','Perguruan Tinggi Swasta','Kota Surabaya, Jawa Timur','5.000+','12')" class="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-primary500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>Detail</button></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 bg-green-100 rounded-full flex items-center justify-center"><span class="text-green-600 font-semibold text-xs">IT</span></div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Institut Teknologi Sepuluh Nopember</p>
+                                        <p class="text-xs text-gray-500">Perguruan Tinggi Negeri</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-600">Kota Surabaya, Jawa Timur</td>
+                            <td class="px-6 py-4 text-gray-600">15 Juni 2026</td>
+                            <td class="px-6 py-4"><span class="inline-flex items-center gap-1.5 text-sm text-green-700"><span class="w-2 h-2 bg-green-500 rounded-full"></span>Pengajuan Diterima</span></td>
+                            <td class="px-6 py-4 text-center"><button onclick="openDetail('Institut Teknologi Sepuluh Nopember','Pengajuan Diterima','Perguruan Tinggi Negeri','Kota Surabaya, Jawa Timur','10.000+','45')" class="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-primary500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>Detail</button></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 bg-purple-100 rounded-full flex items-center justify-center"><span class="text-purple-600 font-semibold text-xs">UB</span></div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Universitas Brawijaya</p>
+                                        <p class="text-xs text-gray-500">Perguruan Tinggi Negeri</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-600">Kota Malang, Jawa Timur</td>
+                            <td class="px-6 py-4 text-gray-600">10 Juni 2026</td>
+                            <td class="px-6 py-4"><span class="inline-flex items-center gap-1.5 text-sm text-green-700"><span class="w-2 h-2 bg-green-500 rounded-full"></span>Pengajuan Diterima</span></td>
+                            <td class="px-6 py-4 text-center"><button onclick="openDetail('Universitas Brawijaya','Pengajuan Diterima','Perguruan Tinggi Negeri','Kota Malang, Jawa Timur','15.000+','38')" class="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-primary500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>Detail</button></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 bg-red-100 rounded-full flex items-center justify-center"><span class="text-red-600 font-semibold text-xs">UI</span></div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Universitas Indonesia</p>
+                                        <p class="text-xs text-gray-500">Perguruan Tinggi Negeri</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-600">Kota Depok, Jawa Barat</td>
+                            <td class="px-6 py-4 text-gray-600">01 Mei 2026</td>
+                            <td class="px-6 py-4"><span class="inline-flex items-center gap-1.5 text-sm text-green-700"><span class="w-2 h-2 bg-green-500 rounded-full"></span>Pengajuan Diterima</span></td>
+                            <td class="px-6 py-4 text-center"><button onclick="openDetail('Universitas Indonesia','Pengajuan Diterima','Perguruan Tinggi Negeri','Kota Depok, Jawa Barat','20.000+','67')" class="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-primary500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>Detail</button></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 bg-orange-100 rounded-full flex items-center justify-center"><span class="text-orange-600 font-semibold text-xs">UA</span></div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Universitas Airlangga</p>
+                                        <p class="text-xs text-gray-500">Perguruan Tinggi Negeri</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-600">Kota Surabaya, Jawa Timur</td>
+                            <td class="px-6 py-4 text-gray-600">22 April 2026</td>
+                            <td class="px-6 py-4"><span class="inline-flex items-center gap-1.5 text-sm text-green-700"><span class="w-2 h-2 bg-green-500 rounded-full"></span>Pengajuan Diterima</span></td>
+                            <td class="px-6 py-4 text-center"><button onclick="openDetail('Universitas Airlangga','Pengajuan Diterima','Perguruan Tinggi Negeri','Kota Surabaya, Jawa Timur','12.000+','52')" class="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-primary500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>Detail</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Detail Sidebar (offcanvas right) -->
+    <div id="detailPanel" class="hidden fixed inset-0 z-50">
+        <div class="fixed inset-0 bg-black/50" onclick="closeDetail()"></div>
+        <div class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-xl overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center"><span class="text-blue-600 font-bold text-sm" id="detail-initials">US</span></div>
+                        <h3 id="detail-name" class="text-lg font-semibold text-gray-900">Universitas Surabaya</h3>
+                    </div>
+                    <button onclick="closeDetail()" class="text-gray-400 hover:text-gray-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <div><p class="text-sm text-gray-500">Status Kerja Sama</p><p id="detail-status" class="text-sm font-medium text-gray-900 flex items-center gap-1.5"><span class="w-2 h-2 bg-yellow-500 rounded-full"></span>Menunggu Persetujuan</p></div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"/></svg>
+                        <div><p class="text-sm text-gray-500">Kategori</p><p id="detail-kategori" class="text-sm font-medium text-gray-900">Perguruan Tinggi Swasta</p></div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <div><p class="text-sm text-gray-500">Lokasi</p><p id="detail-lokasi" class="text-sm font-medium text-gray-900">Kota Surabaya, Jawa Timur</p></div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                        <div><p class="text-sm text-gray-500">Jumlah Mahasiswa</p><p id="detail-ukuran" class="text-sm font-medium text-gray-900">5.000+</p></div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <div><p class="text-sm text-gray-500">Jumlah Kerja Sama</p><p id="detail-kerjasama" class="text-sm font-medium text-gray-900">12</p></div>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <h4 class="font-semibold text-gray-900 mb-3">Lowongan Tersedia (<span id="detail-count">0</span>)</h4>
+                    <p class="text-sm text-gray-400 text-center py-8">Belum ada lowongan tersedia</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Panel (Offcanvas Right) -->
+    <div id="filterPanel" class="hidden fixed inset-0 z-50">
+        <div class="fixed inset-0 bg-black/50" onclick="closeFilterPanel()"></div>
+        <div class="fixed top-0 right-0 h-full w-full max-w-sm bg-white shadow-xl flex flex-col">
+            <!-- Header -->
+            <div class="flex items-center justify-between px-6 py-5 border-b border-gray-200">
+                <h3 class="text-base font-semibold text-gray-900">Filter Data</h3>
+                <button onclick="closeFilterPanel()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 overflow-y-auto">
+                <!-- Lokasi Section -->
+                <div class="border-b border-gray-200">
+                    <button onclick="toggleFilterSection('lokasi')" class="w-full flex items-center justify-between px-6 py-4">
+                        <span class="text-sm font-semibold text-gray-800">Lokasi</span>
+                        <svg id="lokasi-chevron" class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+                    </button>
+                    <div id="lokasi-content" class="px-6 pb-4">
+                        <div class="relative mb-3">
+                            <input type="text" placeholder="Cari Nama Kota/Kabupaten" class="w-full pl-4 pr-10 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500">
+                            <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M21 21l-4.35-4.35"/></svg>
+                        </div>
+                        <p class="text-sm text-gray-400">Kota/Kabupaten tidak ditemukan</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200">
+                <a href="./company-pencarian-mitra.html" class="text-sm font-medium text-blue-600 hover:underline">Reset Filter</a>
+                <button onclick="closeFilterPanel()" class="bg-primary500 hover:bg-primary600 text-white text-sm font-semibold py-2.5 px-5 rounded-lg">
+                    Terapkan Filter
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-6 px-4 lg:px-8 xl:px-24 max-w-screen-xl mx-auto w-full">
+        <div class="flex items-center justify-between text-xs text-gray-400">
+            <span>&copy; 2005-2026 SEVIMA. All Rights Reserved</span>
+            <span>SEVIMA Platform</span>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Kerja Sama dropdown toggle
+        function toggleKerjaSama() {
+            document.getElementById('kerjaSamaDropdown').classList.toggle('hidden');
+        }
+
+        // Profile dropdown toggle
+        function toggleProfileDropdown() {
+            document.getElementById('profileDropdown').classList.toggle('hidden');
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            var kerjaSamaWrapper = document.getElementById('kerjaSamaDropdownWrapper');
+            var kerjaSamaDropdown = document.getElementById('kerjaSamaDropdown');
+            if (kerjaSamaWrapper && !kerjaSamaWrapper.contains(event.target)) {
+                kerjaSamaDropdown.classList.add('hidden');
+            }
+            var profileDropdown = document.getElementById('profileDropdown');
+            var profileBtn = event.target.closest('[onclick="toggleProfileDropdown()"]');
+            if (!profileBtn && profileDropdown) {
+                profileDropdown.classList.add('hidden');
+            }
+        });
+
+        // Check URL for success param
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('success') === '1') {
+                document.getElementById('alert-success').classList.remove('hidden');
+                switchTab('pengajuan');
+                window.history.replaceState({}, '', window.location.pathname);
+            }
+        })();
+
+        // Tab switching
+        function switchTab(tab) {
+            if (event) event.preventDefault();
+            if (tab === 'semua') {
+                document.getElementById('content-semua').classList.remove('hidden');
+                document.getElementById('content-pengajuan').classList.add('hidden');
+                document.getElementById('tab-semua').className = 'tab-active pb-3 pt-4 px-1 flex items-center gap-2';
+                document.getElementById('tab-pengajuan').className = 'text-gray-500 hover:text-gray-700 pb-3 pt-4 px-1 flex items-center gap-2';
+            } else {
+                document.getElementById('content-semua').classList.add('hidden');
+                document.getElementById('content-pengajuan').classList.remove('hidden');
+                document.getElementById('tab-pengajuan').className = 'tab-active pb-3 pt-4 px-1 flex items-center gap-2';
+                document.getElementById('tab-semua').className = 'text-gray-500 hover:text-gray-700 pb-3 pt-4 px-1 flex items-center gap-2';
+            }
+        }
+
+        // Filter panel
+        function openFilterPanel() {
+            document.getElementById('filterPanel').classList.remove('hidden');
+        }
+
+        function closeFilterPanel() {
+            document.getElementById('filterPanel').classList.add('hidden');
+        }
+
+        function toggleFilterSection(section) {
+            var content = document.getElementById(section + '-content');
+            var chevron = document.getElementById(section + '-chevron');
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                chevron.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('hidden');
+                chevron.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Detail panel
+        function openDetail(name, status, kategori, lokasi, ukuran, kerjasama) {
+            document.getElementById('detail-name').textContent = name;
+            document.getElementById('detail-kategori').textContent = kategori || '-';
+            document.getElementById('detail-lokasi').textContent = lokasi || '-';
+            document.getElementById('detail-ukuran').textContent = ukuran || '-';
+            document.getElementById('detail-kerjasama').textContent = kerjasama || '0';
+            document.getElementById('detail-count').textContent = '0';
+
+            // Update status with correct color
+            var statusEl = document.getElementById('detail-status');
+            var dotColor = status === 'Menunggu Persetujuan' ? 'bg-yellow-500' : 'bg-green-500';
+            statusEl.innerHTML = '<span class="w-2 h-2 ' + dotColor + ' rounded-full"></span>' + status;
+
+            // Update initials
+            var words = name.split(' ');
+            var initials = words.length >= 2 ? words[0][0] + words[1][0] : words[0].substring(0, 2);
+            document.getElementById('detail-initials').textContent = initials.toUpperCase();
+
+            document.getElementById('detailPanel').classList.remove('hidden');
+        }
+
+        function closeDetail() {
+            document.getElementById('detailPanel').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

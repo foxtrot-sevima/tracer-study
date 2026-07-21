@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Kegiatan Kerja Sama | KarirLink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary50: "#EAEDF5", primary100: "#D4DBEB", primary200: "#A9B7D7",
+                        primary300: "#7F92C2", primary400: "#546EAE", primary500: "#294A9A",
+                        primary600: '#1F3874', primary700: "#15254D", primary800: "#0A1327"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Poppins', sans-serif; }
+        .tab-active { color: #294A9A; border-bottom: 2px solid #294A9A; font-weight: 600; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Navbar -->
+    <nav class="bg-white fixed w-full z-30 top-0 start-0 border-b border-gray-200">
+        <div class="max-w-screen-xl flex items-center justify-between mx-auto px-4 xl:px-8 py-3">
+            <div class="flex items-center space-x-4">
+                <a href="./portal-karir.html" class="flex items-center">
+                    <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" class="h-9 w-9 rounded" alt="Karirlink Logo">
+                </a>
+                <div class="hidden md:flex items-center space-x-2 text-sm text-gray-400 border border-gray-200 rounded-full px-4 py-2 bg-gray-50 cursor-pointer hover:border-gray-300">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M21 21l-4.35-4.35"/></svg>
+                    <span>Cari Pengguna</span>
+                </div>
+            </div>
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="./portal-karir.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Beranda
+                </a>
+                <div class="relative" id="aktivitasDropdownWrapper">
+                    <button onclick="toggleAktivitas()" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        Aktivitas
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div id="aktivitasDropdown" class="hidden absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-40 min-w-[160px]">
+                        <a href="./lowongan.html" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100">Lowongan</a>
+                        <a href="./event.html" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100">Event</a>
+                    </div>
+                </div>
+                <a href="./perusahaan-mitra.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    Perusahaan
+                </a>
+                <div class="relative" id="kerjaSamaDropdownWrapper">
+                    <button onclick="toggleKerjaSama()" class="flex items-center text-sm text-primary500 font-semibold gap-1.5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                        Kerja Sama
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div id="kerjaSamaDropdown" class="hidden absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-40 min-w-[180px]">
+                        <a href="./kerja-sama.html" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100">Pencarian Mitra</a>
+                        <a href="./kerja-sama-daftar-mitra.html" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100">Daftar Mitra</a>
+                        <a href="./kerja-sama-kegiatan.html" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100">Kegiatan Kerja Sama</a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button type="button" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                </button>
+                <a href="#" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </a>
+                <a href="./index.html" class="hidden md:flex items-center text-sm text-gray-700 hover:text-primary500 font-medium px-3 py-2 gap-1">
+                    Tracer Study
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+                <div class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 rounded-lg px-2 py-1">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="" class="rounded-full h-8 w-8 object-cover border border-gray-200">
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-20 px-4 lg:px-8 xl:px-24 max-w-screen-xl mx-auto flex-1 w-full">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center text-sm text-gray-500 mb-6 mt-4" aria-label="Breadcrumb">
+            <a href="./portal-karir.html" class="hover:text-primary500">Beranda</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <span class="text-gray-400">Kerja Sama</span>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <span class="text-gray-700 font-medium">Daftar Kegiatan</span>
+        </nav>
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h1 class="text-2xl font-semibold text-gray-900">Daftar Kegiatan</h1>
+                <p class="text-sm text-gray-500 mt-1">Daftar kegiatan Kerja Sama</p>
+            </div>
+            <a href="#" class="bg-primary500 hover:bg-primary600 text-white text-sm font-semibold py-3 px-5 rounded-lg inline-block">
+                Pengajuan Kegiatan
+            </a>
+        </div>
+
+        <!-- Success Alert (kegiatan approved) -->
+        <div id="alert-kegiatan-success" class="hidden mb-4 flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-lg">
+            <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span class="text-sm font-medium text-green-800 flex-1">Perubahan status kegiatan berhasil dilakukan.</span>
+            <button onclick="this.parentElement.classList.add('hidden')" class="text-green-600 hover:text-green-800">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+
+        <!-- Content Card -->
+        <div class="bg-white rounded-lg shadow-sm">
+            <!-- Tabs -->
+            <div class="border-b border-gray-200 px-6">
+                <nav class="flex gap-6 -mb-px text-sm">
+                    <a href="#" onclick="switchTab('semua')" id="tab-semua" class="tab-active pb-3 pt-4 px-1 flex items-center gap-2">
+                        Semua Kegiatan
+                    </a>
+                    <a href="#" onclick="switchTab('permintaan')" id="tab-permintaan" class="text-gray-500 hover:text-gray-700 pb-3 pt-4 px-1 flex items-center gap-2">
+                        Permintaan Kegiatan
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Filter Row -->
+            <div class="p-6 flex items-center gap-3 border-b border-gray-200">
+                <div class="relative flex-1 max-w-sm">
+                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M21 21l-4.35-4.35"/></svg>
+                    <input type="text" placeholder="Cari kegiatan..." class="w-full pl-10 pr-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500">
+                </div>
+                <select class="text-sm border border-gray-300 rounded-lg px-4 py-2.5 text-gray-700 focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500 bg-white">
+                    <option>Semua Kegiatan</option>
+                </select>
+            </div>
+
+            <!-- Table -->
+            <div id="content-semua" class="overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider"></th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Mitra yang Mengajukan</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Mitra Tujuan</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Nama PIC</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Kontak PIC</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status Pengajuan</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4"></td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 bg-orange-100 rounded-full flex items-center justify-center"><span class="text-orange-600 font-semibold text-xs">PF</span></div>
+                                    <p class="font-medium text-gray-900">PT Foxtrot</p>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-600">Testing Foxtrot</td>
+                            <td class="px-6 py-4 text-gray-600">Admin Fox 3</td>
+                            <td class="px-6 py-4">
+                                <p class="text-gray-600">admfox3@yopmail.com</p>
+                                <p class="text-gray-400">-</p>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center gap-1.5 text-sm text-yellow-700">
+                                    <span class="w-2 h-2 bg-yellow-500 rounded-full"></span>Menunggu Persetujuan <strong>Anda</strong>
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <button class="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-primary500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    Detail
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4"></td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 bg-purple-100 rounded-full flex items-center justify-center"><span class="text-purple-600 font-semibold text-xs">TF</span></div>
+                                    <p class="font-medium text-gray-900">Testing Foxtrot</p>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-600">Mitra Fauzan</td>
+                            <td class="px-6 py-4 text-gray-600">Admin Muhammad Nur Fauzan Mitra Fauzan</td>
+                            <td class="px-6 py-4">
+                                <p class="text-gray-600">nur.fauzan@sevima.id</p>
+                                <p class="text-gray-500">085111341923</p>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center gap-1.5 text-sm text-green-700">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>Pengajuan Diterima
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <button class="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-primary500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    Detail
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tab: Permintaan Kegiatan (hidden) -->
+            <div id="content-permintaan" class="overflow-x-auto hidden">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Tanggal Kegiatan</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Jenis Kegiatan Kerja Sama</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Nama Mitra</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Nama PIC</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Kontak PIC</th>
+                            <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 text-gray-700 whitespace-nowrap">20 Jul 2026 - 23 Jul 2026</td>
+                            <td class="px-6 py-4 text-gray-700">Kunjungan Industri</td>
+                            <td class="px-6 py-4 text-gray-700 font-medium">PT Foxtrot</td>
+                            <td class="px-6 py-4 text-gray-600">Admin PT Foxtrot</td>
+                            <td class="px-6 py-4">
+                                <div class="flex flex-col gap-0.5 text-xs text-gray-600">
+                                    <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> ptfoxtrot@yopmail.com</span>
+                                    <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg> 78924934989</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <div class="flex flex-col items-center gap-1">
+                                    <button class="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-primary500">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                        Detail
+                                    </button>
+                                    <span class="inline-flex items-center gap-1 text-xs text-green-700"><span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>Permintaan Diterima</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-6 px-4 lg:px-8 xl:px-24 max-w-screen-xl mx-auto w-full">
+        <div class="flex items-center justify-between text-xs text-gray-400">
+            <span>&copy; 2005-2026 SEVIMA. All Rights Reserved</span>
+            <span>SEVIMA Platform</span>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleAktivitas() {
+            document.getElementById('aktivitasDropdown').classList.toggle('hidden');
+            document.getElementById('kerjaSamaDropdown').classList.add('hidden');
+        }
+        function toggleKerjaSama() {
+            document.getElementById('kerjaSamaDropdown').classList.toggle('hidden');
+            document.getElementById('aktivitasDropdown').classList.add('hidden');
+        }
+        document.addEventListener('click', function(event) {
+            var aktivitasWrapper = document.getElementById('aktivitasDropdownWrapper');
+            var aktivitasDropdown = document.getElementById('aktivitasDropdown');
+            if (aktivitasWrapper && !aktivitasWrapper.contains(event.target)) aktivitasDropdown.classList.add('hidden');
+            var kerjaSamaWrapper = document.getElementById('kerjaSamaDropdownWrapper');
+            var kerjaSamaDropdown = document.getElementById('kerjaSamaDropdown');
+            if (kerjaSamaWrapper && !kerjaSamaWrapper.contains(event.target)) kerjaSamaDropdown.classList.add('hidden');
+        });
+
+        function switchTab(tab) {
+            event.preventDefault();
+            if (tab === 'semua') {
+                document.getElementById('content-semua').classList.remove('hidden');
+                document.getElementById('content-permintaan').classList.add('hidden');
+                document.getElementById('tab-semua').className = 'tab-active pb-3 pt-4 px-1 flex items-center gap-2';
+                document.getElementById('tab-permintaan').className = 'text-gray-500 hover:text-gray-700 pb-3 pt-4 px-1 flex items-center gap-2';
+            } else {
+                document.getElementById('content-semua').classList.add('hidden');
+                document.getElementById('content-permintaan').classList.remove('hidden');
+                document.getElementById('tab-permintaan').className = 'tab-active pb-3 pt-4 px-1 flex items-center gap-2';
+                document.getElementById('tab-semua').className = 'text-gray-500 hover:text-gray-700 pb-3 pt-4 px-1 flex items-center gap-2';
+            }
+        }
+
+        // Check URL params
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('kegiatan_approved') === '1') {
+                document.getElementById('alert-kegiatan-success').classList.remove('hidden');
+                // Switch to Permintaan Kegiatan tab and update status in Semua tab
+                switchTab('permintaan');
+                window.history.replaceState({}, '', window.location.pathname);
+            }
+        })();
+    </script>
+</body>
+</html>
