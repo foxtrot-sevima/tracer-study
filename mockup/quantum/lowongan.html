@@ -4,374 +4,454 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Lowongan | Portal Karir Karirlink</title>
+    <title>Lowongan | KarirLink</title>
     <link rel="icon" href="../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp">
-
-    <!-- Choices CSS & JS -->
-    <link rel="stylesheet" href="../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
-    <script src="../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
-
-    <!-- Quantum CSS -->
-    <link rel="stylesheet" href="../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
-
-    <!-- Karirlink CSS -->
-    <link rel="stylesheet" href="./assets/css/main.css">
-    <link rel="stylesheet" href="./assets/css/portal-karir.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary50: "#EAEDF5", primary100: "#D4DBEB", primary200: "#A9B7D7",
+                        primary300: "#7F92C2", primary400: "#546EAE", primary500: "#294A9A",
+                        primary600: '#1F3874', primary700: "#15254D", primary800: "#0A1327"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Poppins', sans-serif; }
+        .vacancy-item.active { background-color: #F6F8FF; border-left: 3px solid #294A9A; }
+        .badge-active { background-color: #16a34a; color: white; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+        .badge-closed { background-color: #dc2626; color: white; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+        .badge-targeted { background-color: #1e3a5f; color: white; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+        .tab-active { color: #294A9A; border-bottom: 2px solid #294A9A; font-weight: 600; }
+        /* Status Dropdown */
+        .status-dropdown { display: none; position: absolute; top: 100%; right: 0; margin-top: 4px; background: white;
+            border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 200px; z-index: 20; padding: 8px 0; }
+        .status-dropdown.show { display: block; }
+        .status-dropdown-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-size: 14px;
+            color: #374151; cursor: pointer; transition: background 0.15s; }
+        .status-dropdown-item:hover { background-color: #f3f4f6; }
+        .status-dropdown-item .dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid #d1d5db; flex-shrink: 0; }
+        .status-dropdown-item.active-item .dot { background-color: #294A9A; border-color: #294A9A; }
+        .status-dropdown-item.active-item { color: #294A9A; font-weight: 500; }
+    </style>
 </head>
-<body class="body body_kl-white">
-    <!-- [START] Header Portal Karir -->
-    <header class="header header_compact header_portal">
-        <div class="header__left">
-            <div class="header__group">
-                <a href="./portal-karir.html" class="header__identity">
-                    <img class="header__logo" src="../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
-                    <img class="header__logo header__logo_square" src="../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+<body class="bg-gray-100 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white fixed w-full z-30 top-0 start-0 border-b border-gray-200">
+        <div class="max-w-screen-xl flex items-center justify-between mx-auto px-4 xl:px-8 py-3">
+            <div class="flex items-center space-x-4">
+                <a href="portal-karir.html" class="flex items-center">
+                    <img src="../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp" class="h-9 w-9 rounded" alt="Karirlink Logo">
+                </a>
+                <div class="hidden md:flex items-center space-x-2 text-sm text-gray-400 border border-gray-200 rounded-full px-4 py-2 bg-gray-50 cursor-pointer hover:border-gray-300">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M21 21l-4.35-4.35"/></svg>
+                    <span>Cari Pengguna</span>
+                </div>
+            </div>
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="portal-karir.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Beranda
+                </a>
+                <a href="#" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    Aktivitas
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </a>
+                <a href="perusahaan-mitra.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    Perusahaan
+                </a>
+                <a href="kerja-sama.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    Kerja Sama
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </a>
             </div>
-            <!-- Search in Header -->
-            <div class="header__search">
-                <div class="form-control form-control_sm">
-                    <div class="form-control__group">
-                        <span data-input-icon="search"></span>
-                        <input type="search" class="form-control__input" placeholder="Cari Pengguna">
-                    </div>
-                </div>
-            </div>
-            <div class="header__navigation">
-                <nav class="nav">
-                    <ul class="nav__list" data-more-text="Lainnya">
-                        <li class="nav__item">
-                            <a class="nav__link" href="./portal-karir.html">
-                                <span class="icon icon-home"></span>
-                                <span>Beranda</span>
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="#">
-                                <span class="icon icon-sparkles"></span>
-                                <span>Aktivitas</span>
-                                <span class="icon icon-chevron-down-mini"></span>
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="./perusahaan.html">
-                                <span class="icon icon-building-office-2"></span>
-                                <span>Perusahaan</span>
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="./kerja-sama.html">
-                                <span class="icon icon-puzzle-piece"></span>
-                                <span>Kerja Sama</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        <div class="header__right">
-            <div class="header__action">
-                <div class="dropdown dropdown_nav dropdown_notification">
-                    <button class="btn btn_icon btn_nav" data-toggle="dropdown">
-                        <span class="icon icon-bell"></span>
-                    </button>
-                </div>
-                <div class="dropdown dropdown_nav dropdown_notification">
-                    <button class="btn btn_icon btn_nav" data-toggle="dropdown">
-                        <span class="icon icon-envelope"></span>
-                    </button>
-                </div>
-                <div class="dropdown dropdown_nav dropdown_module">
-                    <a href="./dashboard.html" target="_blank" class="btn btn_outline btn_xs btn_nav">
-                        Tracer Study
-                        <span class="icon icon-arrow-up-right-mini"></span>
-                    </a>
-                </div>
-            </div>
-            <div class="dropdown dropdown_nav dropdown_profile">
-                <button class="header__user" data-toggle="dropdown">
-                    <span class="header__user-wrapper">
-                        <span class="header__user-avatar">
-                            <span class="avatar avatar_sm">
-                                <img src="../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
-                            </span>
-                        </span>
-                    </span>
-                    <span class="icon icon-chevron-down-solid"></span>
+            <div class="flex items-center space-x-2">
+                <button type="button" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                 </button>
-                <div class="dropdown__box dropdown__box_menu-end">
-                    <ul class="dropdown__list">
-                        <li class="dropdown__avatar">
-                            <div class="avatar avatar_sm">
-                                <div class="avatar__circle">
-                                    <img src="../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
-                                </div>
-                                <div class="avatar__text">
-                                    <span class="avatar__title">Ahmad Fauzi</span>
-                                    <span class="avatar__subtitle">Alumni 2023</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown__line"></li>
-                        <li class="dropdown__item"><a href="#">Profil Saya</a></li>
-                        <li class="dropdown__item"><a href="./lamaran-saya.html">Lamaran Saya</a></li>
-                        <li class="dropdown__line"></li>
-                        <li class="dropdown__item dropdown__item_danger">
-                            <a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a>
-                        </li>
-                    </ul>
+                <a href="#" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </a>
+                <a href="index.html" class="hidden md:flex items-center text-sm text-gray-700 hover:text-primary500 font-medium px-3 py-2 gap-1">
+                    Tracer Study
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+                <div class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 rounded-lg px-2 py-1">
+                    <img src="../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="" class="rounded-full h-8 w-8 object-cover border border-gray-200">
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </div>
             </div>
         </div>
-    </header>
-    <!-- [END] Header -->
+    </nav>
 
-    <!-- [START] Main Content -->
-    <main class="main main_portal">
-        <div class="container">
-            <div class="main__header main__header_kl-list">
-                <div class="main__location">
-                    <div class="main__wrapper">
-                        <h1 class="main__title">Lowongan Pekerjaan</h1>
-                        <p class="main__subtitle">Ditemukan 1.250 lowongan aktif</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Filter Bar -->
-            <div class="card card_empty">
-                <div class="dashboard-filter">
-                    <div class="grid">
-                        <div class="col-12 col-sm-3">
-                            <div class="form-control">
-                                <div class="form-control__group">
-                                    <span data-input-icon="search"></span>
-                                    <input type="search" class="form-control__input" placeholder="Cari lowongan...">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-2">
-                            <select class="select-default" id="filter-lokasi">
-                                <option value="" selected>Lokasi</option>
-                                <option value="jakarta">Jakarta</option>
-                                <option value="surabaya">Surabaya</option>
-                                <option value="bandung">Bandung</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-2">
-                            <select class="select-default" id="filter-tipe">
-                                <option value="" selected>Tipe Kerja</option>
-                                <option value="fulltime">Full-time</option>
-                                <option value="parttime">Part-time</option>
-                                <option value="intern">Magang</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-2">
-                            <select class="select-default" id="filter-bidang">
-                                <option value="" selected>Bidang</option>
-                                <option value="it">IT & Software</option>
-                                <option value="finance">Finance</option>
-                                <option value="marketing">Marketing</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-3">
-                            <select class="select-default" id="filter-gaji">
-                                <option value="" selected>Rentang Gaji</option>
-                                <option value="5-10">5-10 Juta</option>
-                                <option value="10-15">10-15 Juta</option>
-                                <option value="15+">15 Juta+</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Job Cards Grid -->
-            <div class="grid" style="gap: 1rem; margin-top: 1rem;">
-                <!-- Job Card 1 -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card card_job">
-                        <div class="card__body">
-                            <div class="job-card__header">
-                                <div class="job-card__logo">
-                                    <img src="https://logo.clearbit.com/google.com" alt="Company Logo">
-                                </div>
-                                <div class="job-card__info">
-                                    <h3 class="job-card__title">Software Engineer</h3>
-                                    <p class="job-card__company">Google Indonesia</p>
-                                </div>
-                            </div>
-                            <div class="job-card__meta">
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Jakarta</span>
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>15-25 Juta</span>
-                            </div>
-                            <p class="job-card__desc">Mengembangkan dan memelihara aplikasi web skala besar menggunakan teknologi modern...</p>
-                        </div>
-                        <div class="card__footer">
-                            <span class="job-card__date">2 hari lalu</span>
-                            <button class="btn btn_primary btn_sm">Lamar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Job Card 2 -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card card_job">
-                        <div class="card__body">
-                            <div class="job-card__header">
-                                <div class="job-card__logo">
-                                    <img src="https://logo.clearbit.com/tokopedia.com" alt="Company Logo">
-                                </div>
-                                <div class="job-card__info">
-                                    <h3 class="job-card__title">Data Analyst</h3>
-                                    <p class="job-card__company">Tokopedia</p>
-                                </div>
-                            </div>
-                            <div class="job-card__meta">
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Jakarta</span>
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>12-18 Juta</span>
-                            </div>
-                            <p class="job-card__desc">Menganalisis data bisnis dan memberikan insight untuk pengambilan keputusan strategis...</p>
-                        </div>
-                        <div class="card__footer">
-                            <span class="job-card__date">3 hari lalu</span>
-                            <button class="btn btn_primary btn_sm">Lamar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Job Card 3 -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card card_job">
-                        <div class="card__body">
-                            <div class="job-card__header">
-                                <div class="job-card__logo">
-                                    <img src="https://logo.clearbit.com/gojek.com" alt="Company Logo">
-                                </div>
-                                <div class="job-card__info">
-                                    <h3 class="job-card__title">Product Manager</h3>
-                                    <p class="job-card__company">Gojek</p>
-                                </div>
-                            </div>
-                            <div class="job-card__meta">
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Surabaya</span>
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>18-30 Juta</span>
-                            </div>
-                            <p class="job-card__desc">Memimpin pengembangan produk digital dari ideation hingga launch...</p>
-                        </div>
-                        <div class="card__footer">
-                            <span class="job-card__date">5 hari lalu</span>
-                            <button class="btn btn_primary btn_sm">Lamar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Job Card 4 -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card card_job">
-                        <div class="card__body">
-                            <div class="job-card__header">
-                                <div class="job-card__logo">
-                                    <img src="https://logo.clearbit.com/shopee.com" alt="Company Logo">
-                                </div>
-                                <div class="job-card__info">
-                                    <h3 class="job-card__title">UI/UX Designer</h3>
-                                    <p class="job-card__company">Shopee Indonesia</p>
-                                </div>
-                            </div>
-                            <div class="job-card__meta">
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Jakarta</span>
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>10-18 Juta</span>
-                            </div>
-                            <p class="job-card__desc">Merancang antarmuka pengguna yang menarik dan pengalaman pengguna yang optimal...</p>
-                        </div>
-                        <div class="card__footer">
-                            <span class="job-card__date">1 minggu lalu</span>
-                            <button class="btn btn_primary btn_sm">Lamar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Job Card 5 -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card card_job">
-                        <div class="card__body">
-                            <div class="job-card__header">
-                                <div class="job-card__logo">
-                                    <img src="https://logo.clearbit.com/bukalapak.com" alt="Company Logo">
-                                </div>
-                                <div class="job-card__info">
-                                    <h3 class="job-card__title">DevOps Engineer</h3>
-                                    <p class="job-card__company">Bukalapak</p>
-                                </div>
-                            </div>
-                            <div class="job-card__meta">
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Bandung</span>
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>15-22 Juta</span>
-                            </div>
-                            <p class="job-card__desc">Mengelola infrastruktur cloud dan CI/CD pipeline untuk aplikasi skala besar...</p>
-                        </div>
-                        <div class="card__footer">
-                            <span class="job-card__date">1 minggu lalu</span>
-                            <button class="btn btn_primary btn_sm">Lamar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Job Card 6 -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card card_job">
-                        <div class="card__body">
-                            <div class="job-card__header">
-                                <div class="job-card__logo">
-                                    <img src="https://logo.clearbit.com/traveloka.com" alt="Company Logo">
-                                </div>
-                                <div class="job-card__info">
-                                    <h3 class="job-card__title">Mobile Developer</h3>
-                                    <p class="job-card__company">Traveloka</p>
-                                </div>
-                            </div>
-                            <div class="job-card__meta">
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Jakarta</span>
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
-                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>14-20 Juta</span>
-                            </div>
-                            <p class="job-card__desc">Mengembangkan aplikasi mobile untuk platform iOS dan Android...</p>
-                        </div>
-                        <div class="card__footer">
-                            <span class="job-card__date">2 minggu lalu</span>
-                            <button class="btn btn_primary btn_sm">Lamar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pagination -->
-            <div class="pagination-wrapper" style="margin-top: 2rem; text-align: center;">
-                <nav class="pagination">
-                    <button class="pagination__btn" disabled><span class="icon icon-chevron-left-mini"></span></button>
-                    <span class="pagination__info">Halaman 1 dari 42</span>
-                    <button class="pagination__btn"><span class="icon icon-chevron-right-mini"></span></button>
-                </nav>
-            </div>
+    <!-- Main Content -->
+    <main class="pt-20 px-4 lg:px-8 xl:px-24 max-w-screen-xl mx-auto">
+        <!-- Success Alert -->
+        <div id="alert-success" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50 border border-green-300" role="alert">
+            <svg class="flex-shrink-0 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/></svg>
+            <div class="ms-3 text-sm font-medium">Lowongan berhasil dibuat</div>
+            <button type="button" onclick="this.parentElement.remove()" class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8">
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 14 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/></svg>
+            </button>
         </div>
+
+        <!-- Header: Title + Button -->
+        <div class="bg-white rounded-t-lg p-6 flex justify-between items-center border-b border-gray-200">
+            <h1 class="text-2xl font-semibold text-gray-900">Lowongan</h1>
+            <a href="lowongan-create.html" class="bg-primary500 hover:bg-primary600 text-white text-sm font-semibold py-3 px-5 rounded-lg">
+                Buat Lowongan
+            </a>
+        </div>
+
+        <!-- Two Panel Layout -->
+        <div class="grid grid-cols-12 bg-white rounded-b-lg min-h-[600px]">
+            <!-- LEFT PANEL: List Lowongan -->
+            <div class="lg:col-span-4 col-span-12 border-r border-gray-200 overflow-hidden">
+                <!-- Search & Filter -->
+                <div class="p-3 flex gap-2 items-center border-b border-gray-200">
+                    <input type="search" placeholder="Cari judul lowongan" class="min-w-0 flex-1 text-sm border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary500">
+                    <select class="text-sm border border-gray-300 rounded-lg px-2 py-2 text-gray-700 focus:outline-none focus:ring-1 focus:ring-primary500 flex-shrink-0">
+                        <option value="all" selected>Semua</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                    </select>
+                    <button class="bg-primary500 text-white rounded-lg p-2 hover:bg-primary600 flex-shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/></svg>
+                    </button>
+                </div>
+
+                <!-- Vacancy Item 1 (Active, Selected) -->
+                <a href="#" class="vacancy-item block px-5 py-6 border-b border-gray-200 hover:bg-gray-50 relative overflow-hidden">
+                    <span class="badge-targeted absolute top-2 right-0 rounded-l-md" title="Khusus alumni perguruan tinggi ini">Targeted Vacancy</span>
+                    <span class="badge-active inline-block mb-2">Active</span>
+                    <h3 class="font-medium text-base text-gray-800 mb-1">Lowongan Demo</h3>
+                    <p class="text-sm text-gray-500 mb-3">Full Time • Dibuat 16 menit yang lalu</p>
+                    <div class="flex items-center text-xs text-gray-500 gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+                        <span>0 Pelamar</span>
+                    </div>
+                </a>
+
+                <!-- Vacancy Item 2 (Active, has applicants) -->
+                <a href="#" class="vacancy-item active block px-5 py-6 border-b border-gray-200 relative overflow-hidden">
+                    <span class="badge-active inline-block mb-2">Active</span>
+                    <h3 class="font-medium text-base text-gray-800 mb-1">lowangan pekerjaan 2026</h3>
+                    <p class="text-sm text-gray-500 mb-3">Full Time • Dibuat 4 hari yang lalu</p>
+                    <div class="flex items-center text-xs text-gray-500 gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+                        <span>2 Pelamar</span>
+                    </div>
+                </a>
+
+                <!-- Vacancy Item 3 (Active, Targeted) -->
+                <a href="#" class="vacancy-item block px-5 py-6 border-b border-gray-200 hover:bg-gray-50 relative overflow-hidden">
+                    <span class="badge-targeted absolute top-2 right-0 rounded-l-md" title="Khusus alumni perguruan tinggi ini">Targeted Vacancy</span>
+                    <span class="badge-active inline-block mb-2">Active</span>
+                    <h3 class="font-medium text-base text-gray-800 mb-1">Lowongan Pekerjaan Part Time</h3>
+                    <p class="text-sm text-gray-500 mb-3">Part Time • Dibuat 2 bulan yang lalu</p>
+                    <div class="flex items-center text-xs text-gray-500 gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+                        <span>0 Pelamar</span>
+                    </div>
+                </a>
+
+                <!-- Vacancy Item 4 (Closed) -->
+                <a href="#" class="vacancy-item block px-5 py-6 border-b border-gray-200 hover:bg-gray-50 relative overflow-hidden">
+                    <span class="badge-closed inline-block mb-2">Closed</span>
+                    <h3 class="font-medium text-base text-gray-800 mb-1">Lowongan Data Analyst</h3>
+                    <p class="text-sm text-gray-500 mb-3">Full Time • Dibuat 7 bulan yang lalu</p>
+                    <div class="flex items-center text-xs text-gray-500 gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+                        <span>0 Pelamar</span>
+                    </div>
+                </a>
+
+                <!-- Vacancy Item 5 (Closed, Targeted) -->
+                <a href="#" class="vacancy-item block px-5 py-6 border-b border-gray-200 hover:bg-gray-50 relative overflow-hidden">
+                    <span class="badge-targeted absolute top-2 right-0 rounded-l-md" title="Khusus alumni perguruan tinggi ini">Targeted Vacancy</span>
+                    <span class="badge-closed inline-block mb-2">Closed</span>
+                    <h3 class="font-medium text-base text-gray-800 mb-1">Lowongan 2025</h3>
+                    <p class="text-sm text-gray-500 mb-3">Full Time • Dibuat 1 tahun yang lalu</p>
+                    <div class="flex items-center text-xs text-gray-500 gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+                        <span>0 Pelamar</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- RIGHT PANEL: Detail Lowongan + Applicants -->
+            <div class="lg:col-span-8 col-span-12">
+                <!-- Vacancy Detail Header -->
+                <div class="p-6 pb-0">
+                    <div class="flex items-center justify-between mb-1">
+                        <div class="flex items-center gap-3">
+                            <h2 class="text-xl font-semibold text-gray-900">lowangan pekerjaan 2026</h2>
+                            <span class="badge-active">Active</span>
+                        </div>
+                        <button class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-4">Full Time • Dibuat 4 hari yang lalu</p>
+
+                    <!-- Tabs -->
+                    <div class="border-b border-gray-200">
+                        <nav id="status-tabs" class="flex gap-6 -mb-px text-sm">
+                            <a href="#" class="tab-active pb-3 px-1" data-tab="belum_diproses">Belum di Proses (<span class="tab-count">2</span>)</a>
+                            <a href="#" class="text-gray-500 hover:text-gray-700 pb-3 px-1" data-tab="lolos_berkas">Lolos Berkas (<span class="tab-count">0</span>)</a>
+                            <a href="#" class="text-gray-500 hover:text-gray-700 pb-3 px-1" data-tab="interview_1">Interview 1 (<span class="tab-count">0</span>)</a>
+                            <a href="#" class="text-gray-500 hover:text-gray-700 pb-3 px-1" data-tab="interview_2">Interview 2 (<span class="tab-count">0</span>)</a>
+                            <a href="#" class="text-gray-500 hover:text-gray-700 pb-3 px-1" data-tab="diterima">Diterima (<span class="tab-count">0</span>)</a>
+                            <a href="#" class="text-gray-500 hover:text-gray-700 pb-3 px-1" data-tab="ditolak">Ditolak (<span class="tab-count">0</span>)</a>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Applicant List -->
+                <div id="applicant-list" class="p-6 space-y-4">
+                    <!-- Applicant 1 -->
+                    <div class="applicant-card flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:bg-gray-50" data-status="belum_diproses">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-primary500 flex items-center justify-center text-white font-semibold text-lg">F</div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">FADLIYANSYAH</h4>
+                                <p class="text-sm text-gray-500">Universitas Potensi Utama</p>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400 cursor-pointer hover:text-primary500" title="Lihat Profil" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0"/></svg>
+                                    <svg class="w-4 h-4 text-gray-400 cursor-pointer hover:text-primary500" title="Lihat Dokumen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                                    <svg class="w-4 h-4 text-gray-400 cursor-pointer hover:text-primary500" title="Kirim Email" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                                    <svg class="w-4 h-4 text-gray-400 cursor-pointer hover:text-primary500" title="WhatsApp" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <button onclick="toggleDropdown('dropdown-1')" class="bg-primary500 hover:bg-primary600 text-white text-sm font-medium py-2 px-4 rounded-lg inline-flex items-center gap-2">
+                                Belum di Proses
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                            <div id="dropdown-1" class="status-dropdown">
+                                <div class="status-dropdown-item active-item" onclick="selectStatus(this, 'dropdown-1')"><span class="dot"></span>Belum di Proses</div>
+                                <div class="status-dropdown-item" onclick="selectStatus(this, 'dropdown-1')"><span class="dot"></span>Lolos Berkas</div>
+                                <div class="status-dropdown-item" onclick="selectStatus(this, 'dropdown-1')"><span class="dot"></span>Interview 1</div>
+                                <div class="status-dropdown-item" onclick="selectStatus(this, 'dropdown-1')"><span class="dot"></span>Interview 2</div>
+                                <div class="status-dropdown-item" onclick="selectStatus(this, 'dropdown-1')"><span class="dot"></span>Diterima</div>
+                                <div class="status-dropdown-item" onclick="selectStatus(this, 'dropdown-1')"><span class="dot"></span>Ditolak</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Applicant 2 -->
+                    <div class="applicant-card flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:bg-gray-50" data-status="belum_diproses">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center text-white font-semibold text-lg">S</div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">Syafruddin Fudin</h4>
+                                <p class="text-sm text-gray-500">Politeknik Negeri Lhokseumawe</p>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <svg class="w-4 h-4 text-gray-400 cursor-pointer hover:text-primary500" title="Lihat Profil" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0"/></svg>
+                                    <svg class="w-4 h-4 text-gray-400 cursor-pointer hover:text-primary500" title="Lihat Dokumen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                                    <svg class="w-4 h-4 text-gray-400 cursor-pointer hover:text-primary500" title="Kirim Email" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                                    <svg class="w-4 h-4 text-gray-400 cursor-pointer hover:text-primary500" title="WhatsApp" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <button onclick="toggleDropdown('dropdown-2')" class="bg-primary500 hover:bg-primary600 text-white text-sm font-medium py-2 px-4 rounded-lg inline-flex items-center gap-2">
+                                Belum di Proses
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                            <div id="dropdown-2" class="status-dropdown">
+                                <div class="status-dropdown-item active-item" onclick="selectStatus(this, 'dropdown-2')"><span class="dot"></span>Belum di Proses</div>
+                                <div class="status-dropdown-item" onclick="selectStatus(this, 'dropdown-2')"><span class="dot"></span>Lolos Berkas</div>
+                                <div class="status-dropdown-item" onclick="selectStatus(this, 'dropdown-2')"><span class="dot"></span>Interview 1</div>
+                                <div class="status-dropdown-item" onclick="selectStatus(this, 'dropdown-2')"><span class="dot"></span>Interview 2</div>
+                                <div class="status-dropdown-item" onclick="selectStatus(this, 'dropdown-2')"><span class="dot"></span>Diterima</div>
+                                <div class="status-dropdown-item" onclick="selectStatus(this, 'dropdown-2')"><span class="dot"></span>Ditolak</div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end applicant list -->
+                <!-- Empty State -->
+                <div id="empty-state" class="p-6 text-center text-gray-400" style="display: none;">
+                    <svg class="w-16 h-16 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+                    <p class="text-sm">Tidak ada pelamar di tahap ini</p>
+                </div>
+            </div><!-- end right panel -->
+        </div><!-- end grid -->
     </main>
-    <!-- [END] Main Content -->
 
-    <!-- Quantum JavaScript -->
-    <script src="../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <!-- Confirmation Modal -->
+    <div id="confirmStatusModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 50; align-items: center; justify-content: center;">
+        <div style="background: white; border-radius: 12px; padding: 32px; max-width: 420px; width: 90%; margin: auto; text-align: center; position: relative;">
+            <button onclick="hideConfirmStatus()" style="position: absolute; top: 16px; right: 16px; background: none; border: none; cursor: pointer; color: #6b7280; font-size: 24px; line-height: 1;">×</button>
+            <div style="width: 56px; height: 56px; background: #FEF3C7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+                <svg style="width: 28px; height: 28px; color: #F59E0B;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+            </div>
+            <p id="confirmStatusText" style="font-size: 15px; color: #374151; margin-bottom: 24px; line-height: 1.5;"></p>
+            <div style="display: flex; gap: 12px; justify-content: center;">
+                <button onclick="hideConfirmStatus()" style="font-weight: 600; border-radius: 8px; font-size: 14px; padding: 10px 28px; color: #374151; background: white; border: 1px solid #d1d5db; cursor: pointer;">Batal</button>
+                <button onclick="confirmStatusChange()" style="font-weight: 600; border-radius: 8px; font-size: 14px; padding: 10px 28px; color: white; background: #dc2626; border: none; cursor: pointer;">Yakin</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.select-default').forEach(el => {
-                new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+        var activeTab = 'belum_diproses';
+        var pendingItem = null;
+        var pendingDropdownId = null;
+
+        var statusMap = {
+            'Belum di Proses': 'belum_diproses',
+            'Lolos Berkas': 'lolos_berkas',
+            'Interview 1': 'interview_1',
+            'Interview 2': 'interview_2',
+            'Diterima': 'diterima',
+            'Ditolak': 'ditolak'
+        };
+
+        var statusLabels = {
+            'belum_diproses': 'belum diproses',
+            'lolos_berkas': 'lolos berkas',
+            'interview_1': 'interview 1',
+            'interview_2': 'interview 2',
+            'diterima': 'diterima',
+            'ditolak': 'ditolak'
+        };
+
+        // Toggle dropdown visibility
+        function toggleDropdown(id) {
+            document.querySelectorAll('.status-dropdown').forEach(function(el) {
+                if (el.id !== id) el.classList.remove('show');
             });
+            document.getElementById(id).classList.toggle('show');
+        }
+
+        // Select a status — show confirmation modal
+        function selectStatus(item, dropdownId) {
+            var statusText = item.textContent.trim();
+            var newStatus = statusMap[statusText];
+            var dropdown = document.getElementById(dropdownId);
+            var card = dropdown.closest('.applicant-card');
+            var currentStatus = card.getAttribute('data-status');
+
+            // If same status, just close
+            if (newStatus === currentStatus) {
+                dropdown.classList.remove('show');
+                return;
+            }
+
+            // Store pending action
+            pendingItem = item;
+            pendingDropdownId = dropdownId;
+
+            // Show confirmation modal
+            var text = 'Apakah Anda yakin ingin mengubah status pelamar menjadi <strong>' + statusLabels[newStatus] + '</strong>?';
+            document.getElementById('confirmStatusText').innerHTML = text;
+            document.getElementById('confirmStatusModal').style.display = 'flex';
+
+            // Close dropdown
+            dropdown.classList.remove('show');
+        }
+
+        // Confirm the status change
+        function confirmStatusChange() {
+            if (!pendingItem || !pendingDropdownId) return;
+
+            var dropdown = document.getElementById(pendingDropdownId);
+            var button = dropdown.previousElementSibling;
+            var statusText = pendingItem.textContent.trim();
+            var newStatus = statusMap[statusText];
+
+            // Update button text
+            button.innerHTML = statusText + ' <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
+
+            // Update active state in dropdown
+            dropdown.querySelectorAll('.status-dropdown-item').forEach(function(el) {
+                el.classList.remove('active-item');
+            });
+            pendingItem.classList.add('active-item');
+
+            // Update the applicant card's data-status
+            var card = dropdown.closest('.applicant-card');
+            card.setAttribute('data-status', newStatus);
+
+            // Hide modal
+            hideConfirmStatus();
+
+            // Re-filter display and update tab counts
+            filterByTab(activeTab);
+            updateTabCounts();
+        }
+
+        // Hide confirmation modal
+        function hideConfirmStatus() {
+            document.getElementById('confirmStatusModal').style.display = 'none';
+            pendingItem = null;
+            pendingDropdownId = null;
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('confirmStatusModal').addEventListener('click', function(e) {
+            if (e.target === this) hideConfirmStatus();
         });
+
+        // Tab click handler
+        document.getElementById('status-tabs').addEventListener('click', function(e) {
+            var tab = e.target.closest('[data-tab]');
+            if (!tab) return;
+            e.preventDefault();
+
+            this.querySelectorAll('a').forEach(function(a) {
+                a.classList.remove('tab-active');
+                a.classList.add('text-gray-500', 'hover:text-gray-700');
+            });
+            tab.classList.add('tab-active');
+            tab.classList.remove('text-gray-500', 'hover:text-gray-700');
+
+            activeTab = tab.getAttribute('data-tab');
+            filterByTab(activeTab);
+        });
+
+        // Filter applicants by active tab
+        function filterByTab(status) {
+            document.querySelectorAll('.applicant-card').forEach(function(card) {
+                card.style.display = card.getAttribute('data-status') === status ? '' : 'none';
+            });
+
+            var visibleCards = document.querySelectorAll('.applicant-card[data-status="' + status + '"]');
+            document.getElementById('empty-state').style.display = visibleCards.length === 0 ? 'block' : 'none';
+        }
+
+        // Update tab counts
+        function updateTabCounts() {
+            document.querySelectorAll('#status-tabs a[data-tab]').forEach(function(tab) {
+                var count = document.querySelectorAll('.applicant-card[data-status="' + tab.getAttribute('data-tab') + '"]').length;
+                tab.querySelector('.tab-count').textContent = count;
+            });
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.relative')) {
+                document.querySelectorAll('.status-dropdown').forEach(function(el) {
+                    el.classList.remove('show');
+                });
+            }
+        });
+
+        // Initial state
+        filterByTab(activeTab);
     </script>
 </body>
 </html>

@@ -55,11 +55,18 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                     Perusahaan
                 </a>
-                <a href="#" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                    Kerja Sama
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </a>
+                <div class="relative" id="kerjaSamaDropdownWrapper">
+                    <button onclick="toggleKerjaSama()" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                        Kerja Sama
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div id="kerjaSamaDropdown" class="hidden absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-40 min-w-[180px]">
+                        <a href="kerja-sama.html" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100">Pencarian Mitra</a>
+                        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100">Daftar Mitra</a>
+                        <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100">Kegiatan Kerja Sama</a>
+                    </div>
+                </div>
             </div>
 
             <!-- Right Side: Icons & Profile -->
@@ -143,19 +150,39 @@
                         <!-- Tab Buttons -->
                         <div class="flex items-center gap-2 mb-5">
                             <button class="bg-primary500 text-white rounded-lg px-3 py-2 text-sm font-medium">
-                                Semua (51)
+                                Semua (52)
                             </button>
                             <button class="border border-primary500 text-primary500 bg-white rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-50">
                                 Menunggu Bergabung (41)
                             </button>
                             <button class="border border-primary500 text-primary500 bg-white rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-50">
-                                Berhasil Bergabung (10)
+                                Berhasil Bergabung (11)
                             </button>
                         </div>
 
                         <!-- Company List -->
                         <div class="divide-y divide-gray-200">
-                            <!-- Row 1 -->
+                        <!-- Row 1 - PT Foxtrot (Berhasil Bergabung) -->
+                            <div class="flex items-center justify-between py-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-base text-gray-900">PT Foxtrot</p>
+                                        <div class="flex items-center gap-1.5 mt-1">
+                                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                            <span class="text-sm text-gray-500">ptfoxtrot@yopmail.com</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-green-800" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                    <span class="text-sm font-medium text-green-800">Berhasil Bergabung</span>
+                                </div>
+                            </div>
+
+                            <!-- Row 2 -->
                             <div class="flex items-center justify-between py-4">
                                 <div class="flex items-center gap-4">
                                     <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
@@ -253,11 +280,11 @@
                         <div class="mt-4 pt-4 border-t border-gray-100">
                             <div class="flex items-center justify-between text-sm">
                                 <span class="text-gray-500">Total Mitra</span>
-                                <span class="font-semibold text-gray-800">51</span>
+                                <span class="font-semibold text-gray-800">52</span>
                             </div>
                             <div class="flex items-center justify-between text-sm mt-2">
                                 <span class="text-gray-500">Berhasil Bergabung</span>
-                                <span class="font-semibold text-green-700">10</span>
+                                <span class="font-semibold text-green-700">11</span>
                             </div>
                             <div class="flex items-center justify-between text-sm mt-2">
                                 <span class="text-gray-500">Menunggu</span>
@@ -318,6 +345,19 @@
     </div>
 
     <script>
+        function toggleKerjaSama() {
+            document.getElementById('kerjaSamaDropdown').classList.toggle('hidden');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            var wrapper = document.getElementById('kerjaSamaDropdownWrapper');
+            var dropdown = document.getElementById('kerjaSamaDropdown');
+            if (wrapper && !wrapper.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
         function submitInvite() {
             // Close modal
             document.getElementById('inviteModal').classList.add('hidden');

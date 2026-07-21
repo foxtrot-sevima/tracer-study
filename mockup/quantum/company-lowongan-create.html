@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buat Lowongan | KarirLink</title>
+    <title>Buat Lowongan | KarirLink - Perusahaan</title>
     <link rel="icon" href="../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -104,7 +104,7 @@
     <!-- Main Content -->
     <div class="pt-28 min-h-screen max-w-2xl mx-auto px-6 pb-16">
         <!-- Back Link -->
-        <a href="portal-karir.html" class="text-primary500 text-sm inline-flex items-center gap-1 mb-6 hover:underline">
+        <a href="company-lowongan.html" class="text-primary500 text-sm inline-flex items-center gap-1 mb-6 hover:underline">
             ← Kembali
         </a>
 
@@ -365,15 +365,32 @@
             </div>
 
             <!-- 18. Batasi Lowongan -->
-            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0;">
-                <div style="padding-right: 16px;">
-                    <label class="text-sm font-semibold text-gray-800 block">Batasi Lowongan</label>
-                    <p style="font-size: 12px; color: #9ca3af; margin-top: 2px;">Batasi lowongan ini hanya untuk internal perguruan tinggi</p>
+            <div style="padding: 8px 0;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="padding-right: 16px;">
+                        <label class="text-sm font-semibold text-gray-800 block">Batasi Lowongan</label>
+                        <p style="font-size: 12px; color: #9ca3af; margin-top: 2px;">Batasi lowongan ini hanya untuk perguruan tinggi tertentu</p>
+                    </div>
+                    <label class="toggle-switch" style="flex-shrink: 0;">
+                        <input type="checkbox" id="toggleBatasi" onchange="toggleBatasiLowongan()">
+                        <span class="toggle-slider"></span>
+                    </label>
                 </div>
-                <label class="toggle-switch" style="flex-shrink: 0;">
-                    <input type="checkbox">
-                    <span class="toggle-slider"></span>
-                </label>
+                <!-- Pilih Universitas (hidden by default, shown when toggle is ON) -->
+                <div id="pilihUniversitas" style="display: none; margin-top: 12px;">
+                    <label class="text-sm font-semibold text-gray-800 block mb-1">Pilih Universitas</label>
+                    <div style="position: relative;">
+                        <select name="special_vacancies" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 40px 12px 16px; width: 100%; font-size: 14px; outline: none; appearance: none; background: white; box-sizing: border-box; color: #6b7280;">
+                            <option value="" disabled selected>Pilih perguruan tinggi...</option>
+                            <option value="1">Demo siAkadcloud</option>
+                            <option value="2">Universitas Airlangga</option>
+                            <option value="3">Institut Teknologi Sepuluh Nopember</option>
+                            <option value="4">Universitas Brawijaya</option>
+                            <option value="5">Universitas Gadjah Mada</option>
+                        </select>
+                        <svg style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; pointer-events: none;" fill="none" stroke="#9ca3af" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                </div>
             </div>
 
             <!-- Spacer -->
@@ -466,8 +483,14 @@
         }
 
         function confirmPublish() {
-            // Redirect to success page or lowongan list
-            window.location.href = 'lowongan.html';
+            window.location.href = 'company-lowongan.html';
+        }
+
+        // Toggle Batasi Lowongan - show/hide Pilih Universitas
+        function toggleBatasiLowongan() {
+            var el = document.getElementById('pilihUniversitas');
+            var toggle = document.getElementById('toggleBatasi');
+            el.style.display = toggle.checked ? 'block' : 'none';
         }
 
         // Close modal when clicking outside

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi Perusahaan | KarirLink</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        primary50: "#EAEDF5", primary100: "#D4DBEB", primary200: "#A9B7D7",
+                        primary300: "#7F92C2", primary400: "#546EAE", primary500: "#294A9A",
+                        primary600: '#1F3874', primary700: "#15254D", primary800: "#0A1327",
+                        bgprimary: "#F6F8FF"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="bg-white min-h-screen flex">
+    <!-- Left Side: Form -->
+    <div class="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-16 lg:px-20 py-12">
+        <!-- Logo -->
+        <div class="mb-8">
+            <img src="../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp" class="h-10 w-10 rounded" alt="Karirlink Logo">
+        </div>
+
+        <!-- Heading -->
+        <div class="mb-8">
+            <h1 class="text-2xl md:text-3xl font-semibold text-gray-800 mb-1">Selamat Datang,</h1>
+            <h2 class="text-2xl md:text-3xl font-bold text-primary500">PT Foxtrot</h2>
+            <p class="text-sm text-gray-500 mt-3">Masukkan NPWP perusahaan dan buat password baru untuk mulai bergabung</p>
+        </div>
+
+        <!-- Form -->
+        <form id="registerForm" onsubmit="handleRegister(event)" class="space-y-5">
+            <!-- Email -->
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-600">Email</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <input type="email" value="ptfoxtrot@yopmail.com" disabled
+                        class="w-full pl-12 pr-4 py-3.5 text-sm text-gray-500 bg-gray-100 border border-gray-300 rounded-lg cursor-not-allowed">
+                </div>
+            </div>
+
+            <!-- NPWP -->
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-600">NPWP Perusahaan</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                        </svg>
+                    </div>
+                    <input type="number" placeholder="Masukkan NPWP perusahaan"
+                        class="w-full pl-12 pr-4 py-3.5 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500 placeholder-gray-400">
+                </div>
+            </div>
+
+            <!-- Kata Sandi -->
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-600">Kata Sandi <span class="text-red-500">*</span></label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                        </svg>
+                    </div>
+                    <input type="password" id="password" placeholder="Masukkan kata sandi" required
+                        class="w-full pl-12 pr-12 py-3.5 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500 placeholder-gray-400">
+                    <button type="button" onclick="togglePassword('password', 'eyeIcon1')" class="absolute inset-y-0 right-0 flex items-center pr-4">
+                        <svg id="eyeIcon1" class="w-5 h-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ulangi Kata Sandi -->
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-600">Ulangi Kata Sandi Anda <span class="text-red-500">*</span></label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                        </svg>
+                    </div>
+                    <input type="password" id="confirmPassword" placeholder="Ulangi kata sandi Anda" required
+                        class="w-full pl-12 pr-12 py-3.5 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500 placeholder-gray-400">
+                    <button type="button" onclick="togglePassword('confirmPassword', 'eyeIcon2')" class="absolute inset-y-0 right-0 flex items-center pr-4">
+                        <svg id="eyeIcon2" class="w-5 h-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit"
+                class="w-full py-3.5 text-sm font-semibold text-white rounded-lg focus:outline-none focus:ring-4 focus:ring-primary200 hover:opacity-90 transition"
+                style="background-color: #294A9A;">
+                Gabung Sekarang
+            </button>
+        </form>
+    </div>
+
+    <!-- Right Side: Illustration Placeholder (hidden on mobile) -->
+    <div class="hidden lg:flex w-1/2 items-center justify-center bg-gray-50 relative overflow-hidden">
+        <div class="w-full h-full flex items-center justify-center" style="background: linear-gradient(135deg, #EAEDF5 0%, #D4DBEB 100%);">
+            <!-- Simple SVG Person Illustration -->
+            <svg width="280" height="320" viewBox="0 0 280 320" fill="none">
+                <!-- Background circle -->
+                <circle cx="140" cy="160" r="120" fill="#294A9A" opacity="0.08"/>
+                <!-- Person body -->
+                <ellipse cx="140" cy="260" rx="50" ry="30" fill="#294A9A" opacity="0.2"/>
+                <!-- Person torso -->
+                <rect x="115" y="170" width="50" height="70" rx="10" fill="#294A9A" opacity="0.3"/>
+                <!-- Person head -->
+                <circle cx="140" cy="140" r="35" fill="#294A9A" opacity="0.3"/>
+                <!-- Laptop -->
+                <rect x="90" y="230" width="100" height="8" rx="4" fill="#294A9A" opacity="0.4"/>
+                <rect x="100" y="200" width="80" height="30" rx="4" fill="#294A9A" opacity="0.25"/>
+                <!-- Decorative dots -->
+                <circle cx="60" cy="100" r="4" fill="#294A9A" opacity="0.2"/>
+                <circle cx="220" cy="80" r="6" fill="#294A9A" opacity="0.15"/>
+                <circle cx="240" cy="200" r="3" fill="#294A9A" opacity="0.2"/>
+                <circle cx="50" cy="220" r="5" fill="#294A9A" opacity="0.15"/>
+                <!-- Document icon -->
+                <rect x="200" y="120" width="30" height="40" rx="4" fill="#294A9A" opacity="0.2"/>
+                <rect x="206" y="130" width="18" height="3" rx="1.5" fill="#294A9A" opacity="0.3"/>
+                <rect x="206" y="137" width="14" height="3" rx="1.5" fill="#294A9A" opacity="0.3"/>
+                <rect x="206" y="144" width="18" height="3" rx="1.5" fill="#294A9A" opacity="0.3"/>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>';
+            } else {
+                input.type = 'password';
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>';
+            }
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            window.location.href = 'company-onboarding.html';
+        }
+    </script>
+</body>
+</html>
