@@ -35,6 +35,11 @@
         /* Link style for Detail */
         .link { color: var(--qn-primary-500); text-decoration: none; font-weight: 500; }
         .link:hover { text-decoration: underline; }
+
+        .notif-item { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.625rem 1rem; white-space: normal; }
+        .notif-item__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); }
+        .notif-item__desc { font-size: 0.75rem; color: var(--qn-neutral-600); }
+        .notif-item__time { font-size: 0.6875rem; color: var(--qn-neutral-400); }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -80,10 +85,25 @@
         </div>
         <div class="header__right">
             <div class="header__action">
+                <a href="#" class="btn btn_icon btn_nav" title="Pesan">
+                    <span class="icon icon-chat-bubble-left-right"></span>
+                </a>
                 <div class="dropdown dropdown_nav dropdown_notification">
                     <button class="btn btn_icon btn_nav" data-toggle="dropdown">
                         <span class="icon icon-bell"></span>
                     </button>
+                    <div class="dropdown__box dropdown__box_menu-end" style="width: 320px;">
+                        <span class="dropdown__box-title" style="display: block; padding: 0.75rem 1rem 0.25rem;">Pemberitahuan</span>
+                        <ul class="dropdown__list">
+                            <li class="dropdown__item">
+                                <a href="#" class="notif-item">
+                                    <span class="notif-item__title">Periksa Pengikut Baru Anda!</span>
+                                    <span class="notif-item__desc">PT Tes Dimas mulai mengikuti anda.</span>
+                                    <span class="notif-item__time">1 minggu yang lalu</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="dropdown dropdown_nav dropdown_module">
                     <a href="./portal-karir.html" class="btn btn_outline btn_xs btn_nav">
@@ -121,7 +141,18 @@
                             </div>
                         </li>
                         <li class="dropdown__line"></li>
-                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__item">
+                            <a href="#">
+                                <span class="icon icon-user-circle"></span>
+                                Lihat Profil
+                            </a>
+                        </li>
+                        <li class="dropdown__item">
+                            <a href="#">
+                                <span class="icon icon-globe-alt"></span>
+                                Pengaturan Landing Page
+                            </a>
+                        </li>
                         <li class="dropdown__line"></li>
                         <li class="dropdown__item dropdown__item_danger">
                             <a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a>
@@ -140,29 +171,24 @@
                 <div class="main__location">
                     <div class="main__wrapper">
                         <h1 class="main__title">Daftar Alumni</h1>
+                        <p class="main__subtitle">Kelola data dan status pengisian tracer study seluruh alumni</p>
                     </div>
                 </div>
                 <div class="main__action">
+                    <span style="font-size: 0.8125rem; color: var(--qn-neutral-400);">Last sync: 08 July 2026</span>
                     <button class="btn btn_primary" onclick="openSyncModal()">
                         <span class="icon icon-arrow-path-mini"></span>
-                        Export
+                        Sinkron Siakad
                     </button>
                 </div>
             </div>
 
             <!-- Filter Bar -->
             <div class="card card_empty">
-                <!-- Sync Info & Actions -->
-                <div class="dashboard-filter" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                    <p style="font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0;">
-                        Data kontak terbaru diperoleh berdasarkan informasi yang diisi pada kuesioner terakhir
-                    </p>
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <span style="font-size: 0.8125rem; color: var(--qn-neutral-400);">Last sync: 08 July 2026</span>
-                        <button class="btn btn_outline btn_sm" onclick="openSyncModal()">
-                            <span class="icon icon-arrow-path-mini"></span>
-                            Sinkron Siakad
-                        </button>
+                <!-- Sync Info -->
+                <div class="alert alert_warning" style="margin-bottom: 1rem;">
+                    <div class="alert__content">
+                        <p class="alert__description">Data kontak terbaru diperoleh berdasarkan informasi yang diisi pada kuesioner terakhir</p>
                     </div>
                 </div>
 
@@ -234,7 +260,7 @@
                                 <td>ainarpratnyaning rum@gmail.com</td>
                                 <td>-</td>
                                 <td><span class="tag tag_danger">Belum Mengisi</span></td>
-                                <td><a href="#" class="link">Detail</a></td>
+                                <td><a href="./alumni-detail.html" class="link">Detail</a></td>
                             </tr>
                             <tr>
                                 <td>2</td>
@@ -245,7 +271,7 @@
                                 <td>inijelljel@gmail.com</td>
                                 <td>12345 67788 8</td>
                                 <td><span class="tag tag_success">Sudah Mengisi</span></td>
-                                <td><a href="#" class="link">Detail</a></td>
+                                <td><a href="./alumni-detail.html" class="link">Detail</a></td>
                             </tr>
                             <tr>
                                 <td>3</td>
@@ -256,7 +282,7 @@
                                 <td>nankur@yapmail.com</td>
                                 <td>08123 4095 861</td>
                                 <td><span class="tag tag_danger">Belum Mengisi</span></td>
-                                <td><a href="#" class="link">Detail</a></td>
+                                <td><a href="./alumni-detail.html" class="link">Detail</a></td>
                             </tr>
                             <tr>
                                 <td>4</td>
@@ -267,7 +293,7 @@
                                 <td>abdul@mail.com</td>
                                 <td>-</td>
                                 <td><span class="tag tag_danger">Belum Mengisi</span></td>
-                                <td><a href="#" class="link">Detail</a></td>
+                                <td><a href="./alumni-detail.html" class="link">Detail</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -283,6 +309,17 @@
                 </div>
             </div>
         </div>
+    
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
     <!-- [END] Main Content -->
 

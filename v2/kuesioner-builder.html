@@ -38,6 +38,11 @@
         .toast-alert { position: fixed; top: 5rem; left: 50%; transform: translateX(-50%); padding: 0.875rem 1.5rem; background: #FEF2F2; border: 1px solid #FECACA; color: #DC2626; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; opacity: 0; transition: opacity .3s; z-index: 9999; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .toast-alert.show { opacity: 1; }
         .toast-alert .icon { font-size: 1.125rem; }
+        
+        .notif-item { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.625rem 1rem; white-space: normal; }
+        .notif-item__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); }
+        .notif-item__desc { font-size: 0.75rem; color: var(--qn-neutral-600); }
+        .notif-item__time { font-size: 0.6875rem; color: var(--qn-neutral-400); }
 </style>
 </head>
 <body class="body body_kl-white">
@@ -87,7 +92,7 @@
         .toggle-slider:before { position: absolute; content: ""; height: 1rem; width: 1rem; left: 0.125rem; bottom: 0.125rem; background: white; border-radius: 50%; transition: .2s; }
         .toggle-switch input:checked + .toggle-slider { background: var(--qn-primary-500); }
         .toggle-switch input:checked + .toggle-slider:before { transform: translateX(1.25rem); }
-
+        
         /* Header compact */
         .page-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; margin-bottom: 1rem; }
         .page-header__left { display: flex; align-items: center; gap: 0.75rem; }
@@ -120,10 +125,25 @@
         </div>
         <div class="header__right">
             <div class="header__action">
+                <a href="#" class="btn btn_icon btn_nav" title="Pesan">
+                    <span class="icon icon-chat-bubble-left-right"></span>
+                </a>
                 <div class="dropdown dropdown_nav dropdown_notification">
                     <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification">
                         <span class="icon icon-bell"></span>
                     </button>
+                    <div class="dropdown__box dropdown__box_menu-end" style="width: 320px;">
+                        <span class="dropdown__box-title" style="display: block; padding: 0.75rem 1rem 0.25rem;">Pemberitahuan</span>
+                        <ul class="dropdown__list">
+                            <li class="dropdown__item">
+                                <a href="#" class="notif-item">
+                                    <span class="notif-item__title">Periksa Pengikut Baru Anda!</span>
+                                    <span class="notif-item__desc">PT Tes Dimas mulai mengikuti anda.</span>
+                                    <span class="notif-item__time">1 minggu yang lalu</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="dropdown dropdown_nav dropdown_module">
                     <a href="./portal-karir.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-portal-karir">
@@ -147,20 +167,58 @@
                     </span>
                     <span class="icon icon-chevron-down-solid"></span>
                 </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle">
+                                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
+                                </div>
+                                <div class="avatar__text">
+                                    <span class="avatar__title">Admin Karirlink</span>
+                                    <span class="avatar__subtitle">admin@university.ac.id</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item">
+                            <a href="#">
+                                <span class="icon icon-user-circle"></span>
+                                Lihat Profil
+                            </a>
+                        </li>
+                        <li class="dropdown__item">
+                            <a href="#">
+                                <span class="icon icon-globe-alt"></span>
+                                Pengaturan Landing Page
+                            </a>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger">
+                            <a href="#">
+                                <span class="icon icon-arrow-left-on-rectangle-mini"></span>
+                                Keluar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="main" style="padding-top: 4.5rem;">
-        <div class="container" style="max-width: 1100px; padding: 1.5rem;">
+    <main class="main">
+        <div class="container" style="max-width: 1100px; padding-left: 1.5rem; padding-right: 1.5rem;">
             <!-- Page Header -->
-            <div class="page-header">
-                <div class="page-header__left">
-                    <a href="./index.html" style="color: var(--qn-neutral-500);"><span class="icon icon-home" style="font-size: 1.25rem;"></span></a>
-                    <span class="page-header__title">Template Lengkap</span>
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <a href="./index.html" class="link link_back" style="color: var(--qn-neutral-500);"><span class="icon icon-home" style="font-size: 1.25rem;"></span></a>
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Template Tracer Study</h1>
+                        <p class="main__subtitle">Draft v4 · tandai section per Core, Optional, atau Wave</p>
+                    </div>
                 </div>
-                <div class="page-header__actions">
+                <div class="main__action">
                     <a href="./kuesioner-preview.html" class="btn btn_outline btn_sm">Pratinjau</a>
                     <button class="btn btn_primary btn_sm" onclick="saveAll()">Simpan ke Draft</button>
                 </div>
@@ -171,7 +229,7 @@
                 <!-- Sidebar - Section List -->
                 <div class="builder-sidebar">
                     <div class="form-control__label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">Bagian Kuesioner <span class="important">*</span></div>
-                    
+
                     <!-- Default Section (Locked) -->
                     <div class="section-item section-item--locked" style="background: #f0fdf4; border-color: #86efac; cursor: default; margin-bottom: 0.75rem;" onclick="showDefaultSectionInfo()">
                         <span class="section-item__number" style="background: #22c55e;">
@@ -180,9 +238,9 @@
                             </svg>
                         </span>
                         <span class="section-item__name" style="color: #16a34a;">Informasi Pribadi</span>
-                        <span style="font-size: 0.625rem; color: #22c55e; background: #dcfce7; padding: 0.125rem 0.375rem; border-radius: 0.25rem;">Default</span>
+                        <span style="font-size: 0.625rem; color: #22c55e; background: #dcfce7; padding: 0.125rem 0.375rem; border-radius: 0.25rem;">Core · Default</span>
                     </div>
-                    
+
                     <div class="section-list" id="sectionList"></div>
                     <button class="btn-add-section" onclick="addSection()">
                         <span class="icon icon-plus-mini"></span> Tambah Bagian
@@ -195,11 +253,22 @@
                         <label class="form-control__label">Judul Kuesioner <span class="important">*</span></label>
                     </div>
                     <input type="text" class="title-input" id="questionnaireTitle" value="" placeholder="Masukkan Judul Kuesioner">
-                    
+
                     <div id="sectionContent"></div>
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
 
     <div class="toast" id="toast"></div>
@@ -208,22 +277,34 @@
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
 
     <script>
+    // Wave scope: which wave(s) a section belongs to.
+    // core = selalu ada di semua wave; optional = bisa dimatikan per campaign;
+    // exit/gs-1/gs-2 = hanya muncul untuk wave tersebut.
+    const WAVE_SCOPE_LABELS = {
+        core: 'Core',
+        optional: 'Optional',
+        exit: 'Khusus Exit',
+        'gs-1': 'Khusus GS-I',
+        'gs-2': 'Khusus GS-II'
+    };
+
     // Data Model
     let data = {
         title: '',
         sections: [
             {
-                id: 1, name: 'Informasi Umum',
+                id: 1, name: 'Informasi Umum', waveScope: 'core',
                 questions: [
                     { id: 1, text: 'Jelaskan status Anda saat ini?', desc: '', type: 'radio', required: true, options: ['Bekerja (full time / part time)', 'Belum memungkinkan bekerja', 'Wiraswasta (Wirausaha)', 'Melanjutkan pendidikan', 'Tidak kerja, tetapi sedang mencari kerja'] },
                     { id: 2, text: 'Sumber dana apa yang Anda gunakan untuk membiayai kuliah?', desc: '', type: 'radio', required: true, options: ['Biaya Sendiri/Keluarga', 'Beasiswa ADIK', 'BIDIKMISI', 'PPA'] }
                 ]
             },
-            { id: 2, name: 'Bekerja', questions: [] },
-            { id: 3, name: 'Wiraswasta', questions: [] },
-            { id: 4, name: 'Melanjutkan Pendidikan', questions: [] },
-            { id: 5, name: 'Belum Bekerja', questions: [] },
-            { id: 6, name: 'Tingkat Kompetensi', questions: [] }
+            { id: 2, name: 'Bekerja', waveScope: 'core', questions: [] },
+            { id: 3, name: 'Wiraswasta', waveScope: 'core', questions: [] },
+            { id: 4, name: 'Melanjutkan Pendidikan', waveScope: 'core', questions: [] },
+            { id: 5, name: 'Belum Bekerja', waveScope: 'core', questions: [] },
+            { id: 6, name: 'Tingkat Kompetensi', waveScope: 'optional', questions: [] },
+            { id: 7, name: 'Rencana Karier Lanjutan', waveScope: 'gs-2', questions: [] }
         ]
     };
     let currentSection = 0;
@@ -235,6 +316,9 @@
             <div class="section-item ${i === currentSection ? 'active' : ''}" onclick="selectSection(${i})">
                 <span class="section-item__number">${i + 1}</span>
                 <span class="section-item__name">${s.name}</span>
+                <select class="section-item__wave-scope" onclick="event.stopPropagation()" onchange="updateSectionWaveScope(${i}, this.value)" title="Wave scope bagian ini">
+                    ${Object.entries(WAVE_SCOPE_LABELS).map(([value, label]) => `<option value="${value}" ${s.waveScope === value ? 'selected' : ''}>${label}</option>`).join('')}
+                </select>
                 <span class="section-item__delete" onclick="event.stopPropagation(); deleteSection(${i})">
                     <span class="icon icon-trash-mini"></span>
                 </span>
@@ -246,24 +330,24 @@
     function renderQuestions() {
         const section = data.sections[currentSection];
         const container = document.getElementById('sectionContent');
-        
+
         let html = `
             <div class="section-card">
-                <input type="text" class="section-title-input" value="${currentSection + 1}. ${section.name}" 
+                <input type="text" class="section-title-input" value="${currentSection + 1}. ${section.name}"
                     onchange="updateSectionName(this.value)" placeholder="Nama bagian...">
-                
+
                 <div id="questionList">`;
-        
+
         section.questions.forEach((q, qi) => {
             html += renderQuestionCard(q, qi);
         });
-        
+
         html += `</div>
                 <div class="add-question-btn" onclick="addQuestion()">
                     <span class="icon icon-plus-mini"></span> Tambah Pertanyaan
                 </div>
             </div>`;
-        
+
         container.innerHTML = html;
     }
 
@@ -277,30 +361,30 @@
             { value: 'date', label: 'Tanggal' },
             { value: 'scale', label: 'Skala' }
         ];
-        
+
         let html = `
             <div class="question-card" data-index="${qi}">
                 <div class="question-header">
                     <span class="question-number">${qi + 1}.</span>
-                    <input type="text" class="question-text-input" value="${q.text}" 
+                    <input type="text" class="question-text-input" value="${q.text}"
                         onchange="updateQuestion(${qi}, 'text', this.value)" placeholder="Ketik pertanyaan...">
-                    
+
                     <select class="question-type-select" onchange="updateQuestion(${qi}, 'type', this.value)">
                         ${typeOptions.map(opt => `<option value="${opt.value}" ${q.type === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
                     </select>
-                    
+
                     <div class="question-actions">
                         <button onclick="duplicateQuestion(${qi})" title="Duplikat"><span class="icon icon-document-duplicate-mini"></span></button>
                         <button onclick="deleteQuestion(${qi})" title="Hapus"><span class="icon icon-trash-mini"></span></button>
                         <button title="Lainnya"><span class="icon icon-ellipsis-vertical-mini"></span></button>
                     </div>
                 </div>
-                
+
                 <div class="question-desc">
-                    <input type="text" class="question-desc-input" value="${q.desc || ''}" 
+                    <input type="text" class="question-desc-input" value="${q.desc || ''}"
                         onchange="updateQuestion(${qi}, 'desc', this.value)" placeholder="Deskripsi">
                 </div>`;
-        
+
         // Render options for radio/checkbox
         if (['radio', 'checkbox'].includes(q.type)) {
             html += `<div class="option-list">`;
@@ -308,7 +392,7 @@
                 html += `
                     <div class="option-item">
                         <span class="option-item__number">${oi + 1}</span>
-                        <input type="text" class="option-item__input" value="${opt}" 
+                        <input type="text" class="option-item__input" value="${opt}"
                             onchange="updateOption(${qi}, ${oi}, this.value)" placeholder="Opsi ${oi + 1}">
                         <button class="option-item__delete" onclick="deleteOption(${qi}, ${oi})" ${q.options.length <= 1 ? 'style="visibility:hidden"' : ''}>
                             <span class="icon icon-x-mark-mini"></span>
@@ -328,11 +412,11 @@
             html += `</div>`;
         } else {
             html += `<div style="margin-left: 2.25rem;">
-                <input type="${q.type === 'textarea' ? 'text' : q.type}" class="form-control__input" 
+                <input type="${q.type === 'textarea' ? 'text' : q.type}" class="form-control__input"
                     placeholder="Jawaban responden akan muncul di sini..." disabled style="max-width: 300px; background: var(--qn-neutral-50);">
             </div>`;
         }
-        
+
         html += `
                 <div class="question-footer">
                     <div class="required-toggle">
@@ -344,7 +428,7 @@
                     </div>
                 </div>
             </div>`;
-        
+
         return html;
     }
 
@@ -357,11 +441,16 @@
 
     function addSection() {
         const newId = Math.max(...data.sections.map(s => s.id), 0) + 1;
-        data.sections.push({ id: newId, name: 'Bagian Baru', questions: [] });
+        data.sections.push({ id: newId, name: 'Bagian Baru', waveScope: 'core', questions: [] });
         currentSection = data.sections.length - 1;
         renderSectionList();
         renderQuestions();
         showToast('Bagian baru ditambahkan');
+    }
+
+    function updateSectionWaveScope(index, value) {
+        data.sections[index].waveScope = value;
+        showToast(`Bagian "${data.sections[index].name}" diatur sebagai ${WAVE_SCOPE_LABELS[value]}`);
     }
 
     function deleteSection(index) {
@@ -444,19 +533,19 @@
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 2500);
     }
-    
+
     function showAlertToast(msg) {
         const toast = document.getElementById('toastAlert');
         document.getElementById('toastAlertMsg').textContent = msg;
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 3500);
     }
-    
+
     function showDefaultSectionInfo() {
         // Show info toast about default section
         const existingInfo = document.querySelector('.default-section-info');
         if (existingInfo) existingInfo.remove();
-        
+
         const info = document.createElement('div');
         info.className = 'default-section-info';
         info.style.cssText = `
@@ -495,7 +584,7 @@
             </button>
         `;
         document.body.appendChild(info);
-        
+
         // Auto remove after 5 seconds
         setTimeout(() => {
             if (info.parentElement) info.remove();
@@ -505,7 +594,7 @@
     function saveAll() {
         const titleInput = document.getElementById('questionnaireTitle');
         const title = titleInput.value.trim();
-        
+
         // Validate title is not empty
         if (!title) {
             showAlertToast('Judul Kuesioner harus diisi terlebih dahulu');
@@ -516,13 +605,13 @@
             }, 3000);
             return;
         }
-        
+
         data.title = title;
         console.log('Saved data:', data);
-        
+
         // Show success toast
         showToast('Kuesioner berhasil disimpan!');
-        
+
         // Redirect to draft page after short delay
         setTimeout(() => {
             // Store flag in sessionStorage to show toast on index page
@@ -534,17 +623,6 @@
 
     // Init
     document.addEventListener('DOMContentLoaded', function() {
-        // Set template from URL
-        const params = new URLSearchParams(window.location.search);
-        const template = params.get('template');
-        if (template) {
-            const titles = { full: 'Template Lengkap', kemdikbud: 'Template Kemdikbud', alumni: 'Template Pengguna Lulusan', empty: 'Template Kosong' };
-            document.querySelector('.page-header__title').textContent = titles[template] || 'Template Lengkap';
-            if (template === 'empty') {
-                data = { title: '', sections: [{ id: 1, name: 'Bagian 1', questions: [] }] };
-                document.getElementById('questionnaireTitle').value = '';
-            }
-        }
         renderSectionList();
         renderQuestions();
     });

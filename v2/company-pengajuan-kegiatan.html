@@ -5,150 +5,272 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KarirLink | Formulir Pengajuan Kegiatan</title>
+
+    <title>Formulir Pengajuan Kegiatan | KarirLink Perusahaan</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
-                    colors: {
-                        primary50: "#EAEDF5", primary100: "#D4DBEB", primary200: "#A9B7D7",
-                        primary300: "#7F92C2", primary400: "#546EAE", primary500: "#294A9A",
-                        primary600: '#1F3874', primary700: "#15254D", primary800: "#0A1327"
-                    }
-                }
-            }
-        }
-    </script>
-    <style>* { font-family: 'Poppins', sans-serif; }</style>
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .toc { position: sticky; top: 1.5rem; }
+        .toc__title { font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-800); margin: 0 0 0.75rem; }
+        .toc__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+        .toc__list a { display: block; font-size: 0.875rem; padding: 0.375rem 0.75rem; border-radius: 0.375rem; color: var(--qn-neutral-600); text-decoration: none; border-left: 2px solid transparent; }
+        .toc__list a.active { background: var(--qn-primary-50); color: var(--qn-primary-500); font-weight: 500; border-left-color: var(--qn-primary-500); }
+
+        .upload-card { border: 1px solid var(--qn-neutral-300); border-radius: 0.5rem; padding: 1rem; display: flex; align-items: center; gap: 0.75rem; cursor: pointer; transition: border-color 0.2s; }
+        .upload-card:hover { border-color: var(--qn-primary-500); }
+        .upload-card__icon { font-size: 2rem; color: var(--qn-neutral-400); flex-shrink: 0; }
+    </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col">
-    <!-- Top Nav -->
-    <nav class="bg-white fixed w-full z-30 top-0 start-0 border-b border-gray-200">
-        <div class="max-w-screen-xl flex items-center justify-between mx-auto px-4 xl:px-8 py-3">
-            <a href="./company-daftar-mitra.html" class="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary500">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                Kembali
-            </a>
-            <span class="text-sm text-gray-700 font-medium">Kerja Sama / <strong>Pengajuan Kegiatan</strong></span>
-            <button type="submit" form="formKegiatan" class="bg-primary500 hover:bg-primary600 text-white text-sm font-semibold py-2.5 px-5 rounded-lg">
-                Buat Pengajuan
-            </button>
-        </div>
-    </nav>
-
-    <!-- Main -->
-    <main class="pt-20 px-4 lg:px-8 xl:px-24 max-w-screen-xl mx-auto flex-1 w-full pb-8">
-        <!-- Breadcrumb -->
-        <nav class="flex items-center text-sm text-gray-500 mb-4 mt-4">
-            <a href="#" class="hover:text-primary500">🏠</a>
-            <svg class="w-4 h-4 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            <a href="#" class="hover:text-primary500">Kerja Sama</a>
-            <svg class="w-4 h-4 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            <a href="#" class="hover:text-primary500">Kegiatan Kerja Sama</a>
-            <svg class="w-4 h-4 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            <span class="text-gray-700 font-medium">Formulir Pengajuan Kegiatan</span>
-        </nav>
-        <h1 class="text-xl font-bold text-gray-900 mb-6">Formulir Pengajuan Kegiatan</h1>
-
-        <div class="flex gap-8">
-            <!-- Sidebar -->
-            <aside class="hidden lg:block w-48 flex-shrink-0">
-                <div class="sticky top-24">
-                    <h3 class="text-sm font-semibold text-gray-800 mb-3">Table of Content</h3>
-                    <ul class="space-y-1">
-                        <li><a href="#section-kegiatan" class="block text-sm py-1.5 px-3 rounded-md bg-primary50 text-primary500 font-medium border-l-2 border-primary500">Data Kegiatan</a></li>
-                        <li><a href="#section-pic" class="block text-sm py-1.5 px-3 rounded-md text-gray-600 hover:bg-gray-100 border-l-2 border-transparent">Kontak PIC</a></li>
+<body class="body body_kl-white">
+    <!-- [START] Header (Perusahaan Mitra) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./company-beranda.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./company-beranda.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./company-lowongan.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Lowongan Saya</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <div class="dropdown dropdown_nav">
+                                <a class="nav__link" href="#" data-toggle="dropdown">
+                                    <span class="icon icon-user-group"></span>
+                                    <span>Kerja Sama</span>
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </a>
+                                <div class="dropdown__box">
+                                    <ul class="dropdown__list">
+                                        <li class="dropdown__item"><a href="./company-pencarian-mitra.html">Pencarian Mitra</a></li>
+                                        <li class="dropdown__item"><a href="./company-daftar-mitra.html">Daftar Mitra</a></li>
+                                        <li class="dropdown__item"><a href="./company-kegiatan-kerja-sama.html">Kegiatan Kerja Sama</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
-                </div>
-            </aside>
-
-            <!-- Form -->
-            <div class="flex-1">
-                <form id="formKegiatan" onsubmit="event.preventDefault(); window.location.href='company-kegiatan-kerja-sama.html?success=1';">
-                    <!-- Section: Data Kegiatan -->
-                    <div id="section-kegiatan" class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-                        <div class="space-y-5">
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">Nama Mitra yang sudah bekerja sama <span class="text-red-500">*</span></label>
-                                <input type="text" value="Testing Foxtrot" disabled class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-500 bg-gray-100 cursor-not-allowed">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">Jenis Kegiatan Kerja Sama <span class="text-red-500">*</span></label>
-                                <select required class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-primary500 focus:border-primary500">
-                                    <option value="" disabled>----- Pilih Salah Satu -----</option>
-                                    <option value="kunjungan" selected>Kunjungan Industri</option>
-                                    <option value="kuliah_tamu">Kuliah Tamu</option>
-                                    <option value="campus_hiring">Campus Hiring</option>
-                                    <option value="praktikal">Praktikal Insight</option>
-                                </select>
-                            </div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-800 mb-1.5">Tanggal Mulai <span class="text-red-500">*</span></label>
-                                    <div class="relative">
-                                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                        <input type="date" required class="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-primary500">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-800 mb-1.5">Tanggal Berakhir</label>
-                                    <div class="relative">
-                                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                        <input type="date" class="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-primary500">
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">Deskripsi Kegiatan</label>
-                                <textarea rows="4" placeholder="Masukkan Deskripsi Kegiatan" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-primary500 resize-none placeholder-gray-400"></textarea>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">Dokumen / Proposal Kegiatan <span class="text-red-500">*</span></label>
-                                <div class="border border-gray-300 rounded-lg p-4 flex items-center gap-3 cursor-pointer hover:border-primary500 transition-colors" onclick="document.getElementById('fileKegiatan').click()">
-                                    <input type="file" id="fileKegiatan" accept=".pdf,.doc,.docx" class="hidden" onchange="if(this.files[0]) document.getElementById('fileLabelKegiatan').innerHTML='<span class=\'text-primary500 font-medium\'>' + this.files[0].name + '</span>'">
-                                    <svg class="w-8 h-8 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
-                                    <div id="fileLabelKegiatan">
-                                        <p class="text-sm text-gray-700"><span class="text-primary500 font-medium underline">Klik untuk pilih file</span> atau seret file ke sini</p>
-                                        <p class="text-xs text-gray-400 mt-0.5">PDF, DOC, atau DOCX (max. 5mb)</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section: Kontak PIC -->
-                    <div id="section-pic" class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                        <h2 class="text-base font-semibold text-gray-900 mb-5">Kontak PIC Perusahaan</h2>
-                        <div class="space-y-5">
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">Nama Lengkap <span class="text-red-500">*</span></label>
-                                <input type="text" value="Admin PT Foxtrot" disabled class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-500 bg-gray-100 cursor-not-allowed">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">Email <span class="text-red-500">*</span></label>
-                                <input type="email" value="ptfoxtrot@yopmail.com" disabled class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-500 bg-gray-100 cursor-not-allowed">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-800 mb-1.5">No. Telepon (WhatsApp) <span class="text-red-500">*</span></label>
-                                <input type="tel" value="78924934989" disabled class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm text-gray-500 bg-gray-100 cursor-not-allowed">
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                </nav>
             </div>
         </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="mt-auto py-6 px-4 lg:px-8 xl:px-24 max-w-screen-xl mx-auto w-full">
-        <div class="flex items-center justify-between text-xs text-gray-400">
-            <span>&copy; 2005-2026 SEVIMA. All Rights Reserved</span>
-            <span>SEVIMA Platform</span>
+        <div class="header__right">
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">PT Foxtrot</span>
+                            <span class="header__user-role">Perusahaan Mitra</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">PT Foxtrot</span><span class="avatar__subtitle">Perusahaan Mitra</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="./company-register.html"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </footer>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container" style="max-width: 56rem;">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./company-beranda.html">Beranda</a></li>
+                <li class="breadcrumb__item active"><a href="#">Formulir Pengajuan Kegiatan</a></li>
+            </ul>
+
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <a href="./company-daftar-mitra.html" class="link link_back" style="color: var(--qn-neutral-500);"><span class="icon icon-arrow-left-mini" style="font-size: 1.25rem;"></span></a>
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Formulir Pengajuan Kegiatan</h1>
+                    </div>
+                </div>
+                <div class="main__action">
+                    <button type="submit" form="formKegiatan" class="btn btn_primary">
+                        <span class="btn__text">Buat Pengajuan</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid" style="gap: 1.5rem;">
+                <!-- ToC Sidebar -->
+                <div class="col-12 col-lg-3" style="display: none;" id="tocWrapper">
+                    <div class="toc">
+                        <p class="toc__title">Table of Content</p>
+                        <ul class="toc__list">
+                            <li><a href="#section-kegiatan" class="active">Data Kegiatan</a></li>
+                            <li><a href="#section-pic">Kontak PIC</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="col-12 col-lg-9">
+                    <form id="formKegiatan" onsubmit="event.preventDefault(); window.location.href='company-kegiatan-kerja-sama.html?success=1';">
+                        <!-- Section: Data Kegiatan -->
+                        <div class="card" id="section-kegiatan" style="margin-bottom: 1.5rem;">
+                            <div class="card__header">
+                                <h3 class="card__title">Data Kegiatan</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="form-control" style="margin-bottom: 1.25rem;">
+                                    <label class="form-control__label">Nama Mitra yang sudah bekerja sama <span style="color: var(--qn-danger-500);">*</span></label>
+                                    <div class="form-control__group">
+                                        <input type="text" class="form-control__input" value="Testing Foxtrot" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-control" style="margin-bottom: 1.25rem;">
+                                    <label class="form-control__label">Jenis Kegiatan Kerja Sama <span style="color: var(--qn-danger-500);">*</span></label>
+                                    <select class="select-default" required>
+                                        <option value="" disabled>----- Pilih Salah Satu -----</option>
+                                        <option value="kunjungan" selected>Kunjungan Industri</option>
+                                        <option value="kuliah_tamu">Kuliah Tamu</option>
+                                        <option value="campus_hiring">Campus Hiring</option>
+                                        <option value="praktikal">Praktikal Insight</option>
+                                    </select>
+                                </div>
+
+                                <div class="grid" style="gap: 1rem; margin-bottom: 1.25rem;">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-control">
+                                            <label class="form-control__label">Tanggal Mulai <span style="color: var(--qn-danger-500);">*</span></label>
+                                            <div class="form-control__group">
+                                                <input type="date" class="form-control__input" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-control">
+                                            <label class="form-control__label">Tanggal Berakhir</label>
+                                            <div class="form-control__group">
+                                                <input type="date" class="form-control__input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-control" style="margin-bottom: 1.25rem;">
+                                    <label class="form-control__label">Deskripsi Kegiatan</label>
+                                    <div class="form-control__group">
+                                        <textarea class="form-control__input" rows="4" placeholder="Masukkan Deskripsi Kegiatan"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-control">
+                                    <label class="form-control__label">Dokumen / Proposal Kegiatan <span style="color: var(--qn-danger-500);">*</span></label>
+                                    <div class="upload-card" onclick="document.getElementById('fileKegiatan').click()">
+                                        <input type="file" id="fileKegiatan" accept=".pdf,.doc,.docx" style="display: none;" onchange="if(this.files[0]) document.getElementById('fileLabelKegiatan').innerHTML='<span class=&quot;link link_primary&quot;>' + this.files[0].name + '</span>'">
+                                        <span class="icon icon-document-text upload-card__icon"></span>
+                                        <div id="fileLabelKegiatan">
+                                            <p style="font-size: 0.875rem; margin: 0;"><span class="link link_primary">Klik untuk pilih file</span> atau seret file ke sini</p>
+                                            <p style="font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0;">PDF, DOC, atau DOCX (maks. 5mb)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section: Kontak PIC -->
+                        <div class="card" id="section-pic">
+                            <div class="card__header">
+                                <h3 class="card__title">Kontak PIC Perusahaan</h3>
+                            </div>
+                            <div class="card__body">
+                                <div class="form-control" style="margin-bottom: 1.25rem;">
+                                    <label class="form-control__label">Nama Lengkap <span style="color: var(--qn-danger-500);">*</span></label>
+                                    <div class="form-control__group">
+                                        <input type="text" class="form-control__input" value="Admin PT Foxtrot" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-control" style="margin-bottom: 1.25rem;">
+                                    <label class="form-control__label">Email <span style="color: var(--qn-danger-500);">*</span></label>
+                                    <div class="form-control__group">
+                                        <input type="email" class="form-control__input" value="ptfoxtrot@yopmail.com" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-control">
+                                    <label class="form-control__label">No. Telepon (WhatsApp) <span style="color: var(--qn-danger-500);">*</span></label>
+                                    <div class="form-control__group">
+                                        <input type="tel" class="form-control__input" value="78924934989" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.select-default').forEach(el => {
+                new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+            });
+
+            // Show ToC sidebar on large screens (mirrors "hidden lg:block" behavior)
+            function toggleToc() {
+                document.getElementById('tocWrapper').style.display = window.innerWidth >= 992 ? 'block' : 'none';
+            }
+            toggleToc();
+            window.addEventListener('resize', toggleToc);
+        });
+    </script>
 </body>
 </html>

@@ -175,6 +175,11 @@
                 width: 100%;
             }
         }
+
+        .notif-item { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.625rem 1rem; white-space: normal; }
+        .notif-item__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); }
+        .notif-item__desc { font-size: 0.75rem; color: var(--qn-neutral-600); }
+        .notif-item__time { font-size: 0.6875rem; color: var(--qn-neutral-400); }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -220,10 +225,25 @@
         </div>
         <div class="header__right">
             <div class="header__action">
+                <a href="#" class="btn btn_icon btn_nav" title="Pesan">
+                    <span class="icon icon-chat-bubble-left-right"></span>
+                </a>
                 <div class="dropdown dropdown_nav dropdown_notification">
                     <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification">
                         <span class="icon icon-bell"></span>
                     </button>
+                    <div class="dropdown__box dropdown__box_menu-end" style="width: 320px;">
+                        <span class="dropdown__box-title" style="display: block; padding: 0.75rem 1rem 0.25rem;">Pemberitahuan</span>
+                        <ul class="dropdown__list">
+                            <li class="dropdown__item">
+                                <a href="#" class="notif-item">
+                                    <span class="notif-item__title">Periksa Pengikut Baru Anda!</span>
+                                    <span class="notif-item__desc">PT Tes Dimas mulai mengikuti anda.</span>
+                                    <span class="notif-item__time">1 minggu yang lalu</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="dropdown dropdown_nav dropdown_module">
                     <a href="./portal-karir.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-portal-karir">
@@ -262,7 +282,16 @@
                         </li>
                         <li class="dropdown__line"></li>
                         <li class="dropdown__item">
-                            <a href="#">Pengaturan Akun</a>
+                            <a href="#">
+                                <span class="icon icon-user-circle"></span>
+                                Lihat Profil
+                            </a>
+                        </li>
+                        <li class="dropdown__item">
+                            <a href="#">
+                                <span class="icon icon-globe-alt"></span>
+                                Pengaturan Landing Page
+                            </a>
                         </li>
                         <li class="dropdown__line"></li>
                         <li class="dropdown__item dropdown__item_danger">

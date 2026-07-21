@@ -7,243 +7,316 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buat Event | KarirLink</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/portal-karir.css">
+
+    <!-- Quill (rich text editor for Deskripsi Event) -->
     <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
-                    colors: {
-                        primary50: "#EAEDF5", primary100: "#D4DBEB", primary200: "#A9B7D7",
-                        primary300: "#7F92C2", primary400: "#546EAE", primary500: "#294A9A",
-                        primary600: '#1F3874', primary700: "#15254D", primary800: "#0A1327"
-                    }
-                }
-            }
-        }
-    </script>
+
     <style>
-        * { font-family: 'Poppins', sans-serif; }
-        .ql-container { min-height: 160px; font-family: 'Poppins', sans-serif; font-size: 14px; }
+        .lc-section { padding: 1.25rem 0; border-bottom: 1px solid var(--qn-neutral-200); }
+        .lc-section:last-of-type { border-bottom: none; padding-bottom: 0; }
+        .lc-section:first-of-type { padding-top: 0; }
+        .lc-section__label { font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-800); display: block; margin-bottom: 0.5rem; }
+        .lc-section__required { color: var(--qn-danger-500); }
+        .lc-radio-group { display: flex; flex-direction: column; gap: 0.625rem; }
+        .lc-toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .lc-toggle-row__text { flex: 1; min-width: 0; }
+        .lc-toggle-row__title { font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-800); display: block; }
+        .lc-toggle-row__desc { font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
+        .lc-toggle-row .form-control { width: auto; flex-shrink: 0; }
+        .lc-actions { display: flex; align-items: center; justify-content: space-between; padding-top: 1.5rem; }
+
+        /* Upload Card */
+        .upload-card { border: 2px dashed var(--qn-primary-300); border-radius: 0.75rem; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.2s; background: white; min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .upload-card:hover { border-color: var(--qn-primary-500); background: var(--qn-primary-50); }
+        .upload-card__icon { width: 3rem; height: 3rem; margin-bottom: 1rem; color: var(--qn-primary-400); }
+        .upload-card__text { font-size: 0.9375rem; font-weight: 500; color: var(--qn-primary-600); }
+
+        /* Quill editor */
+        .ql-container { min-height: 160px; font-size: 14px; }
         .ql-editor { min-height: 160px; }
-        .ql-toolbar.ql-snow { border-radius: 8px 8px 0 0; border-color: #d1d5db; }
-        .ql-container.ql-snow { border-radius: 0 0 8px 8px; border-color: #d1d5db; }
-        /* Toggle Switch */
-        .toggle-switch { position: relative; width: 44px; height: 24px; }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #e5e7eb; border-radius: 9999px; transition: 0.3s; }
-        .toggle-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 2px; bottom: 2px;
-            background-color: white; border-radius: 50%; transition: 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
-        .toggle-switch input:checked + .toggle-slider { background-color: #294A9A; }
-        .toggle-switch input:checked + .toggle-slider:before { transform: translateX(20px); }
+        .ql-toolbar.ql-snow { border-radius: 0.5rem 0.5rem 0 0; border-color: var(--qn-neutral-300); }
+        .ql-container.ql-snow { border-radius: 0 0 0.5rem 0.5rem; border-color: var(--qn-neutral-300); }
     </style>
 </head>
-<body class="bg-white min-h-screen">
-    <!-- Navbar -->
-    <nav class="bg-white fixed w-full z-30 top-0 start-0 border-b border-gray-200">
-        <div class="max-w-screen-xl flex items-center justify-between mx-auto px-4 xl:px-8 py-3">
-            <div class="flex items-center space-x-4">
-                <a href="./portal-karir.html" class="flex items-center">
-                    <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" class="h-9 w-9 rounded" alt="Karirlink Logo">
+<body class="body body_kl-white">
+    <!-- [START] Header (navbar Portal Karir) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./portal-karir.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
                 </a>
-                <div class="hidden md:flex items-center space-x-2 text-sm text-gray-400 border border-gray-200 rounded-full px-4 py-2 bg-gray-50 cursor-pointer hover:border-gray-300">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M21 21l-4.35-4.35"/></svg>
-                    <span>Cari Pengguna</span>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./portal-karir.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lowongan.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Lowongan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./event.html">
+                                <span class="icon icon-calendar"></span>
+                                <span>Event</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./kerja-sama.html">
+                                <span class="icon icon-user-group"></span>
+                                <span>Kerja Sama</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./perusahaan.html">
+                                <span class="icon icon-building-office"></span>
+                                <span>Perusahaan Mitra</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification"><span class="icon icon-bell"></span></button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./dashboard.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-tracer-study">
+                        Tracer Study
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
                 </div>
             </div>
-            <div class="hidden lg:flex items-center space-x-6">
-                <a href="./portal-karir.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                    Beranda
-                </a>
-                <a href="#" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                    Aktivitas
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </a>
-                <a href="./perusahaan-mitra.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                    Perusahaan
-                </a>
-                <a href="./kerja-sama.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                    Kerja Sama
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </a>
-            </div>
-            <div class="flex items-center space-x-2">
-                <button type="button" class="p-2 rounded-lg hover:bg-gray-100">
-                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
                 </button>
-                <a href="#" class="p-2 rounded-lg hover:bg-gray-100">
-                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                </a>
-                <a href="./index.html" class="hidden md:flex items-center text-sm text-gray-700 hover:text-primary500 font-medium px-3 py-2 gap-1">
-                    Tracer Study
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                </a>
-                <div class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 rounded-lg px-2 py-1">
-                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="" class="rounded-full h-8 w-8 object-cover border border-gray-200">
-                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Admin Karirlink</span><span class="avatar__subtitle">admin@university.ac.id</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
+    <!-- [END] Header -->
 
-    <!-- Main Content -->
-    <div class="pt-28 min-h-screen max-w-2xl mx-auto px-6 pb-16">
-        <!-- Back Link -->
-        <a href="./portal-karir.html" class="text-primary500 text-sm inline-flex items-center gap-1 mb-6 hover:underline">
-            ← Kembali
-        </a>
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container" style="max-width: 46rem;">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./portal-karir.html">Beranda</a></li>
+                <li class="breadcrumb__item active"><a href="#">Buat Event</a></li>
+            </ul>
 
-        <!-- Title -->
-        <h1 class="text-xl font-bold text-gray-900 mb-1">Informasikan Event ke Lulusan dan Mahasiswa</h1>
-        <p class="text-gray-500 text-sm mb-8">Program Beasiswa, Program Kewirausahan, Program Pelatihan, atau Seminar/webinar dari Perguruan Tinggi dan Mitra Perusahaan</p>
-
-        <!-- Form -->
-        <form class="space-y-6" id="formEvent">
-
-            <!-- 1. Judul Event -->
-            <div>
-                <label class="text-sm font-semibold text-gray-800 block mb-1">Judul Event <span class="text-red-500">*</span></label>
-                <input type="text" name="op_title" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 16px; width: 100%; font-size: 14px; outline: none; box-sizing: border-box;" placeholder="Masukkan judul event" maxlength="60">
-            </div>
-
-            <!-- 2. Tipe Event -->
-            <div>
-                <label class="text-sm font-semibold text-gray-800 block mb-2">Tipe Event <span class="text-red-500">*</span></label>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                        <input type="radio" name="op_field_3" value="Program Beasiswa" style="width: 16px; height: 16px; accent-color: #294A9A;">
-                        <span style="font-size: 14px; color: #4b5563;">Program Beasiswa</span>
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                        <input type="radio" name="op_field_3" value="Program Kewirausahan" style="width: 16px; height: 16px; accent-color: #294A9A;">
-                        <span style="font-size: 14px; color: #4b5563;">Program Kewirausahan</span>
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                        <input type="radio" name="op_field_3" value="Program Pelatihan" style="width: 16px; height: 16px; accent-color: #294A9A;">
-                        <span style="font-size: 14px; color: #4b5563;">Program Pelatihan</span>
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                        <input type="radio" name="op_field_3" value="Seminar/webinar" style="width: 16px; height: 16px; accent-color: #294A9A;">
-                        <span style="font-size: 14px; color: #4b5563;">Seminar/webinar</span>
-                    </label>
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <a href="./portal-karir.html" class="link link_back" style="color: var(--qn-neutral-500);"><span class="icon icon-arrow-left-mini" style="font-size: 1.25rem;"></span></a>
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Informasikan Event ke Lulusan dan Mahasiswa</h1>
+                        <p class="main__subtitle">Program Beasiswa, Program Kewirausahan, Program Pelatihan, atau Seminar/webinar dari Perguruan Tinggi dan Mitra Perusahaan</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- 3. Penyelenggara -->
-            <div>
-                <label class="text-sm font-semibold text-gray-800 block mb-2">Penyelenggara <span class="text-red-500">*</span></label>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                        <input type="radio" name="penyelenggara" value="Demo siAkadcloud" checked style="width: 16px; height: 16px; accent-color: #294A9A;">
-                        <span style="font-size: 14px; color: #4b5563;">Demo siAkadcloud</span>
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                        <input type="radio" name="penyelenggara" value="Mitra Perusahaan" style="width: 16px; height: 16px; accent-color: #294A9A;">
-                        <span style="font-size: 14px; color: #4b5563;">Mitra Perusahaan</span>
-                    </label>
+            <div class="card">
+                <div class="card__body">
+                    <form id="formEvent" onsubmit="return false;">
+
+                        <!-- 1. Judul Event -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="ec-title">Judul Event <span class="lc-section__required">*</span></label>
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <input type="text" id="ec-title" name="op_title" class="form-control__input" placeholder="Masukkan judul event" maxlength="60">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Tipe Event -->
+                        <div class="lc-section">
+                            <label class="lc-section__label">Tipe Event <span class="lc-section__required">*</span></label>
+                            <div class="lc-radio-group">
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="ec-tipe-beasiswa" name="op_field_3" value="Program Beasiswa"><label for="ec-tipe-beasiswa" class="form-control__label-radio">Program Beasiswa</label></div>
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="ec-tipe-kewirausahaan" name="op_field_3" value="Program Kewirausahan"><label for="ec-tipe-kewirausahaan" class="form-control__label-radio">Program Kewirausahan</label></div>
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="ec-tipe-pelatihan" name="op_field_3" value="Program Pelatihan"><label for="ec-tipe-pelatihan" class="form-control__label-radio">Program Pelatihan</label></div>
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="ec-tipe-seminar" name="op_field_3" value="Seminar/webinar"><label for="ec-tipe-seminar" class="form-control__label-radio">Seminar/webinar</label></div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Penyelenggara -->
+                        <div class="lc-section">
+                            <label class="lc-section__label">Penyelenggara <span class="lc-section__required">*</span></label>
+                            <div class="lc-radio-group">
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="ec-penyelenggara-pt" name="penyelenggara" value="Demo siAkadcloud" checked><label for="ec-penyelenggara-pt" class="form-control__label-radio">Demo siAkadcloud</label></div>
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="ec-penyelenggara-mitra" name="penyelenggara" value="Mitra Perusahaan"><label for="ec-penyelenggara-mitra" class="form-control__label-radio">Mitra Perusahaan</label></div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Lokasi -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="ec-location">Lokasi</label>
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <input type="text" id="ec-location" name="op_location" class="form-control__input" placeholder="Masukkan lokasi event">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Link Event -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="ec-link">Link Event</label>
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <input type="url" id="ec-link" name="op_field_1" class="form-control__input" placeholder="https://contoh.com/event">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 6. Tanggal Mulai -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="ec-date-start">Tanggal Mulai <span class="lc-section__required">*</span></label>
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <span data-input-icon="calendar"></span>
+                                    <input type="date" id="ec-date-start" name="op_date_start" class="form-control__input" placeholder="Pilih tanggal mulai">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 7. Tanggal Selesai -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="ec-date-end">Tanggal Selesai <span class="lc-section__required">*</span></label>
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <span data-input-icon="calendar"></span>
+                                    <input type="date" id="ec-date-end" name="op_date_end" class="form-control__input" placeholder="Pilih tanggal selesai">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 8. Deskripsi Event -->
+                        <div class="lc-section">
+                            <label class="lc-section__label">Deskripsi Event <span class="lc-section__required">*</span></label>
+                            <div id="editor-deskripsi"></div>
+                        </div>
+
+                        <!-- 9. Poster -->
+                        <div class="lc-section">
+                            <label class="lc-section__label">Poster</label>
+                            <div class="upload-card" id="upload-poster" onclick="document.getElementById('input-poster').click()">
+                                <svg class="upload-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                                </svg>
+                                <span class="upload-card__text">Klik untuk tambahkan atau seret dan lepas<br>file kedalam kotak ini.</span>
+                                <span style="font-size: 0.75rem; color: var(--qn-neutral-400); margin-top: 0.5rem;">PNG, JPG (Maksimal 6 Mb)</span>
+                                <input type="file" id="input-poster" style="display: none;" accept="image/png,image/jpeg">
+                            </div>
+                        </div>
+
+                        <!-- 10. Batasi Event -->
+                        <div class="lc-section lc-toggle-row">
+                            <div class="lc-toggle-row__text">
+                                <label class="lc-toggle-row__title" for="ec-is-restricted">Batasi Event</label>
+                                <p class="lc-toggle-row__desc">Batasi event ini hanya untuk internal perguruan tinggi</p>
+                            </div>
+                            <div class="form-control">
+                                <input type="checkbox" class="form-control__switch" id="ec-is-restricted" name="is_restricted">
+                                <label for="ec-is-restricted" class="form-control__label-switch"><span class="check-mark"></span></label>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="lc-actions">
+                            <button type="button" class="btn btn_primary" onclick="showConfirmModal()">Publish Event</button>
+                            <button type="button" class="btn btn_outline">Simpan Draft</button>
+                        </div>
+                    </form>
                 </div>
             </div>
+        </div>
 
-            <!-- 4. Lokasi -->
-            <div>
-                <label class="text-sm font-semibold text-gray-800 block mb-1">Lokasi</label>
-                <input type="text" name="op_location" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 16px; width: 100%; font-size: 14px; outline: none; box-sizing: border-box;" placeholder="Masukkan lokasi event">
-            </div>
-
-            <!-- 5. Link Event -->
-            <div>
-                <label class="text-sm font-semibold text-gray-800 block mb-1">Link Event</label>
-                <input type="url" name="op_field_1" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 16px; width: 100%; font-size: 14px; outline: none; box-sizing: border-box;" placeholder="https://contoh.com/event">
-            </div>
-
-            <!-- 6. Tanggal Mulai -->
-            <div>
-                <label class="text-sm font-semibold text-gray-800 block mb-1">Tanggal Mulai <span class="text-red-500">*</span></label>
-                <div style="position: relative;">
-                    <svg style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;" fill="none" stroke="#9ca3af" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    <input type="text" name="op_date_start" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 16px 12px 48px; width: 100%; font-size: 14px; outline: none; box-sizing: border-box; color: #6b7280;" placeholder="Pilih tanggal mulai" onfocus="(this.type='date')" onblur="if(!this.value)(this.type='text')">
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
                 </div>
+                <p class="footer__copyright">© 2005-2026 SEVIMA. All Rights Reserved</p>
             </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
 
-            <!-- 7. Tanggal Selesai -->
-            <div>
-                <label class="text-sm font-semibold text-gray-800 block mb-1">Tanggal Selesai <span class="text-red-500">*</span></label>
-                <div style="position: relative;">
-                    <svg style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;" fill="none" stroke="#9ca3af" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    <input type="text" name="op_date_end" style="border: 1px solid #d1d5db; border-radius: 8px; padding: 12px 16px 12px 48px; width: 100%; font-size: 14px; outline: none; box-sizing: border-box; color: #6b7280;" placeholder="Pilih tanggal selesai" onfocus="(this.type='date')" onblur="if(!this.value)(this.type='text')">
+    <!-- [START] Modal: Confirm Publish -->
+    <div class="modal modal_qnaire-action" id="modal-confirm-publish">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper" style="max-width: 420px; text-align: center;">
+            <div class="modal__header">
+                <div class="modal__header-wrapper"></div>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <span class="icon icon-exclamation-triangle" style="font-size: 2.5rem; color: var(--qn-warning-500); display: block; margin-bottom: 1rem;"></span>
+                <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-900); margin-bottom: 0.5rem;">Konfirmasi Publikasi Event</h3>
+                <p class="modal__paragraph">Apakah Anda yakin ingin mempublikasikan event ini?</p>
+            </div>
+            <div class="modal__footer">
+                <div class="grid cols-1 cols-sm-2">
+                    <button class="btn btn_outline" data-dismiss="modal">Batal</button>
+                    <button class="btn btn_primary" onclick="confirmPublish()">Ya, Yakin</button>
                 </div>
-            </div>
-
-            <!-- 8. Deskripsi Event -->
-            <div>
-                <label class="text-sm font-semibold text-gray-800 block mb-1">Deskripsi Event <span class="text-red-500">*</span></label>
-                <div id="editor-deskripsi"></div>
-            </div>
-
-            <!-- 9. Poster -->
-            <div>
-                <label class="text-sm font-semibold text-gray-800 block mb-2">Poster</label>
-                <div id="upload-poster" onclick="document.getElementById('input-poster').click()" style="border: 2px dashed #d1d5db; border-radius: 8px; padding: 40px 20px; text-align: center; cursor: pointer; transition: border-color 0.2s;">
-                    <input type="file" id="input-poster" style="display: none;" accept="image/png,image/jpeg">
-                    <svg style="width: 48px; height: 48px; color: #1f2937; margin: 0 auto 16px;" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
-                    </svg>
-                    <p style="font-size: 14px; color: #374151;"><span style="font-weight: 600; color: #294A9A; text-decoration: underline;">Klik untuk tambahkan</span> atau seret dan lepas</p>
-                    <p style="font-size: 14px; color: #374151;">file kedalam kotak ini.</p>
-                    <p style="font-size: 12px; color: #9ca3af; margin-top: 8px;">PNG, JPG (Maksimal 6 Mb)</p>
-                </div>
-            </div>
-
-            <!-- 10. Batasi Event -->
-            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 0;">
-                <div style="padding-right: 16px;">
-                    <label class="text-sm font-semibold text-gray-800 block">Batasi Event</label>
-                    <p style="font-size: 12px; color: #9ca3af; margin-top: 2px;">Batasi event ini hanya untuk internal perguruan tinggi</p>
-                </div>
-                <label class="toggle-switch" style="flex-shrink: 0;">
-                    <input type="checkbox" name="is_restricted">
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-
-            <!-- Spacer -->
-            <div style="padding-top: 16px;"></div>
-
-            <!-- Action Buttons -->
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-                <button type="button" onclick="showConfirmModal()" style="font-weight: 600; border-radius: 8px; font-size: 14px; padding: 12px 24px; color: white; background: #294A9A; border: none; cursor: pointer;">Publish Event</button>
-                <button type="button" style="font-weight: 600; border-radius: 8px; font-size: 14px; padding: 12px 24px; color: #294A9A; background: transparent; border: 1px solid #294A9A; cursor: pointer;">Simpan Draft</button>
-            </div>
-        </form>
-    </div>
-
-    <!-- Confirmation Modal -->
-    <div id="confirmModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 50; align-items: center; justify-content: center;">
-        <div style="background: white; border-radius: 12px; padding: 32px; max-width: 420px; width: 90%; margin: auto; text-align: center; position: relative;">
-            <button onclick="hideConfirmModal()" style="position: absolute; top: 16px; right: 16px; background: none; border: none; cursor: pointer; color: #6b7280; font-size: 24px; line-height: 1;">×</button>
-            <div style="width: 56px; height: 56px; background: #FEF3C7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
-                <svg style="width: 28px; height: 28px; color: #F59E0B;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-                </svg>
-            </div>
-            <h3 style="font-size: 18px; font-weight: 600; color: #111827; margin-bottom: 8px;">Konfirmasi Publikasi Event</h3>
-            <p style="font-size: 14px; color: #6b7280; margin-bottom: 24px;">Apakah Anda yakin ingin mempublikasikan event ini?</p>
-            <div style="display: flex; gap: 12px; justify-content: center;">
-                <button type="button" onclick="hideConfirmModal()" style="font-weight: 600; border-radius: 8px; font-size: 14px; padding: 10px 28px; color: #374151; background: white; border: 1px solid #d1d5db; cursor: pointer;">Batal</button>
-                <button type="button" onclick="confirmPublish()" style="font-weight: 600; border-radius: 8px; font-size: 14px; padding: 10px 28px; color: white; background: #294A9A; border: none; cursor: pointer;">Ya, Yakin</button>
             </div>
         </div>
     </div>
+    <!-- [END] Modal: Confirm Publish -->
 
-    <!-- Scripts -->
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
     <script>
         // Initialize Quill editor
         document.addEventListener('DOMContentLoaded', function() {
@@ -264,17 +337,11 @@
 
         // Confirmation Modal
         function showConfirmModal() {
-            document.getElementById('confirmModal').style.display = 'flex';
-        }
-        function hideConfirmModal() {
-            document.getElementById('confirmModal').style.display = 'none';
+            document.querySelector('#modal-confirm-publish').classList.add('is-visible');
         }
         function confirmPublish() {
             window.location.href = 'event.html';
         }
-        document.getElementById('confirmModal').addEventListener('click', function(e) {
-            if (e.target === this) hideConfirmModal();
-        });
 
         // Poster upload
         var uploadArea = document.getElementById('upload-poster');
@@ -282,18 +349,18 @@
 
         uploadArea.addEventListener('dragover', function(e) {
             e.preventDefault();
-            this.style.borderColor = '#294A9A';
-            this.style.backgroundColor = '#EAEDF5';
+            this.style.borderColor = 'var(--qn-primary-500)';
+            this.style.background = 'var(--qn-primary-50)';
         });
         uploadArea.addEventListener('dragleave', function(e) {
             e.preventDefault();
-            this.style.borderColor = '#d1d5db';
-            this.style.backgroundColor = '';
+            this.style.borderColor = '';
+            this.style.background = '';
         });
         uploadArea.addEventListener('drop', function(e) {
             e.preventDefault();
-            this.style.borderColor = '#d1d5db';
-            this.style.backgroundColor = '';
+            this.style.borderColor = '';
+            this.style.background = '';
             if (e.dataTransfer.files.length > 0) handleFileUpload(e.dataTransfer.files[0]);
         });
         inputPoster.addEventListener('change', function() {
@@ -304,7 +371,7 @@
             if (file.size > 6 * 1024 * 1024) { alert('Ukuran file melebihi 6 MB'); return; }
             var allowed = ['image/png', 'image/jpeg'];
             if (!allowed.includes(file.type)) { alert('Format file tidak didukung. Gunakan PNG atau JPG.'); return; }
-            uploadArea.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px 0;"><svg style="width: 32px; height: 32px; color: #22c55e;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><div style="text-align: left;"><p style="font-size: 14px; font-weight: 500; color: #374151;">' + file.name + '</p><p style="font-size: 12px; color: #9ca3af;">' + (file.size / 1024).toFixed(1) + ' KB</p></div></div>';
+            uploadArea.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px 0;"><span class="icon icon-check-circle" style="font-size: 32px; color: var(--qn-success-500);"></span><div style="text-align: left;"><p style="font-size: 14px; font-weight: 500; color: var(--qn-neutral-700);">' + file.name + '</p><p style="font-size: 12px; color: var(--qn-neutral-400);">' + (file.size / 1024).toFixed(1) + ' KB</p></div></div>';
         }
     </script>
 </body>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Detail Alumni | Karirlink Tracer Study</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        /* Profile Summary */
+        .alumni-profile { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+        .alumni-profile__avatar { width: 4rem; height: 4rem; border-radius: 50%; object-fit: cover; border: 1px solid var(--qn-neutral-200); }
+        .alumni-profile__name { font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-800); margin: 0; }
+        .alumni-profile__meta { font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
+
+        /* Career Timeline */
+        .career-timeline { display: flex; flex-direction: column; }
+        .career-timeline__item { position: relative; padding-left: 1.5rem; padding-bottom: 1.5rem; border-left: 2px solid var(--qn-neutral-200); }
+        .career-timeline__item:last-child { border-left-color: transparent; padding-bottom: 0; }
+        .career-timeline__dot { position: absolute; left: -7px; top: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--qn-primary-500); border: 2px solid white; box-shadow: 0 0 0 1px var(--qn-primary-500); }
+        .career-timeline__period { font-size: 0.75rem; color: var(--qn-neutral-400); text-transform: uppercase; letter-spacing: 0.05em; }
+        .career-timeline__title { font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-800); margin: 0.125rem 0; }
+        .career-timeline__company { font-size: 0.875rem; color: var(--qn-neutral-500); }
+
+        /* Achievement List */
+        .achievement-list { display: flex; flex-direction: column; gap: 0.75rem; }
+        .achievement-item { display: flex; align-items: flex-start; gap: 0.75rem; }
+        .achievement-item__icon { flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 50%; background: var(--qn-warning-100, #fef3c7); color: var(--qn-warning-500, #d97706); display: flex; align-items: center; justify-content: center; }
+        .achievement-item__title { font-size: 0.875rem; font-weight: 500; color: var(--qn-neutral-800); margin: 0; }
+        .achievement-item__desc { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header Tracer Study -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./dashboard.html">
+                                <span class="icon icon-chart-bar-square"></span>
+                                <span>Dasbor</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./index.html">
+                                <span class="icon icon-clipboard-document-list"></span>
+                                <span>Kuesioner</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./alumni.html">
+                                <span class="icon icon-academic-cap"></span>
+                                <span>Alumni</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./publikasi.html">
+                                <span class="icon icon-document-text"></span>
+                                <span>Publikasi</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <a href="#" class="btn btn_icon btn_nav" title="Pesan">
+                    <span class="icon icon-chat-bubble-left-right"></span>
+                </a>
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown">
+                        <span class="icon icon-bell"></span>
+                    </button>
+                    <div class="dropdown__box dropdown__box_menu-end" style="width: 320px;">
+                        <span class="dropdown__box-title" style="display: block; padding: 0.75rem 1rem 0.25rem;">Pemberitahuan</span>
+                        <ul class="dropdown__list">
+                            <li class="dropdown__item">
+                                <a href="#" class="notif-item">
+                                    <span class="notif-item__title">Periksa Pengikut Baru Anda!</span>
+                                    <span class="notif-item__desc">PT Tes Dimas mulai mengikuti anda.</span>
+                                    <span class="notif-item__time">1 minggu yang lalu</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./portal-karir.html" class="btn btn_outline btn_xs btn_nav">
+                        Portal Karir
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle">
+                                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
+                                </div>
+                                <div class="avatar__text">
+                                    <span class="avatar__title">Admin Karirlink</span>
+                                    <span class="avatar__subtitle">admin@university.ac.id</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item">
+                            <a href="#">
+                                <span class="icon icon-user-circle"></span>
+                                Lihat Profil
+                            </a>
+                        </li>
+                        <li class="dropdown__item">
+                            <a href="#">
+                                <span class="icon icon-globe-alt"></span>
+                                Pengaturan Landing Page
+                            </a>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger">
+                            <a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <a href="./alumni.html" class="link link_back" style="color: var(--qn-neutral-500);"><span class="icon icon-arrow-left-mini" style="font-size: 1.25rem;"></span></a>
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Detail Alumni</h1>
+                        <p class="main__subtitle">Riwayat karier, prestasi, dan pengisian tracer study alumni</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid cols-1" style="gap: 1.5rem;">
+                <!-- Profile Summary -->
+                <div class="card">
+                    <div class="card__body">
+                        <div class="alumni-profile">
+                            <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Foto Alumni" class="alumni-profile__avatar">
+                            <div>
+                                <p class="alumni-profile__name">AMEL</p>
+                                <p class="alumni-profile__meta">NIM 120202 · S1 - Bimbingan dan Konseling · Lulus 2022</p>
+                                <p class="alumni-profile__meta">inijelljel@gmail.com · 12345 67788 8</p>
+                            </div>
+                            <span class="tag tag_success" style="margin-left: auto;">Bekerja (full time / part time)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid cols-1 cols-md-2">
+                    <!-- Tren Karier -->
+                    <div class="card">
+                        <div class="card__body">
+                            <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Tren Karier</h3>
+                            <div class="career-timeline">
+                                <div class="career-timeline__item">
+                                    <span class="career-timeline__dot"></span>
+                                    <p class="career-timeline__period">2024 - Sekarang</p>
+                                    <p class="career-timeline__title">Konselor Karier</p>
+                                    <p class="career-timeline__company">PT Karirlink Indonesia</p>
+                                </div>
+                                <div class="career-timeline__item">
+                                    <span class="career-timeline__dot" style="background: var(--qn-neutral-400); box-shadow: 0 0 0 1px var(--qn-neutral-400);"></span>
+                                    <p class="career-timeline__period">2022 - 2024</p>
+                                    <p class="career-timeline__title">Staff HR (Magang → Kontrak)</p>
+                                    <p class="career-timeline__company">PT Sumber Daya Cemerlang</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Prestasi -->
+                    <div class="card">
+                        <div class="card__body">
+                            <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Prestasi</h3>
+                            <div class="achievement-list">
+                                <div class="achievement-item">
+                                    <span class="achievement-item__icon"><span class="icon icon-academic-cap-mini"></span></span>
+                                    <div>
+                                        <p class="achievement-item__title">Sertifikasi BNSP - Konselor Karier</p>
+                                        <p class="achievement-item__desc">Diperoleh Januari 2024</p>
+                                    </div>
+                                </div>
+                                <div class="achievement-item">
+                                    <span class="achievement-item__icon"><span class="icon icon-star-mini"></span></span>
+                                    <div>
+                                        <p class="achievement-item__title">Wisudawan Terbaik Fakultas</p>
+                                        <p class="achievement-item__desc">Wisuda periode 2022</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Riwayat Lamaran -->
+                <div class="card">
+                    <div class="card__body">
+                        <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Riwayat Lamaran (Portal Karir)</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Perusahaan</th>
+                                        <th>Posisi</th>
+                                        <th>Tanggal Lamar</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>PT Karirlink Indonesia</td>
+                                        <td>Konselor Karier</td>
+                                        <td>03 Januari 2024</td>
+                                        <td><span class="tag tag_success">Diterima</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>PT Data Analitik Nusantara</td>
+                                        <td>HR Business Partner</td>
+                                        <td>18 November 2023</td>
+                                        <td><span class="tag tag_danger">Tidak Lolos</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>PT Sumber Daya Cemerlang</td>
+                                        <td>Staff HR</td>
+                                        <td>02 Agustus 2022</td>
+                                        <td><span class="tag tag_success">Diterima</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Riwayat Pengisian Tracer Study -->
+                <div class="card">
+                    <div class="card__body">
+                        <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Riwayat Pengisian Tracer Study</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Wave</th>
+                                        <th>Tahun Kirim</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="tag tag_outline">GS-I</span></td>
+                                        <td>2023</td>
+                                        <td><span class="tag tag_success">Sudah Mengisi</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="tag tag_outline">Exit Survey</span></td>
+                                        <td>2022</td>
+                                        <td><span class="tag tag_success">Sudah Mengisi</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+</body>
+</html>

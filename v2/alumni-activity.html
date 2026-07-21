@@ -3,364 +3,479 @@
 <head>
     <base href="/v2/">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aktivitas Lamaran Alumni | KarirLink</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
-                    colors: {
-                        primary50: "#EAEDF5", primary100: "#D4DBEB", primary200: "#A9B7D7",
-                        primary300: "#7F92C2", primary400: "#546EAE", primary500: "#294A9A",
-                        primary600: '#1F3874', primary700: "#15254D", primary800: "#0A1327",
-                        bgprimary: "#F6F8FF"
-                    },
-                    boxShadow: { default: "0px 11px 20px rgba(0, 0, 0, 0.04)" }
-                }
-            }
-        }
-    </script>
-    <style>* { font-family: 'Poppins', sans-serif; }</style>
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/portal-karir.css">
+
+    <!-- Chart.js (Top 5 Perusahaan Tujuan) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* KPI stat tiles (pattern borrowed from portal-karir.html's .pk-stat) */
+        .aa-stat { display: flex; flex-direction: column; gap: 0.375rem; padding: 1rem 1.125rem; }
+        .aa-stat__top { display: flex; align-items: center; gap: 0.5rem; }
+        .aa-stat__icon { font-size: 1.125rem; color: var(--qn-primary-500); }
+        .aa-stat__value { font-size: 1.5rem; font-weight: 700; color: var(--qn-neutral-900); line-height: 1; }
+        .aa-stat__label { font-size: 0.75rem; color: var(--qn-neutral-500); }
+        .aa-stat_warning { background: var(--qn-warning-50); border-color: var(--qn-warning-200); }
+        .aa-stat_warning .aa-stat__icon, .aa-stat_warning .aa-stat__value { color: var(--qn-warning-600); }
+        .aa-stat_success { background: var(--qn-success-50); border-color: var(--qn-success-200); }
+        .aa-stat_success .aa-stat__icon, .aa-stat_success .aa-stat__value { color: var(--qn-success-600); }
+        .aa-stat_danger { background: var(--qn-danger-50); border-color: var(--qn-danger-200); }
+        .aa-stat_danger .aa-stat__icon, .aa-stat_danger .aa-stat__value { color: var(--qn-danger-600); }
+
+        /* Hand-drawn stacked bar trend chart (kept as CSS bars: source data mixes an
+           unlabelled 4th color into the Jul column that doesn't match the legend,
+           so re-deriving it as real Chart.js series risks inventing numbers that
+           aren't actually in the mockup - safer to preserve the bars verbatim). */
+        .aa-trend { display: flex; align-items: flex-end; gap: 1rem; height: 11rem; border-bottom: 1px solid var(--qn-neutral-200); border-left: 1px solid var(--qn-neutral-200); padding: 0.5rem 0 0.5rem 2rem; position: relative; }
+        .aa-trend__axis { position: absolute; left: 0; font-size: 0.6875rem; color: var(--qn-neutral-400); }
+        .aa-trend__col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; position: relative; }
+        .aa-trend__bars { display: flex; flex-direction: column; width: 1.5rem; }
+        .aa-trend__month { font-size: 0.75rem; color: var(--qn-neutral-400); margin-top: 0.5rem; }
+        .aa-trend__tooltip { display: none; position: absolute; bottom: calc(100% + 0.5rem); left: 50%; transform: translateX(-50%); background: var(--qn-neutral-800); color: white; font-size: 0.75rem; border-radius: 0.375rem; padding: 0.5rem 0.75rem; white-space: nowrap; z-index: 10; box-shadow: var(--qn-shadow-md, 0 4px 10px rgba(0,0,0,0.15)); }
+        .aa-trend__col:hover .aa-trend__tooltip { display: block; }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <!-- Navbar (same as portal-karir) -->
-    <nav class="bg-white fixed w-full z-30 top-0 start-0 border-b border-gray-200">
-        <div class="max-w-screen-xl flex items-center justify-between mx-auto px-4 xl:px-8 py-3">
-            <!-- Logo + Search -->
-            <div class="flex items-center space-x-4">
-                <a href="./portal-karir.html" class="flex items-center">
-                    <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" class="h-9 w-9 rounded" alt="Karirlink Logo">
+<body class="body body_kl-white">
+    <!-- [START] Header (navbar Portal Karir) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./portal-karir.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
                 </a>
-                <div class="hidden md:flex items-center space-x-2 text-sm text-gray-400 border border-gray-200 rounded-full px-4 py-2 bg-gray-50 cursor-pointer hover:border-gray-300">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M21 21l-4.35-4.35"/></svg>
-                    <span>Cari Pengguna</span>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./portal-karir.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lowongan.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Lowongan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./event.html">
+                                <span class="icon icon-calendar"></span>
+                                <span>Event</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./kerja-sama.html">
+                                <span class="icon icon-user-group"></span>
+                                <span>Kerja Sama</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./perusahaan.html">
+                                <span class="icon icon-building-office"></span>
+                                <span>Perusahaan Mitra</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification"><span class="icon icon-bell"></span></button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./dashboard.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-tracer-study">
+                        Tracer Study
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
                 </div>
             </div>
-
-            <!-- Main Navigation - Center -->
-            <div class="hidden lg:flex items-center space-x-6">
-                <a href="./portal-karir.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                    Beranda
-                </a>
-                <a href="./alumni-activity.html" class="flex items-center text-sm text-primary500 font-semibold gap-1.5">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                    Aktivitas
-                </a>
-                <a href="./perusahaan-mitra.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                    Perusahaan
-                </a>
-                <a href="./kerja-sama.html" class="flex items-center text-sm text-gray-600 hover:text-primary500 font-medium gap-1.5">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                    Kerja Sama
-                </a>
-            </div>
-
-            <!-- Right Side: Icons & Profile -->
-            <div class="flex items-center space-x-2">
-                <button type="button" class="p-2 rounded-lg hover:bg-gray-100">
-                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
                 </button>
-                <a href="#" class="p-2 rounded-lg hover:bg-gray-100">
-                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                </a>
-                <a href="./dashboard.html" class="hidden md:flex items-center text-sm text-gray-700 hover:text-primary500 font-medium px-3 py-2 gap-1">
-                    Tracer Study
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                </a>
-                <div class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 rounded-lg px-2 py-1">
-                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="" class="rounded-full h-8 w-8 object-cover border border-gray-200">
-                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Admin Karirlink</span><span class="avatar__subtitle">admin@university.ac.id</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
+    <!-- [END] Header -->
 
-    <!-- Main Content -->
-    <main class="pt-24">
-        <div class="max-w-7xl mx-auto px-4 md:px-16 pb-12">
-            <!-- Back -->
-            <a href="./portal-karir.html" class="text-primary500 text-sm inline-flex items-center gap-2 mb-4 hover:underline">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                Kembali
-            </a>
-            <h1 class="text-2xl font-bold text-gray-900 mb-6">Aktivitas Lamaran Alumni</h1>
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./portal-karir.html">Beranda</a></li>
+                <li class="breadcrumb__item active"><a href="#">Aktivitas Lamaran Alumni</a></li>
+            </ul>
 
-            <!-- Filter Card -->
-            <div class="bg-white rounded-lg p-5 mb-6 shadow-sm border border-gray-200">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                    <div>
-                        <label class="text-xs font-medium text-gray-500 mb-1 block">Periode</label>
-                        <select class="w-full border border-gray-300 rounded-lg text-sm px-3 py-2.5 focus:ring-primary500 focus:border-primary500">
-                            <option>Semua Periode</option><option>Juni 2026</option><option>Mei 2026</option><option>April 2026</option>
-                        </select>
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <a href="./portal-karir.html" class="link link_back" style="color: var(--qn-neutral-500);"><span class="icon icon-arrow-left-mini" style="font-size: 1.25rem;"></span></a>
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Aktivitas Lamaran Alumni</h1>
                     </div>
-                    <div>
-                        <label class="text-xs font-medium text-gray-500 mb-1 block">Program Studi</label>
-                        <select class="w-full border border-gray-300 rounded-lg text-sm px-3 py-2.5 focus:ring-primary500 focus:border-primary500">
-                            <option>Semua Program Studi</option><option>Akuntansi</option><option>Teknik Informatika</option><option>Sistem Informasi</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-xs font-medium text-gray-500 mb-1 block">Status Lamaran</label>
-                        <select class="w-full border border-gray-300 rounded-lg text-sm px-3 py-2.5 focus:ring-primary500 focus:border-primary500">
-                            <option>Semua Status</option><option>Menunggu</option><option>Dalam Proses</option><option>Diterima</option><option>Ditolak</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-xs font-medium text-gray-500 mb-1 block">Perusahaan</label>
-                        <select class="w-full border border-gray-300 rounded-lg text-sm px-3 py-2.5 focus:ring-primary500 focus:border-primary500">
-                            <option>Semua Perusahaan</option><option>PT Tes Dimas</option><option>PT Karirlink</option><option>Fore Coffee</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="flex justify-end gap-2">
-                    <button class="text-sm font-medium text-gray-600 border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50">Reset</button>
-                    <button class="text-sm font-medium text-white bg-primary500 rounded-lg px-4 py-2 hover:bg-primary600">Terapkan Filter</button>
                 </div>
             </div>
 
-            <!-- Summary Stats (6 cards) -->
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <div class="flex items-center gap-2 mb-1">
-                        <svg class="w-5 h-5 text-primary500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" stroke-width="1.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke-width="1.5"/></svg>
-                        <span class="text-2xl font-bold text-gray-900">44</span>
+            <!-- Filter Card -->
+            <div class="card">
+                <div class="card__body">
+                    <div class="grid">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <label class="form-control__label" style="font-size: 0.75rem; color: var(--qn-neutral-500); margin-bottom: 0.25rem; display: block;">Periode</label>
+                            <select class="select-default">
+                                <option>Semua Periode</option>
+                                <option>Juni 2026</option>
+                                <option>Mei 2026</option>
+                                <option>April 2026</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <label class="form-control__label" style="font-size: 0.75rem; color: var(--qn-neutral-500); margin-bottom: 0.25rem; display: block;">Program Studi</label>
+                            <select class="select-default">
+                                <option>Semua Program Studi</option>
+                                <option>Akuntansi</option>
+                                <option>Teknik Informatika</option>
+                                <option>Sistem Informasi</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <label class="form-control__label" style="font-size: 0.75rem; color: var(--qn-neutral-500); margin-bottom: 0.25rem; display: block;">Status Lamaran</label>
+                            <select class="select-default">
+                                <option>Semua Status</option>
+                                <option>Menunggu</option>
+                                <option>Dalam Proses</option>
+                                <option>Diterima</option>
+                                <option>Ditolak</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <label class="form-control__label" style="font-size: 0.75rem; color: var(--qn-neutral-500); margin-bottom: 0.25rem; display: block;">Perusahaan</label>
+                            <select class="select-default">
+                                <option>Semua Perusahaan</option>
+                                <option>PT Tes Dimas</option>
+                                <option>PT Karirlink</option>
+                                <option>Fore Coffee</option>
+                            </select>
+                        </div>
                     </div>
-                    <p class="text-xs text-gray-500">Total Lamaran</p>
+                    <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
+                        <button class="btn btn_outline">Reset</button>
+                        <button class="btn btn_primary">Terapkan Filter</button>
+                    </div>
                 </div>
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <div class="flex items-center gap-2 mb-1">
-                        <svg class="w-5 h-5 text-primary500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        <span class="text-2xl font-bold text-gray-900">9</span>
+            </div>
+
+            <!-- Summary Stats (6 tiles) -->
+            <div class="grid" style="margin-top: 1rem;">
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="card aa-stat">
+                        <div class="aa-stat__top">
+                            <span class="icon icon-document-text aa-stat__icon"></span>
+                            <span class="aa-stat__value">44</span>
+                        </div>
+                        <span class="aa-stat__label">Total Lamaran</span>
                     </div>
-                    <p class="text-xs text-gray-500">Alumni Melamar</p>
                 </div>
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <div class="flex items-center gap-2 mb-1">
-                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M12 6v6l4 2"/></svg>
-                        <span class="text-2xl font-bold text-gray-900">2</span>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="card aa-stat">
+                        <div class="aa-stat__top">
+                            <span class="icon icon-user-group aa-stat__icon"></span>
+                            <span class="aa-stat__value">9</span>
+                        </div>
+                        <span class="aa-stat__label">Alumni Melamar</span>
                     </div>
-                    <p class="text-xs text-gray-500">Menunggu</p>
                 </div>
-                <div class="bg-white border border-amber-200 rounded-lg p-4 bg-amber-50">
-                    <div class="flex items-center gap-2 mb-1">
-                        <svg class="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4h2v2h-2v-2zm0-10h2v8h-2V6z"/></svg>
-                        <span class="text-2xl font-bold text-amber-600">22</span>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="card aa-stat">
+                        <div class="aa-stat__top">
+                            <span class="icon icon-clock aa-stat__icon" style="color: var(--qn-neutral-400);"></span>
+                            <span class="aa-stat__value">2</span>
+                        </div>
+                        <span class="aa-stat__label">Menunggu</span>
                     </div>
-                    <p class="text-xs text-gray-500">Dalam Proses</p>
                 </div>
-                <div class="bg-white border border-green-200 rounded-lg p-4 bg-green-50">
-                    <div class="flex items-center gap-2 mb-1">
-                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                        <span class="text-2xl font-bold text-green-600">1</span>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="card aa-stat aa-stat_warning">
+                        <div class="aa-stat__top">
+                            <span class="icon icon-exclamation-triangle aa-stat__icon"></span>
+                            <span class="aa-stat__value">22</span>
+                        </div>
+                        <span class="aa-stat__label">Dalam Proses</span>
                     </div>
-                    <p class="text-xs text-gray-500">Diterima</p>
                 </div>
-                <div class="bg-white border border-red-200 rounded-lg p-4 bg-red-50">
-                    <div class="flex items-center gap-2 mb-1">
-                        <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/></svg>
-                        <span class="text-2xl font-bold text-red-600">19</span>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="card aa-stat aa-stat_success">
+                        <div class="aa-stat__top">
+                            <span class="icon icon-check-circle aa-stat__icon"></span>
+                            <span class="aa-stat__value">1</span>
+                        </div>
+                        <span class="aa-stat__label">Diterima</span>
                     </div>
-                    <p class="text-xs text-gray-500">Ditolak</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="card aa-stat aa-stat_danger">
+                        <div class="aa-stat__top">
+                            <span class="icon icon-x-circle aa-stat__icon"></span>
+                            <span class="aa-stat__value">19</span>
+                        </div>
+                        <span class="aa-stat__label">Ditolak</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Charts Row -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+            <div class="grid dashboard-grid" style="margin-top: 1rem;">
                 <!-- Tren Lamaran per Bulan -->
-                <div class="bg-white border border-gray-200 rounded-lg p-5">
-                    <h3 class="text-base font-semibold text-gray-800 mb-1">Tren Lamaran per Bulan</h3>
-                    <p class="text-xs text-gray-400 mb-4">6 bulan terakhir</p>
-                    <div class="flex items-center gap-4 mb-3 text-xs">
-                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm bg-green-300"></span> Diterima</span>
-                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm bg-amber-300"></span> Dalam Proses</span>
-                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm bg-red-300"></span> Ditolak</span>
-                        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm bg-gray-300"></span> Menunggu</span>
-                    </div>
-                    <!-- Stacked bar chart -->
-                    <div class="flex items-end gap-4 h-44 border-b border-l border-gray-200 pl-8 pb-2 pt-2 relative">
-                        <!-- Y-axis labels -->
-                        <div class="absolute left-0 bottom-2 text-xs text-gray-400">0</div>
-                        <div class="absolute left-0 bottom-[33%] text-xs text-gray-400">1</div>
-                        <div class="absolute left-0 bottom-[66%] text-xs text-gray-400">2</div>
-                        <div class="absolute left-0 top-2 text-xs text-gray-400">3</div>
-                        <!-- Feb -->
-                        <div class="flex-1 flex flex-col items-center justify-end h-full group relative">
-                            <div class="w-6"></div>
-                            <span class="text-xs text-gray-400 mt-2">Feb</span>
+                <div class="col-12 col-lg-6">
+                    <div class="card card_dashboard">
+                        <div class="card__header">
+                            <h3 class="card__title">Tren Lamaran per Bulan</h3>
+                            <p style="font-size: 0.75rem; color: var(--qn-neutral-400); margin: 0.125rem 0 0;">6 bulan terakhir</p>
                         </div>
-                        <!-- Mar -->
-                        <div class="flex-1 flex flex-col items-center justify-end h-full group relative">
-                            <div class="w-6"></div>
-                            <span class="text-xs text-gray-400 mt-2">Mar</span>
-                        </div>
-                        <!-- Apr -->
-                        <div class="flex-1 flex flex-col items-center justify-end h-full group relative">
-                            <div class="w-6"></div>
-                            <span class="text-xs text-gray-400 mt-2">Apr</span>
-                        </div>
-                        <!-- Mei -->
-                        <div class="flex-1 flex flex-col items-center justify-end h-full group relative cursor-pointer">
-                            <div class="hidden group-hover:block absolute -top-16 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded-md px-3 py-2 whitespace-nowrap z-10 shadow-lg">
-                                <p class="font-semibold mb-0.5">Mei</p>
-                                <p>■ Dalam Proses: 1</p>
+                        <div class="card__body">
+                            <div class="chart-legend">
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #86efac;"></span><span class="chart-legend__text">Diterima</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #fcd34d;"></span><span class="chart-legend__text">Dalam Proses</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #f87171;"></span><span class="chart-legend__text">Ditolak</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #d1d5db;"></span><span class="chart-legend__text">Menunggu</span></div>
                             </div>
-                            <div class="flex flex-col w-6">
-                                <div class="bg-amber-300 rounded-t" style="height:16px;"></div>
+                            <div class="aa-trend">
+                                <span class="aa-trend__axis" style="bottom: 0.5rem;">0</span>
+                                <span class="aa-trend__axis" style="bottom: 33%;">1</span>
+                                <span class="aa-trend__axis" style="bottom: 66%;">2</span>
+                                <span class="aa-trend__axis" style="top: 0.5rem;">3</span>
+
+                                <div class="aa-trend__col">
+                                    <div class="aa-trend__bars"></div>
+                                    <span class="aa-trend__month">Feb</span>
+                                </div>
+                                <div class="aa-trend__col">
+                                    <div class="aa-trend__bars"></div>
+                                    <span class="aa-trend__month">Mar</span>
+                                </div>
+                                <div class="aa-trend__col">
+                                    <div class="aa-trend__bars"></div>
+                                    <span class="aa-trend__month">Apr</span>
+                                </div>
+                                <div class="aa-trend__col">
+                                    <div class="aa-trend__tooltip"><strong>Mei</strong><br>■ Dalam Proses: 1</div>
+                                    <div class="aa-trend__bars">
+                                        <div style="height: 16px; background: #fcd34d; border-radius: 4px 4px 0 0;"></div>
+                                    </div>
+                                    <span class="aa-trend__month">Mei</span>
+                                </div>
+                                <div class="aa-trend__col">
+                                    <div class="aa-trend__tooltip"><strong>Jun</strong><br>■ Dalam Proses: 1<br>■ Ditolak: 3<br>■ Menunggu: 1</div>
+                                    <div class="aa-trend__bars">
+                                        <div style="height: 8px; background: #d1d5db; border-radius: 4px 4px 0 0;"></div>
+                                        <div style="height: 48px; background: #f87171;"></div>
+                                        <div style="height: 16px; background: #fcd34d;"></div>
+                                    </div>
+                                    <span class="aa-trend__month">Jun</span>
+                                </div>
+                                <div class="aa-trend__col">
+                                    <div class="aa-trend__tooltip"><strong>Jul</strong><br>■ Dalam Proses: 5<br>■ Ditolak: 1<br>■ Menunggu: 1</div>
+                                    <div class="aa-trend__bars">
+                                        <div style="height: 8px; background: #d1d5db; border-radius: 4px 4px 0 0;"></div>
+                                        <div style="height: 80px; background: var(--qn-primary-500);"></div>
+                                        <div style="height: 8px; background: #86efac;"></div>
+                                    </div>
+                                    <span class="aa-trend__month">Jul</span>
+                                </div>
                             </div>
-                            <span class="text-xs text-gray-400 mt-2">Mei</span>
-                        </div>
-                        <!-- Jun -->
-                        <div class="flex-1 flex flex-col items-center justify-end h-full group relative cursor-pointer">
-                            <div class="hidden group-hover:block absolute -top-24 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded-md px-3 py-2 whitespace-nowrap z-10 shadow-lg">
-                                <p class="font-semibold mb-0.5">Jun</p>
-                                <p>■ Dalam Proses: 1</p>
-                                <p>■ Ditolak: 3</p>
-                                <p>■ Menunggu: 1</p>
-                            </div>
-                            <div class="flex flex-col w-6">
-                                <div class="bg-gray-300 rounded-t" style="height:8px;"></div>
-                                <div class="bg-red-400" style="height:48px;"></div>
-                                <div class="bg-amber-300" style="height:16px;"></div>
-                            </div>
-                            <span class="text-xs text-gray-400 mt-2">Jun</span>
-                        </div>
-                        <!-- Jul -->
-                        <div class="flex-1 flex flex-col items-center justify-end h-full group relative cursor-pointer">
-                            <div class="hidden group-hover:block absolute -top-24 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded-md px-3 py-2 whitespace-nowrap z-10 shadow-lg">
-                                <p class="font-semibold mb-0.5">Jul</p>
-                                <p>■ Dalam Proses: 5</p>
-                                <p>■ Ditolak: 1</p>
-                                <p>■ Menunggu: 1</p>
-                            </div>
-                            <div class="flex flex-col w-6">
-                                <div class="bg-gray-300 rounded-t" style="height:8px;"></div>
-                                <div class="bg-primary500" style="height:80px;"></div>
-                                <div class="bg-green-400" style="height:8px;"></div>
-                            </div>
-                            <span class="text-xs text-gray-400 mt-2">Jul</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Top 5 Perusahaan Tujuan -->
-                <div class="bg-white border border-gray-200 rounded-lg p-5">
-                    <h3 class="text-base font-semibold text-gray-800 mb-4">Top 5 Perusahaan Tujuan</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3">
-                            <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 text-xs font-bold flex items-center justify-center">1</span>
-                            <span class="flex-1 text-sm text-gray-700">PT Tes Dimas</span>
-                            <div class="flex-1 h-2 bg-primary500 rounded-full"></div>
-                            <span class="text-sm font-semibold text-primary500 ml-2">2</span>
+                <div class="col-12 col-lg-6">
+                    <div class="card card_dashboard">
+                        <div class="card__header">
+                            <h3 class="card__title">Top 5 Perusahaan Tujuan</h3>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 text-xs font-bold flex items-center justify-center">2</span>
-                            <span class="flex-1 text-sm text-gray-700">PT Karirlink</span>
-                            <div class="flex-1 h-2 bg-primary500 rounded-full"></div>
-                            <span class="text-sm font-semibold text-primary500 ml-2">2</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">3</span>
-                            <span class="flex-1 text-sm text-gray-700">Fore Coffee</span>
-                            <div class="flex-1 h-2 bg-primary500 rounded-full" style="width:50%"></div>
-                            <span class="text-sm font-semibold text-primary500 ml-2">1</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">4</span>
-                            <span class="flex-1 text-sm text-gray-700">PT DEWASUTRATEX</span>
-                            <div class="flex-1 h-2 bg-primary500 rounded-full" style="width:50%"></div>
-                            <span class="text-sm font-semibold text-primary500 ml-2">1</span>
+                        <div class="card__body">
+                            <div class="chart-container chart-container_bar chart-container_wide">
+                                <canvas id="chart-top5-perusahaan"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Daftar Lamaran Alumni Table -->
-            <div class="bg-white border border-gray-200 rounded-lg">
-                <div class="flex items-center justify-between p-5 border-b border-gray-200">
-                    <h3 class="text-base font-semibold text-gray-800">Daftar Lamaran Alumni</h3>
-                    <div class="flex items-center gap-2">
-                        <button class="text-sm font-medium text-gray-600 border border-gray-300 rounded-lg px-3 py-2 hover:bg-gray-50">Ekspor</button>
-                        <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
-                            <input type="text" placeholder="Cari nama, NIM, atau perusahaan..." class="text-sm px-3 py-2 w-64 focus:outline-none">
-                            <button class="px-3 py-2 text-sm font-medium text-gray-600 border-l border-gray-300 hover:bg-gray-50">Cari</button>
+            <div class="card card_empty" style="margin-top: 1rem;">
+                <div class="dashboard-filter" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--qn-neutral-200);">
+                    <h3 class="card__title" style="margin: 0;">Daftar Lamaran Alumni</h3>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <button class="btn btn_outline btn_sm">
+                            <span class="icon icon-arrow-down-tray-mini"></span>
+                            <span class="btn__text">Ekspor</span>
+                        </button>
+                        <div class="form-control">
+                            <div class="form-control__group">
+                                <span data-input-icon="search"></span>
+                                <input type="search" class="form-control__input" placeholder="Cari nama, NIM, atau perusahaan...">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left">
-                        <thead class="text-xs text-gray-500 uppercase bg-gray-50">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <th class="px-4 py-3">NO</th>
-                                <th class="px-4 py-3">NAMA ALUMNI</th>
-                                <th class="px-4 py-3">PROGRAM STUDI</th>
-                                <th class="px-4 py-3">PERUSAHAAN</th>
-                                <th class="px-4 py-3">POSISI</th>
-                                <th class="px-4 py-3">TANGGAL MELAMAR</th>
-                                <th class="px-4 py-3">STATUS</th>
+                                <th>No</th>
+                                <th>Nama Alumni</th>
+                                <th>Program Studi</th>
+                                <th>Perusahaan</th>
+                                <th>Posisi</th>
+                                <th>Tanggal Melamar</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-100">
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-3 text-gray-600">1</td>
-                                <td class="px-4 py-3"><span class="font-medium text-gray-800">Foxtrot Test Test</span><br><span class="text-xs text-gray-400">NIM: -</span></td>
-                                <td class="px-4 py-3 text-gray-600">-</td>
-                                <td class="px-4 py-3 text-gray-600">PT Tes Dimas</td>
-                                <td class="px-4 py-3 text-gray-600">Corporis odio unde illum necessitatibus aute dolorem quam a</td>
-                                <td class="px-4 py-3 text-gray-600 whitespace-nowrap">07 Jul 2026</td>
-                                <td class="px-4 py-3"><span class="text-xs font-medium text-amber-700">Menunggu</span></td>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>Foxtrot Test Test</strong><br><span style="font-size: 0.75rem; color: var(--qn-neutral-400);">NIM: -</span></td>
+                                <td>-</td>
+                                <td>PT Tes Dimas</td>
+                                <td>Corporis odio unde illum necessitatibus aute dolorem quam a</td>
+                                <td style="white-space: nowrap;">07 Jul 2026</td>
+                                <td><span style="font-size: 0.75rem; font-weight: 500; color: var(--qn-warning-600);">Menunggu</span></td>
                             </tr>
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-3 text-gray-600">2</td>
-                                <td class="px-4 py-3"><span class="font-medium text-gray-800">Muhammad Nur</span><br><span class="text-xs text-gray-400">NIM: 123456</span></td>
-                                <td class="px-4 py-3 text-gray-600">Teknik Informatika</td>
-                                <td class="px-4 py-3 text-gray-600">PT Karirlink</td>
-                                <td class="px-4 py-3 text-gray-600">Software Engineer</td>
-                                <td class="px-4 py-3 text-gray-600 whitespace-nowrap">05 Jul 2026</td>
-                                <td class="px-4 py-3"><span class="text-xs font-medium text-red-600">Ditolak</span></td>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>Muhammad Nur</strong><br><span style="font-size: 0.75rem; color: var(--qn-neutral-400);">NIM: 123456</span></td>
+                                <td>Teknik Informatika</td>
+                                <td>PT Karirlink</td>
+                                <td>Software Engineer</td>
+                                <td style="white-space: nowrap;">05 Jul 2026</td>
+                                <td><span style="font-size: 0.75rem; font-weight: 500; color: var(--qn-danger-500);">Ditolak</span></td>
                             </tr>
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-3 text-gray-600">3</td>
-                                <td class="px-4 py-3"><span class="font-medium text-gray-800">Henni</span><br><span class="text-xs text-gray-400">NIM: 3700412023</span></td>
-                                <td class="px-4 py-3 text-gray-600">S1 - Akuntansi</td>
-                                <td class="px-4 py-3 text-gray-600">Fore Coffee</td>
-                                <td class="px-4 py-3 text-gray-600">Barista</td>
-                                <td class="px-4 py-3 text-gray-600 whitespace-nowrap">03 Jul 2026</td>
-                                <td class="px-4 py-3"><span class="text-xs font-medium text-blue-600">Dalam Proses</span></td>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>Henni</strong><br><span style="font-size: 0.75rem; color: var(--qn-neutral-400);">NIM: 3700412023</span></td>
+                                <td>S1 - Akuntansi</td>
+                                <td>Fore Coffee</td>
+                                <td>Barista</td>
+                                <td style="white-space: nowrap;">03 Jul 2026</td>
+                                <td><span style="font-size: 0.75rem; font-weight: 500; color: var(--qn-primary-500);">Dalam Proses</span></td>
                             </tr>
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-3 text-gray-600">4</td>
-                                <td class="px-4 py-3"><span class="font-medium text-gray-800">Ruka Babymon</span><br><span class="text-xs text-gray-400">NIM: 00000010122</span></td>
-                                <td class="px-4 py-3 text-gray-600">S1 - Akuntansi</td>
-                                <td class="px-4 py-3 text-gray-600">PT DEWASUTRATEX</td>
-                                <td class="px-4 py-3 text-gray-600">Accounting Staff</td>
-                                <td class="px-4 py-3 text-gray-600 whitespace-nowrap">01 Jul 2026</td>
-                                <td class="px-4 py-3"><span class="text-xs font-medium text-green-600">Diterima</span></td>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>Ruka Babymon</strong><br><span style="font-size: 0.75rem; color: var(--qn-neutral-400);">NIM: 00000010122</span></td>
+                                <td>S1 - Akuntansi</td>
+                                <td>PT DEWASUTRATEX</td>
+                                <td>Accounting Staff</td>
+                                <td style="white-space: nowrap;">01 Jul 2026</td>
+                                <td><span style="font-size: 0.75rem; font-weight: 500; color: var(--qn-success-600);">Diterima</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <!-- Pagination -->
-                <div class="flex items-center justify-between px-5 py-3 border-t border-gray-200">
-                    <p class="text-sm text-gray-500">Menampilkan 1-4 dari 44 data</p>
-                    <div class="flex items-center gap-1">
-                        <button class="px-3 py-1.5 text-sm text-gray-400 border border-gray-200 rounded-lg" disabled>&laquo;</button>
-                        <button class="px-3 py-1.5 text-sm text-white bg-primary500 border border-primary500 rounded-lg font-medium">1</button>
-                        <button class="px-3 py-1.5 text-sm text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50">2</button>
-                        <button class="px-3 py-1.5 text-sm text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50">3</button>
-                        <span class="px-2 text-gray-400">...</span>
-                        <button class="px-3 py-1.5 text-sm text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50">11</button>
-                        <button class="px-3 py-1.5 text-sm text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50">&raquo;</button>
-                    </div>
+                <div class="pagination-wrapper" style="display: flex; align-items: center; justify-content: space-between;">
+                    <span class="pagination__info">Menampilkan 1-4 dari 44 data</span>
+                    <nav class="pagination">
+                        <button class="pagination__btn" disabled><span class="icon icon-chevron-left-mini"></span></button>
+                        <button class="pagination__btn active">1</button>
+                        <button class="pagination__btn">2</button>
+                        <button class="pagination__btn">3</button>
+                        <span style="padding: 0 0.25rem; color: var(--qn-neutral-400);">...</span>
+                        <button class="pagination__btn">11</button>
+                        <button class="pagination__btn"><span class="icon icon-chevron-right-mini"></span></button>
+                    </nav>
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2026 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.select-default').forEach(el => {
+                new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+            });
+
+            new Chart(document.getElementById('chart-top5-perusahaan'), {
+                type: 'bar',
+                data: {
+                    labels: ['PT Tes Dimas', 'PT Karirlink', 'Fore Coffee', 'PT DEWASUTRATEX'],
+                    datasets: [{
+                        data: [2, 2, 1, 1],
+                        backgroundColor: '#294A9A',
+                        borderWidth: 0,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { beginAtZero: true, max: 2, ticks: { stepSize: 1 } },
+                        y: { grid: { display: false } }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

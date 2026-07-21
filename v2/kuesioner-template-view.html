@@ -41,7 +41,7 @@
 
         /* ===== MAIN CONTENT ===== */
         .main { margin-left: 20rem; padding: 1.5rem; min-height: calc(100vh - 57px); }
-        .main-inner { max-width: 42rem; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+        .main-inner { max-width: 46rem; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
 
         /* ===== SECTION TITLE CARD ===== */
         .section-title-card { display: flex; align-items: center; gap: 0.75rem; background: white; border: 2px solid #2563eb; border-radius: 0.5rem; padding: 1.25rem 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
@@ -166,6 +166,7 @@
                 <div class="section-title-card">
                     <span class="section-title-card__num">1.</span>
                     <input class="section-title-card__input" value="Informasi Umum" disabled>
+                    <span class="section-wave-badge section-wave-badge--core">Core</span>
                 </div>
 
                 <!-- Q1: Status -->
@@ -262,6 +263,7 @@
                 <div class="section-title-card">
                     <span class="section-title-card__num">2.</span>
                     <input class="section-title-card__input" value="Alumni Bekerja" disabled>
+                    <span class="section-wave-badge section-wave-badge--core">Core</span>
                 </div>
                 <!-- Q1 -->
                 <div class="q-card">
@@ -433,6 +435,7 @@
                 <div class="section-title-card">
                     <span class="section-title-card__num">3.</span>
                     <input class="section-title-card__input" value="Alumni Wiraswasta" disabled>
+                    <span class="section-wave-badge section-wave-badge--core">Core</span>
                 </div>
                 <!-- Q1 -->
                 <div class="q-card">
@@ -582,6 +585,7 @@
                 <div class="section-title-card">
                     <span class="section-title-card__num">4.</span>
                     <input class="section-title-card__input" value="Alumni Melanjutkan Pendidikan" disabled>
+                    <span class="section-wave-badge section-wave-badge--core">Core</span>
                 </div>
                 <div class="q-card">
                     <div class="q-card__header"><span class="q-card__num">1.</span><div class="q-card__body"><p class="q-card__text req">Di universitas mana Anda melanjutkan studi?</p></div></div>
@@ -627,6 +631,7 @@
                 <div class="section-title-card">
                     <span class="section-title-card__num">5.</span>
                     <input class="section-title-card__input" value="Alumni Sudah Bekerja" disabled>
+                    <span class="section-wave-badge section-wave-badge--optional" title="Bisa dimatikan per campaign">Optional</span>
                 </div>
                 <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:0.5rem;padding:0.875rem 1rem;font-size:0.8125rem;color:#1e40af;display:flex;gap:0.5rem;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -650,13 +655,14 @@
                 <div class="section-title-card">
                     <span class="section-title-card__num">6.</span>
                     <input class="section-title-card__input" value="Tingkat Kompetensi" disabled>
+                    <span class="section-wave-badge section-wave-badge--optional" title="Bisa dimatikan per campaign">Optional</span>
                 </div>
                 <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:0.5rem;padding:0.875rem 1rem;font-size:0.8125rem;color:#166534;display:flex;gap:0.5rem;margin-bottom:0.25rem;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                     Section ini muncul untuk semua alumni, setelah section sesuai status mereka selesai diisi.
                 </div>
                 <div class="q-card">
-                    <div class="q-card__header"><span class="q-card__num">1.</span><div class="q-card__body"><p class="q-card__text req">Seberapa besar penekanan pada metode pembelajaran di bawah ini dilaksanakan di program studi Anda?</p><p class="q-card__hint">Skala 1 (Sangat Rendah) — 4 (Sangat Tinggi)</p></div></div>
+                    <div class="q-card__header"><span class="q-card__num">1.</span><div class="q-card__body"><p class="q-card__text req">Seberapa besar penekanan pada metode pembelajaran di bawah ini dilaksanakan di program studi Anda?</p><p class="q-card__hint">Skala 1 (Sangat Rendah) - 4 (Sangat Tinggi)</p></div></div>
                     <div style="overflow-x:auto;margin-top:0.75rem;">
                         <table style="width:100%;border-collapse:collapse;font-size:0.8125rem;">
                             <thead><tr style="background:#f9fafb;">
@@ -683,6 +689,16 @@
             </div>
 
         </div><!-- /main-inner -->
+
+        <footer class="footer" style="margin-top: 1.5rem; border-top: 1px solid #e5e7eb;">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
 </div><!-- /layout -->
 
