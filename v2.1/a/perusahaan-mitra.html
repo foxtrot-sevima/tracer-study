@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/a/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perusahaan Mitra | KarirLink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/portal-karir.css">
+
+    <style>
+        .pm-invite-card .card__body { display: flex; align-items: center; gap: 1.5rem; }
+        .pm-company-list { display: flex; flex-direction: column; }
+        .pm-company-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--qn-neutral-200); }
+        .pm-company-row:first-child { border-top: none; }
+        .pm-company-logo { width: 3rem; height: 3rem; border-radius: 0.5rem; background: var(--qn-neutral-100); color: var(--qn-neutral-400); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+        .pm-company-name { font-size: 0.9375rem; font-weight: 500; color: var(--qn-neutral-900); margin: 0; }
+        .pm-company-email { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.25rem 0 0; display: flex; align-items: center; gap: 0.375rem; }
+        .pm-info-row { display: flex; align-items: center; justify-content: space-between; font-size: 0.875rem; padding-top: 0.5rem; }
+        .pm-info-row__label { color: var(--qn-neutral-500); }
+        .pm-info-row__value { font-weight: 600; color: var(--qn-neutral-800); }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (navbar Portal Karir) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./portal-karir.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./portal-karir.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lowongan.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Lowongan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./event.html">
+                                <span class="icon icon-calendar"></span>
+                                <span>Event</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./kerja-sama.html">
+                                <span class="icon icon-user-group"></span>
+                                <span>Kerja Sama</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./perusahaan.html">
+                                <span class="icon icon-building-office"></span>
+                                <span>Perusahaan Mitra</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification"><span class="icon icon-bell"></span></button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./index.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-tracer-study">
+                        Tracer Study
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Admin Karirlink</span><span class="avatar__subtitle">admin@university.ac.id</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./portal-karir.html">Beranda</a></li>
+                <li class="breadcrumb__item active"><a href="#">Perusahaan Mitra</a></li>
+            </ul>
+
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Perusahaan Mitra</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Alert (hidden by default) -->
+            <div class="alert alert_success" id="alert-success" style="display: none; margin-bottom: 1rem;">
+                <span class="icon icon-check-circle"></span>
+                <div class="alert__content">
+                    <p class="alert__heading">Berhasil Mengundang</p>
+                    <p class="alert__description">Perusahaan berhasil diundang!</p>
+                </div>
+            </div>
+
+            <!-- Error Alert (hidden by default) -->
+            <div class="alert alert_danger" id="alert-error" style="display: none; margin-bottom: 1rem;">
+                <span class="icon icon-exclamation-triangle"></span>
+                <div class="alert__content">
+                    <p class="alert__heading">Terjadi Kesalahan</p>
+                    <p class="alert__description" id="alert-error-msg">Email fauzan@sevima.com sudah terdaftar</p>
+                </div>
+            </div>
+
+            <div class="grid">
+                <!-- Left Column -->
+                <div class="col-12 col-lg-8">
+                    <!-- Invite Banner Card -->
+                    <div class="card pm-invite-card">
+                        <div class="card__body">
+                            <div style="flex-shrink: 0;">
+                                <svg width="140" height="100" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="45" y="20" width="50" height="60" rx="4" fill="#D4DBEB"/>
+                                    <rect x="55" y="30" width="10" height="10" rx="2" fill="#294A9A"/>
+                                    <rect x="75" y="30" width="10" height="10" rx="2" fill="#294A9A"/>
+                                    <rect x="55" y="48" width="10" height="10" rx="2" fill="#294A9A"/>
+                                    <rect x="75" y="48" width="10" height="10" rx="2" fill="#294A9A"/>
+                                    <rect x="62" y="62" width="16" height="18" rx="2" fill="#546EAE"/>
+                                    <circle cx="25" cy="55" r="8" fill="#A9B7D7"/>
+                                    <rect x="17" y="65" width="16" height="20" rx="8" fill="#A9B7D7"/>
+                                    <circle cx="115" cy="55" r="8" fill="#7F92C2"/>
+                                    <rect x="107" y="65" width="16" height="20" rx="8" fill="#7F92C2"/>
+                                    <rect x="10" y="82" width="120" height="4" rx="2" fill="#EAEDF5"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.875rem; color: var(--qn-neutral-700); margin-bottom: 1rem;">Tahu perusahaan bagus yang belum bergabung dengan KarirLink?</p>
+                                <button class="btn btn_primary" data-toggle="modal" data-target="#modal-invite">
+                                    <span class="btn__text">Undang Perusahaan</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Perusahaan Mitra Anda Card -->
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card__body">
+                            <h2 style="font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-900); margin-bottom: 1rem;">Perusahaan Mitra Anda</h2>
+
+                            <!-- Tab Buttons -->
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem;">
+                                <button class="btn btn_primary btn_sm">Semua (51)</button>
+                                <button class="btn btn_outline btn_sm">Menunggu Bergabung (41)</button>
+                                <button class="btn btn_outline btn_sm">Berhasil Bergabung (10)</button>
+                            </div>
+
+                            <!-- Company List -->
+                            <div class="pm-company-list">
+                                <div class="pm-company-row">
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div class="pm-company-logo"><span class="icon icon-building-office"></span></div>
+                                        <div>
+                                            <p class="pm-company-name">PT Sentra Vidya Utama</p>
+                                            <p class="pm-company-email"><span class="icon icon-envelope"></span> fifinnur30@gmail.com</p>
+                                        </div>
+                                    </div>
+                                    <div class="status-badge status-badge_warning">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Menunggu Bergabung</span>
+                                    </div>
+                                </div>
+                                <div class="pm-company-row">
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div class="pm-company-logo"><span class="icon icon-building-office"></span></div>
+                                        <div>
+                                            <p class="pm-company-name">PT Fit Jaya Raya Tri</p>
+                                            <p class="pm-company-email"><span class="icon icon-envelope"></span> fitrinailah29@gmail.com</p>
+                                        </div>
+                                    </div>
+                                    <div class="status-badge status-badge_success">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Berhasil Bergabung</span>
+                                    </div>
+                                </div>
+                                <div class="pm-company-row">
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div class="pm-company-logo"><span class="icon icon-building-office"></span></div>
+                                        <div>
+                                            <p class="pm-company-name">PT ABC</p>
+                                            <p class="pm-company-email"><span class="icon icon-envelope"></span> sf.sunflower12@gmail.com</p>
+                                        </div>
+                                    </div>
+                                    <div class="status-badge status-badge_success">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Berhasil Bergabung</span>
+                                    </div>
+                                </div>
+                                <div class="pm-company-row">
+                                    <div style="display: flex; align-items: center; gap: 1rem;">
+                                        <div class="pm-company-logo"><span class="icon icon-building-office"></span></div>
+                                        <div>
+                                            <p class="pm-company-name">Perusahaan D</p>
+                                            <p class="pm-company-email"><span class="icon icon-envelope"></span> test@email.com</p>
+                                        </div>
+                                    </div>
+                                    <div class="status-badge status-badge_warning">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Menunggu Bergabung</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-12 col-lg-4">
+                    <div class="card">
+                        <div class="card__body">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                <span class="icon icon-exclamation-circle" style="width: 2.5rem; height: 2.5rem; border-radius: 0.5rem; background: var(--qn-primary-50); color: var(--qn-primary-500); display: flex; align-items: center; justify-content: center; font-size: 1.125rem;"></span>
+                                <h3 style="font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-800); margin: 0;">Informasi</h3>
+                            </div>
+                            <p style="font-size: 0.875rem; color: var(--qn-neutral-500); line-height: 1.6;">
+                                Halaman ini menampilkan daftar perusahaan mitra yang telah Anda undang untuk bergabung dengan KarirLink. Anda dapat melihat status undangan dan mengundang perusahaan baru.
+                            </p>
+                            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--qn-neutral-100);">
+                                <div class="pm-info-row">
+                                    <span class="pm-info-row__label">Total Mitra</span>
+                                    <span class="pm-info-row__value">51</span>
+                                </div>
+                                <div class="pm-info-row">
+                                    <span class="pm-info-row__label">Berhasil Bergabung</span>
+                                    <span class="pm-info-row__value" style="color: var(--qn-success-600);">10</span>
+                                </div>
+                                <div class="pm-info-row">
+                                    <span class="pm-info-row__label">Menunggu</span>
+                                    <span class="pm-info-row__value" style="color: var(--qn-warning-600);">41</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2026 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- [START] Modal: Undang Perusahaan -->
+    <div class="modal modal_qnaire-action" id="modal-invite">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper" style="max-width: 32rem;">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title">Undang Perusahaan</h3>
+                </div>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <p style="font-size: 0.9375rem; font-weight: 500; color: var(--qn-neutral-800); margin-bottom: 1rem;">Perusahaan mana yang ingin Anda undang?</p>
+
+                <div class="form-control" style="margin-bottom: 1rem;">
+                    <label class="form-control__label">Nama Perusahaan <span style="color: var(--qn-danger-500);">*</span></label>
+                    <div class="form-control__group">
+                        <input type="text" id="pm-invite-nama" class="form-control__input" placeholder="Masukkan Nama Perusahaan">
+                    </div>
+                </div>
+
+                <div class="form-control" style="margin-bottom: 1rem;">
+                    <label class="form-control__label">Email <span style="color: var(--qn-danger-500);">*</span></label>
+                    <div class="form-control__group">
+                        <input type="email" id="pm-invite-email" class="form-control__input" placeholder="Contoh: name@email.com">
+                    </div>
+                </div>
+
+                <div class="form-control" style="margin-bottom: 1rem;">
+                    <label class="form-control__label">No. Telepon <span style="color: var(--qn-danger-500);">*</span></label>
+                    <div class="form-control__group">
+                        <input type="tel" id="pm-invite-telepon" class="form-control__input" placeholder="Contoh: 08123456789">
+                    </div>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid var(--qn-neutral-200); margin: 1.25rem 0;">
+
+                <p style="font-size: 0.9375rem; font-weight: 500; color: var(--qn-neutral-800); margin-bottom: 1rem;">Siapa yang mengundang?</p>
+
+                <div class="form-control">
+                    <label class="form-control__label">Nama Lengkap Anda <span style="color: var(--qn-danger-500);">*</span></label>
+                    <div class="form-control__group">
+                        <input type="text" id="pm-invite-pengundang" class="form-control__input" placeholder="Masukkan Nama Lengkap">
+                    </div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button class="btn btn_primary btn_block" onclick="submitInvite()">Undang</button>
+            </div>
+        </div>
+    </div>
+    <!-- [END] Modal: Undang Perusahaan -->
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        function submitInvite() {
+            // Close modal
+            document.getElementById('modal-invite').classList.remove('is-visible');
+            // Hide all alerts first
+            document.getElementById('alert-success').style.display = 'none';
+            document.getElementById('alert-error').style.display = 'none';
+            // Show success (demo: randomly show success or error)
+            const isSuccess = Math.random() > 0.4;
+            if (isSuccess) {
+                document.getElementById('alert-success').style.display = 'flex';
+            } else {
+                const errors = [
+                    'Email fauzan@sevima.com sudah terdaftar',
+                    'Nomor telepon 082122324798 sudah terdaftar',
+                    'company phone maksimal berisi 20 karakter.'
+                ];
+                document.getElementById('alert-error-msg').textContent = errors[Math.floor(Math.random() * errors.length)];
+                document.getElementById('alert-error').style.display = 'flex';
+            }
+            // Scroll to top to see alert
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

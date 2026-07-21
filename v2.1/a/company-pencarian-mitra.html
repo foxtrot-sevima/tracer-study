@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/a/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pencarian Mitra | KarirLink Perusahaan</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/portal-karir.css">
+    <style>
+        /* Offcanvas (local pattern, layout-only) */
+        .offcanvas { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1000; }
+        .offcanvas.show { display: block; }
+        .offcanvas__backdrop { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); }
+        .offcanvas__panel { position: absolute; top: 0; right: 0; bottom: 0; width: 100%; max-width: 26rem; background: white; box-shadow: -4px 0 12px rgba(0,0,0,0.1); overflow-y: auto; }
+        .offcanvas__header { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--qn-neutral-200); }
+        .offcanvas__title { font-size: 1.0625rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
+        .offcanvas__close { background: none; border: none; cursor: pointer; padding: 0.25rem; color: var(--qn-neutral-400); }
+        .offcanvas__close:hover { color: var(--qn-neutral-600); }
+        .offcanvas__body { padding: 1.5rem; }
+        .offcanvas__footer { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; border-top: 1px solid var(--qn-neutral-200); }
+        .offcanvas-info { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; }
+        .offcanvas-info .icon { font-size: 1.25rem; color: var(--qn-neutral-400); margin-top: 0.125rem; }
+        .offcanvas-info__label { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0; }
+        .offcanvas-info__value { font-size: 0.875rem; font-weight: 500; color: var(--qn-neutral-900); margin: 0; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (Perusahaan Mitra) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./company-beranda.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./company-beranda.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./company-lowongan.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Lowongan Saya</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <div class="dropdown dropdown_nav">
+                                <a class="nav__link" href="#" data-toggle="dropdown">
+                                    <span class="icon icon-user-group"></span>
+                                    <span>Kerja Sama</span>
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </a>
+                                <div class="dropdown__box">
+                                    <ul class="dropdown__list">
+                                        <li class="dropdown__item"><a href="./company-pencarian-mitra.html">Pencarian Mitra</a></li>
+                                        <li class="dropdown__item"><a href="./company-daftar-mitra.html">Daftar Mitra</a></li>
+                                        <li class="dropdown__item"><a href="./company-kegiatan-kerja-sama.html">Kegiatan Kerja Sama</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">PT Foxtrot</span>
+                            <span class="header__user-role">Perusahaan Mitra</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">PT Foxtrot</span><span class="avatar__subtitle">Perusahaan Mitra</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="./company-register.html"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./company-beranda.html">Beranda</a></li>
+                <li class="breadcrumb__item active"><a href="#">Pencarian Mitra</a></li>
+            </ul>
+
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Pencarian Mitra</h1>
+                        <p class="main__subtitle">Daftar perguruan tinggi yang terbuka untuk kerja sama</p>
+                    </div>
+                </div>
+                <div class="main__action">
+                    <a href="./company-pengajuan-kegiatan.html" class="btn btn_primary">
+                        <span class="btn__text">Ajukan Kerja Sama</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Success Alert -->
+            <div class="alert alert_success" id="alert-success" style="display: none; margin-bottom: 1rem; align-items: center;">
+                <div class="alert__content">
+                    <p class="alert__description">Pengajuan kerja sama berhasil dilakukan.</p>
+                </div>
+                <button type="button" class="btn btn_icon btn_sm" onclick="document.getElementById('alert-success').style.display='none'">
+                    <span class="icon icon-x-mark-mini"></span>
+                </button>
+            </div>
+
+            <!-- Content Card -->
+            <div class="card card_empty">
+                <!-- Tabs -->
+                <div class="collab-tabs">
+                    <a href="#" class="collab-tabs__item active" id="tab-semua" onclick="switchTab(event,'semua')">
+                        <span class="icon icon-building-office"></span>
+                        <span>Semua Perguruan Tinggi</span>
+                    </a>
+                    <a href="#" class="collab-tabs__item" id="tab-pengajuan" onclick="switchTab(event,'pengajuan')">
+                        <span class="icon icon-inbox"></span>
+                        <span>Pengajuan Kerja Sama</span>
+                    </a>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="dashboard-filter" style="border-bottom: 1px solid var(--qn-neutral-200);">
+                    <div class="grid">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <span data-input-icon="search"></span>
+                                    <input type="search" class="form-control__input" placeholder="Cari nama perguruan tinggi...">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3 col-sm-offset-3" style="display: flex; justify-content: flex-end;">
+                            <button class="btn btn_outline" onclick="openFilterPanel()">
+                                <span class="icon icon-funnel"></span>
+                                <span class="btn__text">Filter</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Semua Perguruan Tinggi (empty state) -->
+                <div id="content-semua" class="table-responsive">
+                    <table class="table table-collab">
+                        <thead>
+                            <tr>
+                                <th>Nama Perguruan Tinggi</th>
+                                <th>Lokasi</th>
+                                <th>Jumlah Kerja Sama</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="4">
+                                    <div class="empty-state">
+                                        <span class="icon icon-magnifying-glass" style="font-size: 2.5rem; color: var(--qn-neutral-300);"></span>
+                                        <p class="empty-state__desc">Silakan lakukan filter untuk mendapatkan mitra yang sesuai</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Tab: Pengajuan Kerja Sama -->
+                <div id="content-pengajuan" class="table-responsive" style="display: none;">
+                    <table class="table table-collab">
+                        <thead>
+                            <tr>
+                                <th>Nama Perguruan Tinggi</th>
+                                <th>Lokasi</th>
+                                <th>Tanggal Pengajuan</th>
+                                <th>Status Pengajuan</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="mitra-cell">
+                                        <div class="mitra-cell__logo"><span class="icon icon-building-office"></span></div>
+                                        <div class="mitra-cell__info">
+                                            <span class="mitra-cell__name">Universitas Surabaya</span>
+                                            <span class="mitra-cell__category">Perguruan Tinggi Swasta</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Kota Surabaya, Jawa Timur</td>
+                                <td>20 Juli 2026</td>
+                                <td>
+                                    <div class="status-badge status-badge_warning">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Menunggu Persetujuan</span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="action-buttons">
+                                        <button class="btn btn_outline btn_sm" onclick="openDetail('Universitas Surabaya','Menunggu Persetujuan','Perguruan Tinggi Swasta','Kota Surabaya, Jawa Timur','5.000+','12')">
+                                            <span class="icon icon-eye"></span> Detail
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="mitra-cell">
+                                        <div class="mitra-cell__logo"><span class="icon icon-building-office"></span></div>
+                                        <div class="mitra-cell__info">
+                                            <span class="mitra-cell__name">Institut Teknologi Sepuluh Nopember</span>
+                                            <span class="mitra-cell__category">Perguruan Tinggi Negeri</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Kota Surabaya, Jawa Timur</td>
+                                <td>15 Juni 2026</td>
+                                <td>
+                                    <div class="status-badge status-badge_success">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Pengajuan Diterima</span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="action-buttons">
+                                        <button class="btn btn_outline btn_sm" onclick="openDetail('Institut Teknologi Sepuluh Nopember','Pengajuan Diterima','Perguruan Tinggi Negeri','Kota Surabaya, Jawa Timur','10.000+','45')">
+                                            <span class="icon icon-eye"></span> Detail
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="mitra-cell">
+                                        <div class="mitra-cell__logo"><span class="icon icon-building-office"></span></div>
+                                        <div class="mitra-cell__info">
+                                            <span class="mitra-cell__name">Universitas Brawijaya</span>
+                                            <span class="mitra-cell__category">Perguruan Tinggi Negeri</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Kota Malang, Jawa Timur</td>
+                                <td>10 Juni 2026</td>
+                                <td>
+                                    <div class="status-badge status-badge_success">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Pengajuan Diterima</span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="action-buttons">
+                                        <button class="btn btn_outline btn_sm" onclick="openDetail('Universitas Brawijaya','Pengajuan Diterima','Perguruan Tinggi Negeri','Kota Malang, Jawa Timur','15.000+','38')">
+                                            <span class="icon icon-eye"></span> Detail
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="mitra-cell">
+                                        <div class="mitra-cell__logo"><span class="icon icon-building-office"></span></div>
+                                        <div class="mitra-cell__info">
+                                            <span class="mitra-cell__name">Universitas Indonesia</span>
+                                            <span class="mitra-cell__category">Perguruan Tinggi Negeri</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Kota Depok, Jawa Barat</td>
+                                <td>01 Mei 2026</td>
+                                <td>
+                                    <div class="status-badge status-badge_success">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Pengajuan Diterima</span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="action-buttons">
+                                        <button class="btn btn_outline btn_sm" onclick="openDetail('Universitas Indonesia','Pengajuan Diterima','Perguruan Tinggi Negeri','Kota Depok, Jawa Barat','20.000+','67')">
+                                            <span class="icon icon-eye"></span> Detail
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="mitra-cell">
+                                        <div class="mitra-cell__logo"><span class="icon icon-building-office"></span></div>
+                                        <div class="mitra-cell__info">
+                                            <span class="mitra-cell__name">Universitas Airlangga</span>
+                                            <span class="mitra-cell__category">Perguruan Tinggi Negeri</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Kota Surabaya, Jawa Timur</td>
+                                <td>22 April 2026</td>
+                                <td>
+                                    <div class="status-badge status-badge_success">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Pengajuan Diterima</span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="action-buttons">
+                                        <button class="btn btn_outline btn_sm" onclick="openDetail('Universitas Airlangga','Pengajuan Diterima','Perguruan Tinggi Negeri','Kota Surabaya, Jawa Timur','12.000+','52')">
+                                            <span class="icon icon-eye"></span> Detail
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Detail Offcanvas -->
+    <div class="offcanvas" id="detailPanel">
+        <div class="offcanvas__backdrop" onclick="closeDetail()"></div>
+        <div class="offcanvas__panel">
+            <div class="offcanvas__header">
+                <h3 class="offcanvas__title" id="detail-name">Universitas Surabaya</h3>
+                <button class="offcanvas__close" onclick="closeDetail()"><span class="icon icon-x-mark-mini"></span></button>
+            </div>
+            <div class="offcanvas__body">
+                <div class="offcanvas-info">
+                    <span class="icon icon-information-circle-mini"></span>
+                    <div>
+                        <p class="offcanvas-info__label">Status Kerja Sama</p>
+                        <p class="offcanvas-info__value" id="detail-status">
+                            <span class="status-badge status-badge_warning"><span class="status-badge__dot"></span>Menunggu Persetujuan</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="offcanvas-info">
+                    <span class="icon icon-building-office"></span>
+                    <div>
+                        <p class="offcanvas-info__label">Kategori</p>
+                        <p class="offcanvas-info__value" id="detail-kategori">Perguruan Tinggi Swasta</p>
+                    </div>
+                </div>
+                <div class="offcanvas-info">
+                    <span class="icon icon-map-pin-mini"></span>
+                    <div>
+                        <p class="offcanvas-info__label">Lokasi</p>
+                        <p class="offcanvas-info__value" id="detail-lokasi">Kota Surabaya, Jawa Timur</p>
+                    </div>
+                </div>
+                <div class="offcanvas-info">
+                    <span class="icon icon-academic-cap"></span>
+                    <div>
+                        <p class="offcanvas-info__label">Jumlah Mahasiswa</p>
+                        <p class="offcanvas-info__value" id="detail-ukuran">5.000+</p>
+                    </div>
+                </div>
+                <div class="offcanvas-info">
+                    <span class="icon icon-user-group"></span>
+                    <div>
+                        <p class="offcanvas-info__label">Jumlah Kerja Sama</p>
+                        <p class="offcanvas-info__value" id="detail-kerjasama">12</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; border-top: 1px solid var(--qn-neutral-200); padding-top: 1.5rem;">
+                    <h4 style="font-size: 0.9375rem; font-weight: 600; margin: 0 0 0.75rem;">Lowongan Tersedia (<span id="detail-count">0</span>)</h4>
+                    <p class="empty-state__desc" style="text-align: center; padding: 1.5rem 0;">Belum ada lowongan tersedia</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Offcanvas -->
+    <div class="offcanvas" id="filterPanel">
+        <div class="offcanvas__backdrop" onclick="closeFilterPanel()"></div>
+        <div class="offcanvas__panel" style="max-width: 24rem;">
+            <div class="offcanvas__header">
+                <h3 class="offcanvas__title">Filter Data</h3>
+                <button class="offcanvas__close" onclick="closeFilterPanel()"><span class="icon icon-x-mark-mini"></span></button>
+            </div>
+            <div class="offcanvas__body">
+                <label class="lc-section__label" style="display: block; margin-bottom: 0.5rem;">Lokasi</label>
+                <div class="form-control">
+                    <div class="form-control__group">
+                        <span data-input-icon="search"></span>
+                        <input type="search" class="form-control__input" placeholder="Cari Nama Kota/Kabupaten">
+                    </div>
+                </div>
+                <p class="empty-state__desc" style="margin-top: 0.75rem;">Kota/Kabupaten tidak ditemukan</p>
+            </div>
+            <div class="offcanvas__footer">
+                <a href="./company-pencarian-mitra.html" class="link link_primary">Reset Filter</a>
+                <button class="btn btn_primary" onclick="closeFilterPanel()">Terapkan Filter</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        // Check URL for success param
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('success') === '1') {
+                document.getElementById('alert-success').style.display = 'flex';
+                switchTab(null, 'pengajuan');
+                window.history.replaceState({}, '', window.location.pathname);
+            }
+        })();
+
+        // Tab switching
+        function switchTab(e, tab) {
+            if (e) e.preventDefault();
+            var isSemua = tab === 'semua';
+            document.getElementById('content-semua').style.display = isSemua ? '' : 'none';
+            document.getElementById('content-pengajuan').style.display = isSemua ? 'none' : '';
+            document.getElementById('tab-semua').classList.toggle('active', isSemua);
+            document.getElementById('tab-pengajuan').classList.toggle('active', !isSemua);
+        }
+
+        // Filter panel
+        function openFilterPanel() { document.getElementById('filterPanel').classList.add('show'); }
+        function closeFilterPanel() { document.getElementById('filterPanel').classList.remove('show'); }
+
+        // Detail panel
+        function openDetail(name, status, kategori, lokasi, ukuran, kerjasama) {
+            document.getElementById('detail-name').textContent = name;
+            document.getElementById('detail-kategori').textContent = kategori || '-';
+            document.getElementById('detail-lokasi').textContent = lokasi || '-';
+            document.getElementById('detail-ukuran').textContent = ukuran || '-';
+            document.getElementById('detail-kerjasama').textContent = kerjasama || '0';
+            document.getElementById('detail-count').textContent = '0';
+
+            var badgeClass = status === 'Menunggu Persetujuan' ? 'status-badge_warning' : 'status-badge_success';
+            document.getElementById('detail-status').innerHTML = '<span class="status-badge ' + badgeClass + '"><span class="status-badge__dot"></span>' + status + '</span>';
+
+            document.getElementById('detailPanel').classList.add('show');
+        }
+        function closeDetail() { document.getElementById('detailPanel').classList.remove('show'); }
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/a/">
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Undangan Perusahaan | KarirLink</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', -apple-system, sans-serif; }
+        body { background: #eef1f8; min-height: 100vh; padding: 2.5rem 1rem; }
+
+        .mockup-badge { position: fixed; top: 1rem; right: 1rem; background: #15254D; color: white; padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; z-index: 50; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+
+        .email-wrapper { max-width: 600px; margin: 0 auto; background: white; border-radius: 1rem; box-shadow: 0 12px 32px rgba(21,37,77,0.12); overflow: hidden; }
+
+        .email-meta { background: #f7f8fc; border-bottom: 1px solid #e8eaf2; padding: 1rem 1.75rem; }
+        .email-meta__subject { font-size: 0.9375rem; font-weight: 600; color: #15254D; margin-bottom: 0.375rem; line-height: 1.4; }
+        .email-meta__from { font-size: 0.8125rem; color: #6b7280; }
+        .email-meta__from strong { color: #374151; }
+        .email-meta__date { font-size: 0.75rem; color: #9ca3af; margin-top: 0.25rem; }
+
+        .email-brand { text-align: center; padding: 2rem 2.5rem 1.75rem; background: linear-gradient(135deg, #EAEDF5 0%, #F7F8FC 100%); }
+        .email-brand img { height: 36px; width: auto; }
+
+        .email-body { padding: 2.25rem 2.5rem 2.5rem; }
+        .email-text { font-size: 0.9375rem; color: #45516b; line-height: 1.75; margin-bottom: 1.125rem; }
+        .email-text strong { color: #15254D; }
+
+        .email-inviter { text-align: center; margin-bottom: 1.5rem; }
+        .email-inviter__icon { width: 3rem; height: 3rem; background: #EAEDF5; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 0.625rem; color: #294A9A; }
+        .email-inviter__name { font-size: 1rem; font-weight: 600; color: #15254D; }
+
+        .email-highlight-box { background: #FEF9C3; border-left: 3px solid #EAB308; border-radius: 0.5rem; padding: 1rem 1.125rem; margin-bottom: 1.75rem; }
+        .email-highlight-box p { font-size: 0.8125rem; color: #92400E; line-height: 1.6; margin-bottom: 0.375rem; }
+        .email-highlight-box p:last-child { margin-bottom: 0; }
+        .email-highlight-box a { color: #1D4ED8; text-decoration: underline; font-weight: 500; }
+
+        .email-cta { text-align: center; margin: 0 0 2rem; }
+        .email-cta__btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9375rem 2.25rem; background: #294A9A; color: white; text-decoration: none; border-radius: 0.625rem; font-size: 0.9375rem; font-weight: 600; box-shadow: 0 6px 16px rgba(41,74,154,0.3); transition: background 0.15s; }
+        .email-cta__btn:hover { background: #1F3874; }
+
+        .email-contact { font-size: 0.8125rem; color: #6b7280; line-height: 1.7; margin-bottom: 0.25rem; }
+        .email-contact a { color: #294A9A; text-decoration: underline; font-weight: 500; }
+
+        .email-disclaimer { font-size: 0.75rem; color: #9ca3af; line-height: 1.6; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px dashed #e5e9f2; }
+
+        .email-footer { margin-top: 0.5rem; padding: 1.5rem 2.5rem; background: #f7f8fc; border-top: 1px solid #e8eaf2; text-align: center; }
+        .email-footer__logo { height: 20px; width: auto; margin-bottom: 0.75rem; opacity: 0.7; }
+        .email-footer__text { font-size: 0.75rem; color: #9ca3af; line-height: 1.7; }
+    </style>
+</head>
+<body>
+    <div class="mockup-badge">📧 Mockup Email — Prototyping Only</div>
+
+    <div class="email-wrapper">
+        <div class="email-meta">
+            <p class="email-meta__subject">Undangan Bergabung dengan KarirLink untuk PT Foxtrot</p>
+            <p class="email-meta__from"><strong>KarirLink - No Reply</strong> &lt;notification-noreply-karirlink@sevima.com&gt;</p>
+            <p class="email-meta__date">Monday, July 20, 2026 09:12 AM</p>
+        </div>
+
+        <div class="email-brand">
+            <img src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink">
+        </div>
+
+        <div class="email-body">
+            <p class="email-text">Halo,</p>
+            <p class="email-text">Saya <strong>Fauzan Sevima</strong>, Karyawan dari:</p>
+
+            <div class="email-inviter">
+                <div class="email-inviter__icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                </div>
+                <p class="email-inviter__name">Testing Foxtrot</p>
+            </div>
+
+            <p class="email-text" style="text-align: center;">
+                Mengundang perusahaan anda, <strong>PT Foxtrot</strong>, untuk bergabung dengan jaringan Link n' Match terbesar antara Kampus, Mahasiswa, dan Perusahaan di Indonesia.
+            </p>
+
+            <div class="email-highlight-box">
+                <p><strong>Pastikan aplikasi KarirLink telah terinstall pada Smartphone Anda.</strong></p>
+                <p>Jika sudah memiliki aplikasi, silahkan untuk langsung klik pada "Terima Undangan"</p>
+                <a href="#">Download KarirLink</a>
+            </div>
+
+            <div class="email-cta">
+                <a href="./company-register.html" class="email-cta__btn">
+                    Terima Undangan
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+            </div>
+
+            <p class="email-contact">Untuk info lebih lanjut, bisa hubungi pada kontak berikut :</p>
+            <a href="mailto:fauzan.foxtrot@yopmail.com" class="email-contact" style="display: inline-block;">fauzan.foxtrot@yopmail.com</a>
+
+            <p class="email-disclaimer">
+                This email was sent to you because some hr employees want you to join these talent pool. Use of the service and website is subject to our Terms and Conditions.
+            </p>
+        </div>
+
+        <div class="email-footer">
+            <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="" class="email-footer__logo">
+            <p class="email-footer__text">© 2026 KarirLink. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

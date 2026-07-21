@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/a/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Karir | KarirLink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
+    <style>
+        /* Hero / intro strip for Portal Karir */
+        .pk-hero {
+            background: linear-gradient(135deg, var(--qn-primary-600) 0%, var(--qn-primary-500) 100%);
+            border-radius: 0.75rem;
+            padding: 1.75rem 2rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        /* Quantum has a global `h1,h2,h3,h4,h5,h6,p{color:#222}` reset that
+           wins over the white text color inherited from .pk-hero - an
+           element selector always overrides inheritance, so the color
+           must be set explicitly here rather than relied on cascading down. */
+        .pk-hero__title { font-size: 1.375rem; font-weight: 700; margin: 0 0 0.375rem; color: white; }
+        .pk-hero__desc { font-size: 0.875rem; color: var(--qn-primary-100); max-width: 34rem; margin: 0; }
+        .pk-hero__action { background: white; color: var(--qn-primary-600); }
+        .pk-hero__action:hover { background: var(--qn-primary-100); color: var(--qn-primary-600); }
+        .pk-hero__action .icon { color: var(--qn-primary-600); }
+
+        /* KPI stat cards */
+        .pk-stat-grid { margin-bottom: 1.5rem; }
+        .pk-stat { display: flex; align-items: center; gap: 0.875rem; padding: 1.125rem 1.25rem; }
+        .pk-stat__icon { flex-shrink: 0; width: 2.75rem; height: 2.75rem; border-radius: 0.625rem; display: flex; align-items: center; justify-content: center; background: var(--qn-primary-100); color: var(--qn-primary-600); font-size: 1.25rem; }
+        .pk-stat__value { display: block; font-size: 1.5rem; font-weight: 700; color: var(--qn-neutral-900); line-height: 1.2; }
+        .pk-stat__label { display: block; font-size: 0.8125rem; color: var(--qn-neutral-500); }
+
+        /* Stacks multiple .card elements in one column. Quantum's
+           `.grid>*>.card{block-size:100%}` rule stretches any .card that is
+           a DIRECT child of a grid column to the full stretched row height -
+           fine for one-card-per-column layouts, but it made every stacked
+           card here balloon to the same huge height. Wrapping the stack in
+           a plain (non-.card) flex container breaks that direct-child match
+           and lets each card size to its own content again. */
+        .pk-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+
+        /* Composer + shortcuts */
+        .pk-composer { width: 100%; text-align: left; background: white; border: 1px solid var(--qn-neutral-300); border-radius: 0.625rem; padding: 0.875rem 1rem; font-size: 0.875rem; color: var(--qn-neutral-400); cursor: pointer; margin-bottom: 1rem; }
+        .pk-composer:hover { border-color: var(--qn-primary-300); background: var(--qn-primary-100); }
+        .pk-shortcut { display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; color: var(--qn-neutral-700); text-decoration: none; transition: background .15s; }
+        .pk-shortcut:hover { background: var(--qn-neutral-100); }
+        .pk-shortcut__icon { width: 2rem; height: 2rem; border-radius: 0.5rem; background: var(--qn-neutral-100); display: flex; align-items: center; justify-content: center; color: var(--qn-neutral-600); flex-shrink: 0; }
+
+        /* Feed posts */
+        .pk-feed-post__meta { display: flex; align-items: center; gap: 0.75rem; }
+        .pk-feed-post__author { font-weight: 600; color: var(--qn-neutral-900); text-decoration: none; }
+        .pk-feed-post__time { font-size: 0.75rem; color: var(--qn-neutral-500); margin-top: 0.125rem; }
+        .pk-feed-post__body { font-size: 0.875rem; color: var(--qn-neutral-700); margin: 0.875rem 0; line-height: 1.6; }
+        .pk-feed-post__engagement { display: flex; gap: 1rem; font-size: 0.75rem; color: var(--qn-neutral-500); margin-bottom: 0.75rem; }
+        .pk-feed-post__actions { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--qn-neutral-200); padding-top: 0.5rem; }
+        .pk-feed-post__action { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.5rem; border-radius: 0.5rem; font-size: 0.8125rem; color: var(--qn-neutral-500); background: none; border: none; cursor: pointer; }
+        .pk-feed-post__action:hover { background: var(--qn-neutral-100); color: var(--qn-neutral-700); }
+
+        /* Sidebar profile */
+        .pk-profile { display: flex; align-items: center; gap: 0.875rem; margin-bottom: 1.125rem; }
+        .pk-profile__avatar { width: 3.5rem; height: 3.5rem; border-radius: 50%; object-fit: cover; border: 1px solid var(--qn-neutral-200); }
+        .pk-profile__name { font-size: 1.0625rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
+        .pk-profile__location { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
+        .pk-profile-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+        .pk-profile-stat { text-align: center; background: var(--qn-neutral-100); border-radius: 0.5rem; padding: 0.625rem 0.375rem; }
+        .pk-profile-stat__value { display: block; font-size: 1.125rem; font-weight: 700; color: var(--qn-neutral-800); }
+        .pk-profile-stat__label { display: block; font-size: 0.6875rem; color: var(--qn-neutral-500); line-height: 1.3; margin-top: 0.125rem; }
+
+        /* Aktivitas lamaran - satu list tenang (dot kecil + label + angka)
+           dipakai daripada 4 kotak berwarna penuh bersisian, supaya tidak
+           "ramai" warna yang saling kontras. Warna cukup jadi aksen kecil. */
+        .pk-application-total { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1rem; }
+        .pk-application-total__value { font-size: 1.75rem; font-weight: 700; color: var(--qn-primary-600); }
+        .pk-application-total__label { font-size: 0.8125rem; color: var(--qn-neutral-500); }
+        .pk-application-list { display: flex; flex-direction: column; margin-bottom: 1rem; }
+        .pk-application-row { display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 0.125rem; border-bottom: 1px solid var(--qn-neutral-100); }
+        .pk-application-row:last-child { border-bottom: none; }
+        .pk-application-row__dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; flex-shrink: 0; }
+        .pk-application-row__dot_success { background: var(--qn-success-500); }
+        .pk-application-row__dot_neutral { background: var(--qn-neutral-400); }
+        .pk-application-row__dot_warning { background: var(--qn-warning-400); }
+        .pk-application-row__dot_danger { background: var(--qn-danger-400); }
+        .pk-application-row__label { flex: 1; font-size: 0.8125rem; color: var(--qn-neutral-600); }
+        .pk-application-row__value { font-size: 0.9375rem; font-weight: 700; color: var(--qn-neutral-800); }
+
+        /* Perusahaan mitra */
+        .pk-company-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--qn-neutral-100); }
+        .pk-company-item:last-of-type { border-bottom: none; }
+        .pk-company-item__logo { width: 2.5rem; height: 2.5rem; border-radius: 50%; object-fit: cover; border: 1px solid var(--qn-neutral-200); flex-shrink: 0; }
+        .pk-company-item__name { font-size: 0.875rem; font-weight: 500; color: var(--qn-neutral-800); margin: 0 0 0.25rem; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (navbar Portal Karir) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./portal-karir.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./portal-karir.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lowongan.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Lowongan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./event.html">
+                                <span class="icon icon-calendar"></span>
+                                <span>Event</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./kerja-sama.html">
+                                <span class="icon icon-user-group"></span>
+                                <span>Kerja Sama</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./perusahaan.html">
+                                <span class="icon icon-building-office"></span>
+                                <span>Perusahaan Mitra</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification"><span class="icon icon-bell"></span></button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./index.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-tracer-study">
+                        Tracer Study
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Admin Karirlink</span><span class="avatar__subtitle">admin@university.ac.id</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero -->
+            <div class="pk-hero">
+                <div>
+                    <h1 class="pk-hero__title">Portal Karir Universitas Foxtrot</h1>
+                    <p class="pk-hero__desc">Kelola lowongan, event, dan perusahaan mitra yang tayang untuk alumni Anda - semuanya terhubung dalam satu sistem KarirLink.</p>
+                </div>
+                <a href="#" class="btn pk-hero__action">
+                    <span class="icon icon-cog-6-tooth-mini"></span>
+                    Pengaturan Landing Page
+                </a>
+            </div>
+
+            <!-- KPI Row -->
+            <div class="grid pk-stat-grid">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card pk-stat">
+                        <span class="pk-stat__icon"><span class="icon icon-user-group"></span></span>
+                        <span>
+                            <span class="pk-stat__value">110</span>
+                            <span class="pk-stat__label">Alumni Terdaftar</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card pk-stat">
+                        <span class="pk-stat__icon"><span class="icon icon-briefcase"></span></span>
+                        <span>
+                            <span class="pk-stat__value">8</span>
+                            <span class="pk-stat__label">Lowongan Aktif</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card pk-stat">
+                        <span class="pk-stat__icon"><span class="icon icon-document-text"></span></span>
+                        <span>
+                            <span class="pk-stat__value">0</span>
+                            <span class="pk-stat__label">Lamaran Bulan Ini</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card pk-stat">
+                        <span class="pk-stat__icon"><span class="icon icon-building-office-2"></span></span>
+                        <span>
+                            <span class="pk-stat__value">3</span>
+                            <span class="pk-stat__label">Perusahaan Mitra</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <!-- Main Column -->
+                <div class="col-12 col-lg-8">
+                    <div class="pk-stack">
+                    <!-- Composer -->
+                    <div class="card">
+                        <div class="card__body">
+                            <h2 class="card__title" style="margin-bottom: 0.75rem;">Bagikan Sesuatu</h2>
+                            <button type="button" class="pk-composer" data-toggle="modal" data-target="#modal-post">
+                                Apa yang ingin Anda bagikan di Beranda?
+                            </button>
+                            <div class="grid cols-1 cols-sm-2">
+                                <a href="./lowongan-create.html" class="pk-shortcut">
+                                    <span class="pk-shortcut__icon"><span class="icon icon-briefcase-mini"></span></span>
+                                    Buat Lowongan
+                                </a>
+                                <a href="./event.html" class="pk-shortcut">
+                                    <span class="pk-shortcut__icon"><span class="icon icon-calendar-mini"></span></span>
+                                    Buat Event
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feed Post 1 -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="pk-feed-post__meta">
+                                <span class="avatar avatar_sm">
+                                    <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Karirlink">
+                                </span>
+                                <div>
+                                    <a href="#" class="pk-feed-post__author">PT Karirlink</a>
+                                    <p class="pk-feed-post__time">Maju Bersama Kami · 2 tahun yang lalu</p>
+                                </div>
+                            </div>
+                            <p class="pk-feed-post__body">selamat siang..</p>
+                            <div class="pk-feed-post__engagement">
+                                <span>0 suka</span>
+                                <span>0 komentar</span>
+                            </div>
+                            <div class="pk-feed-post__actions">
+                                <button class="pk-feed-post__action"><span class="icon icon-heart-mini"></span> Suka</button>
+                                <button class="pk-feed-post__action"><span class="icon icon-chat-bubble-left-mini"></span> Komentar</button>
+                                <button class="pk-feed-post__action"><span class="icon icon-share-mini"></span> Bagikan</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feed Post 2 -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="pk-feed-post__meta">
+                                <span class="avatar avatar_sm">
+                                    <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Karirlink">
+                                </span>
+                                <div>
+                                    <a href="#" class="pk-feed-post__author">PT Karirlink</a>
+                                    <p class="pk-feed-post__time">Maju Bersama Kami · 2 tahun yang lalu</p>
+                                </div>
+                            </div>
+                            <p class="pk-feed-post__body">Selamat pagi rekan-rekan semua! Semoga hari ini penuh semangat dan produktif.</p>
+                            <div class="pk-feed-post__engagement">
+                                <span>5 suka</span>
+                                <span>2 komentar</span>
+                            </div>
+                            <div class="pk-feed-post__actions">
+                                <button class="pk-feed-post__action"><span class="icon icon-heart-mini"></span> Suka</button>
+                                <button class="pk-feed-post__action"><span class="icon icon-chat-bubble-left-mini"></span> Komentar</button>
+                                <button class="pk-feed-post__action"><span class="icon icon-share-mini"></span> Bagikan</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-12 col-lg-4">
+                    <div class="pk-stack">
+                    <!-- Profile Card -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="pk-profile">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Profile" class="pk-profile__avatar">
+                                <div>
+                                    <p class="pk-profile__name">Universitas Foxtrot</p>
+                                    <p class="pk-profile__location"><span class="icon icon-map-pin-mini"></span> Surabaya, Jawa Timur</p>
+                                </div>
+                            </div>
+                            <div class="pk-profile-stats">
+                                <div class="pk-profile-stat">
+                                    <span class="pk-profile-stat__value">103</span>
+                                    <span class="pk-profile-stat__label">Pengikut</span>
+                                </div>
+                                <div class="pk-profile-stat">
+                                    <span class="pk-profile-stat__value">17</span>
+                                    <span class="pk-profile-stat__label">Diikuti</span>
+                                </div>
+                                <div class="pk-profile-stat">
+                                    <span class="pk-profile-stat__value">110</span>
+                                    <span class="pk-profile-stat__label">Alumni</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aktivitas Lamaran Alumni -->
+                    <div class="card">
+                        <div class="card__body">
+                            <h3 class="card__title" style="margin-bottom: 0.75rem;">Aktivitas Lamaran Alumni</h3>
+                            <div class="pk-application-total">
+                                <span class="pk-application-total__value">0</span>
+                                <span class="pk-application-total__label">Alumni melamar Juli 2026 · 0 total lamaran</span>
+                            </div>
+                            <div class="pk-application-list">
+                                <div class="pk-application-row">
+                                    <span class="pk-application-row__dot pk-application-row__dot_success"></span>
+                                    <span class="pk-application-row__label">Diterima</span>
+                                    <span class="pk-application-row__value">0</span>
+                                </div>
+                                <div class="pk-application-row">
+                                    <span class="pk-application-row__dot pk-application-row__dot_neutral"></span>
+                                    <span class="pk-application-row__label">Menunggu</span>
+                                    <span class="pk-application-row__value">0</span>
+                                </div>
+                                <div class="pk-application-row">
+                                    <span class="pk-application-row__dot pk-application-row__dot_warning"></span>
+                                    <span class="pk-application-row__label">Dalam Proses</span>
+                                    <span class="pk-application-row__value">0</span>
+                                </div>
+                                <div class="pk-application-row">
+                                    <span class="pk-application-row__dot pk-application-row__dot_danger"></span>
+                                    <span class="pk-application-row__label">Ditolak</span>
+                                    <span class="pk-application-row__value">0</span>
+                                </div>
+                            </div>
+                            <a href="#" class="link">
+                                Lihat Semua
+                                <span class="icon icon-chevron-right-mini"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Perusahaan Mitra -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <h3 class="card__title">Perusahaan Mitra</h3>
+                                <a href="./perusahaan.html" class="link">Lihat Semua</a>
+                            </div>
+
+                            <div class="pk-company-item">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Sentra Vidya Utama" class="pk-company-item__logo">
+                                <div>
+                                    <p class="pk-company-item__name">PT Sentra Vidya Utama</p>
+                                    <span class="badge badge_secondary-warning badge_sm">Menunggu Persetujuan</span>
+                                </div>
+                            </div>
+                            <div class="pk-company-item">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Fit Jaya Raya Tri" class="pk-company-item__logo">
+                                <div>
+                                    <p class="pk-company-item__name">PT Fit Jaya Raya Tri</p>
+                                    <span class="badge badge_secondary-success badge_sm">Berhasil Bergabung</span>
+                                </div>
+                            </div>
+                            <div class="pk-company-item">
+                                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT ABC" class="pk-company-item__logo">
+                                <div>
+                                    <p class="pk-company-item__name">PT ABC</p>
+                                    <span class="badge badge_secondary-success badge_sm">Berhasil Bergabung</span>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn_primary btn_full" style="margin-top: 1rem;" data-toggle="modal" data-target="#modal-undang-perusahaan">
+                                <span class="icon icon-plus-circle-solid"></span>
+                                Undang Perusahaan
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- [START] Modal: Bagikan Post -->
+    <div class="modal modal_qnaire-action" id="modal-post">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper" style="max-width: 560px;">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title">Bagikan Informasi di Beranda</h3>
+                </div>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <div class="form-control">
+                    <div class="form-control__group">
+                        <textarea class="form-control__input" rows="5" placeholder="Tulis deskripsi disini..."></textarea>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+                    <button type="button" class="btn btn_outline btn_sm btn_icon" data-tooltip="Gambar">
+                        <span class="icon icon-photo-mini"></span>
+                    </button>
+                    <button type="button" class="btn btn_outline btn_sm btn_icon" data-tooltip="Video">
+                        <span class="icon icon-video-camera-mini"></span>
+                    </button>
+                    <button type="button" class="btn btn_outline btn_sm btn_icon" data-tooltip="Dokumen">
+                        <span class="icon icon-clipboard-document-list"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button type="button" class="btn btn_primary btn_full">Bagikan</button>
+            </div>
+        </div>
+    </div>
+    <!-- [END] Modal: Bagikan Post -->
+
+    <!-- [START] Modal: Undang Perusahaan -->
+    <div class="modal modal_qnaire-action" id="modal-undang-perusahaan">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title">Undang Perusahaan</h3>
+                </div>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <div class="grid cols-1">
+                    <p class="modal__paragraph">Perusahaan mana yang ingin Anda undang untuk bergabung di Portal Karir?</p>
+                    <div class="form-control">
+                        <label for="company_name" class="form-control__label">Nama Perusahaan<span class="important">*</span></label>
+                        <div class="form-control__group">
+                            <input type="text" id="company_name" class="form-control__input" placeholder="Masukkan nama perusahaan">
+                        </div>
+                    </div>
+                    <div class="form-control">
+                        <label for="company_email" class="form-control__label">Email<span class="important">*</span></label>
+                        <div class="form-control__group">
+                            <input type="email" id="company_email" class="form-control__input" placeholder="Contoh: nama@email.com">
+                        </div>
+                    </div>
+                    <div class="form-control">
+                        <label for="company_phone" class="form-control__label">No. Telepon<span class="important">*</span></label>
+                        <div class="form-control__group">
+                            <input type="tel" id="company_phone" class="form-control__input" placeholder="Contoh: 08123456789">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <div class="grid cols-1 cols-sm-2">
+                    <button class="btn btn_outline" data-dismiss="modal">Batal</button>
+                    <button class="btn btn_primary">Undang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [END] Modal: Undang Perusahaan -->
+
+    <!-- Quantum JavaScript (dropdown, notifikasi, modal semuanya lewat data-toggle) -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+</body>
+</html>

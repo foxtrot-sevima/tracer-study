@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuesioner Tracer Study | Karirlink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <style>
+        :root { --base-font-size: 16px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--qn-neutral-50, #f9fafb); min-height: 100vh; font-size: var(--base-font-size); line-height: 1.6; }
+
+        /* Accessibility: Focus Styles */
+        :focus { outline: 3px solid var(--qn-primary-500, #3b82f6); outline-offset: 2px; }
+        :focus:not(:focus-visible) { outline: none; }
+        :focus-visible { outline: 3px solid var(--qn-primary-500, #3b82f6); outline-offset: 2px; }
+
+        /* Accessibility: High Contrast Mode */
+        @media (prefers-contrast: high) {
+            .card { border-width: 2px; }
+            .form-control__input { border-width: 2px; }
+        }
+
+        /* Accessibility: Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+        /* Header (page-local wizard shell shared across tracer-study-* pages) */
+        .ts-header { position: sticky; top: 0; z-index: 50; background: white; border-bottom: 1px solid var(--qn-neutral-200, #e5e7eb); padding: 0.75rem 1rem; }
+        .ts-header__inner { max-width: 100%; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+        .ts-header__left { display: flex; align-items: center; gap: 0.75rem; }
+        .ts-header__logo { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid var(--qn-neutral-200, #e5e7eb); object-fit: cover; }
+        .ts-header__info p { margin: 0; }
+        .ts-header__info p:first-child { font-size: 0.875em; color: var(--qn-neutral-500, #6b7280); }
+        .ts-header__info p:last-child { font-weight: 500; color: var(--qn-neutral-900, #111827); }
+        .ts-header__user { display: flex; align-items: center; gap: 0.75rem; }
+        .ts-header__avatar { width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--qn-primary-500, #3b82f6); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.875em; }
+
+        /* Main Content */
+        .ts-main { padding: 1.5rem 1rem 7rem; }
+        .ts-container { max-width: 46rem; margin: 0 auto; }
+
+        /* Section title badge inside .card__header */
+        .tsf-card-header { display: flex; align-items: center; gap: 0.5rem; }
+        .tsf-section-badge { width: 1.75rem; height: 1.75rem; border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8125em; font-weight: 700; flex-shrink: 0; background: var(--qn-primary-500, #3b82f6); }
+        .tsf-section-badge--icon { background: var(--qn-neutral-600, #4b5563); font-size: 0.9375em; }
+
+        /* Section card top accent (ties the questionnaire cards to the wizard's brand color) */
+        .tsf-section-card { position: relative; overflow: hidden; }
+        .tsf-section-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 0.1875rem; background: linear-gradient(90deg, var(--qn-primary-400, #0f6af5), var(--qn-primary-600, #094093)); }
+
+        /* Question block inside a card body (replaces old .question-card) */
+        .tsf-question { padding: 1.25rem 0; border-bottom: 1px solid var(--qn-neutral-100, #f3f4f6); }
+        .tsf-question:last-child { border-bottom: none; padding-bottom: 0.25rem; }
+        .tsf-question:first-child { padding-top: 0.25rem; }
+        .tsf-question__label-row { display: flex; gap: 0.375rem; margin-bottom: 0.25rem; }
+        .tsf-question__number { font-size: 0.9375em; color: var(--qn-neutral-500, #6b7280); font-weight: 500; }
+        .tsf-question__label { font-size: 1em; color: var(--qn-neutral-900, #111827); font-weight: 500; line-height: 1.5; }
+        .tsf-question__desc { font-size: 0.875em; color: var(--qn-neutral-500, #6b7280); margin: 0.25rem 0 0.75rem; line-height: 1.5; }
+        .tsf-required { color: var(--qn-danger-500, #ef4444); margin-left: 0.125rem; }
+
+        /* Conditional question - appears based on previous answers */
+        .tsf-conditional { border-left: 3px solid var(--qn-warning-500, #f59e0b); background: linear-gradient(to right, rgba(245, 158, 11, 0.08), transparent); padding-left: 1rem; margin-left: -1rem; animation: tsfSlideIn 0.3s ease-out; }
+        .tsf-conditional::before { content: "\21B3 Pertanyaan lanjutan"; display: block; font-size: 0.75rem; color: var(--qn-warning-600, #d97706); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        @keyframes tsfSlideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .tsf-radio-group, .tsf-checkbox-group { display: flex; flex-direction: column; gap: 0.625rem; margin-top: 0.5rem; }
+        .tsf-checkbox-group > div { display: flex; align-items: center; }
+
+        /* Repeatable job entry cards */
+        .tsf-job-card { margin-bottom: 0.75rem; }
+        .tsf-job-card__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+        .tsf-currency { display: flex; align-items: center; gap: 0.5rem; }
+        .tsf-currency__prefix { font-size: 0.875rem; font-weight: 500; color: var(--qn-neutral-700, #374151); flex-shrink: 0; }
+        .tsf-currency .form-control__group { flex: 1; }
+
+        /* Progress + pagination footer */
+        .ts-footer { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid var(--qn-neutral-200, #e5e7eb); padding: 1rem; z-index: 40; }
+        .ts-footer__inner { max-width: 46rem; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+        .tsf-progress { height: 0.5rem; background: var(--qn-neutral-200, #e5e7eb); border-radius: 9999px; overflow: hidden; }
+        .tsf-progress__fill { height: 100%; background: var(--qn-primary-500, #3b82f6); border-radius: 9999px; transition: width 0.2s ease; }
+        .pagination { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+        .pagination__info { font-size: 0.875em; color: var(--qn-neutral-500, #6b7280); }
+        .pagination__buttons { display: flex; gap: 0.5rem; }
+
+        /* Toast */
+        .toast { position: fixed; bottom: 6rem; left: 50%; transform: translateX(-50%); background: var(--qn-success-600, #166534); color: white; padding: 0.875rem 1.25rem; border-radius: 0.5rem; font-size: 0.9375em; font-weight: 500; display: none; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .toast.show { display: flex; align-items: center; gap: 0.5rem; }
+
+        /* Branding */
+        .sevima-branding { text-align: center; padding: 1.5rem 0; font-size: 0.8125em; color: var(--qn-neutral-400, #9ca3af); }
+        .sevima-branding a { color: var(--qn-neutral-500, #6b7280); text-decoration: underline; }
+        .sevima-branding a:hover { color: var(--qn-neutral-700, #374151); }
+
+        /* Screen Reader Only */
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="ts-header" role="banner">
+        <div class="ts-header__inner">
+            <div class="ts-header__left">
+                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo Universitas Contoh" class="ts-header__logo">
+                <div class="ts-header__info">
+                    <p>Universitas Contoh</p>
+                    <p>Tracer Study Alumni 2024</p>
+                </div>
+            </div>
+            <div class="ts-header__user">
+                <div class="ts-header__info" style="text-align: right;">
+                    <p>Lulusan S1 - Teknik Informatika</p>
+                    <p>Ahmad Dimas Pratama</p>
+                </div>
+                <div class="ts-header__avatar" aria-hidden="true">AD</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <span id="toast-message">Jawaban berhasil disimpan</span>
+    </div>
+
+    <!-- Main Content -->
+    <main class="ts-main" id="main-content" role="main">
+        <div class="ts-container">
+
+            <!-- ============================= -->
+            <!-- PAGE 1: Informasi Pribadi + Informasi Umum -->
+            <!-- ============================= -->
+            <div id="page-1" class="tsf-page">
+
+                <!-- Section 0: Informasi Pribadi -->
+                <section aria-labelledby="section-pribadi">
+                    <div class="card tsf-section-card" style="margin-bottom: 1.5rem;">
+                        <div class="card__header">
+                            <div class="tsf-card-header">
+                                <span class="tsf-section-badge tsf-section-badge--icon" aria-hidden="true"><span class="icon icon-identification-mini"></span></span>
+                                <h2 class="card__title" id="section-pribadi">Informasi Pribadi</h2>
+                            </div>
+                        </div>
+                        <div class="card__body">
+
+                            <!-- Question 1 - Email -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">1.</span>
+                                    <label for="input-email" class="tsf-question__label">Alamat Email<span class="tsf-required" aria-label="wajib diisi">*</span></label>
+                                </div>
+                                <div class="form-control">
+                                    <div class="form-control__group">
+                                        <input type="email" id="input-email" class="form-control__input" value="ahmad.dimas@email.com" readonly disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 2 - Phone -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">2.</span>
+                                    <label for="input-phone" class="tsf-question__label">Nomor HP<span class="tsf-required" aria-label="wajib diisi">*</span></label>
+                                </div>
+                                <div class="form-control">
+                                    <div class="form-control__group">
+                                        <input type="tel" id="input-phone" class="form-control__input" placeholder="Masukkan nomor HP Anda" required aria-required="true">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 3 - NIK -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">3.</span>
+                                    <label for="input-nik" class="tsf-question__label">NIK/No. KTP<span class="tsf-required" aria-label="wajib diisi">*</span></label>
+                                </div>
+                                <div class="form-control">
+                                    <div class="form-control__group">
+                                        <input type="text" id="input-nik" class="form-control__input" placeholder="Masukkan 16 digit NIK Anda" maxlength="16" required aria-required="true" inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 4 - NPWP -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">4.</span>
+                                    <label for="input-npwp" class="tsf-question__label">NPWP</label>
+                                </div>
+                                <div class="form-control">
+                                    <div class="form-control__group">
+                                        <input type="text" id="input-npwp" class="form-control__input" placeholder="Masukkan nomor NPWP (opsional)">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 1: Informasi Umum -->
+                <section aria-labelledby="section-umum">
+                    <div class="card tsf-section-card" style="margin-bottom: 1.5rem;">
+                        <div class="card__header">
+                            <div class="tsf-card-header">
+                                <span class="tsf-section-badge" aria-hidden="true">1</span>
+                                <h2 class="card__title" id="section-umum">Informasi Umum</h2>
+                            </div>
+                        </div>
+                        <div class="card__body">
+
+                            <!-- Question 5 - Status (multi-select checkbox, core interactivity) -->
+                            <div class="tsf-question" role="group" aria-labelledby="q5-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">5.</span>
+                                    <p class="tsf-question__label" id="q5-label">Status Anda saat ini?<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+                                <p class="tsf-question__desc">Boleh pilih lebih dari satu jika lebih dari satu status berlaku untuk Anda saat ini.</p>
+                                <div class="tsf-checkbox-group" id="q5-checkbox-group">
+                                    <div>
+                                        <input type="checkbox" class="form-control__checkbox" id="q5-bekerja" value="bekerja" data-status-label="Bekerja (full time / part time)" onchange="handleStatusChange()">
+                                        <label for="q5-bekerja">Bekerja (full time / part time)</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" class="form-control__checkbox" id="q5-wiraswasta" value="wiraswasta" data-status-label="Wiraswasta (Wirausaha)" onchange="handleStatusChange()">
+                                        <label for="q5-wiraswasta">Wiraswasta (Wirausaha)</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" class="form-control__checkbox" id="q5-studi" value="melanjutkan_pendidikan" data-status-label="Melanjutkan pendidikan" onchange="handleStatusChange()">
+                                        <label for="q5-studi">Melanjutkan pendidikan</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" class="form-control__checkbox" id="q5-cari-kerja" value="mencari_kerja" data-status-label="Tidak kerja, tetapi sedang mencari kerja" onchange="handleStatusChange()">
+                                        <label for="q5-cari-kerja">Tidak kerja, tetapi sedang mencari kerja</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" class="form-control__checkbox" id="q5-belum" value="belum_bekerja" data-status-label="Belum memungkinkan bekerja" onchange="handleStatusChange()">
+                                        <label for="q5-belum">Belum memungkinkan bekerja</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 5a - Status Utama (only appears when >1 status checked) -->
+                            <div class="tsf-question tsf-conditional" id="question-status-utama" style="display: none;" aria-hidden="true" role="radiogroup" aria-labelledby="status-utama-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">5a.</span>
+                                    <p class="tsf-question__label" id="status-utama-label">Dari status yang Anda pilih, mana status utama Anda?<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+                                <p class="tsf-question__desc">Wajib dipilih untuk klasifikasi laporan nasional karena Anda memilih lebih dari satu status sekaligus.</p>
+                                <div class="tsf-radio-group" id="status-utama-options"></div>
+                            </div>
+
+                            <!-- Question 6 - Radio: Sumber Dana -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="q6-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">6.</span>
+                                    <p class="tsf-question__label" id="q6-label">Sumber dana apa yang Anda gunakan untuk membiayai kuliah?<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+                                <p class="tsf-question__desc">Boleh ketika studi lanjut</p>
+                                <div class="tsf-radio-group">
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q6" id="q6-a" value="biaya_sendiri" onchange="updateAnsweredCount()"><label for="q6-a" class="form-control__label-radio">Biaya Sendiri / Keluarga</label></div>
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q6" id="q6-b" value="adik" onchange="updateAnsweredCount()"><label for="q6-b" class="form-control__label-radio">Beasiswa ADIK</label></div>
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q6" id="q6-c" value="bidikmisi" onchange="updateAnsweredCount()"><label for="q6-c" class="form-control__label-radio">Beasiswa BIDIKMISI</label></div>
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q6" id="q6-d" value="ppa" onchange="updateAnsweredCount()"><label for="q6-d" class="form-control__label-radio">Beasiswa PPA</label></div>
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q6" id="q6-e" value="afirmasi" onchange="updateAnsweredCount()"><label for="q6-e" class="form-control__label-radio">Beasiswa AFIRMASI</label></div>
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q6" id="q6-f" value="perusahaan" onchange="updateAnsweredCount()"><label for="q6-f" class="form-control__label-radio">Beasiswa Perusahaan / Swasta</label></div>
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q6" id="q6-g" value="lainnya" onchange="updateAnsweredCount()"><label for="q6-g" class="form-control__label-radio">Lainnya</label></div>
+                                </div>
+                            </div>
+
+                            <!-- Question 7 - Radio: Pekerjaan sebelum lulus (CONDITIONAL TRIGGER) -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="q7-label" id="question-7">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">7.</span>
+                                    <p class="tsf-question__label" id="q7-label">Apakah Anda mendapatkan pekerjaan pertama / melanjutkan pendidikan sebelum lulus?<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+                                <div class="tsf-radio-group">
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q7" id="q7-ya" value="ya" onchange="applyQ7Logic('ya')"><label for="q7-ya" class="form-control__label-radio">Ya</label></div>
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q7" id="q7-tidak" value="tidak" onchange="applyQ7Logic('tidak')"><label for="q7-tidak" class="form-control__label-radio">Tidak</label></div>
+                                </div>
+                            </div>
+
+                            <!-- Question 8 - Number Input: Waktu tunggu (CONDITIONAL - only shows if Q7 = Tidak) -->
+                            <div class="tsf-question tsf-conditional" id="question-8" style="display: none;" aria-hidden="true">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">8.</span>
+                                    <label for="input-waiting-time" class="tsf-question__label">Dalam berapa bulan Anda mendapatkan pekerjaan pertama / melanjutkan studi setelah lulus?<span class="tsf-required" aria-label="wajib diisi">*</span></label>
+                                </div>
+                                <div class="form-control" style="max-width: 16rem;">
+                                    <div class="form-control__group">
+                                        <input type="number" id="input-waiting-time" class="form-control__input" placeholder="Jawaban angka (dalam bulan)" min="0" max="120" inputmode="numeric" oninput="updateAnsweredCount()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 9 - Radio: Aktif mencari pekerjaan -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="q9-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">9.</span>
+                                    <p class="tsf-question__label" id="q9-label">Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir? Pilih satu jawaban.<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+                                <div class="tsf-radio-group">
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q9" id="q9-a" value="tidak" onchange="updateAnsweredCount()"><label for="q9-a" class="form-control__label-radio">Tidak</label></div>
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q9" id="q9-b" value="menunggu_hasil" onchange="updateAnsweredCount()"><label for="q9-b" class="form-control__label-radio">Tidak, tapi saya sedang menunggu hasil lamaran kerja</label></div>
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q9" id="q9-c" value="mulai_2_minggu" onchange="updateAnsweredCount()"><label for="q9-c" class="form-control__label-radio">Ya, saya akan mulai bekerja dalam 2 minggu ke depan</label></div>
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q9" id="q9-d" value="belum_pasti_2_minggu" onchange="updateAnsweredCount()"><label for="q9-d" class="form-control__label-radio">Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan</label></div>
+                                    <div class="form-control"><input type="radio" class="form-control__radio" name="q9" id="q9-e" value="lainnya" onchange="updateAnsweredCount()"><label for="q9-e" class="form-control__label-radio">Lainnya</label></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SEVIMA Branding -->
+                <footer class="sevima-branding">
+                    Powered by <a href="https://karirlink.id" target="_blank" rel="noopener">Karirlink</a> &middot; <a href="https://sevima.com" target="_blank" rel="noopener">SEVIMA</a>
+                </footer>
+            </div>
+
+            <!-- ============================= -->
+            <!-- PAGE 2: Transisi Kerja -->
+            <!-- ============================= -->
+            <div id="page-2" class="tsf-page" style="display: none;">
+
+                <section aria-labelledby="section-transisi">
+                    <div class="card tsf-section-card" style="margin-bottom: 1.5rem;">
+                        <div class="card__header">
+                            <div class="tsf-card-header">
+                                <span class="tsf-section-badge" aria-hidden="true">2</span>
+                                <h2 class="card__title" id="section-transisi">Transisi Kerja</h2>
+                            </div>
+                        </div>
+                        <div class="card__body">
+
+                            <!-- Shown only if none of Bekerja/Wiraswasta/Melanjutkan pendidikan checked -->
+                            <div class="tsf-question" id="block-none">
+                                <p class="tsf-question__desc" style="margin: 0;">Tidak ada pertanyaan lanjutan untuk status yang Anda pilih di halaman sebelumnya.</p>
+                            </div>
+
+                            <!-- Shown if Bekerja OR Wiraswasta checked -->
+                            <div id="block-pekerjaan" style="display: none;">
+                                <div class="tsf-question">
+                                    <label for="input-jumlah-pekerjaan" class="tsf-question__label">Berapa tempat kerja yang Anda jalani saat ini?<span class="tsf-required" aria-label="wajib diisi">*</span></label>
+                                    <div class="form-control" style="max-width: 12rem; margin-top: 0.5rem;">
+                                        <div class="form-control__group">
+                                            <input type="number" id="input-jumlah-pekerjaan" class="form-control__input" min="1" max="10" value="1" placeholder="cth. 1" oninput="syncJobCount()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tsf-question">
+                                    <p class="tsf-question__label">Detail Pekerjaan</p>
+                                    <p class="tsf-question__desc">Isi rincian untuk setiap tempat kerja yang Anda jalani saat ini.</p>
+
+                                    <div id="job-entries">
+                                        <div class="card tsf-job-card" data-job-entry="1">
+                                            <div class="card__body">
+                                                <div class="tsf-job-card__header">
+                                                    <span class="tag tag_outline tag_sm tsf-job-card__label">Pekerjaan #1</span>
+                                                    <button type="button" class="btn btn_outline btn_sm btn_icon tsf-job-card__remove" onclick="removeJobEntry(this)" title="Hapus pekerjaan ini" aria-label="Hapus pekerjaan ini" disabled>
+                                                        <span class="icon icon-trash-mini"></span>
+                                                    </button>
+                                                </div>
+                                                <div class="grid cols-2" style="gap: 0.75rem;">
+                                                    <div class="form-control">
+                                                        <label class="form-control__label">Instansi / Perusahaan</label>
+                                                        <div class="form-control__group">
+                                                            <input type="text" class="form-control__input" id="job-instansi-1" name="job-instansi-1" placeholder="Nama instansi/perusahaan" oninput="updateAnsweredCount()">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-control">
+                                                        <label class="form-control__label">Bidang Kerja</label>
+                                                        <div class="form-control__group">
+                                                            <input type="text" class="form-control__input" id="job-bidang-1" name="job-bidang-1" placeholder="cth. Teknologi Informasi" oninput="updateAnsweredCount()">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-control">
+                                                        <label class="form-control__label">Status Kerja</label>
+                                                        <select class="select-default" id="job-status-1" name="job-status-1">
+                                                            <option value="" selected disabled>Pilih status kerja</option>
+                                                            <option value="full_time">Full-time</option>
+                                                            <option value="part_time">Part-time</option>
+                                                            <option value="kontrak">Kontrak</option>
+                                                            <option value="freelance">Freelance</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-control">
+                                                        <label class="form-control__label">Gaji</label>
+                                                        <div class="tsf-currency">
+                                                            <span class="tsf-currency__prefix">Rp</span>
+                                                            <div class="form-control__group">
+                                                                <input type="number" class="form-control__input" id="job-gaji-1" name="job-gaji-1" placeholder="cth. 5000000" min="0" oninput="updateAnsweredCount()">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="btn btn_outline" onclick="addJobEntry()">
+                                        <span class="icon icon-plus-mini"></span> Tambah Pekerjaan Lain
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Shown if Melanjutkan pendidikan checked -->
+                            <div id="block-studi" style="display: none;">
+                                <div class="tsf-question">
+                                    <label for="select-jenjang" class="tsf-question__label">Jenjang Studi Lanjut<span class="tsf-required" aria-label="wajib diisi">*</span></label>
+                                    <div style="margin-top: 0.5rem; max-width: 20rem;">
+                                        <select class="select-default" id="select-jenjang" onchange="updateAnsweredCount()">
+                                            <option value="" selected disabled>Pilih jenjang studi lanjut</option>
+                                            <option value="s1">S1</option>
+                                            <option value="s2">S2</option>
+                                            <option value="s3">S3</option>
+                                            <option value="profesi">Profesi</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shown if Wiraswasta checked -->
+                            <div id="block-usaha" style="display: none;">
+                                <div class="tsf-question">
+                                    <label for="input-bidang-usaha" class="tsf-question__label">Bidang Usaha<span class="tsf-required" aria-label="wajib diisi">*</span></label>
+                                    <div class="form-control" style="margin-top: 0.5rem;">
+                                        <div class="form-control__group">
+                                            <input type="text" class="form-control__input" id="input-bidang-usaha" placeholder="cth. Kuliner, Fashion, Jasa Konsultan" oninput="updateAnsweredCount()">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SEVIMA Branding -->
+                <footer class="sevima-branding">
+                    Powered by <a href="https://karirlink.id" target="_blank" rel="noopener">Karirlink</a> &middot; <a href="https://sevima.com" target="_blank" rel="noopener">SEVIMA</a>
+                </footer>
+            </div>
+
+            <!-- Template used only for cloning new repeatable job entries (never rendered directly) -->
+            <template id="job-entry-template">
+                <div class="card tsf-job-card">
+                    <div class="card__body">
+                        <div class="tsf-job-card__header">
+                            <span class="tag tag_outline tag_sm tsf-job-card__label">Pekerjaan</span>
+                            <button type="button" class="btn btn_outline btn_sm btn_icon tsf-job-card__remove" onclick="removeJobEntry(this)" title="Hapus pekerjaan ini" aria-label="Hapus pekerjaan ini">
+                                <span class="icon icon-trash-mini"></span>
+                            </button>
+                        </div>
+                        <div class="grid cols-2" style="gap: 0.75rem;">
+                            <div class="form-control">
+                                <label class="form-control__label">Instansi / Perusahaan</label>
+                                <div class="form-control__group">
+                                    <input type="text" class="form-control__input" data-name="job-instansi" placeholder="Nama instansi/perusahaan" oninput="updateAnsweredCount()">
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <label class="form-control__label">Bidang Kerja</label>
+                                <div class="form-control__group">
+                                    <input type="text" class="form-control__input" data-name="job-bidang" placeholder="cth. Teknologi Informasi" oninput="updateAnsweredCount()">
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <label class="form-control__label">Status Kerja</label>
+                                <select class="select-default" data-name="job-status">
+                                    <option value="" selected disabled>Pilih status kerja</option>
+                                    <option value="full_time">Full-time</option>
+                                    <option value="part_time">Part-time</option>
+                                    <option value="kontrak">Kontrak</option>
+                                    <option value="freelance">Freelance</option>
+                                </select>
+                            </div>
+                            <div class="form-control">
+                                <label class="form-control__label">Gaji</label>
+                                <div class="tsf-currency">
+                                    <span class="tsf-currency__prefix">Rp</span>
+                                    <div class="form-control__group">
+                                        <input type="number" class="form-control__input" data-name="job-gaji" placeholder="cth. 5000000" min="0" oninput="updateAnsweredCount()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+        </div>
+    </main>
+
+    <!-- Footer with Pagination -->
+    <footer class="ts-footer" role="navigation" aria-label="Navigasi Halaman">
+        <div class="ts-footer__inner">
+            <div class="tsf-progress" id="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Progress pengisian: 50%">
+                <div class="tsf-progress__fill" id="progress-fill" style="width: 50%;"></div>
+            </div>
+            <div class="pagination">
+                <span class="pagination__info"><span id="pagination-page-label">Bagian 1 dari 2</span> &middot; <span id="answered-count">0</span> pertanyaan dijawab</span>
+                <div class="pagination__buttons">
+                    <button class="btn btn_outline" id="btn-prev" disabled aria-disabled="true" onclick="goToPage(1)">
+                        <span class="icon icon-chevron-left-mini"></span>
+                        Sebelumnya
+                    </button>
+                    <button class="btn btn_primary" id="btn-next" onclick="goToPage(2)">
+                        Selanjutnya
+                        <span class="icon icon-chevron-right-mini"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        // =====================================================
+        // Choices.js init helper (Quantum select-default pattern)
+        // =====================================================
+        function initSelectDefault(el) {
+            if (!el || el.dataset.choicesInit) return;
+            new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+            el.dataset.choicesInit = 'true';
+        }
+
+        // =====================================================
+        // Wizard pagination (2 real pages on one document)
+        // =====================================================
+        let currentPage = 1;
+
+        function goToPage(pageNum) {
+            if (pageNum === 2 && currentPage === 1) {
+                if (!validatePage1()) return;
+                recomputeTransisiKerja();
+            }
+            if (pageNum === 1 && currentPage === 2) {
+                // going back is always allowed
+            }
+
+            document.getElementById('page-1').style.display = pageNum === 1 ? 'block' : 'none';
+            document.getElementById('page-2').style.display = pageNum === 2 ? 'block' : 'none';
+
+            const prevBtn = document.getElementById('btn-prev');
+            prevBtn.disabled = pageNum === 1;
+            prevBtn.setAttribute('aria-disabled', pageNum === 1 ? 'true' : 'false');
+
+            const nextBtn = document.getElementById('btn-next');
+            if (pageNum === 2) {
+                nextBtn.innerHTML = 'Kirim Jawaban <span class="icon icon-chevron-right-mini"></span>';
+                nextBtn.onclick = submitForm;
+            } else {
+                nextBtn.innerHTML = 'Selanjutnya <span class="icon icon-chevron-right-mini"></span>';
+                nextBtn.onclick = function () { goToPage(2); };
+            }
+
+            document.getElementById('pagination-page-label').textContent = 'Bagian ' + pageNum + ' dari 2';
+
+            const pct = pageNum === 1 ? 50 : 100;
+            document.getElementById('progress-fill').style.width = pct + '%';
+            const bar = document.getElementById('progress-bar');
+            bar.setAttribute('aria-valuenow', pct);
+            bar.setAttribute('aria-label', 'Progress pengisian: ' + pct + '%');
+
+            currentPage = pageNum;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            updateAnsweredCount();
+        }
+
+        function submitForm() {
+            if (!validatePage2()) return;
+            window.location.href = './tracer-study-success.html';
+        }
+
+        function validatePage1() {
+            const problems = [];
+            if (!document.getElementById('input-phone').value.trim()) problems.push('Nomor HP');
+            if (!document.getElementById('input-nik').value.trim()) problems.push('NIK/No. KTP');
+
+            const checked = getCheckedStatuses();
+            if (checked.length === 0) problems.push('Status Anda saat ini');
+            if (checked.length > 1 && !document.querySelector('#status-utama-options input:checked')) problems.push('Status Utama');
+
+            if (!document.querySelector('input[name="q6"]:checked')) problems.push('Sumber dana kuliah');
+
+            const q7Checked = document.querySelector('input[name="q7"]:checked');
+            if (!q7Checked) problems.push('Pekerjaan/pendidikan sebelum lulus');
+            if (q7Checked && q7Checked.value === 'tidak' && !document.getElementById('input-waiting-time').value.trim()) problems.push('Waktu tunggu');
+
+            if (!document.querySelector('input[name="q9"]:checked')) problems.push('Status aktif mencari kerja');
+
+            if (problems.length > 0) {
+                showToast('Lengkapi dulu: ' + problems.join(', '));
+                return false;
+            }
+            return true;
+        }
+
+        function validatePage2() {
+            const checked = getCheckedStatuses();
+            const problems = [];
+
+            if (checked.includes('bekerja') || checked.includes('wiraswasta')) {
+                if (!document.getElementById('input-jumlah-pekerjaan').value.trim()) problems.push('Jumlah tempat kerja');
+                document.querySelectorAll('#job-entries .tsf-job-card').forEach(function (card, i) {
+                    const instansi = card.querySelector('input[id^="job-instansi-"]');
+                    if (instansi && !instansi.value.trim()) problems.push('Instansi pekerjaan #' + (i + 1));
+                });
+            }
+            if (checked.includes('melanjutkan_pendidikan')) {
+                if (!document.getElementById('select-jenjang').value) problems.push('Jenjang studi lanjut');
+            }
+            if (checked.includes('wiraswasta')) {
+                if (!document.getElementById('input-bidang-usaha').value.trim()) problems.push('Bidang usaha');
+            }
+
+            if (problems.length > 0) {
+                showToast('Lengkapi dulu: ' + problems.join(', '));
+                return false;
+            }
+            return true;
+        }
+
+        // =====================================================
+        // Question 5: Status ganda -> Status Utama follow-up
+        // =====================================================
+        const STATUS_META = {
+            bekerja: 'Bekerja (full time / part time)',
+            wiraswasta: 'Wiraswasta (Wirausaha)',
+            melanjutkan_pendidikan: 'Melanjutkan pendidikan',
+            mencari_kerja: 'Tidak kerja, tetapi sedang mencari kerja',
+            belum_bekerja: 'Belum memungkinkan bekerja'
+        };
+
+        function getCheckedStatuses() {
+            return Array.from(document.querySelectorAll('#q5-checkbox-group .form-control__checkbox:checked')).map(function (el) { return el.value; });
+        }
+
+        function handleStatusChange() {
+            const checked = getCheckedStatuses();
+            updateStatusUtama(checked);
+            recomputeTransisiKerja();
+            showToast('Jawaban disimpan');
+            updateAnsweredCount();
+        }
+
+        function updateStatusUtama(checked) {
+            const card = document.getElementById('question-status-utama');
+            const optionsWrap = document.getElementById('status-utama-options');
+
+            if (checked.length > 1) {
+                const currentlySelected = optionsWrap.querySelector('input:checked');
+                const currentValue = currentlySelected ? currentlySelected.value : null;
+
+                optionsWrap.innerHTML = checked.map(function (val) {
+                    const isChecked = val === currentValue ? 'checked' : '';
+                    return '<div class="form-control"><input type="radio" class="form-control__radio" name="status-utama" id="status-utama-' + val + '" value="' + val + '" ' + isChecked + ' onchange="updateAnsweredCount()"><label for="status-utama-' + val + '" class="form-control__label-radio">' + STATUS_META[val] + '</label></div>';
+                }).join('');
+
+                card.style.display = 'block';
+                card.setAttribute('aria-hidden', 'false');
+            } else {
+                optionsWrap.innerHTML = '';
+                card.style.display = 'none';
+                card.setAttribute('aria-hidden', 'true');
+            }
+        }
+
+        // =====================================================
+        // Section 2 (Transisi Kerja): show/hide blocks based on Q5
+        // =====================================================
+        function recomputeTransisiKerja() {
+            const checked = getCheckedStatuses();
+            const showJob = checked.includes('bekerja') || checked.includes('wiraswasta');
+            const showStudi = checked.includes('melanjutkan_pendidikan');
+            const showUsaha = checked.includes('wiraswasta');
+            const showNone = !showJob && !showStudi;
+
+            toggleBlock('block-pekerjaan', showJob, false);
+            toggleBlock('block-studi', showStudi, true);
+            toggleBlock('block-usaha', showUsaha, true);
+            toggleBlock('block-none', showNone, false);
+        }
+
+        function toggleBlock(id, show, clearOnHide) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.style.display = show ? 'block' : 'none';
+            if (!show && clearOnHide) {
+                el.querySelectorAll('input, select').forEach(function (inp) {
+                    if (inp.type === 'checkbox' || inp.type === 'radio') {
+                        inp.checked = false;
+                    } else {
+                        inp.value = '';
+                    }
+                });
+            }
+        }
+
+        // =====================================================
+        // Question 7/8: conditional waiting-time question
+        // =====================================================
+        function applyQ7Logic(value) {
+            const q8 = document.getElementById('question-8');
+            const input = document.getElementById('input-waiting-time');
+
+            if (value === 'tidak') {
+                q8.style.display = 'block';
+                q8.setAttribute('aria-hidden', 'false');
+                input.setAttribute('required', '');
+                input.setAttribute('aria-required', 'true');
+                setTimeout(function () {
+                    q8.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            } else {
+                q8.style.display = 'none';
+                q8.setAttribute('aria-hidden', 'true');
+                input.removeAttribute('required');
+                input.removeAttribute('aria-required');
+                input.value = '';
+            }
+
+            showToast('Jawaban disimpan');
+            updateAnsweredCount();
+        }
+
+        // =====================================================
+        // Repeatable "Detail Pekerjaan" group
+        // =====================================================
+        let jobEntryUid = 1;
+
+        function wireJobEntry(card, uid) {
+            card.dataset.jobEntry = uid;
+            card.querySelectorAll('[data-name]').forEach(function (el) {
+                const base = el.getAttribute('data-name');
+                el.name = base + '-' + uid;
+                el.id = base + '-' + uid;
+            });
+        }
+
+        function addJobEntry(silent) {
+            jobEntryUid++;
+            const template = document.getElementById('job-entry-template');
+            const clone = template.content.firstElementChild.cloneNode(true);
+            wireJobEntry(clone, jobEntryUid);
+            document.getElementById('job-entries').appendChild(clone);
+            initSelectDefault(clone.querySelector('select.select-default'));
+            renumberJobEntries();
+            if (!silent) showToast('Pekerjaan baru ditambahkan');
+            updateAnsweredCount();
+        }
+
+        function removeJobEntry(button) {
+            const entries = document.querySelectorAll('#job-entries .tsf-job-card');
+            if (entries.length <= 1) return;
+            const card = button.closest('.tsf-job-card');
+            card.remove();
+            renumberJobEntries();
+            updateAnsweredCount();
+        }
+
+        function renumberJobEntries() {
+            const entries = document.querySelectorAll('#job-entries .tsf-job-card');
+            entries.forEach(function (card, i) {
+                const tag = card.querySelector('.tsf-job-card__label');
+                if (tag) tag.textContent = 'Pekerjaan #' + (i + 1);
+                const removeBtn = card.querySelector('.tsf-job-card__remove');
+                if (removeBtn) removeBtn.disabled = entries.length <= 1;
+            });
+            const countInput = document.getElementById('input-jumlah-pekerjaan');
+            if (countInput) countInput.value = entries.length;
+        }
+
+        function syncJobCount() {
+            const target = parseInt(document.getElementById('input-jumlah-pekerjaan').value, 10);
+            if (!target || target < 1) return;
+
+            let entries = document.querySelectorAll('#job-entries .tsf-job-card');
+            while (entries.length < target) {
+                addJobEntry(true);
+                entries = document.querySelectorAll('#job-entries .tsf-job-card');
+            }
+            while (entries.length > target && entries.length > 1) {
+                entries[entries.length - 1].remove();
+                entries = document.querySelectorAll('#job-entries .tsf-job-card');
+            }
+            renumberJobEntries();
+            updateAnsweredCount();
+        }
+
+        // =====================================================
+        // Toast + answered counter
+        // =====================================================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(function () {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        function isElementVisible(el) {
+            return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+        }
+
+        function updateAnsweredCount() {
+            const activePage = document.getElementById('page-' + currentPage);
+            if (!activePage) return;
+            let count = 0;
+
+            const radioNames = new Set();
+            activePage.querySelectorAll('input[type="radio"]:checked').forEach(function (r) { radioNames.add(r.name); });
+            count += radioNames.size;
+
+            if (activePage.querySelector('#q5-checkbox-group') && getCheckedStatuses().length > 0) {
+                count++;
+            }
+
+            activePage.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="number"]').forEach(function (inp) {
+                if (inp.disabled) return;
+                if (isElementVisible(inp) && inp.value.trim() !== '') count++;
+            });
+
+            activePage.querySelectorAll('select').forEach(function (sel) {
+                if (isElementVisible(sel) && sel.value) count++;
+            });
+
+            const counterEl = document.getElementById('answered-count');
+            if (counterEl) counterEl.textContent = count;
+        }
+
+        // =====================================================
+        // Initialize
+        // =====================================================
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.select-default').forEach(initSelectDefault);
+
+            recomputeTransisiKerja();
+            updateAnsweredCount();
+        });
+    </script>
+</body>
+</html>

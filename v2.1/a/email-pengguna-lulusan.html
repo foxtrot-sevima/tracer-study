@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/a/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Kuesioner Pengguna Lulusan | Mockup</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', -apple-system, sans-serif; }
+        body { background: #eef1f8; min-height: 100vh; padding: 2.5rem 1rem; }
+
+        .mockup-badge { position: fixed; top: 1rem; right: 1rem; background: #15254D; color: white; padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; z-index: 50; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+
+        .email-wrapper { max-width: 600px; margin: 0 auto; background: white; border-radius: 1rem; box-shadow: 0 12px 32px rgba(21,37,77,0.12); overflow: hidden; }
+
+        .email-meta { background: #f7f8fc; border-bottom: 1px solid #e8eaf2; padding: 1rem 1.75rem; }
+        .email-meta__subject { font-size: 0.9375rem; font-weight: 600; color: #15254D; margin-bottom: 0.375rem; line-height: 1.4; }
+        .email-meta__from { font-size: 0.8125rem; color: #6b7280; }
+        .email-meta__from strong { color: #374151; }
+        .email-meta__date { font-size: 0.75rem; color: #9ca3af; margin-top: 0.25rem; }
+
+        .email-brand { text-align: center; padding: 2rem 2.5rem 1.75rem; background: linear-gradient(135deg, #EAEDF5 0%, #F7F8FC 100%); }
+        .email-brand img { height: 36px; width: auto; }
+
+        .email-body { padding: 2.25rem 2.5rem 2.5rem; }
+        .email-text { font-size: 0.9375rem; color: #45516b; line-height: 1.75; margin-bottom: 1.125rem; }
+        .email-text strong { color: #15254D; }
+
+        .email-info { background: #EAEDF5; border-left: 3px solid #294A9A; border-radius: 0.5rem; padding: 1rem 1.25rem; margin: 1.25rem 0; }
+        .email-info__row { display: flex; gap: 0.5rem; font-size: 0.875rem; margin-bottom: 0.5rem; }
+        .email-info__row:last-child { margin-bottom: 0; }
+        .email-info__label { color: #6b7280; min-width: 9.5rem; }
+        .email-info__value { color: #15254D; font-weight: 600; }
+
+        .email-cta { text-align: center; margin: 1.75rem 0 0.5rem; }
+        .email-cta__btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9375rem 2.25rem; background: #294A9A; color: white; text-decoration: none; border-radius: 0.625rem; font-size: 0.9375rem; font-weight: 600; box-shadow: 0 6px 16px rgba(41,74,154,0.3); transition: background 0.15s; word-break: break-word; }
+        .email-cta__btn:hover { background: #1F3874; }
+        .email-cta__hint { font-size: 0.75rem; color: #9ca3af; margin-top: 0.75rem; }
+
+        .email-highlight-box { background: #FEF9C3; border-left: 3px solid #EAB308; border-radius: 0.5rem; padding: 0.875rem 1.125rem; margin: 1.25rem 0; }
+        .email-highlight-box p { font-size: 0.8125rem; color: #92400E; line-height: 1.6; margin: 0; }
+
+        .email-footer { margin-top: 2rem; padding: 1.5rem 2.5rem; background: #f7f8fc; border-top: 1px solid #e8eaf2; text-align: center; }
+        .email-footer__logo { height: 20px; width: auto; margin-bottom: 0.75rem; opacity: 0.7; }
+        .email-footer__text { font-size: 0.75rem; color: #9ca3af; line-height: 1.7; }
+    </style>
+</head>
+<body>
+    <div class="mockup-badge">📧 Mockup Email Pengguna Lulusan</div>
+
+    <div class="email-wrapper">
+        <div class="email-meta">
+            <p class="email-meta__subject">Permohonan Mengisi Kuesioner Kinerja Karyawan: Henni, Alumni Demo siAkadcloud</p>
+            <p class="email-meta__from"><strong>KarirLink - No Reply</strong> &lt;notification-noreply-karirlink@sevima.com&gt;</p>
+            <p class="email-meta__date">Saturday, July 19, 2026 08:40 PM</p>
+        </div>
+
+        <div class="email-brand">
+            <img src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink">
+        </div>
+
+        <div class="email-body">
+            <p class="email-text">Salam hormat,<br>Bapak/Ibu <strong>Yanto</strong><br>Pimpinan <strong>PT Sedati</strong></p>
+
+            <p class="email-text">Dengan hormat, kami dari <strong>Demo siAkadcloud</strong> ingin memohon bantuan Bapak/Ibu untuk mengisi kuesioner tentang kinerja alumni kami yang bekerja di <strong>PT Sedati</strong>.</p>
+
+            <div class="email-info">
+                <div class="email-info__row">
+                    <span class="email-info__label">Nama</span>
+                    <span class="email-info__value">Henni</span>
+                </div>
+                <div class="email-info__row">
+                    <span class="email-info__label">Asal Perguruan Tinggi</span>
+                    <span class="email-info__value">Demo siAkadcloud</span>
+                </div>
+            </div>
+
+            <p class="email-text">Dengan mengisi kuesioner ini, dapatkan akses untuk menemukan ribuan kandidat terbaik dari Perguruan Tinggi di seluruh Indonesia, dan pasang lowongan kerja perusahaan Anda di Karirlink secara <strong>GRATIS</strong>.</p>
+
+            <div class="email-cta">
+                <a href="./pengguna-lulusan-form.html" class="email-cta__btn">
+                    Isi Kuesioner Sekarang
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+            </div>
+
+            <p class="email-text" style="margin-top: 1.75rem;">Terima kasih atas perhatian dan dukungan Bapak/Ibu.<br>Hormat kami,<br><strong>Demo siAkadcloud</strong></p>
+        </div>
+
+        <div class="email-footer">
+            <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="" class="email-footer__logo">
+            <p class="email-footer__text">
+                Temukan ribuan kandidat terbaik dari seluruh Indonesia.<br>
+                Pasang lowongan kerja di Karirlink, GRATIS!<br><br>
+                © 2026 KarirLink by SEVIMA
+            </p>
+        </div>
+    </div>
+</body>
+</html>

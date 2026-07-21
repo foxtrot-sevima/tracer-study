@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terima Kasih | Tracer Study | Karirlink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <style>
+        body { background: var(--qn-neutral-100); }
+
+        /* Public tracer-study branding bar (page-local: no Quantum equivalent for this unauthenticated portal header) */
+        .header { position: sticky; top: 0; z-index: 50; background: white; border-bottom: 1px solid var(--qn-neutral-200); padding: 0.75rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .header__left { display: flex; align-items: center; gap: 0.75rem; }
+        .header__logo { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid var(--qn-neutral-200); object-fit: cover; }
+        .header__info p { margin: 0; }
+        .header__info p:first-child { font-size: 0.875rem; color: var(--qn-neutral-500); }
+        .header__info p:last-child { font-weight: 500; color: var(--qn-neutral-800); }
+        .header__user { display: flex; align-items: center; gap: 0.75rem; }
+        .header__avatar { width: 2.5rem; height: 2.5rem; border-radius: 50%; background: #f97316; color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.8125rem; }
+        .header__user-info p { margin: 0; text-align: right; }
+        .header__user-info p:first-child { font-size: 0.5rem; color: var(--qn-neutral-500); }
+        .header__user-info p:last-child { font-size: 0.8125rem; color: var(--qn-neutral-500); }
+
+        /* Main layout */
+        .main { max-width: 72rem; margin: 0 auto; padding: 2rem 1.5rem; display: grid; grid-template-columns: 1fr 22rem; gap: 1.5rem; }
+        @media (max-width: 768px) { .main { grid-template-columns: 1fr; } }
+
+        /* Thank you card */
+        .thanks-card { text-align: center; padding: 2.5rem 2rem; }
+        .thanks-card__illust { width: 12rem; height: auto; margin: 0 auto 1.5rem; display: block; }
+        .thanks-card__text { font-size: 0.9375rem; color: var(--qn-neutral-700); line-height: 1.7; margin-bottom: 1.25rem; max-width: 28rem; margin-left: auto; margin-right: auto; }
+        .thanks-card__text strong { color: var(--qn-neutral-800); }
+        .thanks-card__cta { font-size: 0.9375rem; color: var(--qn-neutral-700); }
+
+        .thanks-card__actions { display: flex; flex-wrap: wrap; gap: 0.625rem; justify-content: center; margin-bottom: 1.25rem; }
+
+        /* CV Builder banner (page-local: promo banner, no direct Quantum component) */
+        .cv-banner { background: linear-gradient(135deg, var(--qn-primary-700) 0%, var(--qn-primary-500) 100%); border-radius: 0.75rem; padding: 1.5rem; color: white; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; }
+        .cv-banner__title { font-size: 1rem; font-weight: 600; line-height: 1.4; }
+        .cv-banner__title span { color: #fbbf24; }
+        .cv-banner__qr { width: 6rem; height: 6rem; background: white; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
+        .cv-banner__qr-placeholder { width: 100%; height: 100%; background: var(--qn-neutral-200); border-radius: 0.25rem; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; color: var(--qn-neutral-500); }
+        .cv-banner__contact { font-size: 0.8125rem; margin-top: 0.5rem; opacity: 0.9; }
+
+        /* Lowongan section */
+        .lowongan { margin-top: 2rem; }
+        .lowongan__title { font-size: 1.25rem; font-weight: 700; color: var(--qn-neutral-800); margin-bottom: 1rem; }
+        .lowongan__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1rem; }
+        .lowongan__more { display: flex; align-items: center; justify-content: center; gap: 0.25rem; font-size: 0.875rem; font-weight: 500; color: var(--qn-primary-600); text-decoration: none; height: 100%; }
+        .lowongan__more:hover { text-decoration: underline; }
+
+        /* Modal (namespaced to avoid colliding with Quantum's own .modal component) */
+        .ts-thanks-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+        .ts-thanks-overlay.hidden { display: none; }
+        .ts-thanks-modal { background: white; border-radius: 0.75rem; padding: 2rem; max-width: 26rem; width: 100%; text-align: center; position: relative; }
+        .ts-thanks-modal__close { position: absolute; top: 0.75rem; right: 0.75rem; background: none; border: none; cursor: pointer; color: var(--qn-neutral-500); padding: 0.25rem; }
+        .ts-thanks-modal__close:hover { color: var(--qn-neutral-800); }
+        .ts-thanks-modal__icon {
+            width: 3.5rem; height: 3.5rem; border-radius: 50%; margin: 0 auto 1rem;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--qn-success-500), #0a6b60);
+            box-shadow: 0 8px 16px -4px rgba(14, 147, 132, 0.35);
+        }
+        .ts-thanks-modal__icon .icon { color: white; font-size: 1.75rem; }
+        .ts-thanks-modal__title { font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-800); margin-bottom: 0.75rem; }
+        .ts-thanks-modal__text { font-size: 0.875rem; color: var(--qn-neutral-500); line-height: 1.6; margin-bottom: 1.5rem; }
+
+        /* Footer */
+        .footer { background: var(--qn-primary-700); padding: 1rem; text-align: center; margin-top: 2rem; }
+        .footer p { color: white; font-size: 0.875rem; margin: 0; }
+        .footer a { color: white; text-decoration: underline; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- Modal: Terima kasih -->
+    <div class="ts-thanks-overlay" id="thankYouModal">
+        <div class="ts-thanks-modal">
+            <button class="ts-thanks-modal__close" onclick="document.getElementById('thankYouModal').classList.add('hidden')">
+                <span class="icon icon-x-mark-mini" style="font-size: 1.25rem;"></span>
+            </button>
+            <div class="ts-thanks-modal__icon" aria-hidden="true"><span class="icon icon-check-badge-mini"></span></div>
+            <h3 class="ts-thanks-modal__title">Terima kasih telah mengisi Tracer Study</h3>
+            <p class="ts-thanks-modal__text">Data yang Anda berikan akan sangat membantu meningkatkan kualitas pendidikan kami</p>
+            <button class="btn btn_primary" onclick="document.getElementById('thankYouModal').classList.add('hidden')">Selesai</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header__left">
+            <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo" class="header__logo">
+            <div class="header__info">
+                <p>Portal Alumni dan Pusat Karir</p>
+                <p>Demo siAkadcloud</p>
+            </div>
+        </div>
+        <div class="header__user">
+            <div class="header__avatar">H</div>
+            <div class="header__user-info">
+                <p>-</p>
+                <p>NIM: -</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main">
+        <!-- Left: Thank you card -->
+        <div>
+            <div class="card">
+                <div class="card__body thanks-card">
+                    <!-- Illustration SVG placeholder -->
+                    <svg class="thanks-card__illust" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="60" y="30" width="120" height="130" rx="8" fill="#EFF6FF" stroke="#93C5FD" stroke-width="2"/>
+                        <rect x="80" y="55" width="80" height="6" rx="3" fill="#93C5FD"/>
+                        <rect x="80" y="70" width="60" height="6" rx="3" fill="#BFDBFE"/>
+                        <rect x="80" y="85" width="80" height="6" rx="3" fill="#93C5FD"/>
+                        <rect x="80" y="100" width="45" height="6" rx="3" fill="#BFDBFE"/>
+                        <circle cx="120" cy="130" r="16" fill="#22C55E"/>
+                        <path d="M112 130l5 5 11-11" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="75" cy="35" r="12" fill="#3B82F6" opacity="0.2"/>
+                        <circle cx="185" cy="50" r="8" fill="#F59E0B" opacity="0.3"/>
+                        <path d="M50 160 h140" stroke="#E5E7EB" stroke-width="1"/>
+                    </svg>
+
+                    <h1 class="main__title">Terima kasih telah mengisi Tracer Study</h1>
+                    <span class="tag tag_outline tag_sm" style="margin-bottom: 1rem;">
+                        <span class="icon icon-pencil-square-mini"></span>
+                        Dapat diedit sampai campaign ditutup
+                    </span>
+                    <p class="thanks-card__text">
+                        Terima kasih telah mengisi Tracer Study. Jawaban Anda tersimpan dan dapat diperbarui kapan saja selama campaign masih aktif.
+                    </p>
+                    <div class="thanks-card__actions">
+                        <a href="./tracer-study-form.html" class="btn btn_primary">Edit Jawaban</a>
+                        <a href="./riwayat-pengisian.html" class="btn btn_outline">Lihat Riwayat Pengisian</a>
+                    </div>
+                    <p class="thanks-card__cta">
+                        Yuk, mulai karirmu sekarang di <a href="https://karirlink.id" class="link">Karirlink</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Lowongan Pekerjaan -->
+            <section class="lowongan">
+                <h2 class="lowongan__title">Lowongan Pekerjaan</h2>
+                <div class="lowongan__grid">
+                    <div class="card card_job">
+                        <div class="card__body">
+                            <div class="job-card__header">
+                                <div class="job-card__info">
+                                    <h3 class="job-card__title">Lowongan Pekerjaan 2026</h3>
+                                    <p class="job-card__company">Demo siAkadcloud</p>
+                                </div>
+                            </div>
+                            <div class="job-card__meta">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Kab. Simeulue, Aceh</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full Time</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>Rp 0 - Rp 0/Bulan</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <span class="job-card__date">Dibuat 15 Juli 2026</span>
+                        </div>
+                    </div>
+                    <div class="card card_job">
+                        <div class="card__body">
+                            <div class="job-card__header">
+                                <div class="job-card__info">
+                                    <h3 class="job-card__title">Open Recruitment</h3>
+                                    <p class="job-card__company">SMK Wongsorejo</p>
+                                </div>
+                            </div>
+                            <div class="job-card__meta">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Kab. Kebumen, Jawa Tengah</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full Time</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>Rp 0 - Rp 0/Bulan</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <span class="job-card__date">Dibuat 09 Juli 2026</span>
+                        </div>
+                    </div>
+                    <div class="card card_job">
+                        <div class="card__body">
+                            <div class="job-card__header">
+                                <div class="job-card__info">
+                                    <h3 class="job-card__title">Campus Hiring Dialogue Group</h3>
+                                    <p class="job-card__company">Universitas Logistik dan Bisnis Internasional</p>
+                                </div>
+                            </div>
+                            <div class="job-card__meta">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Kota Bandung, Jawa Barat</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full Time</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>Rp 0 - Rp 0/Bulan</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <span class="job-card__date">Dibuat 08 Juli 2026</span>
+                        </div>
+                    </div>
+                    <div class="card card_job">
+                        <a href="#" class="lowongan__more">
+                            Lihat Semua Lowongan
+                            <span class="icon icon-arrow-right-mini"></span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Right: CV Builder banner -->
+        <div>
+            <div class="cv-banner">
+                <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.5rem;">
+                    <span class="icon icon-briefcase-mini" style="font-size: 1.25rem;"></span>
+                    <span style="font-size:0.75rem;font-weight:500;opacity:0.8;">Lowongan Kerja</span>
+                    <span class="icon icon-check-circle-mini" style="font-size: 1.25rem;"></span>
+                    <span style="font-size:0.75rem;font-weight:500;opacity:0.8;">CV Builder</span>
+                </div>
+                <h3 class="cv-banner__title">Siapkan CV Profesionalmu dalam hitungan menit melalui <span>CV Builder Karirlink</span></h3>
+                <div class="cv-banner__qr">
+                    <div class="cv-banner__qr-placeholder">QR Code</div>
+                </div>
+                <p class="cv-banner__contact">Info Selengkapnya 0811 3023 500 (Minka)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 <a href="https://sevima.com">SEVIMA</a> All Right Reserved, Powered by <a href="https://karirlink.id">Karirlink</a></p>
+    </footer>
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.select-default').forEach(el => {
+                new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/a/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Kegiatan Kerja Sama | KarirLink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/portal-karir.css">
+
+    <style>
+        .contact-cell__hint { color: var(--qn-neutral-400); }
+        .kegiatan-status-note { display: block; font-size: 0.75rem; margin-top: 0.25rem; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (navbar Portal Karir) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./portal-karir.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./portal-karir.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lowongan.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Lowongan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./event.html">
+                                <span class="icon icon-calendar"></span>
+                                <span>Event</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./kerja-sama.html">
+                                <span class="icon icon-user-group"></span>
+                                <span>Kerja Sama</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./perusahaan.html">
+                                <span class="icon icon-building-office"></span>
+                                <span>Perusahaan Mitra</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification"><span class="icon icon-bell"></span></button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./index.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-tracer-study">
+                        Tracer Study
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Admin Karirlink</span><span class="avatar__subtitle">admin@university.ac.id</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./portal-karir.html">Beranda</a></li>
+                <li class="breadcrumb__item active"><a href="#">Daftar Kegiatan</a></li>
+            </ul>
+
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Daftar Kegiatan</h1>
+                        <p class="main__subtitle">Daftar kegiatan Kerja Sama</p>
+                    </div>
+                </div>
+                <div class="main__action">
+                    <a href="#" class="btn btn_primary">
+                        <span class="btn__text">Pengajuan Kegiatan</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Success Alert (kegiatan approved) -->
+            <div class="alert alert_success" id="alert-kegiatan-success" style="display: none; margin-bottom: 1rem;">
+                <span class="icon icon-check-circle"></span>
+                <div class="alert__content">
+                    <p class="alert__description">Perubahan status kegiatan berhasil dilakukan.</p>
+                </div>
+                <span class="icon icon-x-mark-mini" style="cursor: pointer;" onclick="this.closest('.alert').style.display='none'"></span>
+            </div>
+
+            <!-- Card Table -->
+            <div class="card card_empty">
+                <!-- Tabs -->
+                <div class="collab-tabs">
+                    <a href="#" class="collab-tabs__item active" id="tab-semua" onclick="switchTab(event, 'semua')">
+                        <span>Semua Kegiatan</span>
+                    </a>
+                    <a href="#" class="collab-tabs__item" id="tab-permintaan" onclick="switchTab(event, 'permintaan')">
+                        <span>Permintaan Kegiatan</span>
+                    </a>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="dashboard-filter" style="border-bottom: 1px solid var(--qn-neutral-200);">
+                    <div class="grid">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <span data-input-icon="search"></span>
+                                    <input type="search" class="form-control__input" placeholder="Cari kegiatan...">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3 col-sm-offset-3">
+                            <select class="select-default">
+                                <option>Semua Kegiatan</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Semua Kegiatan -->
+                <div id="content-semua">
+                    <div class="table-responsive">
+                        <table class="table table-collab">
+                            <thead>
+                                <tr>
+                                    <th>Mitra yang Mengajukan</th>
+                                    <th>Mitra Tujuan</th>
+                                    <th>Nama PIC</th>
+                                    <th>Kontak PIC</th>
+                                    <th>Status Pengajuan</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="mitra-cell">
+                                            <div class="mitra-cell__logo" style="background: var(--qn-warning-500); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.75rem; font-weight: 600;">PF</div>
+                                            <div class="mitra-cell__info">
+                                                <span class="mitra-cell__name">PT Foxtrot</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Testing Foxtrot</td>
+                                    <td>Admin Fox 3</td>
+                                    <td>
+                                        <div class="contact-cell">
+                                            <span><span class="icon icon-envelope"></span> admfox3@yopmail.com</span>
+                                            <span class="contact-cell__hint">-</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="status-badge status-badge_warning">
+                                            <span class="status-badge__dot"></span>
+                                            <span>Menunggu Persetujuan <strong>Anda</strong></span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="action-buttons">
+                                            <button class="btn btn_outline btn_sm">
+                                                <span class="icon icon-eye"></span> Detail
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="mitra-cell">
+                                            <div class="mitra-cell__logo" style="background: #7c3aed; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.75rem; font-weight: 600;">TF</div>
+                                            <div class="mitra-cell__info">
+                                                <span class="mitra-cell__name">Testing Foxtrot</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Mitra Fauzan</td>
+                                    <td>Admin Muhammad Nur Fauzan Mitra Fauzan</td>
+                                    <td>
+                                        <div class="contact-cell">
+                                            <span><span class="icon icon-envelope"></span> nur.fauzan@sevima.id</span>
+                                            <span><span class="icon icon-phone"></span> 085111341923</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="status-badge status-badge_success">
+                                            <span class="status-badge__dot"></span>
+                                            <span>Pengajuan Diterima</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="action-buttons">
+                                            <button class="btn btn_outline btn_sm">
+                                                <span class="icon icon-eye"></span> Detail
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab: Permintaan Kegiatan (hidden) -->
+                <div id="content-permintaan" style="display: none;">
+                    <div class="table-responsive">
+                        <table class="table table-collab">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal Kegiatan</th>
+                                    <th>Jenis Kegiatan Kerja Sama</th>
+                                    <th>Nama Mitra</th>
+                                    <th>Nama PIC</th>
+                                    <th>Kontak PIC</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="white-space: nowrap;">20 Jul 2026 - 23 Jul 2026</td>
+                                    <td>Kunjungan Industri</td>
+                                    <td><strong>PT Foxtrot</strong></td>
+                                    <td>Admin PT Foxtrot</td>
+                                    <td>
+                                        <div class="contact-cell">
+                                            <span><span class="icon icon-envelope"></span> ptfoxtrot@yopmail.com</span>
+                                            <span><span class="icon icon-phone"></span> 78924934989</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="action-buttons" style="flex-direction: column; align-items: center; gap: 0.375rem;">
+                                            <button class="btn btn_outline btn_sm">
+                                                <span class="icon icon-eye"></span> Detail
+                                            </button>
+                                            <div class="status-badge status-badge_success" style="font-size: 0.75rem;">
+                                                <span class="status-badge__dot"></span>
+                                                <span>Permintaan Diterima</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2026 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.select-default').forEach(el => {
+                new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+            });
+        });
+
+        function switchTab(e, tab) {
+            e.preventDefault();
+            var isSemua = tab === 'semua';
+            document.getElementById('content-semua').style.display = isSemua ? '' : 'none';
+            document.getElementById('content-permintaan').style.display = isSemua ? 'none' : '';
+            document.getElementById('tab-semua').classList.toggle('active', isSemua);
+            document.getElementById('tab-permintaan').classList.toggle('active', !isSemua);
+        }
+
+        // Check URL params
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('kegiatan_approved') === '1') {
+                document.getElementById('alert-kegiatan-success').style.display = 'flex';
+                switchTab({ preventDefault: function() {} }, 'permintaan');
+                window.history.replaceState({}, '', window.location.pathname);
+            }
+        })();
+    </script>
+</body>
+</html>

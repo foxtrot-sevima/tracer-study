@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Daftar Mitra | KarirLink Perusahaan</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/portal-karir.css">
+    <style>
+        /* Offcanvas + Modal (local pattern, layout-only) */
+        .offcanvas { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1000; }
+        .offcanvas.show { display: block; }
+        .offcanvas__backdrop { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); }
+        .offcanvas__panel { position: absolute; top: 0; right: 0; bottom: 0; width: 100%; max-width: 26rem; background: white; box-shadow: -4px 0 12px rgba(0,0,0,0.1); overflow-y: auto; }
+        .offcanvas__header { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--qn-neutral-200); }
+        .offcanvas__title { font-size: 1.0625rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
+        .offcanvas__close { background: none; border: none; cursor: pointer; padding: 0.25rem; color: var(--qn-neutral-400); }
+        .offcanvas__close:hover { color: var(--qn-neutral-600); }
+        .offcanvas__body { padding: 1.5rem; }
+        .offcanvas-info { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; }
+        .offcanvas-info .icon { font-size: 1.25rem; color: var(--qn-neutral-400); margin-top: 0.125rem; }
+        .offcanvas-info__label { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0; }
+        .offcanvas-info__value { font-size: 0.875rem; font-weight: 500; color: var(--qn-neutral-900); margin: 0; }
+        .partner-mini { border: 1px solid var(--qn-neutral-200); border-radius: 0.5rem; padding: 0.875rem; margin-bottom: 0.75rem; }
+        .partner-mini__header { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 0.5rem; }
+        .partner-mini__logo { width: 2.25rem; height: 2.25rem; border-radius: 0.375rem; background: var(--qn-neutral-100); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .partner-mini__meta { display: flex; gap: 1rem; font-size: 0.75rem; color: var(--qn-neutral-500); }
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1000; }
+        .modal.show { display: flex; align-items: center; justify-content: center; }
+        .modal__backdrop { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); }
+        .modal__dialog { position: relative; z-index: 1; width: 100%; max-width: 400px; margin: 1rem; }
+        .modal__content { background: white; border-radius: 0.75rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); overflow: hidden; padding: 1.5rem; }
+        .modal__content_center { text-align: center; }
+        .modal__icon { width: 3rem; height: 3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+        .modal__icon_center { margin: 0 auto 1rem; }
+        .modal__title { font-size: 1.0625rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0 0 0.5rem; }
+        .modal__desc { font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 1.5rem; }
+        .modal__footer { display: flex; gap: 0.75rem; }
+        .modal__footer_center { justify-content: center; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (Perusahaan Mitra) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./company-beranda.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./company-beranda.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./company-lowongan.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Lowongan Saya</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <div class="dropdown dropdown_nav">
+                                <a class="nav__link" href="#" data-toggle="dropdown">
+                                    <span class="icon icon-user-group"></span>
+                                    <span>Kerja Sama</span>
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </a>
+                                <div class="dropdown__box">
+                                    <ul class="dropdown__list">
+                                        <li class="dropdown__item"><a href="./company-pencarian-mitra.html">Pencarian Mitra</a></li>
+                                        <li class="dropdown__item"><a href="./company-daftar-mitra.html">Daftar Mitra</a></li>
+                                        <li class="dropdown__item"><a href="./company-kegiatan-kerja-sama.html">Kegiatan Kerja Sama</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">PT Foxtrot</span>
+                            <span class="header__user-role">Perusahaan Mitra</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">PT Foxtrot</span><span class="avatar__subtitle">Perusahaan Mitra</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="./company-register.html"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./company-beranda.html">Beranda</a></li>
+                <li class="breadcrumb__item active"><a href="#">Daftar Mitra</a></li>
+            </ul>
+
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Daftar Mitra</h1>
+                        <p class="main__subtitle">Daftar mitra yang bekerja sama</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Alert -->
+            <div class="alert alert_success" id="alert-success" style="display: none; margin-bottom: 1rem; align-items: center;">
+                <div class="alert__content">
+                    <p class="alert__description">Berhasil menyetujui permintaan kerja sama.</p>
+                </div>
+                <button type="button" class="btn btn_icon btn_sm" onclick="document.getElementById('alert-success').style.display='none'">
+                    <span class="icon icon-x-mark-mini"></span>
+                </button>
+            </div>
+
+            <!-- Content Card -->
+            <div class="card card_empty">
+                <!-- Tabs -->
+                <div class="collab-tabs">
+                    <a href="#" class="collab-tabs__item" id="tab-semua" onclick="switchTab(event,'semua')">
+                        <span class="icon icon-building-office"></span>
+                        <span>Semua Mitra</span>
+                    </a>
+                    <a href="#" class="collab-tabs__item active" id="tab-permintaan" onclick="switchTab(event,'permintaan')">
+                        <span class="icon icon-inbox"></span>
+                        <span>Permintaan Kerja Sama</span>
+                    </a>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="dashboard-filter" style="border-bottom: 1px solid var(--qn-neutral-200);">
+                    <div class="grid">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <span data-input-icon="search"></span>
+                                    <input type="search" class="form-control__input" placeholder="Cari nama mitra...">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3 col-sm-offset-3" style="display: flex; justify-content: flex-end;">
+                            <button class="btn btn_outline">
+                                <span class="icon icon-funnel"></span>
+                                <span class="btn__text">Filter</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Semua Mitra -->
+                <div id="content-semua" class="table-responsive" style="display: none;">
+                    <table class="table table-collab">
+                        <thead>
+                            <tr>
+                                <th>Nama Mitra</th>
+                                <th>Lokasi</th>
+                                <th>Status Kerja Sama</th>
+                                <th>Nama PIC</th>
+                                <th>Kontak PIC</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="semuaMitraBody">
+                            <tr id="emptySemuaMitra">
+                                <td colspan="6">
+                                    <div class="empty-state">
+                                        <span class="icon icon-building-office" style="font-size: 2.5rem; color: var(--qn-neutral-300);"></span>
+                                        <p class="empty-state__desc">Belum ada mitra yang bekerja sama</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Tab: Permintaan Kerja Sama -->
+                <div id="content-permintaan" class="table-responsive">
+                    <table class="table table-collab">
+                        <thead>
+                            <tr>
+                                <th>Nama Mitra</th>
+                                <th>Lokasi</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="mitra-cell">
+                                        <div class="mitra-cell__logo"><span class="icon icon-inbox"></span></div>
+                                        <div class="mitra-cell__info">
+                                            <span class="mitra-cell__name">Testing Foxtrot</span>
+                                            <span class="mitra-cell__category">https://staging-portal.karirlink.id/onboarding/2</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Kota Surabaya, Jawa Timur</td>
+                                <td class="text-center">
+                                    <div class="action-buttons">
+                                        <button class="btn btn_outline btn_sm" onclick="openDetailPanel()">
+                                            <span class="icon icon-eye"></span> Detail
+                                        </button>
+                                        <button class="btn btn_icon btn_sm btn_danger" onclick="showRejectModal()" title="Tolak">
+                                            <span class="icon icon-x-mark-mini"></span>
+                                        </button>
+                                        <button class="btn btn_icon btn_sm btn_success" onclick="showAcceptModal()" title="Terima">
+                                            <span class="icon icon-check-mini"></span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Detail Offcanvas -->
+    <div class="offcanvas" id="detailPanel">
+        <div class="offcanvas__backdrop" onclick="closeDetailPanel()"></div>
+        <div class="offcanvas__panel">
+            <div class="offcanvas__header">
+                <h3 class="offcanvas__title">Testing Foxtrot</h3>
+                <button class="offcanvas__close" onclick="closeDetailPanel()"><span class="icon icon-x-mark-mini"></span></button>
+            </div>
+            <div class="offcanvas__body">
+                <div class="offcanvas-info">
+                    <span class="icon icon-information-circle-mini"></span>
+                    <div>
+                        <p class="offcanvas-info__label">Status Kerja Sama</p>
+                        <p class="offcanvas-info__value"><span class="status-badge status-badge_warning"><span class="status-badge__dot"></span>Menunggu Persetujuan</span></p>
+                    </div>
+                </div>
+                <div class="offcanvas-info">
+                    <span class="icon icon-building-office"></span>
+                    <div>
+                        <p class="offcanvas-info__label">Tagline Perguruan Tinggi</p>
+                        <p class="offcanvas-info__value">https://staging-portal.karirlink.id/onboarding/2</p>
+                    </div>
+                </div>
+                <div class="offcanvas-info">
+                    <span class="icon icon-map-pin-mini"></span>
+                    <div>
+                        <p class="offcanvas-info__label">Lokasi</p>
+                        <p class="offcanvas-info__value">Kota Surabaya, Jawa Timur</p>
+                    </div>
+                </div>
+                <div class="offcanvas-info">
+                    <span class="icon icon-user-group"></span>
+                    <div>
+                        <p class="offcanvas-info__label">Jumlah Kerja Sama</p>
+                        <p class="offcanvas-info__value">4 Perusahaan</p>
+                    </div>
+                </div>
+                <div class="offcanvas-info">
+                    <span class="icon icon-document-text"></span>
+                    <div>
+                        <p class="offcanvas-info__label">Dokumen MoU</p>
+                        <p class="offcanvas-info__value"><a href="#" class="link link_primary">Lihat Dokumen MoU</a></p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 0.75rem; margin: 1.5rem 0 2rem;">
+                    <button class="btn btn_danger btn_block" onclick="closeDetailPanel(); showRejectModal()">
+                        <span class="icon icon-x-mark-mini"></span>
+                        <span class="btn__text">Tolak</span>
+                    </button>
+                    <button class="btn btn_success btn_block" onclick="closeDetailPanel(); showAcceptModal()">
+                        <span class="icon icon-check-mini"></span>
+                        <span class="btn__text">Setujui</span>
+                    </button>
+                </div>
+
+                <div style="border-top: 1px solid var(--qn-neutral-200); padding-top: 1.5rem;">
+                    <h4 style="font-size: 0.9375rem; font-weight: 600; text-align: center; margin: 0 0 1rem;">Telah Bekerja Sama dengan 4 Perusahaan</h4>
+
+                    <div class="partner-mini">
+                        <div class="partner-mini__header">
+                            <div class="partner-mini__logo"><span class="icon icon-building-office-2"></span></div>
+                            <p style="font-weight: 500; margin: 0;">PT Cahaya Seruni</p>
+                        </div>
+                        <div class="partner-mini__meta">
+                            <span>2 Lowongan Dibuat</span>
+                        </div>
+                    </div>
+                    <div class="partner-mini">
+                        <div class="partner-mini__header">
+                            <div class="partner-mini__logo"><span class="icon icon-building-office-2"></span></div>
+                            <p style="font-weight: 500; margin: 0;">PT Perkebunan Nusantara X</p>
+                        </div>
+                        <div class="partner-mini__meta">
+                            <span>2 Lowongan Dibuat</span>
+                        </div>
+                    </div>
+                    <div class="partner-mini">
+                        <div class="partner-mini__header">
+                            <div class="partner-mini__logo"><span class="icon icon-building-office-2"></span></div>
+                            <div>
+                                <p style="font-weight: 500; margin: 0;">PT Ekatunggal Tunas Mandiri</p>
+                                <p style="font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0;">Umum &amp; Grosir</p>
+                            </div>
+                        </div>
+                        <div class="partner-mini__meta">
+                            <span><span class="icon icon-map-pin-mini"></span> Kota Surabaya, Jawa Timur</span>
+                            <span>2 Lowongan Dibuat</span>
+                        </div>
+                    </div>
+                    <div class="partner-mini">
+                        <div class="partner-mini__header">
+                            <div class="partner-mini__logo"><span class="icon icon-building-office-2"></span></div>
+                            <div>
+                                <p style="font-weight: 500; margin: 0;">Mitra Fauzan</p>
+                                <p style="font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0;">Advertising</p>
+                            </div>
+                        </div>
+                        <div class="partner-mini__meta">
+                            <span><span class="icon icon-map-pin-mini"></span> Kota Jakarta Selatan, DKI Jakarta</span>
+                            <span>1 Lowongan Dibuat</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accept Modal -->
+    <div class="modal" id="acceptModal">
+        <div class="modal__backdrop" onclick="hideAcceptModal()"></div>
+        <div class="modal__dialog">
+            <div class="modal__content">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; margin-bottom: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div class="modal__icon" style="background: var(--qn-primary-50); margin-bottom: 0;">
+                            <span class="icon icon-check-mini" style="font-size: 1.5rem; color: var(--qn-primary-500);"></span>
+                        </div>
+                        <h3 class="modal__title" style="margin: 0;">Setujui Permintaan Kerja Sama</h3>
+                    </div>
+                    <button class="offcanvas__close" onclick="hideAcceptModal()"><span class="icon icon-x-mark-mini"></span></button>
+                </div>
+                <p class="modal__desc">Apakah Anda yakin ingin menyetujui kerja sama dengan <strong>Testing Foxtrot</strong>?</p>
+                <div class="modal__footer">
+                    <button class="btn btn_outline btn_block" onclick="hideAcceptModal()">Batal</button>
+                    <button class="btn btn_primary btn_block" onclick="approveKerjaSama()">Setujui Kerja Sama</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject Modal -->
+    <div class="modal" id="rejectModal">
+        <div class="modal__backdrop" onclick="hideRejectModal()"></div>
+        <div class="modal__dialog">
+            <div class="modal__content modal__content_center">
+                <div class="modal__icon modal__icon_center" style="background: var(--qn-danger-100);">
+                    <span class="icon icon-x-mark-mini" style="font-size: 1.5rem; color: var(--qn-danger-500);"></span>
+                </div>
+                <h3 class="modal__title">Tolak Kerja Sama?</h3>
+                <p class="modal__desc">Apakah Anda yakin ingin menolak permintaan kerja sama dari Testing Foxtrot?</p>
+                <div class="modal__footer modal__footer_center">
+                    <button class="btn btn_outline" onclick="hideRejectModal()">Batal</button>
+                    <button class="btn btn_danger" onclick="hideRejectModal()">Ya, Tolak</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        function switchTab(e, tab) {
+            if (e) e.preventDefault();
+            var isSemua = tab === 'semua';
+            document.getElementById('content-semua').style.display = isSemua ? '' : 'none';
+            document.getElementById('content-permintaan').style.display = isSemua ? 'none' : '';
+            document.getElementById('tab-semua').classList.toggle('active', isSemua);
+            document.getElementById('tab-permintaan').classList.toggle('active', !isSemua);
+        }
+
+        function openDetailPanel() { document.getElementById('detailPanel').classList.add('show'); }
+        function closeDetailPanel() { document.getElementById('detailPanel').classList.remove('show'); }
+        function showAcceptModal() { document.getElementById('acceptModal').classList.add('show'); }
+        function hideAcceptModal() { document.getElementById('acceptModal').classList.remove('show'); }
+        function showRejectModal() { document.getElementById('rejectModal').classList.add('show'); }
+        function hideRejectModal() { document.getElementById('rejectModal').classList.remove('show'); }
+
+        function approveKerjaSama() {
+            hideAcceptModal();
+            // Show success alert
+            document.getElementById('alert-success').style.display = 'flex';
+            // Remove from Permintaan tab
+            var permintaanTable = document.querySelector('#content-permintaan tbody');
+            permintaanTable.innerHTML = '<tr><td colspan="3"><div class="empty-state"><p class="empty-state__desc">Tidak ada permintaan mitra kerja sama yang ditemukan</p></div></td></tr>';
+            // Add to Semua Mitra tab
+            var emptyRow = document.getElementById('emptySemuaMitra');
+            if (emptyRow) emptyRow.remove();
+            var semuaBody = document.getElementById('semuaMitraBody');
+            semuaBody.innerHTML = '<tr>' +
+                '<td><div class="mitra-cell"><div class="mitra-cell__logo"><span class="icon icon-inbox"></span></div><div class="mitra-cell__info"><span class="mitra-cell__name">Testing Foxtrot</span><span class="mitra-cell__category">https://staging-portal.karirlink.id/onboarding/2</span></div></div></td>' +
+                '<td>Kota Surabaya, Jawa Timur</td>' +
+                '<td><div class="status-badge status-badge_success"><span class="status-badge__dot"></span><span>Pengajuan Diterima</span></div></td>' +
+                '<td>Admin Fox 3</td>' +
+                '<td><div class="contact-cell"><span><span class="icon icon-envelope"></span> admfox3@yopmail.com</span><span><span class="icon icon-phone"></span> -</span></div></td>' +
+                '<td class="text-center"><div class="action-buttons">' +
+                '<button class="btn btn_outline btn_sm"><span class="icon icon-eye"></span> Detail</button>' +
+                '<div class="dropdown"><button class="btn btn_outline btn_sm btn_icon" data-toggle="dropdown"><span class="icon icon-ellipsis-vertical"></span></button>' +
+                '<div class="dropdown__box dropdown__box_menu-end"><ul class="dropdown__list">' +
+                '<li class="dropdown__item"><a href="./company-pengajuan-kegiatan.html">Pengajuan Kegiatan</a></li>' +
+                '<li class="dropdown__item"><a href="#">Selesaikan Kerja Sama</a></li>' +
+                '</ul></div></div>' +
+                '</div></td></tr>';
+            // Switch to Semua Mitra tab
+            switchTab(null, 'semua');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

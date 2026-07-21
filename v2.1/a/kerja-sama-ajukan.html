@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/a/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajukan Kerja Sama | KarirLink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/portal-karir.css">
+
+    <style>
+        .lc-section { padding: 1.25rem 0; border-bottom: 1px solid var(--qn-neutral-200); }
+        .lc-section:last-of-type { border-bottom: none; padding-bottom: 0; }
+        .lc-section:first-of-type { padding-top: 0; }
+        .lc-section__label { font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-800); display: block; margin-bottom: 0.5rem; }
+        .lc-section__required { color: var(--qn-danger-500); }
+        .lc-actions { display: flex; align-items: center; justify-content: space-between; padding-top: 1.5rem; }
+
+        /* Upload Card */
+        .upload-card { border: 2px dashed var(--qn-primary-300); border-radius: 0.75rem; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.2s; background: white; min-height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .upload-card:hover { border-color: var(--qn-primary-500); background: var(--qn-primary-50); }
+        .upload-card__icon { width: 2.5rem; height: 2.5rem; margin-bottom: 0.75rem; color: var(--qn-primary-400); }
+        .upload-card__text { font-size: 0.875rem; font-weight: 500; color: var(--qn-primary-600); }
+        .upload-card__hint { font-size: 0.75rem; color: var(--qn-neutral-400); margin-top: 0.25rem; }
+
+        /* Table of Content sidebar */
+        .ka-toc { position: sticky; top: 5.5rem; }
+        .ka-toc__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); margin-bottom: 0.75rem; }
+        .ka-toc__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+        .ka-toc__link { display: block; font-size: 0.8125rem; padding: 0.375rem 0.75rem; border-radius: 0.375rem; color: var(--qn-neutral-600); text-decoration: none; border-left: 2px solid transparent; }
+        .ka-toc__link.active { background: var(--qn-primary-50); color: var(--qn-primary-500); font-weight: 500; border-left-color: var(--qn-primary-500); }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (navbar Portal Karir) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./portal-karir.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./portal-karir.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lowongan.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Lowongan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./event.html">
+                                <span class="icon icon-calendar"></span>
+                                <span>Event</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./kerja-sama.html">
+                                <span class="icon icon-user-group"></span>
+                                <span>Kerja Sama</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./perusahaan.html">
+                                <span class="icon icon-building-office"></span>
+                                <span>Perusahaan Mitra</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification"><span class="icon icon-bell"></span></button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./index.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-tracer-study">
+                        Tracer Study
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Admin Karirlink</span><span class="avatar__subtitle">admin@university.ac.id</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container" style="max-width: 56rem;">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./portal-karir.html">Beranda</a></li>
+                <li class="breadcrumb__item active"><a href="#">Ajukan Kerja Sama</a></li>
+            </ul>
+
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <a href="./kerja-sama.html" class="link link_back" style="color: var(--qn-neutral-500);"><span class="icon icon-arrow-left-mini" style="font-size: 1.25rem;"></span></a>
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Tambahkan Mitra Kerja sama</h1>
+                    </div>
+                </div>
+                <div class="main__action">
+                    <button type="submit" form="formAjukan" class="btn btn_primary" id="btnSubmitTop" disabled>
+                        Ajukan Kerja Sama
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid" style="gap: 1.5rem;">
+                <!-- Left Sidebar: Table of Content -->
+                <div class="col-12 col-lg-3">
+                    <div class="ka-toc">
+                        <p class="ka-toc__title">Table of Content</p>
+                        <ul class="ka-toc__list">
+                            <li><a href="#section-ajukan" class="ka-toc__link active">Ajukan Kerja Sama</a></li>
+                            <li><a href="#section-pic" class="ka-toc__link">Kontak PIC</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Form Card -->
+                <div class="col-12 col-lg-9">
+                    <div class="card">
+                        <div class="card__body">
+                            <form id="formAjukan" onsubmit="handleSubmit(event)">
+                                <!-- Section 1: Ajukan Kerja Sama -->
+                                <h2 id="section-ajukan" style="font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-900); margin-bottom: 1rem;">Ajukan Kerja Sama</h2>
+
+                                <!-- Nama Mitra -->
+                                <div class="lc-section">
+                                    <label class="lc-section__label" for="ka-nama-mitra">Nama Mitra <span class="lc-section__required">*</span></label>
+                                    <select class="select-default" id="ka-nama-mitra" name="nama_mitra" onchange="checkForm()">
+                                        <option value="" selected>-- Pilih Nama Mitra --</option>
+                                        <option value="PT Cahaya Seruni">PT Cahaya Seruni</option>
+                                        <option value="Mitra Fauzan">Mitra Fauzan</option>
+                                        <option value="AIRFAST Indonesia">AIRFAST Indonesia</option>
+                                        <option value="PT Ekatunggal Tunas Mandiri">PT Ekatunggal Tunas Mandiri</option>
+                                    </select>
+                                </div>
+
+                                <!-- Kategori Perusahaan -->
+                                <div class="lc-section">
+                                    <label class="lc-section__label" for="ka-kategori">Kategori Perusahaan <span class="lc-section__required">*</span></label>
+                                    <select class="select-default" id="ka-kategori" name="kategori_perusahaan" onchange="checkForm()">
+                                        <option value="" selected>---- Pilih Salah Satu ----</option>
+                                        <option value="Advertising">Advertising</option>
+                                        <option value="Agrikultural/Perkebunan/Peternakan Unggas/Perikanan">Agrikultural/Perkebunan/Peternakan Unggas/Perikanan</option>
+                                        <option value="Akuntansi/Audit/Pelayanan Pajak">Akuntansi/Audit/Pelayanan Pajak</option>
+                                        <option value="Asuransi">Asuransi</option>
+                                        <option value="Call Center/IT-Enabled Services/BPO">Call Center/IT-Enabled Services/BPO</option>
+                                        <option value="Elektrikal & Elektronik">Elektrikal &amp; Elektronik</option>
+                                        <option value="Hiburan/Media">Hiburan/Media</option>
+                                        <option value="Hotel/Pariwisata">Hotel/Pariwisata</option>
+                                        <option value="Hukum/Legal">Hukum/Legal</option>
+                                        <option value="Ilmu Pengetahuan & Teknologi">Ilmu Pengetahuan &amp; Teknologi</option>
+                                        <option value="Industri Berat/Mesin/Peralatan">Industri Berat/Mesin/Peralatan</option>
+                                        <option value="Komputer/Teknik Informatika (Perangkat Lunak)">Komputer/Teknik Informatika (Perangkat Lunak)</option>
+                                        <option value="Konstruksi/Bangunan/Teknik">Konstruksi/Bangunan/Teknik</option>
+                                        <option value="Manufaktur/Produksi">Manufaktur/Produksi</option>
+                                        <option value="Pendidikan">Pendidikan</option>
+                                        <option value="Perbankan/Pelayanan Keuangan">Perbankan/Pelayanan Keuangan</option>
+                                        <option value="Retail/Merchandise">Retail/Merchandise</option>
+                                        <option value="Telekomunikasi">Telekomunikasi</option>
+                                        <option value="Transportasi/Logistik">Transportasi/Logistik</option>
+                                        <option value="Umum & Grosir">Umum &amp; Grosir</option>
+                                        <option value="Lainnya">Lainnya</option>
+                                    </select>
+                                </div>
+
+                                <!-- Lokasi Perusahaan -->
+                                <div class="lc-section">
+                                    <label class="lc-section__label" for="ka-lokasi">Lokasi Perusahaan <span class="lc-section__required">*</span></label>
+                                    <select class="select-default" id="ka-lokasi" name="lokasi_perusahaan" onchange="checkForm()">
+                                        <option value="" selected>Semua Lokasi</option>
+                                        <option value="Jakarta">Jakarta</option>
+                                        <option value="Surabaya">Surabaya</option>
+                                        <option value="Bandung">Bandung</option>
+                                        <option value="Semarang">Semarang</option>
+                                        <option value="Yogyakarta">Yogyakarta</option>
+                                        <option value="Medan">Medan</option>
+                                        <option value="Makassar">Makassar</option>
+                                        <option value="Denpasar">Denpasar</option>
+                                        <option value="Malang">Malang</option>
+                                        <option value="Palembang">Palembang</option>
+                                    </select>
+                                </div>
+
+                                <!-- Website Perusahaan -->
+                                <div class="lc-section">
+                                    <label class="lc-section__label" for="ka-website">Website Perusahaan</label>
+                                    <div class="form-control">
+                                        <div class="form-control__group">
+                                            <input type="text" id="ka-website" name="website" class="form-control__input" placeholder="Masukkan Website Mitra">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Alamat Lengkap -->
+                                <div class="lc-section">
+                                    <label class="lc-section__label" for="ka-alamat">Alamat Lengkap</label>
+                                    <div class="form-control">
+                                        <div class="form-control__group">
+                                            <textarea id="ka-alamat" name="alamat" class="form-control__input" rows="3" placeholder="Masukkan Alamat Lengkap"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dokumen MoU -->
+                                <div class="lc-section">
+                                    <label class="lc-section__label">Dokumen MoU <span class="lc-section__required">*</span></label>
+                                    <div class="upload-card" onclick="document.getElementById('fileProposal').click()">
+                                        <svg class="upload-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                                        </svg>
+                                        <span class="upload-card__text" id="fileLabel">Klik untuk pilih file atau seret file ke sini</span>
+                                        <span class="upload-card__hint">PDF, DOC, atau DOCX (max. 5mb)</span>
+                                        <input type="file" id="fileProposal" name="file_proposal" accept=".pdf,.doc,.docx" style="display: none;" onchange="handleFileUpload(this); checkForm()">
+                                    </div>
+                                </div>
+
+                                <!-- Section 2: Kontak PIC -->
+                                <h2 id="section-pic" style="font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-900); margin: 1.5rem 0 1rem;">Kontak PIC Perguruan Tinggi</h2>
+
+                                <!-- Nama Lengkap -->
+                                <div class="lc-section">
+                                    <label class="lc-section__label" for="ka-nama-pic">Nama Lengkap <span class="lc-section__required">*</span></label>
+                                    <div class="form-control">
+                                        <div class="form-control__group">
+                                            <input type="text" id="ka-nama-pic" name="nama_pic" class="form-control__input" placeholder="Fauzan Foxtrot" oninput="checkForm()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="lc-section">
+                                    <label class="lc-section__label" for="ka-email-pic">Email <span class="lc-section__required">*</span></label>
+                                    <div class="form-control">
+                                        <div class="form-control__group">
+                                            <input type="email" id="ka-email-pic" name="email_pic" class="form-control__input" placeholder="fauzan.foxtrot@yopmail.com" oninput="checkForm()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- No. Telepon (WhatsApp) -->
+                                <div class="lc-section">
+                                    <label class="lc-section__label" for="ka-telepon-pic">No. Telepon (WhatsApp) <span class="lc-section__required">*</span></label>
+                                    <div class="form-control">
+                                        <div class="form-control__group">
+                                            <input type="tel" id="ka-telepon-pic" name="telepon_pic" class="form-control__input" placeholder="08123456789" oninput="checkForm()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Footer Navigation -->
+                                <div class="lc-actions">
+                                    <a href="./kerja-sama.html" class="btn btn_outline">
+                                        <span class="icon icon-arrow-left-mini"></span>
+                                        <span class="btn__text">Kembali</span>
+                                    </a>
+                                    <button type="submit" class="btn btn_primary" id="btnSubmitBottom" disabled>
+                                        Ajukan Kerja Sama
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2026 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.select-default').forEach(el => {
+                new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+            });
+        });
+
+        function checkForm() {
+            var form = document.getElementById('formAjukan');
+            var namaMitra = form.nama_mitra.value;
+            var kategori = form.kategori_perusahaan.value;
+            var lokasi = form.lokasi_perusahaan.value;
+            var fileProposal = form.file_proposal.files.length > 0;
+            var namaPic = form.nama_pic.value.trim();
+            var emailPic = form.email_pic.value.trim();
+            var teleponPic = form.telepon_pic.value.trim();
+
+            var isValid = namaMitra && kategori && lokasi && fileProposal && namaPic && emailPic && teleponPic;
+
+            document.getElementById('btnSubmitTop').disabled = !isValid;
+            document.getElementById('btnSubmitBottom').disabled = !isValid;
+        }
+
+        function handleFileUpload(input) {
+            var fileLabel = document.getElementById('fileLabel');
+            if (input.files && input.files[0]) {
+                var file = input.files[0];
+                var maxSize = 10 * 1024 * 1024; // 10MB
+                if (file.size > maxSize) {
+                    alert('Ukuran file melebihi 10MB. Silakan pilih file yang lebih kecil.');
+                    input.value = '';
+                    fileLabel.textContent = 'Klik untuk pilih file atau seret file ke sini';
+                    return;
+                }
+                fileLabel.textContent = file.name;
+            } else {
+                fileLabel.textContent = 'Klik untuk pilih file atau seret file ke sini';
+            }
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            window.location.href = 'kerja-sama.html?success=1';
+        }
+    </script>
+</body>
+</html>

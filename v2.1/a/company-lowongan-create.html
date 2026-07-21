@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/a/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Buat Lowongan | KarirLink Perusahaan</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .lc-section { padding: 1.25rem 0; border-bottom: 1px solid var(--qn-neutral-200); }
+        .lc-section:last-of-type { border-bottom: none; padding-bottom: 0; }
+        .lc-section:first-of-type { padding-top: 0; }
+        .lc-section__label { font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-800); display: block; margin-bottom: 0.5rem; }
+        .lc-section__required { color: var(--qn-danger-500); }
+        .lc-section__hint { font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0.75rem; }
+        .lc-radio-group { display: flex; flex-direction: column; gap: 0.625rem; }
+        .lc-toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .lc-toggle-row__text { flex: 1; min-width: 0; }
+        .lc-toggle-row__title { font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-800); display: block; }
+        .lc-toggle-row__desc { font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
+        .lc-currency { display: flex; align-items: center; gap: 0.5rem; }
+        .lc-currency__prefix { font-size: 0.875rem; font-weight: 500; color: var(--qn-neutral-700); flex-shrink: 0; }
+        .lc-actions { display: flex; align-items: center; justify-content: space-between; padding-top: 1.5rem; }
+        .lc-toggle-row .form-control { width: auto; flex-shrink: 0; }
+        .lc-gaji-periode { margin-bottom: 0.75rem; }
+        .lc-tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
+        .lc-tag-list .tag button { background: none; border: none; cursor: pointer; padding: 0; margin-left: 0.25rem; color: inherit; font-size: 0.875rem; line-height: 1; }
+
+        /* Upload Card */
+        .upload-card {
+            border: 2px dashed var(--qn-primary-300);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .upload-card:hover {
+            border-color: var(--qn-primary-500);
+            background: var(--qn-primary-50);
+        }
+        .upload-card__icon {
+            width: 3rem;
+            height: 3rem;
+            margin-bottom: 1rem;
+            color: var(--qn-primary-400);
+        }
+        .upload-card__text {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--qn-primary-600);
+        }
+
+        /* Modal (local pattern, mirrors v1/publikasi.html) */
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1000; }
+        .modal.show { display: flex; align-items: center; justify-content: center; }
+        .modal__backdrop { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); }
+        .modal__dialog { position: relative; z-index: 1; width: 100%; max-width: 400px; margin: 1rem; }
+        .modal__content { background: white; border-radius: 0.75rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); overflow: hidden; text-align: center; padding: 1.5rem; }
+        .modal__icon { width: 4rem; height: 4rem; background: var(--qn-warning-100); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+        .modal__title { font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0 0 0.5rem; }
+        .modal__desc { font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 1.5rem; }
+        .modal__footer { display: flex; gap: 0.75rem; justify-content: center; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (Perusahaan Mitra) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./company-beranda.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./company-beranda.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./company-lowongan.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Lowongan Saya</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <div class="dropdown dropdown_nav">
+                                <a class="nav__link" href="#" data-toggle="dropdown">
+                                    <span class="icon icon-user-group"></span>
+                                    <span>Kerja Sama</span>
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </a>
+                                <div class="dropdown__box">
+                                    <ul class="dropdown__list">
+                                        <li class="dropdown__item"><a href="./company-pencarian-mitra.html">Pencarian Mitra</a></li>
+                                        <li class="dropdown__item"><a href="./company-daftar-mitra.html">Daftar Mitra</a></li>
+                                        <li class="dropdown__item"><a href="./company-kegiatan-kerja-sama.html">Kegiatan Kerja Sama</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">PT Foxtrot</span>
+                            <span class="header__user-role">Perusahaan Mitra</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">PT Foxtrot</span><span class="avatar__subtitle">Perusahaan Mitra</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="./company-register.html"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container" style="max-width: 46rem;">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./company-beranda.html">Beranda</a></li>
+                <li class="breadcrumb__item"><a href="./company-lowongan.html">Lowongan Saya</a></li>
+                <li class="breadcrumb__item active"><a href="#">Buat Lowongan</a></li>
+            </ul>
+
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <a href="./company-lowongan.html" class="link link_back" style="color: var(--qn-neutral-500);"><span class="icon icon-arrow-left-mini" style="font-size: 1.25rem;"></span></a>
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Informasikan Lowongan ke Lulusan dan Mahasiswa</h1>
+                        <p class="main__subtitle">Lowongan Pekerjaan, Magang, Paruh Waktu, atau Pekerja Lepas dari Perguruan Tinggi dan Mitra Perusahaan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__body">
+                    <form id="formLowongan" onsubmit="return false;">
+
+                        <!-- 1. Judul Lowongan -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="lc-judul">Judul Lowongan <span class="lc-section__required">*</span></label>
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <input type="text" id="lc-judul" class="form-control__input" placeholder="Masukkan judul lowongan" maxlength="60">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Jenis Pekerjaan -->
+                        <div class="lc-section">
+                            <label class="lc-section__label">Jenis Pekerjaan <span class="lc-section__required">*</span></label>
+                            <div class="lc-radio-group">
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="lc-jenis-fulltime" name="employment_type" value="F" checked><label for="lc-jenis-fulltime" class="form-control__label-radio">Full Time</label></div>
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="lc-jenis-parttime" name="employment_type" value="P"><label for="lc-jenis-parttime" class="form-control__label-radio">Part Time</label></div>
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="lc-jenis-kontrak" name="employment_type" value="K"><label for="lc-jenis-kontrak" class="form-control__label-radio">Kontrak</label></div>
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="lc-jenis-magang" name="employment_type" value="M"><label for="lc-jenis-magang" class="form-control__label-radio">Magang</label></div>
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="lc-jenis-freelance" name="employment_type" value="L"><label for="lc-jenis-freelance" class="form-control__label-radio">Freelance</label></div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Tipe Pekerjaan -->
+                        <div class="lc-section">
+                            <label class="lc-section__label">Tipe Pekerjaan <span class="lc-section__required">*</span></label>
+                            <div class="lc-radio-group">
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="lc-tipe-onsite" name="workplace_type" value="O" checked><label for="lc-tipe-onsite" class="form-control__label-radio">Onsite</label></div>
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="lc-tipe-remote" name="workplace_type" value="R"><label for="lc-tipe-remote" class="form-control__label-radio">Remote</label></div>
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="lc-tipe-hybrid" name="workplace_type" value="H"><label for="lc-tipe-hybrid" class="form-control__label-radio">Hybrid</label></div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Penyelenggara -->
+                        <div class="lc-section">
+                            <label class="lc-section__label">Penyelenggara <span class="lc-section__required">*</span></label>
+                            <div class="lc-radio-group">
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="lc-penyelenggara-univ" name="type" value="university" checked><label for="lc-penyelenggara-univ" class="form-control__label-radio">Demo eAkadcloud</label></div>
+                                <div class="form-control"><input type="radio" class="form-control__radio" id="lc-penyelenggara-mitra" name="type" value="company"><label for="lc-penyelenggara-mitra" class="form-control__label-radio">Mitra Perusahaan</label></div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Lokasi -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="lc-lokasi">Lokasi <span class="lc-section__required">*</span></label>
+                            <select class="select-default" id="lc-lokasi" name="city_id">
+                                <option value="" disabled selected>Masukkan nama lokasi</option>
+                                <option value="3578">Kota Surabaya, Jawa Timur</option>
+                                <option value="3173">Kota Jakarta Pusat, DKI Jakarta</option>
+                                <option value="3273">Kota Bandung, Jawa Barat</option>
+                                <option value="3573">Kota Malang, Jawa Timur</option>
+                                <option value="3574">Kota Kediri, Jawa Timur</option>
+                            </select>
+                        </div>
+
+                        <!-- 6. Batasi Domisili Pelamar -->
+                        <div class="lc-section lc-toggle-row">
+                            <div class="lc-toggle-row__text">
+                                <label class="lc-toggle-row__title" for="lc-batasi-domisili">Batasi Domisili Pelamar</label>
+                                <p class="lc-toggle-row__desc">Batasi lowongan ini hanya untuk pelamar dengan domisili lokasi yang terpilih</p>
+                            </div>
+                            <div class="form-control">
+                                <input type="checkbox" class="form-control__switch" id="lc-batasi-domisili" name="is_restricted_city">
+                                <label for="lc-batasi-domisili" class="form-control__label-switch"><span class="check-mark"></span></label>
+                            </div>
+                        </div>
+
+                        <!-- 7. Dokumen Tambahan -->
+                        <div class="lc-section lc-toggle-row">
+                            <div class="lc-toggle-row__text">
+                                <label class="lc-toggle-row__title" for="lc-dokumen-tambahan">Dokumen Tambahan</label>
+                                <p class="lc-toggle-row__desc">Pelamar dapat menambahkan portofolio atau dokumen pendukung lainnya</p>
+                            </div>
+                            <div class="form-control">
+                                <input type="checkbox" class="form-control__switch" id="lc-dokumen-tambahan" name="is_required_document">
+                                <label for="lc-dokumen-tambahan" class="form-control__label-switch"><span class="check-mark"></span></label>
+                            </div>
+                        </div>
+
+                        <!-- 8. Deskripsi Pekerjaan -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="lc-deskripsi">Deskripsi Pekerjaan <span class="lc-section__required">*</span></label>
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <textarea id="lc-deskripsi" class="form-control__input" rows="5" placeholder="Tulis deskripsi pekerjaan disini..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 9. Persyaratan Pekerjaan -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="lc-persyaratan">Persyaratan Pekerjaan</label>
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <textarea id="lc-persyaratan" class="form-control__input" rows="5" placeholder="Tulis persyaratan pekerjaan disini..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 10. Preferensi Program Studi -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="lc-prodi">Preferensi Program Studi</label>
+                            <div class="lc-tag-list" id="prodi-tags">
+                                <span class="tag tag_outline">S1 AKUNTANSI <button type="button" onclick="this.parentElement.remove()">&times;</button></span>
+                                <span class="tag tag_outline">S1 MANAJEMEN <button type="button" onclick="this.parentElement.remove()">&times;</button></span>
+                            </div>
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <span data-input-icon="search"></span>
+                                    <input type="text" id="lc-prodi" class="form-control__input" placeholder="Cari program studi...">
+                                </div>
+                            </div>
+                            <div style="margin-top: 0.75rem;">
+                                <input type="checkbox" class="form-control__checkbox" id="lc-prodi-semua">
+                                <label for="lc-prodi-semua">Semua Program Studi</label>
+                            </div>
+                        </div>
+
+                        <!-- 11. Tingkat Pendidikan -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="lc-pendidikan">Tingkat Pendidikan</label>
+                            <select class="select-default" id="lc-pendidikan" name="education_level">
+                                <option value="" selected disabled>Masukkan tingkat pendidikan</option>
+                                <option value="A">SMA/SMK</option>
+                                <option value="B">Diploma (D1-D4)</option>
+                                <option value="C">Sarjana (S1)</option>
+                                <option value="D">Magister (S2)</option>
+                                <option value="E">Doktor (S3)</option>
+                            </select>
+                        </div>
+
+                        <!-- 12. Tingkat Pengalaman Kerja -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="lc-pengalaman">Tingkat Pengalaman Kerja</label>
+                            <select class="select-default" id="lc-pengalaman" name="experience_level">
+                                <option value="" selected disabled>Masukkan tingkat pengalaman kerja</option>
+                                <option value="F">Fresh Graduate</option>
+                                <option value="J">Junior (Pengalaman 1-3 tahun)</option>
+                                <option value="M">Mid (Pengalaman 4-5 tahun)</option>
+                                <option value="S">Senior (Pengalaman &gt; 5 tahun)</option>
+                            </select>
+                        </div>
+
+                        <!-- 13. Keahlian -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="lc-keahlian">Keahlian</label>
+                            <div class="lc-tag-list" id="keahlian-tags">
+                                <span class="tag tag_outline">Komunikasi <button type="button" onclick="this.parentElement.remove()">&times;</button></span>
+                                <span class="tag tag_outline">Manajemen <button type="button" onclick="this.parentElement.remove()">&times;</button></span>
+                            </div>
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <input type="text" id="lc-keahlian" class="form-control__input" placeholder="Masukkan keahlian">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 14. Kategori Pekerjaan -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="lc-kategori">Kategori Pekerjaan <span class="lc-section__required">*</span></label>
+                            <select class="select-default" id="lc-kategori" name="job_category_id">
+                                <option value="" selected disabled>Masukkan kategori pekerjaan</option>
+                                <option value="1">Akuntansi / Keuangan</option>
+                                <option value="2">Sumber Daya Manusia / Personalia</option>
+                                <option value="3">Penjualan / Pemasaran</option>
+                                <option value="4">Seni / Media / Komunikasi</option>
+                                <option value="5">Hotel / Restoran</option>
+                                <option value="6">Teknik</option>
+                                <option value="7">Teknologi Informasi</option>
+                                <option value="8">Pendidikan</option>
+                                <option value="9">Kesehatan</option>
+                                <option value="10">Lainnya</option>
+                            </select>
+                        </div>
+
+                        <!-- 15. Poster -->
+                        <div class="lc-section">
+                            <label class="lc-section__label">Poster</label>
+                            <div class="upload-card" id="upload-poster" onclick="document.getElementById('lc-poster-input').click()">
+                                <svg class="upload-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                                </svg>
+                                <span class="upload-card__text">Klik untuk tambahkan atau seret dan lepas<br>PNG, JPG (Maksimal 6 Mb)</span>
+                                <input type="file" id="lc-poster-input" accept="image/png,image/jpeg" style="display: none;">
+                            </div>
+                        </div>
+
+                        <!-- 16. Kisaran Gaji -->
+                        <div class="lc-section">
+                            <label class="lc-section__label">Kisaran Gaji</label>
+                            <div class="lc-gaji-periode">
+                                <select class="select-default" id="lc-gaji-periode" name="salary_type">
+                                    <option value="B" selected>per Bulan</option>
+                                    <option value="T">per Tahun</option>
+                                </select>
+                            </div>
+                            <div class="grid cols-2" style="gap: 0.75rem;">
+                                <div class="lc-currency">
+                                    <span class="lc-currency__prefix">Rp</span>
+                                    <div class="form-control">
+                                        <div class="form-control__group">
+                                            <input type="text" name="salary_min" class="form-control__input" placeholder="Minimal Gaji">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lc-currency">
+                                    <span class="lc-currency__prefix">Rp</span>
+                                    <div class="form-control">
+                                        <div class="form-control__group">
+                                            <input type="text" name="salary_max" class="form-control__input" placeholder="Maksimal Gaji">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 17. Tanggal Publikasi -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="lc-tanggal">Tanggal Publikasi <span class="lc-section__required">*</span></label>
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <input type="date" id="lc-tanggal" name="started_at" class="form-control__input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 17b. Batas Akhir Lamaran -->
+                        <div class="lc-section">
+                            <label class="lc-section__label" for="lc-batas-akhir">Batas Akhir Lamaran</label>
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <input type="date" id="lc-batas-akhir" name="ended_at" class="form-control__input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 18. Batasi Lowongan -->
+                        <div class="lc-section">
+                            <div class="lc-toggle-row">
+                                <div class="lc-toggle-row__text">
+                                    <label class="lc-toggle-row__title" for="lc-batasi-lowongan">Batasi Lowongan</label>
+                                    <p class="lc-toggle-row__desc">Batasi lowongan ini hanya untuk perguruan tinggi tertentu</p>
+                                </div>
+                                <div class="form-control">
+                                    <input type="checkbox" class="form-control__switch" id="lc-batasi-lowongan" onchange="toggleBatasiLowongan()">
+                                    <label for="lc-batasi-lowongan" class="form-control__label-switch"><span class="check-mark"></span></label>
+                                </div>
+                            </div>
+                            <!-- Pilih Universitas (hidden by default, shown when toggle is ON) -->
+                            <div id="pilihUniversitas" style="display: none; margin-top: 0.75rem;">
+                                <label class="lc-section__label" for="lc-universitas">Pilih Universitas</label>
+                                <select class="select-default" id="lc-universitas" name="special_vacancies">
+                                    <option value="" disabled selected>Pilih perguruan tinggi...</option>
+                                    <option value="1">Demo siAkadcloud</option>
+                                    <option value="2">Universitas Airlangga</option>
+                                    <option value="3">Institut Teknologi Sepuluh Nopember</option>
+                                    <option value="4">Universitas Brawijaya</option>
+                                    <option value="5">Universitas Gadjah Mada</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 19. Action Buttons -->
+                        <div class="lc-actions">
+                            <button type="button" class="btn btn_primary" onclick="showConfirmModal()">Publish Lowongan</button>
+                            <button type="button" class="btn btn_outline">Simpan Draft</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal__backdrop" onclick="hideConfirmModal()"></div>
+        <div class="modal__dialog">
+            <div class="modal__content">
+                <div class="modal__icon">
+                    <span class="icon icon-exclamation-circle-mini" style="font-size: 2rem; color: var(--qn-warning-500);"></span>
+                </div>
+                <h3 class="modal__title">Konfirmasi Publikasi Lowongan</h3>
+                <p class="modal__desc">Apakah Anda yakin ingin mempublikasikan lowongan ini?</p>
+                <div class="modal__footer">
+                    <button type="button" class="btn btn_outline" onclick="hideConfirmModal()">Batal</button>
+                    <button type="button" class="btn btn_primary" onclick="confirmPublish()">Ya, Yakin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.select-default').forEach(el => {
+                new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+            });
+        });
+
+        // Tag input: Prodi
+        document.getElementById('lc-prodi').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && this.value.trim()) {
+                e.preventDefault();
+                addTag('prodi-tags', this.value.trim().toUpperCase());
+                this.value = '';
+            }
+        });
+
+        // Tag input: Keahlian
+        document.getElementById('lc-keahlian').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && this.value.trim()) {
+                e.preventDefault();
+                addTag('keahlian-tags', this.value.trim());
+                this.value = '';
+            }
+        });
+
+        function addTag(containerId, value) {
+            const container = document.getElementById(containerId);
+            const tag = document.createElement('span');
+            tag.className = 'tag tag_outline';
+            tag.innerHTML = value + ' <button type="button" onclick="this.parentElement.remove()">&times;</button>';
+            container.appendChild(tag);
+        }
+
+        // Confirmation Modal
+        function showConfirmModal() {
+            document.getElementById('confirmModal').classList.add('show');
+        }
+        function hideConfirmModal() {
+            document.getElementById('confirmModal').classList.remove('show');
+        }
+        function confirmPublish() {
+            window.location.href = 'company-lowongan.html';
+        }
+
+        // Toggle Batasi Lowongan - show/hide Pilih Universitas
+        function toggleBatasiLowongan() {
+            var toggle = document.getElementById('lc-batasi-lowongan');
+            document.getElementById('pilihUniversitas').style.display = toggle.checked ? 'block' : 'none';
+        }
+
+        // Poster upload (click + drag & drop)
+        const uploadArea = document.getElementById('upload-poster');
+        const inputPoster = document.getElementById('lc-poster-input');
+
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = 'var(--qn-primary-500)';
+            this.style.background = 'var(--qn-primary-50)';
+        });
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '';
+            this.style.background = '';
+        });
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '';
+            this.style.background = '';
+            const files = e.dataTransfer.files;
+            if (files.length > 0) handleFileUpload(files[0]);
+        });
+        inputPoster.addEventListener('change', function() {
+            if (this.files.length > 0) handleFileUpload(this.files[0]);
+        });
+
+        function handleFileUpload(file) {
+            if (file.size > 6 * 1024 * 1024) {
+                alert('Ukuran file melebihi 6 MB');
+                return;
+            }
+            const allowed = ['image/png', 'image/jpeg'];
+            if (!allowed.includes(file.type)) {
+                alert('Format file tidak didukung. Gunakan PNG atau JPG.');
+                return;
+            }
+            uploadArea.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;gap:0.75rem;"><span class="icon icon-check-mini" style="font-size:1.5rem;color:var(--qn-success-500);"></span><div style="text-align:left;"><p style="font-size:0.875rem;font-weight:500;color:var(--qn-neutral-700);margin:0;">' + file.name + '</p><p style="font-size:0.75rem;color:var(--qn-neutral-500);margin:0;">' + (file.size / 1024).toFixed(1) + ' KB</p></div></div>';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kegiatan Kerja Sama | KarirLink Perusahaan</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/portal-karir.css">
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (Perusahaan Mitra) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./company-beranda.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./company-beranda.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./company-lowongan.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Lowongan Saya</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <div class="dropdown dropdown_nav">
+                                <a class="nav__link" href="#" data-toggle="dropdown">
+                                    <span class="icon icon-user-group"></span>
+                                    <span>Kerja Sama</span>
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </a>
+                                <div class="dropdown__box">
+                                    <ul class="dropdown__list">
+                                        <li class="dropdown__item"><a href="./company-pencarian-mitra.html">Pencarian Mitra</a></li>
+                                        <li class="dropdown__item"><a href="./company-daftar-mitra.html">Daftar Mitra</a></li>
+                                        <li class="dropdown__item"><a href="./company-kegiatan-kerja-sama.html">Kegiatan Kerja Sama</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">PT Foxtrot</span>
+                            <span class="header__user-role">Perusahaan Mitra</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">PT Foxtrot</span><span class="avatar__subtitle">Perusahaan Mitra</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="./company-register.html"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./company-beranda.html">Beranda</a></li>
+                <li class="breadcrumb__item active"><a href="#">Kegiatan Kerja Sama</a></li>
+            </ul>
+
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Daftar Kegiatan</h1>
+                        <p class="main__subtitle">Daftar kegiatan Kerja Sama</p>
+                    </div>
+                </div>
+                <div class="main__action">
+                    <a href="./company-pengajuan-kegiatan.html" class="btn btn_primary">
+                        <span class="icon icon-plus-circle-solid"></span>
+                        <span class="btn__text">Pengajuan Kegiatan</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Success Alert -->
+            <div class="alert alert_success" id="alert-success" style="display: none; margin-bottom: 1rem; align-items: center;">
+                <div class="alert__content">
+                    <p class="alert__description">Pengajuan kegiatan berhasil dilakukan.</p>
+                </div>
+                <button type="button" class="btn btn_icon btn_sm" onclick="document.getElementById('alert-success').style.display='none'">
+                    <span class="icon icon-x-mark-mini"></span>
+                </button>
+            </div>
+
+            <!-- Content Card -->
+            <div class="card card_empty">
+                <!-- Tabs -->
+                <div class="collab-tabs">
+                    <a href="#" class="collab-tabs__item active">
+                        <span class="icon icon-calendar"></span>
+                        <span>Semua Kegiatan</span>
+                    </a>
+                    <a href="#" class="collab-tabs__item">
+                        <span class="icon icon-inbox"></span>
+                        <span>Permintaan Kegiatan</span>
+                    </a>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="dashboard-filter" style="border-bottom: 1px solid var(--qn-neutral-200);">
+                    <div class="grid">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <span data-input-icon="search"></span>
+                                    <input type="search" class="form-control__input" placeholder="Cari nama mitra...">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <select class="select-default" id="filter-jenis-kegiatan">
+                                <option value="" selected>Semua Kegiatan</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table class="table table-collab">
+                        <thead>
+                            <tr>
+                                <th>Tanggal Kegiatan</th>
+                                <th>Jenis Kegiatan Kerja Sama</th>
+                                <th>Mitra yang Mengajukan</th>
+                                <th>Mitra Tujuan</th>
+                                <th>Nama PIC</th>
+                                <th>Kontak PIC</th>
+                                <th>Status Pengajuan</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="white-space: nowrap;">20 Jul 2026 - 23 Jul 2026</td>
+                                <td>Kunjungan Industri</td>
+                                <td style="font-weight: 600;">PT Foxtrot</td>
+                                <td>Testing Foxtrot</td>
+                                <td>Admin Fox 3</td>
+                                <td>
+                                    <div class="contact-cell">
+                                        <span><span class="icon icon-envelope"></span> admfox3@yopmail.com</span>
+                                        <span><span class="icon icon-phone"></span> -</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="status-badge status-badge_warning">
+                                        <span class="status-badge__dot"></span>
+                                        <span>Menunggu Persetujuan Mitra</span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="action-buttons">
+                                        <button class="btn btn_outline btn_sm">
+                                            <span class="icon icon-eye"></span> Detail
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.select-default').forEach(el => {
+                new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+            });
+        });
+
+        // Check URL for success param
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('success') === '1') {
+                document.getElementById('alert-success').style.display = 'flex';
+                window.history.replaceState({}, '', window.location.pathname);
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/a/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aktivitas Lamaran Alumni | KarirLink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/portal-karir.css">
+
+    <!-- Chart.js (Top 5 Perusahaan Tujuan) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* KPI stat tiles (pattern borrowed from portal-karir.html's .pk-stat) */
+        .aa-stat { display: flex; flex-direction: column; gap: 0.375rem; padding: 1rem 1.125rem; }
+        .aa-stat__top { display: flex; align-items: center; gap: 0.5rem; }
+        .aa-stat__icon { font-size: 1.125rem; color: var(--qn-primary-500); }
+        .aa-stat__value { font-size: 1.5rem; font-weight: 700; color: var(--qn-neutral-900); line-height: 1; }
+        .aa-stat__label { font-size: 0.75rem; color: var(--qn-neutral-500); }
+        .aa-stat_warning { background: var(--qn-warning-50); border-color: var(--qn-warning-200); }
+        .aa-stat_warning .aa-stat__icon, .aa-stat_warning .aa-stat__value { color: var(--qn-warning-600); }
+        .aa-stat_success { background: var(--qn-success-50); border-color: var(--qn-success-200); }
+        .aa-stat_success .aa-stat__icon, .aa-stat_success .aa-stat__value { color: var(--qn-success-600); }
+        .aa-stat_danger { background: var(--qn-danger-50); border-color: var(--qn-danger-200); }
+        .aa-stat_danger .aa-stat__icon, .aa-stat_danger .aa-stat__value { color: var(--qn-danger-600); }
+
+        /* Hand-drawn stacked bar trend chart (kept as CSS bars: source data mixes an
+           unlabelled 4th color into the Jul column that doesn't match the legend,
+           so re-deriving it as real Chart.js series risks inventing numbers that
+           aren't actually in the mockup - safer to preserve the bars verbatim). */
+        .aa-trend { display: flex; align-items: flex-end; gap: 1rem; height: 11rem; border-bottom: 1px solid var(--qn-neutral-200); border-left: 1px solid var(--qn-neutral-200); padding: 0.5rem 0 0.5rem 2rem; position: relative; }
+        .aa-trend__axis { position: absolute; left: 0; font-size: 0.6875rem; color: var(--qn-neutral-400); }
+        .aa-trend__col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; position: relative; }
+        .aa-trend__bars { display: flex; flex-direction: column; width: 1.5rem; }
+        .aa-trend__month { font-size: 0.75rem; color: var(--qn-neutral-400); margin-top: 0.5rem; }
+        .aa-trend__tooltip { display: none; position: absolute; bottom: calc(100% + 0.5rem); left: 50%; transform: translateX(-50%); background: var(--qn-neutral-800); color: white; font-size: 0.75rem; border-radius: 0.375rem; padding: 0.5rem 0.75rem; white-space: nowrap; z-index: 10; box-shadow: var(--qn-shadow-md, 0 4px 10px rgba(0,0,0,0.15)); }
+        .aa-trend__col:hover .aa-trend__tooltip { display: block; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (navbar Portal Karir) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./portal-karir.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./portal-karir.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lowongan.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Lowongan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./event.html">
+                                <span class="icon icon-calendar"></span>
+                                <span>Event</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./kerja-sama.html">
+                                <span class="icon icon-user-group"></span>
+                                <span>Kerja Sama</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./perusahaan.html">
+                                <span class="icon icon-building-office"></span>
+                                <span>Perusahaan Mitra</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification"><span class="icon icon-bell"></span></button>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./index.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-tracer-study">
+                        Tracer Study
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Admin Karirlink</span><span class="avatar__subtitle">admin@university.ac.id</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./portal-karir.html">Beranda</a></li>
+                <li class="breadcrumb__item active"><a href="#">Aktivitas Lamaran Alumni</a></li>
+            </ul>
+
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <a href="./portal-karir.html" class="link link_back" style="color: var(--qn-neutral-500);"><span class="icon icon-arrow-left-mini" style="font-size: 1.25rem;"></span></a>
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Aktivitas Lamaran Alumni</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Card -->
+            <div class="card">
+                <div class="card__body">
+                    <div class="grid">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <label class="form-control__label" style="font-size: 0.75rem; color: var(--qn-neutral-500); margin-bottom: 0.25rem; display: block;">Periode</label>
+                            <select class="select-default">
+                                <option>Semua Periode</option>
+                                <option>Juni 2026</option>
+                                <option>Mei 2026</option>
+                                <option>April 2026</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <label class="form-control__label" style="font-size: 0.75rem; color: var(--qn-neutral-500); margin-bottom: 0.25rem; display: block;">Program Studi</label>
+                            <select class="select-default">
+                                <option>Semua Program Studi</option>
+                                <option>Akuntansi</option>
+                                <option>Teknik Informatika</option>
+                                <option>Sistem Informasi</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <label class="form-control__label" style="font-size: 0.75rem; color: var(--qn-neutral-500); margin-bottom: 0.25rem; display: block;">Status Lamaran</label>
+                            <select class="select-default">
+                                <option>Semua Status</option>
+                                <option>Menunggu</option>
+                                <option>Dalam Proses</option>
+                                <option>Diterima</option>
+                                <option>Ditolak</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <label class="form-control__label" style="font-size: 0.75rem; color: var(--qn-neutral-500); margin-bottom: 0.25rem; display: block;">Perusahaan</label>
+                            <select class="select-default">
+                                <option>Semua Perusahaan</option>
+                                <option>PT Tes Dimas</option>
+                                <option>PT Karirlink</option>
+                                <option>Fore Coffee</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
+                        <button class="btn btn_outline">Reset</button>
+                        <button class="btn btn_primary">Terapkan Filter</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Stats (6 tiles) -->
+            <div class="grid" style="margin-top: 1rem;">
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="card aa-stat">
+                        <div class="aa-stat__top">
+                            <span class="icon icon-document-text aa-stat__icon"></span>
+                            <span class="aa-stat__value">44</span>
+                        </div>
+                        <span class="aa-stat__label">Total Lamaran</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="card aa-stat">
+                        <div class="aa-stat__top">
+                            <span class="icon icon-user-group aa-stat__icon"></span>
+                            <span class="aa-stat__value">9</span>
+                        </div>
+                        <span class="aa-stat__label">Alumni Melamar</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="card aa-stat">
+                        <div class="aa-stat__top">
+                            <span class="icon icon-clock aa-stat__icon" style="color: var(--qn-neutral-400);"></span>
+                            <span class="aa-stat__value">2</span>
+                        </div>
+                        <span class="aa-stat__label">Menunggu</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="card aa-stat aa-stat_warning">
+                        <div class="aa-stat__top">
+                            <span class="icon icon-exclamation-triangle aa-stat__icon"></span>
+                            <span class="aa-stat__value">22</span>
+                        </div>
+                        <span class="aa-stat__label">Dalam Proses</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="card aa-stat aa-stat_success">
+                        <div class="aa-stat__top">
+                            <span class="icon icon-check-circle aa-stat__icon"></span>
+                            <span class="aa-stat__value">1</span>
+                        </div>
+                        <span class="aa-stat__label">Diterima</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="card aa-stat aa-stat_danger">
+                        <div class="aa-stat__top">
+                            <span class="icon icon-x-circle aa-stat__icon"></span>
+                            <span class="aa-stat__value">19</span>
+                        </div>
+                        <span class="aa-stat__label">Ditolak</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="grid dashboard-grid" style="margin-top: 1rem;">
+                <!-- Tren Lamaran per Bulan -->
+                <div class="col-12 col-lg-6">
+                    <div class="card card_dashboard">
+                        <div class="card__header">
+                            <h3 class="card__title">Tren Lamaran per Bulan</h3>
+                            <p style="font-size: 0.75rem; color: var(--qn-neutral-400); margin: 0.125rem 0 0;">6 bulan terakhir</p>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-legend">
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #86efac;"></span><span class="chart-legend__text">Diterima</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #fcd34d;"></span><span class="chart-legend__text">Dalam Proses</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #f87171;"></span><span class="chart-legend__text">Ditolak</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #d1d5db;"></span><span class="chart-legend__text">Menunggu</span></div>
+                            </div>
+                            <div class="aa-trend">
+                                <span class="aa-trend__axis" style="bottom: 0.5rem;">0</span>
+                                <span class="aa-trend__axis" style="bottom: 33%;">1</span>
+                                <span class="aa-trend__axis" style="bottom: 66%;">2</span>
+                                <span class="aa-trend__axis" style="top: 0.5rem;">3</span>
+
+                                <div class="aa-trend__col">
+                                    <div class="aa-trend__bars"></div>
+                                    <span class="aa-trend__month">Feb</span>
+                                </div>
+                                <div class="aa-trend__col">
+                                    <div class="aa-trend__bars"></div>
+                                    <span class="aa-trend__month">Mar</span>
+                                </div>
+                                <div class="aa-trend__col">
+                                    <div class="aa-trend__bars"></div>
+                                    <span class="aa-trend__month">Apr</span>
+                                </div>
+                                <div class="aa-trend__col">
+                                    <div class="aa-trend__tooltip"><strong>Mei</strong><br>■ Dalam Proses: 1</div>
+                                    <div class="aa-trend__bars">
+                                        <div style="height: 16px; background: #fcd34d; border-radius: 4px 4px 0 0;"></div>
+                                    </div>
+                                    <span class="aa-trend__month">Mei</span>
+                                </div>
+                                <div class="aa-trend__col">
+                                    <div class="aa-trend__tooltip"><strong>Jun</strong><br>■ Dalam Proses: 1<br>■ Ditolak: 3<br>■ Menunggu: 1</div>
+                                    <div class="aa-trend__bars">
+                                        <div style="height: 8px; background: #d1d5db; border-radius: 4px 4px 0 0;"></div>
+                                        <div style="height: 48px; background: #f87171;"></div>
+                                        <div style="height: 16px; background: #fcd34d;"></div>
+                                    </div>
+                                    <span class="aa-trend__month">Jun</span>
+                                </div>
+                                <div class="aa-trend__col">
+                                    <div class="aa-trend__tooltip"><strong>Jul</strong><br>■ Dalam Proses: 5<br>■ Ditolak: 1<br>■ Menunggu: 1</div>
+                                    <div class="aa-trend__bars">
+                                        <div style="height: 8px; background: #d1d5db; border-radius: 4px 4px 0 0;"></div>
+                                        <div style="height: 80px; background: var(--qn-primary-500);"></div>
+                                        <div style="height: 8px; background: #86efac;"></div>
+                                    </div>
+                                    <span class="aa-trend__month">Jul</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top 5 Perusahaan Tujuan -->
+                <div class="col-12 col-lg-6">
+                    <div class="card card_dashboard">
+                        <div class="card__header">
+                            <h3 class="card__title">Top 5 Perusahaan Tujuan</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container chart-container_bar chart-container_wide">
+                                <canvas id="chart-top5-perusahaan"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daftar Lamaran Alumni Table -->
+            <div class="card card_empty" style="margin-top: 1rem;">
+                <div class="dashboard-filter" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--qn-neutral-200);">
+                    <h3 class="card__title" style="margin: 0;">Daftar Lamaran Alumni</h3>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <button class="btn btn_outline btn_sm">
+                            <span class="icon icon-arrow-down-tray-mini"></span>
+                            <span class="btn__text">Ekspor</span>
+                        </button>
+                        <div class="form-control">
+                            <div class="form-control__group">
+                                <span data-input-icon="search"></span>
+                                <input type="search" class="form-control__input" placeholder="Cari nama, NIM, atau perusahaan...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Alumni</th>
+                                <th>Program Studi</th>
+                                <th>Perusahaan</th>
+                                <th>Posisi</th>
+                                <th>Tanggal Melamar</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>Foxtrot Test Test</strong><br><span style="font-size: 0.75rem; color: var(--qn-neutral-400);">NIM: -</span></td>
+                                <td>-</td>
+                                <td>PT Tes Dimas</td>
+                                <td>Corporis odio unde illum necessitatibus aute dolorem quam a</td>
+                                <td style="white-space: nowrap;">07 Jul 2026</td>
+                                <td><span style="font-size: 0.75rem; font-weight: 500; color: var(--qn-warning-600);">Menunggu</span></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>Muhammad Nur</strong><br><span style="font-size: 0.75rem; color: var(--qn-neutral-400);">NIM: 123456</span></td>
+                                <td>Teknik Informatika</td>
+                                <td>PT Karirlink</td>
+                                <td>Software Engineer</td>
+                                <td style="white-space: nowrap;">05 Jul 2026</td>
+                                <td><span style="font-size: 0.75rem; font-weight: 500; color: var(--qn-danger-500);">Ditolak</span></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>Henni</strong><br><span style="font-size: 0.75rem; color: var(--qn-neutral-400);">NIM: 3700412023</span></td>
+                                <td>S1 - Akuntansi</td>
+                                <td>Fore Coffee</td>
+                                <td>Barista</td>
+                                <td style="white-space: nowrap;">03 Jul 2026</td>
+                                <td><span style="font-size: 0.75rem; font-weight: 500; color: var(--qn-primary-500);">Dalam Proses</span></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>Ruka Babymon</strong><br><span style="font-size: 0.75rem; color: var(--qn-neutral-400);">NIM: 00000010122</span></td>
+                                <td>S1 - Akuntansi</td>
+                                <td>PT DEWASUTRATEX</td>
+                                <td>Accounting Staff</td>
+                                <td style="white-space: nowrap;">01 Jul 2026</td>
+                                <td><span style="font-size: 0.75rem; font-weight: 500; color: var(--qn-success-600);">Diterima</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <div class="pagination-wrapper" style="display: flex; align-items: center; justify-content: space-between;">
+                    <span class="pagination__info">Menampilkan 1-4 dari 44 data</span>
+                    <nav class="pagination">
+                        <button class="pagination__btn" disabled><span class="icon icon-chevron-left-mini"></span></button>
+                        <button class="pagination__btn active">1</button>
+                        <button class="pagination__btn">2</button>
+                        <button class="pagination__btn">3</button>
+                        <span style="padding: 0 0.25rem; color: var(--qn-neutral-400);">...</span>
+                        <button class="pagination__btn">11</button>
+                        <button class="pagination__btn"><span class="icon icon-chevron-right-mini"></span></button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2026 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.select-default').forEach(el => {
+                new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+            });
+
+            new Chart(document.getElementById('chart-top5-perusahaan'), {
+                type: 'bar',
+                data: {
+                    labels: ['PT Tes Dimas', 'PT Karirlink', 'Fore Coffee', 'PT DEWASUTRATEX'],
+                    datasets: [{
+                        data: [2, 2, 1, 1],
+                        backgroundColor: '#294A9A',
+                        borderWidth: 0,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { beginAtZero: true, max: 2, ticks: { stepSize: 1 } },
+                        y: { grid: { display: false } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

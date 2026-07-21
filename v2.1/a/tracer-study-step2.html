@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/a/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Alumni | Pengisian Tracer Study | Karirlink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <style>
+        body { background: var(--qn-neutral-50); }
+
+        /* Public tracer-study branding bar (page-local: no Quantum equivalent for this unauthenticated portal header) */
+        .ts-header { position: sticky; top: 0; z-index: 50; background: white; border-bottom: 1px solid var(--qn-neutral-200); padding: 0.75rem 1rem; }
+        .ts-header__inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 0.75rem; }
+        .ts-header__logo { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid var(--qn-neutral-200); object-fit: cover; }
+        .ts-header__info p { margin: 0; }
+        .ts-header__info p:first-child { font-size: 0.875rem; color: var(--qn-neutral-500); }
+        .ts-header__info p:last-child { font-weight: 500; color: var(--qn-neutral-800); }
+
+        /* Footer */
+        .ts-footer { background: var(--qn-primary-700); padding: 1rem; text-align: center; }
+        .ts-footer p { color: white; font-size: 0.875rem; margin: 0; }
+        .ts-footer a { color: white; text-decoration: underline; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- Header -->
+    <header class="ts-header">
+        <div class="ts-header__inner">
+            <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo" class="ts-header__logo">
+            <div class="ts-header__info">
+                <p>Portal Alumni dan Pusat Karir</p>
+                <p>Demo siAkadcloud</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container" style="max-width: 50rem;">
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <a href="./tracer-study-step1.html" class="link link_back" style="color: var(--qn-neutral-500);"><span class="icon icon-arrow-left-mini" style="font-size: 1.25rem;"></span></a>
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Daftar Alumni</h1>
+                        <p class="main__subtitle">Lulusan 2025 &bull; S1 - Akuntansi - S1</p>
+                        <p class="main__subtitle" style="margin-top: 0.5rem;">
+                            <span class="tag tag_outline" title="Wave / Periode Survei">
+                                <span class="icon icon-clock-mini"></span>
+                                Wave (Terdeteksi Otomatis): GS-I
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="main__action">
+                    <div class="form-control">
+                        <div class="form-control__group">
+                            <input type="search" class="form-control__input" placeholder="Cari nama alumni">
+                            <button class="btn btn_primary btn_icon" style="border-radius: 0 0.375rem 0.375rem 0;">
+                                <span class="icon icon-magnifying-glass-mini"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>NIM</th>
+                            <th>Nama Lengkap</th>
+                            <th>Status Pengisian</th>
+                            <th>Link Pengisian</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>3700412023</td>
+                            <td>Henni</td>
+                            <td><span class="tag tag_danger">Belum Mengisi</span></td>
+                            <td><a href="./tracer-study-verify.html" class="link">Isi Kuesioner</a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>00000010122</td>
+                            <td>Ruka Babymon</td>
+                            <td><span class="tag tag_danger">Belum Mengisi</span></td>
+                            <td><a href="./tracer-study-verify.html" class="link">Isi Kuesioner</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-wrapper">
+                <nav class="pagination">
+                    <button class="pagination__btn" disabled><span class="icon icon-chevron-left-mini"></span></button>
+                    <span class="pagination__info">Menampilkan 1-2 dari 2 Data</span>
+                    <button class="pagination__btn" disabled><span class="icon icon-chevron-right-mini"></span></button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="ts-footer">
+            <p>© 2026 <a href="https://sevima.com">SEVIMA</a> All Right Reserved, Powered by <a href="https://karirlink.id">Karirlink</a></p>
+        </footer>
+    </main>
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.select-default').forEach(el => {
+                new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+            });
+        });
+    </script>
+</body>
+</html>

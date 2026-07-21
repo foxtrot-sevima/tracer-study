@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Beranda | KarirLink Perusahaan</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/portal-karir.css">
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (Perusahaan Mitra) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./company-beranda.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./company-beranda.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./company-lowongan.html">
+                                <span class="icon icon-sparkles"></span>
+                                <span>Lowongan Saya</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <div class="dropdown dropdown_nav">
+                                <a class="nav__link" href="#" data-toggle="dropdown">
+                                    <span class="icon icon-user-group"></span>
+                                    <span>Kerja Sama</span>
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </a>
+                                <div class="dropdown__box">
+                                    <ul class="dropdown__list">
+                                        <li class="dropdown__item"><a href="./company-pencarian-mitra.html">Pencarian Mitra</a></li>
+                                        <li class="dropdown__item"><a href="./company-daftar-mitra.html">Daftar Mitra</a></li>
+                                        <li class="dropdown__item"><a href="./company-kegiatan-kerja-sama.html">Kegiatan Kerja Sama</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">PT Foxtrot</span>
+                            <span class="header__user-role">Perusahaan Mitra</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">PT Foxtrot</span><span class="avatar__subtitle">Perusahaan Mitra</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="./company-register.html"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Beranda</h1>
+                        <p class="main__subtitle">Kelola profil dan aktivitas PT Foxtrot di KarirLink</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid" style="gap: 1rem;">
+                <!-- Sidebar -->
+                <div class="col-12 col-lg-4">
+                    <!-- Profile Card -->
+                    <div class="card">
+                        <div class="card__body" style="text-align: center;">
+                            <span class="avatar avatar_lg" style="margin: 0 auto 1rem; display: inline-flex;">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="PT Foxtrot">
+                            </span>
+                            <h3 style="font-size: 1.125rem; font-weight: 600; margin: 0 0 0.25rem;">PT Foxtrot</h3>
+                            <p style="font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 1rem;">Perusahaan Mitra</p>
+                            <div class="grid" style="gap: 0.5rem;">
+                                <div class="col-6">
+                                    <div class="stat-item">
+                                        <span class="stat-item__label">Pengikut</span>
+                                        <span class="stat-item__value">0</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="stat-item">
+                                        <span class="stat-item__label">Diikuti</span>
+                                        <span class="stat-item__value">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card__footer" style="justify-content: center; flex-direction: column; gap: 0.125rem;">
+                            <span style="font-size: 0.75rem; color: var(--qn-neutral-500); text-transform: uppercase; letter-spacing: 0.05em;">Lowongan Aktif</span>
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--qn-primary-400);">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Lowongan Anda Card -->
+                    <div class="card" style="margin-top: 1rem;">
+                        <div class="card__header">
+                            <h3 class="card__title">Lowongan Anda</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="empty-state">
+                                <span class="icon icon-sparkles" style="font-size: 3rem; color: var(--qn-neutral-400);"></span>
+                                <p class="empty-state__desc">Anda belum membuat lowongan</p>
+                            </div>
+                        </div>
+                        <div class="card__footer" style="justify-content: center;">
+                            <a href="./company-lowongan.html" class="link link_primary">
+                                Lihat Semua
+                                <span class="icon icon-chevron-right-mini"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Feed -->
+                <div class="col-12 col-lg-8">
+                    <!-- Bagikan Sesuatu -->
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title">Bagikan Sesuatu</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <input type="text" class="form-control__input" placeholder="Apa yang ingin Anda bagikan di Beranda?" readonly>
+                                </div>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <a href="./company-lowongan-create.html" class="btn btn_outline btn_sm">
+                                    <span class="icon icon-briefcase-mini"></span>
+                                    <span class="btn__text">Buat Lowongan</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feed Post -->
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card__body">
+                            <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <span class="avatar avatar_sm">
+                                        <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="KarirLink">
+                                    </span>
+                                    <div>
+                                        <p style="font-weight: 600; margin: 0;">KarirLink</p>
+                                        <p style="font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0;">Get Job Easy! &middot; 2 tahun yang lalu</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn_icon btn_outline btn_sm">
+                                    <span class="icon icon-ellipsis-vertical"></span>
+                                </button>
+                            </div>
+                            <p style="margin: 1rem 0; font-size: 0.875rem; color: var(--qn-neutral-700); line-height: 1.6;">
+                                Temukan peluang magang terbaik untuk mahasiswa dan fresh graduate! Ratusan perusahaan membuka program internship di berbagai bidang. Kunjungi KarirLink untuk menemukan kesempatan magang yang sesuai dengan passion-mu.
+                                <a href="#" class="link link_primary">#MagangIndonesia</a>
+                                <a href="#" class="link link_primary">#Internship</a>
+                                <a href="#" class="link link_primary">#KarirLink</a>
+                            </p>
+                            <div style="display: flex; gap: 1rem; font-size: 0.75rem; color: var(--qn-neutral-500);">
+                                <span>2 suka</span>
+                                <span>1 komentar</span>
+                            </div>
+                        </div>
+                        <div class="card__footer" style="justify-content: space-around; gap: 0.5rem;">
+                            <button class="btn btn_outline btn_sm btn_block">Suka</button>
+                            <button class="btn btn_outline btn_sm btn_block">Komentar</button>
+                            <button class="btn btn_outline btn_sm btn_block">Bagikan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+</body>
+</html>
