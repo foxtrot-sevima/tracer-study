@@ -57,7 +57,6 @@
     <div class="ab-page">
         <div class="ab-header">
             <img src="a/assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink">
-            <p class="ab-header__ticket">FOX-983 · A/B Test Prototype</p>
             <h1>Perbandingan Alur Tracer Study</h1>
             <p>
                 Piloting untuk menyederhanakan skema Tracer Study dari model saat ini (Admin membuat banyak kuesioner terpisah per angkatan/gelombang)
@@ -73,11 +72,13 @@
                 <h2>Alur Sederhana</h2>
                 <p class="ab-card__tagline">Sekali isi, seminimal mungkin langkah admin</p>
                 <p class="ab-card__desc">
-                    Admin membuat 1 kuesioner berbasis tahun lulus (Save as Template). Alumni akses via Gate/karirlink.id,
+                    Admin klik "Susun Kuesioner" langsung masuk ke Template Builder - tidak ada langkah pilih template (hanya 1 template: Lengkap).
+                    Pertanyaan berasal dari bank soal Core/Optional, bukan diketik manual. Alumni akses via Gate/karirlink.id,
                     sistem otomatis mengarahkan ke grup sesuai tahun lulus (G1/G2/Exit), lalu isi kuesioner step-by-step via Wizard.
                 </p>
                 <ul>
-                    <li>Tidak ada Template Version maupun Campaign - susun, simpan, kirim (3 langkah)</li>
+                    <li>Bank soal Core (terkunci, wajib, tidak bisa dimatikan) + Optional (redaksi baku, admin tinggal toggle on/off) - tidak ada pertanyaan freetext/manual</li>
+                    <li>Tidak ada langkah pilih template - "Susun Kuesioner" langsung ke Template Builder</li>
                     <li>Wave dihitung otomatis dari tahun lulus, read-only</li>
                     <li>Tidak ada opsi edit setelah submit (terminal, terkunci)</li>
                 </ul>
@@ -96,11 +97,11 @@
                 <h2>Alumni Dapat Isi Kembali/Edit</h2>
                 <p class="ab-card__tagline">Data selalu up-to-date, admin tetap punya kontrol granular</p>
                 <p class="ab-card__desc">
-                    Sisi admin tetap seperti fitur asli /v2/ (Template Version + Campaign per institusi+wave+cohort_year, tanpa perubahan).
+                    Admin menyusun Template Version dan mengirimkannya lewat Campaign yang dikelola per institusi, wave, dan cohort_year (tidak berubah dari sekarang).
                     Satu-satunya perubahan ada di sisi alumni: alumni bisa melihat riwayat pengisian dan mengedit/mengisi kembali response yang sudah pernah dikirim.
                 </p>
                 <ul>
-                    <li>Sisi admin identik dengan /v2/ (Template Version + Campaign, tidak diubah)</li>
+                    <li>Admin tetap mengelola Template Version + Campaign per institusi/wave/cohort_year, tidak ada perubahan di sisi admin</li>
                     <li>Alumni punya halaman Riwayat Pengisian lintas wave</li>
                     <li>"Edit Jawaban" tersedia selama campaign masih aktif</li>
                 </ul>
@@ -130,6 +131,20 @@
                     <p>Formula nim/cohort_year → wave, dan status "sudah pernah isi vs belum pernah isi" untuk kedua skenario.</p>
                 </div>
             </div>
+            <div class="ab-docs__row">
+                <span class="ab-docs__row-icon"><span class="icon icon-clipboard-document-list-mini"></span></span>
+                <div>
+                    <a href="../docs/about-tracer/Konsep-Pertanyaan-Core-Optional-Specific-untuk-Template-Quisioner.md">Konsep Bank Soal Core/Optional/Specific</a>
+                    <p>Dasar konsep bank soal (Core terkunci, Optional toggle on/off, tidak ada freetext) yang dipakai di Template Builder Skenario A.</p>
+                </div>
+            </div>
+            <div class="ab-docs__row">
+                <span class="ab-docs__row-icon"><span class="icon icon-table-cells-mini"></span></span>
+                <div>
+                    <a href="../docs/about-tracer/Pemetaan%20Pertanyaan%20Core%20vs%20Optional%20(Draft%20Seed%20Data).md">Pemetaan Pertanyaan Core vs Optional (Draft Seed Data)</a>
+                    <p>Daftar konkret pertanyaan yang dipakai sebagai seed data bank soal di Template Builder Skenario A.</p>
+                </div>
+            </div>
         </div>
 
         <div class="ab-table-wrap">
@@ -145,8 +160,13 @@
                 <tbody>
                     <tr>
                         <td>Konsep Admin</td>
-                        <td>Kuesioner (1 langkah gabungan)</td>
-                        <td>Identik dengan /v2/ (Template Version + Campaign, tidak diubah)</td>
+                        <td>Susun Kuesioner langsung ke Template Builder, tidak ada langkah pilih template</td>
+                        <td>Template Version + Campaign per institusi/wave/cohort_year (tidak diubah)</td>
+                    </tr>
+                    <tr>
+                        <td>Sumber pertanyaan</td>
+                        <td>Bank soal Core (terkunci) + Optional (toggle on/off) - tidak ada freetext</td>
+                        <td>Bebas ditulis admin (freetext)</td>
                     </tr>
                     <tr>
                         <td>Penentuan Wave</td>

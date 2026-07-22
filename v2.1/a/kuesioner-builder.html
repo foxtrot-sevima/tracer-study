@@ -21,11 +21,7 @@
         .section-item.active { border-width: 2px; }
         .section-item__number { width: 1.5rem; height: 1.5rem; display: flex; align-items: center; justify-content: center; background: var(--qn-primary-500); color: white; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600; flex-shrink: 0; }
         .section-item__name { flex: 1; font-size: 0.8125rem; font-weight: 500; color: var(--qn-neutral-800); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
-        .section-item__delete { padding: 0.25rem; cursor: pointer; color: var(--qn-neutral-400); flex-shrink: 0; }
-        .section-item__delete:hover { color: var(--qn-danger-500); }
-        .btn-add-section { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.75rem; background: var(--qn-primary-500); color: white; border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; }
-        .btn-add-section:hover { background: var(--qn-primary-600); }
-        
+
         .title-input { font-size: 1.5rem; font-weight: 600; border: none; width: 100%; padding: 0; margin-bottom: 1.5rem; outline: none; }
         .title-input:focus { border-bottom: 2px solid var(--qn-primary-500); }
         .title-input::placeholder { color: var(--qn-neutral-400); }
@@ -69,15 +65,6 @@
         .q-tier-badge { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.1875rem 0.5rem; border-radius: 0.25rem; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; flex-shrink: 0; white-space: nowrap; }
         .q-tier-badge--core { background: #dcfce7; color: #16a34a; }
         .q-tier-badge--optional { background: var(--qn-primary-100); color: var(--qn-primary-600); }
-        .q-regulator-tags { margin: 0 0 0.5rem 2.25rem; display: flex; gap: 0.375rem; flex-wrap: wrap; }
-
-        .bank-panel { margin-top: 1rem; border: 1px dashed var(--qn-neutral-300); border-radius: 0.5rem; padding: 1rem; }
-        .bank-panel__title { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-600); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 0.75rem; }
-        .bank-item { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.625rem 0; border-bottom: 1px solid var(--qn-neutral-100); }
-        .bank-item:last-child { border-bottom: none; }
-        .bank-item__text { font-size: 0.875rem; color: var(--qn-neutral-700); }
-        .bank-item__tags { display: flex; gap: 0.25rem; margin-top: 0.25rem; }
-        .bank-empty { font-size: 0.8125rem; color: var(--qn-neutral-400); text-align: center; padding: 0.5rem 0; }
 
         /* Toggle Switch */
         .toggle-switch { position: relative; width: 2.5rem; height: 1.25rem; }
@@ -225,9 +212,6 @@
                     <div class="form-control__label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">Bagian Kuesioner <span class="important">*</span></div>
 
                     <div class="section-list" id="sectionList"></div>
-                    <button class="btn-add-section" onclick="addSection()">
-                        <span class="icon icon-plus-mini"></span> Tambah Bagian
-                    </button>
                 </div>
 
                 <!-- Main Content -->
@@ -260,21 +244,6 @@
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
 
     <script>
-    // =====================================================
-    // Bank Soal: label regulator + pool Optional yang belum
-    // ditambahkan ke section manapun (lihat renderBankPanel)
-    // =====================================================
-    const REGULATOR_LABELS = { kemdikbud: 'Kemdikbud', kemenkes: 'Kemenkes', ikuptn: 'IKU PTN', banpt: 'BAN-PT', lam: 'LAM' };
-
-    let bankPool = [
-        { id: 101, tier: 'optional', text: 'Berapa yang merespons lamaran Anda?', type: 'number', regulatorTags: ['kemdikbud'], required: false },
-        { id: 102, tier: 'optional', text: 'Berapa yang mengundang wawancara?', type: 'number', regulatorTags: ['kemdikbud'], required: false },
-        { id: 103, tier: 'optional', text: 'Jika pekerjaan tidak sesuai pendidikan, mengapa Anda mengambilnya?', type: 'textarea', regulatorTags: ['kemdikbud'], required: false },
-        { id: 104, tier: 'optional', text: 'Apakah Anda memiliki sertifikat kompetensi/profesi di bidang kesehatan?', type: 'radio', options: ['Ya', 'Tidak'], regulatorTags: ['kemenkes'], required: false },
-        { id: 105, tier: 'optional', text: 'Seberapa besar otonomi/kebebasan dalam pekerjaan Anda saat ini?', type: 'scale', regulatorTags: ['banpt', 'lam'], required: false },
-        { id: 106, tier: 'optional', text: 'Seberapa puas Anda dengan pekerjaan saat ini secara keseluruhan?', type: 'scale', regulatorTags: ['banpt', 'lam'], required: false }
-    ];
-
     function escapeHtml(str) {
         return String(str == null ? '' : str).replace(/[&<>"']/g, function (c) {
             return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -285,7 +254,20 @@
     // Data Model — tiap question adalah baris dari bank soal:
     // tier: 'core' (fixed, selalu aktif, tidak bisa diedit/dinonaktifkan)
     //     | 'optional' (fixed, admin cuma toggle aktif/nonaktif via `active`)
-    // regulatorTags cuma dipakai utk label/filter Optional, bukan penentu tier.
+    // regulatorTags cuma dipakai utk label "Relevan untuk", bukan penentu tier.
+    //
+    // Isi & tier persis dari docs/about-tracer/Pemetaan Pertanyaan Core vs
+    // Optional (Draft Seed Data).md bagian 2, 3, 4, 6 -- hanya 3 pertanyaan
+    // survei yang benar-benar Core (Status/Kompetensi/Metode Pembelajaran),
+    // sisanya (17 item: 8 tag kemdikbud, 4 gap, 5 enrichment) satu bank
+    // Optional yang sama, dikelompokkan disini per section status transisi
+    // kerja (Bekerja/Wiraswasta/Melanjutkan Pendidikan/Belum Bekerja) sesuai
+    // Konsep Pertanyaan bagian 7.2 (gate question -> section optional).
+    //
+    // Default aktif Optional: HANYA yang tag "kemdikbud" default ON (item
+    // yang sudah dikonfirmasi wajib laporan Kemdikbud); sisanya (gap/
+    // enrichment/transisi, belum terverifikasi masuk instrumen resmi) default
+    // OFF -- lihat normalizeOptionalDefaults() di bawah.
     // =====================================================
     let data = {
         title: '',
@@ -302,67 +284,87 @@
             {
                 id: 2, name: 'Informasi Umum',
                 questions: [
-                    { id: 5, tier: 'core', text: 'Status Anda saat ini?', type: 'checkbox', required: true, options: ['Bekerja (full time / part time)', 'Wiraswasta (Wirausaha)', 'Melanjutkan pendidikan', 'Tidak kerja, tetapi sedang mencari kerja', 'Belum memungkinkan bekerja'] },
+                    { id: 5, tier: 'core', text: 'Jelaskan status Anda saat ini?', type: 'checkbox', required: true, options: ['Bekerja (full time / part time)', 'Wiraswasta (Wirausaha)', 'Melanjutkan pendidikan', 'Tidak kerja, tetapi sedang mencari kerja', 'Belum memungkinkan bekerja'] },
                     { id: 6, tier: 'core', text: 'Dari status yang dipilih, mana status utama Anda? (kalau memilih lebih dari satu)', type: 'radio', required: true, options: ['Sesuai status yang dicentang di atas'] },
-                    { id: 7, tier: 'optional', active: false, regulatorTags: ['kemdikbud'], text: 'Sumber dana apa yang Anda gunakan untuk membiayai kuliah?', type: 'radio', required: true, options: ['Biaya Sendiri/Keluarga', 'Beasiswa ADIK', 'BIDIKMISI', 'PPA'] },
-                    { id: 8, tier: 'optional', active: false, regulatorTags: ['kemdikbud'], text: 'Kapan Anda mulai mencari pekerjaan?', type: 'text', required: false },
-                    { id: 9, tier: 'optional', active: false, regulatorTags: ['kemdikbud'], text: 'Bagaimana cara Anda mencari pekerjaan?', type: 'text', required: false },
-                    { id: 10, tier: 'optional', active: false, regulatorTags: ['kemdikbud'], text: 'Berapa perusahaan yang sudah Anda lamar?', type: 'number', required: false },
-                    { id: 11, tier: 'optional', active: false, regulatorTags: ['kemenkes'], text: 'Apakah Anda bekerja di fasilitas kesehatan?', type: 'radio', required: false, options: ['Ya', 'Tidak'] },
-                    { id: 12, tier: 'optional', active: false, regulatorTags: ['kemenkes'], text: 'Status STR (Surat Tanda Registrasi) Anda saat ini?', type: 'radio', required: false, options: ['Aktif', 'Dalam proses perpanjangan', 'Belum memiliki'] },
-                    { id: 13, tier: 'optional', active: false, regulatorTags: ['kemenkes'], text: 'Apakah bidang kerja Anda sesuai dengan kompetensi tenaga kesehatan yang dimiliki?', type: 'radio', required: false, options: ['Sesuai', 'Tidak sesuai'] },
-                    { id: 14, tier: 'optional', active: false, regulatorTags: ['ikuptn'], text: 'Berapa lama waktu tunggu Anda mendapatkan pekerjaan pertama? (bulan)', type: 'number', required: false },
-                    { id: 15, tier: 'optional', active: false, regulatorTags: ['banpt'], text: 'Seberapa besar pekerjaan Anda sesuai dengan bidang pendidikan?', type: 'scale', required: false },
-                    { id: 16, tier: 'optional', active: false, regulatorTags: ['banpt', 'lam'], text: 'Saran perbaikan untuk program studi/kurikulum', type: 'textarea', required: false },
-                    { id: 17, tier: 'optional', active: false, regulatorTags: ['lam'], text: 'Bagaimana Anda menilai kesiapan kerja lulusan program studi ini secara umum?', type: 'scale', required: false },
-                    { id: 18, tier: 'core', text: 'Berapa tempat kerja yang Anda jalani saat ini?', type: 'number', required: true },
-                    { id: 19, tier: 'core', text: 'Tingkat kompetensi yang dikuasai saat lulus', type: 'scale', required: true }
+                    { id: 7, tier: 'core', text: 'Tingkat kompetensi yang dikuasai saat lulus (A) vs tingkat kompetensi yang dibutuhkan pekerjaan saat ini (B)', type: 'scale', required: true },
+                    { id: 8, tier: 'core', text: 'Seberapa besar penekanan metode pembelajaran tertentu dilaksanakan di program studi Anda?', type: 'scale', required: true },
+                    { id: 9, tier: 'optional', regulatorTags: ['kemdikbud'], text: 'Sebutkan sumber dana pembiayaan kuliah Anda (bukan saat Studi Lanjut)', type: 'radio', required: false, options: ['Biaya Sendiri/Keluarga', 'Beasiswa ADIK', 'BIDIKMISI', 'PPA'] }
                 ]
             },
-            { id: 3, name: 'Bekerja', questions: [] },
-            { id: 4, name: 'Wiraswasta', questions: [] },
-            { id: 5, name: 'Melanjutkan Pendidikan', questions: [] },
-            { id: 6, name: 'Belum Bekerja', questions: [] },
-            { id: 7, name: 'Tingkat Kompetensi', questions: [] },
-            { id: 8, name: 'Rencana Karier Lanjutan', questions: [] }
+            {
+                id: 3, name: 'Bekerja',
+                questions: [
+                    { id: 10, tier: 'optional', active: true, regulatorTags: ['kemdikbud'], text: 'Kapan Anda mulai mencari pekerjaan (di luar kerja sambilan)?', type: 'text', required: false },
+                    { id: 11, tier: 'optional', active: true, regulatorTags: ['kemdikbud'], text: 'Bagaimana cara Anda mencari pekerjaan tersebut?', type: 'text', required: false },
+                    { id: 12, tier: 'optional', active: true, regulatorTags: ['kemdikbud'], text: 'Berapa jumlah perusahaan/instansi yang Anda lamar sebelum mendapatkan pekerjaan pertama?', type: 'number', required: false },
+                    { id: 13, tier: 'optional', active: true, regulatorTags: ['kemdikbud'], text: 'Berapa jumlah perusahaan/instansi yang merespons lamaran Anda?', type: 'number', required: false },
+                    { id: 14, tier: 'optional', active: true, regulatorTags: ['kemdikbud'], text: 'Berapa jumlah perusahaan/instansi yang mengundang Anda wawancara?', type: 'number', required: false },
+                    { id: 15, tier: 'optional', active: true, regulatorTags: ['kemdikbud'], text: 'Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir?', type: 'radio', required: false, options: ['Ya', 'Tidak'] },
+                    { id: 16, tier: 'optional', active: true, regulatorTags: ['kemdikbud'], text: 'Jika pekerjaan Anda saat ini tidak sesuai dengan pendidikan, mengapa Anda mengambilnya?', type: 'textarea', required: false, desc: 'Hanya relevan jika kesesuaian kerja = tidak sesuai (depends_on Q1)' },
+                    { id: 17, tier: 'optional', active: true, regulatorTags: ['gap'], text: 'Berapa besaran penghasilan/gaji pertama Anda?', type: 'number', required: false },
+                    { id: 18, tier: 'optional', active: true, regulatorTags: ['gap'], text: 'Berapa lama waktu tunggu Anda mendapatkan pekerjaan pertama (dalam bulan, sejak lulus)?', type: 'number', required: false },
+                    { id: 19, tier: 'optional', active: true, regulatorTags: ['gap'], text: 'Bagaimana skala/jenis instansi tempat Anda bekerja? (nasional/multinasional/BUMN/startup, dst)', type: 'radio', required: false, options: ['Nasional', 'Multinasional', 'BUMN/BUMD', 'Startup', 'UMKM/Perorangan'] },
+                    { id: 20, tier: 'optional', active: true, regulatorTags: ['gap'], text: 'Di provinsi mana Anda bekerja saat ini?', type: 'text', required: false },
+                    { id: 21, tier: 'optional', active: true, regulatorTags: ['enrichment'], text: 'Seberapa besar pekerjaan Anda saat ini sesuai dengan bidang pendidikan Anda?', type: 'scale', required: false },
+                    { id: 22, tier: 'optional', active: true, regulatorTags: ['enrichment'], text: 'Seberapa besar kompetensi yang Anda peroleh selama kuliah dimanfaatkan dalam pekerjaan?', type: 'scale', required: false },
+                    { id: 23, tier: 'optional', active: true, regulatorTags: ['enrichment'], text: 'Bagaimana Anda menilai status pekerjaan Anda saat ini (penghasilan, prospek karier)?', type: 'scale', required: false },
+                    { id: 24, tier: 'optional', active: true, regulatorTags: ['enrichment'], text: 'Seberapa besar otonomi/kebebasan Anda dalam menjalankan pekerjaan?', type: 'scale', required: false },
+                    { id: 25, tier: 'optional', active: true, regulatorTags: ['enrichment'], text: 'Seberapa puas Anda dengan pekerjaan Anda saat ini secara keseluruhan?', type: 'scale', required: false }
+                ]
+            },
+            {
+                id: 4, name: 'Wiraswasta',
+                questions: [
+                    { id: 26, tier: 'optional', active: true, regulatorTags: ['transisi'], text: 'Apa bidang usaha yang Anda jalani?', type: 'text', required: false }
+                ]
+            },
+            {
+                id: 5, name: 'Melanjutkan Pendidikan',
+                questions: [
+                    { id: 27, tier: 'optional', active: true, regulatorTags: ['transisi'], text: 'Jenjang studi lanjut apa yang Anda ambil?', type: 'radio', required: false, options: ['S1', 'S2', 'S3', 'Profesi'] }
+                ]
+            },
+            {
+                id: 6, name: 'Belum Bekerja',
+                questions: [
+                    { id: 28, tier: 'optional', active: true, regulatorTags: ['transisi'], text: 'Apa alasan Anda belum bekerja saat ini?', type: 'text', required: false }
+                ]
+            },
+            {
+                id: 7, name: 'Tingkat Kompetensi',
+                questions: [
+                    { id: 29, tier: 'optional', regulatorTags: ['kemdikbud'], text: 'Bagaimana tingkat kompetensi etika Anda saat lulus?', type: 'scale', required: false, desc: 'Elaborasi per aspek dari Kompetensi A/B (Core), mengikuti 7 aspek kompetensi yang lazim dipakai instrumen akreditasi' },
+                    { id: 30, tier: 'optional', regulatorTags: ['kemdikbud'], text: 'Bagaimana tingkat keahlian pada bidang ilmu (kompetensi utama) Anda saat lulus?', type: 'scale', required: false },
+                    { id: 31, tier: 'optional', regulatorTags: ['kemdikbud'], text: 'Bagaimana tingkat kemampuan berbahasa asing Anda saat lulus?', type: 'scale', required: false },
+                    { id: 32, tier: 'optional', regulatorTags: ['kemdikbud'], text: 'Bagaimana tingkat kemampuan penggunaan teknologi informasi Anda saat lulus?', type: 'scale', required: false },
+                    { id: 33, tier: 'optional', regulatorTags: ['kemdikbud'], text: 'Bagaimana tingkat kemampuan berkomunikasi Anda saat lulus?', type: 'scale', required: false },
+                    { id: 34, tier: 'optional', regulatorTags: ['kemdikbud'], text: 'Bagaimana tingkat kemampuan kerja sama tim Anda saat lulus?', type: 'scale', required: false },
+                    { id: 35, tier: 'optional', regulatorTags: ['kemdikbud'], text: 'Bagaimana tingkat kemampuan pengembangan diri Anda saat lulus?', type: 'scale', required: false }
+                ]
+            },
+            {
+                id: 8, name: 'Rencana Karier Lanjutan',
+                questions: [
+                    { id: 36, tier: 'optional', regulatorTags: ['transisi'], text: 'Apa rencana Anda dalam waktu dekat setelah lulus?', type: 'radio', required: false, options: ['Bekerja', 'Melanjutkan studi', 'Wirausaha/merintis usaha', 'Belum memiliki rencana', 'Lainnya'], desc: 'Prediktif, bukan status final -- untuk strategi kontak lanjutan, bukan pelaporan' },
+                    { id: 37, tier: 'optional', regulatorTags: ['transisi'], text: 'Apakah Anda berminat melanjutkan studi ke jenjang lebih tinggi dalam 5 tahun ke depan?', type: 'radio', required: false, options: ['Ya', 'Tidak', 'Belum tahu'] },
+                    { id: 38, tier: 'optional', regulatorTags: ['transisi'], text: 'Apakah Anda berminat mengikuti pelatihan/sertifikasi profesi untuk menunjang karier Anda?', type: 'radio', required: false, options: ['Ya', 'Tidak'] }
+                ]
+            }
         ]
     };
     let currentSection = 0;
 
-    // =====================================================
-    // Standar (?standards=) dari kuesioner-create.html -- pre-aktifkan
-    // Optional question yang regulatorTags-nya beririsan dengan pilihan.
-    // =====================================================
-    function getStandardsFromUrl() {
-        const raw = new URLSearchParams(window.location.search).get('standards');
-        return raw ? raw.split(',').filter(Boolean) : [];
-    }
-
-    function applyStandardsPreActivation(standards) {
-        if (!standards.length) return 0;
-        let count = 0;
+    // Default aktif Optional cuma dari tag kemdikbud -- lihat catatan di atas data model.
+    function normalizeOptionalDefaults() {
         data.sections.forEach(function (section) {
             section.questions.forEach(function (q) {
-                if (q.tier === 'optional' && q.regulatorTags && q.regulatorTags.some(function (t) { return standards.indexOf(t) !== -1; })) {
-                    q.active = true;
-                    count++;
+                if (q.tier === 'optional' && q.active === undefined) {
+                    q.active = !!(q.regulatorTags && q.regulatorTags.indexOf('kemdikbud') !== -1);
                 }
             });
         });
-        return count;
     }
-
-    function showStandardsBanner(count, standards) {
-        const labels = standards.map(function (s) { return REGULATOR_LABELS[s] || s; }).join(', ');
-        const banner = document.createElement('div');
-        banner.className = 'alert alert_helper';
-        banner.style.marginBottom = '1rem';
-        banner.innerHTML = '<div class="alert__content">' +
-            '<span class="alert__heading">' + count + ' pertanyaan Optional otomatis diaktifkan</span>' +
-            '<p class="alert__description">Sesuai standar yang dipilih: ' + escapeHtml(labels) + '. Anda tetap bisa menonaktifkan atau menambah lagi dari panel "Bank Soal Optional" di tiap bagian.</p>' +
-            '</div>';
-        document.querySelector('.main__header').insertAdjacentElement('afterend', banner);
-    }
+    normalizeOptionalDefaults();
 
     // Render Section List
     function renderSectionList() {
@@ -371,10 +373,7 @@
             <div class="section-item ${i === currentSection ? 'active' : ''}" onclick="selectSection(${i})" ${s.locked ? 'style="background:#f0fdf4;border-color:#86efac;"' : ''}>
                 <span class="section-item__number" ${s.locked ? 'style="background:#22c55e;"' : ''}>${s.locked ? '<span class="icon icon-lock-closed-mini"></span>' : (i + 1)}</span>
                 <span class="section-item__name" ${s.locked ? 'style="color:#16a34a;"' : ''}>${escapeHtml(s.name)}</span>
-                ${s.locked
-                    ? '<span style="font-size: 0.625rem; color: #22c55e; background: #dcfce7; padding: 0.125rem 0.375rem; border-radius: 0.25rem;">Core</span>'
-                    : `<span class="section-item__delete" onclick="event.stopPropagation(); deleteSection(${i})"><span class="icon icon-trash-mini"></span></span>`
-                }
+                ${s.locked ? '<span style="font-size: 0.625rem; color: #22c55e; background: #dcfce7; padding: 0.125rem 0.375rem; border-radius: 0.25rem;">Core</span>' : ''}
             </div>
         `).join('');
     }
@@ -396,7 +395,6 @@
         });
 
         html += `</div>`;
-        if (!section.locked) html += renderBankPanel();
         html += `</div>`;
 
         container.innerHTML = html;
@@ -442,10 +440,8 @@
 
         html += `</div>`;
 
-        if (!isCore && q.regulatorTags && q.regulatorTags.length) {
-            html += `<div class="q-regulator-tags">` +
-                q.regulatorTags.map(t => `<span class="tag tag_outline tag_sm">${escapeHtml(REGULATOR_LABELS[t] || t)}</span>`).join('') +
-                `</div>`;
+        if (q.desc) {
+            html += `<div style="margin: -0.25rem 0 0.5rem 2.25rem; font-size: 0.75rem; color: var(--qn-neutral-500); font-style: italic;">${escapeHtml(q.desc)}</div>`;
         }
 
         html += renderOptionsStatic(q);
@@ -459,39 +455,6 @@
         return html;
     }
 
-    // Panel "Bank Soal Optional": Optional question lain yang belum ditambahkan ke section manapun.
-    // Tidak ada input teks -- admin cuma menekan "Tambahkan" untuk memasukkan apa adanya dari bank.
-    function renderBankPanel() {
-        if (bankPool.length === 0) {
-            return `<div class="bank-panel">
-                <div class="bank-panel__title"><span class="icon icon-archive-box-mini"></span> Bank Soal Optional</div>
-                <p class="bank-empty">Semua pertanyaan Optional dari bank sudah ditambahkan ke kuesioner ini.</p>
-            </div>`;
-        }
-        return `<div class="bank-panel">
-            <div class="bank-panel__title"><span class="icon icon-archive-box-mini"></span> Bank Soal Optional &mdash; belum ditambahkan</div>
-            ${bankPool.map((q, bi) => `
-                <div class="bank-item">
-                    <div>
-                        <div class="bank-item__text">${escapeHtml(q.text)}</div>
-                        <div class="bank-item__tags">${(q.regulatorTags || []).map(t => `<span class="tag tag_outline tag_sm">${escapeHtml(REGULATOR_LABELS[t] || t)}</span>`).join('')}</div>
-                    </div>
-                    <button type="button" class="btn btn_outline btn_sm" onclick="addFromBank(${bi})">
-                        <span class="icon icon-plus-mini"></span> Tambahkan
-                    </button>
-                </div>
-            `).join('')}
-        </div>`;
-    }
-
-    function addFromBank(bankIndex) {
-        const item = bankPool.splice(bankIndex, 1)[0];
-        item.active = true;
-        data.sections[currentSection].questions.push(item);
-        renderQuestions();
-        showToast('Pertanyaan dari bank soal ditambahkan');
-    }
-
     function toggleQuestionActive(qi, checked) {
         data.sections[currentSection].questions[qi].active = checked;
         renderQuestions();
@@ -502,27 +465,6 @@
         currentSection = index;
         renderSectionList();
         renderQuestions();
-    }
-
-    function addSection() {
-        const newId = Math.max(...data.sections.map(s => s.id), 0) + 1;
-        data.sections.push({ id: newId, name: 'Bagian Baru', questions: [] });
-        currentSection = data.sections.length - 1;
-        renderSectionList();
-        renderQuestions();
-        showToast('Bagian baru ditambahkan');
-    }
-
-    function deleteSection(index) {
-        if (data.sections[index].locked) { showToast('Bagian Core tidak dapat dihapus'); return; }
-        if (data.sections.length <= 1) { showToast('Minimal harus ada 1 bagian'); return; }
-        if (confirm(`Hapus bagian "${data.sections[index].name}"?`)) {
-            data.sections.splice(index, 1);
-            if (currentSection >= data.sections.length) currentSection = data.sections.length - 1;
-            renderSectionList();
-            renderQuestions();
-            showToast('Bagian dihapus');
-        }
     }
 
     function updateSectionName(value) {
@@ -580,10 +522,6 @@
 
     // Init
     document.addEventListener('DOMContentLoaded', function() {
-        const standards = getStandardsFromUrl();
-        const activatedCount = applyStandardsPreActivation(standards);
-        if (standards.length) showStandardsBanner(activatedCount, standards);
-
         renderSectionList();
         renderQuestions();
     });

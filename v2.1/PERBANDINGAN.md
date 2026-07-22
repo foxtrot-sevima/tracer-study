@@ -14,12 +14,12 @@ Dokumen pembanding kompleksitas Admin vs fleksibilitas Alumni untuk 2 skenario p
 
 | Aspek | A — Sederhana | B — Isi Kembali/Edit |
 |---|---|---|
-| Konsep yang harus dipahami Admin | 1: "Kuesioner" (susun -> simpan -> kirim, satu langkah gabungan) | 2: Template Version (riwayat, tidak bisa diedit setelah publish) + Campaign (institusi+wave+cohort+tanggal) — **identik dengan fitur asli `/v2/`, tidak ada penambahan** |
-| Langkah dari "mulai" ke "terkirim ke lulusan" | Susun -> Simpan sebagai Template -> Kirim (3 klik) | Susun -> Preview -> Publish Template Version -> Buat Campaign (isi institusi/wave/cohort/tanggal) -> Campaign aktif (5+ klik) — sama seperti `/v2/` |
-| Menambah pertanyaan baru per-section tier (Core/Optional/Wave-khusus) | Tidak ada — daftar pertanyaan flat | Ada — tiap section punya `waveScope`, perlu dipahami Admin mana yang Core/Optional/khusus-wave (bawaan `/v2/`) |
-| Menyasar angkatan/wave tertentu | Pilih Tahun Lulus langsung saat kirim | Wave dihitung otomatis dari cohort_year, Admin bisa override per Campaign (bawaan `/v2/`) |
-| Mengelola Template Pengguna Lulusan | Opsi checkbox "Kirimkan Juga Template Pengguna Lulusan" saat kirim (bawaan `/v2/`, sama di A) | Sama seperti A — bawaan `/v2/`, bukan pembeda skenario |
-| **Kesimpulan** | **Beban kognitif & jumlah klik Admin jauh lebih rendah** | **Sisi Admin TIDAK berubah dari `/v2/` — kompleksitasnya sama seperti sekarang. Trade-off B murni ada di sisi Alumni, lihat bagian berikut** |
+| Konsep yang harus dipahami Admin | 1: "Kuesioner" (susun -> simpan -> kirim, satu langkah gabungan), pertanyaan dari bank soal Core/Optional | 2: Template Version (riwayat, tidak bisa diedit setelah publish) + Campaign (institusi+wave+cohort+tanggal) — **model yang sudah berjalan sekarang, tidak ada penambahan** |
+| Langkah dari "mulai" ke "terkirim ke lulusan" | Susun -> Simpan sebagai Template -> Kirim (3 klik) | Susun -> Preview -> Publish Template Version -> Buat Campaign (isi institusi/wave/cohort/tanggal) -> Campaign aktif (5+ klik) — alur yang sudah berjalan sekarang, tidak berubah |
+| Menambah pertanyaan baru per-section tier (Core/Optional/Wave-khusus) | Ada — bank soal Core (terkunci, wajib) + Optional (toggle on/off), tidak ada pertanyaan freetext/manual | Ada — tiap section punya `waveScope`, perlu dipahami Admin mana yang Core/Optional/khusus-wave (mekanisme yang sudah berjalan sekarang) |
+| Menyasar angkatan/wave tertentu | Pilih Tahun Lulus langsung saat kirim | Wave dihitung otomatis dari cohort_year, Admin bisa override per Campaign (mekanisme yang sudah berjalan sekarang) |
+| Mengelola Template Pengguna Lulusan | Opsi checkbox "Kirimkan Juga Template Pengguna Lulusan" saat kirim (fitur yang sudah ada, sama di A) | Sama seperti A — fitur yang sudah ada, bukan pembeda skenario |
+| **Kesimpulan** | **Beban kognitif & jumlah klik Admin jauh lebih rendah** | **Sisi Admin TIDAK berubah dari yang sudah berjalan sekarang — kompleksitasnya tetap sama. Trade-off B murni ada di sisi Alumni, lihat bagian berikut** |
 
 ## Fleksibilitas sisi Alumni
 
@@ -39,5 +39,5 @@ Dokumen pembanding kompleksitas Admin vs fleksibilitas Alumni untuk 2 skenario p
 ## Rekomendasi bahan diskusi PM
 
 1. Kalau tujuan utama adalah **menaikkan response rate** (fokus FOX-943), **A** kemungkinan lebih efektif jangka pendek — makin sedikit gesekan (friction) di kedua sisi, makin tinggi kemungkinan alumni menyelesaikan pengisian.
-2. Kalau tujuan utama adalah **kualitas/akurasi data jangka panjang** (laporan akreditasi, tren karier per angkatan), **B** lebih unggul — dan karena sisi Admin B tidak diubah dari `/v2/`, effort development & training tambahan HANYA di sisi Alumni (halaman Riwayat Pengisian + tombol Edit Jawaban), bukan di seluruh alur admin.
-3. Karena B sengaja dirancang tanpa mengubah sisi Admin, B pada dasarnya SUDAH menjadi opsi hybrid: model Admin `/v2/` yang ada sekarang + kapabilitas "Edit Jawaban" alumni. Sisa pekerjaan yang perlu backend (riwayat/versi response per submission) dijelaskan di bagian "Implikasi ke model data" di atas.
+2. Kalau tujuan utama adalah **kualitas/akurasi data jangka panjang** (laporan akreditasi, tren karier per angkatan), **B** lebih unggul — dan karena sisi Admin B tidak diubah dari yang sudah berjalan sekarang, effort development & training tambahan HANYA di sisi Alumni (halaman Riwayat Pengisian + tombol Edit Jawaban), bukan di seluruh alur admin.
+3. Karena B sengaja dirancang tanpa mengubah sisi Admin, B pada dasarnya SUDAH menjadi opsi hybrid: model Admin yang sudah berjalan sekarang + kapabilitas "Edit Jawaban" alumni. Sisa pekerjaan yang perlu backend (riwayat/versi response per submission) dijelaskan di bagian "Implikasi ke model data" di atas.
