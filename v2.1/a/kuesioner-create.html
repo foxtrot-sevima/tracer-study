@@ -25,7 +25,7 @@
         }
         .template-selection__header {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
         }
         .template-selection__title {
             font-size: 1.5rem;
@@ -36,128 +36,29 @@
         .template-selection__desc {
             font-size: 0.9375rem;
             color: var(--qn-neutral-600);
-            max-width: 32rem;
+            max-width: 34rem;
             margin: 0 auto;
         }
-        .template-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .template-card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem;
-            border: 2px solid var(--qn-neutral-200);
-            border-radius: 1rem;
-            background: var(--qn-white);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-        .template-card:hover {
-            border-color: var(--qn-primary-300);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
-            transform: translateY(-2px);
-        }
-        .template-card.selected {
-            border-color: var(--qn-primary-500);
-            background: var(--qn-primary-50);
-        }
-        .template-card.selected .template-card__check {
-            display: flex;
-        }
-        .template-card__check {
-            display: none;
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 1.5rem;
-            height: 1.5rem;
-            background: var(--qn-primary-500);
-            border-radius: 50%;
-            align-items: center;
-            justify-content: center;
-            color: var(--qn-white);
-        }
-        .template-card__check .icon {
-            font-size: 0.875rem;
-        }
-        .template-card__icon {
-            width: 3.5rem;
-            height: 3.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0.75rem;
-            margin-bottom: 1rem;
-        }
-        .template-card__icon .icon {
-            font-size: 1.5rem;
-        }
-        .template-card_full .template-card__icon {
-            background: linear-gradient(135deg, var(--qn-primary-100) 0%, var(--qn-primary-200) 100%);
-            color: var(--qn-primary-600);
-        }
-        .template-card_kemdikbud .template-card__icon {
-            background: linear-gradient(135deg, var(--qn-warning-100) 0%, var(--qn-warning-200) 100%);
-            color: var(--qn-warning-600);
-        }
-        .template-card_alumni .template-card__icon {
-            background: linear-gradient(135deg, var(--qn-success-100) 0%, var(--qn-success-200) 100%);
-            color: var(--qn-success-600);
-        }
-        .template-card_empty .template-card__icon {
-            background: linear-gradient(135deg, var(--qn-neutral-100) 0%, var(--qn-neutral-200) 100%);
-            color: var(--qn-neutral-600);
-        }
-        .template-card__title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--qn-neutral-900);
-            margin-bottom: 0.5rem;
-        }
-        .template-card__desc {
-            font-size: 0.875rem;
-            color: var(--qn-neutral-600);
-            line-height: 1.5;
-            margin-bottom: 1rem;
-            flex: 1;
-        }
-        .template-card__features {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--qn-neutral-200);
-        }
-        .template-card__feature {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.8125rem;
-            color: var(--qn-neutral-700);
-        }
-        .template-card__feature .icon {
-            color: var(--qn-success-500);
-            font-size: 0.875rem;
-        }
-        .template-card__badge {
-            position: absolute;
-            top: -0.5rem;
-            left: 1rem;
-            padding: 0.25rem 0.75rem;
-            background: var(--qn-primary-500);
-            color: var(--qn-white);
-            font-size: 0.6875rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-radius: 0.25rem;
-        }
+
+        /* Jenis Survei fork */
+        .audience-tabs { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .audience-tab { display: flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1.25rem; border: 1px solid var(--qn-neutral-200); border-radius: 0.5rem; background: var(--qn-white); color: var(--qn-neutral-600); font-size: 0.875rem; font-weight: 500; cursor: pointer; }
+        .audience-tab.active { border-color: var(--qn-primary-500); background: var(--qn-primary-50); color: var(--qn-primary-600); }
+
+        .standard-panel { max-width: 42rem; margin: 0 auto; }
+
+        /* Standar (regulator) checkbox grid */
+        .standard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; margin-bottom: 1.25rem; }
+        .standard-item { display: flex; align-items: flex-start; gap: 0.625rem; padding: 1rem; border: 1px solid var(--qn-neutral-200); border-radius: 0.5rem; cursor: pointer; transition: all .15s; }
+        .standard-item:hover { border-color: var(--qn-primary-300); }
+        .standard-item.checked { border-color: var(--qn-primary-500); background: var(--qn-primary-50); }
+        .standard-item input.form-control__checkbox { margin-top: 0.1875rem; }
+        .standard-item__title { display: block; font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-900); margin-bottom: 0.125rem; }
+        .standard-item__desc { display: block; font-size: 0.75rem; color: var(--qn-neutral-500); line-height: 1.4; }
+
+        .pl-panel { max-width: 34rem; margin: 0 auto; text-align: center; padding: 2.5rem 1.5rem; }
+        .pl-panel .icon { font-size: 2rem; color: var(--qn-neutral-400); margin-bottom: 0.75rem; display: block; }
+
         .template-selection__action {
             display: flex;
             justify-content: center;
@@ -165,7 +66,7 @@
             margin-top: 2rem;
         }
         @media (max-width: 767px) {
-            .template-grid {
+            .standard-grid {
                 grid-template-columns: 1fr;
             }
             .template-selection__action {
@@ -323,114 +224,76 @@
 
             <div class="template-selection">
                 <div class="template-selection__header">
-                    <h2 class="template-selection__title">Pilih Template Kuesioner</h2>
-                    <p class="template-selection__desc">Pilih template yang sesuai dengan kebutuhan tracer study Anda. Template dapat disesuaikan setelah pemilihan.</p>
+                    <h2 class="template-selection__title">Pilih Jenis Survei &amp; Standar yang Berlaku</h2>
+                    <p class="template-selection__desc">Core question selalu ada di semua kuesioner, tidak tergantung pilihan di bawah. Pilih jenis survei dan standar yang berlaku untuk mengaktifkan rekomendasi Optional question dari bank soal &mdash; semua bisa disesuaikan lagi di Template Builder.</p>
                 </div>
 
-                <div class="template-grid">
-                    <!-- Template Lengkap -->
-                    <div class="template-card template-card_full selected" data-template="full">
-                        <span class="template-card__badge">Rekomendasi</span>
-                        <span class="template-card__check">
-                            <span class="icon icon-check-mini"></span>
-                        </span>
-                        <div class="template-card__icon">
-                            <span class="icon icon-squares-2x2"></span>
+                <div class="audience-tabs">
+                    <button type="button" class="audience-tab active" data-audience="lulusan" onclick="selectAudience('lulusan')">
+                        <span class="icon icon-academic-cap-mini"></span> Lulusan
+                    </button>
+                    <button type="button" class="audience-tab" data-audience="pengguna-lulusan" onclick="selectAudience('pengguna-lulusan')">
+                        <span class="icon icon-briefcase-mini"></span> Pengguna Lulusan
+                    </button>
+                </div>
+
+                <!-- Lulusan: pilih standar yang berlaku (multi-select, boleh kosong) -->
+                <div id="panel-lulusan" class="standard-panel">
+                    <div class="card" style="padding: 1.5rem;">
+                        <div class="form-control__label" style="font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.875rem;">Pilih Standar yang Berlaku (boleh lebih dari satu, boleh kosong)</div>
+
+                        <div class="standard-grid" id="standardGrid">
+                            <label class="standard-item" data-standard="kemdikbud">
+                                <input type="checkbox" class="form-control__checkbox" value="kemdikbud" onchange="onStandardToggle(this)">
+                                <span>
+                                    <span class="standard-item__title">Kemdikbud</span>
+                                    <span class="standard-item__desc">Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi</span>
+                                </span>
+                            </label>
+                            <label class="standard-item" data-standard="kemenkes">
+                                <input type="checkbox" class="form-control__checkbox" value="kemenkes" onchange="onStandardToggle(this)">
+                                <span>
+                                    <span class="standard-item__title">Kemenkes</span>
+                                    <span class="standard-item__desc">Kementerian Kesehatan &mdash; institusi pendidikan tenaga kesehatan</span>
+                                </span>
+                            </label>
+                            <label class="standard-item" data-standard="ikuptn">
+                                <input type="checkbox" class="form-control__checkbox" value="ikuptn" onchange="onStandardToggle(this)">
+                                <span>
+                                    <span class="standard-item__title">IKU PTN</span>
+                                    <span class="standard-item__desc">Indikator Kinerja Utama Perguruan Tinggi Negeri</span>
+                                </span>
+                            </label>
+                            <label class="standard-item" data-standard="banpt">
+                                <input type="checkbox" class="form-control__checkbox" value="banpt" onchange="onStandardToggle(this)">
+                                <span>
+                                    <span class="standard-item__title">BAN-PT</span>
+                                    <span class="standard-item__desc">Badan Akreditasi Nasional Perguruan Tinggi</span>
+                                </span>
+                            </label>
+                            <label class="standard-item" data-standard="lam">
+                                <input type="checkbox" class="form-control__checkbox" value="lam" onchange="onStandardToggle(this)">
+                                <span>
+                                    <span class="standard-item__title">LAM</span>
+                                    <span class="standard-item__desc">Lembaga Akreditasi Mandiri, sesuai rumpun keilmuan prodi</span>
+                                </span>
+                            </label>
                         </div>
-                        <h3 class="template-card__title">Template Lengkap</h3>
-                        <p class="template-card__desc">Kuesioner komprehensif untuk memenuhi kebutuhan pelaporan Kemdikbud, IKU PTN, BAN-PT, dan semua LAM sekaligus.</p>
-                        <div class="template-card__features">
-                            <div class="template-card__feature">
-                                <span class="icon icon-check-circle-mini"></span>
-                                <span>6 bagian pertanyaan lengkap</span>
-                            </div>
-                            <div class="template-card__feature">
-                                <span class="icon icon-check-circle-mini"></span>
-                                <span>Sesuai format DIKTI terbaru</span>
-                            </div>
-                            <div class="template-card__feature">
-                                <span class="icon icon-check-circle-mini"></span>
-                                <span>Mendukung branching logic</span>
+
+                        <div class="alert alert_helper">
+                            <div class="alert__content">
+                                <span class="alert__heading" id="standardSummaryHeading">Core question (8 pertanyaan) akan selalu ada</span>
+                                <p class="alert__description" id="standardSummaryText">Belum ada standar dipilih &mdash; kuesioner akan mulai dari Core question saja. Optional question tetap bisa diaktifkan manual di Template Builder.</p>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Template Kemdikbud -->
-                    <div class="template-card template-card_kemdikbud" data-template="kemdikbud">
-                        <span class="template-card__check">
-                            <span class="icon icon-check-mini"></span>
-                        </span>
-                        <div class="template-card__icon">
-                            <span class="icon icon-bolt"></span>
-                        </div>
-                        <h3 class="template-card__title">Template Kemdikbud</h3>
-                        <p class="template-card__desc">Template standar sesuai dengan format pelaporan tracer study Kementerian Pendidikan dan Kebudayaan.</p>
-                        <div class="template-card__features">
-                            <div class="template-card__feature">
-                                <span class="icon icon-check-circle-mini"></span>
-                                <span>Format standar Kemdikbud</span>
-                            </div>
-                            <div class="template-card__feature">
-                                <span class="icon icon-check-circle-mini"></span>
-                                <span>Pertanyaan inti tracer study</span>
-                            </div>
-                            <div class="template-card__feature">
-                                <span class="icon icon-check-circle-mini"></span>
-                                <span>Mudah diisi responden</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Template Pengguna Lulusan -->
-                    <div class="template-card template-card_alumni" data-template="alumni">
-                        <span class="template-card__check">
-                            <span class="icon icon-check-mini"></span>
-                        </span>
-                        <div class="template-card__icon">
-                            <span class="icon icon-face-smile"></span>
-                        </div>
-                        <h3 class="template-card__title">Template Pengguna Lulusan</h3>
-                        <p class="template-card__desc">Kuesioner untuk mengukur kepuasan pengguna lulusan sesuai kebutuhan akreditasi BAN-PT dan LAM.</p>
-                        <div class="template-card__features">
-                            <div class="template-card__feature">
-                                <span class="icon icon-check-circle-mini"></span>
-                                <span>Evaluasi kompetensi lulusan</span>
-                            </div>
-                            <div class="template-card__feature">
-                                <span class="icon icon-check-circle-mini"></span>
-                                <span>Penilaian kinerja alumni</span>
-                            </div>
-                            <div class="template-card__feature">
-                                <span class="icon icon-check-circle-mini"></span>
-                                <span>Feedback untuk kurikulum</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Template Kosong -->
-                    <div class="template-card template-card_empty" data-template="empty">
-                        <span class="template-card__check">
-                            <span class="icon icon-check-mini"></span>
-                        </span>
-                        <div class="template-card__icon">
-                            <span class="icon icon-document"></span>
-                        </div>
-                        <h3 class="template-card__title">Template Kosong</h3>
-                        <p class="template-card__desc">Mulai dari awal dengan kuesioner kosong. Cocok untuk survei kustom atau kebutuhan khusus institusi.</p>
-                        <div class="template-card__features">
-                            <div class="template-card__feature">
-                                <span class="icon icon-check-circle-mini"></span>
-                                <span>Fleksibilitas penuh</span>
-                            </div>
-                            <div class="template-card__feature">
-                                <span class="icon icon-check-circle-mini"></span>
-                                <span>Buat pertanyaan sendiri</span>
-                            </div>
-                            <div class="template-card__feature">
-                                <span class="icon icon-check-circle-mini"></span>
-                                <span>Sesuaikan sepenuhnya</span>
-                            </div>
-                        </div>
+                <!-- Pengguna Lulusan: audiens berbeda, bank pertanyaan terpisah -->
+                <div id="panel-pengguna-lulusan" class="standard-panel" style="display: none;">
+                    <div class="card pl-panel">
+                        <span class="icon icon-briefcase"></span>
+                        <p style="font-size: 0.9375rem; color: var(--qn-neutral-600); line-height: 1.6;">Kuesioner Pengguna Lulusan memakai bank pertanyaan tersendiri (kepuasan &amp; evaluasi kompetensi, sesuai kebutuhan BAN-PT &amp; LAM) &mdash; terpisah dari bank pertanyaan Lulusan karena audiensnya berbeda (perusahaan/instansi pengguna, bukan alumni).</p>
                     </div>
                 </div>
 
@@ -453,24 +316,58 @@
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const templateCards = document.querySelectorAll('.template-card');
-            const continueBtn = document.getElementById('btn-continue');
-            
-            templateCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    // Remove selected from all cards
-                    templateCards.forEach(c => c.classList.remove('selected'));
-                    // Add selected to clicked card
-                    this.classList.add('selected');
-                    
-                    // Update continue button href based on template
-                    const template = this.dataset.template;
-                    // All templates go to the builder page
-                    continueBtn.href = './kuesioner-builder.html?template=' + template;
-                });
+        // Bank soal ringkas (cuma id tag, tidak perlu duplikasi teks lengkap) -- dipakai untuk
+        // menghitung berapa Optional question yang otomatis diaktifkan sesuai standar terpilih.
+        // Jumlah & kombinasi tag di sini disamakan dengan seed data di kuesioner-builder.html.
+        const CORE_COUNT = 8;
+        const OPTIONAL_BANK = [
+            { tags: ['kemdikbud'] }, { tags: ['kemdikbud'] }, { tags: ['kemdikbud'] }, { tags: ['kemdikbud'] },
+            { tags: ['kemenkes'] }, { tags: ['kemenkes'] }, { tags: ['kemenkes'] },
+            { tags: ['ikuptn'] },
+            { tags: ['banpt'] }, { tags: ['banpt', 'lam'] },
+            { tags: ['lam'] }
+        ];
+        const STANDARD_LABELS = { kemdikbud: 'Kemdikbud', kemenkes: 'Kemenkes', ikuptn: 'IKU PTN', banpt: 'BAN-PT', lam: 'LAM' };
+
+        const continueBtn = document.getElementById('btn-continue');
+        const summaryHeading = document.getElementById('standardSummaryHeading');
+        const summaryText = document.getElementById('standardSummaryText');
+
+        function getCheckedStandards() {
+            return Array.from(document.querySelectorAll('#standardGrid input[type="checkbox"]:checked')).map(function (el) { return el.value; });
+        }
+
+        function updateSummary() {
+            const checked = getCheckedStandards();
+            const matchCount = OPTIONAL_BANK.filter(function (q) {
+                return q.tags.some(function (t) { return checked.indexOf(t) !== -1; });
+            }).length;
+
+            summaryHeading.textContent = 'Core question (' + CORE_COUNT + ' pertanyaan) akan selalu ada';
+            if (checked.length === 0) {
+                summaryText.textContent = 'Belum ada standar dipilih — kuesioner akan mulai dari Core question saja. Optional question tetap bisa diaktifkan manual di Template Builder.';
+            } else {
+                const labels = checked.map(function (c) { return STANDARD_LABELS[c]; }).join(', ');
+                summaryText.textContent = matchCount + ' pertanyaan Optional otomatis diaktifkan sesuai standar: ' + labels + '. Bisa disesuaikan lagi di Template Builder.';
+            }
+
+            continueBtn.href = './kuesioner-builder.html' + (checked.length ? '?standards=' + checked.join(',') : '');
+        }
+
+        function onStandardToggle(checkbox) {
+            checkbox.closest('.standard-item').classList.toggle('checked', checkbox.checked);
+            updateSummary();
+        }
+
+        function selectAudience(audience) {
+            document.querySelectorAll('.audience-tab').forEach(function (tab) {
+                tab.classList.toggle('active', tab.dataset.audience === audience);
             });
-        });
+            document.getElementById('panel-lulusan').style.display = audience === 'lulusan' ? 'block' : 'none';
+            document.getElementById('panel-pengguna-lulusan').style.display = audience === 'pengguna-lulusan' ? 'block' : 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', updateSummary);
     </script>
 </body>
 </html>

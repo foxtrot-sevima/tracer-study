@@ -47,7 +47,7 @@
         .thanks-card__cta { font-size: 0.9375rem; color: var(--qn-neutral-700); }
 
         /* CV Builder banner (page-local: promo banner, no direct Quantum component) */
-        .cv-banner { background: linear-gradient(135deg, var(--qn-primary-700) 0%, var(--qn-primary-500) 100%); border-radius: 0.75rem; padding: 1.5rem; color: white; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; }
+        .cv-banner { background: linear-gradient(135deg, var(--qn-primary-700, #1d4ed8) 0%, var(--qn-primary-500) 100%); border-radius: 0.75rem; padding: 1.5rem; color: white; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; }
         .cv-banner__title { font-size: 1rem; font-weight: 600; line-height: 1.4; }
         .cv-banner__title span { color: #fbbf24; }
         .cv-banner__qr { width: 6rem; height: 6rem; background: white; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
@@ -67,18 +67,11 @@
         .ts-thanks-modal { background: white; border-radius: 0.75rem; padding: 2rem; max-width: 26rem; width: 100%; text-align: center; position: relative; }
         .ts-thanks-modal__close { position: absolute; top: 0.75rem; right: 0.75rem; background: none; border: none; cursor: pointer; color: var(--qn-neutral-500); padding: 0.25rem; }
         .ts-thanks-modal__close:hover { color: var(--qn-neutral-800); }
-        .ts-thanks-modal__icon {
-            width: 3.5rem; height: 3.5rem; border-radius: 50%; margin: 0 auto 1rem;
-            display: flex; align-items: center; justify-content: center;
-            background: linear-gradient(135deg, var(--qn-success-500), #0a6b60);
-            box-shadow: 0 8px 16px -4px rgba(14, 147, 132, 0.35);
-        }
-        .ts-thanks-modal__icon .icon { color: white; font-size: 1.75rem; }
         .ts-thanks-modal__title { font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-800); margin-bottom: 0.75rem; }
         .ts-thanks-modal__text { font-size: 0.875rem; color: var(--qn-neutral-500); line-height: 1.6; margin-bottom: 1.5rem; }
 
         /* Footer */
-        .footer { background: var(--qn-primary-700); padding: 1rem; text-align: center; margin-top: 2rem; }
+        .footer { background: var(--qn-primary-700, #1d4ed8); padding: 1rem; text-align: center; margin-top: 2rem; }
         .footer p { color: white; font-size: 0.875rem; margin: 0; }
         .footer a { color: white; text-decoration: underline; }
     </style>
@@ -90,7 +83,6 @@
             <button class="ts-thanks-modal__close" onclick="document.getElementById('thankYouModal').classList.add('hidden')">
                 <span class="icon icon-x-mark-mini" style="font-size: 1.25rem;"></span>
             </button>
-            <div class="ts-thanks-modal__icon" aria-hidden="true"><span class="icon icon-check-badge-mini"></span></div>
             <h3 class="ts-thanks-modal__title">Terima kasih telah mengisi Tracer Study</h3>
             <p class="ts-thanks-modal__text">Data yang Anda berikan akan sangat membantu meningkatkan kualitas pendidikan kami</p>
             <button class="btn btn_primary" onclick="document.getElementById('thankYouModal').classList.add('hidden')">Selesai</button>

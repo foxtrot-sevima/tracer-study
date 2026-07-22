@@ -53,38 +53,32 @@
         .question-card:focus-within { border-color: var(--qn-primary-500); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
         
         .question-header { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; }
-        .question-number { display: flex; align-items: center; justify-content: center; min-width: 1.5rem; height: 1.5rem; background: var(--qn-primary-100); color: var(--qn-primary-700); border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600; }
-        .question-text-input { flex: 1; border: none; font-size: 0.9375rem; font-weight: 500; padding: 0; outline: none; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
-        .question-text-input:focus { text-decoration: none; }
-        
-        .question-type-badge { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.25rem 0.5rem; background: var(--qn-neutral-100); border: 1px solid var(--qn-neutral-200); border-radius: 0.25rem; font-size: 0.75rem; color: var(--qn-neutral-600); cursor: pointer; }
-        .question-type-select { border: 1px solid var(--qn-neutral-300); border-radius: 0.25rem; padding: 0.25rem 0.5rem; font-size: 0.75rem; outline: none; }
-        
-        .question-actions { display: flex; gap: 0.25rem; margin-left: auto; }
-        .question-actions button { padding: 0.375rem; border: none; background: none; cursor: pointer; color: var(--qn-neutral-400); border-radius: 0.25rem; }
-        .question-actions button:hover { background: var(--qn-neutral-100); color: var(--qn-neutral-700); }
-        
-        .question-desc { margin: 0.5rem 0 0.75rem 2.25rem; }
-        .question-desc-input { width: 100%; border: none; font-size: 0.8125rem; color: var(--qn-neutral-500); padding: 0; outline: none; }
-        .question-desc-input::placeholder { color: var(--qn-neutral-400); }
-        
+        .question-number { display: flex; align-items: center; justify-content: center; min-width: 1.5rem; height: 1.5rem; background: var(--qn-primary-100); color: var(--qn-primary-700, #1d4ed8); border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600; }
+
         .option-list { margin-left: 2.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
-        .option-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--qn-neutral-200); border-radius: 0.375rem; background: var(--qn-neutral-50); }
+        .option-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--qn-neutral-200); border-radius: 0.375rem; background: var(--qn-neutral-100, #f8fafc); }
         .option-item__number { min-width: 1.25rem; height: 1.25rem; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 500; color: var(--qn-neutral-500); }
-        .option-item__input { flex: 1; border: none; background: transparent; font-size: 0.875rem; outline: none; }
-        .option-item__delete { padding: 0.25rem; border: none; background: none; cursor: pointer; color: var(--qn-neutral-400); }
-        .option-item__delete:hover { color: var(--qn-danger-500); }
-        
-        .add-option-row { display: flex; align-items: center; gap: 0.75rem; margin-left: 2.25rem; margin-top: 0.5rem; font-size: 0.8125rem; color: var(--qn-neutral-500); }
-        .add-option-link { color: var(--qn-primary-500); cursor: pointer; text-decoration: underline; }
-        .add-option-link:hover { color: var(--qn-primary-700); }
-        
-        .question-footer { display: flex; align-items: center; justify-content: flex-end; gap: 0.75rem; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--qn-neutral-100); }
+
+        .question-footer { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--qn-neutral-100); }
         .required-toggle { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--qn-neutral-600); }
-        
-        .add-question-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem; border: 2px dashed var(--qn-neutral-300); border-radius: 0.5rem; color: var(--qn-neutral-500); cursor: pointer; transition: all .15s; margin-top: 1rem; }
-        .add-question-btn:hover { border-color: var(--qn-primary-400); color: var(--qn-primary-600); background: var(--qn-primary-50); }
-        
+
+        /* Bank soal: tier Core (terkunci) vs Optional (toggle on/off) */
+        .q-card--core { border-color: #86efac; background: #f7fefa; }
+        .q-card--optional.inactive { opacity: 0.55; }
+        .q-static-text { flex: 1; font-size: 0.9375rem; font-weight: 500; color: var(--qn-neutral-800); padding: 0.375rem 0; }
+        .q-tier-badge { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.1875rem 0.5rem; border-radius: 0.25rem; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; flex-shrink: 0; white-space: nowrap; }
+        .q-tier-badge--core { background: #dcfce7; color: #16a34a; }
+        .q-tier-badge--optional { background: var(--qn-primary-100); color: var(--qn-primary-600); }
+        .q-regulator-tags { margin: 0 0 0.5rem 2.25rem; display: flex; gap: 0.375rem; flex-wrap: wrap; }
+
+        .bank-panel { margin-top: 1rem; border: 1px dashed var(--qn-neutral-300); border-radius: 0.5rem; padding: 1rem; }
+        .bank-panel__title { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-600); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 0.75rem; }
+        .bank-item { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.625rem 0; border-bottom: 1px solid var(--qn-neutral-100); }
+        .bank-item:last-child { border-bottom: none; }
+        .bank-item__text { font-size: 0.875rem; color: var(--qn-neutral-700); }
+        .bank-item__tags { display: flex; gap: 0.25rem; margin-top: 0.25rem; }
+        .bank-empty { font-size: 0.8125rem; color: var(--qn-neutral-400); text-align: center; padding: 0.5rem 0; }
+
         /* Toggle Switch */
         .toggle-switch { position: relative; width: 2.5rem; height: 1.25rem; }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
@@ -230,17 +224,6 @@
                 <div class="builder-sidebar">
                     <div class="form-control__label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">Bagian Kuesioner <span class="important">*</span></div>
 
-                    <!-- Default Section (Locked) -->
-                    <div class="section-item section-item--locked" style="background: #f0fdf4; border-color: #86efac; cursor: default; margin-bottom: 0.75rem;" onclick="showDefaultSectionInfo()">
-                        <span class="section-item__number" style="background: #22c55e;">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                            </svg>
-                        </span>
-                        <span class="section-item__name" style="color: #16a34a;">Informasi Pribadi</span>
-                        <span style="font-size: 0.625rem; color: #22c55e; background: #dcfce7; padding: 0.125rem 0.375rem; border-radius: 0.25rem;">Core · Default</span>
-                    </div>
-
                     <div class="section-list" id="sectionList"></div>
                     <button class="btn-add-section" onclick="addSection()">
                         <span class="icon icon-plus-mini"></span> Tambah Bagian
@@ -277,50 +260,134 @@
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
 
     <script>
-    // Data Model
+    // =====================================================
+    // Bank Soal: label regulator + pool Optional yang belum
+    // ditambahkan ke section manapun (lihat renderBankPanel)
+    // =====================================================
+    const REGULATOR_LABELS = { kemdikbud: 'Kemdikbud', kemenkes: 'Kemenkes', ikuptn: 'IKU PTN', banpt: 'BAN-PT', lam: 'LAM' };
+
+    let bankPool = [
+        { id: 101, tier: 'optional', text: 'Berapa yang merespons lamaran Anda?', type: 'number', regulatorTags: ['kemdikbud'], required: false },
+        { id: 102, tier: 'optional', text: 'Berapa yang mengundang wawancara?', type: 'number', regulatorTags: ['kemdikbud'], required: false },
+        { id: 103, tier: 'optional', text: 'Jika pekerjaan tidak sesuai pendidikan, mengapa Anda mengambilnya?', type: 'textarea', regulatorTags: ['kemdikbud'], required: false },
+        { id: 104, tier: 'optional', text: 'Apakah Anda memiliki sertifikat kompetensi/profesi di bidang kesehatan?', type: 'radio', options: ['Ya', 'Tidak'], regulatorTags: ['kemenkes'], required: false },
+        { id: 105, tier: 'optional', text: 'Seberapa besar otonomi/kebebasan dalam pekerjaan Anda saat ini?', type: 'scale', regulatorTags: ['banpt', 'lam'], required: false },
+        { id: 106, tier: 'optional', text: 'Seberapa puas Anda dengan pekerjaan saat ini secara keseluruhan?', type: 'scale', regulatorTags: ['banpt', 'lam'], required: false }
+    ];
+
+    function escapeHtml(str) {
+        return String(str == null ? '' : str).replace(/[&<>"']/g, function (c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+    }
+
+    // =====================================================
+    // Data Model — tiap question adalah baris dari bank soal:
+    // tier: 'core' (fixed, selalu aktif, tidak bisa diedit/dinonaktifkan)
+    //     | 'optional' (fixed, admin cuma toggle aktif/nonaktif via `active`)
+    // regulatorTags cuma dipakai utk label/filter Optional, bukan penentu tier.
+    // =====================================================
     let data = {
         title: '',
         sections: [
             {
-                id: 1, name: 'Informasi Umum',
+                id: 1, name: 'Informasi Pribadi', locked: true,
                 questions: [
-                    { id: 1, text: 'Jelaskan status Anda saat ini?', desc: '', type: 'radio', required: true, options: ['Bekerja (full time / part time)', 'Belum memungkinkan bekerja', 'Wiraswasta (Wirausaha)', 'Melanjutkan pendidikan', 'Tidak kerja, tetapi sedang mencari kerja'] },
-                    { id: 2, text: 'Sumber dana apa yang Anda gunakan untuk membiayai kuliah?', desc: '', type: 'radio', required: true, options: ['Biaya Sendiri/Keluarga', 'Beasiswa ADIK', 'BIDIKMISI', 'PPA'] }
+                    { id: 1, tier: 'core', text: 'Alamat Email', type: 'text', required: true },
+                    { id: 2, tier: 'core', text: 'Nomor HP', type: 'text', required: true },
+                    { id: 3, tier: 'core', text: 'NIK/No. KTP', type: 'text', required: true },
+                    { id: 4, tier: 'core', text: 'NPWP', type: 'text', required: false }
                 ]
             },
-            { id: 2, name: 'Bekerja', questions: [] },
-            { id: 3, name: 'Wiraswasta', questions: [] },
-            { id: 4, name: 'Melanjutkan Pendidikan', questions: [] },
-            { id: 5, name: 'Belum Bekerja', questions: [] },
-            { id: 6, name: 'Tingkat Kompetensi', questions: [] },
-            { id: 7, name: 'Rencana Karier Lanjutan', questions: [] }
+            {
+                id: 2, name: 'Informasi Umum',
+                questions: [
+                    { id: 5, tier: 'core', text: 'Status Anda saat ini?', type: 'checkbox', required: true, options: ['Bekerja (full time / part time)', 'Wiraswasta (Wirausaha)', 'Melanjutkan pendidikan', 'Tidak kerja, tetapi sedang mencari kerja', 'Belum memungkinkan bekerja'] },
+                    { id: 6, tier: 'core', text: 'Dari status yang dipilih, mana status utama Anda? (kalau memilih lebih dari satu)', type: 'radio', required: true, options: ['Sesuai status yang dicentang di atas'] },
+                    { id: 7, tier: 'optional', active: false, regulatorTags: ['kemdikbud'], text: 'Sumber dana apa yang Anda gunakan untuk membiayai kuliah?', type: 'radio', required: true, options: ['Biaya Sendiri/Keluarga', 'Beasiswa ADIK', 'BIDIKMISI', 'PPA'] },
+                    { id: 8, tier: 'optional', active: false, regulatorTags: ['kemdikbud'], text: 'Kapan Anda mulai mencari pekerjaan?', type: 'text', required: false },
+                    { id: 9, tier: 'optional', active: false, regulatorTags: ['kemdikbud'], text: 'Bagaimana cara Anda mencari pekerjaan?', type: 'text', required: false },
+                    { id: 10, tier: 'optional', active: false, regulatorTags: ['kemdikbud'], text: 'Berapa perusahaan yang sudah Anda lamar?', type: 'number', required: false },
+                    { id: 11, tier: 'optional', active: false, regulatorTags: ['kemenkes'], text: 'Apakah Anda bekerja di fasilitas kesehatan?', type: 'radio', required: false, options: ['Ya', 'Tidak'] },
+                    { id: 12, tier: 'optional', active: false, regulatorTags: ['kemenkes'], text: 'Status STR (Surat Tanda Registrasi) Anda saat ini?', type: 'radio', required: false, options: ['Aktif', 'Dalam proses perpanjangan', 'Belum memiliki'] },
+                    { id: 13, tier: 'optional', active: false, regulatorTags: ['kemenkes'], text: 'Apakah bidang kerja Anda sesuai dengan kompetensi tenaga kesehatan yang dimiliki?', type: 'radio', required: false, options: ['Sesuai', 'Tidak sesuai'] },
+                    { id: 14, tier: 'optional', active: false, regulatorTags: ['ikuptn'], text: 'Berapa lama waktu tunggu Anda mendapatkan pekerjaan pertama? (bulan)', type: 'number', required: false },
+                    { id: 15, tier: 'optional', active: false, regulatorTags: ['banpt'], text: 'Seberapa besar pekerjaan Anda sesuai dengan bidang pendidikan?', type: 'scale', required: false },
+                    { id: 16, tier: 'optional', active: false, regulatorTags: ['banpt', 'lam'], text: 'Saran perbaikan untuk program studi/kurikulum', type: 'textarea', required: false },
+                    { id: 17, tier: 'optional', active: false, regulatorTags: ['lam'], text: 'Bagaimana Anda menilai kesiapan kerja lulusan program studi ini secara umum?', type: 'scale', required: false },
+                    { id: 18, tier: 'core', text: 'Berapa tempat kerja yang Anda jalani saat ini?', type: 'number', required: true },
+                    { id: 19, tier: 'core', text: 'Tingkat kompetensi yang dikuasai saat lulus', type: 'scale', required: true }
+                ]
+            },
+            { id: 3, name: 'Bekerja', questions: [] },
+            { id: 4, name: 'Wiraswasta', questions: [] },
+            { id: 5, name: 'Melanjutkan Pendidikan', questions: [] },
+            { id: 6, name: 'Belum Bekerja', questions: [] },
+            { id: 7, name: 'Tingkat Kompetensi', questions: [] },
+            { id: 8, name: 'Rencana Karier Lanjutan', questions: [] }
         ]
     };
     let currentSection = 0;
+
+    // =====================================================
+    // Standar (?standards=) dari kuesioner-create.html -- pre-aktifkan
+    // Optional question yang regulatorTags-nya beririsan dengan pilihan.
+    // =====================================================
+    function getStandardsFromUrl() {
+        const raw = new URLSearchParams(window.location.search).get('standards');
+        return raw ? raw.split(',').filter(Boolean) : [];
+    }
+
+    function applyStandardsPreActivation(standards) {
+        if (!standards.length) return 0;
+        let count = 0;
+        data.sections.forEach(function (section) {
+            section.questions.forEach(function (q) {
+                if (q.tier === 'optional' && q.regulatorTags && q.regulatorTags.some(function (t) { return standards.indexOf(t) !== -1; })) {
+                    q.active = true;
+                    count++;
+                }
+            });
+        });
+        return count;
+    }
+
+    function showStandardsBanner(count, standards) {
+        const labels = standards.map(function (s) { return REGULATOR_LABELS[s] || s; }).join(', ');
+        const banner = document.createElement('div');
+        banner.className = 'alert alert_helper';
+        banner.style.marginBottom = '1rem';
+        banner.innerHTML = '<div class="alert__content">' +
+            '<span class="alert__heading">' + count + ' pertanyaan Optional otomatis diaktifkan</span>' +
+            '<p class="alert__description">Sesuai standar yang dipilih: ' + escapeHtml(labels) + '. Anda tetap bisa menonaktifkan atau menambah lagi dari panel "Bank Soal Optional" di tiap bagian.</p>' +
+            '</div>';
+        document.querySelector('.main__header').insertAdjacentElement('afterend', banner);
+    }
 
     // Render Section List
     function renderSectionList() {
         const container = document.getElementById('sectionList');
         container.innerHTML = data.sections.map((s, i) => `
-            <div class="section-item ${i === currentSection ? 'active' : ''}" onclick="selectSection(${i})">
-                <span class="section-item__number">${i + 1}</span>
-                <span class="section-item__name">${s.name}</span>
-                <span class="section-item__delete" onclick="event.stopPropagation(); deleteSection(${i})">
-                    <span class="icon icon-trash-mini"></span>
-                </span>
+            <div class="section-item ${i === currentSection ? 'active' : ''}" onclick="selectSection(${i})" ${s.locked ? 'style="background:#f0fdf4;border-color:#86efac;"' : ''}>
+                <span class="section-item__number" ${s.locked ? 'style="background:#22c55e;"' : ''}>${s.locked ? '<span class="icon icon-lock-closed-mini"></span>' : (i + 1)}</span>
+                <span class="section-item__name" ${s.locked ? 'style="color:#16a34a;"' : ''}>${escapeHtml(s.name)}</span>
+                ${s.locked
+                    ? '<span style="font-size: 0.625rem; color: #22c55e; background: #dcfce7; padding: 0.125rem 0.375rem; border-radius: 0.25rem;">Core</span>'
+                    : `<span class="section-item__delete" onclick="event.stopPropagation(); deleteSection(${i})"><span class="icon icon-trash-mini"></span></span>`
+                }
             </div>
         `).join('');
     }
 
-    // Render Questions with Inline Editing
+    // Render Questions (bank soal: Core terkunci, Optional toggle on/off -- tidak ada input teks bebas)
     function renderQuestions() {
         const section = data.sections[currentSection];
         const container = document.getElementById('sectionContent');
 
         let html = `
             <div class="section-card">
-                <input type="text" class="section-title-input" value="${currentSection + 1}. ${section.name}"
-                    onchange="updateSectionName(this.value)" placeholder="Nama bagian...">
+                <input type="text" class="section-title-input" value="${currentSection + 1}. ${escapeHtml(section.name)}"
+                    onchange="updateSectionName(this.value)" placeholder="Nama bagian..." ${section.locked ? 'readonly style="cursor:default;color:var(--qn-neutral-600);"' : ''}>
 
                 <div id="questionList">`;
 
@@ -328,94 +395,106 @@
             html += renderQuestionCard(q, qi);
         });
 
-        html += `</div>
-                <div class="add-question-btn" onclick="addQuestion()">
-                    <span class="icon icon-plus-mini"></span> Tambah Pertanyaan
-                </div>
-            </div>`;
+        html += `</div>`;
+        if (!section.locked) html += renderBankPanel();
+        html += `</div>`;
 
         container.innerHTML = html;
     }
 
-    function renderQuestionCard(q, qi) {
-        const typeOptions = [
-            { value: 'radio', label: 'Pilihan ganda' },
-            { value: 'checkbox', label: 'Kotak centang' },
-            { value: 'text', label: 'Teks singkat' },
-            { value: 'textarea', label: 'Paragraf' },
-            { value: 'number', label: 'Angka' },
-            { value: 'date', label: 'Tanggal' },
-            { value: 'scale', label: 'Skala' }
-        ];
-
-        let html = `
-            <div class="question-card" data-index="${qi}">
-                <div class="question-header">
-                    <span class="question-number">${qi + 1}.</span>
-                    <input type="text" class="question-text-input" value="${q.text}"
-                        onchange="updateQuestion(${qi}, 'text', this.value)" placeholder="Ketik pertanyaan...">
-
-                    <select class="question-type-select" onchange="updateQuestion(${qi}, 'type', this.value)">
-                        ${typeOptions.map(opt => `<option value="${opt.value}" ${q.type === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
-                    </select>
-
-                    <div class="question-actions">
-                        <button onclick="duplicateQuestion(${qi})" title="Duplikat"><span class="icon icon-document-duplicate-mini"></span></button>
-                        <button onclick="deleteQuestion(${qi})" title="Hapus"><span class="icon icon-trash-mini"></span></button>
-                        <button title="Lainnya"><span class="icon icon-ellipsis-vertical-mini"></span></button>
-                    </div>
-                </div>
-
-                <div class="question-desc">
-                    <input type="text" class="question-desc-input" value="${q.desc || ''}"
-                        onchange="updateQuestion(${qi}, 'desc', this.value)" placeholder="Deskripsi">
-                </div>`;
-
-        // Render options for radio/checkbox
-        if (['radio', 'checkbox'].includes(q.type)) {
-            html += `<div class="option-list">`;
-            q.options.forEach((opt, oi) => {
-                html += `
-                    <div class="option-item">
-                        <span class="option-item__number">${oi + 1}</span>
-                        <input type="text" class="option-item__input" value="${opt}"
-                            onchange="updateOption(${qi}, ${oi}, this.value)" placeholder="Opsi ${oi + 1}">
-                        <button class="option-item__delete" onclick="deleteOption(${qi}, ${oi})" ${q.options.length <= 1 ? 'style="visibility:hidden"' : ''}>
-                            <span class="icon icon-x-mark-mini"></span>
-                        </button>
-                    </div>`;
-            });
-            html += `</div>
-                <div class="add-option-row">
-                    Tambahkan opsi atau <span class="add-option-link" onclick="addOption(${qi})">Tambahkan Lainnya</span>
-                    <span style="margin-left: auto; color: var(--qn-neutral-400);">Buka bagian berdasarkan jawaban</span>
-                </div>`;
-        } else if (q.type === 'scale') {
-            html += `<div class="option-list" style="flex-direction: row; gap: 0.5rem;">`;
+    function renderOptionsStatic(q) {
+        if (['radio', 'checkbox'].includes(q.type) && q.options) {
+            return `<div class="option-list">` +
+                q.options.map(opt => `<div class="option-item"><span class="option-item__number">${q.type === 'radio' ? '○' : '☐'}</span><span>${escapeHtml(opt)}</span></div>`).join('') +
+                `</div>`;
+        }
+        if (q.type === 'scale') {
+            let html = `<div class="option-list" style="flex-direction: row; gap: 0.5rem;">`;
             for (let i = 1; i <= 5; i++) {
                 html += `<div class="option-item" style="flex: 1; justify-content: center; padding: 0.75rem;"><span>${i}</span></div>`;
             }
-            html += `</div>`;
-        } else {
-            html += `<div style="margin-left: 2.25rem;">
-                <input type="${q.type === 'textarea' ? 'text' : q.type}" class="form-control__input"
-                    placeholder="Jawaban responden akan muncul di sini..." disabled style="max-width: 300px; background: var(--qn-neutral-50);">
-            </div>`;
+            return html + `</div>`;
         }
+        return `<div style="margin-left: 2.25rem;">
+            <input type="text" class="form-control__input" placeholder="Jawaban responden akan muncul di sini..." disabled style="max-width: 300px; background: var(--qn-neutral-100, #f8fafc);">
+        </div>`;
+    }
+
+    function renderQuestionCard(q, qi) {
+        const isCore = q.tier === 'core';
+        const cardClass = 'question-card' + (isCore ? ' q-card--core' : ' q-card--optional' + (q.active ? '' : ' inactive'));
+
+        let html = `
+            <div class="${cardClass}" data-index="${qi}">
+                <div class="question-header">
+                    <span class="question-number">${qi + 1}.</span>
+                    <span class="q-static-text">${escapeHtml(q.text)}</span>`;
+
+        if (isCore) {
+            html += `<span class="q-tier-badge q-tier-badge--core"><span class="icon icon-lock-closed-mini"></span> Core</span>`;
+        } else {
+            html += `<span class="q-tier-badge q-tier-badge--optional">Optional</span>
+                    <label class="toggle-switch" title="${q.active ? 'Nonaktifkan' : 'Aktifkan'}">
+                        <input type="checkbox" ${q.active ? 'checked' : ''} onchange="toggleQuestionActive(${qi}, this.checked)">
+                        <span class="toggle-slider"></span>
+                    </label>`;
+        }
+
+        html += `</div>`;
+
+        if (!isCore && q.regulatorTags && q.regulatorTags.length) {
+            html += `<div class="q-regulator-tags">` +
+                q.regulatorTags.map(t => `<span class="tag tag_outline tag_sm">${escapeHtml(REGULATOR_LABELS[t] || t)}</span>`).join('') +
+                `</div>`;
+        }
+
+        html += renderOptionsStatic(q);
 
         html += `
                 <div class="question-footer">
-                    <div class="required-toggle">
-                        <span>Wajib diisi</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" ${q.required ? 'checked' : ''} onchange="updateQuestion(${qi}, 'required', this.checked)">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
+                    <span style="font-size: 0.75rem; color: var(--qn-neutral-500);">${q.required ? 'Wajib diisi oleh responden' : 'Boleh dikosongkan responden'}</span>
                 </div>
             </div>`;
 
         return html;
+    }
+
+    // Panel "Bank Soal Optional": Optional question lain yang belum ditambahkan ke section manapun.
+    // Tidak ada input teks -- admin cuma menekan "Tambahkan" untuk memasukkan apa adanya dari bank.
+    function renderBankPanel() {
+        if (bankPool.length === 0) {
+            return `<div class="bank-panel">
+                <div class="bank-panel__title"><span class="icon icon-archive-box-mini"></span> Bank Soal Optional</div>
+                <p class="bank-empty">Semua pertanyaan Optional dari bank sudah ditambahkan ke kuesioner ini.</p>
+            </div>`;
+        }
+        return `<div class="bank-panel">
+            <div class="bank-panel__title"><span class="icon icon-archive-box-mini"></span> Bank Soal Optional &mdash; belum ditambahkan</div>
+            ${bankPool.map((q, bi) => `
+                <div class="bank-item">
+                    <div>
+                        <div class="bank-item__text">${escapeHtml(q.text)}</div>
+                        <div class="bank-item__tags">${(q.regulatorTags || []).map(t => `<span class="tag tag_outline tag_sm">${escapeHtml(REGULATOR_LABELS[t] || t)}</span>`).join('')}</div>
+                    </div>
+                    <button type="button" class="btn btn_outline btn_sm" onclick="addFromBank(${bi})">
+                        <span class="icon icon-plus-mini"></span> Tambahkan
+                    </button>
+                </div>
+            `).join('')}
+        </div>`;
+    }
+
+    function addFromBank(bankIndex) {
+        const item = bankPool.splice(bankIndex, 1)[0];
+        item.active = true;
+        data.sections[currentSection].questions.push(item);
+        renderQuestions();
+        showToast('Pertanyaan dari bank soal ditambahkan');
+    }
+
+    function toggleQuestionActive(qi, checked) {
+        data.sections[currentSection].questions[qi].active = checked;
+        renderQuestions();
     }
 
     // Section Functions
@@ -435,6 +514,7 @@
     }
 
     function deleteSection(index) {
+        if (data.sections[index].locked) { showToast('Bagian Core tidak dapat dihapus'); return; }
         if (data.sections.length <= 1) { showToast('Minimal harus ada 1 bagian'); return; }
         if (confirm(`Hapus bagian "${data.sections[index].name}"?`)) {
             data.sections.splice(index, 1);
@@ -446,65 +526,11 @@
     }
 
     function updateSectionName(value) {
+        if (data.sections[currentSection].locked) return;
         const match = value.match(/^\d+\.\s*(.+)$/);
         if (match) data.sections[currentSection].name = match[1].trim();
         else data.sections[currentSection].name = value.trim();
         renderSectionList();
-    }
-
-    // Question Functions
-    function addQuestion() {
-        const section = data.sections[currentSection];
-        const newId = Math.max(...section.questions.map(q => q.id), 0) + 1;
-        section.questions.push({ id: newId, text: '', desc: '', type: 'radio', required: true, options: ['Opsi 1', 'Opsi 2'] });
-        renderQuestions();
-        showToast('Pertanyaan ditambahkan');
-    }
-
-    function updateQuestion(qi, field, value) {
-        const q = data.sections[currentSection].questions[qi];
-        q[field] = value;
-        if (field === 'type' && ['radio', 'checkbox'].includes(value) && (!q.options || q.options.length === 0)) {
-            q.options = ['Opsi 1', 'Opsi 2'];
-        }
-        renderQuestions();
-    }
-
-    function duplicateQuestion(qi) {
-        const section = data.sections[currentSection];
-        const original = section.questions[qi];
-        const copy = JSON.parse(JSON.stringify(original));
-        copy.id = Math.max(...section.questions.map(q => q.id), 0) + 1;
-        section.questions.splice(qi + 1, 0, copy);
-        renderQuestions();
-        showToast('Pertanyaan diduplikat');
-    }
-
-    function deleteQuestion(qi) {
-        if (confirm('Hapus pertanyaan ini?')) {
-            data.sections[currentSection].questions.splice(qi, 1);
-            renderQuestions();
-            showToast('Pertanyaan dihapus');
-        }
-    }
-
-    // Option Functions
-    function addOption(qi) {
-        const q = data.sections[currentSection].questions[qi];
-        q.options.push(`Opsi ${q.options.length + 1}`);
-        renderQuestions();
-    }
-
-    function updateOption(qi, oi, value) {
-        data.sections[currentSection].questions[qi].options[oi] = value;
-    }
-
-    function deleteOption(qi, oi) {
-        const q = data.sections[currentSection].questions[qi];
-        if (q.options.length > 1) {
-            q.options.splice(oi, 1);
-            renderQuestions();
-        }
     }
 
     // Utility
@@ -520,56 +546,6 @@
         document.getElementById('toastAlertMsg').textContent = msg;
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 3500);
-    }
-
-    function showDefaultSectionInfo() {
-        // Show info toast about default section
-        const existingInfo = document.querySelector('.default-section-info');
-        if (existingInfo) existingInfo.remove();
-
-        const info = document.createElement('div');
-        info.className = 'default-section-info';
-        info.style.cssText = `
-            position: fixed;
-            top: 5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #f0fdf4;
-            border: 1px solid #86efac;
-            color: #166534;
-            padding: 1rem 1.5rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            max-width: 400px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            z-index: 9999;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-        `;
-        info.innerHTML = `
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="16" x2="12" y2="12"></line>
-                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-            </svg>
-            <div>
-                <strong style="display: block; margin-bottom: 0.25rem;">Section "Informasi Pribadi"</strong>
-                <span style="color: #15803d;">Section ini ditambahkan secara otomatis oleh sistem dan berisi pertanyaan wajib: Alamat Email, Nomor HP, NIK/No. KTP, dan NPWP. Section ini tidak dapat dihapus atau diubah.</span>
-            </div>
-            <button onclick="this.parentElement.remove()" style="background: none; border: none; cursor: pointer; color: #166534; padding: 0.25rem; margin-left: auto;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-        `;
-        document.body.appendChild(info);
-
-        // Auto remove after 5 seconds
-        setTimeout(() => {
-            if (info.parentElement) info.remove();
-        }, 5000);
     }
 
     function saveAll() {
@@ -604,6 +580,10 @@
 
     // Init
     document.addEventListener('DOMContentLoaded', function() {
+        const standards = getStandardsFromUrl();
+        const activatedCount = applyStandardsPreActivation(standards);
+        if (standards.length) showStandardsBanner(activatedCount, standards);
+
         renderSectionList();
         renderQuestions();
     });

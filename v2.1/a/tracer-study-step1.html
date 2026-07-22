@@ -31,49 +31,20 @@
         .ts-header__info p:first-child { font-size: 0.875rem; color: var(--qn-neutral-500); }
         .ts-header__info p:last-child { font-weight: 500; color: var(--qn-neutral-800); }
 
-        /* Main — soft brand-tinted backdrop so the card reads as a "hero", not a floating box */
-        .ts-main {
-            min-height: calc(100vh - 140px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem 1rem;
-            background:
-                radial-gradient(circle at 10% 15%, var(--qn-primary-100) 0%, transparent 40%),
-                radial-gradient(circle at 90% 85%, var(--qn-primary-100) 0%, transparent 38%);
-        }
-
-        /* Hero icon badge above the card title */
-        .ts-hero-icon {
-            width: 3.75rem; height: 3.75rem; border-radius: 50%;
-            margin: 0 auto 1.25rem;
-            display: flex; align-items: center; justify-content: center;
-            background: linear-gradient(135deg, var(--qn-primary-400), var(--qn-primary-600));
-            box-shadow: 0 10px 20px -6px rgba(15, 106, 245, 0.35);
-        }
-        .ts-hero-icon .icon { color: white; font-size: 1.75rem; }
-
-        /* Card accent strip */
-        .ts-hero-card { position: relative; overflow: hidden; }
-        .ts-hero-card::before {
-            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 0.3125rem;
-            background: linear-gradient(90deg, var(--qn-primary-400), var(--qn-primary-600));
-        }
+        /* Main */
+        .ts-main { min-height: calc(100vh - 140px); display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; }
 
         /* Progress Steps (page-local: no Quantum stepper component available) */
-        .ts-progress { display: flex; align-items: flex-start; justify-content: center; gap: 0; margin-bottom: 2rem; }
-        .ts-progress__col { display: flex; flex-direction: column; align-items: center; gap: 0.375rem; width: 5.5rem; }
+        .ts-progress { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
         .ts-progress__step { width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; }
         .ts-progress__step--completed { background: var(--qn-success-500); color: white; }
-        .ts-progress__step--active { background: var(--qn-primary-500); color: white; box-shadow: 0 0 0 4px var(--qn-primary-100); }
+        .ts-progress__step--active { background: var(--qn-primary-500); color: white; }
         .ts-progress__step--pending { background: var(--qn-neutral-200); color: var(--qn-neutral-400); }
-        .ts-progress__label { font-size: 0.75rem; color: var(--qn-neutral-400); font-weight: 500; text-align: center; }
-        .ts-progress__label--active { color: var(--qn-primary-500); font-weight: 600; }
-        .ts-progress__line { width: 2rem; height: 2px; background: var(--qn-neutral-200); margin-top: 0.9375rem; }
+        .ts-progress__line { width: 2rem; height: 2px; background: var(--qn-neutral-200); }
         .ts-progress__line--completed { background: var(--qn-success-500); }
 
         /* Footer */
-        .ts-footer { background: var(--qn-primary-700); padding: 1rem; text-align: center; }
+        .ts-footer { background: var(--qn-primary-700, #1d4ed8); padding: 1rem; text-align: center; }
         .ts-footer p { color: white; font-size: 0.875rem; margin: 0; }
         .ts-footer a { color: white; text-decoration: underline; }
     </style>
@@ -94,26 +65,16 @@
 
     <!-- Main Content -->
     <main class="ts-main">
-        <div class="card ts-hero-card" style="max-width: 46rem; width: 100%;">
+        <div class="card" style="max-width: 46rem; width: 100%;">
             <div class="card__body">
                 <!-- Progress Steps -->
                 <div class="ts-progress">
-                    <div class="ts-progress__col">
-                        <div class="ts-progress__step ts-progress__step--active">1</div>
-                        <span class="ts-progress__label ts-progress__label--active">Data Diri</span>
-                    </div>
+                    <div class="ts-progress__step ts-progress__step--active">1</div>
                     <div class="ts-progress__line"></div>
-                    <div class="ts-progress__col">
-                        <div class="ts-progress__step ts-progress__step--pending">2</div>
-                        <span class="ts-progress__label">Verifikasi</span>
-                    </div>
+                    <div class="ts-progress__step ts-progress__step--pending">2</div>
                 </div>
 
-                <div class="ts-hero-icon">
-                    <span class="icon icon-academic-cap"></span>
-                </div>
-
-                <div class="main__wrapper" style="margin-bottom: 1.5rem; text-align: center;">
+                <div class="main__wrapper" style="margin-bottom: 1.5rem;">
                     <h1 class="main__title">Pengisian Tracer Study</h1>
                     <p class="main__subtitle">Silakan lengkapi data berikut untuk melanjutkan pengisian tracer study.</p>
                 </div>

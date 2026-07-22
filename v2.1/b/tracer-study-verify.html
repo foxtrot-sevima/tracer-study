@@ -35,28 +35,11 @@
         .ts-header__user-info p:first-child { font-weight: 500; color: var(--qn-neutral-800); font-size: 0.875rem; }
         .ts-header__user-info p:last-child { font-size: 0.8125rem; color: var(--qn-neutral-500); }
 
-        /* Main — soft brand-tinted backdrop so the card reads as a "hero", not a floating box */
-        .ts-main {
-            flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 3rem 1rem;
-            background:
-                radial-gradient(circle at 10% 15%, var(--qn-primary-100) 0%, transparent 40%),
-                radial-gradient(circle at 90% 85%, var(--qn-primary-100) 0%, transparent 38%);
-        }
+        /* Main */
+        .ts-main { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 2.5rem 1rem; }
 
-        /* Card accent strip */
-        .ts-hero-card { position: relative; overflow: hidden; }
-        .ts-hero-card::before {
-            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 0.3125rem;
-            background: linear-gradient(90deg, var(--qn-primary-400), var(--qn-primary-600));
-        }
-
-        /* Illustration halo + placeholder (decorative, no Quantum equivalent needed) */
-        .verify-illust-wrap {
-            width: 8.5rem; height: 8.5rem; margin: 0 auto 1.5rem; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            background: radial-gradient(circle, var(--qn-primary-100) 0%, transparent 72%);
-        }
-        .verify-illust { display: block; width: 8rem; height: auto; }
+        /* Illustration placeholder (decorative, no Quantum equivalent needed) */
+        .verify-illust { display: block; margin: 0 auto 1.5rem; width: 10rem; height: auto; }
 
         /* Text */
         .verify-title { font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-800); text-align: center; margin-bottom: 0.5rem; }
@@ -66,7 +49,7 @@
         .dob-grid .form-control__input { text-align: center; }
 
         /* Footer */
-        .ts-footer { background: var(--qn-primary-700); padding: 1rem; text-align: center; }
+        .ts-footer { background: var(--qn-primary-700, #1d4ed8); padding: 1rem; text-align: center; }
         .ts-footer p { color: white; font-size: 0.875rem; margin: 0; }
         .ts-footer a { color: white; text-decoration: underline; }
     </style>
@@ -96,7 +79,7 @@
 
     <!-- Main Content -->
     <main class="ts-main">
-        <div class="card ts-hero-card" style="max-width: 46rem; width: 100%;">
+        <div class="card" style="max-width: 46rem; width: 100%;">
             <div class="card__body">
                 <!-- Back link -->
                 <a href="./tracer-study-step2.html" class="link link_back" style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
@@ -105,18 +88,16 @@
                 </a>
 
                 <!-- Illustration -->
-                <div class="verify-illust-wrap">
-                    <svg class="verify-illust" viewBox="0 0 200 155" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="50" y="20" width="100" height="120" rx="8" fill="#EFF6FF" stroke="#93C5FD" stroke-width="2"/>
-                        <rect x="65" y="45" width="70" height="8" rx="4" fill="#93C5FD"/>
-                        <rect x="65" y="62" width="50" height="6" rx="3" fill="#BFDBFE"/>
-                        <rect x="65" y="78" width="70" height="8" rx="4" fill="#93C5FD"/>
-                        <rect x="65" y="95" width="40" height="6" rx="3" fill="#BFDBFE"/>
-                        <circle cx="100" cy="115" r="12" fill="#3B82F6"/>
-                        <path d="M95 115l3 3 7-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="100" cy="28" r="6" fill="#3B82F6"/>
-                    </svg>
-                </div>
+                <svg class="verify-illust" viewBox="0 0 200 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="20" width="100" height="120" rx="8" fill="#EFF6FF" stroke="#93C5FD" stroke-width="2"/>
+                    <rect x="65" y="45" width="70" height="8" rx="4" fill="#93C5FD"/>
+                    <rect x="65" y="62" width="50" height="6" rx="3" fill="#BFDBFE"/>
+                    <rect x="65" y="78" width="70" height="8" rx="4" fill="#93C5FD"/>
+                    <rect x="65" y="95" width="40" height="6" rx="3" fill="#BFDBFE"/>
+                    <circle cx="100" cy="115" r="12" fill="#3B82F6"/>
+                    <path d="M95 115l3 3 7-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="100" cy="28" r="6" fill="#3B82F6"/>
+                </svg>
 
                 <!-- Title & Description -->
                 <h2 class="verify-title">Verifikasi Identitas</h2>
