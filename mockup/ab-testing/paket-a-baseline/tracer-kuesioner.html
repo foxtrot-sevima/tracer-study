@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Kuesioner | Tracer Study (Paket A)</title>
+    <link rel="icon" href="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/assets/css/main.css">
+    <link rel="stylesheet" href="../../quantum/assets/css/main.css">
+</head>
+<body class="body body_kl-white">
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="pilih-portal.html" class="header__identity">
+                    <img class="header__logo" src="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item"><a class="nav__link" href="tracer-dashboard.html"><span class="icon icon-chart-bar-square"></span><span>Dasbor</span></a></li>
+                        <li class="nav__item active"><a class="nav__link" href="tracer-kuesioner.html"><span class="icon icon-clipboard-document-list"></span><span>Kuesioner</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="#"><span class="icon icon-academic-cap"></span><span>Alumni</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="#"><span class="icon icon-document-text"></span><span>Publikasi</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="karir-beranda.html" class="btn btn_outline btn_xs btn_nav">Portal Karir <span class="icon icon-arrow-up-right-mini"></span></a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar"><span class="avatar avatar_sm"><img src="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="" width="44"></span></span>
+                        <span class="header__user-info"><span class="header__user-name">Admin CDC</span><span class="header__user-role">admin@foxtrot.ac.id</span></span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="main__header main__header_kl-list">
+                <div class="main__location"><div class="main__wrapper">
+                    <h1 class="main__title">Daftar Kuesioner</h1>
+                </div></div>
+                <div class="main__action">
+                    <button class="btn btn_primary"><span class="icon icon-plus-circle-solid"></span><span class="btn__text">Buat Kuesioner Baru</span></button>
+                </div>
+            </div>
+
+            <div class="alert alert_warning" style="margin-bottom:1rem;">
+                <div class="alert__content">
+                    <p class="alert__description"><b>Paket A · Multi-template</b> — setiap periode/angkatan dibuat kuesioner tersendiri. Admin membuat, memfinalisasi, dan mengirim banyak kuesioner (beban operasional tinggi).</p>
+                </div>
+            </div>
+
+            <div class="card card_empty card_qnaire">
+                <nav class="nav-tab">
+                    <ul class="nav-tab__wrapper">
+                        <li class="nav-tab__item active">Draft (12)</li>
+                        <li class="nav-tab__item">Siap Kirim (5)</li>
+                        <li class="nav-tab__item">Terkirim (23)</li>
+                    </ul>
+                </nav>
+                <div class="grid grid_qnaire-list-head" style="margin-top:1rem;">
+                    <div class="col-12 col-sm-4">
+                        <div class="form-control"><div class="form-control__group">
+                            <input type="search" class="form-control__input" placeholder="Cari kuesioner...">
+                        </div></div>
+                    </div>
+                    <div class="col-12 col-start-sm-9 col-end-sm-12">
+                        <select class="select-default">
+                            <option value="" selected>Jenis Template</option>
+                            <option>Template Lengkap</option>
+                            <option>Template Kemdikbud</option>
+                            <option>Template Pengguna Lulusan</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="qnaire-lists" id="qlist"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        const items = [
+            ['Tracer Study Lulusan 2024','Template Lengkap','08 Juli 2026'],
+            ['Tracer Study Lulusan 2023','Template Kemdikbud','25 Juni 2026'],
+            ['Survei Pengguna Lulusan 2024','Template Pengguna Lulusan','20 Juni 2026'],
+            ['Tracer Prodi TI 2024','Template Lengkap','12 Juni 2026'],
+            ['Tracer Prodi SI 2024','Template Lengkap','10 Juni 2026'],
+        ];
+        document.getElementById('qlist').innerHTML = items.map(([t,tpl,d]) => `
+            <div class="card card_qnaire-list">
+                <div class="card__body">
+                    <div class="card__body-left">
+                        <div class="card__header">
+                            <span class="icon icon-clipboard-document-list" style="font-size:2rem;color:var(--qn-primary-400);"></span>
+                            <div class="card__header-wrapper">
+                                <a href="#" class="card__title" style="color:var(--qn-primary-500);">${t}</a>
+                                <p class="card__desc">Dibuat pada ${d}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card__body-right">
+                        <a href="#" class="btn btn_primary"><span class="icon icon-check-circle-mini"></span>Finalisasi</a>
+                    </div>
+                </div>
+                <div class="card__footer">
+                    <div class="card__footer-left">
+                        <span class="tag tag_neutral"><span class="icon icon-squares-2x2-mini"></span>${tpl}</span>
+                    </div>
+                    <div class="card__footer-right" style="display:flex;gap:.5rem;">
+                        <button class="btn btn_outline btn_sm btn_icon"><span class="icon icon-trash-mini"></span></button>
+                        <button class="btn btn_outline btn_sm btn_icon"><span class="icon icon-pencil-mini"></span></button>
+                    </div>
+                </div>
+            </div>`).join('');
+        document.querySelectorAll('.select-default').forEach(el => { try { new Choices(el, { searchEnabled:false, itemSelectText:'', shouldSort:false }); } catch(e){} });
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuesioner (Single Living) | Paket B</title>
+    <link rel="icon" href="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/assets/css/main.css">
+    <link rel="stylesheet" href="../../quantum/assets/css/main.css">
+    <style>
+        .wave-tab{display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;border:1px solid var(--qn-neutral-200);border-radius:.5rem;cursor:pointer;background:#fff;}
+        .wave-tab.active{border-color:var(--qn-primary-500);background:var(--qn-primary-50);}
+        .wave-dot{width:10px;height:10px;border-radius:50%;}
+        .q-row{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:.75rem 1rem;}
+        .tierbadge{font-size:.7rem;border:1px solid;border-radius:999px;padding:.1rem .5rem;}
+        .t-core{background:var(--qn-primary-50);color:var(--qn-primary-600);border-color:rgba(41,74,154,.3);}
+        .t-optional{background:#fffbeb;color:#b45309;border-color:#fde68a;}
+        .t-specific{background:#ecfdf5;color:#047857;border-color:#a7f3d0;}
+    </style>
+</head>
+<body class="body body_kl-white">
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="dashboard.html" class="header__identity">
+                    <img class="header__logo" src="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item"><a class="nav__link" href="dashboard.html"><span class="icon icon-chart-bar-square"></span><span>Dashboard</span></a></li>
+                        <li class="nav__item active"><a class="nav__link" href="kuesioner.html"><span class="icon icon-clipboard-document-list"></span><span>Kuesioner</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="mahasiswa-alumni.html"><span class="icon icon-academic-cap"></span><span>Mahasiswa/Alumni</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="aktivitas.html"><span class="icon icon-briefcase"></span><span>Aktivitas</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar"><span class="avatar avatar_sm"><img src="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="" width="44"></span></span>
+                        <span class="header__user-info"><span class="header__user-name">Admin CDC</span><span class="header__user-role">admin@foxtrot.ac.id</span></span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="main__header main__header_kl-list">
+                <div class="main__location"><div class="main__wrapper"><h1 class="main__title">Kuesioner Tracer Study</h1></div></div>
+                <div class="main__action">
+                    <button class="btn btn_outline" onclick="document.getElementById('simModal').style.display='flex'"><span class="icon icon-play-mini"></span>Simulasi Pengisian</button>
+                    <button class="btn btn_primary"><span class="icon icon-paper-airplane-mini"></span>Publish Versi</button>
+                </div>
+            </div>
+            <div class="alert alert_info" style="margin-bottom:1rem;">
+                <div class="alert__content"><p class="alert__description"><b>Paket B · Single &amp; Living</b> — satu kuesioner untuk seluruh PT. Konten mengikuti wave lulusan; tidak perlu membuat template berulang.</p></div>
+            </div>
+
+            <div class="card card_empty" style="margin-bottom:1rem;">
+                <p style="font-size:.75rem;font-weight:600;color:var(--qn-neutral-500);text-transform:uppercase;letter-spacing:.05em;margin:0 0 .75rem;">Time Window Pertanyaan Disebar</p>
+                <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;" id="waveTabs"></div>
+            </div>
+
+            <div class="card card_empty">
+                <div id="waveHeader"></div>
+                <div id="questionList" style="margin-top:1rem;display:flex;flex-direction:column;gap:.75rem;"></div>
+            </div>
+        </div>
+    </main>
+    <!-- Modal Simulasi Pengisian -->
+    <div id="simModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9999;align-items:center;justify-content:center;" onclick="if(event.target===this)this.style.display='none'">
+        <div style="background:#fff;border-radius:.75rem;padding:1.5rem;width:90%;max-width:420px;box-shadow:0 8px 32px rgba(0,0,0,.15);">
+            <h3 style="margin:0 0 .25rem;">Simulasi Pengisian</h3>
+            <p style="font-size:.8rem;color:var(--qn-neutral-500);margin:0 0 1rem;">Coba alur pengisian seperti yang akan dialami alumni — dari email undangan hingga submit. Data tidak akan masuk ke laporan.</p>
+            <div style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.25rem;">
+                <label style="display:flex;align-items:center;gap:.75rem;padding:.6rem .75rem;border:1px solid var(--qn-neutral-200);border-radius:.5rem;cursor:pointer;">
+                    <input type="radio" name="simWave" value="exit" checked>
+                    <div><b style="font-size:.875rem;">Wave Exit</b><br><span style="font-size:.75rem;color:var(--qn-neutral-400);">Saat baru lulus — data ringan</span></div>
+                </label>
+                <label style="display:flex;align-items:center;gap:.75rem;padding:.6rem .75rem;border:1px solid var(--qn-neutral-200);border-radius:.5rem;cursor:pointer;">
+                    <input type="radio" name="simWave" value="g1">
+                    <div><b style="font-size:.875rem;">Wave G1</b><br><span style="font-size:.75rem;color:var(--qn-neutral-400);">Min. 1 tahun setelah lulus — pertanyaan inti IKU</span></div>
+                </label>
+                <label style="display:flex;align-items:center;gap:.75rem;padding:.6rem .75rem;border:1px solid var(--qn-neutral-200);border-radius:.5rem;cursor:pointer;">
+                    <input type="radio" name="simWave" value="g2">
+                    <div><b style="font-size:.875rem;">Wave G2</b><br><span style="font-size:.75rem;color:var(--qn-neutral-400);">Lanjutan — pendalaman prodi</span></div>
+                </label>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:.5rem;">
+                <a href="simulasi-pengisian.html" class="btn btn_primary" style="text-align:center;text-decoration:none;">Mulai Simulasi di Browser</a>
+                <p style="font-size:.7rem;color:var(--qn-neutral-400);text-align:center;margin:0;">Opsional: kirim email undangan percobaan ke diri sendiri</p>
+                <div style="display:flex;gap:.5rem;">
+                    <input type="email" placeholder="email@kampus.ac.id" style="flex:1;padding:.4rem .6rem;border:1px solid var(--qn-neutral-200);border-radius:.375rem;font-size:.8rem;">
+                    <button class="btn btn_outline btn_sm">Kirim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        const waves = {
+            exit:{label:'Wave Exit',when:'Saat baru lulus',dot:'#3b82f6',canAdd:true,
+                desc:'Pemutakhiran data individu lulusan. Regulasi (Kepmen 358/2025): tracer inti baru di G1, jadi Exit ringan.',
+                tierNote:'Pertanyaan <b>Core</b> terkunci (data kontak + status pekerjaan pra-lulus untuk IKU#2). Pertanyaan <b>Optional</b> bisa diaktifkan/nonaktifkan. Admin CDC dapat menambah pertanyaan <b>Specific</b> sendiri.',
+                q:[['Alamat email aktif Anda saat ini','core',1,'Isian teks (email)'],['Nomor HP / WhatsApp aktif','core',1,'Isian teks (nomor)'],['Apakah Anda sudah bekerja atau berwirausaha sebelum lulus?','core',1,'Pilihan: Ya sudah bekerja / Ya sudah berwirausaha / Belum'],['Nama perusahaan/usaha, posisi, bidang industri, dan kisaran penghasilan','core',1,'Dropdown + input angka (muncul jika menjawab Ya)'],['Apa rencana utama Anda setelah lulus?','specific',0,'Pilihan ganda (bekerja / wirausaha / lanjut studi / lainnya)'],['Dukungan apa yang Anda harapkan dari kampus untuk membantu rencana Anda?','optional',0,'Multi-select (conditional per rencana: lowongan / CV / job fair / mentorship / beasiswa / dll)'],['Tautan profil LinkedIn Anda','specific',0,'Isian teks (URL)']]},
+            g1:{label:'Wave G1',when:'Min. 1 tahun setelah lulus',dot:'#294A9A',canAdd:false,
+                desc:'Pertanyaan inti WAJIB. Acuan Core: Tracer Kemdikti + Kemenkes. Mengisi IKU #2. Seluruh pertanyaan terkunci dan tidak dapat diubah.',
+                tierNote:'Seluruh pertanyaan bertier <b>Core</b> — terkunci, berlaku seragam untuk semua PT.',
+                q:[['Apa status Anda saat ini?','core',1,'Pilihan ganda (bekerja / berwirausaha / melanjutkan studi / mencari kerja)'],['Berapa lama masa tunggu Anda hingga mendapat pekerjaan pertama setelah lulus?','core',1,'Pilihan: < 6 bulan / 6–12 bulan / > 12 bulan'],['Seberapa erat kesesuaian pekerjaan Anda dengan bidang studi yang ditempuh?','core',1,'Skala 1–5 (sangat tidak sesuai – sangat sesuai)'],['Di jenis instansi apa Anda bekerja?','core',1,'Pilihan ganda (swasta / BUMN / pemerintah / nirlaba / multinasional)'],['Berapa kisaran penghasilan bulanan Anda saat ini relatif terhadap UMP?','core',1,'Pilihan: < 1× UMP / 1–1,2× UMP / > 1,2× UMP']]},
+            g2:{label:'Wave G2',when:'Lanjutan (4–5 tahun)',dot:'#8b5cf6',canAdd:true,
+                desc:'Pendalaman relevansi prodi/internal. Nice to have: sampai tingkat fakultas & prodi.',
+                tierNote:'Dominan tier <b>Optional</b> — kampus memilih yang relevan. Admin CDC dapat menambah pertanyaan Specific dan mengaktifkan/menonaktifkan Optional.',
+                q:[['Seberapa puas Anda terhadap kompetensi yang diperoleh selama kuliah?','optional',0,'Skala 1–5 (sangat tidak puas – sangat puas)'],['Apa saran Anda untuk perbaikan kurikulum program studi?','optional',0,'Isian teks panjang (paragraf)'],['Mata kuliah mana yang paling relevan dengan pekerjaan Anda saat ini?','optional',0,'Pilihan ganda (daftar mata kuliah prodi)'],['Pertanyaan tambahan dari program studi Anda','specific',0,'Disesuaikan oleh Admin CDC']]}
+        };
+        const tierLabel={core:'Core',optional:'Optional',specific:'Specific'};
+        let active='exit';
+        function render(){
+            document.getElementById('waveTabs').innerHTML=Object.entries(waves).map(([k,w],i)=>`
+                ${i>0?'<span class="icon icon-arrow-right-mini" style="color:var(--qn-neutral-300);"></span>':''}
+                <div class="wave-tab ${active===k?'active':''}" onclick="sel('${k}')">
+                    <span class="wave-dot" style="background:${w.dot}"></span>
+                    <b style="font-size:.875rem;">${w.label}</b>
+                    <span style="font-size:.7rem;color:var(--qn-neutral-400);">${w.when}</span>
+                </div>`).join('');
+            const w=waves[active];
+            document.getElementById('waveHeader').innerHTML=`
+                <h3 style="margin:0;">${w.label} <span style="font-weight:400;color:var(--qn-neutral-400);font-size:.875rem;">· ${w.when}</span></h3>
+                <p style="color:var(--qn-neutral-500);font-size:.875rem;margin:.5rem 0;max-width:640px;">${w.desc}</p>
+                <div style="font-size:.75rem;color:var(--qn-neutral-600);background:var(--qn-neutral-100);border-radius:.5rem;padding:.5rem .75rem;">${w.tierNote}</div>`;
+            document.getElementById('questionList').innerHTML=w.q.map(([q,tier,locked,ansType])=>`
+                <div class="q-row" style="flex-wrap:wrap;gap:.5rem;">
+                    <div style="display:flex;align-items:center;gap:.75rem;flex:1;min-width:250px;">
+                        <span class="tierbadge t-${tier}">${tierLabel[tier]}</span>
+                        <div>
+                            <span style="font-size:.875rem;color:var(--qn-neutral-800);">${q}</span>
+                            <div style="font-size:.7rem;color:var(--qn-neutral-400);margin-top:.2rem;">Tipe jawaban: ${ansType}</div>
+                        </div>
+                    </div>
+                    ${locked
+                        ?'<span style="font-size:.75rem;color:var(--qn-neutral-400);display:flex;align-items:center;gap:.25rem;"><span class="icon icon-lock-closed-mini"></span>Terkunci</span>'
+                        :`<div style="display:flex;gap:.5rem;">
+                            <button class="btn btn_outline btn_sm">Edit</button>
+                            <button class="btn btn_outline btn_sm" style="color:var(--qn-danger-500);border-color:var(--qn-danger-200);" title="Hapus pertanyaan">&times;</button>
+                        </div>`}
+                </div>`).join('')
+                + (w.canAdd
+                    ? `<button class="btn btn_outline btn_sm" style="margin-top:.5rem;display:inline-flex;align-items:center;gap:.35rem;"><span class="icon icon-plus-mini"></span>Tambah Pertanyaan Khusus</button>`
+                    : '');
+        }
+        function sel(k){active=k;render();}
+        render();
+    </script>
+</body>
+</html>

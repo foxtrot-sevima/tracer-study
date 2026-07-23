@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahasiswa/Alumni | Paket B</title>
+    <link rel="icon" href="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/assets/css/main.css">
+    <link rel="stylesheet" href="../../quantum/assets/css/main.css">
+</head>
+<body class="body body_kl-white">
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="dashboard.html" class="header__identity">
+                    <img class="header__logo" src="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item"><a class="nav__link" href="dashboard.html"><span class="icon icon-chart-bar-square"></span><span>Dashboard</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="kuesioner.html"><span class="icon icon-clipboard-document-list"></span><span>Kuesioner</span></a></li>
+                        <li class="nav__item active"><a class="nav__link" href="mahasiswa-alumni.html"><span class="icon icon-academic-cap"></span><span>Mahasiswa/Alumni</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="aktivitas.html"><span class="icon icon-briefcase"></span><span>Aktivitas</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar"><span class="avatar avatar_sm"><img src="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="" width="44"></span></span>
+                        <span class="header__user-info"><span class="header__user-name">Admin CDC</span><span class="header__user-role">admin@foxtrot.ac.id</span></span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="main__header main__header_kl-list">
+                <div class="main__location"><div class="main__wrapper"><h1 class="main__title">Mahasiswa / Alumni</h1></div></div>
+            </div>
+            <div class="alert alert_success" style="margin-bottom:1rem;">
+                <div class="alert__content"><p class="alert__description"><b>Paket B</b> — menggabungkan status karier + progres tracer per individu dalam satu tabel.</p></div>
+            </div>
+            <div class="grid dashboard-grid" style="margin-bottom:1rem;">
+                <div class="col-12 col-md-4"><div class="card card_empty"><p style="color:var(--qn-neutral-500);font-size:.8rem;margin:0;">Total Alumni</p><p style="font-size:1.5rem;font-weight:700;margin:.25rem 0;">2.088</p></div></div>
+                <div class="col-12 col-md-4"><div class="card card_empty"><p style="color:var(--qn-neutral-500);font-size:.8rem;margin:0;">Melamar via Portal Karir</p><p style="font-size:1.5rem;font-weight:700;color:var(--qn-primary-500);margin:.25rem 0;">431</p></div></div>
+                <div class="col-12 col-md-4"><div class="card card_empty"><p style="color:var(--qn-neutral-500);font-size:.8rem;margin:0;">Prestasi Terekam</p><p style="font-size:1.5rem;font-weight:700;margin:.25rem 0;">57</p></div></div>
+            </div>
+            <div class="card card_empty">
+                <div class="grid grid_qnaire-list-head">
+                    <div class="col-12 col-sm-4"><div class="form-control"><div class="form-control__group"><input type="search" class="form-control__input" placeholder="Cari nama / NIM..."></div></div></div>
+                </div>
+                <div class="table-responsive" style="margin-top:1rem;">
+                    <table class="table">
+                        <thead><tr><th>Nama</th><th>Prodi</th><th>Status Karier</th><th>Tracer</th><th></th></tr></thead>
+                        <tbody id="rows"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        const rows=[
+            ['Ahmad Rizki','S1 Teknik Informatika','Diterima · PT Telkom','tag_success','G1 selesai'],
+            ['Siti Nur','S1 Sistem Informasi','Proses · Gojek','tag_warning','G1 selesai'],
+            ['Budi Santoso','S1 Akuntansi','Diterima · BCA','tag_success','Exit selesai'],
+            ['Dewi Lestari','S1 Manajemen','Wirausaha','tag_neutral','G2 selesai'],
+            ['Fajar Nugroho','S1 Teknik Informatika','Mencari kerja','tag_neutral','Belum isi'],
+        ];
+        document.getElementById('rows').innerHTML=rows.map(([n,p,k,tag,t])=>`
+            <tr><td><b>${n}</b></td><td>${p}</td><td><span class="tag ${tag}">${k}</span></td><td>${t}</td><td style="text-align:right;"><a href="alumni-detail.html" class="link link_primary">Detail</a></td></tr>`).join('');
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Alumni | Paket B</title>
+    <link rel="icon" href="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/assets/css/main.css">
+    <link rel="stylesheet" href="../../quantum/assets/css/main.css">
+    <style>
+        .timeline{position:relative;padding-left:1.5rem;}
+        .timeline::before{content:'';position:absolute;left:.35rem;top:.3rem;bottom:.3rem;width:2px;background:var(--qn-neutral-200);}
+        .tl-item{position:relative;padding-bottom:1.25rem;}
+        .tl-dot{position:absolute;left:-1.5rem;top:.2rem;width:.75rem;height:.75rem;border-radius:50%;background:var(--qn-primary-500);border:2px solid #fff;box-shadow:0 0 0 2px var(--qn-primary-200);}
+        .src{font-size:.65rem;border:1px solid;border-radius:999px;padding:.05rem .4rem;}
+        .src-siakad{background:#eef2ff;color:#3730a3;border-color:#c7d2fe;}
+        .src-self{background:#ecfdf5;color:#047857;border-color:#a7f3d0;}
+        .src-wave{background:var(--qn-primary-50);color:var(--qn-primary-600);border-color:rgba(41,74,154,.3);}
+        .src-admin{background:#fff7ed;color:#c2410c;border-color:#fed7aa;}
+    </style>
+</head>
+<body class="body body_kl-white">
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="dashboard.html" class="header__identity">
+                    <img class="header__logo" src="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item"><a class="nav__link" href="dashboard.html"><span class="icon icon-chart-bar-square"></span><span>Dashboard</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="kuesioner.html"><span class="icon icon-clipboard-document-list"></span><span>Kuesioner</span></a></li>
+                        <li class="nav__item active"><a class="nav__link" href="mahasiswa-alumni.html"><span class="icon icon-academic-cap"></span><span>Mahasiswa/Alumni</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="aktivitas.html"><span class="icon icon-briefcase"></span><span>Aktivitas</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar"><span class="avatar avatar_sm"><img src="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="" width="44"></span></span>
+                        <span class="header__user-info"><span class="header__user-name">Admin CDC</span><span class="header__user-role">admin@foxtrot.ac.id</span></span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <nav style="font-size:.8rem;color:var(--qn-neutral-500);margin:1rem 0;">
+                <a href="mahasiswa-alumni.html" class="link">Mahasiswa/Alumni</a> &nbsp;/&nbsp; <span style="color:var(--qn-neutral-800);">Ahmad Rizki</span>
+            </nav>
+
+            <!-- Profil (SIAKAD) -->
+            <div class="card card_empty" style="margin-bottom:1rem;">
+                <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+                    <span class="avatar avatar_lg"><span class="avatar__circle" style="background:var(--qn-primary-500);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.25rem;">AR</span></span>
+                    <div style="flex:1;min-width:200px;">
+                        <h2 style="margin:0;">Ahmad Rizki <span class="src src-siakad">SIAKAD</span></h2>
+                        <p style="margin:.25rem 0;color:var(--qn-neutral-500);font-size:.875rem;">NIM 20081010001 · S1 Teknik Informatika · FTIK · Angkatan 2020 · Lulus 2024 · Laki-laki</p>
+                    </div>
+                    <div style="display:flex;gap:.5rem;">
+                        <span class="tag tag_success">Bekerja</span>
+                        <span class="tag tag_neutral">G1 selesai</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid cols-1 cols-md-2" style="gap:1rem;">
+                <!-- Profil terkini (self-update) -->
+                <div class="card card_empty">
+                    <div style="display:flex;align-items:center;justify-content:space-between;">
+                        <h3 style="margin:0;">Profil Terkini</h3>
+                        <span class="src src-self">Self-update</span>
+                    </div>
+                    <p style="font-size:.7rem;color:var(--qn-neutral-400);margin:.25rem 0 1rem;">Diperbarui alumni · 12 Mei 2026. Data ini TIDAK menimpa snapshot wave (untuk IKU).</p>
+                    <table class="table"><tbody>
+                        <tr><td style="color:var(--qn-neutral-500);">Perusahaan</td><td><b>PT Telkom Indonesia</b></td></tr>
+                        <tr><td style="color:var(--qn-neutral-500);">Jabatan</td><td>Backend Engineer</td></tr>
+                        <tr><td style="color:var(--qn-neutral-500);">Domisili</td><td>Kota Bandung, Jawa Barat</td></tr>
+                        <tr><td style="color:var(--qn-neutral-500);">Penghasilan</td><td>&gt; 1,2 UMP</td></tr>
+                        <tr><td style="color:var(--qn-neutral-500);">LinkedIn</td><td><a href="https://linkedin.com/in/ahmad-rizki" target="_blank" rel="noopener" class="link link_primary" style="display:inline-flex;align-items:center;gap:.35rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>ahmad-rizki</a></td></tr>
+                    </tbody></table>
+                </div>
+
+                <!-- Snapshot wave (terkunci, untuk IKU) -->
+                <div class="card card_empty">
+                    <div style="display:flex;align-items:center;justify-content:space-between;">
+                        <h3 style="margin:0;">Snapshot Jawaban Tracer</h3>
+                        <span class="src src-wave">Terkunci · IKU</span>
+                    </div>
+                    <p style="font-size:.7rem;color:var(--qn-neutral-400);margin:.25rem 0 1rem;">Jawaban per wave, tidak berubah setelah submit.</p>
+                    <table class="table"><tbody>
+                        <tr><td style="color:var(--qn-neutral-500);">Exit (2024)</td><td>Data kontak diperbarui</td></tr>
+                        <tr><td style="color:var(--qn-neutral-500);">G1 (2025)</td><td>Bekerja · masa tunggu 3 bln · sesuai bidang</td></tr>
+                        <tr><td style="color:var(--qn-neutral-500);">G2</td><td><span class="tag tag_neutral">Belum masuk periode</span></td></tr>
+                    </tbody></table>
+                </div>
+            </div>
+
+            <!-- Riwayat Karier (append-only) + Audit Trail -->
+            <div class="grid cols-1 cols-md-2" style="gap:1rem;margin-top:1rem;">
+                <div class="card card_empty">
+                    <h3 style="margin-top:0;">Riwayat Karier <span class="src src-self">append-only</span></h3>
+                    <p style="font-size:.7rem;color:var(--qn-neutral-400);margin:.25rem 0 1rem;">Semua perpindahan tersimpan — bukan hanya tempat kerja terakhir (request #5).</p>
+                    <div class="timeline" id="career"></div>
+                </div>
+                <div class="card card_empty">
+                    <div style="display:flex;align-items:center;justify-content:space-between;">
+                        <h3 style="margin-top:0;">Riwayat Perubahan Data <span class="src src-admin">Audit</span></h3>
+                        <button class="btn btn_outline btn_sm"><span class="icon icon-bell-mini"></span>Notifikasi</button>
+                    </div>
+                    <p style="font-size:.7rem;color:var(--qn-neutral-400);margin:.25rem 0 1rem;">Siapa mengubah, kapan, dari sumber mana (request #4).</p>
+                    <div class="table-responsive"><table class="table">
+                        <thead><tr><th>Waktu</th><th>Perubahan</th><th>Oleh / Sumber</th></tr></thead>
+                        <tbody id="audit"></tbody>
+                    </table></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        const career=[
+            ['Mei 2026 – sekarang','Backend Engineer','PT Telkom Indonesia','Kota Bandung, Jawa Barat'],
+            ['Ags 2024 – Apr 2026','Junior Developer','PT Cahaya Seruni','Kota Surabaya, Jawa Timur'],
+            ['Jul 2024','Lulus S1 Teknik Informatika','Universitas Foxtrot','—'],
+        ];
+        document.getElementById('career').innerHTML=career.map(([t,pos,co,loc])=>`
+            <div class="tl-item"><span class="tl-dot"></span>
+                <p style="margin:0;font-size:.7rem;color:var(--qn-neutral-400);">${t}</p>
+                <p style="margin:.1rem 0;font-weight:600;">${pos}</p>
+                <p style="margin:0;font-size:.8rem;color:var(--qn-neutral-600);">${co}${loc!=='—'?' · '+loc:''}</p>
+            </div>`).join('');
+        const audit=[
+            ['12 Mei 2026 10:22','Domisili: Surabaya → Bandung','<span class="src src-self">Alumni (self-update)</span>'],
+            ['12 Mei 2026 10:22','Perusahaan: Cahaya Seruni → Telkom','<span class="src src-self">Alumni (self-update)</span>'],
+            ['03 Mar 2025 14:10','Jawaban G1 disubmit','<span class="src src-wave">Alumni (wave G1)</span>'],
+            ['15 Jan 2025 09:05','Email diperbaiki','<span class="src src-admin">Admin CDC</span>'],
+            ['01 Agu 2024 08:00','Data awal alumni','<span class="src src-siakad">SIAKAD sync</span>'],
+        ];
+        document.getElementById('audit').innerHTML=audit.map(([w,c,by])=>`
+            <tr><td style="white-space:nowrap;font-size:.78rem;color:var(--qn-neutral-500);">${w}</td><td style="font-size:.82rem;">${c}</td><td>${by}</td></tr>`).join('');
+    </script>
+</body>
+</html>

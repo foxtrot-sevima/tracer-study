@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gate Sevima | Paket A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Poppins','sans-serif'] }, colors: { primary500: '#294A9A', primary600: '#1F3874' } } } }
+    </script>
+    <style>* { font-family: 'Poppins', sans-serif; }</style>
+</head>
+<body class="min-h-screen bg-cover bg-center" style="background-image:linear-gradient(rgba(15,23,42,.55),rgba(15,23,42,.55)),url('https://images.unsplash.com/photo-1562774053-701939374585?w=1200');">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden">
+            <!-- Header -->
+            <div class="bg-primary500 text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 bg-white rounded-lg flex items-center justify-center text-primary500 font-bold">S</div>
+                    <div>
+                        <p class="text-xs opacity-80">SITU AKADEMIK 2.0</p>
+                        <p class="font-semibold text-sm">UNIVERSITAS SEVIMA TESTING - F</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button class="text-xs bg-white/15 hover:bg-white/25 rounded-md px-3 py-1.5">Halaman Profil</button>
+                    <button class="text-xs bg-white/15 hover:bg-white/25 rounded-md px-3 py-1.5">Keluar</button>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 p-6">
+                <!-- Daftar Modul -->
+                <div class="md:col-span-2">
+                    <h2 class="text-sm font-semibold text-gray-800 mb-4">Daftar Modul</h2>
+                    <div class="grid grid-cols-3 gap-3" id="moduleGrid"></div>
+                </div>
+                <!-- Daftar Role -->
+                <div>
+                    <h2 class="text-sm font-semibold text-gray-800 mb-4">Daftar Role</h2>
+                    <p class="text-xs text-gray-500 mb-2">KarirLink</p>
+                    <div class="border border-primary500 rounded-lg p-3">
+                        <p class="text-sm font-semibold text-primary500">Admin Perbaikan Data</p>
+                        <p class="text-xs text-gray-500">Universitas Foxtrot</p>
+                    </div>
+                    <div class="mt-4 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg p-3">
+                        <b>Paket A:</b> Portal Tracer Study & Portal Karir <b>terpisah</b>. Setelah pilih KarirLink, Anda memilih portal mana yang dibuka.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const modules = [
+            ['Administrasi Aplikasi','#f97316'],['Edlink','#16a34a'],['SIM Akademik','#2563eb'],
+            ['SIM Akreditasi','#e11d48'],['SIM CBT','#0ea5e9'],['Dashboard & Pelaporan','#8b5cf6'],
+            ['SIM Keuangan','#0d9488'],['SIM Kepegawaian','#f59e0b'],['SIM Seleksi','#3b82f6'],
+            ['SIM Helpdesk','#a855f7'],['KarirLink','#294A9A'],['(NEW) SIM Penerimaan','#ec4899']
+        ];
+        document.getElementById('moduleGrid').innerHTML = modules.map(([n,c]) => {
+            const isKarir = n === 'KarirLink';
+            return `<a href="${isKarir?'pilih-portal.html':'#'}" class="flex flex-col items-center gap-2 p-3 rounded-lg border ${isKarir?'border-primary500 bg-primary50 ring-2 ring-primary500/30':'border-gray-200 hover:bg-gray-50'} transition text-center">
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm" style="background:${c}">${n[0]}</div>
+                <span class="text-[11px] leading-tight text-gray-700">${n}</span>
+            </a>`;
+        }).join('');
+    </script>
+</body>
+</html>
