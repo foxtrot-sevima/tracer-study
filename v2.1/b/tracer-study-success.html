@@ -25,12 +25,18 @@
         /* Alumni-facing header, shared naming/markup with the other tracer-study-* pages */
         .ts-header { position: sticky; top: 0; z-index: 50; background: white; border-bottom: 1px solid var(--qn-neutral-200); padding: 0.75rem 1rem; }
         .ts-header__inner { max-width: 100%; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
-        .ts-header__left { display: flex; align-items: center; gap: 0.75rem; }
+        .ts-header__left { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
         .ts-header__logo { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid var(--qn-neutral-200); object-fit: cover; }
-        .ts-header__info p { margin: 0; }
+        .ts-header__info { min-width: 0; }
+        .ts-header__info p { margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .ts-header__info p:first-child { font-size: 0.875rem; color: var(--qn-neutral-500); }
         .ts-header__info p:last-child { font-weight: 500; color: var(--qn-neutral-800); }
-        .ts-header__user { display: flex; align-items: center; gap: 0.75rem; }
+        .ts-header__user { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+        /* Below this width the navbar drops all institution/user text labels,
+           keeping just the logo and avatar so it doesn't crowd the screen. */
+        @media (max-width: 640px) {
+            .ts-header__info { display: none; }
+        }
 
         /* Plain (non-.card) wrapper for the stacked left-column cards below - Quantum's
            `.grid>*>.card{block-size:100%}` rule stretches any .card that is a DIRECT
@@ -102,16 +108,16 @@
                 <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo Universitas Contoh" class="ts-header__logo">
                 <div class="ts-header__info">
                     <p>Universitas Contoh</p>
-                    <p>Portal Alumni dan Pusat Karir</p>
+                    <p>Exit Survey Kelulusan 2026</p>
                 </div>
             </div>
             <div class="ts-header__user">
                 <div class="ts-header__info" style="text-align: right;">
-                    <p>Lulusan S1 - Teknik Informatika</p>
-                    <p>Ahmad Dimas Pratama</p>
-                </div>
+                    <p>Calon Lulusan S1 - Teknik Informatika</p>
+                    <p>Pangeran Dimas</p>
+             er    </div>
                 <span class="avatar avatar_sm">
-                    <span class="avatar__circle">AD</span>
+                    <span class="avatar__circle">PD</span>
                 </span>
             </div>
         </div>
