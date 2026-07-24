@@ -30,10 +30,6 @@
         .ts-header__info p { margin: 0; }
         .ts-header__info p:first-child { font-size: 0.875rem; color: var(--qn-neutral-500); }
         .ts-header__info p:last-child { font-weight: 500; color: var(--qn-neutral-800); }
-        .ts-header__user { display: flex; align-items: center; gap: 0.75rem; }
-        .ts-header__user-info p { margin: 0; text-align: right; }
-        .ts-header__user-info p:first-child { font-weight: 500; color: var(--qn-neutral-800); font-size: 0.875rem; }
-        .ts-header__user-info p:last-child { font-size: 0.8125rem; color: var(--qn-neutral-500); }
 
         /* Main */
         .ts-main { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 2.5rem 1rem; }
@@ -45,35 +41,14 @@
         .verify-title { font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-800); text-align: center; margin-bottom: 0.5rem; }
         .verify-desc { font-size: 0.875rem; color: var(--qn-neutral-500); text-align: center; line-height: 1.5; margin-bottom: 1.5rem; }
 
-        .dob-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-        .dob-grid .form-control__input { text-align: center; }
-
         /* Footer */
-        .ts-footer { background: var(--qn-primary-700, #1d4ed8); padding: 1rem; text-align: center; }
-        .ts-footer p { color: white; font-size: 0.875rem; margin: 0; }
-        .ts-footer a { color: white; text-decoration: underline; }
     </style>
 </head>
 <body class="body body_kl-white">
-    <!-- Header -->
+    <!-- Header: logo only - identity is not yet verified at this point, so no personal name/NIM is shown -->
     <header class="ts-header">
-        <div class="ts-header__inner">
-            <div class="ts-header__left">
-                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo" class="ts-header__logo">
-                <div class="ts-header__info">
-                    <p>Portal Alumni dan Pusat Karir</p>
-                    <p>Demo siAkadcloud</p>
-                </div>
-            </div>
-            <div class="ts-header__user">
-                <span class="avatar avatar_sm">
-                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar">
-                </span>
-                <div class="ts-header__user-info">
-                    <p>Ruka Babymon</p>
-                    <p>NIM: 00000010122</p>
-                </div>
-            </div>
+        <div class="ts-header__inner" style="justify-content: center;">
+            <img src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink" style="height: 2.25rem; object-fit: contain;">
         </div>
     </header>
 
@@ -81,12 +56,6 @@
     <main class="ts-main">
         <div class="card" style="max-width: 46rem; width: 100%;">
             <div class="card__body">
-                <!-- Back link -->
-                <a href="./tracer-study-step2.html" class="link link_back" style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
-                    <span class="icon icon-arrow-left-mini" style="font-size: 1.25rem;"></span>
-                    Kembali
-                </a>
-
                 <!-- Illustration -->
                 <svg class="verify-illust" viewBox="0 0 200 155" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="50" y="20" width="100" height="120" rx="8" fill="#EFF6FF" stroke="#93C5FD" stroke-width="2"/>
@@ -101,22 +70,41 @@
 
                 <!-- Title & Description -->
                 <h2 class="verify-title">Verifikasi Identitas</h2>
-                <p class="verify-desc">Bantu kami memverifikasi identitas Anda dengan mengisi tanggal lahir dibawah ini</p>
+                <p class="verify-desc">Lengkapi data berikut untuk memverifikasi identitas Anda sebelum mengisi Tracer Study.</p>
 
                 <!-- Form -->
-                <form action="./tracer-study-form.html">
+                <form action="./riwayat-pengisian.html">
+                    <div class="form-control" style="margin-bottom: 1.25rem;">
+                        <label class="form-control__label">Perguruan Tinggi<span class="important">*</span></label>
+                        <div class="form-control__group">
+                            <select class="select-default" required>
+                                <option value="" disabled>Pilih perguruan tinggi</option>
+                                <option value="universitas-contoh" selected>Universitas Contoh</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-control" style="margin-bottom: 1.25rem;">
+                        <label class="form-control__label">Program Studi<span class="important">*</span></label>
+                        <div class="form-control__group">
+                            <select class="select-default" required>
+                                <option value="" disabled>Pilih program studi</option>
+                                <option value="ti" selected>S1 - Teknik Informatika</option>
+                                <option value="si">S1 - Sistem Informasi</option>
+                                <option value="akuntansi">S1 - Akuntansi</option>
+                                <option value="manajemen">S1 - Manajemen</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-control" style="margin-bottom: 1.25rem;">
+                        <label class="form-control__label">NIM<span class="important">*</span></label>
+                        <div class="form-control__group">
+                            <input type="text" inputmode="numeric" class="form-control__input" value="00000010122" placeholder="Masukkan NIM Anda" required>
+                        </div>
+                    </div>
                     <div class="form-control" style="margin-bottom: 1.5rem;">
                         <label class="form-control__label">Tanggal Lahir<span class="important">*</span></label>
-                        <div class="dob-grid">
-                            <div class="form-control__group">
-                                <input type="number" class="form-control__input" placeholder="DD" maxlength="2" min="1" max="31" required>
-                            </div>
-                            <div class="form-control__group">
-                                <input type="number" class="form-control__input" placeholder="MM" maxlength="2" min="1" max="12" required>
-                            </div>
-                            <div class="form-control__group">
-                                <input type="number" class="form-control__input" placeholder="YYYY" maxlength="4" min="1950" max="2010" required>
-                            </div>
+                        <div class="form-control__group">
+                            <input type="date" class="form-control__input" required>
                         </div>
                     </div>
                     <button type="submit" class="btn btn_primary" style="width: 100%;">Verifikasi</button>
@@ -126,8 +114,14 @@
     </main>
 
     <!-- Footer -->
-    <footer class="ts-footer">
-        <p>© 2026 <a href="https://sevima.com">SEVIMA</a> All Right Reserved, Powered by <a href="https://karirlink.id">Karirlink</a></p>
+    <footer class="footer">
+        <div class="footer__copyright-wrapper">
+            <div class="footer__logo-wrapper">
+                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+            </div>
+            <p class="footer__copyright">&copy; 2005-2026 SEVIMA. All Rights Reserved</p>
+        </div>
+        <p class="footer__brand-name">SEVIMA Platform</p>
     </footer>
 
     <!-- Quantum JavaScript -->

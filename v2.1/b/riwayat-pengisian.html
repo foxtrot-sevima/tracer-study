@@ -12,21 +12,42 @@
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
 
     <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
     <link rel="stylesheet" href="assets/css/main.css">
 
     <style>
         body { background: var(--qn-neutral-50, #f9fafb); }
-        .rp-header { position: sticky; top: 0; z-index: 50; background: white; border-bottom: 1px solid var(--qn-neutral-200); padding: 0.75rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
-        .rp-header__left { display: flex; align-items: center; gap: 0.75rem; }
-        .rp-main { max-width: 46rem; margin: 0 auto; padding: 2rem 1rem 3rem; }
-        .rp-title { margin-bottom: 1.5rem; }
-        .rp-title h1 { font-size: 1.25rem; font-weight: 600; color: var(--qn-neutral-900); margin-bottom: 0.375rem; }
-        .rp-title p { font-size: 0.9375rem; color: var(--qn-neutral-500); }
-        .rp-item { margin-bottom: 1rem; border-left: 0.25rem solid transparent; }
+        .ts-header { position: sticky; top: 0; z-index: 50; background: white; border-bottom: 1px solid var(--qn-neutral-200); padding: 0.75rem 1rem; }
+        .ts-header__inner { max-width: 100%; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+        .ts-header__left { display: flex; align-items: center; gap: 0.75rem; }
+        .ts-header__logo { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid var(--qn-neutral-200); object-fit: cover; }
+        .ts-header__info p { margin: 0; }
+        .ts-header__info p:first-child { font-size: 0.8125rem; color: var(--qn-neutral-500); }
+        .ts-header__info p:last-child { font-weight: 500; color: var(--qn-neutral-900); }
+        .ts-header__user { display: flex; align-items: center; gap: 0.75rem; }
+        /* Plain (non-.card) wrapper for the stacked history cards below - Quantum's
+           `.grid>*>.card{block-size:100%}` rule stretches any .card that is a DIRECT
+           child of a grid column to the full stretched row height (see the same fix
+           documented in portal-karir.html's .pk-stack), so the list is wrapped in a
+           flex column instead of sitting directly inside .col-12. */
+        /* KPI strip - same structure as portal-karir.html's .pk-stat (card + colored
+           icon-box + value/label), reused here so both alumni-facing pages carry the
+           same "stat card" visual language as the admin Portal Karir dashboard. */
+        .rp-stat-grid { margin-top: 1.25rem; margin-bottom: 1.5rem; }
+        .rp-stat { display: flex; align-items: center; gap: 0.875rem; padding: 1.125rem 1.25rem; }
+        .rp-stat__icon { flex-shrink: 0; width: 2.75rem; height: 2.75rem; border-radius: 0.625rem; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+        .rp-stat__icon_success { background: var(--qn-success-100); color: var(--qn-success-600, var(--qn-success-500)); }
+        .rp-stat__icon_neutral { background: var(--qn-neutral-100); color: var(--qn-neutral-500); }
+        .rp-stat__icon_primary { background: var(--qn-primary-100); color: var(--qn-primary-600); }
+        .rp-stat__value { display: block; font-size: 1.5rem; font-weight: 700; color: var(--qn-neutral-900); line-height: 1.2; }
+        .rp-stat__label { display: block; font-size: 0.8125rem; color: var(--qn-neutral-500); }
+
+        .rp-list { display: flex; flex-direction: column; gap: 1.25rem; }
+        .rp-item { border-left: 0.25rem solid transparent; }
         .rp-item--done { border-left-color: var(--qn-success-500); }
         .rp-item--inactive { border-left-color: var(--qn-neutral-200); }
-        .rp-item .card__header { display: flex; align-items: center; gap: 0.75rem; }
-        .rp-item__icon { width: 2.25rem; height: 2.25rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .rp-item .card__header { display: flex; align-items: center; gap: 0.875rem; }
+        .rp-item__icon { width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.0625rem; }
         .rp-item__icon--done { background: var(--qn-success-100, #F0FDF9); color: var(--qn-success-500); }
         .rp-item__icon--inactive { background: var(--qn-neutral-100, #F8FAFC); color: var(--qn-neutral-400); }
         .rp-item__actions { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.625rem; align-items: center; }
@@ -34,36 +55,80 @@
 </head>
 <body class="body body_kl-white">
     <!-- Header -->
-    <header class="rp-header">
-        <div class="rp-header__left">
-            <span class="avatar avatar_sm">
-                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo Universitas Contoh">
-            </span>
-            <div>
-                <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0;">Universitas Contoh</p>
-                <p style="font-weight: 500; color: var(--qn-neutral-900); margin: 0;">Riwayat Pengisian Tracer Study</p>
+    <header class="ts-header" role="banner">
+        <div class="ts-header__inner">
+            <div class="ts-header__left">
+                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo Universitas Contoh" class="ts-header__logo">
+                <div class="ts-header__info">
+                    <p>Universitas Contoh</p>
+                    <p>Riwayat Pengisian Tracer Study</p>
+                </div>
             </div>
-        </div>
-        <div class="header__user-wrapper" style="display: flex; align-items: center; gap: 0.75rem;">
-            <div style="text-align: right;">
-                <p style="font-size: 0.8125rem; font-weight: 500; color: var(--qn-neutral-900); margin: 0;">Ahmad Dimas Pratama</p>
-                <p style="font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0;">Lulusan S1 - Teknik Informatika</p>
+            <div class="ts-header__user">
+                <div class="ts-header__info" style="text-align: right;">
+                    <p>Lulusan S1 - Teknik Informatika</p>
+                    <p>Ahmad Dimas Pratama</p>
+                </div>
+                <span class="avatar avatar_sm">
+                    <span class="avatar__circle">AD</span>
+                </span>
             </div>
-            <span class="avatar avatar_sm">
-                <span class="avatar__circle" style="background: var(--qn-primary-500); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.8125rem;">AD</span>
-            </span>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="rp-main">
-        <div class="rp-title">
-            <h1>Riwayat Pengisian Tracer Study</h1>
-            <p>Daftar pengisian Tracer Study Anda per Wave. Jawaban yang sudah dikirim masih dapat diedit selama campaign terkait belum ditutup.</p>
-        </div>
+    <main class="main">
+        <div class="container">
+            <div class="grid">
+                <div class="col-12">
+                    <div class="main__header main__header_kl-list">
+                        <div class="main__location">
+                            <div class="main__wrapper">
+                                <h1 class="main__title">Riwayat Pengisian Tracer Study</h1>
+                                <p class="main__subtitle">Daftar pengisian Tracer Study Anda per Wave. Jawaban yang sudah dikirim masih dapat diedit selama campaign terkait belum ditutup.</p>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="grid rp-stat-grid">
+                        <div class="col-12 col-sm-4">
+                            <div class="card rp-stat">
+                                <span class="rp-stat__icon rp-stat__icon_success"><span class="icon icon-check-circle-mini"></span></span>
+                                <span>
+                                    <span class="rp-stat__value">2</span>
+                                    <span class="rp-stat__label">Sudah Diisi</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <div class="card rp-stat">
+                                <span class="rp-stat__icon rp-stat__icon_neutral"><span class="icon icon-clock-mini"></span></span>
+                                <span>
+                                    <span class="rp-stat__value">1</span>
+                                    <span class="rp-stat__label">Belum Aktif</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <div class="card rp-stat">
+                                <span class="rp-stat__icon rp-stat__icon_primary"><span class="icon icon-document-text-mini"></span></span>
+                                <span>
+                                    <span class="rp-stat__value">3</span>
+                                    <span class="rp-stat__label">Total Gelombang</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert_helper" style="margin-bottom: 1.5rem;">
+                        <div class="alert__content">
+                            <p class="alert__description">Gelombang <strong>GS-II</strong> akan aktif otomatis 4-5 tahun setelah kelulusan Anda dan muncul di halaman ini saat aktif.</p>
+                        </div>
+                    </div>
+
+        <div class="rp-list">
         <!-- Exit Survey - Sudah Diisi -->
-        <div class="card rp-item rp-item--done">
+        <div class="card card_qnaire-list rp-item rp-item--done">
             <div class="card__body">
                 <div class="card__body-left">
                     <div class="card__header">
@@ -75,10 +140,7 @@
                     </div>
                 </div>
                 <div class="card__body-right">
-                    <span class="tag tag_success">
-                        <span class="icon icon-check-circle-mini"></span>
-                        Sudah Diisi
-                    </span>
+                    <span class="badge badge_success">Sudah Diisi</span>
                 </div>
             </div>
             <div class="card__footer">
@@ -86,13 +148,13 @@
                     <span class="tag tag_outline">Dapat diedit sampai campaign ditutup</span>
                 </div>
                 <div class="rp-item__actions">
-                    <a href="./tracer-study-form.html" class="btn btn_primary btn_sm">Edit Jawaban</a>
+                    <a href="./tracer-study-form-exit.html" class="btn btn_primary btn_sm">Edit Jawaban</a>
                 </div>
             </div>
         </div>
 
         <!-- GS-I - Sudah Diisi -->
-        <div class="card rp-item rp-item--done">
+        <div class="card card_qnaire-list rp-item rp-item--done">
             <div class="card__body">
                 <div class="card__body-left">
                     <div class="card__header">
@@ -104,10 +166,7 @@
                     </div>
                 </div>
                 <div class="card__body-right">
-                    <span class="tag tag_success">
-                        <span class="icon icon-check-circle-mini"></span>
-                        Sudah Diisi
-                    </span>
+                    <span class="badge badge_success">Sudah Diisi</span>
                 </div>
             </div>
             <div class="card__footer">
@@ -115,13 +174,13 @@
                     <span class="tag tag_outline">Dapat diedit sampai campaign ditutup</span>
                 </div>
                 <div class="rp-item__actions">
-                    <a href="./tracer-study-form.html" class="btn btn_primary btn_sm">Edit Jawaban</a>
+                    <a href="./tracer-study-form-gs1.html" class="btn btn_primary btn_sm">Edit Jawaban</a>
                 </div>
             </div>
         </div>
 
         <!-- GS-II - Belum Aktif -->
-        <div class="card rp-item rp-item--inactive">
+        <div class="card card_qnaire-list rp-item rp-item--inactive">
             <div class="card__body">
                 <div class="card__body-left">
                     <div class="card__header">
@@ -133,16 +192,26 @@
                     </div>
                 </div>
                 <div class="card__body-right">
-                    <span class="tag tag_neutral">Belum Aktif</span>
+                    <span class="badge">Belum Aktif</span>
                 </div>
             </div>
         </div>
+        </div>
 
-        <!-- SEVIMA Branding -->
-        <footer style="text-align: center; padding: 1.5rem 0; font-size: 0.8125rem; color: var(--qn-neutral-400);">
-            Powered by <a href="https://karirlink.id" target="_blank" rel="noopener" style="color: var(--qn-neutral-500);">Karirlink</a> &middot; <a href="https://sevima.com" target="_blank" rel="noopener" style="color: var(--qn-neutral-500);">SEVIMA</a>
-        </footer>
+                </div>
+            </div>
+        </div>
     </main>
+
+    <footer class="footer">
+        <div class="footer__copyright-wrapper">
+            <div class="footer__logo-wrapper">
+                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+            </div>
+            <p class="footer__copyright">&copy; 2005-2026 SEVIMA. All Rights Reserved</p>
+        </div>
+        <p class="footer__brand-name">SEVIMA Platform</p>
+    </footer>
 
     <!-- Quantum JavaScript -->
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>

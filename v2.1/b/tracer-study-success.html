@@ -22,25 +22,25 @@
     <style>
         body { background: var(--qn-neutral-100); }
 
-        /* Public tracer-study branding bar (page-local: no Quantum equivalent for this unauthenticated portal header) */
-        .header { position: sticky; top: 0; z-index: 50; background: white; border-bottom: 1px solid var(--qn-neutral-200); padding: 0.75rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
-        .header__left { display: flex; align-items: center; gap: 0.75rem; }
-        .header__logo { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid var(--qn-neutral-200); object-fit: cover; }
-        .header__info p { margin: 0; }
-        .header__info p:first-child { font-size: 0.875rem; color: var(--qn-neutral-500); }
-        .header__info p:last-child { font-weight: 500; color: var(--qn-neutral-800); }
-        .header__user { display: flex; align-items: center; gap: 0.75rem; }
-        .header__avatar { width: 2.5rem; height: 2.5rem; border-radius: 50%; background: #f97316; color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.8125rem; }
-        .header__user-info p { margin: 0; text-align: right; }
-        .header__user-info p:first-child { font-size: 0.5rem; color: var(--qn-neutral-500); }
-        .header__user-info p:last-child { font-size: 0.8125rem; color: var(--qn-neutral-500); }
+        /* Alumni-facing header, shared naming/markup with the other tracer-study-* pages */
+        .ts-header { position: sticky; top: 0; z-index: 50; background: white; border-bottom: 1px solid var(--qn-neutral-200); padding: 0.75rem 1rem; }
+        .ts-header__inner { max-width: 100%; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+        .ts-header__left { display: flex; align-items: center; gap: 0.75rem; }
+        .ts-header__logo { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid var(--qn-neutral-200); object-fit: cover; }
+        .ts-header__info p { margin: 0; }
+        .ts-header__info p:first-child { font-size: 0.875rem; color: var(--qn-neutral-500); }
+        .ts-header__info p:last-child { font-weight: 500; color: var(--qn-neutral-800); }
+        .ts-header__user { display: flex; align-items: center; gap: 0.75rem; }
 
-        /* Main layout */
-        .main { max-width: 72rem; margin: 0 auto; padding: 2rem 1.5rem; display: grid; grid-template-columns: 1fr 22rem; gap: 1.5rem; }
-        @media (max-width: 768px) { .main { grid-template-columns: 1fr; } }
+        /* Plain (non-.card) wrapper for the stacked left-column cards below - Quantum's
+           `.grid>*>.card{block-size:100%}` rule stretches any .card that is a DIRECT
+           child of a grid column to the full stretched row height (see the same fix
+           documented in portal-karir.html's .pk-stack), so the cards sit inside a
+           flex column instead of directly inside .col-12.col-lg-8. */
+        .success-stack { display: flex; flex-direction: column; gap: 1.5rem; }
 
         /* Thank you card */
-        .thanks-card { text-align: center; padding: 2.5rem 2rem; }
+        .thanks-card { text-align: center; padding: 3rem 2rem; }
         .thanks-card__illust { width: 12rem; height: auto; margin: 0 auto 1.5rem; display: block; }
         .thanks-card__text { font-size: 0.9375rem; color: var(--qn-neutral-700); line-height: 1.7; margin-bottom: 1.25rem; max-width: 28rem; margin-left: auto; margin-right: auto; }
         .thanks-card__text strong { color: var(--qn-neutral-800); }
@@ -58,61 +58,72 @@
 
         /* Lowongan section */
         .lowongan { margin-top: 2rem; }
-        .lowongan__title { font-size: 1.25rem; font-weight: 700; color: var(--qn-neutral-800); margin-bottom: 1rem; }
+        .lowongan__title { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--qn-neutral-800); margin-bottom: 1rem; }
+        .lowongan__title .icon { color: var(--qn-primary-500); }
         .lowongan__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1rem; }
         .lowongan__more { display: flex; align-items: center; justify-content: center; gap: 0.25rem; font-size: 0.875rem; font-weight: 500; color: var(--qn-primary-600); text-decoration: none; height: 100%; }
         .lowongan__more:hover { text-decoration: underline; }
 
-        /* Modal (namespaced to avoid colliding with Quantum's own .modal component) */
-        .ts-thanks-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 1rem; }
-        .ts-thanks-overlay.hidden { display: none; }
-        .ts-thanks-modal { background: white; border-radius: 0.75rem; padding: 2rem; max-width: 26rem; width: 100%; text-align: center; position: relative; }
-        .ts-thanks-modal__close { position: absolute; top: 0.75rem; right: 0.75rem; background: none; border: none; cursor: pointer; color: var(--qn-neutral-500); padding: 0.25rem; }
-        .ts-thanks-modal__close:hover { color: var(--qn-neutral-800); }
-        .ts-thanks-modal__title { font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-800); margin-bottom: 0.75rem; }
-        .ts-thanks-modal__text { font-size: 0.875rem; color: var(--qn-neutral-500); line-height: 1.6; margin-bottom: 1.5rem; }
+        /* Confirmation/celebration modal - same page-local pattern as company-lowongan-create.html, company-daftar-mitra.html, pengguna-lulusan-form.html */
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1000; }
+        .modal.show { display: flex; align-items: center; justify-content: center; }
+        .modal__backdrop { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); }
+        .modal__dialog { position: relative; z-index: 1; width: 100%; max-width: 26rem; margin: 1rem; }
+        .modal__content { background: white; border-radius: 0.75rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); overflow: hidden; text-align: center; padding: 2rem; }
+        .modal__icon { width: 3.5rem; height: 3.5rem; background: var(--qn-success-100, #F0FDF9); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
+        .modal__title { font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0 0 0.5rem; }
+        .modal__desc { font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 1.5rem; }
+        .modal__footer { display: flex; gap: 0.75rem; justify-content: center; }
 
-        /* Footer */
-        .footer { background: var(--qn-primary-700, #1d4ed8); padding: 1rem; text-align: center; margin-top: 2rem; }
-        .footer p { color: white; font-size: 0.875rem; margin: 0; }
-        .footer a { color: white; text-decoration: underline; }
     </style>
 </head>
 <body class="body body_kl-white">
     <!-- Modal: Terima kasih -->
-    <div class="ts-thanks-overlay" id="thankYouModal">
-        <div class="ts-thanks-modal">
-            <button class="ts-thanks-modal__close" onclick="document.getElementById('thankYouModal').classList.add('hidden')">
-                <span class="icon icon-x-mark-mini" style="font-size: 1.25rem;"></span>
-            </button>
-            <h3 class="ts-thanks-modal__title">Terima kasih telah mengisi Tracer Study</h3>
-            <p class="ts-thanks-modal__text">Data yang Anda berikan akan sangat membantu meningkatkan kualitas pendidikan kami</p>
-            <button class="btn btn_primary" onclick="document.getElementById('thankYouModal').classList.add('hidden')">Selesai</button>
+    <div class="modal show" id="thankYouModal">
+        <div class="modal__backdrop" onclick="hideThankYouModal()"></div>
+        <div class="modal__dialog">
+            <div class="modal__content">
+                <div class="modal__icon">
+                    <span class="icon icon-check-circle-mini" style="font-size: 1.75rem; color: var(--qn-success-500);"></span>
+                </div>
+                <h3 class="modal__title">Terima kasih telah mengisi Tracer Study</h3>
+                <p class="modal__desc">Data yang Anda berikan akan sangat membantu meningkatkan kualitas pendidikan kami</p>
+                <div class="modal__footer">
+                    <button type="button" class="btn btn_primary" onclick="hideThankYouModal()">Selesai</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Header -->
-    <header class="header">
-        <div class="header__left">
-            <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo" class="header__logo">
-            <div class="header__info">
-                <p>Portal Alumni dan Pusat Karir</p>
-                <p>Demo siAkadcloud</p>
+    <header class="ts-header" role="banner">
+        <div class="ts-header__inner">
+            <div class="ts-header__left">
+                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo Universitas Contoh" class="ts-header__logo">
+                <div class="ts-header__info">
+                    <p>Universitas Contoh</p>
+                    <p>Portal Alumni dan Pusat Karir</p>
+                </div>
             </div>
-        </div>
-        <div class="header__user">
-            <div class="header__avatar">H</div>
-            <div class="header__user-info">
-                <p>-</p>
-                <p>NIM: -</p>
+            <div class="ts-header__user">
+                <div class="ts-header__info" style="text-align: right;">
+                    <p>Lulusan S1 - Teknik Informatika</p>
+                    <p>Ahmad Dimas Pratama</p>
+                </div>
+                <span class="avatar avatar_sm">
+                    <span class="avatar__circle">AD</span>
+                </span>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <div class="main">
+    <main class="main">
+        <div class="container">
+        <div class="grid">
         <!-- Left: Thank you card -->
-        <div>
+        <div class="col-12 col-lg-8">
+            <div class="success-stack">
             <div class="card">
                 <div class="card__body thanks-card">
                     <!-- Illustration SVG placeholder -->
@@ -130,16 +141,21 @@
                     </svg>
 
                     <h1 class="main__title">Terima kasih telah mengisi Tracer Study</h1>
-                    <span class="tag tag_outline tag_sm" style="margin-bottom: 1rem;">
-                        <span class="icon icon-pencil-square-mini"></span>
-                        Dapat diedit sampai campaign ditutup
-                    </span>
+                    <span class="badge badge_success" style="margin-bottom: 1rem;">Dapat diedit sampai campaign ditutup</span>
                     <p class="thanks-card__text">
                         Terima kasih telah mengisi Tracer Study. Jawaban Anda tersimpan dan dapat diperbarui kapan saja selama campaign masih aktif.
                     </p>
                     <div class="thanks-card__actions">
-                        <a href="./tracer-study-form.html" class="btn btn_primary">Edit Jawaban</a>
+                        <a href="./tracer-study-form-gs1.html" class="btn btn_primary">Edit Jawaban</a>
                         <a href="./riwayat-pengisian.html" class="btn btn_outline">Lihat Riwayat Pengisian</a>
+                    </div>
+                    <div class="card-insight" style="text-align: left;">
+                        <div class="card-insight__icon card-insight__icon_info">
+                            <span class="icon icon-information-circle-mini"></span>
+                        </div>
+                        <p class="card-insight__text">
+                            Gelombang selanjutnya, <strong>GS-II</strong>, akan aktif otomatis 4-5 tahun setelah kelulusan Anda dan dapat dipantau melalui <a href="./riwayat-pengisian.html" class="link">Riwayat Pengisian</a>.
+                        </p>
                     </div>
                     <p class="thanks-card__cta">
                         Yuk, mulai karirmu sekarang di <a href="https://karirlink.id" class="link">Karirlink</a>
@@ -149,7 +165,7 @@
 
             <!-- Lowongan Pekerjaan -->
             <section class="lowongan">
-                <h2 class="lowongan__title">Lowongan Pekerjaan</h2>
+                <h2 class="lowongan__title"><span class="icon icon-briefcase-mini"></span>Lowongan Pekerjaan</h2>
                 <div class="lowongan__grid">
                     <div class="card card_job">
                         <div class="card__body">
@@ -213,10 +229,11 @@
                     </div>
                 </div>
             </section>
+            </div>
         </div>
 
         <!-- Right: CV Builder banner -->
-        <div>
+        <div class="col-12 col-lg-4">
             <div class="cv-banner">
                 <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.5rem;">
                     <span class="icon icon-briefcase-mini" style="font-size: 1.25rem;"></span>
@@ -231,12 +248,20 @@
                 <p class="cv-banner__contact">Info Selengkapnya 0811 3023 500 (Minka)</p>
             </div>
         </div>
-    </div>
+        </div>
+        </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>© 2026 <a href="https://sevima.com">SEVIMA</a> All Right Reserved, Powered by <a href="https://karirlink.id">Karirlink</a></p>
-    </footer>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">&copy; 2005-2026 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
 
     <!-- Quantum JavaScript -->
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
@@ -246,6 +271,9 @@
                 new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
             });
         });
+        function hideThankYouModal() {
+            document.getElementById('thankYouModal').classList.remove('show');
+        }
     </script>
 </body>
 </html>

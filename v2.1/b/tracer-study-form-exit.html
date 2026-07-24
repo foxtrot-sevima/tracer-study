@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuesioner Exit Survey | Karirlink</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <style>
+        :root { --base-font-size: 16px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--qn-neutral-50, #f9fafb); min-height: 100vh; font-size: var(--base-font-size); line-height: 1.6; }
+
+        /* Accessibility: Focus Styles */
+        :focus { outline: 3px solid var(--qn-primary-500, #3b82f6); outline-offset: 2px; }
+        :focus:not(:focus-visible) { outline: none; }
+        :focus-visible { outline: 3px solid var(--qn-primary-500, #3b82f6); outline-offset: 2px; }
+
+        /* Accessibility: High Contrast Mode */
+        @media (prefers-contrast: high) {
+            .card { border-width: 2px; }
+            .form-control__input { border-width: 2px; }
+        }
+
+        /* Accessibility: Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+        /* Header (page-local wizard shell shared across tracer-study-* pages) */
+        .ts-header { position: sticky; top: 0; z-index: 50; background: white; border-bottom: 1px solid var(--qn-neutral-200, #e5e7eb); padding: 0.75rem 1rem; }
+        .ts-header__inner { max-width: 100%; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+        .ts-header__left { display: flex; align-items: center; gap: 0.75rem; }
+        .ts-header__logo { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid var(--qn-neutral-200, #e5e7eb); object-fit: cover; }
+        .ts-header__info p { margin: 0; }
+        .ts-header__info p:first-child { font-size: 0.875em; color: var(--qn-neutral-500, #6b7280); }
+        .ts-header__info p:last-child { font-weight: 500; color: var(--qn-neutral-900, #111827); }
+        .ts-header__user { display: flex; align-items: center; gap: 0.75rem; }
+
+        /* Main Content */
+        .ts-main { padding: 1.5rem 1rem 7rem; }
+        .ts-container { max-width: 46rem; margin: 0 auto; }
+
+        /* Question block inside a card body */
+        .tsf-question { padding: 1.25rem 0; border-bottom: 1px solid var(--qn-neutral-100, #f3f4f6); }
+        .tsf-question:last-child { border-bottom: none; padding-bottom: 0.25rem; }
+        .tsf-question:first-child { padding-top: 0.25rem; }
+        .tsf-question__label-row { display: flex; align-items: center; gap: 0.375rem; margin-bottom: 0.25rem; }
+        .tsf-question__number { font-size: 1.0625rem; color: var(--qn-neutral-500, #6b7280); font-weight: 500; }
+        .tsf-question__label { font-size: 1em; color: var(--qn-neutral-900, #111827); font-weight: 500; line-height: 1.5; }
+        .tsf-question__desc { font-size: 0.875em; color: var(--qn-neutral-500, #6b7280); margin: 0.25rem 0 0.75rem; line-height: 1.5; }
+        .tsf-required { color: var(--qn-danger-500, #ef4444); margin-left: 0.125rem; }
+
+        .tsf-radio-group, .tsf-checkbox-group { display: flex; flex-direction: column; gap: 0.625rem; margin-top: 0.5rem; }
+        .tsf-checkbox-group > div { display: flex; align-items: center; }
+
+        /* Helper alert directly under every question (Quantum .alert / .alert_helper) */
+        .tsf-question .alert_helper { margin-top: 0.875rem; }
+        .alert__description p { margin: 0.125rem 0; }
+
+        /* 1-5 scale controls: hidden radio + visible button-box label, real semantics kept */
+        .tsf-scale-options { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .tsf-scale-input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+        .tsf-scale-label { flex: 1; min-width: 2.75rem; display: flex; align-items: center; justify-content: center; padding: 0.625rem 0.5rem; border: 1.5px solid var(--qn-neutral-200, #e5e7eb); border-radius: 0.625rem; font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-700, #374151); cursor: pointer; transition: all 0.15s ease; }
+        .tsf-scale-label:hover { border-color: var(--qn-primary-300, #93c5fd); background: var(--qn-primary-50, #eff6ff); }
+        .tsf-scale-input:checked + .tsf-scale-label { background: var(--qn-primary-500, #3b82f6); border-color: var(--qn-primary-500, #3b82f6); color: white; }
+        .tsf-scale-input:focus-visible + .tsf-scale-label { outline: 3px solid var(--qn-primary-500, #3b82f6); outline-offset: 2px; }
+
+        .tsf-scale-table-wrap { overflow-x: auto; margin-top: 0.75rem; }
+        .tsf-scale-table { min-width: 30rem; }
+        .tsf-scale-table__head, .tsf-scale-table__row { display: grid; grid-template-columns: minmax(9rem, 1fr) 1fr; align-items: center; gap: 0.5rem; padding: 0.625rem 0.25rem; }
+        .tsf-scale-table__head { font-size: 0.8125rem; color: var(--qn-neutral-500, #6b7280); font-weight: 600; }
+        .tsf-scale-table__head-cols { display: flex; gap: 0.5rem; }
+        .tsf-scale-table__head-cols span { flex: 1; min-width: 2.75rem; text-align: center; }
+        .tsf-scale-table__row { border-top: 1px solid var(--qn-neutral-100, #f3f4f6); }
+        .tsf-scale-table__row .tsf-scale-options, .tsf-scale-table__head-cols { justify-content: center; flex-wrap: nowrap; }
+        .tsf-scale-table__label { font-size: 0.9375rem; color: var(--qn-neutral-800, #1f2937); }
+
+        .tsf-scale-single { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.75rem; flex-wrap: wrap; }
+        .tsf-scale-single .tsf-scale-options { flex: 1 1 14rem; }
+        .tsf-scale-single__caption { font-size: 0.8125rem; color: var(--qn-neutral-500, #6b7280); flex-shrink: 0; }
+
+        /* Progress + submit footer (single-page: no "Bagian X dari Y" pagination) */
+        .ts-footer { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid var(--qn-neutral-200, #e5e7eb); padding: 1rem; z-index: 40; }
+        .ts-footer__inner { max-width: 46rem; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+        .tsf-progress { height: 0.5rem; background: var(--qn-neutral-200, #e5e7eb); border-radius: 9999px; overflow: hidden; }
+        .tsf-progress__fill { height: 100%; background: var(--qn-primary-500, #3b82f6); border-radius: 9999px; transition: width 0.2s ease; }
+        .pagination { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+        .pagination__info { font-size: 0.875em; color: var(--qn-neutral-500, #6b7280); }
+        .pagination__buttons { display: flex; gap: 0.5rem; }
+
+        /* Toast */
+        .toast { position: fixed; bottom: 6rem; left: 50%; transform: translateX(-50%); background: var(--qn-success-600, #166534); color: white; padding: 0.875rem 1.25rem; border-radius: 0.5rem; font-size: 0.9375em; font-weight: 500; display: none; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .toast.show { display: flex; align-items: center; gap: 0.5rem; }
+
+        /* Screen Reader Only */
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+        /* ===== Readability & selection UI upgrade (bigger text, card-style options, readonly CTA) ===== */
+        .tsf-question__label { font-size: 1.0625rem; }
+        .tsf-question__desc { font-size: 0.9375rem; }
+
+        .tsf-radio-group, .tsf-checkbox-group { gap: 0.625rem; }
+        .tsf-radio-group .form-control__label-radio,
+        .tsf-checkbox-group .form-control__label-checkbox,
+        .tsf-option .form-control__label-radio,
+        .tsf-option .form-control__label-checkbox { font-size: 1rem; color: var(--qn-neutral-800, #1f2937); }
+
+        .tsf-option {
+            display: block;
+            border: 1.5px solid var(--qn-neutral-200, #e5e7eb);
+            border-radius: 0.625rem;
+            padding: 0.75rem 1rem;
+            padding-bottom: 0.75rem !important;
+            margin: 0 !important;
+            cursor: pointer;
+            transition: border-color .15s ease, background-color .15s ease;
+        }
+        .tsf-option:hover { border-color: var(--qn-primary-300, #93c5fd); background: var(--qn-primary-50, #eff6ff); }
+        .tsf-option.tsf-option--checked { border-color: var(--qn-primary-500, #3b82f6); background: var(--qn-primary-50, #eff6ff); }
+        .tsf-option:has(input:disabled) { cursor: default; }
+        .tsf-option:has(input:disabled):hover { border-color: var(--qn-neutral-200, #e5e7eb); background: transparent; }
+        .tsf-checkbox-group > label.tsf-option { display: flex; align-items: center; gap: 0.625rem; }
+
+        /* Readonly field: locked indicator + explicit call-to-action instead of buried prose */
+        .tsf-readonly-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.625rem; margin-top: 0.5rem; }
+        .tsf-locked-badge { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.8125rem; color: var(--qn-neutral-500, #6b7280); flex-shrink: 0; }
+        .tsf-readonly-cta { flex-shrink: 0; }
+
+        /* Read-only academic identity summary (SIAKAD) at the top of Informasi Pribadi */
+        .tsf-id-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem 1rem; margin-top: 0.75rem; }
+        @media (max-width: 30rem) { .tsf-id-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="ts-header" role="banner">
+        <div class="ts-header__inner">
+            <div class="ts-header__left">
+                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo Universitas Contoh" class="ts-header__logo">
+                <div class="ts-header__info">
+                    <p>Universitas Contoh</p>
+                    <p>Exit Survey Kelulusan 2026</p>
+                </div>
+            </div>
+            <div class="ts-header__user">
+                <div class="ts-header__info" style="text-align: right;">
+                    <p>Calon Lulusan S1 - Teknik Informatika</p>
+                    <p>Ahmad Dimas Pratama</p>
+                </div>
+                <span class="avatar avatar_sm">
+                    <span class="avatar__circle">AD</span>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <span id="toast-message">Jawaban berhasil disimpan</span>
+    </div>
+
+    <!-- Main Content -->
+    <main class="ts-main" id="main-content" role="main">
+        <div class="ts-container">
+
+            <!-- ============================= -->
+            <!-- PAGE 1 (single page): Informasi Pribadi + Informasi Umum -->
+            <!-- ============================= -->
+            <div id="page-1" class="tsf-page">
+
+                <!-- Section 0: Informasi Pribadi -->
+                <section aria-labelledby="section-pribadi">
+                    <div class="card" style="margin-bottom: 1.5rem;">
+                        <div class="card__header">
+                            <h2 class="card__title" id="section-pribadi">Informasi Pribadi</h2>
+                        </div>
+                        <div class="card__body">
+
+                            <!-- Informasi Pribadi: all readonly, sourced from SIAKAD/Karirlink account, not numbered questions -->
+                            <div class="tsf-question">
+                                <p class="tsf-question__desc" style="margin-top: 0;">Data berikut diambil dari SIAKADCLOUD kampus Anda dan akun Karirlink Anda.</p>
+                                <div class="tsf-id-grid">
+                                    <div class="form-control">
+                                        <label class="form-control__label">Nama</label>
+                                        <div class="form-control__group"><input type="text" class="form-control__input" value="Ahmad Dimas Pratama" readonly disabled></div>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="form-control__label">NIM</label>
+                                        <div class="form-control__group"><input type="text" class="form-control__input" value="00000010122" readonly disabled></div>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="form-control__label">Jenjang Studi</label>
+                                        <div class="form-control__group"><input type="text" class="form-control__input" value="S1" readonly disabled></div>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="form-control__label">Alamat Email</label>
+                                        <div class="form-control__group"><input type="email" id="input-email" class="form-control__input" value="ahmad.dimas@email.com" readonly disabled></div>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="form-control__label">Nomor HP</label>
+                                        <div class="form-control__group"><input type="tel" id="input-phone" class="form-control__input" value="081234567890" readonly disabled></div>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="form-control__label">NIK/No. KTP</label>
+                                        <div class="form-control__group"><input type="text" id="input-nik" class="form-control__input" value="3573010101030001" readonly disabled></div>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="form-control__label">NPWP</label>
+                                        <div class="form-control__group"><input type="text" id="input-npwp" class="form-control__input" value="09.123.456.7-891.000" readonly disabled></div>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="form-control__label">Tahun Lulus</label>
+                                        <div class="form-control__group"><input type="text" class="form-control__input" value="2026" readonly disabled></div>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="form-control__label">Kode PT</label>
+                                        <div class="form-control__group"><input type="text" class="form-control__input" value="041001" readonly disabled></div>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="form-control__label">Kode Prodi</label>
+                                        <div class="form-control__group"><input type="text" class="form-control__input" value="55201" readonly disabled></div>
+                                    </div>
+                                </div>
+                                <div class="alert alert_warning" style="margin-top: 0.875rem;">
+                                    <div class="alert__content">
+                                        <span class="alert__heading">Data tidak sesuai?</span>
+                                        <p class="alert__description">Data akademik bersumber dari SIAKADCLOUD kampus Anda; Email/No. HP/NIK/NPWP dari akun Karirlink Anda. Perbarui melalui SIAKADCLOUD, menu Pengaturan Akun Karirlink, atau hubungi Admin Tracer Study institusi Anda.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 1: Informasi Umum - Exit Survey -->
+                <section aria-labelledby="section-umum">
+                    <div class="card" style="margin-bottom: 1.5rem;">
+                        <div class="card__header">
+                            <h2 class="card__title" id="section-umum">Informasi Umum - Exit Survey</h2>
+                        </div>
+                        <div class="card__body">
+
+                            <!-- Question 5 - Jenis Kelamin (readonly / verified) -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="q5-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">1.</span>
+                                    <p class="tsf-question__label" id="q5-label">Jenis Kelamin<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+                                <div class="tsf-radio-group" aria-disabled="true">
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q5" id="q5-l" value="laki_laki" checked disabled><label for="q5-l" class="form-control__label-radio">Laki-laki</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q5" id="q5-p" value="perempuan" disabled><label for="q5-p" class="form-control__label-radio">Perempuan</label></label>
+                                </div>
+                                <div class="tsf-readonly-row">
+                                    <span class="tsf-locked-badge"><span class="icon icon-lock-closed-mini"></span> Data dari SIAKAD</span>
+                                    <button type="button" class="btn btn_outline btn_sm tsf-readonly-cta" onclick="showToast('Data salah? Hubungi bagian akademik/kemahasiswaan kampus untuk memperbarui data ini di SIAKAD, akan tersinkron otomatis ke Karirlink.')">Data salah / ingin ubah?</button>
+                                </div>
+                                <div class="alert alert_helper">
+                                    <div class="alert__content">
+                                        <p class="alert__description">Auto dari profil Karirlink (biasanya tersinkron SIAKAD). Readonly di form ini.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 6 - Tanggal Lahir (readonly / verified) -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">2.</span>
+                                    <p class="tsf-question__label" id="q6-label">Tanggal Lahir<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+                                <div class="form-control" style="max-width: 20rem;">
+                                    <div class="form-control__group">
+                                        <input type="date" class="form-control__input" id="input-tanggal-lahir" value="2003-08-14" aria-labelledby="q6-label" readonly disabled>
+                                    </div>
+                                </div>
+                                <div class="tsf-readonly-row">
+                                    <span class="tsf-locked-badge"><span class="icon icon-lock-closed-mini"></span> Data dari SIAKAD</span>
+                                    <button type="button" class="btn btn_outline btn_sm tsf-readonly-cta" onclick="showToast('Data salah? Hubungi bagian akademik/kemahasiswaan kampus untuk memperbarui data ini di SIAKAD, akan tersinkron otomatis ke Karirlink.')">Data salah / ingin ubah?</button>
+                                </div>
+                                <div class="alert alert_helper">
+                                    <div class="alert__content">
+                                        <p class="alert__description">Auto dari SIAKAD. Readonly di form ini.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 7 - Pendidikan Orang Tua -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="q7-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">3.</span>
+                                    <p class="tsf-question__label" id="q7-label">Pendidikan Orang Tua</p>
+                                </div>
+                                <p class="tsf-question__desc">Pilih jenjang pendidikan tertinggi salah satu orang tua/wali Anda.</p>
+                                <div class="tsf-radio-group">
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-sd" value="sd" onchange="updateAnsweredCount()"><label for="q7-sd" class="form-control__label-radio">SD</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-smp" value="smp" onchange="updateAnsweredCount()"><label for="q7-smp" class="form-control__label-radio">SMP</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-sma" value="sma" onchange="updateAnsweredCount()"><label for="q7-sma" class="form-control__label-radio">SMA / Sederajat</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-d" value="diploma" onchange="updateAnsweredCount()"><label for="q7-d" class="form-control__label-radio">Diploma</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-s1" value="s1" onchange="updateAnsweredCount()"><label for="q7-s1" class="form-control__label-radio">S1</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-s2" value="s2" onchange="updateAnsweredCount()"><label for="q7-s2" class="form-control__label-radio">S2</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-s3" value="s3" onchange="updateAnsweredCount()"><label for="q7-s3" class="form-control__label-radio">S3</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-none" value="tidak_sekolah" onchange="updateAnsweredCount()"><label for="q7-none" class="form-control__label-radio">Tidak Sekolah</label></label>
+                                </div>
+                                <div class="alert alert_helper">
+                                    <div class="alert__content">
+                                        <p class="alert__description">Tidak ada autofill, isi manual, dapat diedit kapan saja.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 8 - Sumber Dana -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="q8-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">4.</span>
+                                    <p class="tsf-question__label" id="q8-label">Sumber dana apa yang Anda gunakan untuk membiayai kuliah?</p>
+                                </div>
+                                <p class="tsf-question__desc">Pilih sumber dana utama selama kuliah (bukan saat studi lanjut).</p>
+                                <div class="tsf-radio-group">
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q8" id="q8-a" value="biaya_sendiri" onchange="updateAnsweredCount()"><label for="q8-a" class="form-control__label-radio">Biaya Sendiri / Keluarga</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q8" id="q8-b" value="adik" onchange="updateAnsweredCount()"><label for="q8-b" class="form-control__label-radio">Beasiswa ADIK</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q8" id="q8-c" value="bidikmisi" onchange="updateAnsweredCount()"><label for="q8-c" class="form-control__label-radio">Beasiswa BIDIKMISI</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q8" id="q8-d" value="ppa" onchange="updateAnsweredCount()"><label for="q8-d" class="form-control__label-radio">Beasiswa PPA</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q8" id="q8-e" value="afirmasi" onchange="updateAnsweredCount()"><label for="q8-e" class="form-control__label-radio">Beasiswa AFIRMASI</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q8" id="q8-f" value="perusahaan" onchange="updateAnsweredCount()"><label for="q8-f" class="form-control__label-radio">Beasiswa Perusahaan / Swasta</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q8" id="q8-g" value="lainnya" onchange="updateAnsweredCount()"><label for="q8-g" class="form-control__label-radio">Lainnya</label></label>
+                                </div>
+                                <div class="tsf-conditional" id="lainnya-q8-wrap" style="display: none; margin-top: 0.75rem;" aria-hidden="true">
+                                    <div class="form-control">
+                                        <label for="input-lainnya-q8" class="form-control__label">Sebutkan sumber dana lainnya</label>
+                                        <div class="form-control__group">
+                                            <input type="text" id="input-lainnya-q8" class="form-control__input" placeholder="Tuliskan sumber dana Anda" oninput="updateAnsweredCount()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="alert alert_helper">
+                                    <div class="alert__content">
+                                        <p class="alert__description">Tidak ada autofill, isi manual, dapat diedit kapan saja.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 9 - Tingkat Kompetensi Saat Lulus (7-aspect 1-5 scale group) -->
+                            <div class="tsf-question" role="group" aria-labelledby="q9-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">5.</span>
+                                    <p class="tsf-question__label" id="q9-label">Tingkat Kompetensi yang Dikuasai Saat Lulus<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+                                <p class="tsf-question__desc">Beri nilai 1 (sangat rendah) sampai 5 (sangat tinggi) untuk tiap aspek kompetensi berikut.</p>
+
+                                <div class="tsf-scale-table-wrap">
+                                    <div class="tsf-scale-table">
+                                        <div class="tsf-scale-table__head">
+                                            <span>Aspek Kompetensi</span>
+                                            <div class="tsf-scale-table__head-cols">
+                                                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-1 Etika -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Etika">
+                                            <span class="tsf-scale-table__label">Etika</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-1" id="q9-1-1" value="1" onchange="updateAnsweredCount()"><label for="q9-1-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-1" id="q9-1-2" value="2" onchange="updateAnsweredCount()"><label for="q9-1-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-1" id="q9-1-3" value="3" onchange="updateAnsweredCount()"><label for="q9-1-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-1" id="q9-1-4" value="4" onchange="updateAnsweredCount()"><label for="q9-1-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-1" id="q9-1-5" value="5" onchange="updateAnsweredCount()"><label for="q9-1-5" class="tsf-scale-label">5</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-2 Keahlian Bidang Ilmu -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Keahlian Bidang Ilmu (kompetensi utama)">
+                                            <span class="tsf-scale-table__label">Keahlian Bidang Ilmu (kompetensi utama)</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-2" id="q9-2-1" value="1" onchange="updateAnsweredCount()"><label for="q9-2-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-2" id="q9-2-2" value="2" onchange="updateAnsweredCount()"><label for="q9-2-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-2" id="q9-2-3" value="3" onchange="updateAnsweredCount()"><label for="q9-2-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-2" id="q9-2-4" value="4" onchange="updateAnsweredCount()"><label for="q9-2-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-2" id="q9-2-5" value="5" onchange="updateAnsweredCount()"><label for="q9-2-5" class="tsf-scale-label">5</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-3 Bahasa Asing -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Kemampuan Berbahasa Asing">
+                                            <span class="tsf-scale-table__label">Kemampuan Berbahasa Asing</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-3" id="q9-3-1" value="1" onchange="updateAnsweredCount()"><label for="q9-3-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-3" id="q9-3-2" value="2" onchange="updateAnsweredCount()"><label for="q9-3-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-3" id="q9-3-3" value="3" onchange="updateAnsweredCount()"><label for="q9-3-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-3" id="q9-3-4" value="4" onchange="updateAnsweredCount()"><label for="q9-3-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-3" id="q9-3-5" value="5" onchange="updateAnsweredCount()"><label for="q9-3-5" class="tsf-scale-label">5</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-4 Teknologi Informasi -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Penggunaan Teknologi Informasi">
+                                            <span class="tsf-scale-table__label">Penggunaan Teknologi Informasi</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-4" id="q9-4-1" value="1" onchange="updateAnsweredCount()"><label for="q9-4-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-4" id="q9-4-2" value="2" onchange="updateAnsweredCount()"><label for="q9-4-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-4" id="q9-4-3" value="3" onchange="updateAnsweredCount()"><label for="q9-4-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-4" id="q9-4-4" value="4" onchange="updateAnsweredCount()"><label for="q9-4-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-4" id="q9-4-5" value="5" onchange="updateAnsweredCount()"><label for="q9-4-5" class="tsf-scale-label">5</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-5 Komunikasi -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Kemampuan Berkomunikasi">
+                                            <span class="tsf-scale-table__label">Kemampuan Berkomunikasi</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-5" id="q9-5-1" value="1" onchange="updateAnsweredCount()"><label for="q9-5-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-5" id="q9-5-2" value="2" onchange="updateAnsweredCount()"><label for="q9-5-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-5" id="q9-5-3" value="3" onchange="updateAnsweredCount()"><label for="q9-5-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-5" id="q9-5-4" value="4" onchange="updateAnsweredCount()"><label for="q9-5-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-5" id="q9-5-5" value="5" onchange="updateAnsweredCount()"><label for="q9-5-5" class="tsf-scale-label">5</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-6 Kerja Sama Tim -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Kemampuan Kerja Sama Tim">
+                                            <span class="tsf-scale-table__label">Kemampuan Kerja Sama Tim</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-6" id="q9-6-1" value="1" onchange="updateAnsweredCount()"><label for="q9-6-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-6" id="q9-6-2" value="2" onchange="updateAnsweredCount()"><label for="q9-6-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-6" id="q9-6-3" value="3" onchange="updateAnsweredCount()"><label for="q9-6-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-6" id="q9-6-4" value="4" onchange="updateAnsweredCount()"><label for="q9-6-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-6" id="q9-6-5" value="5" onchange="updateAnsweredCount()"><label for="q9-6-5" class="tsf-scale-label">5</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-7 Pengembangan Diri -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Kemampuan Pengembangan Diri">
+                                            <span class="tsf-scale-table__label">Kemampuan Pengembangan Diri</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-7" id="q9-7-1" value="1" onchange="updateAnsweredCount()"><label for="q9-7-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-7" id="q9-7-2" value="2" onchange="updateAnsweredCount()"><label for="q9-7-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-7" id="q9-7-3" value="3" onchange="updateAnsweredCount()"><label for="q9-7-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-7" id="q9-7-4" value="4" onchange="updateAnsweredCount()"><label for="q9-7-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-7" id="q9-7-5" value="5" onchange="updateAnsweredCount()"><label for="q9-7-5" class="tsf-scale-label">5</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert_helper">
+                                    <div class="alert__content">
+                                        <p class="alert__description">Penilaian diri (self-assessment), akan dibandingkan lagi saat GS-I/GS-II. Tidak ada autofill.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 10 - Penekanan Metode Pembelajaran (single 1-5 scale) -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="q10-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">6.</span>
+                                    <p class="tsf-question__label" id="q10-label">Penekanan Metode Pembelajaran di Program Studi<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+                                <p class="tsf-question__desc">Nilai 1-5 seberapa besar penekanan metode pembelajaran aktif (diskusi, studi kasus, dsb.) diterapkan di program studi Anda.</p>
+                                <div class="tsf-scale-single">
+                                    <span class="tsf-scale-single__caption">Sangat Rendah</span>
+                                    <div class="tsf-scale-options">
+                                        <input type="radio" class="tsf-scale-input" name="q10" id="q10-1" value="1" onchange="updateAnsweredCount()"><label for="q10-1" class="tsf-scale-label">1</label>
+                                        <input type="radio" class="tsf-scale-input" name="q10" id="q10-2" value="2" onchange="updateAnsweredCount()"><label for="q10-2" class="tsf-scale-label">2</label>
+                                        <input type="radio" class="tsf-scale-input" name="q10" id="q10-3" value="3" onchange="updateAnsweredCount()"><label for="q10-3" class="tsf-scale-label">3</label>
+                                        <input type="radio" class="tsf-scale-input" name="q10" id="q10-4" value="4" onchange="updateAnsweredCount()"><label for="q10-4" class="tsf-scale-label">4</label>
+                                        <input type="radio" class="tsf-scale-input" name="q10" id="q10-5" value="5" onchange="updateAnsweredCount()"><label for="q10-5" class="tsf-scale-label">5</label>
+                                    </div>
+                                    <span class="tsf-scale-single__caption">Sangat Tinggi</span>
+                                </div>
+                                <div class="alert alert_helper">
+                                    <div class="alert__content">
+                                        <p class="alert__description">Tidak ada autofill, isi manual, dapat diedit kapan saja.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 11 - Rencana Setelah Lulus -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="q11-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">7.</span>
+                                    <p class="tsf-question__label" id="q11-label">Rencana Anda Setelah Lulus</p>
+                                </div>
+                                <p class="tsf-question__desc">Pilih rencana yang paling mendekati niat Anda saat ini.</p>
+                                <div class="tsf-radio-group">
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q11" id="q11-a" value="bekerja" onchange="updateAnsweredCount()"><label for="q11-a" class="form-control__label-radio">Bekerja</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q11" id="q11-b" value="melanjutkan_studi" onchange="updateAnsweredCount()"><label for="q11-b" class="form-control__label-radio">Melanjutkan Studi</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q11" id="q11-c" value="wirausaha" onchange="updateAnsweredCount()"><label for="q11-c" class="form-control__label-radio">Wirausaha</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q11" id="q11-d" value="belum_ada_rencana" onchange="updateAnsweredCount()"><label for="q11-d" class="form-control__label-radio">Belum Ada Rencana</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q11" id="q11-e" value="lainnya" onchange="updateAnsweredCount()"><label for="q11-e" class="form-control__label-radio">Lainnya</label></label>
+                                </div>
+                                <div class="tsf-conditional" id="lainnya-q11-wrap" style="display: none; margin-top: 0.75rem;" aria-hidden="true">
+                                    <div class="form-control">
+                                        <label for="input-lainnya-q11" class="form-control__label">Sebutkan rencana Anda</label>
+                                        <div class="form-control__group">
+                                            <input type="text" id="input-lainnya-q11" class="form-control__input" placeholder="Tuliskan rencana Anda" oninput="updateAnsweredCount()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="alert alert_helper">
+                                    <div class="alert__content">
+                                        <p class="alert__description">Prediktif untuk strategi kontak lanjutan, bukan status final. Tidak ada autofill, isi manual.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    <div class="footer__copyright-wrapper">
+                        <div class="footer__logo-wrapper">
+                            <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                        </div>
+                        <p class="footer__copyright">&copy; 2005-2026 SEVIMA. All Rights Reserved</p>
+                    </div>
+                    <p class="footer__brand-name">SEVIMA Platform</p>
+                </footer>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer with single-page progress + submit -->
+    <footer class="ts-footer" role="navigation" aria-label="Navigasi Halaman">
+        <div class="ts-footer__inner">
+            <div class="tsf-progress" id="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Progress pengisian: 100%">
+                <div class="tsf-progress__fill" id="progress-fill" style="width: 100%;"></div>
+            </div>
+            <div class="pagination">
+                <span class="pagination__info"><span id="pagination-page-label">Bagian 1 dari 1</span> &middot; <span id="answered-count">0</span> pertanyaan dijawab</span>
+                <div class="pagination__buttons">
+                    <button class="btn btn_primary" id="btn-submit" onclick="submitForm()">
+                        Kirim Jawaban
+                        <span class="icon icon-chevron-right-mini"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        // =====================================================
+        // Choices.js init helper (Quantum select-default pattern)
+        // Kept for parity with other tracer-study-* pages, even
+        // though this Exit Survey page has no select-default fields.
+        // =====================================================
+        function initSelectDefault(el) {
+            if (!el || el.dataset.choicesInit) return;
+            new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+            el.dataset.choicesInit = 'true';
+        }
+
+        // =====================================================
+        // Single-page submit + validation
+        // =====================================================
+        function submitForm() {
+            if (!validateForm()) return;
+            window.location.href = './tracer-study-success.html';
+        }
+
+        function validateForm() {
+            const problems = [];
+
+            if (!document.getElementById('input-phone').value.trim()) problems.push('Nomor HP');
+            if (!document.getElementById('input-nik').value.trim()) problems.push('NIK/No. KTP');
+
+            if (!document.querySelector('input[name="q5"]:checked')) problems.push('Jenis Kelamin');
+
+            if (!document.getElementById('input-tanggal-lahir').value.trim()) problems.push('Tanggal Lahir');
+
+            for (let i = 1; i <= 7; i++) {
+                if (!document.querySelector('input[name="q9-' + i + '"]:checked')) {
+                    problems.push('Tingkat Kompetensi Saat Lulus');
+                    break;
+                }
+            }
+
+            if (!document.querySelector('input[name="q10"]:checked')) problems.push('Penekanan Metode Pembelajaran');
+
+            if (problems.length > 0) {
+                showToast('Lengkapi dulu: ' + problems.join(', '));
+                return false;
+            }
+            return true;
+        }
+
+        // =====================================================
+        // Toast + answered counter
+        // =====================================================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(function () {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        function isElementVisible(el) {
+            return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+        }
+
+        function updateAnsweredCount() {
+            const page = document.getElementById('page-1');
+            if (!page) return;
+            let count = 0;
+
+            const radioNames = new Set();
+            page.querySelectorAll('input[type="radio"]:checked').forEach(function (r) { radioNames.add(r.name); });
+            count += radioNames.size;
+
+            page.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="number"]').forEach(function (inp) {
+                if (inp.disabled) return;
+                if (isElementVisible(inp) && inp.value.trim() !== '') count++;
+            });
+
+            const counterEl = document.getElementById('answered-count');
+            if (counterEl) counterEl.textContent = count;
+        }
+
+        // =====================================================
+        // Selectable option-card highlight (visual .tsf-option state only,
+        // does not replace any of the onchange handlers above)
+        // =====================================================
+        function refreshOptionCard(el) {
+            if (!el) return;
+            const input = el.querySelector('input');
+            el.classList.toggle('tsf-option--checked', !!(input && input.checked));
+        }
+        function refreshOptionGroup(groupEl) {
+            if (!groupEl) return;
+            groupEl.querySelectorAll('.tsf-option').forEach(refreshOptionCard);
+        }
+        document.addEventListener('change', function (e) {
+            const input = e.target;
+            if (input && input.type === 'radio' && input.name) {
+                document.querySelectorAll('input[type="radio"][name="' + input.name + '"]').forEach(function (r) {
+                    const opt = r.closest('.tsf-option');
+                    if (opt) refreshOptionCard(opt);
+                });
+                toggleLainnyaField(input);
+            } else {
+                const opt = input.closest ? input.closest('.tsf-option') : null;
+                if (opt) refreshOptionCard(opt);
+            }
+        });
+
+        // =====================================================
+        // "Lainnya" options reveal a freetext follow-up field
+        // =====================================================
+        function toggleLainnyaField(input) {
+            const wrap = document.getElementById('lainnya-' + input.name + '-wrap');
+            if (!wrap) return;
+            const showIt = input.value === 'lainnya' && input.checked;
+            wrap.style.display = showIt ? 'block' : 'none';
+            wrap.setAttribute('aria-hidden', showIt ? 'false' : 'true');
+            if (!showIt) {
+                const field = wrap.querySelector('input, textarea');
+                if (field) field.value = '';
+            }
+        }
+
+        // =====================================================
+        // Initialize
+        // =====================================================
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.select-default').forEach(initSelectDefault);
+            document.querySelectorAll('.tsf-radio-group, .tsf-checkbox-group').forEach(refreshOptionGroup);
+            updateAnsweredCount();
+        });
+    </script>
+</body>
+</html>
