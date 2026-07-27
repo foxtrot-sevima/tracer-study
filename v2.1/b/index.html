@@ -28,6 +28,45 @@
         .notif-item__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); }
         .notif-item__desc { font-size: 0.75rem; color: var(--qn-neutral-600); }
         .notif-item__time { font-size: 0.6875rem; color: var(--qn-neutral-400); }
+
+        /* KPI stat tiles (same pattern as alumni-detail.html) - used for the
+           IKU 2 / kecukupan sampel compliance summary at the top of the dashboard */
+        .stat-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.875rem; }
+        @media (max-width: 64rem) { .stat-tiles { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 40rem) { .stat-tiles { grid-template-columns: 1fr; } }
+
+        /* Below 64rem the table still needs to scroll horizontally on its own (phones/tablets
+           can't fit 5 columns) - only drop the clipping once the table already fits unscrolled,
+           so the tooltip has room without breaking responsiveness on small devices. */
+        @media (min-width: 64rem) { .table-responsive_tooltip-safe { overflow: visible; } }
+        .stat-tile { padding: 1rem; border-radius: 0.625rem; display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+        .stat-tile_primary { background: var(--qn-primary-100); }
+        .stat-tile_success { background: var(--qn-success-100); }
+        .stat-tile_warning { background: var(--qn-warning-100); }
+        .stat-tile_danger { background: var(--qn-danger-100, #fee2e2); }
+        .stat-tile__icon { width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1rem; background: white; flex-shrink: 0; }
+        .stat-tile__icon_primary { color: var(--qn-primary-600); }
+        .stat-tile__icon_warning { color: var(--qn-warning-600, #a15c07); }
+        .stat-tile__icon_danger { color: var(--qn-danger-600, #b91c1c); }
+        .stat-tile__icon_success { color: var(--qn-success-600, #125d56); }
+        .stat-tile__value { font-size: 1.5rem; font-weight: 700; color: var(--qn-neutral-900); line-height: 1; }
+        .stat-tile__label { font-size: 0.75rem; color: var(--qn-neutral-600); line-height: 1.3; }
+        .stat-tile__sub { font-size: 0.6875rem; color: var(--qn-neutral-500); }
+
+        /* CSS-only donut ring (same technique as alumni-detail.html) */
+        .donut { width: 3rem; height: 3rem; border-radius: 50%; background: conic-gradient(var(--qn-danger-500, #ef4444) calc(var(--pct, 0) * 1%), var(--qn-neutral-300) 0); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .donut__hole { width: 2.25rem; height: 2.25rem; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 700; color: var(--qn-danger-600, #b91c1c); }
+
+        /* Sub-heading for grouping detail tables within the compliance card - this one used to
+           render as an uppercase eyebrow label, so it read fine small; now that it's normal
+           mixed-case prose it needs more size/weight to still read as a heading (roughly h4). */
+        .detail-subhead { font-size: 0.9375rem; font-weight: 700; color: var(--qn-neutral-800); margin: 1.75rem 0 0.875rem; padding-bottom: 0.625rem; border-bottom: 1px solid var(--qn-neutral-100); }
+        .detail-subhead:first-child { margin-top: 0; }
+
+        /* Every .card_dashboard on this page is now a sub-card nested inside a larger
+           unifying card (Kuesioner Lulusan) - drop the shadow so it reads as a flat,
+           bordered panel rather than a second elevated card floating above the page. */
+        .card_dashboard { box-shadow: none; }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -167,20 +206,8 @@
                 </div>
             </div>
 
-            <!-- Dashboard Tabs -->
+            <!-- Filter Bar (di atas - berlaku untuk seluruh ringkasan & kedua kelompok kuesioner) -->
             <div class="card card_empty">
-                <nav class="nav-tab">
-                    <ul class="nav-tab__wrapper">
-                        <li class="nav-tab__item active" data-toggle="tab" data-target="#tab-kuesioner-lulusan">
-                            Kuesioner Lulusan
-                        </li>
-                        <li class="nav-tab__item" data-toggle="tab" data-target="#tab-kuesioner-pengguna">
-                            Kuesioner Pengguna Lulusan
-                        </li>
-                    </ul>
-                </nav>
-
-                <!-- Filter Bar -->
                 <div class="dashboard-filter">
                     <div class="grid">
                         <div class="col-12 col-sm-3">
@@ -230,382 +257,418 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Tab Content: Kuesioner Lulusan -->
-                <div class="tab-content">
-                    <div class="tab-pane" id="tab-kuesioner-lulusan">
-                        <!-- Dashboard Cards Row 1 -->
-                        <div class="grid dashboard-grid">
-                            <!-- Card: Pengisian Tracer Study -->
-                            <div class="col-12 col-md-4">
-                                <div class="card card_dashboard">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Pengisian Tracer Study</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-legend">
-                                            <div class="chart-legend__item">
-                                                <span class="chart-legend__color" style="background: var(--qn-primary-400);"></span>
-                                                <span class="chart-legend__text">Sudah mengisi: 4%</span>
-                                            </div>
-                                            <div class="chart-legend__item">
-                                                <span class="chart-legend__color" style="background: var(--qn-danger-400);"></span>
-                                                <span class="chart-legend__text">Belum mengisi: 96%</span>
-                                            </div>
-                                        </div>
-                                        <div class="chart-container chart-container_donut">
-                                            <canvas id="chart-pengisian"></canvas>
-                                            <div class="chart-center">
-                                                <span class="chart-center__value">98</span>
-                                                <span class="chart-center__total">dari 2088</span>
-                                            </div>
-                                        </div>
-                                        <div class="card-insight">
-                                            <div class="card-insight__icon card-insight__icon_warning">
-                                                <span class="icon icon-exclamation-circle-mini"></span>
-                                            </div>
-                                            <p class="card-insight__text">
-                                                Sebesar <strong>4%</strong> responden lulusan yang mengisi Tracer Study.
-                                                Untuk mencapai akreditasi unggul, pengisian Tracer Study minimum <strong>20%</strong>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="card__footer">
-                                        <a href="./detail-pengisian.html" class="link link_primary">
-                                            Lihat Detail
-                                            <span class="icon icon-chevron-right-mini"></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+            <!-- Kepatuhan IKU & Kecukupan Sampel Tracer Study -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card__header">
+                    <div class="card__header-wrapper">
+                        <h3 class="card__title" style="font-size: 1rem; line-height: 1.5rem; font-weight: 600; color: var(--qn-neutral-800); padding: 0;">Kepatuhan IKU 2 &amp; Kecukupan Sampel Tracer Study</h3>
+                        <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0;">Berdasarkan Kepmen Diktisaintek No. 358/M/2025 (IKU 2 - Lulusan Mendapat Pekerjaan yang Layak) &amp; rumus Slovin galat 2,3%</p>
+                    </div>
+                </div>
+                <div class="card__body">
+                    <div class="alert alert_warning" style="margin-bottom: 1.25rem;">
+                        <div class="alert__content">
+                            <p class="alert__heading">Ambang Sampel Belum Terpenuhi</p>
+                            <p class="alert__description">Baru <strong>98 dari 993</strong> responden minimum (rumus Slovin, galat 2,3%) yang terkumpul - skor IKU 2 di bawah belum dapat dianggap sah secara statistik.</p>
+                        </div>
+                    </div>
 
-                            <!-- Card: Waktu Tunggu Lulusan -->
-                            <div class="col-12 col-md-4">
-                                <div class="card card_dashboard">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Waktu Tunggu Lulusan</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-legend">
-                                            <div class="chart-legend__item">
-                                                <span class="chart-legend__color" style="background: var(--qn-primary-400);"></span>
-                                                <span class="chart-legend__text">Kurang dari 6 Bulan: 59%</span>
-                                            </div>
-                                            <div class="chart-legend__item">
-                                                <span class="chart-legend__color" style="background: var(--qn-warning-400);"></span>
-                                                <span class="chart-legend__text">Lebih dari 6 Bulan: 41%</span>
-                                            </div>
-                                        </div>
-                                        <div class="chart-container chart-container_donut">
-                                            <canvas id="chart-waktu-tunggu"></canvas>
-                                            <div class="chart-center">
-                                                <span class="chart-center__value">29</span>
-                                                <span class="chart-center__total">dari 42</span>
-                                            </div>
-                                        </div>
-                                        <div class="card-insight">
-                                            <div class="card-insight__icon card-insight__icon_warning">
-                                                <span class="icon icon-exclamation-circle-mini"></span>
-                                            </div>
-                                            <p class="card-insight__text">
-                                                Sebesar <strong>59%</strong> waktu tunggu lulusan mendapat pekerjaan dibawah 6 bulan.
-                                                Secara ideal, waktu tunggu lulusan IAPT yaitu kurang dari 6 bulan
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="card__footer">
-                                        <a href="./detail-waktu-tunggu.html" class="link link_primary">
-                                            Lihat Detail
-                                            <span class="icon icon-chevron-right-mini"></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="stat-tiles">
+                        <div class="stat-tile stat-tile_warning">
+                            <span class="stat-tile__icon stat-tile__icon_warning"><span class="icon icon-scale-mini"></span></span>
+                            <span class="stat-tile__value">60,0%</span>
+                            <span class="stat-tile__label">Skor IKU 2 (dari responden terkumpul)</span>
+                            <span class="stat-tile__sub">Target internal &ge; 75%</span>
+                        </div>
+                        <div class="stat-tile stat-tile_primary">
+                            <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-academic-cap-mini"></span></span>
+                            <span class="stat-tile__value">2.088</span>
+                            <span class="stat-tile__label">Total Lulusan Tertelusuri (N)</span>
+                            <span class="stat-tile__sub">graduates &middot; angkatan lulus 1 tahun terakhir</span>
+                        </div>
+                        <div class="stat-tile stat-tile_danger">
+                            <span class="stat-tile__icon stat-tile__icon_danger"><span class="icon icon-users-mini"></span></span>
+                            <span class="stat-tile__value">98</span>
+                            <span class="stat-tile__label">Responden Terkumpul (n)</span>
+                            <span class="stat-tile__sub">4,7% dari total lulusan</span>
+                        </div>
+                        <div class="stat-tile stat-tile_danger">
+                            <div class="donut" style="--pct: 10;"><div class="donut__hole">10%</div></div>
+                            <span class="stat-tile__value" style="font-size: 1.125rem;">993 dibutuhkan</span>
+                            <span class="stat-tile__label">Minimum Responden (Rumus Slovin)</span>
+                            <span class="stat-tile__sub">Kurang 895 responden lagi</span>
+                        </div>
+                    </div>
 
-                            <!-- Card: Status Lulusan -->
-                            <div class="col-12 col-md-4">
-                                <div class="card card_dashboard">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Status Lulusan</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-container chart-container_bar">
-                                            <canvas id="chart-status-lulusan"></canvas>
-                                        </div>
-                                        <div class="card-insight">
-                                            <div class="card-insight__icon card-insight__icon_warning">
-                                                <span class="icon icon-exclamation-circle-mini"></span>
-                                            </div>
-                                            <p class="card-insight__text">
-                                                Lulusan saat ini berstatus <strong>52%</strong> sudah bekerja, <strong>11%</strong> sebagai wiraswasta,
-                                                <strong>7%</strong> sedang melanjutkan studi, dan <strong>30%</strong> sedang mencari pekerjaan
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="card__footer">
-                                        <a href="./detail-status-lulusan.html" class="link link_primary">
-                                            Lihat Detail
-                                            <span class="icon icon-chevron-right-mini"></span>
-                                        </a>
-                                    </div>
-                                </div>
+                    <div class="card-insight" style="margin-top: 1.25rem;">
+                        <div class="card-insight__icon card-insight__icon_info">
+                            <span class="icon icon-information-circle-mini"></span>
+                        </div>
+                        <p class="card-insight__text">
+                            Rumus Slovin: <strong>n = N / (1 + N&middot;d&sup2;)</strong>, dengan galat (d) 2,3%. Data kecukupan sampel ini juga menjadi salah satu unsur penilaian Asesmen Lapangan BAN-PT (melibatkan lulusan &amp; pengguna lulusan).
+                            <br>
+                            <span style="color: var(--qn-neutral-500);">Keterangan: n = jumlah responden minimum &middot; N = jumlah lulusan &middot; d = galat (2,3%) - sesuai formula responden minimum Kepmen Diktisaintek No. 358/M/2025.</span>
+                        </p>
+                    </div>
+
+                    <!-- Kecukupan Sampel per Program Studi -->
+                    <p class="detail-subhead">Kecukupan Sampel per Program Studi</p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Program Studi</th>
+                                    <th>Total Lulusan (N)</th>
+                                    <th>Responden (n)</th>
+                                    <th>Minimum Dibutuhkan</th>
+                                    <th>Capaian</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>S1 - Teknik Informatika</td>
+                                    <td>612</td>
+                                    <td>22</td>
+                                    <td>463</td>
+                                    <td>4,8%</td>
+                                    <td><span class="badge badge_danger">Belum Terpenuhi</span></td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Sistem Informasi</td>
+                                    <td>498</td>
+                                    <td>18</td>
+                                    <td>395</td>
+                                    <td>4,6%</td>
+                                    <td><span class="badge badge_danger">Belum Terpenuhi</span></td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Manajemen</td>
+                                    <td>534</td>
+                                    <td>31</td>
+                                    <td>417</td>
+                                    <td>7,4%</td>
+                                    <td><span class="badge badge_danger">Belum Terpenuhi</span></td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Akuntansi</td>
+                                    <td>444</td>
+                                    <td>27</td>
+                                    <td>360</td>
+                                    <td>7,5%</td>
+                                    <td><span class="badge badge_danger">Belum Terpenuhi</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Rincian Skor IKU 2 -->
+                    <p class="detail-subhead">Rincian Skor IKU 2 per Kategori Bobot</p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Kategori Outcome</th>
+                                    <th>Kriteria (Kepmen 358/2025)</th>
+                                    <th>Jumlah Lulusan</th>
+                                    <th>Bobot</th>
+                                    <th>Kontribusi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="3">Bekerja (51)</td>
+                                    <td>Masa tunggu &lt; 6 bulan &amp; gaji &gt; 1,2x UMP</td>
+                                    <td>30</td>
+                                    <td><span class="tag tag_outline">1,0</span></td>
+                                    <td>30,0</td>
+                                </tr>
+                                <tr>
+                                    <td>Masa tunggu &lt; 1 tahun &amp; gaji &gt; 1,2x UMP</td>
+                                    <td>15</td>
+                                    <td><span class="tag tag_outline">0,8</span></td>
+                                    <td>12,0</td>
+                                </tr>
+                                <tr>
+                                    <td>Masa tunggu &lt; 1 tahun &amp; gaji &lt; 1,2x UMP</td>
+                                    <td>6</td>
+                                    <td><span class="tag tag_outline">0,6</span></td>
+                                    <td>3,6</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">Wiraswasta (11)</td>
+                                    <td>Founder/co-founder, penghasilan &gt; 1,2x UMP</td>
+                                    <td>7</td>
+                                    <td><span class="tag tag_outline">1,0</span></td>
+                                    <td>7,0</td>
+                                </tr>
+                                <tr>
+                                    <td>Freelancer, penghasilan &gt; 1,2x UMP</td>
+                                    <td>4</td>
+                                    <td><span class="tag tag_outline">0,5</span></td>
+                                    <td>2,0</td>
+                                </tr>
+                                <tr>
+                                    <td>Melanjutkan Studi (7)</td>
+                                    <td>Diterima PT tujuan &lt; 12 bulan setelah lulus</td>
+                                    <td>7</td>
+                                    <td><span class="tag tag_outline">0,6</span></td>
+                                    <td>4,2</td>
+                                </tr>
+                                <tr>
+                                    <td>Mencari Kerja (29)</td>
+                                    <td>Belum memenuhi kriteria outcome manapun</td>
+                                    <td>29</td>
+                                    <td><span class="tag tag_outline">0,0</span></td>
+                                    <td>0,0</td>
+                                </tr>
+                                <tr style="font-weight: 600;">
+                                    <td colspan="2">Total (t = 98 responden)</td>
+                                    <td>98</td>
+                                    <td>-</td>
+                                    <td>58,8</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-insight" style="margin-top: 1.25rem;">
+                        <div class="card-insight__icon card-insight__icon_info">
+                            <span class="icon icon-information-circle-mini"></span>
+                        </div>
+                        <p class="card-insight__text">
+                            Skor IKU 2 = &sum;(n<sub>i</sub>&middot;k<sub>i</sub>) &divide; t &times; 100% = 58,8 &divide; 98 &times; 100% = <strong>60,0%</strong>
+                            <br>
+                            <span style="color: var(--qn-neutral-500);">Keterangan: n<sub>i</sub> = jumlah lulusan yang memenuhi kriteria bekerja/wirausaha/melanjutkan studi pada kategori ke-i &middot; k<sub>i</sub> = bobot/konstanta kategori ke-i &middot; t = total responden yang berhasil dikumpulkan - sesuai formula IKU 2 Kepmen Diktisaintek No. 358/M/2025.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kuesioner Lulusan -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card__header">
+                    <div class="card__header-wrapper">
+                        <h3 class="card__title" style="font-size: 1rem; line-height: 1.5rem; font-weight: 600; color: var(--qn-neutral-800); padding: 0;">Kuesioner Lulusan</h3>
+                        <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0;">Tren karier &amp; kesesuaian kerja berdasarkan jawaban lulusan, per program studi</p>
+                    </div>
+                </div>
+                <div class="card__body">
+
+                    <!-- Temuan Utama - kartu warna senada stat-tile (bukan alert), tetap 1 kalimat per
+                         temuan supaya ringkas dibaca sekilas. -->
+                    <div class="stat-tiles" style="grid-template-columns: 1fr; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div class="stat-tile stat-tile_danger" style="flex-direction: row; align-items: flex-start; gap: 0.75rem;">
+                            <span class="stat-tile__icon stat-tile__icon_danger"><span class="icon icon-exclamation-triangle-mini"></span></span>
+                            <div style="min-width: 0;">
+                                <p style="font-size: 0.9375rem; font-weight: 700; color: var(--qn-neutral-900); margin: 0 0 0.25rem;">Sistem Informasi &amp; Teknik Informatika Tertinggal di Semua Indikator</p>
+                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-600); margin: 0; line-height: 1.4;">Capaian 33-45%, jauh di bawah rata-rata institusi. Evaluasi kurikulum &amp; perkuat magang industri.</p>
                             </div>
                         </div>
-
-                        <!-- Dashboard Cards Row 2 -->
-                        <div class="grid dashboard-grid">
-                            <!-- Card: Kesesuaian Bidang Kerja Lulusan -->
-                            <div class="col-12 col-md-6">
-                                <div class="card card_dashboard">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Kesesuaian Bidang Kerja Lulusan</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-container chart-container_bar">
-                                            <canvas id="chart-kesesuaian-bidang"></canvas>
-                                        </div>
-                                        <div class="card-insight">
-                                            <div class="card-insight__icon card-insight__icon_warning">
-                                                <span class="icon icon-exclamation-circle-mini"></span>
-                                            </div>
-                                            <p class="card-insight__text">
-                                                Saat ini, <strong>77%</strong> lulusan bekerja sesuai bidangnya
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="card__footer">
-                                        <a href="./detail-kesesuaian-bidang.html" class="link link_primary">
-                                            Lihat Detail
-                                            <span class="icon icon-chevron-right-mini"></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Card: Tingkat Tempat Kerja -->
-                            <div class="col-12 col-md-6">
-                                <div class="card card_dashboard">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Tingkat Tempat Kerja</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-container chart-container_bar">
-                                            <canvas id="chart-tingkat-kerja"></canvas>
-                                        </div>
-                                        <div class="card-insight">
-                                            <div class="card-insight__icon card-insight__icon_warning">
-                                                <span class="icon icon-exclamation-circle-mini"></span>
-                                            </div>
-                                            <p class="card-insight__text">
-                                                Sebesar <strong>62%</strong> lulusan bekerja pada Perusahaan nasional dan multinasional
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="card__footer">
-                                        <a href="./detail-tingkat-kerja.html" class="link link_primary">
-                                            Lihat Detail
-                                            <span class="icon icon-chevron-right-mini"></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card: Detail Waktu Tunggu Pekerjaan -->
-                        <div class="grid dashboard-grid">
-                            <div class="col-12">
-                                <div class="card card_dashboard">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Detail Waktu Tunggu Lulusan Mendapatkan Pekerjaan</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-container chart-container_bar chart-container_wide">
-                                            <canvas id="chart-detail-waktu-tunggu"></canvas>
-                                        </div>
-                                        <div class="card-insight">
-                                            <div class="card-insight__icon card-insight__icon_info">
-                                                <span class="icon icon-information-circle-mini"></span>
-                                            </div>
-                                            <p class="card-insight__text">
-                                                Data ini didapatkan dari jawaban alumni berdasarkan pertanyaan standar DIKTI
-                                                dengan kode pertanyaan f504 dan f506 (opsional)
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="card__footer">
-                                        <a href="./detail-waktu-tunggu-pekerjaan.html" class="link link_primary">
-                                            Lihat Detail
-                                            <span class="icon icon-chevron-right-mini"></span>
-                                        </a>
-                                    </div>
-                                </div>
+                        <div class="stat-tile stat-tile_success" style="flex-direction: row; align-items: flex-start; gap: 0.75rem;">
+                            <span class="stat-tile__icon stat-tile__icon_success"><span class="icon icon-check-circle-mini"></span></span>
+                            <div style="min-width: 0;">
+                                <p style="font-size: 0.9375rem; font-weight: 700; color: var(--qn-neutral-900); margin: 0 0 0.25rem;">Manajemen &amp; Akuntansi di Atas Rata-Rata</p>
+                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-600); margin: 0; line-height: 1.4;">Capaian 69-81% - jadikan rujukan praktik baik untuk program studi lain.</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Tab Content: Kuesioner Pengguna Lulusan -->
-                    <div class="tab-pane" id="tab-kuesioner-pengguna">
-                        <div class="grid dashboard-grid dashboard-grid_4col">
-                            <!-- Card 1: Integritas -->
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <div class="card card_dashboard card_dashboard_compact">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Integritas / Etika berperilaku</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-legend chart-legend_compact">
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #ef4444;"></span><span>Kurang</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #f97316;"></span><span>Cukup</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: var(--qn-primary-400);"></span><span>Baik</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #22c55e;"></span><span>Sangat Baik</span></div>
-                                        </div>
-                                        <div class="chart-container chart-container_donut chart-container_sm">
-                                            <canvas id="chart-integritas"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <!-- Rincian per Program Studi - hanya menampilkan 2 tertinggi & 2 terendah + rata-rata
+                         institusi (row count tetap ringkas berapapun jumlah prodi di PT), dengan baris
+                         pembatas berlabel eksplisit "Perlu Perhatian"/"Performa Terbaik" supaya admin tidak
+                         perlu menebak dari warna badge saja mana yang tertinggi/terendah. Link ke daftar
+                         lengkap per metrik ditempel langsung di header kolom masing-masing (bukan baris
+                         link generik terpisah), jadi jelas data apa yang akan dibuka. -->
+                    <p class="detail-subhead" style="margin-bottom: 0.75rem;">Keterserapan Kerja per Program Studi (4 prodi terdaftar)</p>
+                    <!-- .table-responsive clips overflow in both directions by default, which cuts off
+                         the data-tooltip bubble above the header buttons (vertically, and horizontally
+                         for the rightmost column). Below the .table-responsive_tooltip-safe breakpoint
+                         this stays a normal scrollable table (needed on phones/tablets, where the 5
+                         columns don't fit and horizontal scroll must still work); above it, where the
+                         table already fits without scrolling, overflow switches to visible so the
+                         tooltip isn't clipped. -->
+                    <div class="table-responsive table-responsive_tooltip-safe">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Program Studi</th>
+                                    <th>Bekerja (n)</th>
+                                    <th>
+                                        &lt;6 Bulan Dapat Kerja
+                                        <a href="./detail-waktu-tunggu.html" data-tooltip="Lihat Semua Program Studi - Waktu Tunggu" style="display: inline-flex; color: var(--qn-primary-500); font-size: 0.9375rem; margin-left: 0.375rem; vertical-align: middle; text-transform: none;"><span class="icon icon-arrow-up-right-mini" style="color: var(--qn-primary-500);"></span></a>
+                                    </th>
+                                    <th>
+                                        Sesuai Bidang Kerja
+                                        <a href="./detail-kesesuaian-bidang.html" data-tooltip="Lihat Semua Program Studi - Kesesuaian Bidang" style="display: inline-flex; color: var(--qn-primary-500); font-size: 0.9375rem; margin-left: 0.375rem; vertical-align: middle; text-transform: none;"><span class="icon icon-arrow-up-right-mini" style="color: var(--qn-primary-500);"></span></a>
+                                    </th>
+                                    <th>
+                                        Nasional / Multinasional
+                                        <a href="./detail-tingkat-kerja.html" data-tooltip="Lihat Semua Program Studi - Tingkat Tempat Kerja" style="display: inline-flex; color: var(--qn-primary-500); font-size: 0.9375rem; margin-left: 0.375rem; vertical-align: middle; text-transform: none;"><span class="icon icon-arrow-up-right-mini" style="color: var(--qn-primary-500);"></span></a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5" style="background: var(--qn-danger-100, #fee2e2); color: var(--qn-danger-600, #9b1d0f); font-size: 0.75rem; font-weight: 700; padding: 0.375rem 0.75rem;">Perlu Perhatian - Capaian Terendah</td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Sistem Informasi</td>
+                                    <td>9</td>
+                                    <td><span class="badge badge_danger">33%</span></td>
+                                    <td><span class="badge badge_danger">44%</span></td>
+                                    <td><span class="badge badge_danger">33%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Teknik Informatika</td>
+                                    <td>11</td>
+                                    <td><span class="badge badge_danger">36%</span></td>
+                                    <td><span class="badge badge_danger">45%</span></td>
+                                    <td><span class="badge badge_danger">36%</span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" style="background: var(--qn-success-100, #f0fdf9); color: var(--qn-success-600, #125d56); font-size: 0.75rem; font-weight: 700; padding: 0.375rem 0.75rem;">Performa Terbaik - Capaian Tertinggi</td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Akuntansi</td>
+                                    <td>13</td>
+                                    <td><span class="badge badge_warning">69%</span></td>
+                                    <td><span class="badge badge_success">77%</span></td>
+                                    <td><span class="badge badge_warning">69%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Manajemen</td>
+                                    <td>16</td>
+                                    <td><span class="badge badge_success">81%</span></td>
+                                    <td><span class="badge badge_success">81%</span></td>
+                                    <td><span class="badge badge_warning">69%</span></td>
+                                </tr>
+                                <tr style="font-weight: 600; background: var(--qn-neutral-100);">
+                                    <td>Rata-rata Institusi</td>
+                                    <td>49</td>
+                                    <td>59%</td>
+                                    <td>65%</td>
+                                    <td>55%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                            <!-- Card 2: Profesionalisme -->
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <div class="card card_dashboard card_dashboard_compact">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Profesionalisme / Kompetensi Utama</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-legend chart-legend_compact">
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #ef4444;"></span><span>Kurang</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #f97316;"></span><span>Cukup</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: var(--qn-primary-400);"></span><span>Baik</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #22c55e;"></span><span>Sangat Baik</span></div>
-                                        </div>
-                                        <div class="chart-container chart-container_donut chart-container_sm">
-                                            <canvas id="chart-profesionalisme"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <!-- Distribusi Waktu Tunggu - diganti dari line chart kumulatif (sulit dibaca
+                         kemiringannya) menjadi bar chart per rentang waktu, sehingga rentang mana
+                         yang paling banyak menyerap lulusan langsung terlihat dari tinggi batang. -->
+                    <p class="detail-subhead" style="display: flex; align-items: center; justify-content: space-between;">
+                        <span>Distribusi Waktu Tunggu Mendapatkan Pekerjaan Pertama</span>
+                        <a href="./detail-waktu-tunggu-pekerjaan.html" class="link link_primary" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;">Rincian per Program Studi <span class="icon icon-chevron-right-mini"></span></a>
+                    </p>
+                    <div class="chart-container chart-container_wide">
+                        <canvas id="chart-detail-waktu-tunggu"></canvas>
+                    </div>
+                    <p style="font-size: 0.8125rem; color: var(--qn-neutral-600); margin: 0.625rem 0 0;">
+                        49 responden bekerja - <strong>75%</strong> mendapat kerja pertama dalam 3 bulan.
+                    </p>
+                </div>
+            </div>
 
-                            <!-- Card 3: Kemampuan Berbahasa Asing -->
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <div class="card card_dashboard card_dashboard_compact">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Kemampuan Berbahasa Asing</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-legend chart-legend_compact">
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #ef4444;"></span><span>Kurang</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #f97316;"></span><span>Cukup</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: var(--qn-primary-400);"></span><span>Baik</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #22c55e;"></span><span>Sangat Baik</span></div>
-                                        </div>
-                                        <div class="chart-container chart-container_donut chart-container_sm">
-                                            <canvas id="chart-bahasa-asing"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <!-- Kuesioner Pengguna Lulusan -->
+            <div class="card">
+                <div class="card__header">
+                    <div class="card__header-wrapper">
+                        <h3 class="card__title" style="font-size: 1rem; line-height: 1.5rem; font-weight: 600; color: var(--qn-neutral-800); padding: 0;">Kuesioner Pengguna Lulusan</h3>
+                        <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0;">Penilaian kompetensi lulusan oleh atasan/pemberi kerja, per aspek kompetensi</p>
+                    </div>
+                </div>
+                <div class="card__body">
+                    <div class="chart-legend" style="flex-direction: row; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                        <div class="chart-legend__item"><span class="chart-legend__color" style="background: #dbeafe;"></span><span class="chart-legend__text">Kurang</span></div>
+                        <div class="chart-legend__item"><span class="chart-legend__color" style="background: #93c5fd;"></span><span class="chart-legend__text">Cukup</span></div>
+                        <div class="chart-legend__item"><span class="chart-legend__color" style="background: #2563eb;"></span><span class="chart-legend__text">Baik</span></div>
+                        <div class="chart-legend__item"><span class="chart-legend__color" style="background: #1e40af;"></span><span class="chart-legend__text">Sangat Baik</span></div>
+                    </div>
 
-                            <!-- Card 4: Teknologi Informasi -->
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <div class="card card_dashboard card_dashboard_compact">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Kemampuan Penggunaan TI</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-legend chart-legend_compact">
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #ef4444;"></span><span>Kurang</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #f97316;"></span><span>Cukup</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: var(--qn-primary-400);"></span><span>Baik</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #22c55e;"></span><span>Sangat Baik</span></div>
-                                        </div>
-                                        <div class="chart-container chart-container_donut chart-container_sm">
-                                            <canvas id="chart-teknologi"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="chart-container chart-container_horizontal">
+                        <canvas id="chart-pengguna-lulusan"></canvas>
+                    </div>
 
-                            <!-- Card 5: Kemampuan Berkomunikasi -->
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <div class="card card_dashboard card_dashboard_compact">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Kemampuan Berkomunikasi</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-legend chart-legend_compact">
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #ef4444;"></span><span>Kurang</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #f97316;"></span><span>Cukup</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: var(--qn-primary-400);"></span><span>Baik</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #22c55e;"></span><span>Sangat Baik</span></div>
-                                        </div>
-                                        <div class="chart-container chart-container_donut chart-container_sm">
-                                            <canvas id="chart-komunikasi"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Card 6: Kerjasama Tim -->
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <div class="card card_dashboard card_dashboard_compact">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Kerjasama Tim</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-legend chart-legend_compact">
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #ef4444;"></span><span>Kurang</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #f97316;"></span><span>Cukup</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: var(--qn-primary-400);"></span><span>Baik</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #22c55e;"></span><span>Sangat Baik</span></div>
-                                        </div>
-                                        <div class="chart-container chart-container_donut chart-container_sm">
-                                            <canvas id="chart-kerjasama"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Card 7: Kepemimpinan -->
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <div class="card card_dashboard card_dashboard_compact">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Kepemimpinan</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-legend chart-legend_compact">
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #ef4444;"></span><span>Kurang</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #f97316;"></span><span>Cukup</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: var(--qn-primary-400);"></span><span>Baik</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #22c55e;"></span><span>Sangat Baik</span></div>
-                                        </div>
-                                        <div class="chart-container chart-container_donut chart-container_sm">
-                                            <canvas id="chart-kepemimpinan"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Card 8: Pengembangan Diri -->
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <div class="card card_dashboard card_dashboard_compact">
-                                    <div class="card__header">
-                                        <h3 class="card__title">Pengembangan Diri</h3>
-                                    </div>
-                                    <div class="card__body">
-                                        <div class="chart-legend chart-legend_compact">
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #ef4444;"></span><span>Kurang</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #f97316;"></span><span>Cukup</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: var(--qn-primary-400);"></span><span>Baik</span></div>
-                                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #22c55e;"></span><span>Sangat Baik</span></div>
-                                        </div>
-                                        <div class="chart-container chart-container_donut chart-container_sm">
-                                            <canvas id="chart-pengembangan"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="alert alert_warning" style="margin-top: 1.25rem;">
+                        <div class="alert__content">
+                            <p class="alert__heading">Aspek Kompetensi Terlemah</p>
+                            <p class="alert__description"><strong>Kemampuan Berbahasa Asing</strong> menjadi aspek dengan penilaian terendah (hanya 18% dinilai Sangat Baik, 12% Kurang) - berpotensi jadi materi pengembangan kurikulum/pelatihan tambahan.</p>
                         </div>
+                    </div>
+
+                    <p class="detail-subhead">Rincian Persentase per Aspek Kompetensi</p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Aspek Kompetensi</th>
+                                    <th>Kurang</th>
+                                    <th>Cukup</th>
+                                    <th>Baik</th>
+                                    <th>Sangat Baik</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Integritas / Etika Berperilaku</td>
+                                    <td>3%</td>
+                                    <td>12%</td>
+                                    <td>45%</td>
+                                    <td>40%</td>
+                                </tr>
+                                <tr>
+                                    <td>Profesionalisme / Kompetensi Utama</td>
+                                    <td>5%</td>
+                                    <td>18%</td>
+                                    <td>47%</td>
+                                    <td>30%</td>
+                                </tr>
+                                <tr>
+                                    <td>Kemampuan Berbahasa Asing</td>
+                                    <td><span class="tag tag_outline" style="color: var(--qn-danger-600, #9b1d0f); border-color: var(--qn-danger-300, #ef6954);">12%</span></td>
+                                    <td>30%</td>
+                                    <td>40%</td>
+                                    <td>18%</td>
+                                </tr>
+                                <tr>
+                                    <td>Kemampuan Penggunaan TI</td>
+                                    <td>4%</td>
+                                    <td>14%</td>
+                                    <td>44%</td>
+                                    <td>38%</td>
+                                </tr>
+                                <tr>
+                                    <td>Kemampuan Berkomunikasi</td>
+                                    <td>5%</td>
+                                    <td>15%</td>
+                                    <td>45%</td>
+                                    <td>35%</td>
+                                </tr>
+                                <tr>
+                                    <td>Kerjasama Tim</td>
+                                    <td>3%</td>
+                                    <td>10%</td>
+                                    <td>42%</td>
+                                    <td>45%</td>
+                                </tr>
+                                <tr>
+                                    <td>Kepemimpinan</td>
+                                    <td>8%</td>
+                                    <td>22%</td>
+                                    <td>46%</td>
+                                    <td>24%</td>
+                                </tr>
+                                <tr>
+                                    <td>Pengembangan Diri</td>
+                                    <td>6%</td>
+                                    <td>17%</td>
+                                    <td>44%</td>
+                                    <td>33%</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -653,177 +716,71 @@
                 });
             });
 
-            // Chart colors
+            // Chart colors - single hue (blue) with lighter tints, kept consistent across all dashboard charts
             const primaryColor = '#1e40af';
-            const dangerColor = '#ef4444';
-            const warningColor = '#f97316';
-            const successColor = '#22c55e';
+            const primaryColorMid = '#2563eb';
+            const primaryColorLight = '#93c5fd';
+            const primaryColorLightest = '#dbeafe';
 
-            // Pengisian Tracer Study Chart
-            new Chart(document.getElementById('chart-pengisian'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Sudah Mengisi', 'Belum Mengisi'],
-                    datasets: [{
-                        data: [4, 96],
-                        backgroundColor: [primaryColor, dangerColor],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '70%',
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            // Waktu Tunggu Chart
-            new Chart(document.getElementById('chart-waktu-tunggu'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['< 6 Bulan', '> 6 Bulan'],
-                    datasets: [{
-                        data: [59, 41],
-                        backgroundColor: [primaryColor, warningColor],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '70%',
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            // Status Lulusan Chart
-            new Chart(document.getElementById('chart-status-lulusan'), {
-                type: 'bar',
-                data: {
-                    labels: ['Bekerja', 'Wiraswasta', 'Studi Lanjut', 'Mencari Kerja'],
-                    datasets: [{
-                        data: [52, 11, 7, 30],
-                        backgroundColor: [primaryColor, successColor, warningColor, dangerColor],
-                        borderWidth: 0,
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } },
-                        y: { grid: { display: false } }
-                    }
-                }
-            });
-
-            // Kesesuaian Bidang Chart
-            new Chart(document.getElementById('chart-kesesuaian-bidang'), {
-                type: 'bar',
-                data: {
-                    labels: ['Sangat Erat', 'Erat', 'Cukup Erat', 'Kurang Erat', 'Tidak Sama Sekali'],
-                    datasets: [{
-                        data: [35, 42, 12, 8, 3],
-                        backgroundColor: [successColor, primaryColor, warningColor, '#f97316', dangerColor],
-                        borderWidth: 0,
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { beginAtZero: true, max: 50, ticks: { callback: v => v + '%' } },
-                        y: { grid: { display: false } }
-                    }
-                }
-            });
-
-            // Tingkat Tempat Kerja Chart
-            new Chart(document.getElementById('chart-tingkat-kerja'), {
-                type: 'bar',
-                data: {
-                    labels: ['Multinasional', 'Nasional', 'Wiraswasta', 'Nirlaba', 'Lainnya'],
-                    datasets: [{
-                        data: [28, 34, 18, 12, 8],
-                        backgroundColor: primaryColor,
-                        borderWidth: 0,
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { beginAtZero: true, max: 50, ticks: { callback: v => v + '%' } },
-                        y: { grid: { display: false } }
-                    }
-                }
-            });
-
-            // Detail Waktu Tunggu Chart
+            // Detail Waktu Tunggu Chart - bar per rentang waktu (bukan kurva kumulatif) supaya
+            // rentang dengan penyerapan lulusan terbanyak langsung terlihat dari tinggi batang,
+            // tanpa admin perlu membaca kemiringan garis.
             new Chart(document.getElementById('chart-detail-waktu-tunggu'), {
                 type: 'bar',
                 data: {
                     labels: ['0-1 Bulan', '1-2 Bulan', '2-3 Bulan', '3-6 Bulan', '6-12 Bulan', '> 12 Bulan'],
                     datasets: [{
-                        label: 'Jumlah Lulusan',
-                        data: [15, 12, 8, 6, 4, 2],
+                        label: 'Lulusan Bekerja',
+                        data: [32, 26, 17, 13, 8, 4],
                         backgroundColor: primaryColor,
-                        borderWidth: 0,
-                        borderRadius: 4
+                        borderRadius: 4,
+                        maxBarThickness: 56
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: ctx => ctx.parsed.y + '% lulusan' } }
+                    },
                     scales: {
-                        y: { beginAtZero: true, ticks: { stepSize: 5 } },
+                        y: { beginAtZero: true, ticks: { callback: v => v + '%' } },
                         x: { grid: { display: false } }
                     }
                 }
             });
 
-            // Compact charts for Kuesioner Pengguna Lulusan
-            const compactChartConfig = {
-                type: 'doughnut',
+            // Kuesioner Pengguna Lulusan - satu stacked horizontal bar chart untuk semua aspek kompetensi
+            new Chart(document.getElementById('chart-pengguna-lulusan'), {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'Integritas / Etika Berperilaku',
+                        'Profesionalisme / Kompetensi Utama',
+                        'Kemampuan Berbahasa Asing',
+                        'Kemampuan Penggunaan TI',
+                        'Kemampuan Berkomunikasi',
+                        'Kerjasama Tim',
+                        'Kepemimpinan',
+                        'Pengembangan Diri'
+                    ],
+                    datasets: [
+                        { label: 'Kurang', data: [3, 5, 12, 4, 5, 3, 8, 6], backgroundColor: primaryColorLightest },
+                        { label: 'Cukup', data: [12, 18, 30, 14, 15, 10, 22, 17], backgroundColor: primaryColorLight },
+                        { label: 'Baik', data: [45, 47, 40, 44, 45, 42, 46, 44], backgroundColor: primaryColorMid },
+                        { label: 'Sangat Baik', data: [40, 30, 18, 38, 35, 45, 24, 33], backgroundColor: primaryColor }
+                    ]
+                },
                 options: {
+                    indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
-                    cutout: '65%',
-                    plugins: { legend: { display: false } }
-                }
-            };
-
-            const compactChartData = [5, 15, 45, 35]; // Kurang, Cukup, Baik, Sangat Baik
-            const compactColors = [dangerColor, warningColor, primaryColor, successColor];
-
-            const compactCharts = ['integritas', 'profesionalisme', 'bahasa-asing', 'teknologi',
-                                   'komunikasi', 'kerjasama', 'kepemimpinan', 'pengembangan'];
-
-            compactCharts.forEach(id => {
-                const el = document.getElementById('chart-' + id);
-                if (el) {
-                    new Chart(el, {
-                        ...compactChartConfig,
-                        data: {
-                            labels: ['Kurang', 'Cukup', 'Baik', 'Sangat Baik'],
-                            datasets: [{
-                                data: compactChartData,
-                                backgroundColor: compactColors,
-                                borderWidth: 0
-                            }]
-                        }
-                    });
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { stacked: true, beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } },
+                        y: { stacked: true, grid: { display: false } }
+                    }
                 }
             });
         });
