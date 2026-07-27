@@ -3,67 +3,105 @@
 <head>
     <base href="/v2.1/b/">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pengisian Tracer Study Sebagai Pengguna Lulusan | Karirlink</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
     <style>
+        :root { --base-font-size: 16px; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f9fafb; min-height: 100vh; display: flex; flex-direction: column; }
+        html { overflow-x: hidden; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--qn-neutral-50, #f9fafb); min-height: 100vh; overflow-x: hidden; font-size: var(--base-font-size); line-height: 1.6; }
 
-        /* Main */
-        .main { flex: 1; padding: 2rem 1rem 6rem; display: flex; flex-direction: column; align-items: center; }
-        .container { max-width: 42rem; width: 100%; }
+        /* Accessibility: Focus Styles */
+        :focus { outline: 3px solid var(--qn-primary-500, #3b82f6); outline-offset: 2px; }
+        :focus:not(:focus-visible) { outline: none; }
+        :focus-visible { outline: 3px solid var(--qn-primary-500, #3b82f6); outline-offset: 2px; }
 
-        /* Step Card */
-        .step-card { background: white; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 2rem; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .step-card__title { font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 0.5rem; }
-        .step-card__desc { font-size: 0.875rem; color: #6b7280; line-height: 1.5; margin-bottom: 1.5rem; }
+        /* Accessibility: Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
 
-        /* Form fields */
-        .form-group { margin-bottom: 1.25rem; }
-        .form-label { display: block; font-size: 0.875rem; font-weight: 600; color: #111827; margin-bottom: 0.5rem; }
-        .form-label .req { color: #ef4444; margin-left: 0.125rem; }
-        .form-select, .form-input { width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 0.875rem; color: #111827; background: white; }
-        .form-select:focus, .form-input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
-        .form-input::placeholder { color: #9ca3af; }
-        .form-input--readonly { background: #f3f4f6; color: #6b7280; cursor: not-allowed; }
-        .btn-primary { display: block; width: 100%; padding: 0.875rem; background: #3b82f6; color: white; border: none; border-radius: 0.5rem; font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: background 0.15s; }
-        .btn-primary:hover { background: #2563eb; }
+        /* Header (unauthenticated variant - respondent here is an external Pengguna Lulusan, not a logged-in alumni, so no avatar/identity on the right like tracer-study-form-exit.html) */
+        .ts-header { position: sticky; top: 0; z-index: 50; background: white; border-bottom: 1px solid var(--qn-neutral-200, #e5e7eb); padding: 0.75rem 1rem; }
+        .ts-header__inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+        .ts-header__left { display: flex; align-items: center; gap: 0.75rem; }
+        .ts-header__logo { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid var(--qn-neutral-200, #e5e7eb); object-fit: cover; }
+        .ts-header__info p { margin: 0; }
+        .ts-header__info p:first-child { font-size: 0.875rem; color: var(--qn-neutral-500, #6b7280); }
+        .ts-header__info p:last-child { font-weight: 500; color: var(--qn-neutral-800, #1f2937); }
 
-        /* Section title */
-        .section-title { background: white; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1.25rem 1.5rem; margin-bottom: 0.75rem; font-size: 1.125rem; font-weight: 600; color: #111827; }
+        /* Main Content */
+        .ts-main { padding: 1.5rem 1rem 7rem; }
+        .ts-container { max-width: 46rem; margin: 0 auto; }
 
-        /* Question card */
-        .q-card { background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 0.75rem; }
-        .q-card__label { font-size: 0.875rem; color: #111827; font-weight: 500; margin-bottom: 0.75rem; }
-        .q-card__label .req { color: #ef4444; }
-        .q-input { width: 100%; border: none; border-bottom: 1px solid #d1d5db; padding: 0.5rem 0; font-size: 0.875rem; color: #374151; outline: none; }
-        .q-input:focus { border-color: #3b82f6; }
-        .q-input::placeholder { color: #9ca3af; }
-        .q-input--readonly { background: #f3f4f6; border: none; padding: 0.5rem 0.75rem; border-radius: 0.25rem; color: #374151; }
+        /* Question block inside a card body - same tsf-question system as tracer-study-form-exit.html */
+        .tsf-question { padding: 1.25rem 0; border-bottom: 1px solid var(--qn-neutral-100, #f3f4f6); }
+        .tsf-question:last-child { border-bottom: none; padding-bottom: 0.25rem; }
+        .tsf-question:first-child { padding-top: 0.25rem; }
+        .tsf-question__label-row { display: flex; align-items: center; gap: 0.375rem; margin-bottom: 0.25rem; }
+        .tsf-question__number { font-size: 1.0625rem; color: var(--qn-neutral-500, #6b7280); font-weight: 500; }
+        .tsf-question__label { font-size: 1.0625rem; color: var(--qn-neutral-900, #111827); font-weight: 500; line-height: 1.5; }
+        .tsf-question__desc { font-size: 0.9375rem; color: var(--qn-neutral-500, #6b7280); margin: 0.25rem 0 0.75rem; line-height: 1.5; }
+        .tsf-required { color: var(--qn-danger-500, #ef4444); margin-left: 0.125rem; }
 
-        /* Scale table */
-        .scale-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; margin-top: 0.5rem; }
-        .scale-table th { padding: 0.5rem 0.375rem; text-align: center; color: #374151; font-weight: 500; font-size: 0.75rem; }
-        .scale-table th:first-child { text-align: left; width: 40%; }
-        .scale-table td { padding: 0.625rem 0.375rem; border: 1px solid #f3f4f6; text-align: center; }
-        .scale-table td:first-child { text-align: left; padding-left: 0.5rem; color: #374151; border-left: none; }
-        .scale-table tr:hover td { background: #f9fafb; }
-        .scale-table input[type="radio"] { width: 1.125rem; height: 1.125rem; accent-color: #3b82f6; }
+        /* Helper alert directly under every question (Quantum .alert / .alert_helper) */
+        .tsf-question .alert_helper { margin-top: 0.875rem; }
+        .alert__description p { margin: 0.125rem 0; }
 
-        /* Footer pagination */
+        /* Read-only identity summary grid (data alumni yang dinilai) */
+        .tsf-id-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem 1rem; margin-top: 0.75rem; }
+        @media (max-width: 30rem) { .tsf-id-grid { grid-template-columns: 1fr; } }
+
+        /* Scale table - reused layout from tracer-study-form-exit.html, generalised for a
+           4-level named scale (Kurang/Cukup/Baik/Sangat Baik) instead of a numeric 1-5 scale. */
+        .tsf-scale-table-wrap { overflow-x: auto; margin-top: 0.75rem; }
+        .tsf-scale-table { min-width: 30rem; }
+        .tsf-scale-table__head, .tsf-scale-table__row { display: grid; grid-template-columns: minmax(9rem, 1fr) 1fr; align-items: center; gap: 0.5rem; padding: 0.625rem 0.25rem; }
+        .tsf-scale-table__head { font-size: 0.8125rem; color: var(--qn-neutral-500, #6b7280); font-weight: 600; }
+        .tsf-scale-table__head-cols { display: flex; gap: 0.5rem; }
+        .tsf-scale-table__head-cols span { flex: 1; min-width: 2.75rem; text-align: center; }
+        .tsf-scale-table__row { border-top: 1px solid var(--qn-neutral-100, #f3f4f6); }
+        .tsf-scale-table__label { font-size: 0.9375rem; color: var(--qn-neutral-800, #1f2937); }
+        .tsf-scale-cell-group { display: flex; gap: 0.5rem; }
+        .tsf-scale-cell { flex: 1; min-width: 2.75rem; display: flex; align-items: center; justify-content: center; }
+        .tsf-scale-cell input[type="radio"] { width: 1.1875rem; height: 1.1875rem; accent-color: var(--qn-primary-500, #3b82f6); cursor: pointer; }
+
+        /* Progress + submit footer - same footer-bar/btn-submit pattern as tracer-study-form-exit.html.
+           Colors are hardcoded (not var(--qn-*)) on purpose: Quantum's own tokens (e.g. --qn-primary-500
+           = #074BB2) resolve to different shades than these plain hex values used across the wizard. */
         .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; padding: 1rem 1.5rem; z-index: 40; }
-        .footer-bar__inner { max-width: 42rem; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-        .footer-bar__progress { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: #6b7280; }
-        .progress-line { width: 6rem; height: 0.375rem; background: #e5e7eb; border-radius: 9999px; overflow: hidden; }
-        .progress-line__fill { height: 100%; background: #3b82f6; border-radius: 9999px; }
-        .btn-submit { padding: 0.625rem 1.5rem; background: #3b82f6; color: white; border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; }
+        .footer-bar__inner { max-width: 46rem; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+        .footer-bar__progress { display: flex; align-items: center; gap: 0.625rem; font-size: 0.8125rem; color: #6b7280; }
+        .progress-line { width: 6rem; height: 0.375rem; background: #e5e7eb; border-radius: 9999px; overflow: hidden; flex-shrink: 0; }
+        .progress-line__fill { height: 100%; background: #3b82f6; border-radius: 9999px; transition: width 0.2s ease; }
+        .btn-submit { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.625rem 1.5rem; background: #3b82f6; color: white; border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.15s; }
         .btn-submit:hover { background: #2563eb; }
 
-        /* Modal */
+        /* Toast */
+        .toast { position: fixed; bottom: 6rem; left: 50%; transform: translateX(-50%); background: var(--qn-success-600, #166534); color: white; padding: 0.875rem 1.25rem; border-radius: 0.5rem; font-size: 0.9375em; font-weight: 500; display: none; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .toast.show { display: flex; align-items: center; gap: 0.5rem; }
+
+        /* Confirmation / Thank-you modal (kept from the original page - self-contained, doesn't clash with the wizard shell above) */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; display: none; align-items: center; justify-content: center; padding: 1rem; }
         .modal-overlay.open { display: flex; }
-        .modal { background: white; border-radius: 0.75rem; padding: 2rem; max-width: 24rem; width: 100%; text-align: center; position: relative; }
+        /* Named .confirm-box (not .modal) - Quantum defines its own .modal component
+           (display:none, position:fixed, its own activation mechanism) that would
+           collide with and hide this page-local dialog box if named .modal. */
+        .confirm-box { background: white; border-radius: 0.75rem; padding: 2rem; max-width: 24rem; width: 100%; text-align: center; position: relative; }
         .modal__close { position: absolute; top: 0.75rem; right: 0.75rem; background: none; border: none; cursor: pointer; color: #6b7280; }
         .modal__title { font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 0.75rem; }
         .modal__text { font-size: 0.875rem; color: #6b7280; line-height: 1.6; margin-bottom: 1.25rem; }
@@ -71,17 +109,13 @@
         .modal__btn:hover { background: #2563eb; }
         .modal__btn--outline { background: white; border: 1px solid #d1d5db; color: #374151; margin-right: 0.5rem; }
         .modal__btn--outline:hover { background: #f9fafb; }
-
-        /* Panels */
-        .panel { display: none; }
-        .panel.active { display: block; }
     </style>
 </head>
-<body>
+<body class="body body_kl-white">
 
     <!-- Confirmation Modal -->
     <div class="modal-overlay" id="confirmModal">
-        <div class="modal">
+        <div class="confirm-box">
             <button class="modal__close" onclick="document.getElementById('confirmModal').classList.remove('open')">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
@@ -94,7 +128,7 @@
 
     <!-- Thank you Modal -->
     <div class="modal-overlay" id="thankModal">
-        <div class="modal">
+        <div class="confirm-box">
             <button class="modal__close" onclick="document.getElementById('thankModal').classList.remove('open')">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
@@ -104,164 +138,430 @@
         </div>
     </div>
 
-    <main class="main">
-        <div class="container">
-
-            <!-- Panel 1: Data Alumni Selection -->
-            <div class="panel active" id="panel-step">
-                <div class="step-card">
-                    <h1 class="step-card__title">Pengisian Tracer Study Sebagai Pengguna Lulusan (Perusahaan)</h1>
-                    <p class="step-card__desc">Silakan mengisi data alumni sebelum melanjutkan pengisian tracer study sebagai pengguna lulusan.</p>
-
-                    <div class="form-group">
-                        <label class="form-label">Perguruan Tinggi<span class="req">*</span></label>
-                        <select class="form-select" disabled>
-                            <option selected>Demo siAkadcloud</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Jenjang Pendidikan<span class="req">*</span></label>
-                        <select class="form-select">
-                            <option selected>S1</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Program Studi<span class="req">*</span></label>
-                        <select class="form-select">
-                            <option selected>S1 - Akuntansi - S1</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Tahun Lulus<span class="req">*</span></label>
-                        <select class="form-select">
-                            <option selected>2025</option>
-                        </select>
-                    </div>
-                    <div class="form-group" style="margin-bottom: 1.5rem;">
-                        <label class="form-label">Nama Alumni<span class="req">*</span></label>
-                        <select class="form-select">
-                            <option value="" disabled>Cari nama alumni (min. 2 karakter)</option>
-                            <option selected>Henni</option>
-                        </select>
-                    </div>
-                    <button class="btn-primary" onclick="showPanel('panel-form')">Lanjutkan</button>
+    <!-- Header -->
+    <header class="ts-header" role="banner">
+        <div class="ts-header__inner">
+            <div class="ts-header__left">
+                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo Universitas Contoh" class="ts-header__logo">
+                <div class="ts-header__info">
+                    <p>Universitas Contoh</p>
+                    <p>Survei Pengguna Lulusan</p>
                 </div>
             </div>
+        </div>
+    </header>
 
-            <!-- Panel 2: Form Kuesioner -->
-            <div class="panel" id="panel-form">
-                <div class="section-title">Survei Pengguna Lulusan</div>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <span id="toast-message">Jawaban berhasil disimpan</span>
+    </div>
 
-                <!-- Q1 -->
-                <div class="q-card">
-                    <p class="q-card__label">1. Nama Ibu/Bapak/Saudara<span class="req">*</span></p>
-                    <input type="text" class="q-input" placeholder="Jawaban teks pendek">
-                </div>
-                <!-- Q2 -->
-                <div class="q-card">
-                    <p class="q-card__label">2. No Telp/HP</p>
-                    <input type="text" class="q-input" placeholder="Jawaban teks pendek">
-                </div>
-                <!-- Q3 -->
-                <div class="q-card">
-                    <p class="q-card__label">3. Email</p>
-                    <input type="email" class="q-input" placeholder="Jawaban teks pendek">
-                </div>
-                <!-- Q4 -->
-                <div class="q-card">
-                    <p class="q-card__label">4. Nama Perusahaan<span class="req">*</span></p>
-                    <input type="text" class="q-input" placeholder="Jawaban teks pendek">
-                </div>
-                <!-- Q5 -->
-                <div class="q-card">
-                    <p class="q-card__label">5. Alamat Perusahaan<span class="req">*</span></p>
-                    <input type="text" class="q-input" placeholder="Jawaban teks pendek">
-                </div>
-                <!-- Q6 -->
-                <div class="q-card">
-                    <p class="q-card__label">6. Jabatan Anda<span class="req">*</span></p>
-                    <input type="text" class="q-input" placeholder="Jawaban teks pendek">
-                </div>
-                <!-- Q7 - readonly -->
-                <div class="q-card">
-                    <p class="q-card__label">7. Nama Alumni yang akan dinilai</p>
-                    <input type="text" class="q-input q-input--readonly" value="Henni" readonly>
-                </div>
-                <!-- Q8 - readonly -->
-                <div class="q-card">
-                    <p class="q-card__label">8. Program Studi Alumni yang akan dinilai</p>
-                    <input type="text" class="q-input q-input--readonly" value="S1 - Akuntansi - S1" readonly>
-                </div>
-                <!-- Q9 - readonly -->
-                <div class="q-card">
-                    <p class="q-card__label">9. Tahun Lulus Alumni yang akan dinilai</p>
-                    <input type="text" class="q-input q-input--readonly" value="2025" readonly>
-                </div>
+    <!-- Main Content -->
+    <main class="ts-main" id="main-content" role="main">
+        <div class="ts-container">
 
-                <!-- Q10 - Scale table: Kinerja Alumni -->
-                <div class="q-card">
-                    <p class="q-card__label">10. Berikan penilaian Ibu/Bapak/Saudara atas kinerja Alumni kami dalam<span class="req">*</span></p>
-                    <table class="scale-table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Kurang</th>
-                                <th>Cukup</th>
-                                <th>Baik</th>
-                                <th>Sangat Baik</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Integritas / etika berperilaku / moral<span class="req">*</span></td><td><input type="radio" name="q10-1"></td><td><input type="radio" name="q10-1"></td><td><input type="radio" name="q10-1"></td><td><input type="radio" name="q10-1"></td></tr>
-                            <tr><td>Kinerja/keahlian berdasarkan bidang ilmu (profesionalisme / kompetensi utama)<span class="req">*</span></td><td><input type="radio" name="q10-2"></td><td><input type="radio" name="q10-2"></td><td><input type="radio" name="q10-2"></td><td><input type="radio" name="q10-2"></td></tr>
-                            <tr><td>Kemampuan berbahasa asing<span class="req">*</span></td><td><input type="radio" name="q10-3"></td><td><input type="radio" name="q10-3"></td><td><input type="radio" name="q10-3"></td><td><input type="radio" name="q10-3"></td></tr>
-                            <tr><td>Kemampuan Penggunaan teknologi informasi<span class="req">*</span></td><td><input type="radio" name="q10-4"></td><td><input type="radio" name="q10-4"></td><td><input type="radio" name="q10-4"></td><td><input type="radio" name="q10-4"></td></tr>
-                            <tr><td>Kemampuan berkomunikasi<span class="req">*</span></td><td><input type="radio" name="q10-5"></td><td><input type="radio" name="q10-5"></td><td><input type="radio" name="q10-5"></td><td><input type="radio" name="q10-5"></td></tr>
-                            <tr><td>Kemampuan bekerjasama dalam tim<span class="req">*</span></td><td><input type="radio" name="q10-6"></td><td><input type="radio" name="q10-6"></td><td><input type="radio" name="q10-6"></td><td><input type="radio" name="q10-6"></td></tr>
-                            <tr><td>Kepemimpinan<span class="req">*</span></td><td><input type="radio" name="q10-7"></td><td><input type="radio" name="q10-7"></td><td><input type="radio" name="q10-7"></td><td><input type="radio" name="q10-7"></td></tr>
-                            <tr><td>Pengembangan diri<span class="req">*</span></td><td><input type="radio" name="q10-8"></td><td><input type="radio" name="q10-8"></td><td><input type="radio" name="q10-8"></td><td><input type="radio" name="q10-8"></td></tr>
-                            <tr><td>Etos Kerja<span class="req">*</span></td><td><input type="radio" name="q10-9"></td><td><input type="radio" name="q10-9"></td><td><input type="radio" name="q10-9"></td><td><input type="radio" name="q10-9"></td></tr>
-                            <tr><td>Kesiapan terjun di Masyarakat<span class="req">*</span></td><td><input type="radio" name="q10-10"></td><td><input type="radio" name="q10-10"></td><td><input type="radio" name="q10-10"></td><td><input type="radio" name="q10-10"></td></tr>
-                            <tr><td>Berpikir Kritis<span class="req">*</span></td><td><input type="radio" name="q10-11"></td><td><input type="radio" name="q10-11"></td><td><input type="radio" name="q10-11"></td><td><input type="radio" name="q10-11"></td></tr>
-                            <tr><td>Kreatifitas<span class="req">*</span></td><td><input type="radio" name="q10-12"></td><td><input type="radio" name="q10-12"></td><td><input type="radio" name="q10-12"></td><td><input type="radio" name="q10-12"></td></tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div id="page-1" class="tsf-page">
 
-                <!-- Q11 -->
-                <div class="q-card">
-                    <p class="q-card__label">11. Bagaimana harapan Anda terhadap lulusan Universitas kami?</p>
-                    <input type="text" class="q-input" placeholder="Jawaban teks pendek">
-                </div>
-                <!-- Q12 -->
-                <div class="q-card">
-                    <p class="q-card__label">12. Berikan Saran dan masukan Anda untuk Universitas kami</p>
-                    <input type="text" class="q-input" placeholder="Jawaban teks pendek">
-                </div>
+                <!-- Alumni yang Dinilai - separated into its own card at the top so the
+                     penilai immediately sees which alumni this evaluation is about. -->
+                <section aria-labelledby="section-alumni">
+                    <div class="card" style="margin-bottom: 1.5rem;">
+                        <div class="card__header">
+                            <h2 class="card__title" id="section-alumni">Alumni yang Dinilai</h2>
+                        </div>
+                        <div class="card__body">
+                            <div class="tsf-id-grid" style="margin-top: 0;">
+                                <div class="form-control">
+                                    <label class="form-control__label" id="q7-label">Nama Alumni</label>
+                                    <div class="form-control__group"><input type="text" class="form-control__input" id="input-q7" aria-labelledby="q7-label" value="Henni" readonly disabled></div>
+                                </div>
+                                <div class="form-control">
+                                    <label class="form-control__label" id="q-univ-label">Universitas</label>
+                                    <div class="form-control__group"><input type="text" class="form-control__input" id="input-universitas" aria-labelledby="q-univ-label" value="Universitas Contoh" readonly disabled></div>
+                                </div>
+                                <div class="form-control">
+                                    <label class="form-control__label" id="q9-label">Tahun Lulus</label>
+                                    <div class="form-control__group"><input type="text" class="form-control__input" id="input-q9" aria-labelledby="q9-label" value="2025" readonly disabled></div>
+                                </div>
+                                <div class="form-control">
+                                    <label class="form-control__label" id="q8-label">Program Studi</label>
+                                    <div class="form-control__group"><input type="text" class="form-control__input" id="input-q8" aria-labelledby="q8-label" value="S1 - Akuntansi" readonly disabled></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section aria-labelledby="section-survei">
+                    <div class="card" style="margin-bottom: 1.5rem;">
+                        <div class="card__header">
+                            <h2 class="card__title" id="section-survei">Survei Pengguna Lulusan</h2>
+                        </div>
+                        <div class="card__body">
+
+                            <!-- Question 1 -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">1.</span>
+                                    <p class="tsf-question__label" id="q1-label">Nama Ibu/Bapak/Saudara<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+                                <div class="form-control" style="margin-top: 0.5rem;">
+                                    <div class="form-control__group">
+                                        <input type="text" class="form-control__input" id="input-q1" aria-labelledby="q1-label" placeholder="Jawaban teks pendek" oninput="updateAnsweredCount()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 2 -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">2.</span>
+                                    <p class="tsf-question__label" id="q2-label">No Telp/HP</p>
+                                </div>
+                                <div class="form-control" style="margin-top: 0.5rem;">
+                                    <div class="form-control__group">
+                                        <input type="text" class="form-control__input" id="input-q2" aria-labelledby="q2-label" placeholder="Jawaban teks pendek" oninput="updateAnsweredCount()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 3 -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">3.</span>
+                                    <p class="tsf-question__label" id="q3-label">Email</p>
+                                </div>
+                                <div class="form-control" style="margin-top: 0.5rem;">
+                                    <div class="form-control__group">
+                                        <input type="email" class="form-control__input" id="input-q3" aria-labelledby="q3-label" placeholder="Jawaban teks pendek" oninput="updateAnsweredCount()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 4 -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">4.</span>
+                                    <p class="tsf-question__label" id="q4-label">Nama Perusahaan<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+                                <div class="form-control" style="margin-top: 0.5rem;">
+                                    <div class="form-control__group">
+                                        <input type="text" class="form-control__input" id="input-q4" aria-labelledby="q4-label" placeholder="Jawaban teks pendek" oninput="updateAnsweredCount()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 5 -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">5.</span>
+                                    <p class="tsf-question__label" id="q5-label">Alamat Perusahaan<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+                                <div class="form-control" style="margin-top: 0.5rem;">
+                                    <div class="form-control__group">
+                                        <input type="text" class="form-control__input" id="input-q5" aria-labelledby="q5-label" placeholder="Jawaban teks pendek" oninput="updateAnsweredCount()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 6 -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">6.</span>
+                                    <p class="tsf-question__label" id="q6-label">Jabatan Anda<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+                                <div class="form-control" style="margin-top: 0.5rem;">
+                                    <div class="form-control__group">
+                                        <input type="text" class="form-control__input" id="input-q6" aria-labelledby="q6-label" placeholder="Jawaban teks pendek" oninput="updateAnsweredCount()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 7 - Scale table: Kinerja Alumni -->
+                            <div class="tsf-question" role="group" aria-labelledby="q10-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">7.</span>
+                                    <p class="tsf-question__label" id="q10-label">Berikan penilaian Ibu/Bapak/Saudara atas kinerja Alumni kami dalam<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                </div>
+
+                                <div class="tsf-scale-table-wrap">
+                                    <div class="tsf-scale-table">
+                                        <div class="tsf-scale-table__head">
+                                            <span>Aspek Penilaian</span>
+                                            <div class="tsf-scale-table__head-cols">
+                                                <span>Kurang</span><span>Cukup</span><span>Baik</span><span>Sangat Baik</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Integritas / etika berperilaku / moral">
+                                            <span class="tsf-scale-table__label">Integritas / etika berperilaku / moral</span>
+                                            <div class="tsf-scale-cell-group">
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-1" value="kurang" aria-label="Kurang" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-1" value="cukup" aria-label="Cukup" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-1" value="baik" aria-label="Baik" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-1" value="sangat_baik" aria-label="Sangat Baik" onchange="updateAnsweredCount()"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Kinerja/keahlian berdasarkan bidang ilmu (profesionalisme / kompetensi utama)">
+                                            <span class="tsf-scale-table__label">Kinerja/keahlian berdasarkan bidang ilmu (profesionalisme / kompetensi utama)</span>
+                                            <div class="tsf-scale-cell-group">
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-2" value="kurang" aria-label="Kurang" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-2" value="cukup" aria-label="Cukup" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-2" value="baik" aria-label="Baik" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-2" value="sangat_baik" aria-label="Sangat Baik" onchange="updateAnsweredCount()"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Kemampuan berbahasa asing">
+                                            <span class="tsf-scale-table__label">Kemampuan berbahasa asing</span>
+                                            <div class="tsf-scale-cell-group">
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-3" value="kurang" aria-label="Kurang" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-3" value="cukup" aria-label="Cukup" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-3" value="baik" aria-label="Baik" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-3" value="sangat_baik" aria-label="Sangat Baik" onchange="updateAnsweredCount()"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Kemampuan Penggunaan teknologi informasi">
+                                            <span class="tsf-scale-table__label">Kemampuan Penggunaan teknologi informasi</span>
+                                            <div class="tsf-scale-cell-group">
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-4" value="kurang" aria-label="Kurang" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-4" value="cukup" aria-label="Cukup" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-4" value="baik" aria-label="Baik" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-4" value="sangat_baik" aria-label="Sangat Baik" onchange="updateAnsweredCount()"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Kemampuan berkomunikasi">
+                                            <span class="tsf-scale-table__label">Kemampuan berkomunikasi</span>
+                                            <div class="tsf-scale-cell-group">
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-5" value="kurang" aria-label="Kurang" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-5" value="cukup" aria-label="Cukup" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-5" value="baik" aria-label="Baik" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-5" value="sangat_baik" aria-label="Sangat Baik" onchange="updateAnsweredCount()"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Kemampuan bekerjasama dalam tim">
+                                            <span class="tsf-scale-table__label">Kemampuan bekerjasama dalam tim</span>
+                                            <div class="tsf-scale-cell-group">
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-6" value="kurang" aria-label="Kurang" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-6" value="cukup" aria-label="Cukup" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-6" value="baik" aria-label="Baik" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-6" value="sangat_baik" aria-label="Sangat Baik" onchange="updateAnsweredCount()"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Kepemimpinan">
+                                            <span class="tsf-scale-table__label">Kepemimpinan</span>
+                                            <div class="tsf-scale-cell-group">
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-7" value="kurang" aria-label="Kurang" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-7" value="cukup" aria-label="Cukup" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-7" value="baik" aria-label="Baik" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-7" value="sangat_baik" aria-label="Sangat Baik" onchange="updateAnsweredCount()"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Pengembangan diri">
+                                            <span class="tsf-scale-table__label">Pengembangan diri</span>
+                                            <div class="tsf-scale-cell-group">
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-8" value="kurang" aria-label="Kurang" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-8" value="cukup" aria-label="Cukup" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-8" value="baik" aria-label="Baik" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-8" value="sangat_baik" aria-label="Sangat Baik" onchange="updateAnsweredCount()"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Etos Kerja">
+                                            <span class="tsf-scale-table__label">Etos Kerja</span>
+                                            <div class="tsf-scale-cell-group">
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-9" value="kurang" aria-label="Kurang" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-9" value="cukup" aria-label="Cukup" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-9" value="baik" aria-label="Baik" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-9" value="sangat_baik" aria-label="Sangat Baik" onchange="updateAnsweredCount()"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Kesiapan terjun di Masyarakat">
+                                            <span class="tsf-scale-table__label">Kesiapan terjun di Masyarakat</span>
+                                            <div class="tsf-scale-cell-group">
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-10" value="kurang" aria-label="Kurang" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-10" value="cukup" aria-label="Cukup" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-10" value="baik" aria-label="Baik" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-10" value="sangat_baik" aria-label="Sangat Baik" onchange="updateAnsweredCount()"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Berpikir Kritis">
+                                            <span class="tsf-scale-table__label">Berpikir Kritis</span>
+                                            <div class="tsf-scale-cell-group">
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-11" value="kurang" aria-label="Kurang" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-11" value="cukup" aria-label="Cukup" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-11" value="baik" aria-label="Baik" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-11" value="sangat_baik" aria-label="Sangat Baik" onchange="updateAnsweredCount()"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Kreatifitas">
+                                            <span class="tsf-scale-table__label">Kreatifitas</span>
+                                            <div class="tsf-scale-cell-group">
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-12" value="kurang" aria-label="Kurang" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-12" value="cukup" aria-label="Cukup" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-12" value="baik" aria-label="Baik" onchange="updateAnsweredCount()"></label>
+                                                <label class="tsf-scale-cell"><input type="radio" name="q10-12" value="sangat_baik" aria-label="Sangat Baik" onchange="updateAnsweredCount()"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 11 -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">8.</span>
+                                    <p class="tsf-question__label" id="q11-label">Bagaimana harapan Anda terhadap lulusan Universitas kami?</p>
+                                </div>
+                                <div class="form-control" style="margin-top: 0.5rem;">
+                                    <div class="form-control__group">
+                                        <input type="text" class="form-control__input" id="input-q11" aria-labelledby="q11-label" placeholder="Jawaban teks pendek" oninput="updateAnsweredCount()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 12 -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">9.</span>
+                                    <p class="tsf-question__label" id="q12-label">Berikan Saran dan masukan Anda untuk Universitas kami</p>
+                                </div>
+                                <div class="form-control" style="margin-top: 0.5rem;">
+                                    <div class="form-control__group">
+                                        <input type="text" class="form-control__input" id="input-q12" aria-labelledby="q12-label" placeholder="Jawaban teks pendek" oninput="updateAnsweredCount()">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    <div class="footer__copyright-wrapper">
+                        <div class="footer__logo-wrapper">
+                            <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                        </div>
+                        <p class="footer__copyright">&copy; 2005-2026 SEVIMA. All Rights Reserved</p>
+                    </div>
+                    <p class="footer__brand-name">SEVIMA Platform</p>
+                </footer>
             </div>
 
         </div>
     </main>
 
-    <!-- Footer bar -->
-    <div class="footer-bar">
+    <!-- Footer with single-page progress + submit -->
+    <footer class="footer-bar" id="footer-bar" role="navigation" aria-label="Navigasi Halaman">
         <div class="footer-bar__inner">
-            <div class="footer-bar__progress">
+            <div class="footer-bar__progress" id="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Progress pengisian: 100%">
                 <div class="progress-line">
-                    <div class="progress-line__fill" style="width:100%;"></div>
+                    <div class="progress-line__fill" id="progress-fill" style="width: 100%;"></div>
                 </div>
-                Halaman 1 dari 1
+                <span>Bagian 1 dari 1 &middot; <span id="answered-count">0</span> pertanyaan dijawab</span>
             </div>
-            <button class="btn-submit" onclick="document.getElementById('confirmModal').classList.add('open')">Kirim Jawaban</button>
+            <button class="btn-submit" id="btn-submit" onclick="submitForm()">Kirim Jawaban <span class="icon icon-arrow-up-right-mini"></span></button>
         </div>
-    </div>
+    </footer>
 
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
     <script>
-        function showPanel(id) {
-            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            window.scrollTo({ top: 0 });
+        // =====================================================
+        // Choices.js init helper (Quantum select-default pattern)
+        // =====================================================
+        function initSelectDefault(el) {
+            if (!el || el.dataset.choicesInit) return;
+            new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+            el.dataset.choicesInit = 'true';
         }
+
+        // =====================================================
+        // Submit + validation
+        // =====================================================
+        function submitForm() {
+            if (!validateForm()) return;
+            document.getElementById('confirmModal').classList.add('open');
+        }
+
+        function validateForm() {
+            const problems = [];
+
+            if (!document.getElementById('input-q1').value.trim()) problems.push('Nama Ibu/Bapak/Saudara');
+            if (!document.getElementById('input-q4').value.trim()) problems.push('Nama Perusahaan');
+            if (!document.getElementById('input-q5').value.trim()) problems.push('Alamat Perusahaan');
+            if (!document.getElementById('input-q6').value.trim()) problems.push('Jabatan Anda');
+
+            for (let i = 1; i <= 12; i++) {
+                if (!document.querySelector('input[name="q10-' + i + '"]:checked')) {
+                    problems.push('Penilaian Kinerja Alumni');
+                    break;
+                }
+            }
+
+            if (problems.length > 0) {
+                showToast('Lengkapi dulu: ' + problems.join(', '));
+                return false;
+            }
+            return true;
+        }
+
+        // =====================================================
+        // Toast + answered counter
+        // =====================================================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(function () {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        function isElementVisible(el) {
+            return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+        }
+
+        function updateAnsweredCount() {
+            const page = document.getElementById('page-1');
+            if (!page) return;
+            let count = 0;
+
+            const radioNames = new Set();
+            page.querySelectorAll('input[type="radio"]:checked').forEach(function (r) { radioNames.add(r.name); });
+            count += radioNames.size;
+
+            page.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="number"]').forEach(function (inp) {
+                if (inp.disabled) return;
+                if (isElementVisible(inp) && inp.value.trim() !== '') count++;
+            });
+
+            const counterEl = document.getElementById('answered-count');
+            if (counterEl) counterEl.textContent = count;
+        }
+
+        // =====================================================
+        // Initialize
+        // =====================================================
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.select-default').forEach(initSelectDefault);
+            updateAnsweredCount();
+        });
     </script>
 </body>
 </html>

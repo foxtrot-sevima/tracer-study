@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <base href="/v2.1/a/">
+    <base href="/v1/">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,38 +16,10 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <style>
         /* Profile Summary */
-        /* CSS Grid/flex items default to min-width:auto (their content's
-           min-content size), which stops them shrinking below that width even
-           when the grid track itself is narrower - the .card here would rather
-           overflow the page than shrink past its widest unbreakable chip/stat.
-           Scoped to this page only. */
-        .card { min-width: 0; }
-        .alumni-profile { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1.25rem; min-width: 0; }
-        .alumni-profile__avatar { width: 5rem; height: 5rem; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 0 0 1px var(--qn-neutral-200); flex-shrink: 0; }
-        .alumni-profile__name-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-        .alumni-profile__name { font-size: 1.375rem; font-weight: 700; color: var(--qn-neutral-900); margin: 0; }
-        .alumni-profile__chips { display: flex; flex-wrap: wrap; align-items: center; gap: 0.375rem 1.125rem; margin: 0.5rem 0 0; min-width: 0; }
-        .alumni-profile__chip { display: inline-flex; align-items: center; gap: 0.3125rem; font-size: 0.8125rem; color: var(--qn-neutral-600); }
-        .alumni-profile__chip .icon { font-size: 0.9375rem; color: var(--qn-neutral-400); }
-
-        /* Quick-glance stats strip beneath the profile summary */
-        .alumni-quickstats { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1.25rem; padding-top: 1.125rem; border-top: 1px solid var(--qn-neutral-100); min-width: 0; }
-        .alumni-quickstats__value { display: block; font-size: 1.25rem; font-weight: 700; color: var(--qn-neutral-900); line-height: 1.2; }
-        .alumni-quickstats__label { display: block; font-size: 0.75rem; color: var(--qn-neutral-500); margin-top: 0.1875rem; }
-
-        /* Section title with a colored icon accent, used on every card below */
-        .section-title { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 1.25rem; }
-        .section-title__icon { flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.0625rem; }
-        .section-title__icon_primary { background: var(--qn-primary-100); color: var(--qn-primary-600); }
-        .section-title__icon_success { background: var(--qn-success-100); color: var(--qn-success-600, var(--qn-success-500)); }
-        .section-title__icon_warning { background: var(--qn-warning-100, #fef3c7); color: var(--qn-warning-600, #d97706); }
-        .section-title__icon_neutral { background: var(--qn-neutral-100); color: var(--qn-neutral-500); }
-        .section-title h3 { font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
-        .section-title__sub { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
-
-        /* Sub-heading that breaks a dense detail-grid into scannable clusters */
-        .detail-subhead { font-size: 0.75rem; font-weight: 700; color: var(--qn-neutral-400); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 0.875rem; padding-bottom: 0.625rem; border-bottom: 1px solid var(--qn-neutral-100); }
-        .detail-subhead:not(:first-child) { margin-top: 1.75rem; }
+        .alumni-profile { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+        .alumni-profile__avatar { width: 4rem; height: 4rem; border-radius: 50%; object-fit: cover; border: 1px solid var(--qn-neutral-200); }
+        .alumni-profile__name { font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-800); margin: 0; }
+        .alumni-profile__meta { font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
 
         /* Career Timeline */
         .career-timeline { display: flex; flex-direction: column; }
@@ -71,6 +43,7 @@
         @media (max-width: 40rem) { .detail-grid { grid-template-columns: 1fr; } }
         .detail-item__label { font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0 0 0.1875rem; text-transform: uppercase; letter-spacing: 0.03em; }
         .detail-item__value { font-size: 0.9375rem; color: var(--qn-neutral-800); font-weight: 500; margin: 0; word-break: break-word; }
+        .detail-source { font-size: 0.75rem; color: var(--qn-neutral-400); margin: 1.25rem 0 0; }
 
         /* Social links */
         .social-links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem; }
@@ -200,37 +173,12 @@
                     <div class="card__body">
                         <div class="alumni-profile">
                             <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Foto Alumni" class="alumni-profile__avatar">
-                            <div style="flex: 1; min-width: 0;">
-                                <div class="alumni-profile__name-row">
-                                    <p class="alumni-profile__name">Amelia Putri Rahayu</p>
-                                    <span class="tag tag_success">Bekerja</span>
-                                </div>
-                                <div class="alumni-profile__chips">
-                                    <span class="alumni-profile__chip"><span class="icon icon-identification-mini"></span>NIM 120202</span>
-                                    <span class="alumni-profile__chip"><span class="icon icon-academic-cap-mini"></span>S1 - Bimbingan dan Konseling</span>
-                                    <span class="alumni-profile__chip"><span class="icon icon-calendar-mini"></span>Lulus 2022</span>
-                                    <span class="alumni-profile__chip"><span class="icon icon-envelope-mini"></span>inijelljel@gmail.com</span>
-                                    <span class="alumni-profile__chip"><span class="icon icon-phone-mini"></span>0812-3456-7788</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="alumni-quickstats">
                             <div>
-                                <span class="alumni-quickstats__value">2</span>
-                                <span class="alumni-quickstats__label">Riwayat Pekerjaan</span>
+                                <p class="alumni-profile__name">AMEL</p>
+                                <p class="alumni-profile__meta">NIM 120202 · S1 - Bimbingan dan Konseling · Lulus 2022</p>
+                                <p class="alumni-profile__meta">inijelljel@gmail.com · 12345 67788 8</p>
                             </div>
-                            <div>
-                                <span class="alumni-quickstats__value">3</span>
-                                <span class="alumni-quickstats__label">Lamaran Portal Karir</span>
-                            </div>
-                            <div>
-                                <span class="alumni-quickstats__value">2/2</span>
-                                <span class="alumni-quickstats__label">Tracer Study Terisi</span>
-                            </div>
-                            <div>
-                                <span class="alumni-quickstats__value">3.72</span>
-                                <span class="alumni-quickstats__label">IPK Kelulusan</span>
-                            </div>
+                            <span class="tag tag_success" style="margin-left: auto;">Bekerja (full time / part time)</span>
                         </div>
                     </div>
                 </div>
@@ -238,12 +186,7 @@
                 <!-- Informasi Pribadi & Akademik -->
                 <div class="card">
                     <div class="card__body">
-                        <div class="section-title">
-                            <span class="section-title__icon section-title__icon_primary"><span class="icon icon-identification-mini"></span></span>
-                            <h3>Informasi Pribadi &amp; Akademik</h3>
-                        </div>
-
-                        <p class="detail-subhead">Identitas Pribadi</p>
+                        <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Informasi Pribadi &amp; Akademik</h3>
                         <div class="detail-grid">
                             <div>
                                 <p class="detail-item__label">NIM</p>
@@ -269,10 +212,6 @@
                                 <p class="detail-item__label">Alamat</p>
                                 <p class="detail-item__value">Jl. Soekarno Hatta No. 45, Malang, Jawa Timur</p>
                             </div>
-                        </div>
-
-                        <p class="detail-subhead">Akademik &amp; Kontak</p>
-                        <div class="detail-grid">
                             <div>
                                 <p class="detail-item__label">Program Studi</p>
                                 <p class="detail-item__value">S1 - Bimbingan dan Konseling</p>
@@ -298,32 +237,21 @@
                                 <p class="detail-item__value">0812-3456-7788</p>
                             </div>
                         </div>
-
-                        <div class="card-insight">
-                            <div class="card-insight__icon card-insight__icon_info">
-                                <span class="icon icon-information-circle-mini"></span>
-                            </div>
-                            <p class="card-insight__text">Data ini disinkronkan otomatis dari <strong>SIAKAD kampus</strong> setiap kali alumni mengisi Tracer Study dan tidak dapat diedit langsung dari Karirlink.</p>
-                        </div>
+                        <p class="detail-source">Sumber: SIAKAD kampus (tabel <code>graduates</code>) &middot; snapshot per campaign (tabel <code>participants</code>)</p>
                     </div>
                 </div>
 
                 <!-- Profil Akun Karirlink -->
                 <div class="card">
                     <div class="card__body">
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
-                            <div class="section-title" style="margin-bottom: 0;">
-                                <span class="section-title__icon section-title__icon_success"><span class="icon icon-user-circle-mini"></span></span>
-                                <h3>Profil Akun Karirlink</h3>
-                            </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                            <h3 style="font-size: 0.9375rem; font-weight: 600; margin: 0;">Profil Akun Karirlink</h3>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                                 <span class="tag tag_success">Akun Aktif</span>
                                 <span class="tag tag_outline">Profil Publik</span>
                                 <span class="tag tag_outline">Sinkron SIAKAD</span>
                             </div>
                         </div>
-
-                        <p class="detail-subhead">Profil Kerja</p>
                         <div class="detail-grid">
                             <div>
                                 <p class="detail-item__label">Username</p>
@@ -349,19 +277,15 @@
                                 <p class="detail-item__label">Login Terakhir</p>
                                 <p class="detail-item__value">21 Juli 2026, 14:32</p>
                             </div>
-                        </div>
-
-                        <p class="detail-subhead">Bio &amp; Media Sosial</p>
-                        <div class="detail-grid" style="grid-template-columns: 1fr;">
-                            <div>
+                            <div style="grid-column: 1 / -1;">
                                 <p class="detail-item__label">Motto</p>
-                                <p class="detail-item__value" style="font-style: italic; font-weight: 400;">&ldquo;Membantu orang lain menemukan jalannya.&rdquo;</p>
+                                <p class="detail-item__value">"Membantu orang lain menemukan jalannya."</p>
                             </div>
-                            <div>
+                            <div style="grid-column: 1 / -1;">
                                 <p class="detail-item__label">Tentang Saya</p>
                                 <p class="detail-item__value" style="font-weight: 400;">Fresh graduate Bimbingan dan Konseling dengan minat di bidang human resources dan pengembangan karier.</p>
                             </div>
-                            <div>
+                            <div style="grid-column: 1 / -1;">
                                 <p class="detail-item__label">Media Sosial</p>
                                 <div class="social-links">
                                     <a href="#"><span class="icon icon-globe-alt-mini"></span>amel-portfolio.id</a>
@@ -370,13 +294,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="card-insight">
-                            <div class="card-insight__icon card-insight__icon_info">
-                                <span class="icon icon-information-circle-mini"></span>
-                            </div>
-                            <p class="card-insight__text">Bagian ini adalah data profil <strong>akun Karirlink</strong> alumni - dikelola sendiri oleh alumni, bukan bersumber dari SIAKAD.</p>
-                        </div>
+                        <p class="detail-source">Sumber: akun Karirlink (tabel <code>users</code>)</p>
                     </div>
                 </div>
 
@@ -384,10 +302,7 @@
                     <!-- Tren Karier -->
                     <div class="card">
                         <div class="card__body">
-                            <div class="section-title">
-                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-briefcase-mini"></span></span>
-                                <h3>Tren Karier</h3>
-                            </div>
+                            <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Tren Karier</h3>
                             <div class="career-timeline">
                                 <div class="career-timeline__item">
                                     <span class="career-timeline__dot"></span>
@@ -404,16 +319,14 @@
                                     <span class="tag tag_outline tag_sm" style="margin-top: 0.375rem;">Kontrak</span>
                                 </div>
                             </div>
+                            <p class="detail-source">Sumber: profil Karirlink (tabel <code>work_experiences</code>)</p>
                         </div>
                     </div>
 
                     <!-- Prestasi -->
                     <div class="card">
                         <div class="card__body">
-                            <div class="section-title">
-                                <span class="section-title__icon section-title__icon_warning"><span class="icon icon-star-mini"></span></span>
-                                <h3>Prestasi</h3>
-                            </div>
+                            <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Prestasi</h3>
                             <div class="achievement-list">
                                 <div class="achievement-item">
                                     <span class="achievement-item__icon"><span class="icon icon-academic-cap-mini"></span></span>
@@ -438,10 +351,7 @@
                     <!-- Preferensi Kerja -->
                     <div class="card">
                         <div class="card__body">
-                            <div class="section-title">
-                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-adjustments-horizontal-mini"></span></span>
-                                <h3>Preferensi Kerja</h3>
-                            </div>
+                            <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Preferensi Kerja</h3>
                             <div class="detail-grid" style="grid-template-columns: repeat(2, 1fr);">
                                 <div>
                                     <p class="detail-item__label">Posisi Diminati</p>
@@ -476,16 +386,14 @@
                                     <p class="detail-item__value">Ya</p>
                                 </div>
                             </div>
+                            <p class="detail-source">Sumber: profil Karirlink (tabel <code>job_preferences</code>)</p>
                         </div>
                     </div>
 
                     <!-- Keahlian -->
                     <div class="card">
                         <div class="card__body">
-                            <div class="section-title">
-                                <span class="section-title__icon section-title__icon_neutral"><span class="icon icon-sparkles-mini"></span></span>
-                                <h3>Keahlian</h3>
-                            </div>
+                            <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Keahlian</h3>
                             <div class="skill-tags">
                                 <span class="tag tag_outline">Konseling Karier</span>
                                 <span class="tag tag_outline">Public Speaking</span>
@@ -493,6 +401,7 @@
                                 <span class="tag tag_outline">Psikotes &amp; Asesmen</span>
                                 <span class="tag tag_outline">Bahasa Inggris</span>
                             </div>
+                            <p class="detail-source">Sumber: profil Karirlink (tabel <code>user_skills</code> &middot; <code>skills</code>)</p>
                         </div>
                     </div>
                 </div>
@@ -500,10 +409,7 @@
                 <!-- Riwayat Lamaran -->
                 <div class="card">
                     <div class="card__body">
-                        <div class="section-title">
-                            <span class="section-title__icon section-title__icon_success"><span class="icon icon-document-text-mini"></span></span>
-                            <h3>Riwayat Lamaran (Portal Karir)</h3>
-                        </div>
+                        <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Riwayat Lamaran (Portal Karir)</h3>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -542,10 +448,7 @@
                 <!-- Riwayat Pengisian Tracer Study -->
                 <div class="card">
                     <div class="card__body">
-                        <div class="section-title">
-                            <span class="section-title__icon section-title__icon_primary"><span class="icon icon-clipboard-document-list-mini"></span></span>
-                            <h3>Riwayat Pengisian Tracer Study</h3>
-                        </div>
+                        <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Riwayat Pengisian Tracer Study</h3>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>

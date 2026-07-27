@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <base href="/v2.1/a/">
+    <base href="/v2.1/b/">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,7 +74,7 @@
 
         /* Social links */
         .social-links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem; }
-        .social-links a { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.8125rem; color: var(--qn-primary-600); text-decoration: none; }
+        .social-links a { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.9375rem; color: var(--qn-primary-600); text-decoration: none; }
         .social-links a:hover { text-decoration: underline; }
 
         /* Skill tags */
@@ -118,37 +118,6 @@
                                 <span>Publikasi</span>
                             </a>
                         </li>
-                                                <li class="nav__item">
-                            <div class="dropdown dropdown_nav">
-                                <a class="nav__link" href="#" data-toggle="dropdown">
-                                    <span class="icon icon-sparkles"></span>
-                                    <span>Aktivitas</span>
-                                    <span class="icon icon-chevron-down-mini"></span>
-                                </a>
-                                <div class="dropdown__box">
-                                    <ul class="dropdown__list">
-                                        <li class="dropdown__item"><a href="./lowongan.html">Lowongan</a></li>
-                                        <li class="dropdown__item"><a href="./event.html">Event</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                                                <li class="nav__item">
-                            <div class="dropdown dropdown_nav">
-                                <a class="nav__link" href="#" data-toggle="dropdown">
-                                    <span class="icon icon-briefcase"></span>
-                                    <span>Portal Karir</span>
-                                    <span class="icon icon-chevron-down-mini"></span>
-                                </a>
-                                <div class="dropdown__box">
-                                    <ul class="dropdown__list">
-                                        <li class="dropdown__item"><a href="./portal-karir.html">Beranda</a></li>
-                                        <li class="dropdown__item"><a href="./kerja-sama.html">Mitra</a></li>
-                                        <li class="dropdown__item"><a href="./perusahaan.html">Perusahaan Mitra</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
                     </ul>
                 </nav>
             </div>
@@ -184,9 +153,15 @@
     <!-- [START] Main Content -->
     <main class="main">
         <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./index.html">Dashboard</a></li>
+                <li class="breadcrumb__item"><a href="./alumni.html">Alumni</a></li>
+                <li class="breadcrumb__item active"><a href="#">Detail Alumni</a></li>
+            </ul>
+
             <div class="main__header main__header_kl-list">
                 <div class="main__location">
-                    <a href="./alumni.html" class="link link_back" style="color: var(--qn-neutral-500);"><span class="icon icon-arrow-left-mini" style="font-size: 1.25rem;"></span></a>
                     <div class="main__wrapper">
                         <h1 class="main__title">Detail Alumni</h1>
                         <p class="main__subtitle">Riwayat karier, prestasi, dan pengisian tracer study alumni</p>
@@ -228,7 +203,7 @@
                                 <span class="alumni-quickstats__label">Tracer Study Terisi</span>
                             </div>
                             <div>
-                                <span class="alumni-quickstats__value">3.72</span>
+                                <span class="alumni-quickstats__value">4.00</span>
                                 <span class="alumni-quickstats__label">IPK Kelulusan</span>
                             </div>
                         </div>
@@ -283,7 +258,7 @@
                             </div>
                             <div>
                                 <p class="detail-item__label">IPK</p>
-                                <p class="detail-item__value">3.72</p>
+                                <p class="detail-item__value">4.00</p>
                             </div>
                             <div>
                                 <p class="detail-item__label">Kode PT / Kode Prodi</p>
@@ -407,34 +382,6 @@
                         </div>
                     </div>
 
-                    <!-- Prestasi -->
-                    <div class="card">
-                        <div class="card__body">
-                            <div class="section-title">
-                                <span class="section-title__icon section-title__icon_warning"><span class="icon icon-star-mini"></span></span>
-                                <h3>Prestasi</h3>
-                            </div>
-                            <div class="achievement-list">
-                                <div class="achievement-item">
-                                    <span class="achievement-item__icon"><span class="icon icon-academic-cap-mini"></span></span>
-                                    <div>
-                                        <p class="achievement-item__title">Sertifikasi BNSP - Konselor Karier</p>
-                                        <p class="achievement-item__desc">Diperoleh Januari 2024</p>
-                                    </div>
-                                </div>
-                                <div class="achievement-item">
-                                    <span class="achievement-item__icon"><span class="icon icon-star-mini"></span></span>
-                                    <div>
-                                        <p class="achievement-item__title">Wisudawan Terbaik Fakultas</p>
-                                        <p class="achievement-item__desc">Wisuda periode 2022</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid cols-1 cols-md-2">
                     <!-- Preferensi Kerja -->
                     <div class="card">
                         <div class="card__body">
@@ -474,6 +421,34 @@
                                 <div>
                                     <p class="detail-item__label">Bersedia Relokasi</p>
                                     <p class="detail-item__value">Ya</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid cols-1 cols-md-2">
+                    <!-- Prestasi -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="section-title">
+                                <span class="section-title__icon section-title__icon_warning"><span class="icon icon-star-mini"></span></span>
+                                <h3>Prestasi</h3>
+                            </div>
+                            <div class="achievement-list">
+                                <div class="achievement-item">
+                                    <span class="achievement-item__icon"><span class="icon icon-academic-cap-mini"></span></span>
+                                    <div>
+                                        <p class="achievement-item__title">Sertifikasi BNSP - Konselor Karier</p>
+                                        <p class="achievement-item__desc">Diperoleh Januari 2024</p>
+                                    </div>
+                                </div>
+                                <div class="achievement-item">
+                                    <span class="achievement-item__icon"><span class="icon icon-star-mini"></span></span>
+                                    <div>
+                                        <p class="achievement-item__title">Wisudawan Terbaik Fakultas</p>
+                                        <p class="achievement-item__desc">Wisuda periode 2022</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

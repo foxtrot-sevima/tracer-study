@@ -99,14 +99,21 @@
         .tsf-scale-single .tsf-scale-options { flex: 1 1 14rem; }
         .tsf-scale-single__caption { font-size: 0.8125rem; color: var(--qn-neutral-500, #6b7280); flex-shrink: 0; }
 
-        /* Progress + submit footer (single-page: no "Bagian X dari Y" pagination) */
-        .ts-footer { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid var(--qn-neutral-200, #e5e7eb); padding: 1rem; z-index: 40; }
-        .ts-footer__inner { max-width: 46rem; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
-        .tsf-progress { height: 0.5rem; background: var(--qn-neutral-200, #e5e7eb); border-radius: 9999px; overflow: hidden; }
-        .tsf-progress__fill { height: 100%; background: var(--qn-primary-500, #3b82f6); border-radius: 9999px; transition: width 0.2s ease; }
-        .pagination { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
-        .pagination__info { font-size: 0.875em; color: var(--qn-neutral-500, #6b7280); }
-        .pagination__buttons { display: flex; gap: 0.5rem; }
+        /* Sub-heading that groups the Informasi Pribadi identity fields into
+           Data Kampus / Data Diri / Kontak clusters within the same card. */
+        .tsf-group-divider { margin: 1rem 0; border-top: 1px solid var(--qn-neutral-100, #f3f4f6); }
+
+        /* Progress + submit footer - same footer-bar/btn-submit pattern used across the tracer-study-form-*
+           and pengguna-lulusan-form.html wizard pages. Colors are hardcoded (not var(--qn-*)) on purpose:
+           Quantum's own tokens (e.g. --qn-primary-500 = #074BB2) resolve to different shades than these
+           plain hex values, so a var() fallback here would never apply. */
+        .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; padding: 1rem 1.5rem; z-index: 40; }
+        .footer-bar__inner { max-width: 46rem; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+        .footer-bar__progress { display: flex; align-items: center; gap: 0.625rem; font-size: 0.8125rem; color: #6b7280; }
+        .progress-line { width: 6rem; height: 0.375rem; background: #e5e7eb; border-radius: 9999px; overflow: hidden; flex-shrink: 0; }
+        .progress-line__fill { height: 100%; background: #3b82f6; border-radius: 9999px; transition: width 0.2s ease; }
+        .btn-submit { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.625rem 1.5rem; background: #3b82f6; color: white; border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.15s; }
+        .btn-submit:hover { background: #2563eb; }
 
         /* Toast */
         .toast { position: fixed; bottom: 6rem; left: 50%; transform: translateX(-50%); background: var(--qn-success-600, #166534); color: white; padding: 0.875rem 1.25rem; border-radius: 0.5rem; font-size: 0.9375em; font-weight: 500; display: none; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
@@ -164,7 +171,7 @@
             </div>
             <div class="ts-header__user">
                 <div class="ts-header__info" style="text-align: right;">
-                    <p>Calon Lulusan S1 - Teknik Informatika</p>
+                    <p>Lulusan S1 - Teknik Informatika</p>
                     <p>Pangeran Dimas</p>
                 </div>
                 <span class="avatar avatar_sm">
@@ -203,6 +210,7 @@
                             <!-- Informasi Pribadi: all readonly, sourced from SIAKAD/Karirlink account, not numbered questions -->
                             <div class="tsf-question">
                                 <p class="tsf-question__desc" style="margin-top: 0;">Data berikut diambil dari SIAKADCLOUD kampus Anda dan akun Karirlink Anda.</p>
+
                                 <div class="tsf-id-grid">
                                     <div class="form-control">
                                         <label class="form-control__label">Nama</label>
@@ -217,22 +225,6 @@
                                         <div class="form-control__group"><input type="text" class="form-control__input" value="S1" readonly disabled></div>
                                     </div>
                                     <div class="form-control">
-                                        <label class="form-control__label">Alamat Email</label>
-                                        <div class="form-control__group"><input type="email" id="input-email" class="form-control__input" value="ahmad.dimas@email.com" readonly disabled></div>
-                                    </div>
-                                    <div class="form-control">
-                                        <label class="form-control__label">Nomor HP</label>
-                                        <div class="form-control__group"><input type="tel" id="input-phone" class="form-control__input" value="081234567890" readonly disabled></div>
-                                    </div>
-                                    <div class="form-control">
-                                        <label class="form-control__label">NIK/No. KTP</label>
-                                        <div class="form-control__group"><input type="text" id="input-nik" class="form-control__input" value="3573010101030001" readonly disabled></div>
-                                    </div>
-                                    <div class="form-control">
-                                        <label class="form-control__label">NPWP</label>
-                                        <div class="form-control__group"><input type="text" id="input-npwp" class="form-control__input" value="09.123.456.7-891.000" readonly disabled></div>
-                                    </div>
-                                    <div class="form-control">
                                         <label class="form-control__label">Tahun Lulus</label>
                                         <div class="form-control__group"><input type="text" class="form-control__input" value="2026" readonly disabled></div>
                                     </div>
@@ -245,7 +237,44 @@
                                         <div class="form-control__group"><input type="text" class="form-control__input" value="55201" readonly disabled></div>
                                     </div>
                                 </div>
-                                <div class="alert alert_warning" style="margin-top: 0.875rem;">
+
+                                <div class="tsf-group-divider" aria-hidden="true"></div>
+
+                                <div class="tsf-id-grid">
+                                    <div class="form-control">
+                                        <label class="form-control__label" id="q5-label">Jenis Kelamin</label>
+                                        <div class="form-control__group"><input type="text" class="form-control__input" aria-labelledby="q5-label" value="Laki-laki" readonly disabled></div>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="form-control__label" id="q6-label">Tanggal Lahir</label>
+                                        <div class="form-control__group">
+                                            <input type="date" class="form-control__input" id="input-tanggal-lahir" value="2003-08-14" aria-labelledby="q6-label" readonly disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="form-control__label">NIK/No. KTP</label>
+                                        <div class="form-control__group"><input type="text" id="input-nik" class="form-control__input" value="3573010101030001" readonly disabled></div>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="form-control__label">NPWP</label>
+                                        <div class="form-control__group"><input type="text" id="input-npwp" class="form-control__input" value="09.123.456.7-891.000" readonly disabled></div>
+                                    </div>
+                                </div>
+
+                                <div class="tsf-group-divider" aria-hidden="true"></div>
+
+                                <div class="tsf-id-grid">
+                                    <div class="form-control">
+                                        <label class="form-control__label">Alamat Email</label>
+                                        <div class="form-control__group"><input type="email" id="input-email" class="form-control__input" value="ahmad.dimas@email.com" readonly disabled></div>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="form-control__label">Nomor HP</label>
+                                        <div class="form-control__group"><input type="tel" id="input-phone" class="form-control__input" value="081234567890" readonly disabled></div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert_warning" style="margin-top: 1.25rem;">
                                     <div class="alert__content">
                                         <span class="alert__heading">Data tidak sesuai?</span>
                                         <p class="alert__description">Data akademik bersumber dari SIAKADCLOUD kampus Anda; Email/No. HP/NIK/NPWP dari akun Karirlink Anda. Perbarui melalui SIAKADCLOUD, menu Pengaturan Akun Karirlink, atau hubungi Admin Tracer Study institusi Anda.</p>
@@ -265,53 +294,10 @@
                         </div>
                         <div class="card__body">
 
-                            <!-- Question 5 - Jenis Kelamin (readonly / verified) -->
-                            <div class="tsf-question" role="radiogroup" aria-labelledby="q5-label">
-                                <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">1.</span>
-                                    <p class="tsf-question__label" id="q5-label">Jenis Kelamin<span class="tsf-required" aria-label="wajib diisi">*</span></p>
-                                </div>
-                                <div class="tsf-radio-group" aria-disabled="true">
-                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q5" id="q5-l" value="laki_laki" checked disabled><label for="q5-l" class="form-control__label-radio">Laki-laki</label></label>
-                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q5" id="q5-p" value="perempuan" disabled><label for="q5-p" class="form-control__label-radio">Perempuan</label></label>
-                                </div>
-                                <div class="tsf-readonly-row">
-                                    <span class="tsf-locked-badge"><span class="icon icon-lock-closed-mini"></span> Data dari SIAKAD</span>
-                                    <button type="button" class="btn btn_outline btn_sm tsf-readonly-cta" onclick="showToast('Data salah? Hubungi bagian akademik/kemahasiswaan kampus untuk memperbarui data ini di SIAKAD, akan tersinkron otomatis ke Karirlink.')">Data salah / ingin ubah?</button>
-                                </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Auto dari profil Karirlink (biasanya tersinkron SIAKAD). Readonly di form ini.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Question 6 - Tanggal Lahir (readonly / verified) -->
-                            <div class="tsf-question">
-                                <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">2.</span>
-                                    <p class="tsf-question__label" id="q6-label">Tanggal Lahir<span class="tsf-required" aria-label="wajib diisi">*</span></p>
-                                </div>
-                                <div class="form-control" style="max-width: 20rem;">
-                                    <div class="form-control__group">
-                                        <input type="date" class="form-control__input" id="input-tanggal-lahir" value="2003-08-14" aria-labelledby="q6-label" readonly disabled>
-                                    </div>
-                                </div>
-                                <div class="tsf-readonly-row">
-                                    <span class="tsf-locked-badge"><span class="icon icon-lock-closed-mini"></span> Data dari SIAKAD</span>
-                                    <button type="button" class="btn btn_outline btn_sm tsf-readonly-cta" onclick="showToast('Data salah? Hubungi bagian akademik/kemahasiswaan kampus untuk memperbarui data ini di SIAKAD, akan tersinkron otomatis ke Karirlink.')">Data salah / ingin ubah?</button>
-                                </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Auto dari SIAKAD. Readonly di form ini.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Question 7 - Pendidikan Orang Tua -->
+                            <!-- Question 1 - Pendidikan Orang Tua -->
                             <div class="tsf-question" role="radiogroup" aria-labelledby="q7-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">3.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">1.</span>
                                     <p class="tsf-question__label" id="q7-label">Pendidikan Orang Tua</p>
                                 </div>
                                 <p class="tsf-question__desc">Pilih jenjang pendidikan tertinggi salah satu orang tua/wali Anda.</p>
@@ -332,10 +318,10 @@
                                 </div>
                             </div>
 
-                            <!-- Question 8 - Sumber Dana -->
+                            <!-- Question 2 - Sumber Dana -->
                             <div class="tsf-question" role="radiogroup" aria-labelledby="q8-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">4.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">2.</span>
                                     <p class="tsf-question__label" id="q8-label">Sumber dana apa yang Anda gunakan untuk membiayai kuliah?</p>
                                 </div>
                                 <p class="tsf-question__desc">Pilih sumber dana utama selama kuliah (bukan saat studi lanjut).</p>
@@ -363,10 +349,10 @@
                                 </div>
                             </div>
 
-                            <!-- Question 9 - Tingkat Kompetensi Saat Lulus (7-aspect 1-5 scale group) -->
+                            <!-- Question 3 - Tingkat Kompetensi Saat Lulus (7-aspect 1-5 scale group) -->
                             <div class="tsf-question" role="group" aria-labelledby="q9-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">5.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">3.</span>
                                     <p class="tsf-question__label" id="q9-label">Tingkat Kompetensi yang Dikuasai Saat Lulus<span class="tsf-required" aria-label="wajib diisi">*</span></p>
                                 </div>
                                 <p class="tsf-question__desc">Beri nilai 1 (sangat rendah) sampai 5 (sangat tinggi) untuk tiap aspek kompetensi berikut.</p>
@@ -473,10 +459,10 @@
                                 </div>
                             </div>
 
-                            <!-- Question 10 - Penekanan Metode Pembelajaran (single 1-5 scale) -->
+                            <!-- Question 4 - Penekanan Metode Pembelajaran (single 1-5 scale) -->
                             <div class="tsf-question" role="radiogroup" aria-labelledby="q10-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">6.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">4.</span>
                                     <p class="tsf-question__label" id="q10-label">Penekanan Metode Pembelajaran di Program Studi<span class="tsf-required" aria-label="wajib diisi">*</span></p>
                                 </div>
                                 <p class="tsf-question__desc">Nilai 1-5 seberapa besar penekanan metode pembelajaran aktif (diskusi, studi kasus, dsb.) diterapkan di program studi Anda.</p>
@@ -498,10 +484,10 @@
                                 </div>
                             </div>
 
-                            <!-- Question 11 - Rencana Setelah Lulus -->
+                            <!-- Question 5 - Rencana Setelah Lulus -->
                             <div class="tsf-question" role="radiogroup" aria-labelledby="q11-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">7.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">5.</span>
                                     <p class="tsf-question__label" id="q11-label">Rencana Anda Setelah Lulus</p>
                                 </div>
                                 <p class="tsf-question__desc">Pilih rencana yang paling mendekati niat Anda saat ini.</p>
@@ -546,20 +532,15 @@
     </main>
 
     <!-- Footer with single-page progress + submit -->
-    <footer class="ts-footer" role="navigation" aria-label="Navigasi Halaman">
-        <div class="ts-footer__inner">
-            <div class="tsf-progress" id="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Progress pengisian: 100%">
-                <div class="tsf-progress__fill" id="progress-fill" style="width: 100%;"></div>
-            </div>
-            <div class="pagination">
-                <span class="pagination__info"><span id="pagination-page-label">Bagian 1 dari 1</span> &middot; <span id="answered-count">0</span> pertanyaan dijawab</span>
-                <div class="pagination__buttons">
-                    <button class="btn btn_primary" id="btn-submit" onclick="submitForm()">
-                        Kirim Jawaban
-                        <span class="icon icon-chevron-right-mini"></span>
-                    </button>
+    <footer class="footer-bar" role="navigation" aria-label="Navigasi Halaman">
+        <div class="footer-bar__inner">
+            <div class="footer-bar__progress" id="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Progress pengisian: 100%">
+                <div class="progress-line">
+                    <div class="progress-line__fill" id="progress-fill" style="width: 100%;"></div>
                 </div>
+                <span><span id="pagination-page-label">Bagian 1 dari 1</span> &middot; <span id="answered-count">0</span> pertanyaan dijawab</span>
             </div>
+            <button class="btn-submit" id="btn-submit" onclick="submitForm()">Kirim Jawaban <span class="icon icon-arrow-up-right-mini"></span></button>
         </div>
     </footer>
 
@@ -590,8 +571,6 @@
 
             if (!document.getElementById('input-phone').value.trim()) problems.push('Nomor HP');
             if (!document.getElementById('input-nik').value.trim()) problems.push('NIK/No. KTP');
-
-            if (!document.querySelector('input[name="q5"]:checked')) problems.push('Jenis Kelamin');
 
             if (!document.getElementById('input-tanggal-lahir').value.trim()) problems.push('Tanggal Lahir');
 

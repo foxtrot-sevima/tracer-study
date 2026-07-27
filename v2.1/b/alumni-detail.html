@@ -15,11 +15,69 @@
     <!-- Karirlink CSS -->
     <link rel="stylesheet" href="assets/css/main.css">
     <style>
-        /* Profile Summary */
-        .alumni-profile { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
-        .alumni-profile__avatar { width: 4rem; height: 4rem; border-radius: 50%; object-fit: cover; border: 1px solid var(--qn-neutral-200); }
-        .alumni-profile__name { font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-800); margin: 0; }
-        .alumni-profile__meta { font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
+        /* CSS Grid/flex items default to min-width:auto (their content's
+           min-content size), which stops them shrinking below that width even
+           when the grid track itself is narrower - the .card here would rather
+           overflow the page than shrink past its widest unbreakable chip/stat.
+           Scoped to this page only. */
+        .card { min-width: 0; }
+
+        /* Two-column profile layout: narrow sidebar (identity/quick facts) + wide main column (detail sections) */
+        .alumni-layout { display: grid; grid-template-columns: 20rem 1fr; gap: 1.5rem; align-items: start; min-width: 0; }
+        @media (max-width: 64rem) { .alumni-layout { grid-template-columns: 1fr; } }
+        .alumni-sidebar { display: flex; flex-direction: column; gap: 1.5rem; min-width: 0; position: sticky; top: 1.25rem; }
+        @media (max-width: 64rem) { .alumni-sidebar { position: static; } }
+        .alumni-main { display: flex; flex-direction: column; gap: 1.5rem; min-width: 0; }
+
+        /* Hero profile card - gradient cover with the avatar overlapping the bottom edge.
+           Centering uses flex/margin-auto rather than text-align, since the avatar <img>
+           renders as a block-level element (Quantum's base reset) and would ignore
+           text-align on its parent. */
+        .alumni-hero { overflow: hidden; }
+        .alumni-hero__cover { height: 5rem; background: linear-gradient(135deg, var(--qn-primary-400), var(--qn-primary-600)); }
+        .alumni-hero__body { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: -2.75rem; }
+        .alumni-hero__avatar { display: block; width: 5.5rem; height: 5.5rem; border-radius: 50%; object-fit: cover; border: 3px solid white; box-shadow: 0 2px 10px rgba(0,0,0,0.18); }
+        .alumni-hero__name { font-size: 1.125rem; font-weight: 700; color: var(--qn-neutral-900); margin: 0.875rem 0 0.125rem; }
+        .alumni-hero__role { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0 0 0.75rem; }
+        .alumni-hero__status { display: inline-flex; align-items: center; padding: 0.3125rem 0.875rem; border-radius: 9999px; font-size: 0.8125rem; font-weight: 600; background: var(--qn-success-500); color: white; }
+        .alumni-hero__facts { width: 100%; display: flex; flex-direction: column; gap: 0.625rem; margin-top: 1.125rem; padding-top: 1.125rem; border-top: 1px solid var(--qn-neutral-100); text-align: left; }
+        .alumni-hero__fact { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--qn-neutral-600); min-width: 0; }
+        .alumni-hero__fact .icon { color: var(--qn-neutral-400); flex-shrink: 0; }
+        .alumni-hero__fact span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* Colored KPI stat tiles */
+        .stat-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+        .stat-tile { padding: 0.875rem; border-radius: 0.625rem; display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+        .stat-tile_primary { background: var(--qn-primary-100); }
+        .stat-tile_success { background: var(--qn-success-100); }
+        .stat-tile_warning { background: var(--qn-warning-100); }
+        .stat-tile_neutral { background: var(--qn-neutral-100); }
+        .stat-tile__icon { width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1rem; background: white; flex-shrink: 0; }
+        .stat-tile__icon_primary { color: var(--qn-primary-600); }
+        .stat-tile__icon_success { color: var(--qn-success-600, var(--qn-success-500)); }
+        .stat-tile__icon_warning { color: var(--qn-warning-600, #a15c07); }
+        .stat-tile__value { font-size: 1.375rem; font-weight: 700; color: var(--qn-neutral-900); line-height: 1; }
+        .stat-tile__label { font-size: 0.6875rem; color: var(--qn-neutral-600); line-height: 1.3; }
+
+        /* Small CSS-only donut ring for a ratio metric (Quantum ships a .progress-circle
+           component in its stylesheet, but it has zero real usage anywhere in this
+           codebase to copy from - a plain conic-gradient ring is simpler and verified). */
+        .donut { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: conic-gradient(var(--qn-success-500) calc(var(--pct, 0) * 1%), var(--qn-neutral-300) 0); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .donut__hole { width: 2.0625rem; height: 2.0625rem; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 700; color: var(--qn-success-600, var(--qn-success-500)); }
+
+        /* Section title with a colored icon accent, used on every card below */
+        .section-title { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 1.25rem; }
+        .section-title__icon { flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.0625rem; }
+        .section-title__icon_primary { background: var(--qn-primary-100); color: var(--qn-primary-600); }
+        .section-title__icon_success { background: var(--qn-success-100); color: var(--qn-success-600, var(--qn-success-500)); }
+        .section-title__icon_warning { background: var(--qn-warning-100, #fef3c7); color: var(--qn-warning-600, #d97706); }
+        .section-title__icon_neutral { background: var(--qn-neutral-100); color: var(--qn-neutral-500); }
+        .section-title h3 { font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
+        .section-title__sub { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
+
+        /* Sub-heading that breaks a dense detail-grid into scannable clusters */
+        .detail-subhead { font-size: 0.75rem; font-weight: 700; color: var(--qn-neutral-400); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 0.875rem; padding-bottom: 0.625rem; border-bottom: 1px solid var(--qn-neutral-100); }
+        .detail-subhead:not(:first-child) { margin-top: 1.75rem; }
 
         /* Career Timeline */
         .career-timeline { display: flex; flex-direction: column; }
@@ -36,6 +94,34 @@
         .achievement-item__icon { flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 50%; background: var(--qn-warning-100, #fef3c7); color: var(--qn-warning-500, #d97706); display: flex; align-items: center; justify-content: center; }
         .achievement-item__title { font-size: 0.875rem; font-weight: 500; color: var(--qn-neutral-800); margin: 0; }
         .achievement-item__desc { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0; }
+
+        /* Detail grid - readonly key/value pairs (identity, academic, account data) */
+        .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.125rem 1.5rem; }
+        @media (max-width: 64rem) { .detail-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 40rem) { .detail-grid { grid-template-columns: 1fr; } }
+        .detail-item__label { font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0 0 0.1875rem; text-transform: uppercase; letter-spacing: 0.03em; }
+        .detail-item__value { font-size: 0.9375rem; color: var(--qn-neutral-800); font-weight: 500; margin: 0; word-break: break-word; }
+
+        /* Social links */
+        .social-links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem; }
+        .social-links a { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.9375rem; color: var(--qn-primary-600); text-decoration: none; }
+        .social-links a:hover { text-decoration: underline; }
+
+        /* Skill tags */
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+        /* .tag and .badge default to different font-sizes (14px vs 12px) AND different
+           fixed box heights (.tag: 1.75rem / .badge: 1.5rem via --qn-badge-height-size),
+           but this page uses them side-by-side as equivalent status chips (Profil Akun
+           Karirlink row, Riwayat Pengisian Tracer Study table) - force both to match. */
+        .tag, .badge {
+            font-size: 0.8125rem;
+            min-height: 1.5rem;
+            max-height: 1.5rem;
+            height: 1.5rem;
+            padding: 0.25rem 0.5rem;
+            line-height: 1rem;
+        }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -81,31 +167,10 @@
         </div>
         <div class="header__right">
             <div class="header__action">
-                <a href="#" class="btn btn_icon btn_nav" title="Pesan">
-                    <span class="icon icon-chat-bubble-left-right"></span>
-                </a>
                 <div class="dropdown dropdown_nav dropdown_notification">
-                    <button class="btn btn_icon btn_nav" data-toggle="dropdown">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification">
                         <span class="icon icon-bell"></span>
                     </button>
-                    <div class="dropdown__box dropdown__box_menu-end" style="width: 320px;">
-                        <span class="dropdown__box-title" style="display: block; padding: 0.75rem 1rem 0.25rem;">Pemberitahuan</span>
-                        <ul class="dropdown__list">
-                            <li class="dropdown__item">
-                                <a href="#" class="notif-item">
-                                    <span class="notif-item__title">Periksa Pengikut Baru Anda!</span>
-                                    <span class="notif-item__desc">PT Tes Dimas mulai mengikuti anda.</span>
-                                    <span class="notif-item__time">1 minggu yang lalu</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="dropdown dropdown_nav dropdown_module">
-                    <a href="./portal-karir.html" class="btn btn_outline btn_xs btn_nav">
-                        Portal Karir
-                        <span class="icon icon-arrow-up-right-mini"></span>
-                    </a>
                 </div>
             </div>
             <div class="dropdown dropdown_nav dropdown_profile">
@@ -123,38 +188,6 @@
                     </span>
                     <span class="icon icon-chevron-down-solid"></span>
                 </button>
-                <div class="dropdown__box dropdown__box_menu-end">
-                    <ul class="dropdown__list">
-                        <li class="dropdown__avatar">
-                            <div class="avatar avatar_sm">
-                                <div class="avatar__circle">
-                                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
-                                </div>
-                                <div class="avatar__text">
-                                    <span class="avatar__title">Admin Karirlink</span>
-                                    <span class="avatar__subtitle">admin@university.ac.id</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown__line"></li>
-                        <li class="dropdown__item">
-                            <a href="#">
-                                <span class="icon icon-user-circle"></span>
-                                Lihat Profil
-                            </a>
-                        </li>
-                        <li class="dropdown__item">
-                            <a href="#">
-                                <span class="icon icon-globe-alt"></span>
-                                Pengaturan Landing Page
-                            </a>
-                        </li>
-                        <li class="dropdown__line"></li>
-                        <li class="dropdown__item dropdown__item_danger">
-                            <a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </header>
@@ -163,49 +196,73 @@
     <!-- [START] Main Content -->
     <main class="main">
         <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./index.html">Dashboard</a></li>
+                <li class="breadcrumb__item"><a href="./alumni.html">Alumni</a></li>
+                <li class="breadcrumb__item active"><a href="#">Detail Alumni</a></li>
+            </ul>
+
             <div class="main__header main__header_kl-list">
                 <div class="main__location">
-                    <a href="./alumni.html" class="link link_back" style="color: var(--qn-neutral-500);"><span class="icon icon-arrow-left-mini" style="font-size: 1.25rem;"></span></a>
                     <div class="main__wrapper">
                         <h1 class="main__title">Detail Alumni</h1>
                         <p class="main__subtitle">Riwayat karier, prestasi, dan pengisian tracer study alumni</p>
                     </div>
                 </div>
+                <div style="display: flex; gap: 0.625rem; flex-wrap: wrap;">
+                    <button class="btn btn_outline btn_sm"><span class="icon icon-chat-bubble-left-right-mini"></span>Hubungi Alumni</button>
+                    <button class="btn btn_outline btn_sm"><span class="icon icon-arrow-down-tray-mini"></span>Ekspor Data</button>
+                </div>
             </div>
 
-            <div class="grid cols-1" style="gap: 1.5rem;">
-                <!-- Profile Summary -->
-                <div class="card">
-                    <div class="card__body">
-                        <div class="alumni-profile">
-                            <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Foto Alumni" class="alumni-profile__avatar">
-                            <div>
-                                <p class="alumni-profile__name">AMEL</p>
-                                <p class="alumni-profile__meta">NIM 120202 · S1 - Bimbingan dan Konseling · Lulus 2022</p>
-                                <p class="alumni-profile__meta">inijelljel@gmail.com · 12345 67788 8</p>
+            <div class="alumni-layout">
+                <!-- ============================= -->
+                <!-- SIDEBAR: identity + quick facts -->
+                <!-- ============================= -->
+                <div class="alumni-sidebar">
+
+                    <!-- Hero Profile Card -->
+                    <div class="card alumni-hero">
+                        <div class="alumni-hero__cover"></div>
+                        <div class="card__body alumni-hero__body">
+                            <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Foto Alumni" class="alumni-hero__avatar">
+                            <p class="alumni-hero__name">Raden Dimas</p>
+                            <p class="alumni-hero__role">Konselor Karier &middot; PT Karirlink Indonesia</p>
+                            <span class="alumni-hero__status">Bekerja</span>
+
+                            <div class="alumni-hero__facts">
+                                <div class="alumni-hero__fact"><span class="icon icon-identification-mini"></span><span>NIM 120202</span></div>
+                                <div class="alumni-hero__fact"><span class="icon icon-academic-cap-mini"></span><span>S1 - Bimbingan dan Konseling</span></div>
+                                <div class="alumni-hero__fact"><span class="icon icon-calendar-mini"></span><span>Lulus 2022</span></div>
+                                <div class="alumni-hero__fact"><span class="icon icon-envelope-mini"></span><span>raden.dimas@email.com</span></div>
+                                <div class="alumni-hero__fact"><span class="icon icon-phone-mini"></span><span>0812-3456-7788</span></div>
                             </div>
-                            <span class="tag tag_success" style="margin-left: auto;">Bekerja (full time / part time)</span>
                         </div>
                     </div>
-                </div>
 
-                <div class="grid cols-1 cols-md-2">
-                    <!-- Tren Karier -->
+                    <!-- KPI Stat Tiles -->
                     <div class="card">
                         <div class="card__body">
-                            <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Tren Karier</h3>
-                            <div class="career-timeline">
-                                <div class="career-timeline__item">
-                                    <span class="career-timeline__dot"></span>
-                                    <p class="career-timeline__period">2024 - Sekarang</p>
-                                    <p class="career-timeline__title">Konselor Karier</p>
-                                    <p class="career-timeline__company">PT Karirlink Indonesia</p>
+                            <div class="stat-tiles">
+                                <div class="stat-tile stat-tile_primary">
+                                    <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-briefcase-mini"></span></span>
+                                    <span class="stat-tile__value">2</span>
+                                    <span class="stat-tile__label">Riwayat Pekerjaan</span>
                                 </div>
-                                <div class="career-timeline__item">
-                                    <span class="career-timeline__dot" style="background: var(--qn-neutral-400); box-shadow: 0 0 0 1px var(--qn-neutral-400);"></span>
-                                    <p class="career-timeline__period">2022 - 2024</p>
-                                    <p class="career-timeline__title">Staff HR (Magang → Kontrak)</p>
-                                    <p class="career-timeline__company">PT Sumber Daya Cemerlang</p>
+                                <div class="stat-tile stat-tile_neutral">
+                                    <span class="stat-tile__icon" style="color: var(--qn-neutral-600);"><span class="icon icon-document-text-mini"></span></span>
+                                    <span class="stat-tile__value">3</span>
+                                    <span class="stat-tile__label">Lamaran Portal Karir</span>
+                                </div>
+                                <div class="stat-tile stat-tile_success">
+                                    <div class="donut" style="--pct: 100;"><div class="donut__hole">100%</div></div>
+                                    <span class="stat-tile__label">Tracer Study Terisi (2/2)</span>
+                                </div>
+                                <div class="stat-tile stat-tile_warning">
+                                    <span class="stat-tile__icon stat-tile__icon_warning"><span class="icon icon-star-mini"></span></span>
+                                    <span class="stat-tile__value">4.00</span>
+                                    <span class="stat-tile__label">IPK Kelulusan</span>
                                 </div>
                             </div>
                         </div>
@@ -214,7 +271,10 @@
                     <!-- Prestasi -->
                     <div class="card">
                         <div class="card__body">
-                            <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Prestasi</h3>
+                            <div class="section-title">
+                                <span class="section-title__icon section-title__icon_warning"><span class="icon icon-star-mini"></span></span>
+                                <h3>Prestasi</h3>
+                            </div>
                             <div class="achievement-list">
                                 <div class="achievement-item">
                                     <span class="achievement-item__icon"><span class="icon icon-academic-cap-mini"></span></span>
@@ -233,79 +293,325 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Riwayat Lamaran -->
-                <div class="card">
-                    <div class="card__body">
-                        <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Riwayat Lamaran (Portal Karir)</h3>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Perusahaan</th>
-                                        <th>Posisi</th>
-                                        <th>Tanggal Lamar</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>PT Karirlink Indonesia</td>
-                                        <td>Konselor Karier</td>
-                                        <td>03 Januari 2024</td>
-                                        <td><span class="tag tag_success">Diterima</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>PT Data Analitik Nusantara</td>
-                                        <td>HR Business Partner</td>
-                                        <td>18 November 2023</td>
-                                        <td><span class="tag tag_danger">Tidak Lolos</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>PT Sumber Daya Cemerlang</td>
-                                        <td>Staff HR</td>
-                                        <td>02 Agustus 2022</td>
-                                        <td><span class="tag tag_success">Diterima</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <!-- Keahlian -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="section-title">
+                                <span class="section-title__icon section-title__icon_neutral"><span class="icon icon-sparkles-mini"></span></span>
+                                <h3>Keahlian</h3>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="tag tag_outline">Konseling Karier</span>
+                                <span class="tag tag_outline">Public Speaking</span>
+                                <span class="tag tag_outline">Microsoft Office</span>
+                                <span class="tag tag_outline">Psikotes &amp; Asesmen</span>
+                                <span class="tag tag_outline">Bahasa Inggris</span>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
-                <!-- Riwayat Pengisian Tracer Study -->
-                <div class="card">
-                    <div class="card__body">
-                        <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 1rem;">Riwayat Pengisian Tracer Study</h3>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Wave</th>
-                                        <th>Tahun Kirim</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><span class="tag tag_outline">GS-I</span></td>
-                                        <td>2023</td>
-                                        <td><span class="tag tag_success">Sudah Mengisi</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="tag tag_outline">Exit Survey</span></td>
-                                        <td>2022</td>
-                                        <td><span class="tag tag_success">Sudah Mengisi</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <!-- ============================= -->
+                <!-- MAIN COLUMN: detail sections -->
+                <!-- ============================= -->
+                <div class="alumni-main">
+
+                    <!-- Informasi Pribadi & Akademik -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="section-title">
+                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-identification-mini"></span></span>
+                                <h3>Informasi Pribadi &amp; Akademik</h3>
+                            </div>
+
+                            <p class="detail-subhead">Identitas Pribadi</p>
+                            <div class="detail-grid">
+                                <div>
+                                    <p class="detail-item__label">NIM</p>
+                                    <p class="detail-item__value">120202</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">NIK / No. KTP</p>
+                                    <p class="detail-item__value">3573016402000004</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">NPWP</p>
+                                    <p class="detail-item__value">09.876.543.2-891.000</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Jenis Kelamin</p>
+                                    <p class="detail-item__value">Perempuan</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Tanggal &amp; Tempat Lahir</p>
+                                    <p class="detail-item__value">14 Februari 2000, Malang</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Alamat</p>
+                                    <p class="detail-item__value">Jl. Soekarno Hatta No. 45, Malang, Jawa Timur</p>
+                                </div>
+                            </div>
+
+                            <p class="detail-subhead">Akademik &amp; Kontak</p>
+                            <div class="detail-grid">
+                                <div>
+                                    <p class="detail-item__label">Program Studi</p>
+                                    <p class="detail-item__value">S1 - Bimbingan dan Konseling</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Angkatan / Tahun Lulus</p>
+                                    <p class="detail-item__value">2018 / 2022</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">IPK</p>
+                                    <p class="detail-item__value">4.00</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Kode PT / Kode Prodi</p>
+                                    <p class="detail-item__value">041001 / 86201</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Email</p>
+                                    <p class="detail-item__value">raden.dimas@email.com</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">No. HP</p>
+                                    <p class="detail-item__value">0812-3456-7788</p>
+                                </div>
+                            </div>
+
+                            <div class="card-insight">
+                                <div class="card-insight__icon card-insight__icon_info">
+                                    <span class="icon icon-information-circle-mini"></span>
+                                </div>
+                                <p class="card-insight__text">Data ini disinkronkan otomatis dari <strong>SIAKAD kampus</strong> setiap kali alumni mengisi Tracer Study dan tidak dapat diedit langsung dari Karirlink.</p>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Profil Akun Karirlink -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+                                <div class="section-title" style="margin-bottom: 0;">
+                                    <span class="section-title__icon section-title__icon_success"><span class="icon icon-user-circle-mini"></span></span>
+                                    <h3>Profil Akun Karirlink</h3>
+                                </div>
+                                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    <span class="badge badge_success">Akun Aktif</span>
+                                    <span class="tag tag_outline">Profil Publik</span>
+                                    <span class="tag tag_outline">Sinkron SIAKAD</span>
+                                </div>
+                            </div>
+
+                            <p class="detail-subhead">Profil Kerja</p>
+                            <div class="detail-grid">
+                                <div>
+                                    <p class="detail-item__label">Username</p>
+                                    <p class="detail-item__value">raden.dimas</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Pekerjaan Saat Ini</p>
+                                    <p class="detail-item__value">Konselor Karier</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Gelar</p>
+                                    <p class="detail-item__value">S.Pd.</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Perusahaan Saat Ini</p>
+                                    <p class="detail-item__value">PT Karirlink Indonesia</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Rekomendasi Kerja</p>
+                                    <p class="detail-item__value">Diaktifkan</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Login Terakhir</p>
+                                    <p class="detail-item__value">21 Juli 2026, 14:32</p>
+                                </div>
+                            </div>
+
+                            <p class="detail-subhead">Bio &amp; Media Sosial</p>
+                            <div class="detail-grid" style="grid-template-columns: 1fr;">
+                                <div>
+                                    <p class="detail-item__label">Motto</p>
+                                    <p class="detail-item__value" style="font-style: italic; font-weight: 400;">&ldquo;Membantu orang lain menemukan jalannya.&rdquo;</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Tentang Saya</p>
+                                    <p class="detail-item__value" style="font-weight: 400;">Fresh graduate Bimbingan dan Konseling dengan minat di bidang human resources dan pengembangan karier.</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Media Sosial</p>
+                                    <div class="social-links">
+                                        <a href="#"><span class="icon icon-globe-alt-mini"></span>radendimas-portfolio.id</a>
+                                        <a href="#"><span class="icon icon-briefcase-mini"></span>linkedin.com/in/radendimas</a>
+                                        <a href="#"><span class="icon icon-camera-mini"></span>@raden.dimas</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-insight">
+                                <div class="card-insight__icon card-insight__icon_info">
+                                    <span class="icon icon-information-circle-mini"></span>
+                                </div>
+                                <p class="card-insight__text">Bagian ini adalah data profil <strong>akun Karirlink</strong> alumni - dikelola sendiri oleh alumni, bukan bersumber dari SIAKAD.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tren Karier -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="section-title">
+                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-briefcase-mini"></span></span>
+                                <h3>Tren Karier</h3>
+                            </div>
+                            <div class="career-timeline">
+                                <div class="career-timeline__item">
+                                    <span class="career-timeline__dot"></span>
+                                    <p class="career-timeline__period">2024 - Sekarang</p>
+                                    <p class="career-timeline__title">Konselor Karier</p>
+                                    <p class="career-timeline__company">PT Karirlink Indonesia &middot; Malang</p>
+                                    <span class="tag tag_outline tag_sm" style="margin-top: 0.375rem;">Penuh Waktu</span>
+                                </div>
+                                <div class="career-timeline__item">
+                                    <span class="career-timeline__dot" style="background: var(--qn-neutral-400); box-shadow: 0 0 0 1px var(--qn-neutral-400);"></span>
+                                    <p class="career-timeline__period">2022 - 2024</p>
+                                    <p class="career-timeline__title">Staff HR (Magang &rarr; Kontrak)</p>
+                                    <p class="career-timeline__company">PT Sumber Daya Cemerlang &middot; Surabaya</p>
+                                    <span class="tag tag_outline tag_sm" style="margin-top: 0.375rem;">Kontrak</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preferensi Kerja -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="section-title">
+                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-adjustments-horizontal-mini"></span></span>
+                                <h3>Preferensi Kerja</h3>
+                            </div>
+                            <div class="detail-grid" style="grid-template-columns: repeat(2, 1fr);">
+                                <div>
+                                    <p class="detail-item__label">Posisi Diminati</p>
+                                    <p class="detail-item__value" style="font-weight: 400;">HR Business Partner, Konselor Karier, Training &amp; Development</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Skema Kerja</p>
+                                    <p class="detail-item__value" style="font-weight: 400;">Penuh Waktu, Hybrid</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Lokasi Diminati</p>
+                                    <p class="detail-item__value" style="font-weight: 400;">Malang, Surabaya, Jakarta</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Bidang Industri</p>
+                                    <p class="detail-item__value" style="font-weight: 400;">Human Resources, Pendidikan</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Ekspektasi Gaji</p>
+                                    <p class="detail-item__value">Rp 7.000.000 - Rp 9.000.000</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Gaji Saat Ini</p>
+                                    <p class="detail-item__value">Rp 6.500.000</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Kesiapan Kerja</p>
+                                    <p class="detail-item__value">Siap Bekerja Segera</p>
+                                </div>
+                                <div>
+                                    <p class="detail-item__label">Bersedia Relokasi</p>
+                                    <p class="detail-item__value">Ya</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Riwayat Lamaran -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="section-title">
+                                <span class="section-title__icon section-title__icon_success"><span class="icon icon-document-text-mini"></span></span>
+                                <h3>Riwayat Lamaran (Portal Karir)</h3>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Perusahaan</th>
+                                            <th>Posisi</th>
+                                            <th>Tanggal Lamar</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>PT Karirlink Indonesia</td>
+                                            <td>Konselor Karier</td>
+                                            <td>03 Januari 2024</td>
+                                            <td><span class="badge badge_success">Diterima</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PT Data Analitik Nusantara</td>
+                                            <td>HR Business Partner</td>
+                                            <td>18 November 2023</td>
+                                            <td><span class="badge badge_danger">Tidak Lolos</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PT Sumber Daya Cemerlang</td>
+                                            <td>Staff HR</td>
+                                            <td>02 Agustus 2022</td>
+                                            <td><span class="badge badge_success">Diterima</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Riwayat Pengisian Tracer Study -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="section-title">
+                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-clipboard-document-list-mini"></span></span>
+                                <h3>Riwayat Pengisian Tracer Study</h3>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Wave</th>
+                                            <th>Tahun Kirim</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="tag tag_outline">GS-I</span></td>
+                                            <td>2023</td>
+                                            <td><span class="badge badge_success">Sudah Mengisi</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="tag tag_outline">Exit Survey</span></td>
+                                            <td>2022</td>
+                                            <td><span class="badge badge_success">Sudah Mengisi</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-    
+
         <!-- Footer -->
         <footer class="footer">
             <div class="footer__copyright-wrapper">
