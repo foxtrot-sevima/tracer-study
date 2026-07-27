@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Alumni &amp; Mahasiswa | Karirlink Tracer Study</title>
+    <title>Alumni | Karirlink Tracer Study</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
 
     <!-- Choices CSS & JS -->
@@ -46,69 +46,15 @@
         .cell-stack__name { font-weight: 600; color: var(--qn-neutral-800); }
         .cell-stack__meta { font-size: 0.75rem; color: var(--qn-neutral-500); }
 
-        /* Merged "Kontak" cell (Email + No. HP stacked with icon labels) - each row is an
-           actual mailto:/tel: link now that Kontak is primary content in the table, not text. */
+        /* Merged "Kontak" cell (Email + No. HP stacked with icon labels) */
         .cell-contact { display: flex; flex-direction: column; gap: 0.25rem; }
-        .cell-contact__row { display: flex; align-items: center; gap: 0.375rem; font-size: 0.8125rem; color: var(--qn-neutral-600); text-decoration: none; }
-        a.cell-contact__row:hover { color: var(--qn-primary-600); text-decoration: underline; }
+        .cell-contact__row { display: flex; align-items: center; gap: 0.375rem; font-size: 0.8125rem; color: var(--qn-neutral-600); }
         .cell-contact__row .icon { color: var(--qn-neutral-400); font-size: 0.875rem; flex-shrink: 0; }
 
         /* .tag and .badge default to different font-sizes (14px vs 12px), but in this
            table both are used side-by-side as equivalent status pills (Status Kerja,
            Status Pengisian TS) - unify them so they read as one consistent system. */
         .table .tag, .table .badge { font-size: 0.8125rem; }
-
-        /* "Tipe" chip (Alumni / Mahasiswa) shown under the name in the merged Alumni cell -
-           reuses .tag sizing but smaller, since it's a secondary identifier next to NIM. */
-        .cell-stack__type { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.6875rem; font-weight: 600; padding: 0.0625rem 0.375rem; border-radius: 0.25rem; margin-top: 0.125rem; width: fit-content; }
-        .cell-stack__type_alumni { background: var(--qn-primary-100); color: var(--qn-primary-600); }
-        .cell-stack__type_mahasiswa { background: var(--qn-warning-100); color: var(--qn-warning-600, #a15c07); }
-
-        /* Quantum's .main__header is a fixed no-wrap flex row (justify-content:space-between),
-           so on narrower screens it squeezed "Last sync: ..." + the Sinkron button below their
-           natural width, fragmenting the text mid-phrase. Letting the row wrap - scoped to this
-           page's modifier class only - drops the sync block to its own line at any width instead. */
-        .main__header_kl-list { flex-wrap: wrap; row-gap: 0.75rem; }
-        .main__header_kl-list .main__action { flex-wrap: wrap; row-gap: 0.5rem; flex-shrink: 0; }
-        .main__header_kl-list .main__action > span { white-space: nowrap; }
-
-        /* Quantum hides .main__subtitle below ~767px by default (display:none) to save
-           vertical space on typical dashboard pages - but here it's the line explaining this
-           page covers both alumni AND mahasiswa, so keep it visible on mobile too. */
-        .main__header_kl-list .main__subtitle { display: block !important; }
-
-        /* Prestasi shortlist - compact achievement cards, mirrors .achievement-item from
-           alumni-detail.html but includes the person's name since this list spans many
-           people (detail page's version is scoped to one person, so no name needed there). */
-        .prestasi-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.875rem; background: var(--qn-neutral-50, #f8fafc); border-radius: 0.625rem; height: 100%; }
-        .prestasi-item__icon { flex-shrink: 0; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--qn-warning-100, #fef3c7); color: var(--qn-warning-500, #d97706); display: flex; align-items: center; justify-content: center; }
-        .prestasi-item__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); margin: 0 0 0.1875rem; line-height: 1.35; }
-        .prestasi-item__person { font-size: 0.75rem; color: var(--qn-primary-600); margin: 0; }
-        .prestasi-item__date { font-size: 0.6875rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
-
-        /* Clicking the name (not a separate button) expands the row's sub-table - styled as a
-           link so it reads as clickable. */
-        .alumni-name-toggle { color: var(--qn-primary-600); cursor: pointer; }
-        .alumni-name-toggle:hover { text-decoration: underline; }
-
-        /* Name click calls toggleSubrow() (classList.toggle('show')) instead of Quantum's
-           data-toggle="collapse" handler - that handler runs its own inline height animation
-           on a ~350ms timer, which fought this CSS transition and looked like a delayed,
-           doubled animation. A plain class toggle + this transition is the only mechanism now. */
-        .table .collapse { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.2s ease, opacity 0.15s ease; }
-        .table .collapse.show { max-height: 20rem; opacity: 1; }
-        /* Quantum forces `table tbody td{height:2.75rem;max-height:2.75rem}` on every cell, which
-           left a fixed 44px gap under the collapse row regardless of its content height. Override
-           it only for the collapse-wrapper cell so the row can truly shrink to 0. */
-        .table tbody tr.collapse-row td { height: auto; max-height: none; min-height: 0; }
-
-        /* Sub-table shown inside the collapse panel - secondary data (IPK, prestasi, last update)
-           that doesn't need to compete for space in the main row, styled as a lightweight
-           key-value table rather than the heavier .table component (avoids a second header row). */
-        .subtable { width: 100%; background: var(--qn-neutral-50, #f8fafc); }
-        .subtable td { padding: 0.5rem 1.25rem; font-size: 0.8125rem; color: var(--qn-neutral-700); border-bottom: 1px solid var(--qn-neutral-100); }
-        .subtable tr:last-child td { border-bottom: none; }
-        .subtable td:first-child { width: 220px; color: var(--qn-neutral-500); font-weight: 600; }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -239,8 +185,8 @@
             <div class="main__header main__header_kl-list">
                 <div class="main__location">
                     <div class="main__wrapper">
-                        <h1 class="main__title">Alumni &amp; Mahasiswa</h1>
-                        <p class="main__subtitle">Kelola data, prestasi, dan status pengisian tracer study - mencakup alumni dan mahasiswa tingkat akhir yang sudah tercatat di Karirlink</p>
+                        <h1 class="main__title">Daftar Alumni</h1>
+                        <p class="main__subtitle">Kelola data dan status pengisian tracer study seluruh alumni</p>
                     </div>
                 </div>
                 <div class="main__action">
@@ -252,75 +198,18 @@
                 </div>
             </div>
 
-            <!-- Prestasi - shortlist ringkas pencapaian alumni & mahasiswa. Relevan untuk pelaporan
-                 kegiatan di luar prodi (kompetisi, sertifikasi) yang turut dinilai pada IKU terkait
-                 pengalaman mahasiswa berdampak - lihat docs/regulasi terkait bobot juara tingkat
-                 nasional/internasional. -->
-            <div class="card" style="margin-bottom: 1.5rem;">
-                <div class="card__header">
-                    <div class="card__header-wrapper">
-                        <h3 class="card__title" style="font-size: 1rem; line-height: 1.5rem; font-weight: 600; color: var(--qn-neutral-800); padding: 0;">Prestasi Terbaru</h3>
-                        <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0;">Pencapaian alumni &amp; mahasiswa yang tercatat di Karirlink</p>
-                    </div>
-                </div>
-                <div class="card__body">
-                    <div class="grid">
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <div class="prestasi-item">
-                                <span class="prestasi-item__icon"><span class="icon icon-academic-cap-mini"></span></span>
-                                <div>
-                                    <p class="prestasi-item__title">Sertifikasi BNSP - Konselor Karier</p>
-                                    <p class="prestasi-item__person">Raden Dimas &middot; Alumni</p>
-                                    <p class="prestasi-item__date">Januari 2024</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <div class="prestasi-item">
-                                <span class="prestasi-item__icon"><span class="icon icon-star-mini"></span></span>
-                                <div>
-                                    <p class="prestasi-item__title">Juara 1 Lomba Business Case Nasional</p>
-                                    <p class="prestasi-item__person">Fadhil Ramadhan &middot; Mahasiswa</p>
-                                    <p class="prestasi-item__date">Maret 2026</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <div class="prestasi-item">
-                                <span class="prestasi-item__icon"><span class="icon icon-academic-cap-mini"></span></span>
-                                <div>
-                                    <p class="prestasi-item__title">Wisudawan Terbaik Fakultas</p>
-                                    <p class="prestasi-item__person">Ananda Kurniani &middot; Alumni</p>
-                                    <p class="prestasi-item__date">Wisuda 2023</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <div class="prestasi-item">
-                                <span class="prestasi-item__icon"><span class="icon icon-star-mini"></span></span>
-                                <div>
-                                    <p class="prestasi-item__title">Penerima Beasiswa Unggulan Kemdikbud</p>
-                                    <p class="prestasi-item__person">Siti Nur Aini &middot; Mahasiswa</p>
-                                    <p class="prestasi-item__date">2025</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Filter Bar -->
             <div class="card card_empty">
                 <!-- Sync Info -->
                 <div class="alert alert_warning" style="margin-bottom: 1rem;">
                     <div class="alert__content">
-                        <p class="alert__description">Data akademik (NIM, program studi, IPK) bersumber dari <strong>SIAKAD</strong>; data kontak terbaru mengikuti kuesioner tracer study atau profil Portal Karir terakhir yang diisi mahasiswa/alumni sendiri.</p>
+                        <p class="alert__description">Data kontak terbaru diperoleh berdasarkan informasi yang diisi pada kuesioner terakhir</p>
                     </div>
                 </div>
 
                 <div class="dashboard-filter">
-                    <div class="grid" style="margin-bottom: 0.75rem;">
-                        <div class="col-12 col-sm-4 col-md-2">
+                    <div class="grid">
+                        <div class="col-12 col-sm-2">
                             <select class="select-default" id="filter-tahun">
                                 <option value="" selected>5 Tahun Terakhir</option>
                                 <option value="2026">2026</option>
@@ -330,7 +219,7 @@
                                 <option value="2022">2022</option>
                             </select>
                         </div>
-                        <div class="col-12 col-sm-4 col-md-2">
+                        <div class="col-12 col-sm-2">
                             <select class="select-default" id="filter-jenjang">
                                 <option value="" selected>Semua Jenjang</option>
                                 <option value="d3">D3</option>
@@ -338,7 +227,7 @@
                                 <option value="s2">S2</option>
                             </select>
                         </div>
-                        <div class="col-12 col-sm-4 col-md-2">
+                        <div class="col-12 col-sm-3">
                             <select class="select-default" id="filter-prodi">
                                 <option value="" selected>Semua Program Studi</option>
                                 <option value="ti">Teknik Informatika</option>
@@ -347,69 +236,24 @@
                                 <option value="akuntansi">Akuntansi</option>
                             </select>
                         </div>
-                        <div class="col-12 col-sm-4 col-md-2">
-                            <select class="select-default" id="filter-tipe" title="Filter berdasarkan status kemahasiswaan">
-                                <option value="" selected>Semua Tipe</option>
-                                <option value="alumni">Alumni</option>
-                                <option value="mahasiswa">Mahasiswa (Belum Lulus)</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-4 col-md-2">
-                            <select class="select-default" id="filter-ipk" title="Cari cepat berdasarkan predikat IPK">
-                                <option value="" selected>Semua Predikat IPK</option>
-                                <option value="pujian">Pujian (&gt; 3,50)</option>
-                                <option value="sangat-memuaskan">Sangat Memuaskan (3,01-3,50)</option>
-                                <option value="memuaskan">Memuaskan (2,76-3,00)</option>
-                                <option value="lainnya">&lt; 2,76</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-4 col-md-2">
-                            <select class="select-default" id="filter-urutkan">
-                                <option value="terbaru" selected>Urutkan: Terbaru</option>
-                                <option value="ipk-tertinggi">Urutkan: IPK Tertinggi</option>
-                                <option value="nama">Urutkan: Nama (A-Z)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-12 col-md-9">
+                        <div class="col-12 col-sm-3">
                             <div class="form-control">
                                 <div class="form-control__group">
                                     <span data-input-icon="search"></span>
-                                    <input type="search" class="form-control__input" placeholder="Cari nama atau NIM alumni/mahasiswa">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-3">
-                            <div class="dropdown dropdown_action">
-                                <button class="btn btn_outline btn_block" data-toggle="dropdown">
-                                    <span class="icon icon-arrow-down-tray-mini"></span>
-                                    Ekspor Data
-                                    <span class="icon icon-chevron-down-mini"></span>
-                                </button>
-                                <div class="dropdown__box dropdown__box_menu-end">
-                                    <ul class="dropdown__list">
-                                        <li class="dropdown__item"><a href="#">Excel (.xlsx)</a></li>
-                                        <li class="dropdown__item"><a href="#">PDF (.pdf)</a></li>
-                                    </ul>
+                                    <input type="search" class="form-control__input" placeholder="Masukkan nama atau nim alumni">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Alumni & Mahasiswa Table - Kontak dikembalikan jadi kolom utama (bisa langsung
-                     mailto:/tel:); IPK & info sekunder (prestasi, kapan data terakhir diperbarui)
-                     dipindah ke sub-table yang muncul saat NAMA diklik, bukan tombol dropdown terpisah,
-                     supaya baris utama tetap ringkas. Mahasiswa (belum lulus) memakai wording
-                     "Angkatan .../Aktif" & "Belum Berlaku" untuk Status Pengisian TS - tracer study
-                     memang baru berlaku setelah lulus, jadi "Belum Mengisi" akan menyesatkan. -->
+                <!-- Alumni Table -->
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th style="width: 40px;">No</th>
-                                <th>Alumni / Mahasiswa</th>
+                                <th>Alumni</th>
                                 <th>Kontak</th>
                                 <th>Program Studi</th>
                                 <th>Status Kerja</th>
@@ -422,15 +266,14 @@
                                 <td>1</td>
                                 <td>
                                     <div class="cell-stack">
-                                        <p class="cell-stack__name alumni-name-toggle" onclick="toggleSubrow('subrow-1')">Raden Dimas</p>
+                                        <p class="cell-stack__name">Raden Dimas</p>
                                         <p class="cell-stack__meta">NIM 120202</p>
-                                        <span class="cell-stack__type cell-stack__type_alumni"><span class="icon icon-academic-cap-mini"></span>Alumni</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="cell-contact">
-                                        <a class="cell-contact__row" href="mailto:raden.dimas@email.com"><span class="icon icon-envelope-mini"></span>raden.dimas@email.com</a>
-                                        <a class="cell-contact__row" href="tel:081234567788"><span class="icon icon-phone-mini"></span>0812-3456-7788</a>
+                                        <div class="cell-contact__row"><span class="icon icon-envelope-mini"></span>raden.dimas@email.com</div>
+                                        <div class="cell-contact__row"><span class="icon icon-phone-mini"></span>0812-3456-7788</div>
                                     </div>
                                 </td>
                                 <td>
@@ -443,24 +286,18 @@
                                 <td><span class="badge badge_success">Sudah Mengisi</span></td>
                                 <td><a href="./alumni-detail.html" class="btn btn_icon btn_outline btn_sm" title="Detail"><span class="icon icon-eye-mini"></span></a></td>
                             </tr>
-                            <tr class="collapse-row"><td colspan="7" style="padding: 0; border-top: none;"><div class="collapse" id="subrow-1"><table class="subtable"><tbody>
-                                <tr><td>IPK</td><td>4,00 &middot; <span style="color: var(--qn-success-600);">Pujian</span></td></tr>
-                                <tr><td>Prestasi Tercatat</td><td>2 (lihat panel Prestasi Terbaru di atas)</td></tr>
-                                <tr><td>Data Terakhir Diperbarui</td><td>21 Jan 2024</td></tr>
-                            </tbody></table></div></td></tr>
                             <tr>
                                 <td>2</td>
                                 <td>
                                     <div class="cell-stack">
-                                        <p class="cell-stack__name alumni-name-toggle" onclick="toggleSubrow('subrow-2')">Adnan Syawal Adilaha Sadikin</p>
+                                        <p class="cell-stack__name">Adnan Syawal Adilaha Sadikin</p>
                                         <p class="cell-stack__meta">NIM 1200456</p>
-                                        <span class="cell-stack__type cell-stack__type_alumni"><span class="icon icon-academic-cap-mini"></span>Alumni</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="cell-contact">
-                                        <a class="cell-contact__row" href="mailto:ainarpratnyaningrum@email.com"><span class="icon icon-envelope-mini"></span>ainarpratnyaningrum@email.com</a>
-                                        <a class="cell-contact__row" href="tel:082111833004"><span class="icon icon-phone-mini"></span>0821-1183-3004</a>
+                                        <div class="cell-contact__row"><span class="icon icon-envelope-mini"></span>ainarpratnyaningrum@email.com</div>
+                                        <div class="cell-contact__row"><span class="icon icon-phone-mini"></span>0821-1183-3004</div>
                                     </div>
                                 </td>
                                 <td>
@@ -473,24 +310,18 @@
                                 <td><span class="badge badge_danger">Belum Mengisi</span></td>
                                 <td><a href="./alumni-detail.html" class="btn btn_icon btn_outline btn_sm" title="Detail"><span class="icon icon-eye-mini"></span></a></td>
                             </tr>
-                            <tr class="collapse-row"><td colspan="7" style="padding: 0; border-top: none;"><div class="collapse" id="subrow-2"><table class="subtable"><tbody>
-                                <tr><td>IPK</td><td>2,90 &middot; <span style="color: var(--qn-warning-600, #a15c07);">Memuaskan</span></td></tr>
-                                <tr><td>Prestasi Tercatat</td><td>Belum ada prestasi tercatat</td></tr>
-                                <tr><td>Data Terakhir Diperbarui</td><td>Saat sinkronisasi SIAKAD 2024</td></tr>
-                            </tbody></table></div></td></tr>
                             <tr>
                                 <td>3</td>
                                 <td>
                                     <div class="cell-stack">
-                                        <p class="cell-stack__name alumni-name-toggle" onclick="toggleSubrow('subrow-3')">Ananda Kurniani</p>
+                                        <p class="cell-stack__name">Ananda Kurniani</p>
                                         <p class="cell-stack__meta">NIM 1231232</p>
-                                        <span class="cell-stack__type cell-stack__type_alumni"><span class="icon icon-academic-cap-mini"></span>Alumni</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="cell-contact">
-                                        <a class="cell-contact__row" href="mailto:nankur@email.com"><span class="icon icon-envelope-mini"></span>nankur@email.com</a>
-                                        <a class="cell-contact__row" href="tel:081234095861"><span class="icon icon-phone-mini"></span>0812-3409-5861</a>
+                                        <div class="cell-contact__row"><span class="icon icon-envelope-mini"></span>nankur@email.com</div>
+                                        <div class="cell-contact__row"><span class="icon icon-phone-mini"></span>0812-3409-5861</div>
                                     </div>
                                 </td>
                                 <td>
@@ -503,23 +334,17 @@
                                 <td><span class="badge badge_danger">Belum Mengisi</span></td>
                                 <td><a href="./alumni-detail.html" class="btn btn_icon btn_outline btn_sm" title="Detail"><span class="icon icon-eye-mini"></span></a></td>
                             </tr>
-                            <tr class="collapse-row"><td colspan="7" style="padding: 0; border-top: none;"><div class="collapse" id="subrow-3"><table class="subtable"><tbody>
-                                <tr><td>IPK</td><td>3,95 &middot; <span style="color: var(--qn-success-600);">Pujian</span></td></tr>
-                                <tr><td>Prestasi Tercatat</td><td>1 (Wisudawan Terbaik Fakultas)</td></tr>
-                                <tr><td>Data Terakhir Diperbarui</td><td>2023</td></tr>
-                            </tbody></table></div></td></tr>
                             <tr>
                                 <td>4</td>
                                 <td>
                                     <div class="cell-stack">
-                                        <p class="cell-stack__name alumni-name-toggle" onclick="toggleSubrow('subrow-4')">Abdul</p>
+                                        <p class="cell-stack__name">Abdul</p>
                                         <p class="cell-stack__meta">NIM 1213503</p>
-                                        <span class="cell-stack__type cell-stack__type_alumni"><span class="icon icon-academic-cap-mini"></span>Alumni</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="cell-contact">
-                                        <a class="cell-contact__row" href="mailto:abdul@email.com"><span class="icon icon-envelope-mini"></span>abdul@email.com</a>
+                                        <div class="cell-contact__row"><span class="icon icon-envelope-mini"></span>abdul@email.com</div>
                                         <div class="cell-contact__row"><span class="icon icon-phone-mini"></span>-</div>
                                     </div>
                                 </td>
@@ -533,71 +358,6 @@
                                 <td><span class="badge badge_danger">Belum Mengisi</span></td>
                                 <td><a href="./alumni-detail.html" class="btn btn_icon btn_outline btn_sm" title="Detail"><span class="icon icon-eye-mini"></span></a></td>
                             </tr>
-                            <tr class="collapse-row"><td colspan="7" style="padding: 0; border-top: none;"><div class="collapse" id="subrow-4"><table class="subtable"><tbody>
-                                <tr><td>IPK</td><td>3,10 &middot; <span style="color: var(--qn-primary-600);">Sangat Memuaskan</span></td></tr>
-                                <tr><td>Prestasi Tercatat</td><td>Belum ada prestasi tercatat</td></tr>
-                                <tr><td>Data Terakhir Diperbarui</td><td>2025</td></tr>
-                            </tbody></table></div></td></tr>
-                            <tr>
-                                <td>5</td>
-                                <td>
-                                    <div class="cell-stack">
-                                        <p class="cell-stack__name alumni-name-toggle" onclick="toggleSubrow('subrow-5')">Fadhil Ramadhan</p>
-                                        <p class="cell-stack__meta">NIM 2210678</p>
-                                        <span class="cell-stack__type cell-stack__type_mahasiswa"><span class="icon icon-identification-mini"></span>Mahasiswa</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-contact">
-                                        <a class="cell-contact__row" href="mailto:fadhil.ramadhan@email.com"><span class="icon icon-envelope-mini"></span>fadhil.ramadhan@email.com</a>
-                                        <a class="cell-contact__row" href="tel:081322459910"><span class="icon icon-phone-mini"></span>0813-2245-9910</a>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-stack">
-                                        <p class="cell-stack__name">S1 - Manajemen</p>
-                                        <p class="cell-stack__meta">Angkatan 2022 &middot; Aktif</p>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge_success" title="Sudah bekerja sebelum lulus - dihitung sesuai kriteria IKU 2 Kepmen 358/2025">Bekerja (Sebelum Lulus)</span></td>
-                                <td><span class="tag tag_outline" title="Tracer study berlaku setelah lulus">Belum Berlaku</span></td>
-                                <td><a href="./alumni-detail.html" class="btn btn_icon btn_outline btn_sm" title="Detail"><span class="icon icon-eye-mini"></span></a></td>
-                            </tr>
-                            <tr class="collapse-row"><td colspan="7" style="padding: 0; border-top: none;"><div class="collapse" id="subrow-5"><table class="subtable"><tbody>
-                                <tr><td>IPK</td><td>3,80 &middot; <span style="color: var(--qn-success-600);">Pujian</span></td></tr>
-                                <tr><td>Prestasi Tercatat</td><td>1 (Juara 1 Lomba Business Case Nasional)</td></tr>
-                                <tr><td>Data Terakhir Diperbarui</td><td>Aktif memperbarui profil Portal Karir</td></tr>
-                            </tbody></table></div></td></tr>
-                            <tr>
-                                <td>6</td>
-                                <td>
-                                    <div class="cell-stack">
-                                        <p class="cell-stack__name alumni-name-toggle" onclick="toggleSubrow('subrow-6')">Siti Nur Aini</p>
-                                        <p class="cell-stack__meta">NIM 2210945</p>
-                                        <span class="cell-stack__type cell-stack__type_mahasiswa"><span class="icon icon-identification-mini"></span>Mahasiswa</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-contact">
-                                        <a class="cell-contact__row" href="mailto:siti.nuraini@email.com"><span class="icon icon-envelope-mini"></span>siti.nuraini@email.com</a>
-                                        <a class="cell-contact__row" href="tel:085766332201"><span class="icon icon-phone-mini"></span>0857-6633-2201</a>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cell-stack">
-                                        <p class="cell-stack__name">S1 - Akuntansi</p>
-                                        <p class="cell-stack__meta">Angkatan 2023 &middot; Aktif</p>
-                                    </div>
-                                </td>
-                                <td><span class="tag tag_outline">Belum Bekerja</span></td>
-                                <td><span class="tag tag_outline" title="Tracer study berlaku setelah lulus">Belum Berlaku</span></td>
-                                <td><a href="./alumni-detail.html" class="btn btn_icon btn_outline btn_sm" title="Detail"><span class="icon icon-eye-mini"></span></a></td>
-                            </tr>
-                            <tr class="collapse-row"><td colspan="7" style="padding: 0; border-top: none;"><div class="collapse" id="subrow-6"><table class="subtable"><tbody>
-                                <tr><td>IPK</td><td>3,55 &middot; <span style="color: var(--qn-success-600);">Pujian</span></td></tr>
-                                <tr><td>Prestasi Tercatat</td><td>1 (Penerima Beasiswa Unggulan Kemdikbud)</td></tr>
-                                <tr><td>Data Terakhir Diperbarui</td><td>Aktif memperbarui profil Portal Karir</td></tr>
-                            </tbody></table></div></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -680,14 +440,6 @@
                 new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
             });
         });
-
-        // Alumni/Mahasiswa table - expand sub-table on name click. Uses a plain classList
-        // toggle instead of Quantum's data-toggle="collapse" handler, which drives its own
-        // inline height animation on a timer - running that alongside our CSS max-height
-        // transition produced a double, delayed animation. This is the only mechanism now.
-        function toggleSubrow(id) {
-            document.getElementById(id).classList.toggle('show');
-        }
 
         // Sync Modal Functions
         function openSyncModal() {
