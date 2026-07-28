@@ -5,6 +5,16 @@
     background-color: #fff !important;
 }
 
+/* Standard Card Border
+   Quantum's base .card ships with a barely-visible border (--qn-neutral-100, nearly white-on-white).
+   Named variants like .card_dashboard and .card_job already override it to the visible
+   --qn-neutral-300 tone used across the app - this makes that the default for every plain .card
+   too, so a card doesn't need a named variant just to get a visible edge. .card_empty is
+   deliberately borderless (used for blank/empty-state wrappers) and is excluded. */
+.card:not(.card_empty) {
+    border-color: var(--qn-neutral-300);
+}
+
 /* Header Compact Override */
 .header_compact {
     padding: 0 1rem;
