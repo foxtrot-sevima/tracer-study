@@ -84,6 +84,8 @@
         .prestasi-item__icon { flex-shrink: 0; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--qn-warning-100, #fef3c7); color: var(--qn-warning-500, #d97706); display: flex; align-items: center; justify-content: center; }
         .prestasi-item__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); margin: 0 0 0.1875rem; line-height: 1.35; }
         .prestasi-item__person { font-size: 0.75rem; color: var(--qn-primary-600); margin: 0; }
+        .prestasi-item__person a { color: inherit; text-decoration: none; }
+        .prestasi-item__person a:hover { text-decoration: underline; }
         .prestasi-item__date { font-size: 0.6875rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
 
         /* Clicking the name (not a separate button) expands the row's sub-table - styled as a
@@ -270,7 +272,7 @@
                                 <span class="prestasi-item__icon"><span class="icon icon-academic-cap-mini"></span></span>
                                 <div>
                                     <p class="prestasi-item__title">Sertifikasi BNSP - Konselor Karier</p>
-                                    <p class="prestasi-item__person">Raden Dimas &middot; Alumni</p>
+                                    <p class="prestasi-item__person"><a href="./alumni-detail.html">Raden Dimas</a> &middot; Alumni</p>
                                     <p class="prestasi-item__date">Januari 2024</p>
                                 </div>
                             </div>
@@ -280,7 +282,7 @@
                                 <span class="prestasi-item__icon"><span class="icon icon-star-mini"></span></span>
                                 <div>
                                     <p class="prestasi-item__title">Juara 1 Lomba Business Case Nasional</p>
-                                    <p class="prestasi-item__person">Fadhil Ramadhan &middot; Mahasiswa</p>
+                                    <p class="prestasi-item__person"><a href="./alumni-detail.html">Fadhil Ramadhan</a> &middot; Mahasiswa</p>
                                     <p class="prestasi-item__date">Maret 2026</p>
                                 </div>
                             </div>
@@ -290,7 +292,7 @@
                                 <span class="prestasi-item__icon"><span class="icon icon-academic-cap-mini"></span></span>
                                 <div>
                                     <p class="prestasi-item__title">Wisudawan Terbaik Fakultas</p>
-                                    <p class="prestasi-item__person">Ananda Kurniani &middot; Alumni</p>
+                                    <p class="prestasi-item__person"><a href="./alumni-detail.html">Ananda Kurniani</a> &middot; Alumni</p>
                                     <p class="prestasi-item__date">Wisuda 2023</p>
                                 </div>
                             </div>
@@ -300,7 +302,7 @@
                                 <span class="prestasi-item__icon"><span class="icon icon-star-mini"></span></span>
                                 <div>
                                     <p class="prestasi-item__title">Penerima Beasiswa Unggulan Kemdikbud</p>
-                                    <p class="prestasi-item__person">Siti Nur Aini &middot; Mahasiswa</p>
+                                    <p class="prestasi-item__person"><a href="./alumni-detail.html">Siti Nur Aini</a> &middot; Mahasiswa</p>
                                     <p class="prestasi-item__date">2025</p>
                                 </div>
                             </div>
@@ -320,6 +322,31 @@
 
                 <div class="dashboard-filter">
                     <div class="grid" style="margin-bottom: 0.75rem;">
+                        <div class="col-12 col-md-9">
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <span data-input-icon="search"></span>
+                                    <input type="search" class="form-control__input" placeholder="Cari nama atau NIM alumni/mahasiswa">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <div class="dropdown dropdown_action">
+                                <button class="btn btn_outline btn_block" data-toggle="dropdown">
+                                    <span class="icon icon-arrow-down-tray-mini"></span>
+                                    Ekspor Data
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </button>
+                                <div class="dropdown__box dropdown__box_menu-end">
+                                    <ul class="dropdown__list">
+                                        <li class="dropdown__item"><a href="#">Excel (.xlsx)</a></li>
+                                        <li class="dropdown__item"><a href="#">PDF (.pdf)</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
                         <div class="col-12 col-sm-4 col-md-2">
                             <select class="select-default" id="filter-tahun">
                                 <option value="" selected>5 Tahun Terakhir</option>
@@ -369,31 +396,6 @@
                                 <option value="ipk-tertinggi">Urutkan: IPK Tertinggi</option>
                                 <option value="nama">Urutkan: Nama (A-Z)</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-12 col-md-9">
-                            <div class="form-control">
-                                <div class="form-control__group">
-                                    <span data-input-icon="search"></span>
-                                    <input type="search" class="form-control__input" placeholder="Cari nama atau NIM alumni/mahasiswa">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-3">
-                            <div class="dropdown dropdown_action">
-                                <button class="btn btn_outline btn_block" data-toggle="dropdown">
-                                    <span class="icon icon-arrow-down-tray-mini"></span>
-                                    Ekspor Data
-                                    <span class="icon icon-chevron-down-mini"></span>
-                                </button>
-                                <div class="dropdown__box dropdown__box_menu-end">
-                                    <ul class="dropdown__list">
-                                        <li class="dropdown__item"><a href="#">Excel (.xlsx)</a></li>
-                                        <li class="dropdown__item"><a href="#">PDF (.pdf)</a></li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

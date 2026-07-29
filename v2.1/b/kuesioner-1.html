@@ -25,46 +25,6 @@
         .notif-item__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); }
         .notif-item__desc { font-size: 0.75rem; color: var(--qn-neutral-600); }
         .notif-item__time { font-size: 0.6875rem; color: var(--qn-neutral-400); }
-
-        .card_qnaire-list { transition: box-shadow .15s, border-color .15s; }
-        .card_qnaire-list:hover { box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06); }
-        .field-section-label { display: flex; align-items: center; gap: 0.375rem; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--qn-neutral-400); margin: 1.25rem 0 0.625rem; }
-        .field-section-label:first-child { margin-top: 0; }
-        .field-section-label .icon { font-size: 0.8125rem; }
-        .modal-field-group { display: flex; flex-direction: column; gap: 1rem; }
-
-        /* Tier legend KPI tiles - same pattern as the stat-tile row on index.html/alumni-detail.html */
-        .stat-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.875rem; }
-        @media (max-width: 40rem) { .stat-tiles { grid-template-columns: 1fr; } }
-        .stat-tile { padding: 1rem; border-radius: 0.625rem; display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
-        .stat-tile_success { background: var(--qn-success-100); }
-        .stat-tile_primary { background: var(--qn-primary-100); }
-        .stat-tile_warning { background: var(--qn-warning-100); }
-        .stat-tile__icon { width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1rem; background: white; flex-shrink: 0; }
-        .stat-tile__icon_success { color: var(--qn-success-600, var(--qn-success-500)); }
-        .stat-tile__icon_primary { color: var(--qn-primary-600); }
-        .stat-tile__icon_warning { color: var(--qn-warning-600, #a15c07); }
-        .stat-tile__value { font-size: 1rem; font-weight: 700; color: var(--qn-neutral-900); }
-        .stat-tile__label { font-size: 0.8125rem; color: var(--qn-neutral-600); line-height: 1.4; }
-
-        /* Section title with colored icon accent - same pattern as alumni-detail.html */
-        .section-title { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 1.25rem; }
-        .section-title__icon { flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.0625rem; }
-        .section-title__icon_primary { background: var(--qn-primary-100); color: var(--qn-primary-600); }
-        .section-title h3 { font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
-        .section-title__sub { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
-
-        /* This card sits at .grid > .col-12 > .card - Quantum's ".grid > * > .card { block-size:100% }"
-           (meant to equalize side-by-side feature cards) would otherwise stretch it to fill the whole
-           page-grid row. Scoped override, not a shared stylesheet. */
-        .card.no-stretch { block-size: auto; }
-
-        /* Per-version tier-count line on the Riwayat Versi Kuesioner cards */
-        .tier-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 0.375rem; font-size: 0.75rem; color: var(--qn-neutral-500); margin-top: 0.375rem; }
-        .tier-summary strong { font-weight: 600; }
-        .tier-summary__item--core strong { color: var(--qn-success-500); }
-        .tier-summary__item--optional strong { color: var(--qn-primary-400); }
-        .tier-summary__item--custom strong { color: var(--qn-warning-500); }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -204,7 +164,7 @@
                         <div class="main__location">
                             <div class="main__wrapper">
                                 <h1 class="main__title">Kuesioner Tracer Study</h1>
-                                <p class="main__subtitle">Satu kuesioner tunggal, disusun dari pertanyaan Core &middot; Optional &middot; Custom, dikelola lewat riwayat versi.</p>
+                                <p class="main__subtitle">Satu kuesioner tunggal, dikelola lewat riwayat versi. Kirim ke lulusan lewat Campaign per Wave.</p>
                             </div>
                         </div>
                         <div class="main__action">
@@ -218,37 +178,7 @@
                     <div class="alert alert_helper" style="margin-top: 1.25rem; margin-bottom: 1rem;">
                         <div class="alert__content">
                             <span class="alert__heading">Satu kuesioner, banyak versi</span>
-                            <p class="alert__description">Setiap perubahan yang dipublikasikan tersimpan sebagai versi baru di tab "Riwayat Versi Kuesioner". Versi yang sudah dipublikasikan tidak bisa diedit lagi - buat Campaign untuk mengirimkannya ke lulusan per Wave.</p>
-                        </div>
-                    </div>
-
-                    <!-- Tier Legend Card -->
-                    <div class="card no-stretch" style="margin-bottom: 1.25rem;">
-                        <div class="card__body">
-                            <div class="section-title">
-                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-information-circle-mini"></span></span>
-                                <div>
-                                    <h3>Tiga Tingkatan Pertanyaan</h3>
-                                    <p class="section-title__sub">Menentukan apa yang admin boleh ubah pada tiap pertanyaan di Kuesioner Builder</p>
-                                </div>
-                            </div>
-                            <div class="stat-tiles">
-                                <div class="stat-tile stat-tile_success">
-                                    <span class="stat-tile__icon stat-tile__icon_success"><span class="icon icon-lock-closed-mini"></span></span>
-                                    <span class="stat-tile__value">Core</span>
-                                    <span class="stat-tile__label">Wajib di semua gelombang survei - tidak bisa dinonaktifkan, dihapus, atau diedit.</span>
-                                </div>
-                                <div class="stat-tile stat-tile_primary">
-                                    <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-check-circle-mini"></span></span>
-                                    <span class="stat-tile__value">Optional</span>
-                                    <span class="stat-tile__label">Dari Bank Soal bersama - hanya bisa ditoggle on/off, redaksi baku tidak bisa diedit/dihapus.</span>
-                                </div>
-                                <div class="stat-tile stat-tile_warning">
-                                    <span class="stat-tile__icon stat-tile__icon_warning"><span class="icon icon-pencil-mini"></span></span>
-                                    <span class="stat-tile__value">Custom</span>
-                                    <span class="stat-tile__label">Ditulis institusi sendiri - bebas diedit, dinonaktifkan, atau dihapus.</span>
-                                </div>
-                            </div>
+                            <p class="alert__description">Setiap perubahan yang dipublikasikan akan tersimpan sebagai versi baru di tab "Riwayat Versi Kuesioner". Versi yang sudah dipublikasikan tidak bisa diedit lagi - buat Campaign untuk mengirimkannya ke lulusan per Wave.</p>
                         </div>
                     </div>
 
@@ -304,13 +234,6 @@
                                                     <div class="card__header-wrapper">
                                                         <a href="./kuesioner-builder.html" class="card__title" style="color: var(--qn-primary-500);">Kuesioner Tracer Study - v4</a>
                                                         <p class="card__desc" id="qnaire-version-draft-desc">Draft, terakhir diedit 08 Juli 2026, 13:31</p>
-                                                        <div class="tier-summary">
-                                                            <span class="tier-summary__item tier-summary__item--core"><strong>8</strong> Core</span>
-                                                            <span class="tier-summary__dot">&middot;</span>
-                                                            <span class="tier-summary__item tier-summary__item--optional"><strong>5</strong> Optional aktif</span>
-                                                            <span class="tier-summary__dot">&middot;</span>
-                                                            <span class="tier-summary__item tier-summary__item--custom"><strong>2</strong> Custom</span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -345,13 +268,6 @@
                                                     <div class="card__header-wrapper">
                                                         <a href="./kuesioner-template-view.html" class="card__title" style="color: var(--qn-primary-500);">Kuesioner Tracer Study - v3</a>
                                                         <p class="card__desc">Dipublikasikan 01 Juni 2025</p>
-                                                        <div class="tier-summary">
-                                                            <span class="tier-summary__item tier-summary__item--core"><strong>8</strong> Core</span>
-                                                            <span class="tier-summary__dot">&middot;</span>
-                                                            <span class="tier-summary__item tier-summary__item--optional"><strong>7</strong> Optional aktif</span>
-                                                            <span class="tier-summary__dot">&middot;</span>
-                                                            <span class="tier-summary__item tier-summary__item--custom"><strong>0</strong> Custom</span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -386,13 +302,6 @@
                                                     <div class="card__header-wrapper">
                                                         <a href="./kuesioner-template-view.html" class="card__title" style="color: var(--qn-primary-500);">Kuesioner Tracer Study - v2</a>
                                                         <p class="card__desc">Dipublikasikan 25 Juni 2024</p>
-                                                        <div class="tier-summary">
-                                                            <span class="tier-summary__item tier-summary__item--core"><strong>8</strong> Core</span>
-                                                            <span class="tier-summary__dot">&middot;</span>
-                                                            <span class="tier-summary__item tier-summary__item--optional"><strong>4</strong> Optional aktif</span>
-                                                            <span class="tier-summary__dot">&middot;</span>
-                                                            <span class="tier-summary__item tier-summary__item--custom"><strong>1</strong> Custom</span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -454,9 +363,9 @@
                                         <div class="grid cols-2 cols-sm-3">
                                             <select class="select-default">
                                                 <option value="" selected>Wave</option>
-                                                <option value="exit">Saat Lulus</option>
-                                                <option value="gs-1">1 Tahun Lulus</option>
-                                                <option value="gs-2">2 Tahun Lulus</option>
+                                                <option value="exit">Exit Survey</option>
+                                                <option value="gs-1">GS-I</option>
+                                                <option value="gs-2">GS-II</option>
                                             </select>
                                             <select class="select-search">
                                                 <option value="" selected disabled>Tahun Lulus</option>
@@ -507,7 +416,7 @@
                                         </div>
                                         <div class="card__footer">
                                             <div class="card__footer-left">
-                                                <span class="tag tag_outline" title="Wave / Periode Survei">Saat Lulus</span>
+                                                <span class="tag tag_outline" title="Wave / Periode Survei">Exit Survey</span>
                                                 <span class="tag tag_outline tag_sm">v3</span>
                                                 <span class="tag tag_neutral">Belum Dikirim</span>
                                             </div>
@@ -565,7 +474,7 @@
                                         </div>
                                         <div class="card__footer">
                                             <div class="card__footer-left">
-                                                <span class="tag tag_outline" title="Wave / Periode Survei">1 Tahun Lulus</span>
+                                                <span class="tag tag_outline" title="Wave / Periode Survei">GS-I</span>
                                                 <span class="tag tag_outline tag_sm">v2</span>
                                                 <span class="tag tag_success">Aktif</span>
                                             </div>
@@ -676,21 +585,13 @@
         <div class="modal__wrapper">
             <div class="modal__header">
                 <div class="modal__header-wrapper">
-                    <h3 class="modal__title"><span class="icon icon-check-circle-mini" style="color: var(--tier-core); margin-right: 0.375rem;"></span>Publikasikan Versi Kuesioner</h3>
+                    <h3 class="modal__title">Publikasikan Versi Kuesioner</h3>
                 </div>
                 <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
             </div>
             <div class="modal__body">
                 <div class="grid cols-1">
                     <p class="modal__paragraph">Draft ini akan dipublikasikan sebagai <strong>Versi Kuesioner 4</strong> dan masuk ke Riwayat Versi Kuesioner dengan status "Published", siap dipakai untuk Campaign baru. Versi yang sudah dipublikasikan tidak dapat diubah lagi - perubahan berikutnya akan membuat draft Version 5.</p>
-                    <div class="tier-summary" style="background: var(--qn-neutral-50); border: 1px solid var(--qn-neutral-200); border-radius: 0.5rem; padding: 0.625rem 0.875rem;">
-                        <span class="tier-summary__item tier-summary__item--core"><strong>8</strong> Core</span>
-                        <span class="tier-summary__dot">&middot;</span>
-                        <span class="tier-summary__item tier-summary__item--optional"><strong>5</strong> Optional aktif</span>
-                        <span class="tier-summary__dot">&middot;</span>
-                        <span class="tier-summary__item tier-summary__item--custom"><strong>2</strong> Custom</span>
-                        <span style="margin-left: auto; color: var(--qn-neutral-400);">akan dikunci di versi ini</span>
-                    </div>
                     <div class="alert alert_dark alert_checkbox">
                         <input type="checkbox" class="form-control__checkbox" id="input-draft-agree" name="group">
                         <div class="alert__content">
@@ -722,9 +623,7 @@
             </div>
             <div class="modal__body">
                 <div class="grid cols-1">
-                    <p class="modal__paragraph" style="color: var(--qn-neutral-500); font-size: 0.875rem; margin-bottom: 0.25rem;">Link pengisian kuesioner akan dikirim ke email lulusan.</p>
-
-                    <span class="field-section-label"><span class="icon icon-document-text"></span>Sumber & Gelombang</span>
+                    <p class="modal__paragraph" style="color: #64748b; font-size: 14px; margin-bottom: 16px;">Link pengisian kuesioner akan dikirim ke email lulusan</p>
 
                     <!-- Versi Kuesioner -->
                     <div class="form-control">
@@ -749,14 +648,12 @@
                         <div class="form-control__group">
                             <select class="select-default" id="input-wave">
                                 <option value="" selected disabled>Pilih Wave</option>
-                                <option value="exit">Saat Lulus (Exit Survey)</option>
-                                <option value="gs-1">1 Tahun Setelah Lulus (Graduate Survey I)</option>
-                                <option value="gs-2">2 Tahun Setelah Lulus (Graduate Survey II)</option>
+                                <option value="exit">Exit Survey (saat kelulusan)</option>
+                                <option value="gs-1">Tracer Study GS-I (1 tahun setelah lulus)</option>
+                                <option value="gs-2">Tracer Study GS-II (2 tahun setelah lulus)</option>
                             </select>
                         </div>
                     </div>
-
-                    <span class="field-section-label"><span class="icon icon-academic-cap"></span>Target Penerima</span>
 
                     <!-- Tahun Lulus - Multi Select -->
                     <div class="form-control">
@@ -846,8 +743,6 @@
                         </div>
                     </div>
 
-                    <span class="field-section-label"><span class="icon icon-calendar"></span>Batas Waktu</span>
-
                     <!-- Batas Akhir Pengisian -->
                     <div class="form-control" id="deadline-field">
                         <label for="input-send-deadline" class="form-control__label">
@@ -870,16 +765,16 @@
                     </div>
 
                     <!-- Alert Info Box -->
-                    <div class="alert alert_dark" style="display: flex; align-items: flex-start; gap: 0.75rem; margin-top: 0.25rem;">
-                        <span class="icon icon-information-circle" style="color: var(--tier-optional); font-size: 1.125rem; flex-shrink: 0; margin-top: 0.125rem;"></span>
-                        <p class="alert__description" style="margin: 0;">Kuesioner ini menyertakan Kuesioner Pengguna Lulusan yang dikirimkan secara otomatis.</p>
+                    <div style="background-color: #EFF6FF; border-radius: 8px; padding: 12px 16px; display: flex; align-items: flex-start; gap: 12px; margin-top: 8px;">
+                        <span class="icon icon-information-circle" style="color: #3B82F6; font-size: 18px; flex-shrink: 0; margin-top: 2px;"></span>
+                        <p style="color: #1e40af; font-size: 13px; margin: 0; line-height: 1.5;">Kuesioner ini menyertakan Kuesioner Pengguna Lulusan yang dikirimkan secara otomatis.</p>
                     </div>
 
                     <!-- Checkbox Konfirmasi -->
-                    <div class="alert alert_dark alert_checkbox" style="margin-top: 0.25rem;">
-                        <input type="checkbox" class="form-control__checkbox" id="input-send-agree" name="group" onchange="toggleKirimButton()">
-                        <div class="alert__content">
-                            <label for="input-send-agree" class="alert__description" style="cursor: pointer;">Saya yakin untuk mengirim kuesioner untuk lulusan dengan <strong>Wave</strong>, <strong>Tahun Lulus</strong>, dan <strong>Program Studi</strong> tersebut</label>
+                    <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; margin-top: 12px;">
+                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                            <input type="checkbox" class="form-control__checkbox" id="input-send-agree" name="group" onchange="toggleKirimButton()" style="margin-top: 2px;">
+                            <label for="input-send-agree" style="font-size: 13px; color: #334155; cursor: pointer; line-height: 1.5;">Saya yakin untuk mengirim kuesioner untuk lulusan dengan <strong>Wave</strong>, <strong>Tahun Lulus</strong>, dan <strong>Program Studi</strong> tersebut</label>
                         </div>
                     </div>
                 </div>
@@ -1058,7 +953,7 @@
         <div class="modal__wrapper">
             <div class="modal__header">
                 <div class="modal__header-wrapper">
-                    <h3 class="modal__title"><span class="icon icon-arrow-down-tray-mini" style="color: var(--tier-optional); margin-right: 0.375rem;"></span>Pilih Format Laporan</h3>
+                    <h3 class="modal__title">Pilih Format Laporan</h3>
                 </div>
                 <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
             </div>
@@ -1543,7 +1438,7 @@
                         // Add new campaign card to the Campaign list
                         const waveSelect = document.getElementById('input-wave');
                         const versionSelect = document.getElementById('input-template-version');
-                        const waveLabel = waveSelect && waveSelect.selectedOptions[0] ? waveSelect.selectedOptions[0].text.replace(/\s*\(.*\)$/, '') : 'Saat Lulus';
+                        const waveLabel = waveSelect && waveSelect.selectedOptions[0] ? waveSelect.selectedOptions[0].text.replace(/\s*\(.*\)$/, '') : 'Exit Survey';
                         const versionValue = versionSelect ? versionSelect.value : 'v3';
                         addSentQuestionnaire(selectedTahun, selectedProdi, waveLabel, versionValue);
 
