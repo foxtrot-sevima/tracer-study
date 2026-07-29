@@ -212,79 +212,133 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Summary Statistics -->
-                <div class="grid dashboard-grid">
+            <!-- Ringkasan & Rincian Status Lulusan - satu kartu putih utama membungkus semua
+                 konten (bukan kartu-kartu kecil bertumpuk), persis pola "Kepatuhan IKU 2 &
+                 Kecukupan Sampel" di Dashboard. -->
+            <div class="card" style="margin-top: 1.5rem;">
+                <div class="card__header">
+                    <div class="card__header-wrapper">
+                        <h3 class="card__title" style="font-size: 1rem; line-height: 1.5rem; font-weight: 600; color: var(--qn-neutral-800); padding: 0;">Distribusi Status Lulusan</h3>
+                        <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0;">Status pekerjaan lulusan - dasar perhitungan Skor IKU 2 (Kepmen Diktisaintek No. 358/M/2025)</p>
+                    </div>
+                </div>
+                <div class="card__body">
+
+                <!-- Summary Statistics - donut+legend dalam panel abu-abu berdampingan dengan
+                     stat-tiles berwarna, pola identik dengan section "Distribusi Waktu Tunggu
+                     Mendapatkan Pekerjaan Pertama" di Dashboard. Keempat kategori selalu berjumlah
+                     100% responden, jadi proporsi bagian-dari-keseluruhan lebih pas sebagai lingkaran
+                     dibanding batang. Warna satu hue (biru) bertingkat gelap->terang mengikuti urutan
+                     favorable->kurang favorable. -->
+                <p class="detail-subhead">Ringkasan Status</p>
+                <div class="grid" style="align-items: stretch; gap: 1rem; margin-bottom: 1rem;">
                     <div class="col-12 col-md-6">
-                        <div class="card card_dashboard">
-                            <div class="card__header">
-                                <h3 class="card__title">Distribusi Status Lulusan</h3>
-                            </div>
-                            <div class="card__body">
-                                <div class="chart-container chart-container_bar">
-                                    <canvas id="chart-status-lulusan"></canvas>
+                        <div class="chart-panel-row">
+                            <div class="chart-container" style="height: 150px; width: 150px; flex-shrink: 0;">
+                                <canvas id="chart-status-lulusan"></canvas>
+                                <div class="chart-center">
+                                    <span class="chart-center__value">52%</span>
+                                    <span class="chart-center__total">Bekerja</span>
                                 </div>
+                            </div>
+                            <div class="chart-legend chart-legend_pill">
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #065f46;"></span><span>Bekerja &ndash; 52%</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #059669;"></span><span>Wiraswasta &ndash; 11%</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #6ee7b7;"></span><span>Melanjutkan Studi &ndash; 7%</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #d1fae5;"></span><span>Mencari Kerja &ndash; 30%</span></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
-                        <div class="card card_dashboard">
-                            <div class="card__header">
-                                <h3 class="card__title">Ringkasan Status</h3>
+                        <div class="stat-tiles" style="grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 0.875rem;">
+                            <div class="stat-tile stat-tile_success" style="justify-content: center;">
+                                <span class="stat-tile__value">52%</span>
+                                <span class="stat-tile__label">Bekerja (51)</span>
                             </div>
-                            <div class="card__body">
-                                <div class="grid">
-                                    <div class="col-6">
-                                        <div class="stat-item">
-                                            <span class="stat-item__label">Total Responden</span>
-                                            <span class="stat-item__value">98</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="stat-item">
-                                            <span class="stat-item__label">Sudah Bekerja</span>
-                                            <span class="stat-item__value stat-item__value_success">51</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="stat-item">
-                                            <span class="stat-item__label">Wiraswasta</span>
-                                            <span class="stat-item__value" style="color: var(--qn-primary-400);">11</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="stat-item">
-                                            <span class="stat-item__label">Melanjutkan Studi</span>
-                                            <span class="stat-item__value" style="color: var(--qn-info-500);">7</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="stat-item">
-                                            <span class="stat-item__label">Mencari Pekerjaan</span>
-                                            <span class="stat-item__value stat-item__value_warning">29</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-insight" style="margin-top: 1rem;">
-                                    <div class="card-insight__icon card-insight__icon_info">
-                                        <span class="icon icon-information-circle-mini"></span>
-                                    </div>
-                                    <p class="card-insight__text">
-                                        Lulusan saat ini berstatus <strong>52%</strong> sudah bekerja, <strong>11%</strong> sebagai wiraswasta, 
-                                        <strong>7%</strong> sedang melanjutkan studi, dan <strong>30%</strong> sedang mencari pekerjaan.
-                                    </p>
-                                </div>
+                            <div class="stat-tile stat-tile_primary" style="justify-content: center;">
+                                <span class="stat-tile__value">11%</span>
+                                <span class="stat-tile__label">Wiraswasta (11)</span>
                             </div>
+                            <div class="stat-tile stat-tile_neutral" style="justify-content: center;">
+                                <span class="stat-tile__value">7%</span>
+                                <span class="stat-tile__label">Melanjutkan Studi (7)</span>
+                            </div>
+                            <div class="stat-tile stat-tile_warning" style="justify-content: center;">
+                                <span class="stat-tile__value">30%</span>
+                                <span class="stat-tile__label">Mencari Kerja (29)</span>
+                            </div>
+                        </div>
+                        <div class="card-insight" style="margin-top: 0.875rem;">
+                            <div class="card-insight__icon card-insight__icon_info">
+                                <span class="icon icon-information-circle-mini"></span>
+                            </div>
+                            <p class="card-insight__text">
+                                Berdasarkan <strong>98 responden</strong>. Keempat kategori ini adalah dasar perhitungan Skor IKU 2 sesuai Kepmen Diktisaintek No. 358/M/2025.
+                                <br>
+                                <a href="./index.html" class="link link_primary" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;">Lihat Rincian Skor &amp; Bobot IKU 2 di Dashboard <span class="icon icon-arrow-up-right-mini"></span></a>
+                            </p>
                         </div>
                     </div>
                 </div>
 
+                <!-- Rincian per Program Studi - pola identik index.html: 2 terendah + 2 tertinggi +
+                     rata-rata institusi. -->
+                <p class="detail-subhead">Rincian per Program Studi</p>
+                        <div class="table-responsive table-responsive_tooltip-safe">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Program Studi</th>
+                                        <th>Responden (n)</th>
+                                        <th>Bekerja</th>
+                                        <th>Mencari Kerja</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4" style="background: var(--qn-danger-100, #fee2e2); color: var(--qn-danger-600, #9b1d0f); font-size: 0.75rem; font-weight: 700; padding: 0.375rem 0.75rem;">Perlu Perhatian - Capaian Terendah</td>
+                                    </tr>
+                                    <tr>
+                                        <td>S1 - Sistem Informasi</td>
+                                        <td>22</td>
+                                        <td><span class="badge badge_danger">41%</span></td>
+                                        <td><span class="badge badge_danger">36%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>S1 - Teknik Informatika</td>
+                                        <td>27</td>
+                                        <td><span class="badge badge_danger">44%</span></td>
+                                        <td><span class="badge badge_warning">33%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="background: var(--qn-success-100, #f0fdf9); color: var(--qn-success-600, #125d56); font-size: 0.75rem; font-weight: 700; padding: 0.375rem 0.75rem;">Performa Terbaik - Capaian Tertinggi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>S1 - Manajemen</td>
+                                        <td>24</td>
+                                        <td><span class="badge badge_success">63%</span></td>
+                                        <td><span class="badge badge_success">17%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>S1 - Akuntansi</td>
+                                        <td>25</td>
+                                        <td><span class="badge badge_success">60%</span></td>
+                                        <td><span class="badge badge_success">20%</span></td>
+                                    </tr>
+                                    <tr style="font-weight: 600; background: var(--qn-neutral-100);">
+                                        <td>Rata-rata Institusi</td>
+                                        <td>98</td>
+                                        <td>52%</td>
+                                        <td>30%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                 <!-- Sumber Data Table -->
-                <div class="card card_dashboard" style="margin-bottom: 1rem;">
-                    <div class="card__header">
-                        <h3 class="card__title">Sumber Data per Kuesioner</h3>
-                    </div>
-                    <div class="card__body" style="padding: 0;">
+                <p class="detail-subhead">Sumber Data per Kuesioner</p>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -292,7 +346,7 @@
                                         <th>Nama Kuesioner</th>
                                         <th>Bekerja</th>
                                         <th>Wiraswasta</th>
-                                        <th>Studi Lanjut</th>
+                                        <th>Melanjutkan Studi</th>
                                         <th>Mencari Kerja</th>
                                         <th>Total</th>
                                     </tr>
@@ -317,18 +371,14 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
 
                 <!-- Response Detail Table -->
-                <div class="card card_dashboard">
-                    <div class="card__header" style="display: flex; align-items: center; justify-content: space-between;">
-                        <h3 class="card__title">Detail Responden</h3>
-                        <div class="form-control" style="margin: 0; width: 250px;">
-                            <input type="text" class="form-control__input" placeholder="Cari nama atau NIM...">
-                        </div>
-                    </div>
-                    <div class="card__body" style="padding: 0;">
+                <p class="detail-subhead" style="display: flex; align-items: center; justify-content: space-between;">
+                    <span>Detail Responden</span>
+                    <span class="form-control" style="margin: 0; width: 250px;">
+                        <input type="text" class="form-control__input" placeholder="Cari nama atau NIM...">
+                    </span>
+                </p>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -379,7 +429,7 @@
                                         <td>2019101005</td>
                                         <td>S1 - Teknik Informatika</td>
                                         <td>2024</td>
-                                        <td><span class="badge" style="background: var(--qn-info-50); color: var(--qn-info-600);">Studi Lanjut</span></td>
+                                        <td><span class="badge" style="background: var(--qn-info-50); color: var(--qn-info-600);">Melanjutkan Studi</span></td>
                                         <td>S2 ITB</td>
                                     </tr>
                                     <tr>
@@ -425,21 +475,20 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <div class="card__footer">
-                        <div class="pagination-wrapper" style="display: flex; align-items: center; justify-content: space-between;">
-                            <span class="pagination__info">Menampilkan 1-10 dari 98 data</span>
-                            <div class="pagination">
-                                <button class="pagination__btn" disabled>
-                                    <span class="icon icon-chevron-left-mini"></span>
-                                </button>
-                                <span class="pagination__info">Halaman 1 dari 10</span>
-                                <button class="pagination__btn">
-                                    <span class="icon icon-chevron-right-mini"></span>
-                                </button>
+                        <div style="padding-top: 0.75rem; margin-top: 0.75rem; border-top: 1px solid var(--qn-neutral-200);">
+                            <div class="pagination-wrapper" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span class="pagination__info">Menampilkan 1-10 dari 98 data</span>
+                                <div class="pagination">
+                                    <button class="pagination__btn" disabled>
+                                        <span class="icon icon-chevron-left-mini"></span>
+                                    </button>
+                                    <span class="pagination__info">Halaman 1 dari 10</span>
+                                    <button class="pagination__btn">
+                                        <span class="icon icon-chevron-right-mini"></span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -484,43 +533,33 @@
             });
         });
 
-        // Bar Chart - Status Lulusan
+        // Doughnut Chart - Status Lulusan (proporsi 100% responden, satu hue hijau bertingkat
+        // gelap->terang mengikuti favorable->kurang favorable - hijau dipilih karena chart ini
+        // pada dasarnya metrik keberhasilan/capaian kerja, bukan metrik waktu netral seperti
+        // chart waktu tunggu yang tetap biru)
         const ctxStatusLulusan = document.getElementById('chart-status-lulusan').getContext('2d');
         new Chart(ctxStatusLulusan, {
-            type: 'bar',
+            type: 'doughnut',
             data: {
-                labels: ['Bekerja', 'Wiraswasta', 'Studi Lanjut', 'Mencari Kerja'],
+                labels: ['Bekerja', 'Wiraswasta', 'Melanjutkan Studi', 'Mencari Kerja'],
                 datasets: [{
                     data: [51, 11, 7, 29],
-                    backgroundColor: [
-                        'rgb(34, 197, 94)',   // Success
-                        'rgb(99, 102, 241)',  // Primary
-                        'rgb(59, 130, 246)',  // Info
-                        'rgb(245, 158, 11)'   // Warning
-                    ],
-                    borderWidth: 0,
-                    borderRadius: 4
+                    backgroundColor: ['#065f46', '#059669', '#6ee7b7', '#d1fae5'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                indexAxis: 'y',
+                cutout: '70%',
                 plugins: {
                     legend: {
                         display: false
-                    }
-                },
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        grid: {
-                            display: false
-                        }
                     },
-                    y: {
-                        grid: {
-                            display: false
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => ctx.label + ': ' + ctx.parsed + ' lulusan'
                         }
                     }
                 }

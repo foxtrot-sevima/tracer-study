@@ -29,11 +29,8 @@
         .notif-item__desc { font-size: 0.75rem; color: var(--qn-neutral-600); }
         .notif-item__time { font-size: 0.6875rem; color: var(--qn-neutral-400); }
 
-        /* KPI stat tiles (same pattern as alumni-detail.html) - used for the
-           IKU 2 / kecukupan sampel compliance summary at the top of the dashboard */
-        .stat-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.875rem; }
-        @media (max-width: 64rem) { .stat-tiles { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 40rem) { .stat-tiles { grid-template-columns: 1fr; } }
+        /* .stat-tiles / .stat-tile* now live in assets/css/main.css (promoted design-system
+           component, shared with the detail-*.html pages). */
 
         /* Mobile: stack legend below the chart (instead of side-by-side), and drop the
            "Rincian per Program Studi" link below the section title instead of squeezing
@@ -51,21 +48,6 @@
            can't fit 5 columns) - only drop the clipping once the table already fits unscrolled,
            so the tooltip has room without breaking responsiveness on small devices. */
         @media (min-width: 64rem) { .table-responsive_tooltip-safe { overflow: visible; } }
-        .stat-tile { padding: 1rem; border-radius: 0.625rem; display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
-        .stat-tile_primary { background: var(--qn-primary-100); }
-        .stat-tile_success { background: var(--qn-success-100); }
-        .stat-tile_warning { background: var(--qn-warning-100); }
-        .stat-tile_danger { background: var(--qn-danger-100, #fee2e2); }
-        .stat-tile_neutral { background: var(--qn-neutral-100); }
-        .stat-tile__icon { width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1rem; background: white; flex-shrink: 0; }
-        .stat-tile__icon_primary { color: var(--qn-primary-600); }
-        .stat-tile__icon_warning { color: var(--qn-warning-600, #a15c07); }
-        .stat-tile__icon_danger { color: var(--qn-danger-600, #b91c1c); }
-        .stat-tile__icon_success { color: var(--qn-success-600, #125d56); }
-        .stat-tile__icon_neutral { color: var(--qn-neutral-600); }
-        .stat-tile__value { font-size: 1.5rem; font-weight: 700; color: var(--qn-neutral-900); line-height: 1; }
-        .stat-tile__label { font-size: 0.75rem; color: var(--qn-neutral-600); line-height: 1.3; }
-        .stat-tile__sub { font-size: 0.6875rem; color: var(--qn-neutral-500); }
 
         /* CSS-only donut ring (same technique as alumni-detail.html) */
         .donut { width: 3rem; height: 3rem; border-radius: 50%; background: conic-gradient(var(--qn-danger-500, #ef4444) calc(var(--pct, 0) * 1%), var(--qn-neutral-300) 0); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -74,9 +56,6 @@
         /* Sub-heading for grouping detail tables within the compliance card - this one used to
            render as an uppercase eyebrow label, so it read fine small; now that it's normal
            mixed-case prose it needs more size/weight to still read as a heading (roughly h4). */
-        .detail-subhead { font-size: 0.9375rem; font-weight: 700; color: var(--qn-neutral-800); margin: 1.75rem 0 0.875rem; padding-bottom: 0.625rem; border-bottom: 1px solid var(--qn-neutral-100); }
-        .detail-subhead:first-child { margin-top: 0; }
-
         /* Every .card_dashboard on this page is now a sub-card nested inside a larger
            unifying card (Kuesioner Lulusan) - drop the shadow so it reads as a flat,
            bordered panel rather than a second elevated card floating above the page. */
@@ -328,7 +307,10 @@
                     </div>
 
                     <!-- Kecukupan Sampel per Program Studi -->
-                    <p class="detail-subhead">Kecukupan Sampel per Program Studi</p>
+                    <p class="detail-subhead" style="display: flex; align-items: center; justify-content: space-between;">
+                        <span>Kecukupan Sampel per Program Studi</span>
+                        <a href="./detail-pengisian.html" class="link link_primary" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;">Rincian per Program Studi <span class="icon icon-arrow-up-right-mini"></span></a>
+                    </p>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -379,7 +361,10 @@
                     </div>
 
                     <!-- Rincian Skor IKU 2 -->
-                    <p class="detail-subhead">Rincian Skor IKU 2 per Kategori Bobot</p>
+                    <p class="detail-subhead" style="display: flex; align-items: center; justify-content: space-between;">
+                        <span>Rincian Skor IKU 2 per Kategori Bobot</span>
+                        <a href="./detail-status-lulusan.html" class="link link_primary" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;">Rincian per Status Lulusan <span class="icon icon-arrow-up-right-mini"></span></a>
+                    </p>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>

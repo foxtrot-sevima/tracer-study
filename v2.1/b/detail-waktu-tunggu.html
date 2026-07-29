@@ -212,91 +212,188 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Summary Statistics -->
-                <div class="grid dashboard-grid">
-                    <div class="col-12 col-md-4">
-                        <div class="card card_dashboard">
-                            <div class="card__body">
-                                <div class="chart-legend">
-                                    <div class="chart-legend__item">
-                                        <span class="chart-legend__color" style="background: var(--qn-primary-400);"></span>
-                                        <span class="chart-legend__text">Kurang dari 6 bulan: 59%</span>
-                                    </div>
-                                    <div class="chart-legend__item">
-                                        <span class="chart-legend__color" style="background: var(--qn-warning-400);"></span>
-                                        <span class="chart-legend__text">Lebih dari 6 bulan: 41%</span>
-                                    </div>
+            <!-- Ringkasan & Rincian Waktu Tunggu - satu kartu putih utama membungkus semua konten
+                 (bukan kartu-kartu kecil bertumpuk), persis pola "Kepatuhan IKU 2 & Kecukupan
+                 Sampel" di Dashboard: satu card__header judul+deskripsi, lalu section-section di
+                 dalam card__body dipisah .detail-subhead. -->
+            <div class="card" style="margin-top: 1.5rem;">
+                <div class="card__header">
+                    <div class="card__header-wrapper">
+                        <h3 class="card__title" style="font-size: 1rem; line-height: 1.5rem; font-weight: 600; color: var(--qn-neutral-800); padding: 0;">Analisis Waktu Tunggu Lulusan</h3>
+                        <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0;">Waktu tunggu mendapatkan pekerjaan pertama, disilangkan dengan gaji terhadap UMP (Kepmen Diktisaintek No. 358/M/2025)</p>
+                    </div>
+                </div>
+                <div class="card__body">
+
+                <!-- Summary Statistics - donut+legend dalam panel abu-abu berdampingan dengan
+                     stat-tiles berwarna, pola identik dengan section "Distribusi Waktu Tunggu
+                     Mendapatkan Pekerjaan Pertama" di Dashboard. -->
+                <p class="detail-subhead" style="margin-top: 0;">Ringkasan Waktu Tunggu</p>
+                <div class="grid" style="align-items: stretch; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="col-12 col-md-6">
+                        <div class="chart-panel-row">
+                            <div class="chart-container" style="height: 150px; width: 150px; flex-shrink: 0;">
+                                <canvas id="chart-waktu-tunggu"></canvas>
+                                <div class="chart-center">
+                                    <span class="chart-center__value">59%</span>
+                                    <span class="chart-center__total">&lt; 6 bulan</span>
                                 </div>
-                                <div class="chart-container chart-container_donut">
-                                    <canvas id="chart-waktu-tunggu"></canvas>
-                                    <div class="chart-center">
-                                        <span class="chart-center__value">29</span>
-                                        <span class="chart-center__total">dari 49</span>
-                                    </div>
-                                </div>
+                            </div>
+                            <div class="chart-legend chart-legend_pill">
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #1e40af;"></span><span>&lt; 6 Bulan &ndash; 59%</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #93c5fd;"></span><span>6-12 Bulan &ndash; 27%</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #dbeafe;"></span><span>&gt; 12 Bulan &ndash; 14%</span></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-8">
-                        <div class="card card_dashboard">
-                            <div class="card__header">
-                                <h3 class="card__title">Ringkasan Waktu Tunggu</h3>
+                    <div class="col-12 col-md-6">
+                        <div class="stat-tiles" style="grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 0.875rem;">
+                            <div class="stat-tile stat-tile_success" style="justify-content: center;">
+                                <span class="stat-tile__value">59%</span>
+                                <span class="stat-tile__label">&lt; 6 Bulan (29)</span>
                             </div>
-                            <div class="card__body">
-                                <div class="grid">
-                                    <div class="col-6 col-md-3">
-                                        <div class="stat-item">
-                                            <span class="stat-item__label">Total Responden</span>
-                                            <span class="stat-item__value">49</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-3">
-                                        <div class="stat-item">
-                                            <span class="stat-item__label">&lt; 6 Bulan</span>
-                                            <span class="stat-item__value stat-item__value_success">29</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-3">
-                                        <div class="stat-item">
-                                            <span class="stat-item__label">&gt; 6 Bulan</span>
-                                            <span class="stat-item__value stat-item__value_warning">20</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-3">
-                                        <div class="stat-item">
-                                            <span class="stat-item__label">Rata-rata</span>
-                                            <span class="stat-item__value">4.2 bln</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-insight" style="margin-top: 1.5rem;">
-                                    <div class="card-insight__icon card-insight__icon_warning">
-                                        <span class="icon icon-exclamation-circle-mini"></span>
-                                    </div>
-                                    <p class="card-insight__text">
-                                        Sebesar <strong>59%</strong> waktu tunggu lulusan mendapat pekerjaan dibawah 6 bulan. 
-                                        Secara ideal, waktu tunggu lulusan IAPT yaitu kurang dari 6 bulan.
-                                    </p>
-                                </div>
+                            <div class="stat-tile stat-tile_primary" style="justify-content: center;">
+                                <span class="stat-tile__value">27%</span>
+                                <span class="stat-tile__label">6-12 Bulan (13)</span>
                             </div>
+                            <div class="stat-tile stat-tile_warning" style="justify-content: center;">
+                                <span class="stat-tile__value">14%</span>
+                                <span class="stat-tile__label">&gt; 12 Bulan (7)</span>
+                            </div>
+                            <div class="stat-tile stat-tile_neutral" style="justify-content: center;">
+                                <span class="stat-tile__value">49</span>
+                                <span class="stat-tile__label">Total Responden</span>
+                            </div>
+                        </div>
+                        <div class="card-insight" style="margin-top: 0.875rem;">
+                            <div class="card-insight__icon card-insight__icon_info">
+                                <span class="icon icon-information-circle-mini"></span>
+                            </div>
+                            <p class="card-insight__text">
+                                Sebesar <strong>59%</strong> lulusan mendapat pekerjaan pertama dalam waktu kurang dari 6 bulan.
+                                Bobot Skor IKU 2 tidak hanya ditentukan masa tunggu, tapi juga gaji terhadap 1,2x UMP - lihat tabel silang di bawah.
+                            </p>
                         </div>
                     </div>
                 </div>
 
+                <!-- Tabel Silang Masa Tunggu x Gaji vs UMP - bobot Skor IKU 2 memang bergantung pada
+                     kombinasi keduanya (masa tunggu < 6bln & gaji > 1,2x UMP = bobot 1,0, dst), bukan
+                     masa tunggu saja, jadi breakdown ini perlu terlihat eksplisit. -->
+                <p class="detail-subhead">Masa Tunggu &times; Gaji terhadap UMP</p>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Masa Tunggu</th>
+                                        <th>Gaji &gt; 1,2x UMP</th>
+                                        <th>Gaji &lt; 1,2x UMP</th>
+                                        <th>Total</th>
+                                        <th>Bobot IKU 2</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>&lt; 6 Bulan</td>
+                                        <td>21</td>
+                                        <td>8</td>
+                                        <td>29</td>
+                                        <td><span class="tag tag_outline">1,0 / 0,8</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6-12 Bulan (&lt; 1 Tahun)</td>
+                                        <td>7</td>
+                                        <td>6</td>
+                                        <td>13</td>
+                                        <td><span class="tag tag_outline">0,8 / 0,6</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&gt; 12 Bulan</td>
+                                        <td>2</td>
+                                        <td>5</td>
+                                        <td>7</td>
+                                        <td><span class="tag tag_outline">0,0</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-insight">
+                            <div class="card-insight__icon card-insight__icon_info">
+                                <span class="icon icon-information-circle-mini"></span>
+                            </div>
+                            <p class="card-insight__text">
+                                Sesuai Kepmen Diktisaintek No. 358/M/2025 (IKU 2), bobot skor lulusan bekerja ditentukan kombinasi masa tunggu &amp; gaji: masa tunggu &lt; 6 bulan &amp; gaji &gt; 1,2x UMP = bobot 1,0; masa tunggu &lt; 1 tahun &amp; gaji &gt; 1,2x UMP = bobot 0,8; masa tunggu &lt; 1 tahun &amp; gaji &lt; 1,2x UMP = bobot 0,6.
+                                <br>
+                                <span style="color: var(--qn-neutral-500);">Rincian per kategori outcome (Bekerja/Wiraswasta/Melanjutkan Studi) tersedia di kartu "Kepatuhan IKU 2 &amp; Kecukupan Sampel" pada Dashboard.</span>
+                            </p>
+                        </div>
+
+                <!-- Rincian per Program Studi - pola identik index.html: 2 terendah + 2 tertinggi +
+                     rata-rata institusi, supaya jumlah baris tetap ringkas berapapun jumlah prodi. -->
+                <p class="detail-subhead">Rincian per Program Studi</p>
+                        <div class="table-responsive table-responsive_tooltip-safe">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Program Studi</th>
+                                        <th>Responden (n)</th>
+                                        <th>&lt; 6 Bulan</th>
+                                        <th>Rata-rata Waktu Tunggu</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4" style="background: var(--qn-danger-100, #fee2e2); color: var(--qn-danger-600, #9b1d0f); font-size: 0.75rem; font-weight: 700; padding: 0.375rem 0.75rem;">Perlu Perhatian - Capaian Terendah</td>
+                                    </tr>
+                                    <tr>
+                                        <td>S1 - Sistem Informasi</td>
+                                        <td>11</td>
+                                        <td><span class="badge badge_danger">36%</span></td>
+                                        <td>6.8 bln</td>
+                                    </tr>
+                                    <tr>
+                                        <td>S1 - Teknik Informatika</td>
+                                        <td>13</td>
+                                        <td><span class="badge badge_danger">46%</span></td>
+                                        <td>5.9 bln</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="background: var(--qn-success-100, #f0fdf9); color: var(--qn-success-600, #125d56); font-size: 0.75rem; font-weight: 700; padding: 0.375rem 0.75rem;">Performa Terbaik - Capaian Tertinggi</td>
+                                    </tr>
+                                    <tr>
+                                        <td>S1 - Manajemen</td>
+                                        <td>12</td>
+                                        <td><span class="badge badge_success">67%</span></td>
+                                        <td>3.1 bln</td>
+                                    </tr>
+                                    <tr>
+                                        <td>S1 - Akuntansi</td>
+                                        <td>13</td>
+                                        <td><span class="badge badge_success">69%</span></td>
+                                        <td>3.4 bln</td>
+                                    </tr>
+                                    <tr style="font-weight: 600; background: var(--qn-neutral-100);">
+                                        <td>Rata-rata Institusi</td>
+                                        <td>49</td>
+                                        <td>59%</td>
+                                        <td>4.2 bln</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                 <!-- Sumber Data Table -->
-                <div class="card card_dashboard" style="margin-bottom: 1rem;">
-                    <div class="card__header">
-                        <h3 class="card__title">Sumber Data per Kuesioner</h3>
-                    </div>
-                    <div class="card__body" style="padding: 0;">
+                <p class="detail-subhead">Sumber Data per Kuesioner</p>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th>Nama Kuesioner</th>
                                         <th>&lt; 6 Bulan</th>
-                                        <th>&gt; 6 Bulan</th>
+                                        <th>6-12 Bulan</th>
+                                        <th>&gt; 12 Bulan</th>
                                         <th>Total</th>
                                         <th>Persentase &lt; 6 Bulan</th>
                                     </tr>
@@ -305,32 +402,30 @@
                                     <tr>
                                         <td>Tracer Study DIKTI 2024</td>
                                         <td>18</td>
-                                        <td>12</td>
+                                        <td>8</td>
+                                        <td>4</td>
                                         <td>30</td>
                                         <td><span class="badge badge_success">60%</span></td>
                                     </tr>
                                     <tr>
                                         <td>Tracer Study DIKTI 2023</td>
                                         <td>11</td>
-                                        <td>8</td>
+                                        <td>5</td>
+                                        <td>3</td>
                                         <td>19</td>
                                         <td><span class="badge badge_success">58%</span></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
 
                 <!-- Response Detail Table -->
-                <div class="card card_dashboard">
-                    <div class="card__header" style="display: flex; align-items: center; justify-content: space-between;">
-                        <h3 class="card__title">Detail Responden</h3>
-                        <div class="form-control" style="margin: 0; width: 250px;">
-                            <input type="text" class="form-control__input" placeholder="Cari nama atau NIM...">
-                        </div>
-                    </div>
-                    <div class="card__body" style="padding: 0;">
+                <p class="detail-subhead" style="display: flex; align-items: center; justify-content: space-between;">
+                    <span>Detail Responden</span>
+                    <span class="form-control" style="margin: 0; width: 250px;">
+                        <input type="text" class="form-control__input" placeholder="Cari nama atau NIM...">
+                    </span>
+                </p>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -340,6 +435,7 @@
                                         <th>Program Studi</th>
                                         <th>Tahun Lulus</th>
                                         <th>Waktu Tunggu</th>
+                                        <th>Gaji vs UMP</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -350,6 +446,7 @@
                                         <td>S1 - Teknik Informatika</td>
                                         <td>2024</td>
                                         <td>2 bulan</td>
+                                        <td><span class="badge badge_success">&gt; 1,2x UMP</span></td>
                                         <td><span class="badge badge_success">&lt; 6 Bulan</span></td>
                                     </tr>
                                     <tr>
@@ -358,7 +455,8 @@
                                         <td>S1 - Sistem Informasi</td>
                                         <td>2024</td>
                                         <td>8 bulan</td>
-                                        <td><span class="badge badge_warning">&gt; 6 Bulan</span></td>
+                                        <td><span class="badge badge_default">&lt; 1,2x UMP</span></td>
+                                        <td><span class="badge badge_warning">6-12 Bulan</span></td>
                                     </tr>
                                     <tr>
                                         <td>Budi Santoso</td>
@@ -366,6 +464,7 @@
                                         <td>S1 - Akuntansi</td>
                                         <td>2024</td>
                                         <td>3 bulan</td>
+                                        <td><span class="badge badge_success">&gt; 1,2x UMP</span></td>
                                         <td><span class="badge badge_success">&lt; 6 Bulan</span></td>
                                     </tr>
                                     <tr>
@@ -374,6 +473,7 @@
                                         <td>S1 - Manajemen</td>
                                         <td>2024</td>
                                         <td>5 bulan</td>
+                                        <td><span class="badge badge_success">&gt; 1,2x UMP</span></td>
                                         <td><span class="badge badge_success">&lt; 6 Bulan</span></td>
                                     </tr>
                                     <tr>
@@ -382,7 +482,8 @@
                                         <td>S1 - Teknik Informatika</td>
                                         <td>2024</td>
                                         <td>12 bulan</td>
-                                        <td><span class="badge badge_warning">&gt; 6 Bulan</span></td>
+                                        <td><span class="badge badge_default">&lt; 1,2x UMP</span></td>
+                                        <td><span class="badge badge_warning">6-12 Bulan</span></td>
                                     </tr>
                                     <tr>
                                         <td>Fitri Handayani</td>
@@ -390,6 +491,7 @@
                                         <td>S1 - Sistem Informasi</td>
                                         <td>2024</td>
                                         <td>1 bulan</td>
+                                        <td><span class="badge badge_success">&gt; 1,2x UMP</span></td>
                                         <td><span class="badge badge_success">&lt; 6 Bulan</span></td>
                                     </tr>
                                     <tr>
@@ -398,7 +500,8 @@
                                         <td>S1 - Akuntansi</td>
                                         <td>2024</td>
                                         <td>7 bulan</td>
-                                        <td><span class="badge badge_warning">&gt; 6 Bulan</span></td>
+                                        <td><span class="badge badge_success">&gt; 1,2x UMP</span></td>
+                                        <td><span class="badge badge_warning">6-12 Bulan</span></td>
                                     </tr>
                                     <tr>
                                         <td>Hesti Rahayu</td>
@@ -406,6 +509,7 @@
                                         <td>S1 - Manajemen</td>
                                         <td>2024</td>
                                         <td>4 bulan</td>
+                                        <td><span class="badge badge_default">&lt; 1,2x UMP</span></td>
                                         <td><span class="badge badge_success">&lt; 6 Bulan</span></td>
                                     </tr>
                                     <tr>
@@ -414,6 +518,7 @@
                                         <td>S1 - Teknik Informatika</td>
                                         <td>2024</td>
                                         <td>2 bulan</td>
+                                        <td><span class="badge badge_success">&gt; 1,2x UMP</span></td>
                                         <td><span class="badge badge_success">&lt; 6 Bulan</span></td>
                                     </tr>
                                     <tr>
@@ -422,26 +527,26 @@
                                         <td>S1 - Sistem Informasi</td>
                                         <td>2024</td>
                                         <td>9 bulan</td>
-                                        <td><span class="badge badge_warning">&gt; 6 Bulan</span></td>
+                                        <td><span class="badge badge_default">&lt; 1,2x UMP</span></td>
+                                        <td><span class="badge badge_warning">6-12 Bulan</span></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <div class="card__footer">
-                        <div class="pagination-wrapper" style="display: flex; align-items: center; justify-content: space-between;">
-                            <span class="pagination__info">Menampilkan 1-10 dari 49 data</span>
-                            <div class="pagination">
-                                <button class="pagination__btn" disabled>
-                                    <span class="icon icon-chevron-left-mini"></span>
-                                </button>
-                                <span class="pagination__info">Halaman 1 dari 5</span>
-                                <button class="pagination__btn">
-                                    <span class="icon icon-chevron-right-mini"></span>
-                                </button>
+                        <div style="padding-top: 0.75rem; margin-top: 0.75rem; border-top: 1px solid var(--qn-neutral-200);">
+                            <div class="pagination-wrapper" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span class="pagination__info">Menampilkan 1-10 dari 49 data</span>
+                                <div class="pagination">
+                                    <button class="pagination__btn" disabled>
+                                        <span class="icon icon-chevron-left-mini"></span>
+                                    </button>
+                                    <span class="pagination__info">Halaman 1 dari 5</span>
+                                    <button class="pagination__btn">
+                                        <span class="icon icon-chevron-right-mini"></span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -491,14 +596,12 @@
         new Chart(ctxWaktuTunggu, {
             type: 'doughnut',
             data: {
-                labels: ['< 6 Bulan', '> 6 Bulan'],
+                labels: ['< 6 Bulan', '6-12 Bulan (< 1 Tahun)', '> 12 Bulan'],
                 datasets: [{
-                    data: [29, 20],
-                    backgroundColor: [
-                        'rgb(99, 102, 241)',  // Primary
-                        'rgb(245, 158, 11)'   // Warning
-                    ],
-                    borderWidth: 0,
+                    data: [29, 13, 7],
+                    backgroundColor: ['#1e40af', '#93c5fd', '#dbeafe'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff',
                     cutout: '70%'
                 }]
             },
