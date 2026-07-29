@@ -58,7 +58,12 @@
         .builder-sidebar { width: 280px; flex-shrink: 0; position: sticky; top: 3.25rem; max-height: calc(100vh - 4.5rem); overflow-y: auto; padding-bottom: 0.5rem; }
         .builder-main { flex: 1; min-width: 0; }
         @media (max-width: 64rem) {
-            .builder-layout { flex-direction: column; }
+            /* align-items:flex-start (set above for the row layout, so the sidebar doesn't
+               stretch to match the main column's height) becomes the CROSS axis once
+               flex-direction flips to column - "flex-start" there means "don't stretch to full
+               width", so children shrink to their own content width instead of the container's,
+               which overflowed the viewport. Reset to stretch so they fill it again. */
+            .builder-layout { flex-direction: column; align-items: stretch; }
             .builder-sidebar { width: 100%; position: static; max-height: none; }
         }
         .section-anchor { scroll-margin-top: 4rem; }
@@ -90,12 +95,29 @@
         .question-card__desc-input { width: 100%; border: none; background: transparent; font-size: 0.8125rem; color: var(--qn-neutral-500); padding: 0; outline: none; margin-top: 0.25rem; }
         .question-card__desc-input::placeholder { color: var(--qn-neutral-400); }
         .question-card__meta { display: flex; align-items: center; gap: 0.375rem; flex-shrink: 0; flex-wrap: wrap; }
+        /* .question-card__body's min-width:200px + .question-card__meta's non-shrinking badge/
+           type/switch cluster don't fit side-by-side in a single row below ~640px - without this,
+           the row refuses to wrap and pushes the whole page into horizontal scroll. */
+        @media (max-width: 40rem) {
+            .question-card .card__header { flex-wrap: wrap; }
+            .question-card__body { min-width: 100%; }
+            .question-card__meta { width: 100%; }
+        }
         .question-card__type-select { border: 1px solid var(--qn-neutral-300); border-radius: 0.25rem; padding: 0.1875rem 0.375rem; font-size: 0.75rem; outline: none; background: var(--qn-white); }
         .question-card__options { margin-left: 2.125rem; display: flex; flex-direction: column; gap: 0.5rem; }
         .question-card__option { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--qn-neutral-200); border-radius: 0.375rem; background: var(--qn-neutral-50); font-size: 0.8125rem; color: var(--qn-neutral-600); }
         .question-card__option-index { min-width: 1.25rem; height: 1.25rem; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 500; color: var(--qn-neutral-500); }
-        .question-card__option-input { flex: 1; border: none; background: transparent; font-size: 0.875rem; outline: none; color: var(--qn-neutral-800); }
+        /* flex:1 text (option label or input) needs min-width:0 + overflow-wrap or a long
+           space-less run (e.g. "(Nasional/Multinasional/Startup/UMKM)") won't wrap and forces
+           the row - and the whole page - wider than the viewport on narrow screens. */
+        .question-card__option-text { flex: 1; min-width: 0; overflow-wrap: break-word; }
+        .question-card__option-input { flex: 1; min-width: 0; border: none; background: transparent; font-size: 0.875rem; outline: none; color: var(--qn-neutral-800); }
         .question-card__add-option { margin-top: 0.375rem; font-size: 0.8125rem; color: var(--qn-warning-500); cursor: pointer; text-decoration: underline; display: inline-block; }
+        /* Free-text/number/date preview reuses .question-card__option's box (border/bg/radius)
+           instead of a native disabled <input> so every question type - choice-based or free
+           text - previews inside the same visual language. Italic marks it as a placeholder,
+           not a real static option like the radio/checkbox/scale boxes. */
+        .question-card__option--preview { font-style: italic; }
 
         /* Native .switch reset so it fits inline in a row instead of stacking as a block form field */
         .form-control.form-control_inline-switch { display: inline-flex; width: auto; padding-bottom: 0; margin: 0; flex-shrink: 0; }
@@ -683,13 +705,13 @@
                         <button type="button" class="btn btn_outline btn_xs btn_icon" onclick="deleteCustomOption(${sectionIndex}, ${qi}, ${oi})" ${q.options.length <= 1 ? 'style="visibility:hidden"' : ''}><span class="icon icon-x-mark-mini"></span></button>
                     </div>`;
                 }
-                return `<div class="question-card__option"><span class="question-card__option-index">${oi + 1}</span><span style="flex:1;">${opt}</span></div>`;
+                return `<div class="question-card__option"><span class="question-card__option-index">${oi + 1}</span><span class="question-card__option-text">${opt}</span></div>`;
             }).join('') + `</div>`;
             if (tier === 'custom') optionsHtml += `<span class="question-card__add-option" onclick="addCustomOption(${sectionIndex}, ${qi})">+ Tambah opsi</span>`;
         } else if (q.type === 'scale') {
             optionsHtml = `<div class="question-card__options" style="flex-direction:row;">` + [1, 2, 3, 4, 5].map(n => `<div class="question-card__option" style="flex:1; justify-content:center;">${n}</div>`).join('') + `</div>`;
         } else {
-            optionsHtml = `<input type="${q.type === 'textarea' ? 'text' : q.type}" class="form-control__input" placeholder="Jawaban responden akan muncul di sini..." disabled style="max-width:320px; background:var(--qn-neutral-50);">`;
+            optionsHtml = `<div class="question-card__option question-card__option--preview">Jawaban responden akan muncul di sini...</div>`;
         }
 
         // Core/Optional footers stay to one compact line - the tier badge up top already explains
