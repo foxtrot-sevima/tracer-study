@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Pengiriman Kuesioner Pengguna Lulusan | Karirlink Tracer Study</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .notif-item { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.625rem 1rem; white-space: normal; }
+        .notif-item__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); }
+        .notif-item__desc { font-size: 0.75rem; color: var(--qn-neutral-600); }
+        .notif-item__time { font-size: 0.6875rem; color: var(--qn-neutral-400); }
+
+        /* Overview stat-tiles - same pattern as kuesioner.html/index.html */
+        .stat-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.875rem; margin-bottom: 1.5rem; }
+        @media (max-width: 56rem) { .stat-tiles { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 30rem) { .stat-tiles { grid-template-columns: 1fr; } }
+        .stat-tile { padding: 1rem; border-radius: 0.625rem; display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+        .stat-tile_success { background: var(--qn-success-100); }
+        .stat-tile_primary { background: var(--qn-primary-100); }
+        .stat-tile_warning { background: var(--qn-warning-100); }
+        .stat-tile_danger { background: #FEF2F2; }
+        .stat-tile__icon { width: 2.25rem; height: 2.25rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.0625rem; background: white; flex-shrink: 0; }
+        .stat-tile__icon_success { color: var(--qn-success-600, var(--qn-success-500)); }
+        .stat-tile__icon_primary { color: var(--qn-primary-600); }
+        .stat-tile__icon_warning { color: var(--qn-warning-600, #a15c07); }
+        .stat-tile__icon_danger { color: #DC2626; }
+        .stat-tile__value { display: block; font-size: 1.25rem; font-weight: 700; color: var(--qn-neutral-900); line-height: 1.2; }
+        .stat-tile__label { display: block; font-size: 0.8125rem; color: var(--qn-neutral-600); }
+
+        .rl-company { font-size: 0.8125rem; }
+        .rl-company__name { font-weight: 500; color: var(--qn-neutral-800); margin: 0; }
+        .rl-company__pic { color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- Header -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item"><a class="nav__link" href="./index.html"><span class="icon icon-chart-bar-square"></span><span>Dashboard</span></a></li>
+                        <li class="nav__item active"><a class="nav__link" href="./kuesioner.html"><span class="icon icon-clipboard-document-list"></span><span>Kuesioner</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="./alumni.html"><span class="icon icon-academic-cap"></span><span>Alumni</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="./publikasi.html"><span class="icon icon-document-text"></span><span>Publikasi</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <a href="#" class="btn btn_icon btn_nav" title="Pesan">
+                    <span class="icon icon-chat-bubble-left-right"></span>
+                </a>
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification">
+                        <span class="icon icon-bell"></span>
+                    </button>
+                    <div class="dropdown__box dropdown__box_menu-end" style="width: 320px;">
+                        <span class="dropdown__box-title" style="display: block; padding: 0.75rem 1rem 0.25rem;">Pemberitahuan</span>
+                        <ul class="dropdown__list">
+                            <li class="dropdown__item">
+                                <a href="#" class="notif-item">
+                                    <span class="notif-item__title">Periksa Pengikut Baru Anda!</span>
+                                    <span class="notif-item__desc">PT Tes Dimas mulai mengikuti anda.</span>
+                                    <span class="notif-item__time">1 minggu yang lalu</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./portal-karir.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-portal-karir">
+                        Portal Karir
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle">
+                                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
+                                </div>
+                                <div class="avatar__text">
+                                    <span class="avatar__title">Admin Karirlink</span>
+                                    <span class="avatar__subtitle">admin@university.ac.id</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item">
+                            <a href="#">
+                                <span class="icon icon-user-circle"></span>
+                                Lihat Profil
+                            </a>
+                        </li>
+                        <li class="dropdown__item">
+                            <a href="#">
+                                <span class="icon icon-globe-alt"></span>
+                                Pengaturan Landing Page
+                            </a>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger">
+                            <a href="#">
+                                <span class="icon icon-arrow-left-on-rectangle-mini"></span>
+                                Keluar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./index.html">Dashboard</a></li>
+                <li class="breadcrumb__item"><a href="./kuesioner.html">Kuesioner</a></li>
+                <li class="breadcrumb__item active"><a href="#">Riwayat Pengiriman Pengguna Lulusan</a></li>
+            </ul>
+
+            <!-- Page Header -->
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Riwayat Pengiriman Kuesioner Pengguna Lulusan</h1>
+                        <p class="main__subtitle">Setiap baris = satu email undangan ke Pimpinan Perusahaan, terpicu otomatis saat alumni mengirim Tracer Study-nya</p>
+                    </div>
+                </div>
+                <div class="main__action">
+                    <a href="#" class="btn btn_outline btn_sm" onclick="sessionStorage.setItem('openTab', 'kuesioner-pengguna-lulusan'); window.location.href = './kuesioner.html'; return false;">
+                        <span class="icon icon-arrow-left-mini"></span>
+                        Kembali ke Kuesioner Pengguna Lulusan
+                    </a>
+                </div>
+            </div>
+
+            <!-- Overview -->
+            <div class="stat-tiles">
+                <div class="stat-tile stat-tile_success">
+                    <span class="stat-tile__icon stat-tile__icon_success"><span class="icon icon-check-circle-mini"></span></span>
+                    <span>
+                        <span class="stat-tile__value">18</span>
+                        <span class="stat-tile__label">Sudah Diisi</span>
+                    </span>
+                </div>
+                <div class="stat-tile stat-tile_primary">
+                    <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-paper-airplane-mini"></span></span>
+                    <span>
+                        <span class="stat-tile__value">7</span>
+                        <span class="stat-tile__label">Terkirim, Menunggu Diisi</span>
+                    </span>
+                </div>
+                <div class="stat-tile stat-tile_warning">
+                    <span class="stat-tile__icon stat-tile__icon_warning"><span class="icon icon-clock-mini"></span></span>
+                    <span>
+                        <span class="stat-tile__value">2</span>
+                        <span class="stat-tile__label">Terjadwal Mengirim</span>
+                    </span>
+                </div>
+                <div class="stat-tile stat-tile_danger">
+                    <span class="stat-tile__icon stat-tile__icon_danger"><span class="icon icon-exclamation-triangle-mini"></span></span>
+                    <span>
+                        <span class="stat-tile__value">1</span>
+                        <span class="stat-tile__label">Gagal Terkirim</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Filter Row -->
+            <div class="grid grid_qnaire-list-head" style="margin-bottom: 1rem;">
+                <div class="col-12 col-sm-5">
+                    <div class="form-control">
+                        <div class="form-control__group">
+                            <span data-input-icon="search"></span>
+                            <input type="search" class="form-control__input" id="rl-search" placeholder="Cari nama alumni atau perusahaan..." oninput="renderTable()">
+                            <span data-clear="input"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-start-sm-8 col-end-sm-12">
+                    <select class="select-default" id="rl-status-filter" onchange="renderTable()">
+                        <option value="">Semua Status</option>
+                        <option value="diisi">Sudah Diisi</option>
+                        <option value="menunggu">Terkirim, Menunggu Diisi</option>
+                        <option value="terjadwal">Terjadwal Mengirim</option>
+                        <option value="gagal">Gagal Terkirim</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;">No</th>
+                                <th>Alumni</th>
+                                <th>Perusahaan &amp; Pimpinan Tujuan</th>
+                                <th>Tanggal</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rl-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2026 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+
+    <div class="toast" id="toast" style="position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); padding: 0.75rem 1.5rem; background: #10B981; color: white; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; opacity: 0; transition: opacity .3s; z-index: 9999; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></div>
+
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+    // Setiap baris mewakili satu case pengiriman - mencakup semua skenario yang mungkin
+    // terjadi: sudah diisi, terkirim tapi menunggu, terjadwal (belum sempat terkirim), dan
+    // gagal terkirim (mis. email Pimpinan Perusahaan tidak valid/bounce).
+    const records = [
+        { alumni: 'Raden Dimas', prodi: 'S1 - Bimbingan dan Konseling', perusahaan: 'PT Tes Dimas', pic: 'hrd@testdimas.co.id', tanggal: '20 Jul 2026', status: 'diisi' },
+        { alumni: 'Fadhil Ramadhan', prodi: 'S1 - Manajemen', perusahaan: 'PT Karirlink', pic: 'people@karirlink.id', tanggal: '18 Jul 2026', status: 'diisi' },
+        { alumni: 'Ananda Kurniani', prodi: 'S1 - Akuntansi', perusahaan: 'Fore Coffee', pic: 'hr@forecoffee.id', tanggal: '15 Jul 2026', status: 'menunggu' },
+        { alumni: 'Siti Nur Aini', prodi: 'S1 - Sistem Informasi', perusahaan: 'PT DEWASUTRATEX', pic: 'recruitment@dewasutratex.co.id', tanggal: '12 Jul 2026', status: 'menunggu' },
+        { alumni: 'Bagas Prasetyo', prodi: 'S1 - Teknik Informatika', perusahaan: 'Belum diisi alumni', pic: '-', tanggal: '-', status: 'terjadwal' },
+        { alumni: 'Melati Wulandari', prodi: 'S1 - Administrasi Publik', perusahaan: 'PT Sentra Vidya Utama', pic: 'noreply@svu.co.id', tanggal: '10 Jul 2026', status: 'gagal' }
+    ];
+
+    const STATUS_META = {
+        diisi: { label: 'Sudah Diisi', badge: 'badge_success', icon: 'icon-check-circle-mini' },
+        menunggu: { label: 'Terkirim, Menunggu Diisi', badge: 'badge_secondary-primary', icon: 'icon-paper-airplane-mini' },
+        terjadwal: { label: 'Terjadwal Mengirim', badge: 'badge_secondary-warning', icon: 'icon-clock-mini' },
+        gagal: { label: 'Gagal Terkirim', badge: 'badge_danger', icon: 'icon-exclamation-triangle-mini' }
+    };
+
+    function actionForStatus(r) {
+        if (r.status === 'gagal') return `<button type="button" class="btn btn_outline btn_sm" onclick="resend('${r.alumni}')"><span class="icon icon-arrow-path-mini"></span> Kirim Ulang</button>`;
+        if (r.status === 'terjadwal') return `<span class="tag tag_outline tag_sm">Menunggu alumni isi Tracer Study</span>`;
+        if (r.status === 'menunggu') return `<button type="button" class="btn btn_outline btn_sm" onclick="resend('${r.alumni}')"><span class="icon icon-arrow-path-mini"></span> Kirim Pengingat</button>`;
+        return `<a href="#" class="btn btn_outline btn_sm"><span class="icon icon-eye-mini"></span> Lihat Jawaban</a>`;
+    }
+
+    function renderTable() {
+        const search = document.getElementById('rl-search').value.toLowerCase();
+        const statusFilter = document.getElementById('rl-status-filter').value;
+        const filtered = records.filter(r => {
+            if (statusFilter && r.status !== statusFilter) return false;
+            if (search && !r.alumni.toLowerCase().includes(search) && !r.perusahaan.toLowerCase().includes(search)) return false;
+            return true;
+        });
+
+        const tbody = document.getElementById('rl-tbody');
+        if (filtered.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><p class="empty-state__desc">Tidak ada data yang cocok dengan filter.</p></div></td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = filtered.map((r, i) => {
+            const meta = STATUS_META[r.status];
+            return `<tr>
+                <td>${i + 1}</td>
+                <td>
+                    <div class="cell-stack">
+                        <p class="cell-stack__name">${r.alumni}</p>
+                        <p class="cell-stack__meta">${r.prodi}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="rl-company">
+                        <p class="rl-company__name">${r.perusahaan}</p>
+                        <p class="rl-company__pic">${r.pic}</p>
+                    </div>
+                </td>
+                <td>${r.tanggal}</td>
+                <td><span class="badge badge_sm ${meta.badge}"><span class="icon ${meta.icon}"></span>${meta.label}</span></td>
+                <td>${actionForStatus(r)}</td>
+            </tr>`;
+        }).join('');
+    }
+
+    function resend(alumniName) {
+        const toast = document.getElementById('toast');
+        toast.innerHTML = '<span style="font-size: 16px;">&check;</span> Email dikirim ulang ke Pimpinan Perusahaan ' + alumniName;
+        toast.style.opacity = '1';
+        setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+    }
+
+    document.addEventListener('DOMContentLoaded', renderTable);
+    </script>
+</body>
+</html>

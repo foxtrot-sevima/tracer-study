@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Susun Kuesioner Pengguna Lulusan | Karirlink Tracer Study</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .notif-item { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.625rem 1rem; white-space: normal; }
+        .notif-item__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); }
+        .notif-item__desc { font-size: 0.75rem; color: var(--qn-neutral-600); }
+        .notif-item__time { font-size: 0.6875rem; color: var(--qn-neutral-400); }
+
+        /* Tier legend - only Core/Custom here (no Optional bank exists for this instrument,
+           unlike the Tracer Study builder) - same stat-tile pattern as index.html/kuesioner.html. */
+        .stat-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.875rem; }
+        @media (max-width: 40rem) { .stat-tiles { grid-template-columns: 1fr; } }
+        .stat-tile { padding: 1rem; border-radius: 0.625rem; display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+        .stat-tile_success { background: var(--qn-success-100); }
+        .stat-tile_warning { background: var(--qn-warning-100); }
+        .stat-tile__icon { width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1rem; background: white; flex-shrink: 0; }
+        .stat-tile__icon_success { color: var(--qn-success-600, var(--qn-success-500)); }
+        .stat-tile__icon_warning { color: var(--qn-warning-600, #a15c07); }
+        .stat-tile__value { font-size: 1rem; font-weight: 700; color: var(--qn-neutral-900); }
+        .stat-tile__label { font-size: 0.8125rem; color: var(--qn-neutral-600); line-height: 1.4; }
+
+        .section-title { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 1.25rem; }
+        .section-title__icon { flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.0625rem; }
+        .section-title__icon_primary { background: var(--qn-primary-100); color: var(--qn-primary-600); }
+        .section-title h3 { font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
+        .section-title__sub { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
+
+        /* Quantum's ".grid > * > .card { block-size:100% }" would stretch this card to fill
+           the whole page-grid row - scoped override, not a shared stylesheet. */
+        .card.no-stretch { block-size: auto; }
+
+        /* Question card - same visual language as kuesioner-builder.html so admins moving
+           between the two builders don't have to learn a second pattern. No sections/sidebar
+           here: this instrument is one short flat list, not multi-section content. */
+        .question-card.card { border-left-width: 3px; margin-bottom: 0.75rem; box-shadow: none; }
+        .question-card--core { border-left-color: var(--qn-success-400); background: var(--qn-success-100); }
+        .question-card--custom { border-left-color: var(--qn-warning-400); }
+        .question-card--custom.is-inactive { opacity: 0.65; }
+        .question-card__number { display: flex; align-items: center; justify-content: center; min-width: 1.5rem; height: 1.5rem; background: var(--qn-neutral-100); color: var(--qn-neutral-600); border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600; flex-shrink: 0; }
+        .question-card__body { flex: 1; min-width: 200px; }
+        .question-card__text { font-size: 0.9375rem; font-weight: 500; color: var(--qn-neutral-800); margin: 0; }
+        .question-card__text-input { width: 100%; border: none; background: transparent; font-size: 0.9375rem; font-weight: 500; padding: 0; outline: none; text-decoration: underline dotted; text-underline-offset: 3px; color: var(--qn-neutral-800); }
+        .question-card__text-input:focus { text-decoration: none; }
+        .question-card__meta { display: flex; align-items: center; gap: 0.375rem; flex-shrink: 0; flex-wrap: wrap; }
+        @media (max-width: 40rem) {
+            .question-card .card__header { flex-wrap: wrap; }
+            .question-card__body { min-width: 100%; }
+            .question-card__meta { width: 100%; }
+        }
+        .question-card__option { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--qn-neutral-200); border-radius: 0.375rem; background: var(--qn-neutral-50); font-size: 0.8125rem; color: var(--qn-neutral-600); }
+        .question-card__option--preview { font-style: italic; }
+
+        /* Read-only preview of the 12-aspek scale table (Core, locked) - compact version of the
+           same table respondents see on pengguna-lulusan-form.html, just for admins to confirm
+           content at a glance without opening the live form. */
+        .kinerja-preview { border: 1px solid var(--qn-neutral-200); border-radius: 0.5rem; overflow: hidden; }
+        .kinerja-preview__head, .kinerja-preview__row { display: grid; grid-template-columns: minmax(10rem, 1fr) auto; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; }
+        .kinerja-preview__head { background: var(--qn-neutral-50); font-size: 0.75rem; font-weight: 600; color: var(--qn-neutral-500); }
+        .kinerja-preview__row { border-top: 1px solid var(--qn-neutral-100); font-size: 0.8125rem; color: var(--qn-neutral-700); }
+        .kinerja-preview__cols { display: flex; gap: 0.375rem; }
+        .kinerja-preview__cols span { min-width: 3.5rem; text-align: center; font-size: 0.6875rem; color: var(--qn-neutral-400); }
+        .kinerja-preview__more { padding: 0.5rem 0.75rem; font-size: 0.75rem; color: var(--qn-neutral-500); border-top: 1px solid var(--qn-neutral-100); }
+
+        .form-control.form-control_inline-switch { display: inline-flex; width: auto; padding-bottom: 0; margin: 0; flex-shrink: 0; }
+        .form-control.form-control_inline-switch .switch { padding-bottom: 0; }
+
+        .toast-alert { position: fixed; top: 5rem; left: 50%; transform: translateX(-50%); padding: 0.875rem 1.5rem; background: #FEF2F2; border: 1px solid #FECACA; color: #DC2626; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; opacity: 0; transition: opacity .3s; z-index: 9999; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); pointer-events: none; }
+        .toast-alert.show { opacity: 1; }
+        .toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); padding: 0.75rem 1.5rem; background: #10B981; color: white; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; opacity: 0; transition: opacity .3s; z-index: 9999; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .toast.show { opacity: 1; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- Header -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item"><a class="nav__link" href="./index.html"><span class="icon icon-chart-bar-square"></span><span>Dashboard</span></a></li>
+                        <li class="nav__item active"><a class="nav__link" href="./kuesioner.html"><span class="icon icon-clipboard-document-list"></span><span>Kuesioner</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="./alumni.html"><span class="icon icon-academic-cap"></span><span>Alumni</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="./publikasi.html"><span class="icon icon-document-text"></span><span>Publikasi</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <a href="#" class="btn btn_icon btn_nav" title="Pesan">
+                    <span class="icon icon-chat-bubble-left-right"></span>
+                </a>
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification">
+                        <span class="icon icon-bell"></span>
+                    </button>
+                    <div class="dropdown__box dropdown__box_menu-end" style="width: 320px;">
+                        <span class="dropdown__box-title" style="display: block; padding: 0.75rem 1rem 0.25rem;">Pemberitahuan</span>
+                        <ul class="dropdown__list">
+                            <li class="dropdown__item">
+                                <a href="#" class="notif-item">
+                                    <span class="notif-item__title">Periksa Pengikut Baru Anda!</span>
+                                    <span class="notif-item__desc">PT Tes Dimas mulai mengikuti anda.</span>
+                                    <span class="notif-item__time">1 minggu yang lalu</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./portal-karir.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-portal-karir">
+                        Portal Karir
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle">
+                                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
+                                </div>
+                                <div class="avatar__text">
+                                    <span class="avatar__title">Admin Karirlink</span>
+                                    <span class="avatar__subtitle">admin@university.ac.id</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item">
+                            <a href="#">
+                                <span class="icon icon-user-circle"></span>
+                                Lihat Profil
+                            </a>
+                        </li>
+                        <li class="dropdown__item">
+                            <a href="#">
+                                <span class="icon icon-globe-alt"></span>
+                                Pengaturan Landing Page
+                            </a>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger">
+                            <a href="#">
+                                <span class="icon icon-arrow-left-on-rectangle-mini"></span>
+                                Keluar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./index.html">Dashboard</a></li>
+                <li class="breadcrumb__item"><a href="./kuesioner.html">Kuesioner</a></li>
+                <li class="breadcrumb__item active"><a href="#">Kuesioner Pengguna Lulusan</a></li>
+            </ul>
+
+            <!-- Page Header -->
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Kuesioner Pengguna Lulusan</h1>
+                        <p class="main__subtitle">Draft v2 &middot; Core selalu ada, Custom bebas ditulis institusi</p>
+                    </div>
+                </div>
+                <div class="main__action">
+                    <a href="./kuesioner-preview.html?type=pengguna-lulusan" class="btn btn_outline btn_sm" target="_blank">Pratinjau</a>
+                    <button class="btn btn_primary btn_sm" onclick="saveAll()">Simpan ke Draft</button>
+                </div>
+            </div>
+
+            <!-- Tier Legend -->
+            <div class="card no-stretch" style="margin-bottom: 1.5rem;">
+                <div class="card__body">
+                    <div class="section-title">
+                        <span class="section-title__icon section-title__icon_primary"><span class="icon icon-information-circle-mini"></span></span>
+                        <div>
+                            <h3>Dua Tingkatan Pertanyaan</h3>
+                            <p class="section-title__sub">Instrumen ini lebih sederhana dari Kuesioner Tracer Study - tidak ada Bank Optional</p>
+                        </div>
+                    </div>
+                    <div class="stat-tiles">
+                        <div class="stat-tile stat-tile_success">
+                            <span class="stat-tile__icon stat-tile__icon_success"><span class="icon icon-lock-closed-mini"></span></span>
+                            <span class="stat-tile__value">Core</span>
+                            <span class="stat-tile__label">Identitas responden &amp; penilaian kinerja alumni - tidak bisa dinonaktifkan, dihapus, atau diedit.</span>
+                        </div>
+                        <div class="stat-tile stat-tile_warning">
+                            <span class="stat-tile__icon stat-tile__icon_warning"><span class="icon icon-pencil-mini"></span></span>
+                            <span class="stat-tile__value">Custom</span>
+                            <span class="stat-tile__label">Pertanyaan penutup yang bisa disesuaikan institusi - bebas diedit, dinonaktifkan, atau dihapus.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control__label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">Daftar Pertanyaan <span class="important">*</span></div>
+
+            <!-- Flat question list - satu instrumen pendek, tidak perlu section/sidebar seperti
+                 Kuesioner Tracer Study yang punya banyak bagian. -->
+            <div id="questionsContainer"></div>
+
+            <button class="btn btn_outline" style="width: 100%; margin-top: 0.5rem;" onclick="addCustomQuestion()">
+                <span class="icon icon-plus-mini"></span> Tulis Pertanyaan Custom
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2026 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+
+    <div class="toast" id="toast"></div>
+    <div class="toast-alert" id="toastAlert"><span class="icon icon-exclamation-circle"></span><span id="toastAlertMsg"></span></div>
+
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+
+    <script>
+    // ==================== Data Model ====================
+    // tier: 'core' (locked, always present) | 'custom' (institution-editable, full CRUD)
+    // Seeded from the fixed content already live in pengguna-lulusan-form.html - identity fields
+    // + the 12-aspek Kinerja Alumni scale table are the standard instrument (Core); the two
+    // closing questions are institution-editable (Custom).
+    let data = {
+        questions: [
+            { id: 1, tier: 'core', text: 'Nama Ibu/Bapak/Saudara', type: 'text', required: true },
+            { id: 2, tier: 'core', text: 'No Telp/HP', type: 'text', required: false },
+            { id: 3, tier: 'core', text: 'Email', type: 'email', required: false },
+            { id: 4, tier: 'core', text: 'Nama Perusahaan', type: 'text', required: true },
+            { id: 5, tier: 'core', text: 'Alamat Perusahaan', type: 'text', required: true },
+            { id: 6, tier: 'core', text: 'Jabatan Anda', type: 'text', required: true },
+            { id: 7, tier: 'core', text: 'Berikan penilaian Ibu/Bapak/Saudara atas kinerja Alumni kami dalam', type: 'scale4', required: true,
+                scaleLabels: ['Kurang', 'Cukup', 'Baik', 'Sangat Baik'],
+                aspects: ['Integritas / etika berperilaku / moral', 'Kinerja/keahlian berdasarkan bidang ilmu (profesionalisme / kompetensi utama)', 'Kemampuan berbahasa asing', 'Kemampuan Penggunaan teknologi informasi', 'Kemampuan berkomunikasi', 'Kemampuan bekerjasama dalam tim', 'Kepemimpinan', 'Pengembangan diri', 'Etos Kerja', 'Kesiapan terjun di Masyarakat', 'Berpikir Kritis', 'Kreatifitas'] },
+            { id: 8, tier: 'custom', text: 'Bagaimana harapan Anda terhadap lulusan Universitas kami?', type: 'text', required: false, active: true },
+            { id: 9, tier: 'custom', text: 'Berikan Saran dan masukan Anda untuk Universitas kami', type: 'text', required: false, active: true },
+            { id: 10, tier: 'custom', text: 'Apakah Perusahaan Anda bersedia menjadi mitra rekrutmen kami di masa mendatang?', type: 'text', required: false, active: true }
+        ]
+    };
+
+    // ==================== Helpers ====================
+    function escapeAttr(str) {
+        return String(str == null ? '' : str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    }
+    function typeLabel(type) {
+        const labels = { text: 'Teks singkat', email: 'Email', textarea: 'Paragraf', scale4: 'Tabel Skala (4 Level)' };
+        return labels[type] || type;
+    }
+    function switchHtml(id, checked, onchange, disabled) {
+        return `<div class="form-control form-control_inline-switch">
+            <div class="switch">
+                <input type="checkbox" class="form-control__switch" id="${id}" ${checked ? 'checked' : ''} ${disabled ? 'disabled' : ''} onchange="${onchange}">
+                <label for="${id}" class="form-control__label-switch"></label>
+            </div>
+        </div>`;
+    }
+
+    // ==================== Render ====================
+    function renderAllQuestions() {
+        const container = document.getElementById('questionsContainer');
+        container.innerHTML = data.questions.map((q, qi) => renderQuestionCard(q, qi)).join('');
+    }
+
+    function renderQuestionCard(q, qi) {
+        const tier = q.tier;
+        let badge;
+        if (tier === 'core') badge = `<span class="badge badge_sm badge_secondary-success"><span class="icon icon-lock-closed-mini"></span>Core</span>`;
+        else badge = `<span class="badge badge_sm badge_secondary-warning"><span class="icon icon-pencil-mini"></span>Custom</span>`;
+
+        const inactive = tier === 'custom' && q.active === false;
+        const cardClass = `card question-card question-card--${tier} ${inactive ? 'is-inactive' : ''}`;
+
+        const textHtml = tier === 'custom'
+            ? `<input type="text" class="question-card__text-input" value="${escapeAttr(q.text)}" onchange="updateCustomQuestion(${qi}, 'text', this.value)" placeholder="Ketik pertanyaan...">`
+            : `<p class="question-card__text">${q.text}</p>`;
+
+        const typeHtml = `<span class="tag tag_outline tag_sm">${typeLabel(q.type)}</span>`;
+
+        let actionsHtml = '';
+        if (tier === 'custom') {
+            actionsHtml = switchHtml(`sw-custom-${qi}`, q.active !== false, `toggleCustomActive(${qi}, this.checked)`) + `
+                <button type="button" class="btn btn_outline btn_xs btn_icon" data-tooltip="Duplikat" onclick="duplicateCustomQuestion(${qi})"><span class="icon icon-document-duplicate-mini"></span></button>
+                <button type="button" class="btn btn_outline btn_xs btn_icon" data-tooltip="Hapus" onclick="deleteCustomQuestion(${qi})"><span class="icon icon-trash-mini"></span></button>`;
+        }
+
+        let bodyHtml;
+        if (q.type === 'scale4') {
+            bodyHtml = `<div class="kinerja-preview">
+                <div class="kinerja-preview__head">
+                    <span>Aspek Penilaian</span>
+                    <div class="kinerja-preview__cols">${q.scaleLabels.map(l => `<span>${l}</span>`).join('')}</div>
+                </div>
+                ${q.aspects.slice(0, 3).map(a => `<div class="kinerja-preview__row"><span>${a}</span><div class="kinerja-preview__cols">${q.scaleLabels.map(() => `<span>&#9675;</span>`).join('')}</div></div>`).join('')}
+                <div class="kinerja-preview__more">+ ${q.aspects.length - 3} aspek penilaian lainnya</div>
+            </div>`;
+        } else {
+            bodyHtml = `<div class="question-card__option question-card__option--preview">Jawaban responden akan muncul di sini...</div>`;
+        }
+
+        const footerHtml = tier === 'core'
+            ? `<span class="tag tag_outline tag_sm">${q.required ? 'Wajib diisi' : 'Opsional'}</span>`
+            : `<div style="display:flex; align-items:center; gap:0.5rem; font-size:0.8125rem; color:var(--qn-neutral-600);">
+                <span>Wajib diisi</span>
+                ${switchHtml(`sw-req-${qi}`, !!q.required, `updateCustomQuestion(${qi}, 'required', this.checked)`)}
+            </div>`;
+
+        return `<div class="${cardClass}" data-index="${qi}">
+            <div class="card__header">
+                <span class="question-card__number">${qi + 1}</span>
+                <div class="question-card__body">${textHtml}</div>
+                <div class="question-card__meta">${badge}${typeHtml}${actionsHtml}</div>
+            </div>
+            <div class="card__body">${bodyHtml}</div>
+            <div class="card__footer">${footerHtml}</div>
+        </div>`;
+    }
+
+    // ==================== Custom Question CRUD ====================
+    function addCustomQuestion() {
+        const newId = Math.max(...data.questions.map(q => q.id), 0) + 1;
+        data.questions.push({ id: newId, tier: 'custom', text: '', type: 'text', required: false, active: true });
+        renderAllQuestions();
+        showToast('Pertanyaan Custom ditambahkan');
+    }
+
+    function updateCustomQuestion(qi, field, value) {
+        data.questions[qi][field] = value;
+        renderAllQuestions();
+    }
+
+    function duplicateCustomQuestion(qi) {
+        const copy = JSON.parse(JSON.stringify(data.questions[qi]));
+        copy.id = 'custom-copy-' + Math.random().toString(36).slice(2, 7);
+        data.questions.splice(qi + 1, 0, copy);
+        renderAllQuestions();
+        showToast('Pertanyaan diduplikat');
+    }
+
+    function deleteCustomQuestion(qi) {
+        if (confirm('Hapus pertanyaan custom ini?')) {
+            data.questions.splice(qi, 1);
+            renderAllQuestions();
+            showToast('Pertanyaan dihapus');
+        }
+    }
+
+    function toggleCustomActive(qi, checked) {
+        data.questions[qi].active = checked;
+        renderAllQuestions();
+    }
+
+    // ==================== Toasts ====================
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.innerHTML = '<span style="font-size: 16px;">&check;</span> ' + msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function showAlertToast(msg) {
+        const toast = document.getElementById('toastAlert');
+        document.getElementById('toastAlertMsg').textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    // ==================== Save ====================
+    function saveAll() {
+        console.log('Saved data:', data);
+        showToast('Kuesioner Pengguna Lulusan berhasil disimpan!');
+        setTimeout(() => {
+            sessionStorage.setItem('showDraftToast', 'true');
+            sessionStorage.setItem('draftToastTab', 'kuesioner-pengguna-lulusan');
+            window.location.href = './kuesioner.html';
+        }, 1500);
+    }
+
+    // ==================== Init ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        renderAllQuestions();
+    });
+    </script>
+</body>
+</html>

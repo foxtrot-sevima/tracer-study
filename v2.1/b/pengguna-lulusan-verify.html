@@ -8,10 +8,6 @@
     <title>Verifikasi Alumni yang Dinilai | Survei Pengguna Lulusan | Karirlink</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
 
-    <!-- Choices CSS & JS -->
-    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
-    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
-
     <!-- Quantum CSS -->
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
 
@@ -40,6 +36,13 @@
         /* Text */
         .verify-title { font-size: 1.125rem; font-weight: 600; color: var(--qn-neutral-800); text-align: center; margin-bottom: 0.5rem; }
         .verify-desc { font-size: 0.875rem; color: var(--qn-neutral-500); text-align: center; line-height: 1.5; margin-bottom: 1.5rem; }
+
+        /* Read-only identity summary - same pattern as pengguna-lulusan-form.html's "Alumni yang
+           Dinilai" grid, shown here first so the Pimpinan Perusahaan can confirm who they're
+           about to evaluate before the NIM verification challenge below. */
+        .verify-id-label { font-size: 0.75rem; font-weight: 600; color: var(--qn-neutral-500); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 0.75rem; }
+        .verify-id-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem 1rem; margin-bottom: 1.5rem; }
+        @media (max-width: 30rem) { .verify-id-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -68,40 +71,32 @@
 
                 <!-- Title & Description -->
                 <h2 class="verify-title">Verifikasi Alumni yang Akan Dinilai</h2>
-                <p class="verify-desc">Lengkapi data berikut, lalu konfirmasi NIM alumni untuk melanjutkan pengisian kuesioner.</p>
+                <p class="verify-desc">Berikut data alumni yang akan Anda nilai. Periksa kembali, lalu lanjutkan untuk mengisi kuesioner.</p>
+
+                <!-- Read-only identity summary - sourced from the invitation link, not typed by
+                     the Pimpinan Perusahaan -->
+                <p class="verify-id-label">Data Alumni yang Dinilai</p>
+                <div class="verify-id-grid">
+                    <div class="form-control" style="margin-bottom: 0;">
+                        <label class="form-control__label">Nama</label>
+                        <div class="form-control__group"><input type="text" class="form-control__input" value="Henni" readonly disabled></div>
+                    </div>
+                    <div class="form-control" style="margin-bottom: 0;">
+                        <label class="form-control__label">NIM</label>
+                        <div class="form-control__group"><input type="text" class="form-control__input" value="00000010125" readonly disabled></div>
+                    </div>
+                    <div class="form-control" style="margin-bottom: 0;">
+                        <label class="form-control__label">Program Studi</label>
+                        <div class="form-control__group"><input type="text" class="form-control__input" value="S1 - Akuntansi" readonly disabled></div>
+                    </div>
+                    <div class="form-control" style="margin-bottom: 0;">
+                        <label class="form-control__label">Perguruan Tinggi</label>
+                        <div class="form-control__group"><input type="text" class="form-control__input" value="Universitas Contoh" readonly disabled></div>
+                    </div>
+                </div>
 
                 <!-- Form -->
                 <form action="./pengguna-lulusan-form.html">
-                    <div class="form-control" style="margin-bottom: 1.25rem;">
-                        <label class="form-control__label">Perguruan Tinggi<span class="important">*</span></label>
-                        <div class="form-control__group">
-                            <input type="text" class="form-control__input" value="Demo siAkadcloud" readonly disabled>
-                        </div>
-                    </div>
-                    <div class="form-control" style="margin-bottom: 1.25rem;">
-                        <label class="form-control__label">Program Studi<span class="important">*</span></label>
-                        <div class="form-control__group">
-                            <select class="select-default" id="input-prodi-verify" required>
-                                <option value="ti">S1 - Teknik Informatika</option>
-                                <option value="si">S1 - Sistem Informasi</option>
-                                <option value="akuntansi" selected>S1 - Akuntansi</option>
-                                <option value="manajemen">S1 - Manajemen</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-control" style="margin-bottom: 0.75rem;">
-                        <label class="form-control__label" for="input-nim-verify">NIM Alumni<span class="important">*</span></label>
-                        <div class="form-control__group">
-                            <input type="text" inputmode="numeric" class="form-control__input" id="input-nim-verify" placeholder="Masukkan NIM alumni" required>
-                        </div>
-                    </div>
-
-                    <div class="alert alert_helper" style="margin-bottom: 1.5rem;">
-                        <div class="alert__content">
-                            <p class="alert__description">Tanyakan NIM ini langsung kepada alumni yang bersangkutan. Ini memastikan Anda benar-benar diminta oleh alumni tersebut untuk menilai kinerjanya, dan bukan pihak lain yang mengakses tautan ini.</p>
-                        </div>
-                    </div>
-
                     <button type="submit" class="btn btn_primary" style="width: 100%;">Verifikasi &amp; Lanjutkan</button>
                 </form>
             </div>
@@ -125,11 +120,6 @@
         // Mockup only: NIM is not validated against real data here (any value is
         // accepted). In production this would check the participant record tied
         // to this invitation link (tracer-schema.sql participants.nim / graduates.nim).
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.select-default').forEach(function (el) {
-                new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
-            });
-        });
     </script>
 </body>
 </html>

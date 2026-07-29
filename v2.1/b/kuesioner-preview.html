@@ -3,642 +3,406 @@
 <head>
     <base href="/v2.1/b/">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preview Tracer Study | Karirlink</title>
+    <title>Pratinjau Kuesioner | Karirlink Tracer Study</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f9fafb; min-height: 100vh; }
-        
-        /* Header */
-        .preview-header { position: sticky; top: 0; z-index: 50; background: white; border-bottom: 1px solid #e5e7eb; padding: 0.75rem 1rem; }
-        .preview-header__inner { max-width: 46rem; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
-        .preview-header__left { display: flex; align-items: center; gap: 0.75rem; }
-        .preview-header__logo { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid #e5e7eb; object-fit: cover; }
-        .preview-header__info p { margin: 0; }
-        .preview-header__info p:first-child { font-size: 0.875rem; color: #6b7280; }
-        .preview-header__info p:last-child { font-weight: 500; color: #111827; }
-        .preview-header__user { display: flex; align-items: center; gap: 0.75rem; }
-        .preview-header__avatar { width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid #e5e7eb; background: #f3f4f6; display: flex; align-items: center; justify-content: center; color: #9ca3af; }
-        
-        /* Preview Mode Banner */
-        .preview-banner { position: fixed; left: 0; right: 0; top: 4.5rem; z-index: 50; display: flex; justify-content: center; padding: 0 1rem; }
-        .preview-banner__inner { display: flex; align-items: center; gap: 0.75rem; background: #1e40af; color: white; padding: 0.625rem 1rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); font-size: 0.875rem; font-weight: 500; }
-        .preview-banner__icon { display: flex; align-items: center; justify-content: center; }
-        .preview-banner__text { flex: 1; }
-        .preview-banner__step-nav { display: flex; align-items: center; gap: 0.5rem; margin-left: 0.5rem; padding-left: 0.75rem; border-left: 1px solid rgba(255,255,255,0.3); }
-        .preview-banner__step-btn { background: rgba(255,255,255,0.15); border: none; color: white; cursor: pointer; padding: 0.375rem 0.625rem; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 500; display: flex; align-items: center; gap: 0.25rem; transition: background 0.15s; }
-        .preview-banner__step-btn:hover { background: rgba(255,255,255,0.25); }
-        .preview-banner__step-btn.active { background: white; color: #1e40af; }
-        .preview-banner__close { background: transparent; border: none; color: white; cursor: pointer; padding: 0.25rem; border-radius: 0.25rem; display: flex; align-items: center; justify-content: center; margin-left: 0.5rem; }
-        .preview-banner__close:hover { background: rgba(255,255,255,0.2); }
-        
-        /* Main Content */
-        .preview-main { padding: 5rem 1rem 6rem; }
-        .preview-container { max-width: 46rem; margin: 0 auto; }
-        
-        /* Section Header */
-        .section-header { display: flex; align-items: center; gap: 0.5rem; background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 500; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-        .section-header__icon { width: 1.5rem; height: 1.5rem; background: var(--qn-primary-500, #6366f1); border-radius: 0.25rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.75rem; font-weight: 600; }
-        
-        /* Question Card */
-        .question-card { background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 0.75rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-        .question-card.active { border-color: #2563eb; }
-        .question-card__header { display: flex; gap: 0.25rem; margin-bottom: 1rem; }
-        .question-card__number { font-size: 0.875rem; color: #111827; }
-        .question-card__content { flex: 1; }
-        .question-card__text { font-size: 0.875rem; color: #111827; }
-        .question-card__text.required::after { content: '*'; color: #ef4444; margin-left: 0.125rem; }
-        .question-card__desc { font-size: 0.75rem; color: #6b7280; margin-top: 0.25rem; }
-        
-        /* Option List */
-        .option-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
-        .option-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; transition: all 0.15s; }
-        .option-item:hover { border-color: #d1d5db; background: #f9fafb; }
-        .option-item.selected { border-color: #3b82f6; background: #eff6ff; }
-        .option-item__letter { width: 1.75rem; height: 1.75rem; display: flex; align-items: center; justify-content: center; border: 2px solid #d1d5db; border-radius: 50%; font-size: 0.75rem; font-weight: 600; color: #6b7280; transition: all 0.15s; flex-shrink: 0; }
-        .option-item.selected .option-item__letter { border-color: #3b82f6; background: #3b82f6; color: white; }
-        .option-item__text { flex: 1; font-size: 0.875rem; color: #374151; }
-        
-        /* Input Fields */
-        .text-input { width: 100%; padding: 0.75rem 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; font-size: 0.875rem; margin-top: 1rem; }
-        .text-input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
-        .text-input::placeholder { color: #9ca3af; }
-        .textarea-input { resize: vertical; min-height: 6rem; }
-        
-        /* Number Input */
-        .number-input-wrapper { display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem; }
-        .number-input { width: 8rem; padding: 0.75rem 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; font-size: 0.875rem; text-align: center; }
-        .number-input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
-        
-        /* Scale */
-        .scale-wrapper { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
-        .scale-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: #6b7280; }
-        .scale-options { display: flex; gap: 0.5rem; }
-        .scale-option { flex: 1; padding: 0.75rem; text-align: center; border: 1px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; font-size: 0.875rem; font-weight: 500; transition: all 0.15s; }
-        .scale-option:hover { border-color: #d1d5db; background: #f9fafb; }
-        .scale-option.selected { border-color: #3b82f6; background: #3b82f6; color: white; }
-        
-        /* Pagination / Progress */
-        .preview-footer { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; padding: 1rem; z-index: 40; }
-        .preview-footer__inner { max-width: 46rem; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
-        .progress-bar { height: 0.5rem; background: #e5e7eb; border-radius: 9999px; overflow: hidden; }
-        .progress-bar__fill { height: 100%; background: #3b82f6; border-radius: 9999px; transition: width 0.3s ease; }
-        .pagination { display: flex; align-items: center; justify-content: space-between; }
-        .pagination__info { font-size: 0.875rem; color: #6b7280; }
-        .pagination__buttons { display: flex; gap: 0.5rem; }
-        .pagination__btn { padding: 0.625rem 1.25rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.15s; }
-        .pagination__btn--outline { background: white; border: 1px solid #d1d5db; color: #374151; }
-        .pagination__btn--outline:hover { background: #f9fafb; border-color: #9ca3af; }
-        .pagination__btn--primary { background: #3b82f6; border: 1px solid #3b82f6; color: white; }
-        .pagination__btn--primary:hover { background: #2563eb; border-color: #2563eb; }
-        .pagination__btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        
-        /* SEVIMA Footer Branding */
-        .sevima-branding { text-align: center; padding: 1rem 0; font-size: 0.75rem; color: #9ca3af; }
-        .sevima-branding a { color: #6b7280; text-decoration: none; }
-        .sevima-branding a:hover { text-decoration: underline; }
-        
-        /* Step Preview Panels */
-        .step-panel { display: none; }
-        .step-panel.active { display: block; }
-        
-        /* Step 1-3 Container */
-        .step-container { max-width: 28rem; margin: 0 auto; }
-        .step-card { background: white; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .step-card__header { margin-bottom: 1.5rem; }
-        .step-card__title { font-size: 1.25rem; font-weight: 600; color: #111827; margin-bottom: 0.5rem; }
-        .step-card__desc { font-size: 0.875rem; color: #6b7280; line-height: 1.5; }
-        
-        /* Progress Steps */
-        .step-progress { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
-        .step-progress__item { width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; }
-        .step-progress__item--completed { background: #22c55e; color: white; }
-        .step-progress__item--active { background: #3b82f6; color: white; }
-        .step-progress__item--pending { background: #e5e7eb; color: #9ca3af; }
-        .step-progress__line { width: 2rem; height: 2px; background: #e5e7eb; }
-        .step-progress__line--completed { background: #22c55e; }
-        
-        /* Form Elements for Steps */
-        .step-form-group { margin-bottom: 1rem; }
-        .step-form-label { display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem; }
-        .step-form-label .required { color: #ef4444; margin-left: 0.125rem; }
-        .step-form-select, .step-form-input { width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 0.875rem; color: #111827; background: white; }
-        .step-form-select:focus, .step-form-input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
-        .step-form-hint { font-size: 0.75rem; color: #6b7280; margin-top: 0.375rem; }
-        
-        .step-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.15s; border: none; }
-        .step-btn--primary { background: #3b82f6; color: white; }
-        .step-btn--primary:hover { background: #2563eb; }
-        .step-btn--outline { background: white; border: 1px solid #d1d5db; color: #374151; }
-        .step-btn--outline:hover { background: #f9fafb; }
-        .step-btn-group { display: flex; gap: 0.75rem; }
-        .step-btn-group .step-btn { flex: 1; }
-        
-        /* Summary Box */
-        .summary-box { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1.5rem; }
-        .summary-box__title { font-size: 0.75rem; font-weight: 500; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
-        .summary-box__item { display: flex; justify-content: space-between; font-size: 0.875rem; padding: 0.375rem 0; border-bottom: 1px dashed #e5e7eb; }
-        .summary-box__item:last-child { border-bottom: none; }
-        .summary-box__label { color: #6b7280; }
-        .summary-box__value { color: #111827; font-weight: 500; }
-        
-        /* Info Box */
-        .info-box { display: flex; gap: 0.75rem; padding: 0.875rem 1rem; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 0.5rem; margin-bottom: 1.5rem; }
-        .info-box__icon { flex-shrink: 0; width: 1.25rem; height: 1.25rem; color: #3b82f6; }
-        .info-box__text { font-size: 0.8125rem; color: #1e40af; line-height: 1.5; }
-        
-        /* User Preview Card */
-        .user-preview { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: #f0fdf4; border: 1px solid #86efac; border-radius: 0.5rem; margin-bottom: 1.5rem; }
-        .user-preview__avatar { width: 3.5rem; height: 3.5rem; border-radius: 50%; background: #22c55e; color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 1.125rem; flex-shrink: 0; }
-        .user-preview__info { flex: 1; }
-        .user-preview__name { font-weight: 600; color: #111827; font-size: 1rem; }
-        .user-preview__nim { font-size: 0.875rem; color: #6b7280; margin-top: 0.125rem; }
-        .user-preview__badge { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: #16a34a; background: #dcfce7; padding: 0.25rem 0.5rem; border-radius: 0.25rem; margin-top: 0.375rem; }
-        
-        /* Security Notice */
-        .security-notice { display: flex; gap: 0.75rem; padding: 0.875rem 1rem; background: #fefce8; border: 1px solid #fde047; border-radius: 0.5rem; margin-bottom: 1.5rem; }
-        .security-notice__icon { flex-shrink: 0; width: 1.25rem; height: 1.25rem; color: #ca8a04; }
-        .security-notice__text { font-size: 0.8125rem; color: #854d0e; line-height: 1.5; }
-        
-        /* Admin Notice */
-        .admin-notice { display: flex; gap: 0.75rem; padding: 1rem; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 0.5rem; margin-bottom: 1rem; }
-        .admin-notice__icon { flex-shrink: 0; color: #d97706; }
-        .admin-notice__content { flex: 1; }
-        .admin-notice__title { font-weight: 600; color: #92400e; font-size: 0.875rem; margin-bottom: 0.25rem; }
-        .admin-notice__text { font-size: 0.8125rem; color: #a16207; line-height: 1.5; }
+        .notif-item { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.625rem 1rem; white-space: normal; }
+        .notif-item__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); }
+        .notif-item__desc { font-size: 0.75rem; color: var(--qn-neutral-600); }
+        .notif-item__time { font-size: 0.6875rem; color: var(--qn-neutral-400); }
+
+        /* Same question-card / option-box language as kuesioner-builder.html and
+           kuesioner-pengguna-lulusan-builder.html, minus tier badges and edit affordances -
+           this is a READ-ONLY "what the respondent sees" view, not an editing surface. */
+        .question-card.card { margin-bottom: 0.75rem; box-shadow: none; }
+        .question-card__number { display: flex; align-items: center; justify-content: center; min-width: 1.5rem; height: 1.5rem; background: var(--qn-neutral-100); color: var(--qn-neutral-600); border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600; flex-shrink: 0; }
+        .question-card__text { font-size: 0.9375rem; font-weight: 500; color: var(--qn-neutral-800); margin: 0; }
+        .question-card__desc { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.25rem 0 0; }
+        .question-card__option { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--qn-neutral-200); border-radius: 0.375rem; background: var(--qn-neutral-50); font-size: 0.8125rem; color: var(--qn-neutral-600); }
+        .question-card__option--preview { font-style: italic; }
+        .question-card__options { margin-left: 2.125rem; display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem; }
+        .question-card__option-index { min-width: 1.25rem; height: 1.25rem; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 500; color: var(--qn-neutral-500); }
+
+        /* Read-only 4-level scale table (Kinerja Pengguna Lulusan) */
+        .kinerja-preview { border: 1px solid var(--qn-neutral-200); border-radius: 0.5rem; overflow: hidden; margin-top: 0.75rem; }
+        .kinerja-preview__head, .kinerja-preview__row { display: grid; grid-template-columns: minmax(10rem, 1fr) auto; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; }
+        .kinerja-preview__head { background: var(--qn-neutral-50); font-size: 0.75rem; font-weight: 600; color: var(--qn-neutral-500); }
+        .kinerja-preview__row { border-top: 1px solid var(--qn-neutral-100); font-size: 0.8125rem; color: var(--qn-neutral-700); }
+        .kinerja-preview__cols { display: flex; gap: 0.375rem; }
+        .kinerja-preview__cols span { min-width: 3.5rem; text-align: center; font-size: 0.6875rem; color: var(--qn-neutral-400); }
+
+        /* Narrower reading column for the wave tabs + question list - matches the real
+           respondent forms' (tracer-study-form-exit.html etc.) max-width:46rem convention
+           instead of stretching to the admin container's full width. */
+        .pv-narrow { max-width: 46rem; margin: 0 auto; }
+
+        /* Wave switcher - segmented pill control instead of plain outline buttons, so choosing
+           a wave feels like a deliberate UI moment rather than three interchangeable buttons. */
+        .pv-wave-switcher { display: flex; gap: 0.25rem; background: var(--qn-neutral-100); padding: 0.3125rem; border-radius: 0.75rem; margin-bottom: 1.5rem; }
+        .pv-wave-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.375rem; padding: 0.625rem 1rem; border-radius: 0.5rem; border: none; background: transparent; font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-500); cursor: pointer; transition: background .15s, color .15s, box-shadow .15s; }
+        .pv-wave-btn:hover { color: var(--qn-neutral-800); }
+        .pv-wave-btn.active { background: var(--qn-white); color: var(--qn-primary-600); box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+
+        /* Section headers - colored icon-box (same pattern as kuesioner-builder.html's
+           .section-title) instead of a plain heading, so each section reads as its own block. */
+        .pv-section-header { display: flex; align-items: center; gap: 0.75rem; margin: 2rem 0 1rem; }
+        .pv-section-header:first-child { margin-top: 0; }
+        .pv-section-header__icon { flex-shrink: 0; width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; background: var(--qn-primary-100); color: var(--qn-primary-600); display: flex; align-items: center; justify-content: center; font-size: 1.125rem; }
+        .pv-section-header__title { font-size: 1rem; font-weight: 700; color: var(--qn-neutral-900); margin: 0; }
+        .pv-section-header__meta { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
+
+        .question-card.card { transition: box-shadow .15s, transform .15s; }
+        .question-card.card:hover { box-shadow: 0 4px 14px rgba(15,23,42,0.07); transform: translateY(-1px); }
     </style>
 </head>
-<body>
+<body class="body body_kl-white">
     <!-- Header -->
-    <header class="preview-header">
-        <div class="preview-header__inner">
-            <div class="preview-header__left">
-                <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Logo" class="preview-header__logo">
-                <div class="preview-header__info">
-                    <p>Universitas Contoh</p>
-                    <p>Tracer Study Alumni 2024</p>
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item"><a class="nav__link" href="./index.html"><span class="icon icon-chart-bar-square"></span><span>Dashboard</span></a></li>
+                        <li class="nav__item active"><a class="nav__link" href="./kuesioner.html"><span class="icon icon-clipboard-document-list"></span><span>Kuesioner</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="./alumni.html"><span class="icon icon-academic-cap"></span><span>Alumni</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="./publikasi.html"><span class="icon icon-document-text"></span><span>Publikasi</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <a href="#" class="btn btn_icon btn_nav" title="Pesan">
+                    <span class="icon icon-chat-bubble-left-right"></span>
+                </a>
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification">
+                        <span class="icon icon-bell"></span>
+                    </button>
+                    <div class="dropdown__box dropdown__box_menu-end" style="width: 320px;">
+                        <span class="dropdown__box-title" style="display: block; padding: 0.75rem 1rem 0.25rem;">Pemberitahuan</span>
+                        <ul class="dropdown__list">
+                            <li class="dropdown__item">
+                                <a href="#" class="notif-item">
+                                    <span class="notif-item__title">Periksa Pengikut Baru Anda!</span>
+                                    <span class="notif-item__desc">PT Tes Dimas mulai mengikuti anda.</span>
+                                    <span class="notif-item__time">1 minggu yang lalu</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./portal-karir.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-portal-karir">
+                        Portal Karir
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
                 </div>
             </div>
-            <div class="preview-header__user">
-                <div class="preview-header__info" style="text-align: right;">
-                    <p>Mahasiswa</p>
-                    <p>John Doe</p>
-                </div>
-                <div class="preview-header__avatar">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle">
+                                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
+                                </div>
+                                <div class="avatar__text">
+                                    <span class="avatar__title">Admin Karirlink</span>
+                                    <span class="avatar__subtitle">admin@university.ac.id</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#"><span class="icon icon-user-circle"></span>Lihat Profil</a></li>
+                        <li class="dropdown__item"><a href="#"><span class="icon icon-globe-alt"></span>Pengaturan Landing Page</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Preview Mode Banner -->
-    <div class="preview-banner">
-        <div class="preview-banner__inner">
-            <span class="preview-banner__icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-            </span>
-            <span class="preview-banner__text">Mode Pratinjau Admin</span>
-            <div class="preview-banner__step-nav">
-                <button class="preview-banner__step-btn active" onclick="showStep(1)">Step 1</button>
-                <button class="preview-banner__step-btn" onclick="showStep(2)">Step 2</button>
-                <button class="preview-banner__step-btn" onclick="showStep(4)">Form</button>
-            </div>
-            <a href="./kuesioner-builder.html" class="preview-banner__close" title="Kembali ke Builder">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </a>
-        </div>
-    </div>
-
     <!-- Main Content -->
-    <main class="preview-main">
-        <!-- Admin Notice -->
-        <div style="max-width: 46rem; margin: 0 auto 1rem;">
-            <div class="admin-notice">
-                <svg class="admin-notice__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="8" x2="12" y2="12"></line>
-                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                </svg>
-                <div class="admin-notice__content">
-                    <p class="admin-notice__title">Ini adalah Pratinjau Journey Alumni</p>
-                    <p class="admin-notice__text">Anda melihat tampilan yang akan dilihat alumni saat mengisi kuesioner. Alumni akan melalui 2 step verifikasi sebelum dapat mengakses form kuesioner. Gunakan tombol di atas untuk melihat setiap tahapan.</p>
+    <main class="main">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb__item"><a href="./index.html">Dashboard</a></li>
+                <li class="breadcrumb__item"><a href="./kuesioner.html">Kuesioner</a></li>
+                <li class="breadcrumb__item active"><a href="#">Pratinjau</a></li>
+            </ul>
+
+            <!-- Page Header -->
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title" id="pv-title">Pratinjau Kuesioner</h1>
+                        <p class="main__subtitle" id="pv-subtitle">Persis seperti yang akan dilihat responden - semua input di bawah dinonaktifkan.</p>
+                    </div>
                 </div>
+                <div class="main__action">
+                    <a href="./kuesioner.html" class="btn btn_outline btn_sm">
+                        <span class="icon icon-arrow-left-mini"></span>
+                        Kembali ke Kuesioner
+                    </a>
+                </div>
+            </div>
+
+            <!-- Narrower reading column for the wave tabs + question list - matches the real
+                 respondent forms' max-width:46rem convention instead of stretching full width,
+                 which read as unnecessarily long. -->
+            <div class="pv-narrow">
+                <!-- Wave tabs - Tracer Study only; hidden entirely for Pengguna Lulusan since
+                     that instrument has no Wave/Campaign concept (sent automatically). -->
+                <div class="pv-wave-switcher" id="pv-wave-tabs" style="display: none;">
+                    <button type="button" class="pv-wave-btn active" data-wave="exit" onclick="setWave('exit')"><span class="icon icon-flag-mini"></span> Exit Survey</button>
+                    <button type="button" class="pv-wave-btn" data-wave="gs-1" onclick="setWave('gs-1')"><span class="icon icon-calendar-mini"></span> GS-I</button>
+                    <button type="button" class="pv-wave-btn" data-wave="gs-2" onclick="setWave('gs-2')"><span class="icon icon-calendar-mini"></span> GS-II</button>
+                </div>
+
+                <div id="pv-content"></div>
             </div>
         </div>
 
-        <!-- STEP 1: Pilih Data -->
-        <div class="step-panel active" id="step-1">
-            <div class="step-container">
-                <div class="step-card">
-                    <div class="step-progress">
-                        <div class="step-progress__item step-progress__item--active">1</div>
-                        <div class="step-progress__line"></div>
-                        <div class="step-progress__item step-progress__item--pending">2</div>
-                    </div>
-                    
-                    <div class="step-card__header">
-                        <h2 class="step-card__title">Pengisian Tracer Study</h2>
-                        <p class="step-card__desc">Silakan lengkapi data berikut untuk melanjutkan pengisian tracer study.</p>
-                    </div>
-                    
-                    <div class="step-form-group">
-                        <label class="step-form-label">Tahun Lulus<span class="required">*</span></label>
-                        <select class="step-form-select">
-                            <option value="" disabled selected>Pilih tahun lulus</option>
-                            <option value="2024">2024</option>
-                            <option value="2023">2023</option>
-                        </select>
-                    </div>
-                    
-                    <div class="step-form-group">
-                        <label class="step-form-label">Jenjang Pendidikan<span class="required">*</span></label>
-                        <select class="step-form-select">
-                            <option value="" disabled selected>Pilih jenjang pendidikan</option>
-                            <option value="S1">S1</option>
-                            <option value="S2">S2</option>
-                        </select>
-                    </div>
-                    
-                    <div class="step-form-group" style="margin-bottom: 1.5rem;">
-                        <label class="step-form-label">Program Studi<span class="required">*</span></label>
-                        <select class="step-form-select">
-                            <option value="" disabled selected>Pilih program studi</option>
-                            <option value="ti">S1 - Teknik Informatika</option>
-                        </select>
-                    </div>
-                    
-                    <button class="step-btn step-btn--primary" onclick="showStep(2)">Lanjutkan</button>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
                 </div>
+                <p class="footer__copyright">© 2005-2026 SEVIMA. All Rights Reserved</p>
             </div>
-        </div>
-
-        <!-- STEP 2: Input NIM + Verifikasi -->
-        <div class="step-panel" id="step-2">
-            <div class="step-container">
-                <div class="step-card">
-                    <div class="step-progress">
-                        <div class="step-progress__item step-progress__item--completed">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </div>
-                        <div class="step-progress__line step-progress__line--completed"></div>
-                        <div class="step-progress__item step-progress__item--active">2</div>
-                    </div>
-                    
-                    <div class="step-card__header">
-                        <h2 class="step-card__title">Masukkan Data Anda</h2>
-                        <p class="step-card__desc">Masukkan NIM dan Tanggal Lahir untuk memverifikasi identitas Anda.</p>
-                    </div>
-
-                    <div class="summary-box">
-                        <p class="summary-box__title">Data yang dipilih</p>
-                        <div class="summary-box__item">
-                            <span class="summary-box__label">Tahun Lulus</span>
-                            <span class="summary-box__value">2024</span>
-                        </div>
-                        <div class="summary-box__item">
-                            <span class="summary-box__label">Jenjang</span>
-                            <span class="summary-box__value">S1</span>
-                        </div>
-                        <div class="summary-box__item">
-                            <span class="summary-box__label">Program Studi</span>
-                            <span class="summary-box__value">Teknik Informatika</span>
-                        </div>
-                    </div>
-                    
-                    <div class="info-box">
-                        <svg class="info-box__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                        </svg>
-                        <p class="info-box__text">Data ini digunakan untuk memverifikasi bahwa Anda adalah lulusan yang terdaftar di sistem akademik kampus. Data Anda dijamin kerahasiaannya.</p>
-                    </div>
-                    
-                    <div class="step-form-group">
-                        <label class="step-form-label">Nomor Induk Mahasiswa (NIM)<span class="required">*</span></label>
-                        <input type="text" class="step-form-input" placeholder="Contoh: 20200401234">
-                        <p class="step-form-hint">Masukkan NIM sesuai dengan yang tertera di ijazah atau transkrip nilai Anda.</p>
-                    </div>
-
-                    <div class="step-form-group" style="margin-bottom: 1.5rem;">
-                        <label class="step-form-label">Tanggal Lahir<span class="required">*</span></label>
-                        <input type="date" class="step-form-input">
-                        <p class="step-form-hint">Masukkan tanggal lahir sesuai data di sistem akademik.</p>
-                    </div>
-                    
-                    <div class="step-btn-group">
-                        <button class="step-btn step-btn--outline" onclick="showStep(1)">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M15 18l-6-6 6-6"></path>
-                            </svg>
-                            Kembali
-                        </button>
-                        <button class="step-btn step-btn--primary" onclick="showStep(4)">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                            </svg>
-                            Verifikasi & Lanjutkan
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- STEP 4: Form Kuesioner -->
-        <div class="step-panel" id="step-4">
-            <div class="preview-container">
-            <!-- Section 0: Informasi Pribadi (Default System) -->
-            <div class="section-header" style="background: #f0fdf4; border-color: #86efac;">
-                <span class="section-header__icon" style="background: #22c55e;">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                    </svg>
-                </span>
-                <span>Informasi Pribadi</span>
-                <span style="margin-left: auto; font-size: 0.75rem; color: #16a34a; background: #dcfce7; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Section Default</span>
-            </div>
-
-            <!-- Default Question 1 - Email -->
-            <div class="question-card" style="border-left: 3px solid #22c55e;">
-                <div class="question-card__header">
-                    <span class="question-card__number">1.</span>
-                    <div class="question-card__content">
-                        <p class="question-card__text required">Alamat Email</p>
-                        <p class="question-card__desc">Data ini diambil dari profil Anda</p>
-                    </div>
-                </div>
-                <input type="email" class="text-input" placeholder="Email lulusan" value="john.doe@email.com" disabled style="background: #f9fafb; color: #6b7280;">
-            </div>
-
-            <!-- Default Question 2 - Phone -->
-            <div class="question-card" style="border-left: 3px solid #22c55e;">
-                <div class="question-card__header">
-                    <span class="question-card__number">2.</span>
-                    <div class="question-card__content">
-                        <p class="question-card__text required">Nomor HP</p>
-                    </div>
-                </div>
-                <input type="tel" class="text-input" placeholder="Nomor HP lulusan">
-            </div>
-
-            <!-- Default Question 3 - NIK -->
-            <div class="question-card" style="border-left: 3px solid #22c55e;">
-                <div class="question-card__header">
-                    <span class="question-card__number">3.</span>
-                    <div class="question-card__content">
-                        <p class="question-card__text required">NIK/No. KTP</p>
-                    </div>
-                </div>
-                <input type="text" class="text-input" placeholder="NIK lulusan">
-            </div>
-
-            <!-- Default Question 4 - NPWP -->
-            <div class="question-card" style="border-left: 3px solid #22c55e;">
-                <div class="question-card__header">
-                    <span class="question-card__number">4.</span>
-                    <div class="question-card__content">
-                        <p class="question-card__text">NPWP</p>
-                    </div>
-                </div>
-                <input type="text" class="text-input" placeholder="NPWP lulusan">
-            </div>
-
-            <!-- Section 1: Informasi Umum -->
-            <div class="section-header" style="margin-top: 1.5rem;">
-                <span class="section-header__icon">1</span>
-                <span>Informasi Umum</span>
-            </div>
-
-            <!-- Question 1 - Radio -->
-            <div class="question-card">
-                <div class="question-card__header">
-                    <span class="question-card__number">1.</span>
-                    <div class="question-card__content">
-                        <p class="question-card__text required">Jelaskan status Anda saat ini?</p>
-                    </div>
-                </div>
-                <div class="option-list">
-                    <div class="option-item" onclick="selectOption(this)">
-                        <span class="option-item__letter">A</span>
-                        <span class="option-item__text">Bekerja (full time / part time)</span>
-                    </div>
-                    <div class="option-item" onclick="selectOption(this)">
-                        <span class="option-item__letter">B</span>
-                        <span class="option-item__text">Belum memungkinkan bekerja</span>
-                    </div>
-                    <div class="option-item" onclick="selectOption(this)">
-                        <span class="option-item__letter">C</span>
-                        <span class="option-item__text">Wiraswasta (Wirausaha)</span>
-                    </div>
-                    <div class="option-item" onclick="selectOption(this)">
-                        <span class="option-item__letter">D</span>
-                        <span class="option-item__text">Melanjutkan pendidikan</span>
-                    </div>
-                    <div class="option-item" onclick="selectOption(this)">
-                        <span class="option-item__letter">E</span>
-                        <span class="option-item__text">Tidak kerja, tetapi sedang mencari kerja</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Question 2 - Radio -->
-            <div class="question-card">
-                <div class="question-card__header">
-                    <span class="question-card__number">2.</span>
-                    <div class="question-card__content">
-                        <p class="question-card__text required">Sumber dana apa yang Anda gunakan untuk membiayai kuliah?</p>
-                    </div>
-                </div>
-                <div class="option-list">
-                    <div class="option-item" onclick="selectOption(this)">
-                        <span class="option-item__letter">A</span>
-                        <span class="option-item__text">Biaya Sendiri/Keluarga</span>
-                    </div>
-                    <div class="option-item" onclick="selectOption(this)">
-                        <span class="option-item__letter">B</span>
-                        <span class="option-item__text">Beasiswa ADIK</span>
-                    </div>
-                    <div class="option-item" onclick="selectOption(this)">
-                        <span class="option-item__letter">C</span>
-                        <span class="option-item__text">BIDIKMISI</span>
-                    </div>
-                    <div class="option-item" onclick="selectOption(this)">
-                        <span class="option-item__letter">D</span>
-                        <span class="option-item__text">PPA</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Question 3 - Text Input -->
-            <div class="question-card">
-                <div class="question-card__header">
-                    <span class="question-card__number">3.</span>
-                    <div class="question-card__content">
-                        <p class="question-card__text required">Di mana Anda bekerja saat ini?</p>
-                        <p class="question-card__desc">Tuliskan nama perusahaan/instansi tempat Anda bekerja</p>
-                    </div>
-                </div>
-                <input type="text" class="text-input" placeholder="Ketik jawaban Anda di sini...">
-            </div>
-
-            <!-- Question 4 - Textarea -->
-            <div class="question-card">
-                <div class="question-card__header">
-                    <span class="question-card__number">4.</span>
-                    <div class="question-card__content">
-                        <p class="question-card__text">Ceritakan pengalaman Anda selama kuliah yang paling berkesan</p>
-                    </div>
-                </div>
-                <textarea class="text-input textarea-input" placeholder="Ketik jawaban Anda di sini..."></textarea>
-            </div>
-
-            <!-- Question 5 - Number -->
-            <div class="question-card">
-                <div class="question-card__header">
-                    <span class="question-card__number">5.</span>
-                    <div class="question-card__content">
-                        <p class="question-card__text required">Berapa gaji pertama Anda setelah lulus? (dalam rupiah)</p>
-                    </div>
-                </div>
-                <div class="number-input-wrapper">
-                    <span style="color: #6b7280;">Rp</span>
-                    <input type="number" class="number-input" placeholder="0">
-                </div>
-            </div>
-
-            <!-- Question 6 - Scale -->
-            <div class="question-card">
-                <div class="question-card__header">
-                    <span class="question-card__number">6.</span>
-                    <div class="question-card__content">
-                        <p class="question-card__text required">Seberapa erat hubungan bidang studi dengan pekerjaan Anda?</p>
-                    </div>
-                </div>
-                <div class="scale-wrapper">
-                    <div class="scale-labels">
-                        <span>Sangat Tidak Erat</span>
-                        <span>Sangat Erat</span>
-                    </div>
-                    <div class="scale-options">
-                        <div class="scale-option" onclick="selectScale(this, 'q6')">1</div>
-                        <div class="scale-option" onclick="selectScale(this, 'q6')">2</div>
-                        <div class="scale-option" onclick="selectScale(this, 'q6')">3</div>
-                        <div class="scale-option" onclick="selectScale(this, 'q6')">4</div>
-                        <div class="scale-option" onclick="selectScale(this, 'q6')">5</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SEVIMA Branding -->
-            <div class="sevima-branding">
-                Powered by <a href="https://karirlink.id" target="_blank">Karirlink</a> · <a href="https://sevima.com" target="_blank">SEVIMA</a>
-            </div>
-            </div>
-        </div>
-        <!-- End Step 4 -->
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
 
-    <!-- Footer with Pagination -->
-    <footer class="preview-footer">
-        <div class="preview-footer__inner">
-            <div class="progress-bar">
-                <div class="progress-bar__fill" style="width: 16.67%;"></div>
-            </div>
-            <div class="pagination">
-                <span class="pagination__info">Bagian 1 dari 6 · 6 pertanyaan</span>
-                <div class="pagination__buttons">
-                    <button class="pagination__btn pagination__btn--outline" disabled>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.25rem;">
-                            <path d="M15 18l-6-6 6-6"></path>
-                        </svg>
-                        Sebelumnya
-                    </button>
-                    <button class="pagination__btn pagination__btn--primary" onclick="nextSection()">
-                        Selanjutnya
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 0.25rem;">
-                            <path d="M9 18l6-6-6-6"></path>
-                        </svg>
-                    </button>
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+    // ==================== Data ====================
+    // Mirrors the CURRENTLY ACTIVE question set in kuesioner-builder.html and
+    // kuesioner-pengguna-lulusan-builder.html - this is a static prototype (no shared backend
+    // state between pages), so this snapshot needs to be kept in sync by hand when either
+    // builder's active questions change, same as the respondent-facing tracer-study-form-*.html
+    // files already are.
+    const WAVE_LABELS = { exit: 'Exit Survey', 'gs-1': 'GS-I', 'gs-2': 'GS-II' };
+
+    const TRACER_SECTIONS = [
+        { name: 'Informasi Pribadi', waveScope: ['exit', 'gs-1', 'gs-2'], questions: [
+            { text: 'Nama', type: 'text', required: true },
+            { text: 'NIM', type: 'text', required: true },
+            { text: 'Jenjang Studi', type: 'text', required: true },
+            { text: 'Tahun Lulus', type: 'text', required: true },
+            { text: 'Kode PT', type: 'text', required: true },
+            { text: 'Kode Program Studi', type: 'text', required: true },
+            { text: 'Jenis Kelamin', type: 'text', required: true },
+            { text: 'Tanggal Lahir', type: 'date', required: true },
+            { text: 'NIK/No. KTP', type: 'text', required: true },
+            { text: 'NPWP', type: 'text', required: false },
+            { text: 'Alamat Email', type: 'text', required: true },
+            { text: 'Nomor HP', type: 'text', required: true }
+        ] },
+        { name: 'Informasi Umum', waveScope: ['exit', 'gs-1', 'gs-2'], questions: [
+            { text: 'Jelaskan status Anda saat ini?', type: 'checkbox', required: true,
+                options: ['Bekerja (full time / part time)', 'Wiraswasta (Wirausaha)', 'Melanjutkan pendidikan', 'Tidak kerja, tetapi sedang mencari kerja', 'Belum memungkinkan bekerja'] },
+            { text: 'Dari status yang dipilih, mana status utama Anda?', type: 'radio', required: true, options: ['(otomatis mengikuti status yang dicentang di atas)'] },
+            { text: 'Berapa tempat kerja yang Anda jalani saat ini?', type: 'number', required: true },
+            { text: 'Tingkat kompetensi yang dikuasai saat lulus', type: 'scale', required: true },
+            { text: 'Pendidikan Orang Tua', type: 'radio', required: false, onlyWaves: ['exit'],
+                options: ['SD', 'SMP', 'SMA/SMK', 'Diploma', 'S1', 'S2', 'S3', 'Tidak Sekolah'] },
+            { text: 'Penekanan Metode Pembelajaran di Program Studi', type: 'scale', required: true, onlyWaves: ['exit'] },
+            { text: 'Rencana Anda Setelah Lulus', type: 'radio', required: false, onlyWaves: ['exit'],
+                options: ['Bekerja', 'Melanjutkan Studi', 'Wirausaha', 'Belum Ada Rencana', 'Lainnya'] },
+            { text: 'Apakah Anda mendapatkan pekerjaan pertama / melanjutkan pendidikan sebelum lulus?', type: 'radio', required: true, onlyWaves: ['gs-1', 'gs-2'], options: ['Ya', 'Tidak'] },
+            { text: 'Dalam berapa bulan Anda mendapatkan pekerjaan pertama / melanjutkan studi setelah lulus?', type: 'number', required: false, onlyWaves: ['gs-1', 'gs-2'] },
+            { text: 'Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir?', type: 'radio', required: false, onlyWaves: ['gs-1', 'gs-2'],
+                options: ['Tidak', 'Tidak, tapi saya sedang menunggu hasil lamaran kerja', 'Ya, saya akan mulai bekerja dalam 2 minggu ke depan', 'Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan', 'Lainnya'] },
+            { text: 'Sumber dana apa yang Anda gunakan untuk membiayai kuliah?', type: 'radio', required: true,
+                options: ['Biaya Sendiri/Keluarga', 'Beasiswa ADIK', 'BIDIKMISI', 'PPA'] },
+            { text: 'Kapan Anda mulai mencari pekerjaan?', type: 'text', required: false },
+            { text: 'Bagaimana cara Anda mencari pekerjaan?', type: 'text', required: false },
+            { text: 'Berapa perusahaan yang sudah Anda lamar?', type: 'number', required: false },
+            { text: 'Berapa yang merespons lamaran Anda?', type: 'number', required: false },
+            { text: 'Berapa yang mengundang wawancara?', type: 'number', required: false },
+            { text: 'Jika pekerjaan tidak sesuai pendidikan, mengapa Anda mengambilnya?', type: 'textarea', required: false }
+        ] },
+        { name: 'Bekerja', waveScope: ['gs-1', 'gs-2'], questions: [
+            { text: 'Berapa gaji/penghasilan Anda per bulan saat ini? (Rp)', type: 'number', required: true },
+            { text: 'Apa jenis tempat kerja Anda saat ini?', type: 'radio', required: true,
+                options: ['Perusahaan Swasta (Nasional/Multinasional/Startup/UMKM)', 'Lembaga/Organisasi Nirlaba', 'Institusi/Organisasi Multilateral (PBB, UNICEF, dsb.)', 'Instansi Pemerintah, BUMN, atau BUMD'] }
+        ] },
+        { name: 'Wiraswasta', waveScope: ['gs-1', 'gs-2'], questions: [
+            { text: 'Status kewirausahaan Anda saat ini?', type: 'radio', required: true, options: ['Founder/Pendiri', 'Co-Founder', 'Freelancer'] },
+            { text: 'Berapa penghasilan Anda dari usaha ini per bulan? (Rp)', type: 'number', required: true }
+        ] },
+        { name: 'Melanjutkan Pendidikan', waveScope: ['gs-1', 'gs-2'], questions: [
+            { text: 'Kapan Anda menerima surat penerimaan studi lanjut?', type: 'date', required: true },
+            { text: 'Jenjang Studi Lanjut', type: 'radio', required: true, options: ['S1', 'S2', 'S3', 'Profesi'] }
+        ] },
+        { name: 'Belum Bekerja', waveScope: ['gs-1', 'gs-2'], questions: [
+            { text: 'Apa alasan utama Anda belum bekerja saat ini?', type: 'radio', required: false,
+                options: ['Belum ada lowongan yang sesuai', 'Sedang mempersiapkan diri (kursus/sertifikasi)', 'Kondisi kesehatan/keluarga', 'Belum berminat bekerja saat ini', 'Lainnya'] },
+            { text: 'Apakah Anda berencana aktif mencari kerja dalam 6 bulan ke depan?', type: 'radio', required: false, options: ['Ya', 'Tidak', 'Belum yakin'] }
+        ] },
+        { name: 'Tingkat Kompetensi', waveScope: ['gs-1', 'gs-2'], questions: [
+            { text: 'Tingkat kompetensi yang dibutuhkan pekerjaan/kegiatan Anda saat ini', type: 'scale', required: true },
+            { text: 'Apakah bidang kerja Anda sesuai dengan kompetensi tenaga kesehatan yang dimiliki?', type: 'radio', required: false, options: ['Sesuai', 'Tidak sesuai'] },
+            { text: 'Seberapa sesuai pekerjaan Anda saat ini dengan bidang studi Anda?', type: 'scale', required: false },
+            { text: 'Saran perbaikan untuk program studi/kurikulum', type: 'textarea', required: false },
+            { text: 'Bagaimana Anda menilai kesiapan kerja lulusan program studi ini secara umum?', type: 'scale', required: false },
+            { text: 'Seberapa besar otonomi/kebebasan Anda dalam mengambil keputusan di pekerjaan Anda?', type: 'scale', required: false },
+            { text: 'Seberapa puas Anda dengan pekerjaan Anda secara keseluruhan?', type: 'scale', required: false },
+            { text: 'Seberapa besar kompetensi yang Anda peroleh selama kuliah dimanfaatkan dalam pekerjaan Anda saat ini?', type: 'scale', required: false }
+        ] },
+        { name: 'Rencana Karier Lanjutan', waveScope: ['gs-2'], questions: [
+            { text: 'Apa rencana pengembangan karier Anda dalam 1-2 tahun ke depan?', type: 'checkbox', required: false,
+                options: ['Melanjutkan pendidikan (S2/S3/Profesi)', 'Pindah ke pekerjaan/bidang lain', 'Mengembangkan usaha sendiri', 'Mengambil sertifikasi/pelatihan profesi tambahan', 'Tetap di posisi saat ini', 'Belum ada rencana khusus'] },
+            { text: 'Dukungan apa yang paling Anda butuhkan dari kampus untuk pengembangan karier ke depan?', type: 'textarea', required: false }
+        ] }
+    ];
+
+    const SECTION_ICONS = {
+        'Informasi Pribadi': 'icon-user-circle-mini',
+        'Informasi Umum': 'icon-clipboard-document-list-mini',
+        'Bekerja': 'icon-briefcase-mini',
+        'Wiraswasta': 'icon-building-storefront-mini',
+        'Melanjutkan Pendidikan': 'icon-academic-cap-mini',
+        'Belum Bekerja': 'icon-clock-mini',
+        'Tingkat Kompetensi': 'icon-chart-bar-mini',
+        'Rencana Karier Lanjutan': 'icon-rocket-launch-mini',
+        'Survei Pengguna Lulusan': 'icon-building-office-mini'
+    };
+
+    const PL_QUESTIONS = [
+        { text: 'Nama Ibu/Bapak/Saudara', type: 'text', required: true },
+        { text: 'No Telp/HP', type: 'text', required: false },
+        { text: 'Email', type: 'text', required: false },
+        { text: 'Nama Perusahaan', type: 'text', required: true },
+        { text: 'Alamat Perusahaan', type: 'text', required: true },
+        { text: 'Jabatan Anda', type: 'text', required: true },
+        { text: 'Berikan penilaian Ibu/Bapak/Saudara atas kinerja Alumni kami dalam', type: 'scale4', required: true,
+            scaleLabels: ['Kurang', 'Cukup', 'Baik', 'Sangat Baik'],
+            aspects: ['Integritas / etika berperilaku / moral', 'Kinerja/keahlian berdasarkan bidang ilmu (profesionalisme / kompetensi utama)', 'Kemampuan berbahasa asing', 'Kemampuan Penggunaan teknologi informasi', 'Kemampuan berkomunikasi', 'Kemampuan bekerjasama dalam tim', 'Kepemimpinan', 'Pengembangan diri', 'Etos Kerja', 'Kesiapan terjun di Masyarakat', 'Berpikir Kritis', 'Kreatifitas'] },
+        { text: 'Bagaimana harapan Anda terhadap lulusan Universitas kami?', type: 'text', required: false },
+        { text: 'Berikan Saran dan masukan Anda untuk Universitas kami', type: 'text', required: false },
+        { text: 'Apakah Perusahaan Anda bersedia menjadi mitra rekrutmen kami di masa mendatang?', type: 'text', required: false }
+    ];
+
+    // ==================== Render ====================
+    function escapeAttr(str) {
+        return String(str == null ? '' : str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    }
+
+    function renderOptions(q) {
+        if (['radio', 'checkbox'].includes(q.type)) {
+            return `<div class="question-card__options">${q.options.map((opt, oi) => `
+                <div class="question-card__option"><span class="question-card__option-index">${oi + 1}</span><span>${opt}</span></div>
+            `).join('')}</div>`;
+        }
+        if (q.type === 'scale') {
+            return `<div class="question-card__options" style="flex-direction:row;">${[1, 2, 3, 4, 5].map(n => `<div class="question-card__option" style="flex:1; justify-content:center;">${n}</div>`).join('')}</div>`;
+        }
+        if (q.type === 'scale4') {
+            return `<div class="kinerja-preview">
+                <div class="kinerja-preview__head"><span>Aspek Penilaian</span><div class="kinerja-preview__cols">${q.scaleLabels.map(l => `<span>${l}</span>`).join('')}</div></div>
+                ${q.aspects.map(a => `<div class="kinerja-preview__row"><span>${a}</span><div class="kinerja-preview__cols">${q.scaleLabels.map(() => `<span>&#9675;</span>`).join('')}</div></div>`).join('')}
+            </div>`;
+        }
+        return `<div class="question-card__option question-card__option--preview" style="margin-top:0.75rem;">Jawaban responden akan muncul di sini...</div>`;
+    }
+
+    function renderQuestion(q, index) {
+        return `<div class="card question-card">
+            <div class="card__body">
+                <div style="display:flex; gap:0.625rem;">
+                    <span class="question-card__number">${index + 1}</span>
+                    <div style="flex:1; min-width:0;">
+                        <p class="question-card__text">${q.text}${q.required ? ' <span style="color:var(--qn-danger-500,#ef4444);">*</span>' : ''}</p>
+                        ${q.desc ? `<p class="question-card__desc">${q.desc}</p>` : ''}
+                        ${renderOptions(q)}
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </div>`;
+    }
 
-    <script>
-        // Step Navigation
-        function showStep(stepNum) {
-            // Hide all panels
-            document.querySelectorAll('.step-panel').forEach(panel => {
-                panel.classList.remove('active');
-            });
-            
-            // Show selected panel
-            document.getElementById('step-' + stepNum).classList.add('active');
-            
-            // Update nav buttons
-            document.querySelectorAll('.preview-banner__step-btn').forEach((btn, index) => {
-                btn.classList.remove('active');
-                if (index + 1 === stepNum) {
-                    btn.classList.add('active');
-                }
-            });
+    function renderSectionHeader(name, count) {
+        const icon = SECTION_ICONS[name] || 'icon-document-text-mini';
+        return `<div class="pv-section-header">
+            <span class="pv-section-header__icon"><span class="icon ${icon}"></span></span>
+            <div>
+                <h2 class="pv-section-header__title">${name}</h2>
+                <p class="pv-section-header__meta">${count} pertanyaan</p>
+            </div>
+        </div>`;
+    }
 
-            // Show/hide footer based on step
-            const footer = document.querySelector('.preview-footer');
-            if (stepNum === 4) {
-                footer.style.display = 'block';
-            } else {
-                footer.style.display = 'none';
-            }
-        }
-
-        // Initialize - hide footer on load since step 1 is shown
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('.preview-footer').style.display = 'none';
+    let currentWave = 'exit';
+    function setWave(wave) {
+        currentWave = wave;
+        document.querySelectorAll('#pv-wave-tabs .pv-wave-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.wave === wave);
         });
+        renderTracer();
+    }
 
-        // Select option for radio questions
-        function selectOption(element) {
-            const questionCard = element.closest('.question-card');
-            const optionList = questionCard.querySelector('.option-list');
-            
-            optionList.querySelectorAll('.option-item').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            element.classList.add('selected');
-        }
+    function renderTracer() {
+        const container = document.getElementById('pv-content');
+        let num = 0;
+        container.innerHTML = TRACER_SECTIONS
+            .filter(s => s.waveScope.includes(currentWave))
+            .map(s => {
+                const questions = s.questions.filter(q => !q.onlyWaves || q.onlyWaves.includes(currentWave));
+                if (questions.length === 0) return '';
+                return renderSectionHeader(s.name, questions.length) + questions.map(q => renderQuestion(q, num++)).join('');
+            }).join('');
+    }
 
-        // Select scale option
-        function selectScale(element, questionId) {
-            const scaleWrapper = element.closest('.scale-options');
-            
-            scaleWrapper.querySelectorAll('.scale-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            element.classList.add('selected');
-        }
+    function renderPL() {
+        document.getElementById('pv-content').innerHTML = renderSectionHeader('Survei Pengguna Lulusan', PL_QUESTIONS.length) +
+            PL_QUESTIONS.map((q, i) => renderQuestion(q, i)).join('');
+    }
 
-        // Navigation
-        function nextSection() {
-            alert('Pindah ke bagian selanjutnya (Pratinjau saja)');
-        }
+    // ==================== Init ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        const params = new URLSearchParams(location.search);
+        const type = params.get('type') === 'pengguna-lulusan' ? 'pengguna-lulusan' : 'tracer';
 
-        function prevSection() {
-            alert('Kembali ke bagian sebelumnya (Pratinjau saja)');
+        if (type === 'pengguna-lulusan') {
+            document.getElementById('pv-title').textContent = 'Pratinjau Kuesioner Pengguna Lulusan';
+            document.getElementById('pv-wave-tabs').style.display = 'none';
+            renderPL();
+        } else {
+            document.getElementById('pv-title').textContent = 'Pratinjau Kuesioner Tracer Study';
+            document.getElementById('pv-wave-tabs').style.display = '';
+            setWave('exit');
         }
+    });
     </script>
 </body>
 </html>

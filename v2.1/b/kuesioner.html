@@ -65,6 +65,20 @@
         .tier-summary__item--core strong { color: var(--qn-success-500); }
         .tier-summary__item--optional strong { color: var(--qn-primary-400); }
         .tier-summary__item--custom strong { color: var(--qn-warning-500); }
+
+        /* "Susun Kuesioner" picker modal - whole card is a link (one click, no separate
+           confirm/continue step) since both instruments already exist; this is just routing
+           to the right builder, not a multi-step "create new questionnaire" wizard. */
+        .qnaire-pick-card { display: block; margin-bottom: 0.75rem; text-decoration: none; transition: border-color .15s, box-shadow .15s; }
+        .qnaire-pick-card:last-child { margin-bottom: 0; }
+        .qnaire-pick-card:hover { border-color: var(--qn-primary-300); box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06); }
+        .qnaire-pick-card .card__body { display: flex; align-items: center; gap: 1rem; }
+        .qnaire-pick-card__icon { flex-shrink: 0; width: 2.75rem; height: 2.75rem; border-radius: 0.625rem; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+        .qnaire-pick-card__icon_primary { background: var(--qn-primary-100); color: var(--qn-primary-600); }
+        .qnaire-pick-card__icon_warning { background: var(--qn-warning-100); color: var(--qn-warning-600, #a15c07); }
+        .qnaire-pick-card__title { font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0 0 0.1875rem; }
+        .qnaire-pick-card__desc { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0; line-height: 1.4; }
+        .qnaire-pick-card__chevron { flex-shrink: 0; color: var(--qn-neutral-400); }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -208,7 +222,7 @@
                             </div>
                         </div>
                         <div class="main__action">
-                            <a href="./kuesioner-builder.html" class="btn btn_primary">
+                            <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-pilih-kuesioner">
                                 <span class="icon icon-pencil-mini"></span>
                                 <span class="btn__text">Susun Kuesioner</span>
                             </a>
@@ -218,37 +232,7 @@
                     <div class="alert alert_helper" style="margin-top: 1.25rem; margin-bottom: 1rem;">
                         <div class="alert__content">
                             <span class="alert__heading">Satu kuesioner, banyak versi</span>
-                            <p class="alert__description">Setiap perubahan yang dipublikasikan tersimpan sebagai versi baru di tab "Riwayat Versi Kuesioner". Versi yang sudah dipublikasikan tidak bisa diedit lagi - buat Campaign untuk mengirimkannya ke lulusan per Wave.</p>
-                        </div>
-                    </div>
-
-                    <!-- Tier Legend Card -->
-                    <div class="card no-stretch" style="margin-bottom: 1.25rem;">
-                        <div class="card__body">
-                            <div class="section-title">
-                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-information-circle-mini"></span></span>
-                                <div>
-                                    <h3>Tiga Tingkatan Pertanyaan</h3>
-                                    <p class="section-title__sub">Menentukan apa yang admin boleh ubah pada tiap pertanyaan di Kuesioner Builder</p>
-                                </div>
-                            </div>
-                            <div class="stat-tiles">
-                                <div class="stat-tile stat-tile_success">
-                                    <span class="stat-tile__icon stat-tile__icon_success"><span class="icon icon-lock-closed-mini"></span></span>
-                                    <span class="stat-tile__value">Core</span>
-                                    <span class="stat-tile__label">Wajib di semua gelombang survei - tidak bisa dinonaktifkan, dihapus, atau diedit.</span>
-                                </div>
-                                <div class="stat-tile stat-tile_primary">
-                                    <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-check-circle-mini"></span></span>
-                                    <span class="stat-tile__value">Optional</span>
-                                    <span class="stat-tile__label">Dari Bank Soal bersama - hanya bisa ditoggle on/off, redaksi baku tidak bisa diedit/dihapus.</span>
-                                </div>
-                                <div class="stat-tile stat-tile_warning">
-                                    <span class="stat-tile__icon stat-tile__icon_warning"><span class="icon icon-pencil-mini"></span></span>
-                                    <span class="stat-tile__value">Custom</span>
-                                    <span class="stat-tile__label">Ditulis institusi sendiri - bebas diedit, dinonaktifkan, atau dihapus.</span>
-                                </div>
-                            </div>
+                            <p class="alert__description">Berlaku untuk Kuesioner Tracer Study maupun Pengguna Lulusan: setiap perubahan yang dipublikasikan tersimpan sebagai versi baru, dan mengunci pertanyaannya - versi yang sudah dipublikasikan tidak bisa diedit lagi. Kelola pengirimannya lewat tab yang sesuai di bawah.</p>
                         </div>
                     </div>
 
@@ -262,6 +246,9 @@
                                 </li>
                                 <li class="nav-tab__item" data-toggle="tab" data-target="#kuesioner-campaign">
                                     Campaign (2)
+                                </li>
+                                <li class="nav-tab__item" data-toggle="tab" data-target="#kuesioner-pengguna-lulusan">
+                                    Kuesioner Pengguna Lulusan
                                 </li>
                             </ul>
                         </nav>
@@ -343,7 +330,7 @@
                                                         <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
                                                     </svg>
                                                     <div class="card__header-wrapper">
-                                                        <a href="./kuesioner-template-view.html" class="card__title" style="color: var(--qn-primary-500);">Kuesioner Tracer Study - v3</a>
+                                                        <a href="./kuesioner-preview.html" class="card__title" style="color: var(--qn-primary-500);">Kuesioner Tracer Study - v3</a>
                                                         <p class="card__desc">Dipublikasikan 01 Juni 2025</p>
                                                         <div class="tier-summary">
                                                             <span class="tier-summary__item tier-summary__item--core"><strong>8</strong> Core</span>
@@ -356,7 +343,7 @@
                                                 </div>
                                             </div>
                                             <div class="card__body-right">
-                                                <a href="./kuesioner-template-view.html" class="btn btn_outline btn_sm">
+                                                <a href="./kuesioner-preview.html" class="btn btn_outline btn_sm">
                                                     <span class="icon icon-eye-mini"></span>
                                                     Preview
                                                 </a>
@@ -384,7 +371,7 @@
                                                         <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
                                                     </svg>
                                                     <div class="card__header-wrapper">
-                                                        <a href="./kuesioner-template-view.html" class="card__title" style="color: var(--qn-primary-500);">Kuesioner Tracer Study - v2</a>
+                                                        <a href="./kuesioner-preview.html" class="card__title" style="color: var(--qn-primary-500);">Kuesioner Tracer Study - v2</a>
                                                         <p class="card__desc">Dipublikasikan 25 Juni 2024</p>
                                                         <div class="tier-summary">
                                                             <span class="tier-summary__item tier-summary__item--core"><strong>8</strong> Core</span>
@@ -397,7 +384,7 @@
                                                 </div>
                                             </div>
                                             <div class="card__body-right">
-                                                <a href="./kuesioner-template-view.html" class="btn btn_outline btn_sm">
+                                                <a href="./kuesioner-preview.html" class="btn btn_outline btn_sm">
                                                     <span class="icon icon-eye-mini"></span>
                                                     Preview
                                                 </a>
@@ -454,9 +441,9 @@
                                         <div class="grid cols-2 cols-sm-3">
                                             <select class="select-default">
                                                 <option value="" selected>Wave</option>
-                                                <option value="exit">Saat Lulus</option>
-                                                <option value="gs-1">1 Tahun Lulus</option>
-                                                <option value="gs-2">2 Tahun Lulus</option>
+                                                <option value="exit">Exit Survey</option>
+                                                <option value="gs-1">GS-I</option>
+                                                <option value="gs-2">GS-II</option>
                                             </select>
                                             <select class="select-search">
                                                 <option value="" selected disabled>Tahun Lulus</option>
@@ -507,7 +494,7 @@
                                         </div>
                                         <div class="card__footer">
                                             <div class="card__footer-left">
-                                                <span class="tag tag_outline" title="Wave / Periode Survei">Saat Lulus</span>
+                                                <span class="tag tag_outline" title="Wave / Periode Survei">Exit Survey</span>
                                                 <span class="tag tag_outline tag_sm">v3</span>
                                                 <span class="tag tag_neutral">Belum Dikirim</span>
                                             </div>
@@ -565,7 +552,7 @@
                                         </div>
                                         <div class="card__footer">
                                             <div class="card__footer-left">
-                                                <span class="tag tag_outline" title="Wave / Periode Survei">1 Tahun Lulus</span>
+                                                <span class="tag tag_outline" title="Wave / Periode Survei">GS-I</span>
                                                 <span class="tag tag_outline tag_sm">v2</span>
                                                 <span class="tag tag_success">Aktif</span>
                                             </div>
@@ -649,6 +636,109 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Tab: Kuesioner Pengguna Lulusan -->
+                            <div class="tab-pane" id="kuesioner-pengguna-lulusan">
+                                <div class="grid grid_qnaire-list-head">
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-control">
+                                            <div class="form-control__group">
+                                                <span data-input-icon="search"></span>
+                                                <input type="search" class="form-control__input" placeholder="Cari versi...">
+                                                <span data-clear="input"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-start-sm-8 col-start-lg-9 col-end-sm-12">
+                                        <select class="select-default">
+                                            <option value="" selected>Status Versi</option>
+                                            <option value="draft">Draft</option>
+                                            <option value="published">Published</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="qnaire-lists">
+                                    <!-- v2: Draft in progress -->
+                                    <div class="card card_qnaire-list" id="pl-version-draft">
+                                        <div class="card__body">
+                                            <div class="card__body-left">
+                                                <div class="card__header">
+                                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                                        <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                                        <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                                                    </svg>
+                                                    <div class="card__header-wrapper">
+                                                        <a href="./kuesioner-pengguna-lulusan-builder.html" class="card__title" id="pl-version-draft-title" style="color: var(--qn-primary-500);">Kuesioner Pengguna Lulusan - v2</a>
+                                                        <p class="card__desc" id="pl-version-draft-desc">Draft, terakhir diedit 08 Juli 2026, 13:31</p>
+                                                        <div class="tier-summary">
+                                                            <span class="tier-summary__item tier-summary__item--core"><strong>7</strong> Core</span>
+                                                            <span class="tier-summary__dot">&middot;</span>
+                                                            <span class="tier-summary__item tier-summary__item--custom"><strong>3</strong> Custom</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card__body-right" id="pl-version-draft-actions">
+                                                <a href="./kuesioner-pengguna-lulusan-builder.html" class="btn btn_outline btn_sm">
+                                                    <span class="icon icon-pencil-mini"></span>
+                                                    Lanjutkan Edit
+                                                </a>
+                                                <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-finalisasi-pl">
+                                                    <span class="icon icon-check-circle-mini"></span>
+                                                    Publikasikan
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="card__footer">
+                                            <div class="card__footer-left" id="pl-version-draft-tags">
+                                                <span class="tag tag_outline tag_sm">v2</span>
+                                                <span class="tag tag_neutral">Draft</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- v1: Published, currently active - actually driving live sends -->
+                                    <div class="card card_qnaire-list">
+                                        <div class="card__body">
+                                            <div class="card__body-left">
+                                                <div class="card__header">
+                                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                                        <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                                        <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                                                    </svg>
+                                                    <div class="card__header-wrapper">
+                                                        <span class="card__title" style="color: var(--qn-neutral-500);" title="Sudah dipublikasikan - terkunci, tidak bisa diedit">Kuesioner Pengguna Lulusan - v1</span>
+                                                        <p class="card__desc" id="pl-version-v1-desc">Dipublikasikan 01 Juni 2025 &middot; Sedang aktif mengirim</p>
+                                                        <div class="tier-summary">
+                                                            <span class="tier-summary__item tier-summary__item--core"><strong>7</strong> Core</span>
+                                                            <span class="tier-summary__dot">&middot;</span>
+                                                            <span class="tier-summary__item tier-summary__item--custom"><strong>2</strong> Custom</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card__body-right">
+                                                <a href="./kuesioner-preview.html?type=pengguna-lulusan" class="btn btn_outline btn_sm" target="_blank">
+                                                    <span class="icon icon-eye-mini"></span>
+                                                    Preview
+                                                </a>
+                                                <a href="./pengguna-lulusan-riwayat.html" class="btn btn_primary btn_sm">
+                                                    <span class="icon icon-clock-mini"></span>
+                                                    Riwayat Pengiriman
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="card__footer">
+                                            <div class="card__footer-left">
+                                                <span class="tag tag_outline tag_sm">v1</span>
+                                                <span class="tag tag_success">Published</span>
+                                                <span class="tag tag_outline">28 terkirim</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     </div>
@@ -669,6 +759,43 @@
         </footer>
     </main>
     <!-- [END] Main Content -->
+
+    <!-- [START] Modal: Pilih Kuesioner -->
+    <div class="modal modal_qnaire-action" id="modal-pilih-kuesioner">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title">Susun Kuesioner</h3>
+                    <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0;">Pilih kuesioner yang ingin disusun</p>
+                </div>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <a href="./kuesioner-builder.html" class="card qnaire-pick-card">
+                    <div class="card__body">
+                        <span class="qnaire-pick-card__icon qnaire-pick-card__icon_primary"><span class="icon icon-clipboard-document-list"></span></span>
+                        <div style="flex: 1; min-width: 0;">
+                            <h4 class="qnaire-pick-card__title">Kuesioner Tracer Study</h4>
+                            <p class="qnaire-pick-card__desc">Core &middot; Optional &middot; Custom, dikirim ke alumni per gelombang (Exit Survey / GS-I / GS-II)</p>
+                        </div>
+                        <span class="icon icon-chevron-right-mini qnaire-pick-card__chevron"></span>
+                    </div>
+                </a>
+                <a href="./kuesioner-pengguna-lulusan-builder.html" class="card qnaire-pick-card">
+                    <div class="card__body">
+                        <span class="qnaire-pick-card__icon qnaire-pick-card__icon_warning"><span class="icon icon-clipboard-document-list"></span></span>
+                        <div style="flex: 1; min-width: 0;">
+                            <h4 class="qnaire-pick-card__title">Kuesioner Pengguna Lulusan</h4>
+                            <p class="qnaire-pick-card__desc">Instrumen tunggal untuk Pimpinan Perusahaan - terkirim otomatis bersama Tracer Study, tidak perlu Wave/Campaign terpisah</p>
+                        </div>
+                        <span class="icon icon-chevron-right-mini qnaire-pick-card__chevron"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- [END] Modal: Pilih Kuesioner -->
 
     <!-- [START] Modal: Finalisasi -->
     <div class="modal modal_qnaire-action" id="modal-finalisasi">
@@ -691,11 +818,10 @@
                         <span class="tier-summary__item tier-summary__item--custom"><strong>2</strong> Custom</span>
                         <span style="margin-left: auto; color: var(--qn-neutral-400);">akan dikunci di versi ini</span>
                     </div>
-                    <div class="alert alert_dark alert_checkbox">
-                        <input type="checkbox" class="form-control__checkbox" id="input-draft-agree" name="group">
+                    <div class="alert alert_dark">
                         <div class="alert__content">
-                            <label for="input-draft-agree" class="alert__heading">Kirimkan Juga "Kuesioner Pengguna Lulusan"</label>
-                            <p class="alert__description">Sertakan Kuesioner Pengguna Lulusan dan kirimkan secara otomatis ke email Pimpinan Perusahaan setiap alumni.</p>
+                            <span class="alert__heading">Kuesioner Pengguna Lulusan tetap berjalan otomatis</span>
+                            <p class="alert__description">Terkirim ke email Pimpinan Perusahaan setiap alumni mengisi Tracer Study - dikelola dan dipublikasikan terpisah lewat tab "Kuesioner Pengguna Lulusan", tidak diatur dari sini.</p>
                         </div>
                     </div>
                 </div>
@@ -709,6 +835,37 @@
         </div>
     </div>
     <!-- [END] Modal: Finalisasi -->
+
+    <!-- [START] Modal: Finalisasi Pengguna Lulusan -->
+    <div class="modal modal_qnaire-action" id="modal-finalisasi-pl">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title"><span class="icon icon-check-circle-mini" style="color: var(--tier-core); margin-right: 0.375rem;"></span>Publikasikan Kuesioner Pengguna Lulusan</h3>
+                </div>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <div class="grid cols-1">
+                    <p class="modal__paragraph">Draft ini akan dipublikasikan sebagai <strong>Kuesioner Pengguna Lulusan v2</strong> dan langsung dipakai untuk seluruh pengiriman ke Pimpinan Perusahaan berikutnya. Versi v1 tetap tersimpan sebagai riwayat. Versi yang sudah dipublikasikan tidak dapat diedit lagi - perubahan berikutnya akan membuat draft v3.</p>
+                    <div class="tier-summary" style="background: var(--qn-neutral-50); border: 1px solid var(--qn-neutral-200); border-radius: 0.5rem; padding: 0.625rem 0.875rem;">
+                        <span class="tier-summary__item tier-summary__item--core"><strong>7</strong> Core</span>
+                        <span class="tier-summary__dot">&middot;</span>
+                        <span class="tier-summary__item tier-summary__item--custom"><strong>3</strong> Custom</span>
+                        <span style="margin-left: auto; color: var(--qn-neutral-400);">akan dikunci di versi ini</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <div class="grid cols-1 cols-sm-2">
+                    <button class="btn btn_outline" data-dismiss="modal">Batal</button>
+                    <button class="btn btn_primary" id="btn-publikasikan-pl">Publikasikan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [END] Modal: Finalisasi Pengguna Lulusan -->
 
     <!-- [START] Modal: Kirim -->
     <div class="modal modal_qnaire-action" id="modal-kirim">
@@ -749,9 +906,9 @@
                         <div class="form-control__group">
                             <select class="select-default" id="input-wave">
                                 <option value="" selected disabled>Pilih Wave</option>
-                                <option value="exit">Saat Lulus (Exit Survey)</option>
-                                <option value="gs-1">1 Tahun Setelah Lulus (Graduate Survey I)</option>
-                                <option value="gs-2">2 Tahun Setelah Lulus (Graduate Survey II)</option>
+                                <option value="exit">Exit Survey (saat kelulusan)</option>
+                                <option value="gs-1">Tracer Study GS-I (1 tahun setelah lulus)</option>
+                                <option value="gs-2">Tracer Study GS-II (2 tahun setelah lulus)</option>
                             </select>
                         </div>
                     </div>
@@ -1097,16 +1254,34 @@
         document.addEventListener('DOMContentLoaded', function() {
             const showDraftToast = sessionStorage.getItem('showDraftToast');
             const draftTitle = sessionStorage.getItem('draftTitle');
+            const draftToastTab = sessionStorage.getItem('draftToastTab');
 
             if (showDraftToast === 'true') {
-                // Clear the flag
+                // Clear the flags
                 sessionStorage.removeItem('showDraftToast');
                 sessionStorage.removeItem('draftTitle');
+                sessionStorage.removeItem('draftToastTab');
+
+                // Switch to the tab the admin was actually working in (e.g. Kuesioner Pengguna
+                // Lulusan) instead of leaving them on the default "Riwayat Versi Kuesioner" tab.
+                if (draftToastTab) {
+                    const tabTrigger = document.querySelector(`[data-toggle="tab"][data-target="#${draftToastTab}"]`);
+                    if (tabTrigger) tabTrigger.click();
+                }
 
                 // Show success toast
                 setTimeout(() => {
                     showToast('Kuesioner berhasil disimpan!', 'success');
                 }, 300);
+            }
+
+            // Plain "back to this tab" navigation (e.g. from Riwayat Pengiriman) - switches tab
+            // without implying anything was just saved, so no toast here.
+            const openTab = sessionStorage.getItem('openTab');
+            if (openTab) {
+                sessionStorage.removeItem('openTab');
+                const tabTrigger = document.querySelector(`[data-toggle="tab"][data-target="#${openTab}"]`);
+                if (tabTrigger) tabTrigger.click();
             }
         });
 
@@ -1206,7 +1381,7 @@
             const actions = document.getElementById('qnaire-version-draft-actions');
             if (actions) {
                 actions.innerHTML = `
-                    <a href="./kuesioner-template-view.html" class="btn btn_outline btn_sm">
+                    <a href="./kuesioner-preview.html" class="btn btn_outline btn_sm">
                         <span class="icon icon-eye-mini"></span>
                         Preview
                     </a>
@@ -1224,6 +1399,88 @@
                     <span class="tag tag_success">Published</span>
                 `;
             }
+
+            card.style.cssText = 'animation: highlightNew 2s ease-out; border: 2px solid #10B981; border-radius: 8px;';
+            if (!document.getElementById('highlight-style')) {
+                const style = document.createElement('style');
+                style.id = 'highlight-style';
+                style.textContent = `
+                    @keyframes highlightNew {
+                        0% { background-color: #D1FAE5; border-color: #10B981; }
+                        100% { background-color: white; border-color: #e5e7eb; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            setTimeout(() => {
+                card.style.animation = '';
+                card.style.border = '';
+            }, 2000);
+        }
+
+        // Handle Publikasikan button click for Kuesioner Pengguna Lulusan - publishes the draft
+        // in place, same simulated behavior as the Tracer Study Finalisasi flow above.
+        document.addEventListener('DOMContentLoaded', function() {
+            const plModal = document.getElementById('modal-finalisasi-pl');
+            const publishBtn = document.getElementById('btn-publikasikan-pl');
+            if (plModal && publishBtn) {
+                publishBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const dismissBtn = plModal.querySelector('[data-dismiss="modal"]');
+                    if (dismissBtn) dismissBtn.click();
+                    setTimeout(function() {
+                        markPLDraftAsPublished();
+                        showToast('Kuesioner Pengguna Lulusan berhasil dipublikasikan sebagai v2', 'success');
+                    }, 100);
+                });
+            }
+        });
+
+        // Turn the PL "v2 · Draft" card into a "v2 · Published" card in place, and mark v1 as
+        // superseded (it stays visible as history, but is no longer the one actively sending).
+        function markPLDraftAsPublished() {
+            const card = document.getElementById('pl-version-draft');
+            if (!card || card.dataset.published === 'true') return;
+            card.dataset.published = 'true';
+
+            const title = document.getElementById('pl-version-draft-title');
+            if (title) {
+                const span = document.createElement('span');
+                span.className = 'card__title';
+                span.style.color = 'var(--qn-neutral-500)';
+                span.title = 'Sudah dipublikasikan - terkunci, tidak bisa diedit';
+                span.textContent = title.textContent;
+                title.replaceWith(span);
+            }
+
+            const desc = document.getElementById('pl-version-draft-desc');
+            if (desc) desc.textContent = 'Dipublikasikan hari ini · Sedang aktif mengirim';
+
+            const actions = document.getElementById('pl-version-draft-actions');
+            if (actions) {
+                actions.innerHTML = `
+                    <a href="./kuesioner-preview.html?type=pengguna-lulusan" class="btn btn_outline btn_sm" target="_blank">
+                        <span class="icon icon-eye-mini"></span>
+                        Preview
+                    </a>
+                    <a href="./pengguna-lulusan-riwayat.html" class="btn btn_primary btn_sm">
+                        <span class="icon icon-clock-mini"></span>
+                        Riwayat Pengiriman
+                    </a>
+                `;
+            }
+
+            const tags = document.getElementById('pl-version-draft-tags');
+            if (tags) {
+                tags.innerHTML = `
+                    <span class="tag tag_outline tag_sm">v2</span>
+                    <span class="tag tag_success">Published</span>
+                    <span class="tag tag_outline">0 terkirim</span>
+                `;
+            }
+
+            const v1Desc = document.getElementById('pl-version-v1-desc');
+            if (v1Desc) v1Desc.textContent = 'Dipublikasikan 01 Juni 2025';
 
             card.style.cssText = 'animation: highlightNew 2s ease-out; border: 2px solid #10B981; border-radius: 8px;';
             if (!document.getElementById('highlight-style')) {
@@ -1543,7 +1800,7 @@
                         // Add new campaign card to the Campaign list
                         const waveSelect = document.getElementById('input-wave');
                         const versionSelect = document.getElementById('input-template-version');
-                        const waveLabel = waveSelect && waveSelect.selectedOptions[0] ? waveSelect.selectedOptions[0].text.replace(/\s*\(.*\)$/, '') : 'Saat Lulus';
+                        const waveLabel = waveSelect && waveSelect.selectedOptions[0] ? waveSelect.selectedOptions[0].text.replace(/\s*\(.*\)$/, '') : 'Exit Survey';
                         const versionValue = versionSelect ? versionSelect.value : 'v3';
                         addSentQuestionnaire(selectedTahun, selectedProdi, waveLabel, versionValue);
 

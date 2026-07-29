@@ -66,6 +66,13 @@
         .tsf-id-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem 1rem; margin-top: 0.75rem; }
         @media (max-width: 30rem) { .tsf-id-grid { grid-template-columns: 1fr; } }
 
+        /* Q1-3 (Nama/No. Telp/Email) are pre-filled from the invite link's contact record and
+           locked - only Nama Perusahaan/Alamat Perusahaan stay editable in case the Pimpinan
+           Perusahaan wants to correct/detail it. Native :read-only skips pointer events but
+           doesn't get :disabled's muted look, so it's added explicitly here for the same
+           "locked field" cue used elsewhere (e.g. tracer-study-form-exit.html's Informasi Pribadi). */
+        .form-control__input:read-only { background: #eef2f6; color: #697586; }
+
         /* Scale table - reused layout from tracer-study-form-exit.html, generalised for a
            4-level named scale (Kurang/Cukup/Baik/Sangat Baik) instead of a numeric 1-5 scale. */
         .tsf-scale-table-wrap { overflow-x: auto; margin-top: 0.75rem; }
@@ -211,7 +218,7 @@
                                 </div>
                                 <div class="form-control" style="margin-top: 0.5rem;">
                                     <div class="form-control__group">
-                                        <input type="text" class="form-control__input" id="input-q1" aria-labelledby="q1-label" placeholder="Jawaban teks pendek" oninput="updateAnsweredCount()">
+                                        <input type="text" class="form-control__input" id="input-q1" aria-labelledby="q1-label" value="Dewi Kartika" readonly oninput="updateAnsweredCount()">
                                     </div>
                                 </div>
                             </div>
@@ -224,7 +231,7 @@
                                 </div>
                                 <div class="form-control" style="margin-top: 0.5rem;">
                                     <div class="form-control__group">
-                                        <input type="text" class="form-control__input" id="input-q2" aria-labelledby="q2-label" placeholder="Jawaban teks pendek" oninput="updateAnsweredCount()">
+                                        <input type="text" class="form-control__input" id="input-q2" aria-labelledby="q2-label" value="0812-3456-7890" readonly oninput="updateAnsweredCount()">
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +244,7 @@
                                 </div>
                                 <div class="form-control" style="margin-top: 0.5rem;">
                                     <div class="form-control__group">
-                                        <input type="email" class="form-control__input" id="input-q3" aria-labelledby="q3-label" placeholder="Jawaban teks pendek" oninput="updateAnsweredCount()">
+                                        <input type="email" class="form-control__input" id="input-q3" aria-labelledby="q3-label" value="dewi.kartika@majubersama.co.id" readonly oninput="updateAnsweredCount()">
                                     </div>
                                 </div>
                             </div>
@@ -250,7 +257,7 @@
                                 </div>
                                 <div class="form-control" style="margin-top: 0.5rem;">
                                     <div class="form-control__group">
-                                        <input type="text" class="form-control__input" id="input-q4" aria-labelledby="q4-label" placeholder="Jawaban teks pendek" oninput="updateAnsweredCount()">
+                                        <input type="text" class="form-control__input" id="input-q4" aria-labelledby="q4-label" value="PT Maju Bersama Sejahtera" oninput="updateAnsweredCount()">
                                     </div>
                                 </div>
                             </div>
@@ -263,7 +270,7 @@
                                 </div>
                                 <div class="form-control" style="margin-top: 0.5rem;">
                                     <div class="form-control__group">
-                                        <input type="text" class="form-control__input" id="input-q5" aria-labelledby="q5-label" placeholder="Jawaban teks pendek" oninput="updateAnsweredCount()">
+                                        <input type="text" class="form-control__input" id="input-q5" aria-labelledby="q5-label" value="Jl. Jenderal Sudirman No. 45, Jakarta Selatan" oninput="updateAnsweredCount()">
                                     </div>
                                 </div>
                             </div>

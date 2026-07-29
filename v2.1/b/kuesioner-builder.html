@@ -262,7 +262,7 @@
                     </div>
                 </div>
                 <div class="main__action">
-                    <a href="./kuesioner-preview.html" class="btn btn_outline btn_sm">Pratinjau</a>
+                    <a href="./kuesioner-preview.html" class="btn btn_outline btn_sm" target="_blank">Pratinjau</a>
                     <button class="btn btn_primary btn_sm" onclick="saveAll()">Simpan ke Draft</button>
                 </div>
             </div>
@@ -363,7 +363,7 @@
     <script>
     // ==================== Reference Labels ====================
     const REGULATOR_LABELS = { kemdikbud: 'Kemdikbud', kemenkes: 'Kemenkes', ikuptn: 'IKU PTN', banpt: 'BAN-PT', lam: 'LAM' };
-    const WAVE_LABELS = { exit: 'Saat Lulus', 'gs-1': '1 Tahun Lulus', 'gs-2': '2 Tahun Lulus' };
+    const WAVE_LABELS = { exit: 'Exit Survey', 'gs-1': 'GS-I', 'gs-2': 'GS-II' };
     const WAVE_ORDER = ['exit', 'gs-1', 'gs-2'];
     const TYPE_OPTIONS = [
         { value: 'radio', label: 'Pilihan ganda' },
@@ -384,12 +384,23 @@
     let data = {
         sections: [
             {
+                // Matches tracer-study-form-exit/gs1/gs2.html's "Informasi Pribadi" exactly - 3
+                // read-only clusters (Data Akademik / Data Diri / Kontak), all sourced from
+                // SIAKADCLOUD or the respondent's Karirlink account, not free-typed by the alumni.
                 id: 0, name: 'Informasi Pribadi', locked: true, waveScope: ['exit', 'gs-1', 'gs-2'],
                 questions: [
-                    { id: 1, tier: 'core', text: 'Alamat Email', type: 'text', required: true },
-                    { id: 2, tier: 'core', text: 'Nomor HP', type: 'text', required: true },
-                    { id: 3, tier: 'core', text: 'NIK/No. KTP', type: 'text', required: true },
-                    { id: 4, tier: 'core', text: 'NPWP', type: 'text', required: false }
+                    { id: 26, tier: 'core', text: 'Nama', desc: 'Data akademik dari SIAKADCLOUD - otomatis terisi, tidak diedit responden.', type: 'text', required: true },
+                    { id: 27, tier: 'core', text: 'NIM', desc: 'Data akademik dari SIAKADCLOUD.', type: 'text', required: true },
+                    { id: 28, tier: 'core', text: 'Jenjang Studi', desc: 'Data akademik dari SIAKADCLOUD.', type: 'text', required: true },
+                    { id: 29, tier: 'core', text: 'Tahun Lulus', desc: 'Data akademik dari SIAKADCLOUD.', type: 'text', required: true },
+                    { id: 30, tier: 'core', text: 'Kode PT', desc: 'Data akademik dari SIAKADCLOUD.', type: 'text', required: true },
+                    { id: 31, tier: 'core', text: 'Kode Program Studi', desc: 'Data akademik dari SIAKADCLOUD.', type: 'text', required: true },
+                    { id: 32, tier: 'core', text: 'Jenis Kelamin', desc: 'Data diri dari SIAKADCLOUD/akun Karirlink.', type: 'text', required: true },
+                    { id: 33, tier: 'core', text: 'Tanggal Lahir', desc: 'Data diri dari SIAKADCLOUD/akun Karirlink.', type: 'date', required: true },
+                    { id: 3, tier: 'core', text: 'NIK/No. KTP', desc: 'Data diri dari akun Karirlink.', type: 'text', required: true },
+                    { id: 4, tier: 'core', text: 'NPWP', desc: 'Data diri dari akun Karirlink.', type: 'text', required: false },
+                    { id: 1, tier: 'core', text: 'Alamat Email', desc: 'Kontak dari akun Karirlink.', type: 'text', required: true },
+                    { id: 2, tier: 'core', text: 'Nomor HP', desc: 'Kontak dari akun Karirlink.', type: 'text', required: true }
                 ]
             },
             {
@@ -400,7 +411,17 @@
                     { id: 6, tier: 'core', text: 'Dari status yang dipilih, mana status utama Anda?', desc: 'Muncul ke responden hanya jika Status Anda dicentang lebih dari 1 - opsi mengikuti status yang dicentang di atas.', type: 'radio', required: true,
                         options: ['(otomatis mengikuti status yang dicentang di atas)'] },
                     { id: 18, tier: 'core', text: 'Berapa tempat kerja yang Anda jalani saat ini?', desc: 'Menentukan jumlah kartu "Detail Pekerjaan" yang muncul ke responden.', type: 'number', required: true },
-                    { id: 19, tier: 'core', text: 'Tingkat kompetensi yang dikuasai saat lulus', type: 'scale', required: true }
+                    { id: 19, tier: 'core', text: 'Tingkat kompetensi yang dikuasai saat lulus', type: 'scale', required: true },
+                    { id: 34, tier: 'core', text: 'Pendidikan Orang Tua', desc: 'Hanya tampil di Exit Survey.', type: 'radio', required: false,
+                        options: ['SD', 'SMP', 'SMA/SMK', 'Diploma', 'S1', 'S2', 'S3', 'Tidak Sekolah'] },
+                    { id: 35, tier: 'core', text: 'Penekanan Metode Pembelajaran di Program Studi', desc: 'Skala 1-5. Hanya tampil di Exit Survey.', type: 'scale', required: true },
+                    { id: 36, tier: 'core', text: 'Rencana Anda Setelah Lulus', desc: 'Hanya tampil di Exit Survey. Opsi "Lainnya" disertai isian teks bebas.', type: 'radio', required: false,
+                        options: ['Bekerja', 'Melanjutkan Studi', 'Wirausaha', 'Belum Ada Rencana', 'Lainnya'] },
+                    { id: 37, tier: 'core', text: 'Apakah Anda mendapatkan pekerjaan pertama / melanjutkan pendidikan sebelum lulus?', desc: 'Hanya tampil di GS-I & GS-II. Jika "Tidak", memicu pertanyaan lanjutan jumlah bulan.', type: 'radio', required: true,
+                        options: ['Ya', 'Tidak'] },
+                    { id: 38, tier: 'core', text: 'Dalam berapa bulan Anda mendapatkan pekerjaan pertama / melanjutkan studi setelah lulus?', desc: 'Hanya tampil di GS-I & GS-II, jika pertanyaan sebelumnya dijawab "Tidak".', type: 'number', required: false },
+                    { id: 39, tier: 'core', text: 'Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir?', desc: 'Hanya tampil di GS-I & GS-II.', type: 'radio', required: false,
+                        options: ['Tidak', 'Tidak, tapi saya sedang menunggu hasil lamaran kerja', 'Ya, saya akan mulai bekerja dalam 2 minggu ke depan', 'Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan', 'Lainnya'] }
                 ]
             },
             {
@@ -422,7 +443,9 @@
             {
                 id: 4, name: 'Melanjutkan Pendidikan', locked: false, waveScope: ['gs-1', 'gs-2'],
                 questions: [
-                    { id: 24, tier: 'core', text: 'Kapan Anda menerima surat penerimaan studi lanjut?', desc: 'Kriteria IKU 2: diterima &lt;12 bulan sejak kelulusan dihitung sebagai outcome positif (Kepmen 358/M/2025).', type: 'date', required: true }
+                    { id: 24, tier: 'core', text: 'Kapan Anda menerima surat penerimaan studi lanjut?', desc: 'Kriteria IKU 2: diterima &lt;12 bulan sejak kelulusan dihitung sebagai outcome positif (Kepmen 358/M/2025).', type: 'date', required: true },
+                    { id: 40, tier: 'core', text: 'Jenjang Studi Lanjut', desc: 'Satu-satunya field block-studi di wizard responden saat ini.', type: 'radio', required: true,
+                        options: ['S1', 'S2', 'S3', 'Profesi'] }
                 ]
             },
             { id: 5, name: 'Belum Bekerja', locked: false, waveScope: ['gs-1', 'gs-2'], questions: [] },
@@ -447,16 +470,16 @@
             { id: 13, text: 'Apakah bidang kerja Anda sesuai dengan kompetensi tenaga kesehatan yang dimiliki?', type: 'radio', required: false, regulatorTags: ['kemenkes'], category: 'Kesesuaian Kerja', assignedSectionId: null,
                 options: ['Sesuai', 'Tidak sesuai'] },
             { id: 14, text: 'Berapa lama waktu tunggu Anda mendapatkan pekerjaan pertama? (bulan)', type: 'number', required: false, regulatorTags: ['ikuptn'], category: 'Transisi Kerja', assignedSectionId: null },
-            { id: 15, text: 'Seberapa besar pekerjaan Anda sesuai dengan bidang pendidikan?', type: 'scale', required: false, regulatorTags: ['banpt'], category: 'Kesesuaian Kerja', assignedSectionId: null },
+            { id: 15, text: 'Seberapa sesuai pekerjaan Anda saat ini dengan bidang studi Anda?', type: 'scale', required: false, regulatorTags: ['banpt'], category: 'Kesesuaian Kerja', assignedSectionId: null },
             { id: 16, text: 'Saran perbaikan untuk program studi/kurikulum', type: 'textarea', required: false, regulatorTags: ['banpt', 'lam'], category: 'Enrichment', assignedSectionId: null },
             { id: 17, text: 'Bagaimana Anda menilai kesiapan kerja lulusan program studi ini secara umum?', type: 'scale', required: false, regulatorTags: ['lam'], category: 'Enrichment', assignedSectionId: null },
             { id: 101, text: 'Berapa yang merespons lamaran Anda?', type: 'number', required: false, regulatorTags: ['kemdikbud'], category: 'Proses Cari Kerja', assignedSectionId: null },
             { id: 102, text: 'Berapa yang mengundang wawancara?', type: 'number', required: false, regulatorTags: ['kemdikbud'], category: 'Proses Cari Kerja', assignedSectionId: null },
             { id: 103, text: 'Jika pekerjaan tidak sesuai pendidikan, mengapa Anda mengambilnya?', type: 'textarea', required: false, regulatorTags: ['kemdikbud'], category: 'Kesesuaian Kerja', assignedSectionId: null },
             { id: 104, text: 'Apakah Anda memiliki sertifikat kompetensi/profesi di bidang kesehatan?', type: 'radio', required: false, regulatorTags: ['kemenkes'], category: 'Kesesuaian Kerja', assignedSectionId: null, options: ['Ya', 'Tidak'] },
-            { id: 105, text: 'Seberapa besar otonomi/kebebasan dalam pekerjaan Anda saat ini?', type: 'scale', required: false, regulatorTags: ['banpt', 'lam'], category: 'Enrichment', assignedSectionId: null },
-            { id: 106, text: 'Seberapa puas Anda dengan pekerjaan saat ini secara keseluruhan?', type: 'scale', required: false, regulatorTags: ['banpt', 'lam'], category: 'Enrichment', assignedSectionId: null },
-            { id: 107, text: 'Seberapa besar kompetensi yang Anda peroleh selama kuliah dimanfaatkan dalam pekerjaan saat ini?', type: 'scale', required: false, regulatorTags: ['banpt', 'lam'], category: 'Enrichment', assignedSectionId: null },
+            { id: 105, text: 'Seberapa besar otonomi/kebebasan Anda dalam mengambil keputusan di pekerjaan Anda?', type: 'scale', required: false, regulatorTags: ['banpt', 'lam'], category: 'Enrichment', assignedSectionId: null },
+            { id: 106, text: 'Seberapa puas Anda dengan pekerjaan Anda secara keseluruhan?', type: 'scale', required: false, regulatorTags: ['banpt', 'lam'], category: 'Enrichment', assignedSectionId: null },
+            { id: 107, text: 'Seberapa besar kompetensi yang Anda peroleh selama kuliah dimanfaatkan dalam pekerjaan Anda saat ini?', type: 'scale', required: false, regulatorTags: ['banpt', 'lam'], category: 'Enrichment', assignedSectionId: null },
             // Tidak ada padanan resmi di docs/regulasi atau Bank-Soal doc untuk "Belum Bekerja" &
             // "Rencana Karier Lanjutan" (baik live site Kemdiktisaintek maupun wizard prototype
             // sama-sama tidak punya pertanyaan lanjutan untuk kedua topik ini) - item di bawah
@@ -487,7 +510,7 @@
     const DEFAULT_ACTIVE_OPTIONAL_IDS = {
         1: [7, 8, 9, 10, 101, 102, 103],
         5: [108, 109],
-        6: [13, 15, 17, 105, 106, 107],
+        6: [13, 15, 16, 17, 105, 106, 107],
         7: [110, 111]
     };
     function activateDefaultOptionalQuestions() {
