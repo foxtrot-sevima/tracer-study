@@ -38,7 +38,10 @@
            narrowest common width (320px) - the smaller font/dot below is what makes that fit. */
         @media (max-width: 40rem) {
             .waktu-tunggu-chart-row { flex-direction: column; }
-            .waktu-tunggu-subhead { flex-direction: column; align-items: flex-start !important; gap: 0.375rem; }
+            /* .subhead-flex - dipakai semua .detail-subhead yang menggabungkan judul + link
+               "Rincian per ..." dalam satu baris flex; di layar sempit ditumpuk vertikal
+               supaya link tidak terjepit/wrap aneh di sebelah judul. */
+            .subhead-flex { flex-direction: column; align-items: flex-start !important; gap: 0.375rem; }
             .waktu-tunggu-legend { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.375rem; }
             .waktu-tunggu-legend .chart-legend__item { font-size: 0.75rem; padding: 0.25rem 0.5rem; gap: 0.375rem; }
             .waktu-tunggu-legend .chart-legend__color { width: 0.625rem; height: 0.625rem; }
@@ -300,14 +303,14 @@
                             <span class="icon icon-information-circle-mini"></span>
                         </div>
                         <p class="card-insight__text">
-                            Rumus Slovin: <strong>n = N / (1 + N&middot;d&sup2;)</strong>, dengan galat (d) 2,3%. Data kecukupan sampel ini juga menjadi salah satu unsur penilaian Asesmen Lapangan BAN-PT (melibatkan lulusan &amp; pengguna lulusan).
+                            Rumus Slovin: <strong>n = N / (1 + N&middot;d&sup2;)</strong>, galat (d) 2,3% - juga unsur penilaian akreditasi prodi.
                             <br>
-                            <span style="color: var(--qn-neutral-500);">Keterangan: n = jumlah responden minimum &middot; N = jumlah lulusan &middot; d = galat (2,3%) - sesuai formula responden minimum Kepmen Diktisaintek No. 358/M/2025.</span>
+                            <span style="color: var(--qn-neutral-500);">n = responden minimum &middot; N = jumlah lulusan &middot; d = galat. Sesuai Kepmen 358/2025, berlaku nasional untuk semua lembaga akreditasi.</span>
                         </p>
                     </div>
 
                     <!-- Kecukupan Sampel per Program Studi -->
-                    <p class="detail-subhead" style="display: flex; align-items: center; justify-content: space-between;">
+                    <p class="detail-subhead subhead-flex" style="display: flex; align-items: center; justify-content: space-between;">
                         <span>Kecukupan Sampel per Program Studi</span>
                         <a href="./detail-pengisian.html" class="link link_primary" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;">Rincian per Program Studi <span class="icon icon-arrow-up-right-mini"></span></a>
                     </p>
@@ -361,7 +364,7 @@
                     </div>
 
                     <!-- Rincian Skor IKU 2 -->
-                    <p class="detail-subhead" style="display: flex; align-items: center; justify-content: space-between;">
+                    <p class="detail-subhead subhead-flex" style="display: flex; align-items: center; justify-content: space-between;">
                         <span>Rincian Skor IKU 2 per Kategori Bobot</span>
                         <a href="./detail-status-lulusan.html" class="link link_primary" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;">Rincian per Status Lulusan <span class="icon icon-arrow-up-right-mini"></span></a>
                     </p>
@@ -445,7 +448,7 @@
                         <p class="card-insight__text">
                             Skor IKU 2 = &sum;(n<sub>i</sub>&middot;k<sub>i</sub>) &divide; t &times; 100% = 58,8 &divide; 98 &times; 100% = <strong>60,0%</strong>
                             <br>
-                            <span style="color: var(--qn-neutral-500);">Keterangan: n<sub>i</sub> = jumlah lulusan yang memenuhi kriteria bekerja/wirausaha/melanjutkan studi pada kategori ke-i &middot; k<sub>i</sub> = bobot/konstanta kategori ke-i &middot; t = total responden yang berhasil dikumpulkan - sesuai formula IKU 2 Kepmen Diktisaintek No. 358/M/2025. Lulusan yang sudah bekerja sebelum lulus dinilai dari gaji terhadap UMP saja (tanpa kriteria masa tunggu), berbeda dari yang bekerja setelah lulus.</span>
+                            <span style="color: var(--qn-neutral-500);">n<sub>i</sub> = jumlah lulusan per kategori &middot; k<sub>i</sub> = bobot kategori &middot; t = total responden. Sesuai Kepmen 358/2025 - bekerja sebelum lulus dinilai dari gaji vs UMP saja, tanpa masa tunggu.</span>
                         </p>
                     </div>
                 </div>
@@ -564,7 +567,7 @@
                          (100% lulusan terbagi ke 6 rentang waktu), jadi doughnut lebih pas dibanding bar
                          atau line: total tetap terlihat di tengah, dan tiap rentang langsung terbaca
                          sebagai bagian dari keseluruhan tanpa perlu membandingkan tinggi/kemiringan. -->
-                    <p class="detail-subhead waktu-tunggu-subhead" style="display: flex; align-items: center; justify-content: space-between;">
+                    <p class="detail-subhead subhead-flex" style="display: flex; align-items: center; justify-content: space-between;">
                         <span>Distribusi Waktu Tunggu Mendapatkan Pekerjaan Pertama</span>
                         <a href="./detail-waktu-tunggu-pekerjaan.html" class="link link_primary" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;">Rincian per Program Studi <span class="icon icon-arrow-up-right-mini"></span></a>
                     </p>
