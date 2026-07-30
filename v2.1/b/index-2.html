@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Karirlink Tracer Study</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Choices CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <!-- Choices JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        .notif-item { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.625rem 1rem; white-space: normal; }
+        .notif-item__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); }
+        .notif-item__desc { font-size: 0.75rem; color: var(--qn-neutral-600); }
+        .notif-item__time { font-size: 0.6875rem; color: var(--qn-neutral-400); }
+
+        /* .stat-tiles / .stat-tile* now live in assets/css/main.css (promoted design-system
+           component, shared with the detail-*.html pages). */
+
+        /* Mobile: stack legend below the chart (instead of side-by-side), and drop the
+           "Rincian per Program Studi" link below the section title instead of squeezing
+           both onto one row. Legend still goes 2-column (1|2, 3|4, 5|6) even at the
+           narrowest common width (320px) - the smaller font/dot below is what makes that fit. */
+        @media (max-width: 40rem) {
+            .waktu-tunggu-chart-row { flex-direction: column; }
+            .waktu-tunggu-subhead { flex-direction: column; align-items: flex-start !important; gap: 0.375rem; }
+            .waktu-tunggu-legend { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.375rem; }
+            .waktu-tunggu-legend .chart-legend__item { font-size: 0.75rem; padding: 0.25rem 0.5rem; gap: 0.375rem; }
+            .waktu-tunggu-legend .chart-legend__color { width: 0.625rem; height: 0.625rem; }
+        }
+
+        /* Below 64rem the table still needs to scroll horizontally on its own (phones/tablets
+           can't fit 5 columns) - only drop the clipping once the table already fits unscrolled,
+           so the tooltip has room without breaking responsiveness on small devices. */
+        @media (min-width: 64rem) { .table-responsive_tooltip-safe { overflow: visible; } }
+
+        /* CSS-only donut ring (same technique as alumni-detail.html) */
+        .donut { width: 3rem; height: 3rem; border-radius: 50%; background: conic-gradient(var(--qn-danger-500, #ef4444) calc(var(--pct, 0) * 1%), var(--qn-neutral-300) 0); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .donut__hole { width: 2.25rem; height: 2.25rem; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 700; color: var(--qn-danger-600, #b91c1c); }
+
+        /* Sub-heading for grouping detail tables within the compliance card - this one used to
+           render as an uppercase eyebrow label, so it read fine small; now that it's normal
+           mixed-case prose it needs more size/weight to still read as a heading (roughly h4). */
+        /* Every .card_dashboard on this page is now a sub-card nested inside a larger
+           unifying card (Kuesioner Lulusan) - drop the shadow so it reads as a flat,
+           bordered panel rather than a second elevated card floating above the page. */
+        .card_dashboard { box-shadow: none; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./index.html">
+                                <span class="icon icon-chart-bar-square"></span>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./kuesioner.html">
+                                <span class="icon icon-clipboard-document-list"></span>
+                                <span>Kuesioner</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./alumni.html">
+                                <span class="icon icon-academic-cap"></span>
+                                <span>Alumni</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./publikasi.html">
+                                <span class="icon icon-document-text"></span>
+                                <span>Publikasi</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <a href="#" class="btn btn_icon btn_nav" title="Pesan">
+                    <span class="icon icon-chat-bubble-left-right"></span>
+                </a>
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification">
+                        <span class="icon icon-bell"></span>
+                    </button>
+                    <div class="dropdown__box dropdown__box_menu-end" style="width: 320px;">
+                        <span class="dropdown__box-title" style="display: block; padding: 0.75rem 1rem 0.25rem;">Pemberitahuan</span>
+                        <ul class="dropdown__list">
+                            <li class="dropdown__item">
+                                <a href="#" class="notif-item">
+                                    <span class="notif-item__title">Periksa Pengikut Baru Anda!</span>
+                                    <span class="notif-item__desc">PT Tes Dimas mulai mengikuti anda.</span>
+                                    <span class="notif-item__time">1 minggu yang lalu</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dropdown dropdown_nav dropdown_module">
+                    <a href="./portal-karir.html" class="btn btn_outline btn_xs btn_nav" id="kl-nav-portal-karir">
+                        Portal Karir
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Admin Karirlink</span>
+                            <span class="header__user-role">admin@university.ac.id</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle">
+                                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Avatar Image">
+                                </div>
+                                <div class="avatar__text">
+                                    <span class="avatar__title">Admin Karirlink</span>
+                                    <span class="avatar__subtitle">admin@university.ac.id</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item">
+                            <a href="#">
+                                <span class="icon icon-user-circle"></span>
+                                Lihat Profil
+                            </a>
+                        </li>
+                        <li class="dropdown__item">
+                            <a href="#">
+                                <span class="icon icon-globe-alt"></span>
+                                Pengaturan Landing Page
+                            </a>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger">
+                            <a href="#">
+                                <span class="icon icon-arrow-left-on-rectangle-mini"></span>
+                                Keluar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <div class="main__header main__header_kl-list">
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Dashboard Tracer Study</h1>
+                        <p class="main__subtitle">Ringkasan hasil pengisian tracer study dan tren karier lulusan</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Bar (di atas - berlaku untuk seluruh ringkasan & kedua kelompok kuesioner) -->
+            <div class="card card_empty">
+                <div class="dashboard-filter">
+                    <div class="grid">
+                        <div class="col-12 col-sm-3">
+                            <select class="select-default" id="filter-tahun">
+                                <option value="" selected>Semua Tahun Lulus</option>
+                                <option value="2026">2026</option>
+                                <option value="2025">2025</option>
+                                <option value="2024">2024</option>
+                                <option value="2023">2023</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <select class="select-default" id="filter-jenjang">
+                                <option value="" selected>Semua Jenjang</option>
+                                <option value="d3">D3 - Diploma 3</option>
+                                <option value="s1">S1 - Sarjana</option>
+                                <option value="s2">S2 - Magister</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <select class="select-default select-multiple" id="filter-prodi" multiple>
+                                <option value="" selected>Semua Program Studi</option>
+                                <option value="ti">S1 - Teknik Informatika</option>
+                                <option value="si">S1 - Sistem Informasi</option>
+                                <option value="akuntansi">S1 - Akuntansi</option>
+                                <option value="manajemen">S1 - Manajemen</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <div class="dropdown dropdown_action">
+                                <button class="btn btn_primary btn_block" data-toggle="dropdown">
+                                    <span class="icon icon-arrow-down-tray-mini"></span>
+                                    Unduh Laporan
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </button>
+                                <div class="dropdown__box dropdown__box_menu-end">
+                                    <ul class="dropdown__list">
+                                        <li class="dropdown__item"><a href="#">Semua Informasi</a></li>
+                                        <li class="dropdown__item"><a href="#">Pengisian Tracer Study</a></li>
+                                        <li class="dropdown__item"><a href="#">Waktu Tunggu Lulusan</a></li>
+                                        <li class="dropdown__item"><a href="#">Status Lulusan</a></li>
+                                        <li class="dropdown__item"><a href="#">Kesesuaian Bidang Kerja</a></li>
+                                        <li class="dropdown__item"><a href="#">Tingkat Tempat Kerja</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kepatuhan IKU & Kecukupan Sampel Tracer Study -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card__header">
+                    <div class="card__header-wrapper">
+                        <h3 class="card__title" style="font-size: 1rem; line-height: 1.5rem; font-weight: 600; color: var(--qn-neutral-800); padding: 0;">Kepatuhan IKU 2 &amp; Kecukupan Sampel Tracer Study</h3>
+                        <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0;">Berdasarkan Kepmen Diktisaintek No. 358/M/2025 (IKU 2 - Lulusan Mendapat Pekerjaan yang Layak) &amp; rumus Slovin galat 2,3%</p>
+                    </div>
+                </div>
+                <div class="card__body">
+                    <div class="alert alert_warning" style="margin-bottom: 1.25rem;">
+                        <div class="alert__content">
+                            <p class="alert__heading">Ambang Sampel Belum Terpenuhi</p>
+                            <p class="alert__description">Baru <strong>98 dari 993</strong> responden minimum (rumus Slovin, galat 2,3%) yang terkumpul - skor IKU 2 di bawah belum dapat dianggap sah secara statistik.</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-tiles">
+                        <div class="stat-tile stat-tile_warning">
+                            <span class="stat-tile__icon stat-tile__icon_warning"><span class="icon icon-scale-mini"></span></span>
+                            <span class="stat-tile__value">60,0%</span>
+                            <span class="stat-tile__label">Skor IKU 2 (dari responden terkumpul)</span>
+                            <span class="stat-tile__sub">Target internal &ge; 75%</span>
+                        </div>
+                        <div class="stat-tile stat-tile_primary">
+                            <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-academic-cap-mini"></span></span>
+                            <span class="stat-tile__value">2.088</span>
+                            <span class="stat-tile__label">Total Lulusan Tertelusuri (N)</span>
+                            <span class="stat-tile__sub">graduates &middot; angkatan lulus 1 tahun terakhir</span>
+                        </div>
+                        <div class="stat-tile stat-tile_danger">
+                            <span class="stat-tile__icon stat-tile__icon_danger"><span class="icon icon-users-mini"></span></span>
+                            <span class="stat-tile__value">98</span>
+                            <span class="stat-tile__label">Responden Terkumpul (n)</span>
+                            <span class="stat-tile__sub">4,7% dari total lulusan</span>
+                        </div>
+                        <div class="stat-tile stat-tile_danger">
+                            <div class="donut" style="--pct: 10;"><div class="donut__hole">10%</div></div>
+                            <span class="stat-tile__value" style="font-size: 1.125rem;">993 dibutuhkan</span>
+                            <span class="stat-tile__label">Minimum Responden (Rumus Slovin)</span>
+                            <span class="stat-tile__sub">Kurang 895 responden lagi</span>
+                        </div>
+                    </div>
+
+                    <div class="card-insight" style="margin-top: 1.25rem;">
+                        <div class="card-insight__icon card-insight__icon_info">
+                            <span class="icon icon-information-circle-mini"></span>
+                        </div>
+                        <p class="card-insight__text">
+                            Rumus Slovin: <strong>n = N / (1 + N&middot;d&sup2;)</strong>, dengan galat (d) 2,3%. Data kecukupan sampel ini juga menjadi salah satu unsur penilaian Asesmen Lapangan BAN-PT (melibatkan lulusan &amp; pengguna lulusan).
+                            <br>
+                            <span style="color: var(--qn-neutral-500);">Keterangan: n = jumlah responden minimum &middot; N = jumlah lulusan &middot; d = galat (2,3%) - sesuai formula responden minimum Kepmen Diktisaintek No. 358/M/2025.</span>
+                        </p>
+                    </div>
+
+                    <!-- Kecukupan Sampel per Program Studi -->
+                    <p class="detail-subhead" style="display: flex; align-items: center; justify-content: space-between;">
+                        <span>Kecukupan Sampel per Program Studi</span>
+                        <a href="./detail-pengisian.html" class="link link_primary" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;">Rincian per Program Studi <span class="icon icon-arrow-up-right-mini"></span></a>
+                    </p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Program Studi</th>
+                                    <th>Total Lulusan (N)</th>
+                                    <th>Responden (n)</th>
+                                    <th>Minimum Dibutuhkan</th>
+                                    <th>Capaian</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>S1 - Teknik Informatika</td>
+                                    <td>612</td>
+                                    <td>22</td>
+                                    <td>463</td>
+                                    <td>4,8%</td>
+                                    <td><span class="badge badge_danger">Belum Terpenuhi</span></td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Sistem Informasi</td>
+                                    <td>498</td>
+                                    <td>18</td>
+                                    <td>395</td>
+                                    <td>4,6%</td>
+                                    <td><span class="badge badge_danger">Belum Terpenuhi</span></td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Manajemen</td>
+                                    <td>534</td>
+                                    <td>31</td>
+                                    <td>417</td>
+                                    <td>7,4%</td>
+                                    <td><span class="badge badge_danger">Belum Terpenuhi</span></td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Akuntansi</td>
+                                    <td>444</td>
+                                    <td>27</td>
+                                    <td>360</td>
+                                    <td>7,5%</td>
+                                    <td><span class="badge badge_danger">Belum Terpenuhi</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Rincian Skor IKU 2 -->
+                    <p class="detail-subhead" style="display: flex; align-items: center; justify-content: space-between;">
+                        <span>Rincian Skor IKU 2 per Kategori Bobot</span>
+                        <a href="./detail-status-lulusan.html" class="link link_primary" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;">Rincian per Status Lulusan <span class="icon icon-arrow-up-right-mini"></span></a>
+                    </p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Kategori Outcome</th>
+                                    <th>Kriteria (Kepmen 358/2025)</th>
+                                    <th>Jumlah Lulusan</th>
+                                    <th>Bobot</th>
+                                    <th>Kontribusi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="4">Bekerja (51)</td>
+                                    <td>Sudah bekerja sebelum lulus, gaji &gt; 1,2x UMP</td>
+                                    <td>6</td>
+                                    <td><span class="tag tag_outline">1,0</span></td>
+                                    <td>6,0</td>
+                                </tr>
+                                <tr>
+                                    <td>Masa tunggu &lt; 6 bulan &amp; gaji &gt; 1,2x UMP</td>
+                                    <td>24</td>
+                                    <td><span class="tag tag_outline">1,0</span></td>
+                                    <td>24,0</td>
+                                </tr>
+                                <tr>
+                                    <td>Masa tunggu &lt; 1 tahun &amp; gaji &gt; 1,2x UMP</td>
+                                    <td>15</td>
+                                    <td><span class="tag tag_outline">0,8</span></td>
+                                    <td>12,0</td>
+                                </tr>
+                                <tr>
+                                    <td>Masa tunggu &lt; 1 tahun &amp; gaji &lt; 1,2x UMP</td>
+                                    <td>6</td>
+                                    <td><span class="tag tag_outline">0,6</span></td>
+                                    <td>3,6</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">Wiraswasta (11)</td>
+                                    <td>Founder/co-founder, penghasilan &gt; 1,2x UMP</td>
+                                    <td>7</td>
+                                    <td><span class="tag tag_outline">1,0</span></td>
+                                    <td>7,0</td>
+                                </tr>
+                                <tr>
+                                    <td>Freelancer, penghasilan &gt; 1,2x UMP</td>
+                                    <td>4</td>
+                                    <td><span class="tag tag_outline">0,5</span></td>
+                                    <td>2,0</td>
+                                </tr>
+                                <tr>
+                                    <td>Melanjutkan Studi (7)</td>
+                                    <td>Diterima PT tujuan &lt; 12 bulan setelah lulus</td>
+                                    <td>7</td>
+                                    <td><span class="tag tag_outline">0,6</span></td>
+                                    <td>4,2</td>
+                                </tr>
+                                <tr>
+                                    <td>Mencari Kerja (29)</td>
+                                    <td>Belum memenuhi kriteria outcome manapun</td>
+                                    <td>29</td>
+                                    <td><span class="tag tag_outline">0,0</span></td>
+                                    <td>0,0</td>
+                                </tr>
+                                <tr style="font-weight: 600;">
+                                    <td colspan="2">Total (t = 98 responden)</td>
+                                    <td>98</td>
+                                    <td>-</td>
+                                    <td>58,8</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-insight" style="margin-top: 1.25rem;">
+                        <div class="card-insight__icon card-insight__icon_info">
+                            <span class="icon icon-information-circle-mini"></span>
+                        </div>
+                        <p class="card-insight__text">
+                            Skor IKU 2 = &sum;(n<sub>i</sub>&middot;k<sub>i</sub>) &divide; t &times; 100% = 58,8 &divide; 98 &times; 100% = <strong>60,0%</strong>
+                            <br>
+                            <span style="color: var(--qn-neutral-500);">Keterangan: n<sub>i</sub> = jumlah lulusan yang memenuhi kriteria bekerja/wirausaha/melanjutkan studi pada kategori ke-i &middot; k<sub>i</sub> = bobot/konstanta kategori ke-i &middot; t = total responden yang berhasil dikumpulkan - sesuai formula IKU 2 Kepmen Diktisaintek No. 358/M/2025. Lulusan yang sudah bekerja sebelum lulus dinilai dari gaji terhadap UMP saja (tanpa kriteria masa tunggu), berbeda dari yang bekerja setelah lulus.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kuesioner Lulusan -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card__header">
+                    <div class="card__header-wrapper">
+                        <h3 class="card__title" style="font-size: 1rem; line-height: 1.5rem; font-weight: 600; color: var(--qn-neutral-800); padding: 0;">Kuesioner Lulusan</h3>
+                        <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0;">Tren karier &amp; kesesuaian kerja berdasarkan jawaban lulusan, per program studi</p>
+                    </div>
+                </div>
+                <div class="card__body">
+
+                    <!-- Temuan Utama - kartu warna senada stat-tile (bukan alert), tetap 1 kalimat per
+                         temuan supaya ringkas dibaca sekilas. -->
+                    <div class="stat-tiles" style="grid-template-columns: 1fr; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div class="stat-tile stat-tile_danger" style="flex-direction: row; align-items: flex-start; gap: 0.75rem;">
+                            <span class="stat-tile__icon stat-tile__icon_danger"><span class="icon icon-exclamation-triangle-mini"></span></span>
+                            <div style="min-width: 0;">
+                                <p style="font-size: 0.9375rem; font-weight: 700; color: var(--qn-neutral-900); margin: 0 0 0.25rem;">Sistem Informasi &amp; Teknik Informatika Tertinggal di Semua Indikator</p>
+                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-600); margin: 0; line-height: 1.4;">Capaian 33-45%, jauh di bawah rata-rata institusi. Evaluasi kurikulum &amp; perkuat magang industri.</p>
+                            </div>
+                        </div>
+                        <div class="stat-tile stat-tile_success" style="flex-direction: row; align-items: flex-start; gap: 0.75rem;">
+                            <span class="stat-tile__icon stat-tile__icon_success"><span class="icon icon-check-circle-mini"></span></span>
+                            <div style="min-width: 0;">
+                                <p style="font-size: 0.9375rem; font-weight: 700; color: var(--qn-neutral-900); margin: 0 0 0.25rem;">Manajemen &amp; Akuntansi di Atas Rata-Rata</p>
+                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-600); margin: 0; line-height: 1.4;">Capaian 69-81% - jadikan rujukan praktik baik untuk program studi lain.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rincian per Program Studi - hanya menampilkan 2 tertinggi & 2 terendah + rata-rata
+                         institusi (row count tetap ringkas berapapun jumlah prodi di PT), dengan baris
+                         pembatas berlabel eksplisit "Perlu Perhatian"/"Performa Terbaik" supaya admin tidak
+                         perlu menebak dari warna badge saja mana yang tertinggi/terendah. Link ke daftar
+                         lengkap per metrik ditempel langsung di header kolom masing-masing (bukan baris
+                         link generik terpisah), jadi jelas data apa yang akan dibuka. -->
+                    <p class="detail-subhead" style="margin-bottom: 0.75rem;">Keterserapan Kerja per Program Studi (4 prodi terdaftar)</p>
+                    <!-- .table-responsive clips overflow in both directions by default, which cuts off
+                         the data-tooltip bubble above the header buttons (vertically, and horizontally
+                         for the rightmost column). Below the .table-responsive_tooltip-safe breakpoint
+                         this stays a normal scrollable table (needed on phones/tablets, where the 5
+                         columns don't fit and horizontal scroll must still work); above it, where the
+                         table already fits without scrolling, overflow switches to visible so the
+                         tooltip isn't clipped. -->
+                    <div class="table-responsive table-responsive_tooltip-safe">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Program Studi</th>
+                                    <th>Bekerja (n)</th>
+                                    <th>
+                                        &lt;6 Bulan Dapat Kerja
+                                        <a href="./detail-waktu-tunggu.html" data-tooltip="Lihat Semua Program Studi - Waktu Tunggu" style="display: inline-flex; color: var(--qn-primary-500); font-size: 0.9375rem; margin-left: 0.375rem; vertical-align: middle; text-transform: none;"><span class="icon icon-arrow-up-right-mini" style="color: var(--qn-primary-500);"></span></a>
+                                    </th>
+                                    <th>
+                                        Sesuai Bidang Kerja
+                                        <a href="./detail-kesesuaian-bidang.html" data-tooltip="Lihat Semua Program Studi - Kesesuaian Bidang" style="display: inline-flex; color: var(--qn-primary-500); font-size: 0.9375rem; margin-left: 0.375rem; vertical-align: middle; text-transform: none;"><span class="icon icon-arrow-up-right-mini" style="color: var(--qn-primary-500);"></span></a>
+                                    </th>
+                                    <th>
+                                        Nasional / Multinasional
+                                        <a href="./detail-tingkat-kerja.html" data-tooltip="Lihat Semua Program Studi - Tingkat Tempat Kerja" style="display: inline-flex; color: var(--qn-primary-500); font-size: 0.9375rem; margin-left: 0.375rem; vertical-align: middle; text-transform: none;"><span class="icon icon-arrow-up-right-mini" style="color: var(--qn-primary-500);"></span></a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5" style="background: var(--qn-danger-100, #fee2e2); color: var(--qn-danger-600, #9b1d0f); font-size: 0.75rem; font-weight: 700; padding: 0.375rem 0.75rem;">Perlu Perhatian - Capaian Terendah</td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Sistem Informasi</td>
+                                    <td>9</td>
+                                    <td><span class="badge badge_danger">33%</span></td>
+                                    <td><span class="badge badge_danger">44%</span></td>
+                                    <td><span class="badge badge_danger">33%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Teknik Informatika</td>
+                                    <td>11</td>
+                                    <td><span class="badge badge_danger">36%</span></td>
+                                    <td><span class="badge badge_danger">45%</span></td>
+                                    <td><span class="badge badge_danger">36%</span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" style="background: var(--qn-success-100, #f0fdf9); color: var(--qn-success-600, #125d56); font-size: 0.75rem; font-weight: 700; padding: 0.375rem 0.75rem;">Performa Terbaik - Capaian Tertinggi</td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Akuntansi</td>
+                                    <td>13</td>
+                                    <td><span class="badge badge_warning">69%</span></td>
+                                    <td><span class="badge badge_success">77%</span></td>
+                                    <td><span class="badge badge_warning">69%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>S1 - Manajemen</td>
+                                    <td>16</td>
+                                    <td><span class="badge badge_success">81%</span></td>
+                                    <td><span class="badge badge_success">81%</span></td>
+                                    <td><span class="badge badge_warning">69%</span></td>
+                                </tr>
+                                <tr style="font-weight: 600; background: var(--qn-neutral-100);">
+                                    <td>Rata-rata Institusi</td>
+                                    <td>49</td>
+                                    <td>59%</td>
+                                    <td>65%</td>
+                                    <td>55%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Distribusi Waktu Tunggu - data ini pada dasarnya proporsi bagian-dari-keseluruhan
+                         (100% lulusan terbagi ke 6 rentang waktu), jadi doughnut lebih pas dibanding bar
+                         atau line: total tetap terlihat di tengah, dan tiap rentang langsung terbaca
+                         sebagai bagian dari keseluruhan tanpa perlu membandingkan tinggi/kemiringan. -->
+                    <p class="detail-subhead waktu-tunggu-subhead" style="display: flex; align-items: center; justify-content: space-between;">
+                        <span>Distribusi Waktu Tunggu Mendapatkan Pekerjaan Pertama</span>
+                        <a href="./detail-waktu-tunggu-pekerjaan.html" class="link link_primary" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;">Rincian per Program Studi <span class="icon icon-arrow-up-right-mini"></span></a>
+                    </p>
+                    <!-- Kedua kolom di bawah ini sengaja dibungkus panel (background+padding) yang
+                         setara, supaya bobot visualnya seimbang dengan grid kartu warna di kolom kanan
+                         - sebelumnya chart+legend "mengambang" di ruang putih kosong sementara kartu di
+                         sebelahnya penuh warna, jadi terasa tidak simetris/aneh berdampingan. -->
+                    <div class="grid" style="align-items: stretch; gap: 1rem;">
+                        <div class="col-12 col-md-6">
+                            <div class="waktu-tunggu-chart-row" style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; height: 100%; background: var(--qn-neutral-100); border-radius: 0.625rem; padding: 1.25rem;">
+                                <div class="chart-container" style="height: 150px; width: 150px; flex-shrink: 0;">
+                                    <canvas id="chart-detail-waktu-tunggu"></canvas>
+                                    <div class="chart-center">
+                                        <span class="chart-center__value">75%</span>
+                                        <span class="chart-center__total">&le; 3 bulan</span>
+                                    </div>
+                                </div>
+                                <div class="chart-legend waktu-tunggu-legend" style="gap: 0.375rem; margin-bottom: 0;">
+                                    <div class="chart-legend__item" style="background: #fff; padding: 0.3125rem 0.625rem; border-radius: 0.375rem;"><span class="chart-legend__color" style="background: #1e3a8a;"></span><span>0-1 Bulan &ndash; 32%</span></div>
+                                    <div class="chart-legend__item" style="background: #fff; padding: 0.3125rem 0.625rem; border-radius: 0.375rem;"><span class="chart-legend__color" style="background: #1e40af;"></span><span>1-2 Bulan &ndash; 26%</span></div>
+                                    <div class="chart-legend__item" style="background: #fff; padding: 0.3125rem 0.625rem; border-radius: 0.375rem;"><span class="chart-legend__color" style="background: #2563eb;"></span><span>2-3 Bulan &ndash; 17%</span></div>
+                                    <div class="chart-legend__item" style="background: #fff; padding: 0.3125rem 0.625rem; border-radius: 0.375rem;"><span class="chart-legend__color" style="background: #60a5fa;"></span><span>3-6 Bulan &ndash; 13%</span></div>
+                                    <div class="chart-legend__item" style="background: #fff; padding: 0.3125rem 0.625rem; border-radius: 0.375rem;"><span class="chart-legend__color" style="background: #93c5fd;"></span><span>6-12 Bulan &ndash; 8%</span></div>
+                                    <div class="chart-legend__item" style="background: #fff; padding: 0.3125rem 0.625rem; border-radius: 0.375rem;"><span class="chart-legend__color" style="background: #dbeafe;"></span><span>&gt; 12 Bulan &ndash; 4%</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="stat-tiles" style="grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 0.875rem;">
+                                <div class="stat-tile stat-tile_success" style="justify-content: center;">
+                                    <span class="stat-tile__value">32%</span>
+                                    <span class="stat-tile__label">Tercepat &ndash; Dalam 1 Bulan</span>
+                                </div>
+                                <div class="stat-tile stat-tile_primary" style="justify-content: center;">
+                                    <span class="stat-tile__value">75%</span>
+                                    <span class="stat-tile__label">Dalam 3 Bulan Pertama</span>
+                                </div>
+                                <div class="stat-tile stat-tile_warning" style="justify-content: center;">
+                                    <span class="stat-tile__value">25%</span>
+                                    <span class="stat-tile__label">Lebih dari 3 Bulan</span>
+                                </div>
+                                <div class="stat-tile stat-tile_neutral" style="justify-content: center;">
+                                    <span class="stat-tile__value">49</span>
+                                    <span class="stat-tile__label">Responden Bekerja</span>
+                                </div>
+                            </div>
+                            <div class="card-insight" style="margin-top: 0.875rem;">
+                                <div class="card-insight__icon card-insight__icon_info">
+                                    <span class="icon icon-information-circle-mini"></span>
+                                </div>
+                                <p class="card-insight__text">
+                                    Berdasarkan <strong>49 responden</strong> yang telah bekerja.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kuesioner Pengguna Lulusan -->
+            <div class="card">
+                <div class="card__header">
+                    <div class="card__header-wrapper">
+                        <h3 class="card__title" style="font-size: 1rem; line-height: 1.5rem; font-weight: 600; color: var(--qn-neutral-800); padding: 0;">Kuesioner Pengguna Lulusan</h3>
+                        <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0;">Penilaian kompetensi lulusan oleh atasan/pemberi kerja, per aspek kompetensi</p>
+                    </div>
+                </div>
+                <div class="card__body">
+                    <div class="chart-legend" style="flex-direction: row; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                        <div class="chart-legend__item"><span class="chart-legend__color" style="background: #dbeafe;"></span><span class="chart-legend__text">Kurang</span></div>
+                        <div class="chart-legend__item"><span class="chart-legend__color" style="background: #93c5fd;"></span><span class="chart-legend__text">Cukup</span></div>
+                        <div class="chart-legend__item"><span class="chart-legend__color" style="background: #2563eb;"></span><span class="chart-legend__text">Baik</span></div>
+                        <div class="chart-legend__item"><span class="chart-legend__color" style="background: #1e40af;"></span><span class="chart-legend__text">Sangat Baik</span></div>
+                    </div>
+
+                    <div class="chart-container chart-container_horizontal">
+                        <canvas id="chart-pengguna-lulusan"></canvas>
+                    </div>
+
+                    <div class="alert alert_warning" style="margin-top: 1.25rem;">
+                        <div class="alert__content">
+                            <p class="alert__heading">Aspek Kompetensi Terlemah</p>
+                            <p class="alert__description"><strong>Kemampuan Berbahasa Asing</strong> menjadi aspek dengan penilaian terendah (hanya 18% dinilai Sangat Baik, 12% Kurang) - berpotensi jadi materi pengembangan kurikulum/pelatihan tambahan.</p>
+                        </div>
+                    </div>
+
+                    <p class="detail-subhead">Rincian Persentase per Aspek Kompetensi</p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Aspek Kompetensi</th>
+                                    <th>Kurang</th>
+                                    <th>Cukup</th>
+                                    <th>Baik</th>
+                                    <th>Sangat Baik</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Integritas / Etika Berperilaku</td>
+                                    <td>3%</td>
+                                    <td>12%</td>
+                                    <td>45%</td>
+                                    <td>40%</td>
+                                </tr>
+                                <tr>
+                                    <td>Profesionalisme / Kompetensi Utama</td>
+                                    <td>5%</td>
+                                    <td>18%</td>
+                                    <td>47%</td>
+                                    <td>30%</td>
+                                </tr>
+                                <tr>
+                                    <td>Kemampuan Berbahasa Asing</td>
+                                    <td><span class="tag tag_outline" style="color: var(--qn-danger-600, #9b1d0f); border-color: var(--qn-danger-300, #ef6954);">12%</span></td>
+                                    <td>30%</td>
+                                    <td>40%</td>
+                                    <td>18%</td>
+                                </tr>
+                                <tr>
+                                    <td>Kemampuan Penggunaan TI</td>
+                                    <td>4%</td>
+                                    <td>14%</td>
+                                    <td>44%</td>
+                                    <td>38%</td>
+                                </tr>
+                                <tr>
+                                    <td>Kemampuan Berkomunikasi</td>
+                                    <td>5%</td>
+                                    <td>15%</td>
+                                    <td>45%</td>
+                                    <td>35%</td>
+                                </tr>
+                                <tr>
+                                    <td>Kerjasama Tim</td>
+                                    <td>3%</td>
+                                    <td>10%</td>
+                                    <td>42%</td>
+                                    <td>45%</td>
+                                </tr>
+                                <tr>
+                                    <td>Kepemimpinan</td>
+                                    <td>8%</td>
+                                    <td>22%</td>
+                                    <td>46%</td>
+                                    <td>24%</td>
+                                </tr>
+                                <tr>
+                                    <td>Pengembangan Diri</td>
+                                    <td>6%</td>
+                                    <td>17%</td>
+                                    <td>44%</td>
+                                    <td>33%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+
+    <!-- Dashboard Charts Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Choices.js for selects
+            const selectElements = document.querySelectorAll('.select-default:not(.select-multiple)');
+            selectElements.forEach(el => {
+                new Choices(el, {
+                    searchEnabled: false,
+                    itemSelectText: '',
+                    shouldSort: false
+                });
+            });
+
+            // Initialize multi-select
+            const multiSelectElements = document.querySelectorAll('.select-multiple');
+            multiSelectElements.forEach(el => {
+                new Choices(el, {
+                    removeItemButton: true,
+                    searchEnabled: true,
+                    itemSelectText: '',
+                    shouldSort: false,
+                    placeholder: true,
+                    placeholderValue: 'Pilih Program Studi'
+                });
+            });
+
+            // Chart colors - single hue (blue) with lighter tints, kept consistent across all dashboard charts
+            const primaryColor = '#1e40af';
+            const primaryColorMid = '#2563eb';
+            const primaryColorLight = '#93c5fd';
+            const primaryColorLightest = '#dbeafe';
+
+            // Detail Waktu Tunggu Chart - doughnut, bukan bar/line: data ini adalah proporsi
+            // bagian-dari-keseluruhan (100% lulusan terbagi ke 6 rentang waktu), jadi bentuk
+            // lingkaran dengan total di tengah lebih sesuai dibanding membandingkan tinggi batang.
+            new Chart(document.getElementById('chart-detail-waktu-tunggu'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['0-1 Bulan', '1-2 Bulan', '2-3 Bulan', '3-6 Bulan', '6-12 Bulan', '> 12 Bulan'],
+                    datasets: [{
+                        data: [32, 26, 17, 13, 8, 4],
+                        backgroundColor: ['#1e3a8a', '#1e40af', '#2563eb', '#60a5fa', '#93c5fd', '#dbeafe'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '68%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + '% lulusan' } }
+                    }
+                }
+            });
+
+            // Kuesioner Pengguna Lulusan - satu stacked horizontal bar chart untuk semua aspek kompetensi
+            new Chart(document.getElementById('chart-pengguna-lulusan'), {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'Integritas / Etika Berperilaku',
+                        'Profesionalisme / Kompetensi Utama',
+                        'Kemampuan Berbahasa Asing',
+                        'Kemampuan Penggunaan TI',
+                        'Kemampuan Berkomunikasi',
+                        'Kerjasama Tim',
+                        'Kepemimpinan',
+                        'Pengembangan Diri'
+                    ],
+                    datasets: [
+                        { label: 'Kurang', data: [3, 5, 12, 4, 5, 3, 8, 6], backgroundColor: primaryColorLightest },
+                        { label: 'Cukup', data: [12, 18, 30, 14, 15, 10, 22, 17], backgroundColor: primaryColorLight },
+                        { label: 'Baik', data: [45, 47, 40, 44, 45, 42, 46, 44], backgroundColor: primaryColorMid },
+                        { label: 'Sangat Baik', data: [40, 30, 18, 38, 35, 45, 24, 33], backgroundColor: primaryColor }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { stacked: true, beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } },
+                        y: { stacked: true, grid: { display: false } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
