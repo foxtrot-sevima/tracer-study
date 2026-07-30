@@ -227,10 +227,24 @@
                 </div>
                 <div class="card__body">
 
+                <!-- Cakupan data - waktu tunggu hanya berlaku bagi lulusan yang bekerja SETELAH
+                     lulus; yang sudah bekerja SEBELUM lulus dinilai terpisah (gaji vs UMP saja,
+                     tanpa masa tunggu) sesuai Kepmen 358/2025. -->
+                <div class="card-insight" style="margin-top: 0;">
+                    <div class="card-insight__icon card-insight__icon_info">
+                        <span class="icon icon-information-circle-mini"></span>
+                    </div>
+                    <p class="card-insight__text">
+                        Data di halaman ini khusus lulusan yang <strong>bekerja setelah lulus</strong>. <strong>6 lulusan</strong> lainnya sudah bekerja <strong>sebelum lulus</strong> sehingga tidak memiliki masa tunggu - dinilai terpisah dari gaji terhadap UMP saja pada Skor IKU 2.
+                        <br>
+                        <a href="./detail-status-lulusan.html" class="link link_primary" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;">Lihat Rincian Bekerja Sebelum vs Setelah Lulus <span class="icon icon-arrow-up-right-mini"></span></a>
+                    </p>
+                </div>
+
                 <!-- Summary Statistics - donut+legend dalam panel abu-abu berdampingan dengan
                      stat-tiles berwarna, pola identik dengan section "Distribusi Waktu Tunggu
                      Mendapatkan Pekerjaan Pertama" di Dashboard. -->
-                <p class="detail-subhead" style="margin-top: 0;">Ringkasan Waktu Tunggu</p>
+                <p class="detail-subhead">Ringkasan Waktu Tunggu</p>
                 <div class="grid" style="align-items: stretch; gap: 1rem; margin-bottom: 1rem;">
                     <div class="col-12 col-md-6">
                         <div class="chart-panel-row">
