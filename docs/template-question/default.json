@@ -1,0 +1,28 @@
+{
+  "owner_type_id": 3,
+  "name": "",
+  "period_id": null,
+  "is_published": false,
+  "formula": "default",
+  "sections": [
+    {
+      "number": 1,
+      "name": "",
+      "jump_to": "1",
+      "questions": [
+        {
+          "answer_type_id": 2,
+          "number": 2,
+          "content": "",
+          "description": "",
+          "is_other": false,
+          "is_required": false,
+          "jump_to_box": false,
+          "code": "",
+          "sub_questions": [],
+          "answer_questions": []
+        }
+      ]
+    }
+  ]
+}

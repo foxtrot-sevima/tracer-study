@@ -228,41 +228,41 @@
             { text: 'Nomor HP', type: 'text', required: true }
         ] },
         { name: 'Informasi Umum', waveScope: ['exit', 'gs-1', 'gs-2'], questions: [
-            { text: 'Jelaskan status Anda saat ini?', type: 'checkbox', required: true,
+            { text: 'Jelaskan status Anda saat ini?', type: 'checkbox', required: true, code: 'f8',
                 options: ['Bekerja (full time / part time)', 'Wiraswasta (Wirausaha)', 'Melanjutkan pendidikan', 'Tidak kerja, tetapi sedang mencari kerja', 'Belum memungkinkan bekerja'] },
-            { text: 'Dari status yang dipilih, mana status utama Anda?', type: 'radio', required: true, options: ['(otomatis mengikuti status yang dicentang di atas)'] },
-            { text: 'Berapa tempat kerja yang Anda jalani saat ini?', type: 'number', required: true },
-            { text: 'Tingkat kompetensi yang dikuasai saat lulus', type: 'scale', required: true },
-            { text: 'Pendidikan Orang Tua', type: 'radio', required: false, onlyWaves: ['exit'],
+            { text: 'Dari status yang dipilih, mana status utama Anda?', type: 'radio', required: true, code: 'STATUS_UTAMA', options: ['(otomatis mengikuti status yang dicentang di atas)'] },
+            { text: 'Berapa tempat kerja yang Anda jalani saat ini?', type: 'number', required: true, code: 'JUMLAH_PEKERJAAN' },
+            { text: 'Tingkat kompetensi yang dikuasai saat lulus', type: 'scale', required: true, code: 'f17' },
+            { text: 'Pendidikan Orang Tua', type: 'radio', required: false, onlyWaves: ['exit'], code: 'PENDIDIKAN_ORTU',
                 options: ['SD', 'SMP', 'SMA/SMK', 'Diploma', 'S1', 'S2', 'S3', 'Tidak Sekolah'] },
-            { text: 'Penekanan Metode Pembelajaran di Program Studi', type: 'scale', required: true, onlyWaves: ['exit'] },
-            { text: 'Rencana Anda Setelah Lulus', type: 'radio', required: false, onlyWaves: ['exit'],
+            { text: 'Penekanan Metode Pembelajaran di Program Studi', type: 'scale', required: true, onlyWaves: ['exit'], code: 'f2' },
+            { text: 'Rencana Anda Setelah Lulus', type: 'radio', required: false, onlyWaves: ['exit'], code: 'RENCANA_SETELAH_LULUS',
                 options: ['Bekerja', 'Melanjutkan Studi', 'Wirausaha', 'Belum Ada Rencana', 'Lainnya'] },
-            { text: 'Apakah Anda mendapatkan pekerjaan pertama / melanjutkan pendidikan sebelum lulus?', type: 'radio', required: true, onlyWaves: ['gs-1', 'gs-2'], options: ['Ya', 'Tidak'] },
-            { text: 'Dalam berapa bulan Anda mendapatkan pekerjaan pertama / melanjutkan studi setelah lulus?', type: 'number', required: false, onlyWaves: ['gs-1', 'gs-2'] },
-            { text: 'Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir?', type: 'radio', required: false, onlyWaves: ['gs-1', 'gs-2'],
+            { text: 'Apakah Anda mendapatkan pekerjaan pertama / melanjutkan pendidikan sebelum lulus?', type: 'radio', required: true, onlyWaves: ['gs-1', 'gs-2'], code: 'f502', options: ['Ya', 'Tidak'] },
+            { text: 'Dalam berapa bulan Anda mendapatkan pekerjaan pertama / melanjutkan studi setelah lulus?', type: 'number', required: false, onlyWaves: ['gs-1', 'gs-2'], code: 'f502' },
+            { text: 'Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir? Pilihlah satu jawaban', type: 'radio', required: false, onlyWaves: ['gs-1', 'gs-2'], code: 'f1001',
                 options: ['Tidak', 'Tidak, tapi saya sedang menunggu hasil lamaran kerja', 'Ya, saya akan mulai bekerja dalam 2 minggu ke depan', 'Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan', 'Lainnya'] },
-            { text: 'Sumber dana apa yang Anda gunakan untuk membiayai kuliah?', type: 'radio', required: true,
-                options: ['Biaya Sendiri/Keluarga', 'Beasiswa ADIK', 'BIDIKMISI', 'PPA'] },
-            { text: 'Kapan Anda mulai mencari pekerjaan?', type: 'text', required: false },
-            { text: 'Bagaimana cara Anda mencari pekerjaan?', type: 'text', required: false },
-            { text: 'Berapa perusahaan yang sudah Anda lamar?', type: 'number', required: false },
-            { text: 'Berapa yang merespons lamaran Anda?', type: 'number', required: false },
-            { text: 'Berapa yang mengundang wawancara?', type: 'number', required: false },
-            { text: 'Jika pekerjaan tidak sesuai pendidikan, mengapa Anda mengambilnya?', type: 'textarea', required: false }
+            { text: 'Sumber dana apa yang Anda gunakan untuk membiayai kuliah?', type: 'radio', required: true, code: 'f1201',
+                options: ['Biaya Sendiri / Keluarga', 'Beasiswa ADIK', 'Beasiswa BIDIKMISI', 'Beasiswa PPA', 'Beasiswa AFIRMASI', 'Beasiswa Perusahaan / Swasta', 'Lainnya'] },
+            { text: 'Kapan Anda mulai mencari pekerjaan?', type: 'text', required: false, code: 'f301' },
+            { text: 'Bagaimana cara Anda mencari pekerjaan?', type: 'text', required: false, code: 'f4' },
+            { text: 'Berapa perusahaan yang sudah Anda lamar?', type: 'number', required: false, code: 'f6' },
+            { text: 'Berapa yang merespons lamaran Anda?', type: 'number', required: false, code: 'f7' },
+            { text: 'Berapa yang mengundang wawancara?', type: 'number', required: false, code: 'f7a' },
+            { text: 'Jika pekerjaan tidak sesuai pendidikan, mengapa Anda mengambilnya?', type: 'textarea', required: false, code: 'f16' }
         ] },
         { name: 'Bekerja', waveScope: ['gs-1', 'gs-2'], questions: [
-            { text: 'Berapa gaji/penghasilan Anda per bulan saat ini? (Rp)', type: 'number', required: true },
-            { text: 'Apa jenis tempat kerja Anda saat ini?', type: 'radio', required: true,
+            { text: 'Berapa rata-rata pendapatan Anda per bulan (Take Home Pay) saat ini? (Rp)', type: 'number', required: true, code: 'f505' },
+            { text: 'Apa jenis tempat kerja Anda saat ini?', type: 'radio', required: true, code: 'f1101',
                 options: ['Perusahaan Swasta (Nasional/Multinasional/Startup/UMKM)', 'Lembaga/Organisasi Nirlaba', 'Institusi/Organisasi Multilateral (PBB, UNICEF, dsb.)', 'Instansi Pemerintah, BUMN, atau BUMD'] }
         ] },
         { name: 'Wiraswasta', waveScope: ['gs-1', 'gs-2'], questions: [
-            { text: 'Status kewirausahaan Anda saat ini?', type: 'radio', required: true, options: ['Founder/Pendiri', 'Co-Founder', 'Freelancer'] },
-            { text: 'Berapa penghasilan Anda dari usaha ini per bulan? (Rp)', type: 'number', required: true }
+            { text: 'Status kewirausahaan Anda saat ini?', type: 'radio', required: true, code: 'f5c', options: ['Founder/Pendiri', 'Co-Founder', 'Freelancer'] },
+            { text: 'Berapa rata-rata pendapatan Anda dari usaha ini per bulan (Take Home Pay) saat ini? (Rp)', type: 'number', required: true, code: 'f505' }
         ] },
         { name: 'Melanjutkan Pendidikan', waveScope: ['gs-1', 'gs-2'], questions: [
-            { text: 'Kapan Anda menerima surat penerimaan studi lanjut?', type: 'date', required: true },
-            { text: 'Jenjang Studi Lanjut', type: 'radio', required: true, options: ['S1', 'S2', 'S3', 'Profesi'] }
+            { text: 'Kapan Anda menerima surat penerimaan studi lanjut?', type: 'date', required: true, code: 'f18d' },
+            { text: 'Jenjang Studi Lanjut', type: 'radio', required: true, code: 'JENJANG_STUDI_LANJUT', options: ['S1', 'S2', 'S3', 'Profesi'] }
         ] },
         { name: 'Belum Bekerja', waveScope: ['gs-1', 'gs-2'], questions: [
             { text: 'Apa alasan utama Anda belum bekerja saat ini?', type: 'radio', required: false,
@@ -270,7 +270,7 @@
             { text: 'Apakah Anda berencana aktif mencari kerja dalam 6 bulan ke depan?', type: 'radio', required: false, options: ['Ya', 'Tidak', 'Belum yakin'] }
         ] },
         { name: 'Tingkat Kompetensi', waveScope: ['gs-1', 'gs-2'], questions: [
-            { text: 'Tingkat kompetensi yang dibutuhkan pekerjaan/kegiatan Anda saat ini', type: 'scale', required: true },
+            { text: 'Tingkat kompetensi yang dibutuhkan pekerjaan/kegiatan Anda saat ini', type: 'scale', required: true, code: 'f17' },
             { text: 'Apakah bidang kerja Anda sesuai dengan kompetensi tenaga kesehatan yang dimiliki?', type: 'radio', required: false, options: ['Sesuai', 'Tidak sesuai'] },
             { text: 'Seberapa sesuai pekerjaan Anda saat ini dengan bidang studi Anda?', type: 'scale', required: false },
             { text: 'Saran perbaikan untuk program studi/kurikulum', type: 'textarea', required: false },

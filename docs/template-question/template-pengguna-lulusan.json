@@ -1,0 +1,250 @@
+{
+  "owner_type_id": 3,
+  "name": "",
+  "period_id": 0,
+  "is_published": false,
+  "formula": "graduate-user",
+  "sections": [
+    {
+      "number": 1,
+      "name": "Survei Pengguna Lulusan",
+      "jump_to": "1",
+      "questions": [
+        {
+          "answer_type_id": 2,
+          "number": 1,
+          "content": "Nama Ibu/Bapak/Saudara",
+          "description": "",
+          "is_other": false,
+          "is_other_code": "",
+          "is_other_value": "",
+          "jump_to_box": false,
+          "is_required": true,
+          "code": "",
+          "sub_questions": [
+            {
+              "content": "",
+              "code": ""
+            }
+          ],
+          "answer_questions": []
+        },
+        {
+          "answer_type_id": 2,
+          "number": 2,
+          "content": "No Telp/HP ",
+          "description": "",
+          "is_other": false,
+          "is_other_code": "",
+          "is_other_value": "",
+          "jump_to_box": false,
+          "is_required": false,
+          "sub_questions": [
+            {
+              "content": "",
+              "code": ""
+            }
+          ],
+          "answer_questions": []
+        },
+        {
+          "answer_type_id": 2,
+          "number": 3,
+          "content": "Email",
+          "description": "",
+          "is_other": false,
+          "is_other_code": "",
+          "is_other_value": "",
+          "jump_to_box": false,
+          "is_required": false,
+          "sub_questions": [
+            {
+              "content": "",
+              "code": ""
+            }
+          ],
+          "answer_questions": []
+        },
+        {
+          "answer_type_id": 2,
+          "number": 4,
+          "content": "Nama Perusahaan",
+          "description": "",
+          "is_other": false,
+          "is_other_code": "",
+          "is_other_value": "",
+          "jump_to_box": false,
+          "is_required": true,
+          "sub_questions": [
+            {
+              "content": "",
+              "code": ""
+            }
+          ],
+          "answer_questions": []
+        },
+        {
+          "answer_type_id": 2,
+          "number": 5,
+          "content": "Alamat Perusahaan",
+          "description": "",
+          "is_other": false,
+          "is_other_code": "",
+          "is_other_value": "",
+          "jump_to_box": false,
+          "is_required": true,
+          "sub_questions": [
+            {
+              "content": "",
+              "code": ""
+            }
+          ],
+          "answer_questions": []
+        },
+        {
+          "answer_type_id": 2,
+          "number": 6,
+          "content": "Jabatan Anda",
+          "description": "",
+          "is_other": false,
+          "is_other_code": "",
+          "is_other_value": "",
+          "jump_to_box": false,
+          "is_required": true,
+          "sub_questions": [{ "content": "", "code": "" }],
+          "answer_questions": []
+        },
+        {
+          "answer_type_id": 2,
+          "number": 7,
+          "content": "Nama Alumni yang akan dinilai",
+          "description": "",
+          "is_other": false,
+          "is_other_code": "",
+          "is_other_value": "",
+          "jump_to_box": false,
+          "is_required": true,
+          "code": "gu_nama_alumni",
+          "sub_questions": [
+            {
+              "content": "",
+              "code": ""
+            }
+          ],
+          "answer_questions": []
+        },
+        {
+          "answer_type_id": 2,
+          "number": 11,
+          "content": "Program Studi Alumni yang akan dinilai",
+          "description": "",
+          "is_other": false,
+          "is_other_code": "",
+          "is_other_value": "",
+          "jump_to_box": false,
+          "is_required": true,
+          "code": "gu_prodi_alumni",
+          "sub_questions": [
+            {
+              "content": "",
+              "code": ""
+            }
+          ],
+          "answer_questions": []
+        },
+        {
+          "answer_type_id": 9,
+          "number": 12,
+          "content": "Tahun Lulus Alumni yang akan dinilai",
+          "description": "",
+          "is_other": false,
+          "is_other_code": "",
+          "is_other_value": "",
+          "jump_to_box": false,
+          "is_required": true,
+          "code": "gu_tahun_lulus",
+          "sub_questions": [
+            {
+              "content": "",
+              "code": ""
+            }
+          ],
+          "answer_questions": []
+        },
+        {
+          "answer_type_id": 5,
+          "number": 8,
+          "content": "Berikan penilaian Ibu/Bapak/Saudara atas kinerja Alumni kami dalam",
+          "description": "",
+          "is_other": false,
+          "is_other_code": "",
+          "is_other_value": "",
+          "jump_to_box": false,
+          "is_required": true,
+          "sub_questions": [
+            { "content": "Integritas / etika berperilaku / moral", "code": "" },
+            {
+              "content": "Kinerja/keahlian berdasarkan bidang ilmu (profesionalisme / kompetensi utama)",
+              "code": ""
+            },
+            { "content": "Kemampuan berbahasa asing", "code": "" },
+            {
+              "content": "Kemampuan Penggunaan teknologi informasi",
+              "code": ""
+            },
+            { "content": "Kemampuan berkomunikasi", "code": "" },
+            { "content": "Kemampuan bekerjasama dalam tim", "code": "" },
+            { "content": "Kepemimpinan", "code": "" },
+            { "content": "Pengembangan diri ", "code": "" },
+            { "content": "Etos Kerja", "code": "" },
+            { "content": "Kesiapan terjun di Masyarakat", "code": "" },
+            { "content": "Berpikir Kritis", "code": "" },
+            { "content": "Kreatifitas", "code": "" }
+          ],
+          "answer_questions": [
+            { "content": "Kurang", "jump_to": "", "value": "" },
+            { "content": "Cukup", "jump_to": "", "value": "" },
+            { "content": "Baik", "jump_to": "", "value": "" },
+            { "content": "Sangat Baik", "jump_to": "", "value": "" }
+          ]
+        },
+        {
+          "answer_type_id": 2,
+          "number": 9,
+          "content": "Bagaimana harapan Anda terhadap lulusan Universitas kami?",
+          "description": "",
+          "is_other": false,
+          "is_other_code": "",
+          "is_other_value": "",
+          "jump_to_box": false,
+          "is_required": false,
+          "sub_questions": [
+            {
+              "content": "",
+              "code": ""
+            }
+          ],
+          "answer_questions": []
+        },
+        {
+          "answer_type_id": 2,
+          "number": 10,
+          "content": "Berikan Saran dan masukan Anda untuk Universitas kami",
+          "description": "",
+          "is_other": false,
+          "is_other_code": "",
+          "is_other_value": "",
+          "jump_to_box": false,
+          "is_required": false,
+          "sub_questions": [
+            {
+              "content": "",
+              "code": ""
+            }
+          ],
+          "answer_questions": []
+        }
+      ]
+    }
+  ]
+}
