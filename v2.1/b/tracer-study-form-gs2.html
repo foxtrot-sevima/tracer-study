@@ -335,6 +335,10 @@
                                         <label for="q5-bekerja" class="form-control__label-checkbox">Bekerja (full time / part time)</label>
                                     </label>
                                     <label class="tsf-option">
+                                        <input type="checkbox" class="form-control__checkbox" id="q5-belum" value="belum_bekerja" data-status-label="Belum memungkinkan bekerja" onchange="handleStatusChange()">
+                                        <label for="q5-belum" class="form-control__label-checkbox">Belum memungkinkan bekerja</label>
+                                    </label>
+                                    <label class="tsf-option">
                                         <input type="checkbox" class="form-control__checkbox" id="q5-wiraswasta" value="wiraswasta" data-status-label="Wiraswasta (Wirausaha)" onchange="handleStatusChange()">
                                         <label for="q5-wiraswasta" class="form-control__label-checkbox">Wiraswasta (Wirausaha)</label>
                                     </label>
@@ -345,10 +349,6 @@
                                     <label class="tsf-option">
                                         <input type="checkbox" class="form-control__checkbox" id="q5-cari-kerja" value="mencari_kerja" data-status-label="Tidak kerja, tetapi sedang mencari kerja" onchange="handleStatusChange()">
                                         <label for="q5-cari-kerja" class="form-control__label-checkbox">Tidak kerja, tetapi sedang mencari kerja</label>
-                                    </label>
-                                    <label class="tsf-option">
-                                        <input type="checkbox" class="form-control__checkbox" id="q5-belum" value="belum_bekerja" data-status-label="Belum memungkinkan bekerja" onchange="handleStatusChange()">
-                                        <label for="q5-belum" class="form-control__label-checkbox">Belum memungkinkan bekerja</label>
                                     </label>
                                 </div>
                                 <div class="alert alert_helper">
@@ -964,6 +964,24 @@
                                     </div>
                                 </div>
 
+                                <div class="tsf-question" role="radiogroup" aria-labelledby="qf1101-label">
+                                    <p class="tsf-question__label" id="qf1101-label">Apa jenis perusahaan / instansi / institusi tempat Anda bekerja saat ini?</p>
+                                    <div class="tsf-radio-group">
+                                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-pemerintah" value="instansi_pemerintah" onchange="updateAnsweredCount()"><label for="f1101-pemerintah" class="form-control__label-radio">Instansi pemerintah</label></label>
+                                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-bumn" value="bumn_bumd" onchange="updateAnsweredCount()"><label for="f1101-bumn" class="form-control__label-radio">BUMN / BUMD</label></label>
+                                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-multilateral" value="multilateral" onchange="updateAnsweredCount()"><label for="f1101-multilateral" class="form-control__label-radio">Institusi / Organisasi Multilateral</label></label>
+                                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-nonprofit" value="nonprofit_lsm" onchange="updateAnsweredCount()"><label for="f1101-nonprofit" class="form-control__label-radio">Organisasi non-profit / Lembaga Swadaya Masyarakat</label></label>
+                                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-swasta" value="perusahaan_swasta" onchange="updateAnsweredCount()"><label for="f1101-swasta" class="form-control__label-radio">Perusahaan swasta</label></label>
+                                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-sendiri" value="wiraswasta_sendiri" onchange="updateAnsweredCount()"><label for="f1101-sendiri" class="form-control__label-radio">Wiraswasta / perusahaan sendiri</label></label>
+                                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-lainnya" value="lainnya" onchange="updateAnsweredCount()"><label for="f1101-lainnya" class="form-control__label-radio">Lainnya</label></label>
+                                    </div>
+                                    <div class="alert alert_helper">
+                                        <div class="alert__content">
+                                            <p class="alert__description">Kode DIKTI f1101.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="tsf-question" role="radiogroup" aria-labelledby="qf14-label">
                                     <p class="tsf-question__label" id="qf14-label">Seberapa erat hubungan antara bidang studi dengan pekerjaan Anda saat ini?</p>
                                     <div class="tsf-radio-group">
@@ -1205,6 +1223,31 @@
                                         <span class="tsf-currency__prefix">Rp</span>
                                         <div class="form-control__group">
                                             <input type="number" id="input-penghasilan-usaha" class="form-control__input" min="0" placeholder="Kode f505" oninput="updateAnsweredCount()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tsf-question">
+                                    <p class="tsf-question__label" id="qf16usaha-label">Jika menurut Anda pekerjaan Anda saat ini tidak sesuai dengan pendidikan Anda, mengapa Anda mengambilnya?</p>
+                                    <p class="tsf-question__desc">Jawaban bisa lebih dari satu.</p>
+                                    <div class="tsf-checkbox-group" id="f16usaha-checkbox-group">
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-1" value="sudah_sesuai" onchange="updateAnsweredCount()"><label for="f16u-1" class="form-control__label-checkbox">Pertanyaan tidak sesuai, pekerjaan saya sekarang sudah sesuai dengan pendidikan saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-2" value="belum_dapat_lebih_sesuai" onchange="updateAnsweredCount()"><label for="f16u-2" class="form-control__label-checkbox">Saya belum mendapatkan pekerjaan yang lebih sesuai</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-3" value="prospek_karir_baik" onchange="updateAnsweredCount()"><label for="f16u-3" class="form-control__label-checkbox">Di pekerjaan ini, saya memperoleh prospek karir yang baik</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-4" value="lebih_suka_area_lain" onchange="updateAnsweredCount()"><label for="f16u-4" class="form-control__label-checkbox">Saya lebih suka bekerja di area pekerjaan yang tidak ada hubungannya dengan pendidikan saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-5" value="dipromosikan" onchange="updateAnsweredCount()"><label for="f16u-5" class="form-control__label-checkbox">Saya dipromosikan ke posisi yang kurang berhubungan dengan pendidikan saya dibanding posisi sebelumnya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-6" value="pendapatan_lebih_tinggi" onchange="updateAnsweredCount()"><label for="f16u-6" class="form-control__label-checkbox">Saya dapat memperoleh pendapatan yang lebih tinggi di pekerjaan ini</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-7" value="lebih_aman" onchange="updateAnsweredCount()"><label for="f16u-7" class="form-control__label-checkbox">Pekerjaan saya saat ini lebih aman / terjamin / secure</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-8" value="lebih_menarik" onchange="updateAnsweredCount()"><label for="f16u-8" class="form-control__label-checkbox">Pekerjaan saya saat ini lebih menarik</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-9" value="fleksibel" onchange="updateAnsweredCount()"><label for="f16u-9" class="form-control__label-checkbox">Pekerjaan saya saat ini, lebih memungkinkan saya mengambil pekerjaan tambahan / jadwal yang fleksibel, dll</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-10" value="lokasi_dekat" onchange="updateAnsweredCount()"><label for="f16u-10" class="form-control__label-checkbox">Pekerjaan saya saat ini lokasinya lebih dekat dari rumah saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-11" value="menjamin_keluarga" onchange="updateAnsweredCount()"><label for="f16u-11" class="form-control__label-checkbox">Pekerjaan saya saat ini dapat lebih menjamin kebutuhan keluarga saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-12" value="awal_karir" onchange="updateAnsweredCount()"><label for="f16u-12" class="form-control__label-checkbox">Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-13" value="lainnya" onchange="updateAnsweredCount()"><label for="f16u-13" class="form-control__label-checkbox">Lainnya</label></label>
+                                    </div>
+                                    <div class="alert alert_helper">
+                                        <div class="alert__content">
+                                            <p class="alert__description">Kode DIKTI f16 (f1601-f1614 per opsi).</p>
                                         </div>
                                     </div>
                                 </div>
