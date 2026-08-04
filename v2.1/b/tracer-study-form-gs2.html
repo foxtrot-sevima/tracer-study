@@ -79,9 +79,6 @@
         .tsf-radio-group, .tsf-checkbox-group { display: flex; flex-direction: column; gap: 0.625rem; margin-top: 0.5rem; }
         .tsf-checkbox-group > div { display: flex; align-items: center; }
 
-        /* Helper alert directly under every question (Quantum .alert / .alert_helper) */
-        .tsf-question .alert_helper { margin-top: 0.875rem; }
-
         /* 1-5 scale controls: hidden radio + visible button-box label, real semantics kept */
         .tsf-scale-options { display: flex; gap: 0.5rem; flex-wrap: wrap; }
         .tsf-scale-input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
@@ -128,9 +125,10 @@
         /* Repeatable job entry cards */
         .tsf-job-card { margin-bottom: 0.75rem; }
         .tsf-job-card__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
-        .tsf-currency { display: flex; align-items: center; gap: 0.5rem; }
-        .tsf-currency__prefix { font-size: 0.875rem; font-weight: 500; color: var(--qn-neutral-700, #374151); flex-shrink: 0; }
+        .tsf-currency { --qn-input-padding-size: 0.625rem 0.75rem; --qn-input-padding-x-size: 0.75rem; --qn-input-height-size: 2.5rem; display: flex; align-items: stretch; border: 1px solid var(--qn-neutral-200, #e3e8ef); border-radius: 0.5rem; overflow: hidden; background: #fff; }
+        .tsf-currency__prefix { display: flex; align-items: center; padding: 0 0.875rem; font-size: 0.875rem; font-weight: 500; color: var(--qn-neutral-700, #374151); background: var(--qn-neutral-50, #f9fafb); border-right: 1px solid var(--qn-neutral-200, #e3e8ef); flex-shrink: 0; }
         .tsf-currency .form-control__group { flex: 1; }
+        .tsf-currency .form-control__input { border: none; border-radius: 0; box-shadow: none; }
 
         /* Progress + pagination footer - same footer-bar/btn-submit pattern used across the tracer-study-form-*
            and pengguna-lulusan-form.html wizard pages. Colors are hardcoded (not var(--qn-*)) on purpose:
@@ -331,30 +329,25 @@
                                 <p class="tsf-question__desc">Boleh pilih lebih dari satu jika lebih dari satu status berlaku untuk Anda saat ini.</p>
                                 <div class="tsf-checkbox-group" id="q5-checkbox-group">
                                     <label class="tsf-option">
-                                        <input type="checkbox" class="form-control__checkbox" id="q5-bekerja" value="bekerja" data-status-label="Bekerja (full time / part time)" checked onchange="handleStatusChange()">
+                                        <input type="checkbox" class="form-control__checkbox" id="q5-bekerja" value="bekerja" data-status-label="Bekerja (full time / part time)" checked onchange="handleStatusChange(this)">
                                         <label for="q5-bekerja" class="form-control__label-checkbox">Bekerja (full time / part time)</label>
                                     </label>
                                     <label class="tsf-option">
-                                        <input type="checkbox" class="form-control__checkbox" id="q5-belum" value="belum_bekerja" data-status-label="Belum memungkinkan bekerja" onchange="handleStatusChange()">
+                                        <input type="checkbox" class="form-control__checkbox" id="q5-belum" value="belum_bekerja" data-status-label="Belum memungkinkan bekerja" onchange="handleStatusChange(this)">
                                         <label for="q5-belum" class="form-control__label-checkbox">Belum memungkinkan bekerja</label>
                                     </label>
                                     <label class="tsf-option">
-                                        <input type="checkbox" class="form-control__checkbox" id="q5-wiraswasta" value="wiraswasta" data-status-label="Wiraswasta (Wirausaha)" onchange="handleStatusChange()">
+                                        <input type="checkbox" class="form-control__checkbox" id="q5-wiraswasta" value="wiraswasta" data-status-label="Wiraswasta (Wirausaha)" onchange="handleStatusChange(this)">
                                         <label for="q5-wiraswasta" class="form-control__label-checkbox">Wiraswasta (Wirausaha)</label>
                                     </label>
                                     <label class="tsf-option">
-                                        <input type="checkbox" class="form-control__checkbox" id="q5-studi" value="melanjutkan_pendidikan" data-status-label="Melanjutkan pendidikan" onchange="handleStatusChange()">
+                                        <input type="checkbox" class="form-control__checkbox" id="q5-studi" value="melanjutkan_pendidikan" data-status-label="Melanjutkan pendidikan" onchange="handleStatusChange(this)">
                                         <label for="q5-studi" class="form-control__label-checkbox">Melanjutkan pendidikan</label>
                                     </label>
                                     <label class="tsf-option">
-                                        <input type="checkbox" class="form-control__checkbox" id="q5-cari-kerja" value="mencari_kerja" data-status-label="Tidak kerja, tetapi sedang mencari kerja" onchange="handleStatusChange()">
+                                        <input type="checkbox" class="form-control__checkbox" id="q5-cari-kerja" value="mencari_kerja" data-status-label="Tidak kerja, tetapi sedang mencari kerja" onchange="handleStatusChange(this)">
                                         <label for="q5-cari-kerja" class="form-control__label-checkbox">Tidak kerja, tetapi sedang mencari kerja</label>
                                     </label>
-                                </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Tidak ada autofill, wajib diisi ulang tiap gelombang. Boleh pilih lebih dari satu.</p>
-                                    </div>
                                 </div>
                             </div>
 
@@ -366,11 +359,6 @@
                                 </div>
                                 <p class="tsf-question__desc">Wajib dipilih untuk klasifikasi laporan nasional karena Anda memilih lebih dari satu status sekaligus.</p>
                                 <div class="tsf-radio-group" id="status-utama-options"></div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Pilih satu status yang paling dominan. Tidak ada autofill.</p>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Question 6 - Radio: Sumber Dana -->
@@ -389,17 +377,13 @@
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q6" id="q6-f" value="perusahaan" onchange="updateAnsweredCount()"><label for="q6-f" class="form-control__label-radio">Beasiswa Perusahaan / Swasta</label></label>
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q6" id="q6-g" value="lainnya" onchange="updateAnsweredCount()"><label for="q6-g" class="form-control__label-radio">Lainnya</label></label>
                                 </div>
-                                <div class="tsf-conditional" id="lainnya-q6-wrap" style="display: none; margin-top: 0.75rem;" aria-hidden="true">
-                                    <div class="form-control">
-                                        <label for="input-lainnya-q6" class="form-control__label">Sebutkan sumber dana lainnya</label>
-                                        <div class="form-control__group">
-                                            <input type="text" id="input-lainnya-q6" class="form-control__input" placeholder="Tuliskan sumber dana Anda" oninput="updateAnsweredCount()">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Auto-isi dari jawaban Exit Survey/GS-I sebelumnya, dapat dikoreksi.</p>
+                            </div>
+
+                            <div class="tsf-question tsf-conditional" id="lainnya-q6-wrap" style="display: none;" aria-hidden="true">
+                                <label for="input-lainnya-q6" class="tsf-question__label">Sebutkan sumber dana lainnya</label>
+                                <div class="form-control" style="margin-top: 0.5rem;">
+                                    <div class="form-control__group">
+                                        <input type="text" id="input-lainnya-q6" class="form-control__input" placeholder="Tuliskan sumber dana Anda" oninput="updateAnsweredCount()">
                                     </div>
                                 </div>
                             </div>
@@ -414,27 +398,17 @@
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-ya" value="ya" onchange="applyQ7Logic('ya')"><label for="q7-ya" class="form-control__label-radio">Ya</label></label>
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-tidak" value="tidak" onchange="applyQ7Logic('tidak')"><label for="q7-tidak" class="form-control__label-radio">Tidak</label></label>
                                 </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Auto-isi dari jawaban GS-I sebelumnya jika ada, dapat dikoreksi.</p>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Question 8 - Number Input: Waktu tunggu (CONDITIONAL - only shows if Q7 = Tidak) -->
                             <div class="tsf-question tsf-conditional" id="question-8" style="display: none;" aria-hidden="true">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">4.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">3a.</span>
                                     <label for="input-waiting-time" class="tsf-question__label">Dalam berapa bulan Anda mendapatkan pekerjaan pertama / melanjutkan studi setelah lulus?<span class="tsf-required" aria-label="wajib diisi">*</span></label>
                                 </div>
-                                <div class="form-control" style="max-width: 16rem;">
+                                <div class="form-control" style="margin-top: 0.5rem;">
                                     <div class="form-control__group">
                                         <input type="number" id="input-waiting-time" class="form-control__input" placeholder="Jawaban angka (dalam bulan)" min="0" max="120" inputmode="numeric" oninput="updateAnsweredCount()">
-                                    </div>
-                                </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Auto-isi dari jawaban GS-I sebelumnya, dapat dikoreksi.</p>
                                     </div>
                                 </div>
                             </div>
@@ -442,7 +416,7 @@
                             <!-- Question 9 - Radio: Aktif mencari pekerjaan -->
                             <div class="tsf-question" role="radiogroup" aria-labelledby="q9-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">5.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">4.</span>
                                     <p class="tsf-question__label" id="q9-label">Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir? Pilihlah satu jawaban<span class="tsf-required" aria-label="wajib diisi">*</span></p>
                                 </div>
                                 <div class="tsf-radio-group">
@@ -452,17 +426,13 @@
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q9" id="q9-d" value="belum_pasti_2_minggu" onchange="updateAnsweredCount()"><label for="q9-d" class="form-control__label-radio">Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan</label></label>
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q9" id="q9-e" value="lainnya" onchange="updateAnsweredCount()"><label for="q9-e" class="form-control__label-radio">Lainnya</label></label>
                                 </div>
-                                <div class="tsf-conditional" id="lainnya-q9-wrap" style="display: none; margin-top: 0.75rem;" aria-hidden="true">
-                                    <div class="form-control">
-                                        <label for="input-lainnya-q9" class="form-control__label">Jelaskan kondisi Anda</label>
-                                        <div class="form-control__group">
-                                            <input type="text" id="input-lainnya-q9" class="form-control__input" placeholder="Tuliskan kondisi Anda" oninput="updateAnsweredCount()">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Tidak ada autofill, isi manual, dapat diedit kapan saja.</p>
+                            </div>
+
+                            <div class="tsf-question tsf-conditional" id="lainnya-q9-wrap" style="display: none;" aria-hidden="true">
+                                <label for="input-lainnya-q9" class="tsf-question__label">Jelaskan kondisi Anda</label>
+                                <div class="form-control" style="margin-top: 0.5rem;">
+                                    <div class="form-control__group">
+                                        <input type="text" id="input-lainnya-q9" class="form-control__input" placeholder="Tuliskan kondisi Anda" oninput="updateAnsweredCount()">
                                     </div>
                                 </div>
                             </div>
@@ -470,7 +440,7 @@
                             <!-- Question 10 - Tingkat Kompetensi Dibutuhkan Pekerjaan Saat Ini (7-aspect scale, diukur ulang) -->
                             <div class="tsf-question" role="group" aria-labelledby="q10-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">6.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">5.</span>
                                     <p class="tsf-question__label" id="q10-label">Tingkat Kompetensi yang Dibutuhkan Pekerjaan Saat Ini</p>
                                 </div>
                                 <p class="tsf-question__desc">Diukur ulang - beri nilai 1 (sangat rendah) sampai 5 (sangat tinggi) untuk tiap aspek, berdasarkan kebutuhan pekerjaan Anda SAAT INI.</p>
@@ -630,17 +600,12 @@
                                     </div>
                                 </div>
 
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Penilaian diri (self-assessment), diukur ulang untuk melihat tren dibanding Exit Survey dan GS-I. Tidak ada autofill.</p>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Question 11 - Kesesuaian kerja (persepsi, Schomburg) -->
                             <div class="tsf-question" role="radiogroup" aria-labelledby="q11-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">7.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">6.</span>
                                     <p class="tsf-question__label" id="q11-label">Seberapa sesuai pekerjaan Anda saat ini dengan bidang studi Anda?</p>
                                 </div>
                                 <div class="tsf-scale-single">
@@ -654,17 +619,12 @@
                                     </div>
                                     <span class="tsf-scale-single__caption">Sangat Sesuai</span>
                                 </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Persepsi subjektif (kerangka Schomburg), tidak ada autofill, opsional.</p>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Question 12 - Kompetensi dimanfaatkan (Schomburg) -->
                             <div class="tsf-question" role="radiogroup" aria-labelledby="q12-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">8.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">7.</span>
                                     <p class="tsf-question__label" id="q12-label">Seberapa besar kompetensi yang Anda peroleh selama kuliah dimanfaatkan dalam pekerjaan Anda saat ini?</p>
                                 </div>
                                 <div class="tsf-scale-single">
@@ -678,17 +638,12 @@
                                     </div>
                                     <span class="tsf-scale-single__caption">Sangat Besar</span>
                                 </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Persepsi subjektif (kerangka Schomburg), tidak ada autofill, opsional.</p>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Question 13 - Penilaian status pekerjaan (Schomburg) -->
                             <div class="tsf-question" role="radiogroup" aria-labelledby="q13-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">9.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">8.</span>
                                     <p class="tsf-question__label" id="q13-label">Bagaimana Anda menilai status/posisi pekerjaan Anda saat ini?</p>
                                 </div>
                                 <div class="tsf-scale-single">
@@ -702,17 +657,12 @@
                                     </div>
                                     <span class="tsf-scale-single__caption">Sangat Tinggi</span>
                                 </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Persepsi subjektif (kerangka Schomburg), tidak ada autofill, opsional.</p>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Question 14 - Otonomi kerja (Schomburg) -->
                             <div class="tsf-question" role="radiogroup" aria-labelledby="q14-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">10.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">9.</span>
                                     <p class="tsf-question__label" id="q14-label">Seberapa besar otonomi/kebebasan Anda dalam mengambil keputusan di pekerjaan Anda?</p>
                                 </div>
                                 <div class="tsf-scale-single">
@@ -726,17 +676,12 @@
                                     </div>
                                     <span class="tsf-scale-single__caption">Sangat Besar</span>
                                 </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Persepsi subjektif (kerangka Schomburg), tidak ada autofill, opsional.</p>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Question 15 - Kepuasan kerja (Schomburg) -->
                             <div class="tsf-question" role="radiogroup" aria-labelledby="q15-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">11.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">10.</span>
                                     <p class="tsf-question__label" id="q15-label">Seberapa puas Anda dengan pekerjaan Anda secara keseluruhan?</p>
                                 </div>
                                 <div class="tsf-scale-single">
@@ -750,17 +695,12 @@
                                     </div>
                                     <span class="tsf-scale-single__caption">Sangat Puas</span>
                                 </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Persepsi subjektif (kerangka Schomburg), tidak ada autofill, opsional.</p>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Question 16 - Kondisi sektor/industri (gap field, perlu verifikasi) -->
                             <div class="tsf-question" role="radiogroup" aria-labelledby="q16-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">12.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">11.</span>
                                     <p class="tsf-question__label" id="q16-label">Bagaimana kondisi sektor/industri tempat Anda bekerja saat ini secara umum?</p>
                                 </div>
                                 <div class="tsf-radio-group">
@@ -769,28 +709,18 @@
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q16" id="q16-c" value="menurun" onchange="updateAnsweredCount()"><label for="q16-c" class="form-control__label-radio">Menurun</label></label>
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q16" id="q16-d" value="tidak_relevan" onchange="updateAnsweredCount()"><label for="q16-d" class="form-control__label-radio">Tidak relevan/tidak bekerja</label></label>
                                 </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Tidak ada autofill, isi manual. Belum ada kode variabel resmi, perlu divalidasi ke Buku Panduan Tracer Study Kemdikbud.</p>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Question 17 - Saran Perbaikan Program Studi/Kurikulum -->
                             <div class="tsf-question">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">13.</span>
+                                    <span class="tsf-question__number" aria-hidden="true">12.</span>
                                     <label for="textarea-saran" class="tsf-question__label">Saran Perbaikan Program Studi/Kurikulum</label>
                                 </div>
                                 <p class="tsf-question__desc">Tuliskan saran konkret berdasarkan pengalaman kerja Anda sejauh ini.</p>
                                 <div class="form-control">
                                     <div class="form-control__group">
                                         <textarea id="textarea-saran" class="form-control__input" rows="4" placeholder="Tulis saran Anda di sini (opsional)" oninput="updateAnsweredCount()"></textarea>
-                                    </div>
-                                </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Tidak ada autofill, isi manual, dapat diperbarui kapan saja.</p>
                                     </div>
                                 </div>
                             </div>
@@ -831,14 +761,9 @@
                             <div id="block-pekerjaan" style="display: none;">
                                 <div class="tsf-question">
                                     <label for="input-jumlah-pekerjaan" class="tsf-question__label">Berapa tempat kerja yang Anda jalani saat ini?<span class="tsf-required" aria-label="wajib diisi">*</span></label>
-                                    <div class="form-control" style="max-width: 12rem; margin-top: 0.5rem;">
+                                    <div class="form-control" style="margin-top: 0.5rem;">
                                         <div class="form-control__group">
                                             <input type="number" id="input-jumlah-pekerjaan" class="form-control__input" min="1" max="10" value="1" placeholder="cth. 1" oninput="syncJobCount()">
-                                        </div>
-                                    </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Menentukan jumlah entri Detail Pekerjaan di bawah. Tidak ada autofill.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -888,7 +813,7 @@
                                                         <div class="tsf-currency">
                                                             <span class="tsf-currency__prefix">Rp</span>
                                                             <div class="form-control__group">
-                                                                <input type="number" class="form-control__input" id="job-gaji-1" name="job-gaji-1" placeholder="cth. 5000000" min="0" oninput="updateAnsweredCount()">
+                                                                <input type="text" inputmode="numeric" class="form-control__input" id="job-gaji-1" name="job-gaji-1" placeholder="cth. 5.000.000" oninput="formatRupiahInput(this); updateAnsweredCount()">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -901,38 +826,23 @@
                                         <span class="icon icon-plus-mini"></span> Tambah Pekerjaan Lain
                                     </button>
 
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Tidak ada autofill dari SIAKAD, tapi bisa diisi dari Riwayat Pekerjaan profil Karirlink Anda lewat tombol di atas. Dapat diedit di sini.</p>
-                                        </div>
+                                </div>
+
+                                <div class="tsf-question">
+                                    <label for="select-provinsi-kerja" class="tsf-question__label">Dimana tempat provinsi Anda bekerja saat ini?</label>
+                                    <div style="margin-top: 0.5rem;">
+                                        <select class="select-lokasi" id="select-provinsi-kerja" data-lokasi-role="provinsi" data-lokasi-target="select-kabkota-kerja">
+                                            <option value="" selected disabled>Cari provinsi...</option>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="tsf-question">
-                                    <label for="input-provinsi-kerja" class="tsf-question__label">Dimana tempat provinsi Anda bekerja saat ini?</label>
-                                    <div class="form-control" style="max-width: 20rem; margin-top: 0.5rem;">
-                                        <div class="form-control__group">
-                                            <input type="text" id="input-provinsi-kerja" class="form-control__input" placeholder="cth. DKI Jakarta" oninput="updateAnsweredCount()">
-                                        </div>
-                                    </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f5a1. Tidak ada autofill, isi manual (atau ambil dari kota kerja di Detail Pekerjaan).</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tsf-question">
-                                    <label for="input-kabkota-kerja" class="tsf-question__label">Dimana Kabupaten / Kota tempat Anda bekerja saat ini?</label>
-                                    <div class="form-control" style="max-width: 20rem; margin-top: 0.5rem;">
-                                        <div class="form-control__group">
-                                            <input type="text" id="input-kabkota-kerja" class="form-control__input" placeholder="cth. Kota Jakarta Selatan" oninput="updateAnsweredCount()">
-                                        </div>
-                                    </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f5a2. Tidak ada autofill, isi manual.</p>
-                                        </div>
+                                    <label for="select-kabkota-kerja" class="tsf-question__label">Dimana Kabupaten / Kota tempat Anda bekerja saat ini?</label>
+                                    <div style="margin-top: 0.5rem;">
+                                        <select class="select-lokasi" id="select-kabkota-kerja" data-lokasi-role="kabkota" disabled>
+                                            <option value="" selected disabled>Pilih provinsi dulu</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -943,11 +853,6 @@
                                             <input type="text" class="form-control__input" id="input-nama-perusahaan" placeholder="cth. PT Sevima Solusi Edukasi" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f5b. Bila hanya satu tempat kerja, boleh disamakan dengan "Instansi/Perusahaan" di Detail Pekerjaan di atas.</p>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="tsf-question" role="radiogroup" aria-labelledby="qf5d-label">
@@ -956,11 +861,6 @@
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f5d" id="f5d-lokal" value="lokal" onchange="updateAnsweredCount()"><label for="f5d-lokal" class="form-control__label-radio">Lokal / Wilayah / Berwirausaha tidak Berbadan Hukum</label></label>
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f5d" id="f5d-nasional" value="nasional" onchange="updateAnsweredCount()"><label for="f5d-nasional" class="form-control__label-radio">Nasional / Berwirausaha Berbadan Hukum</label></label>
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f5d" id="f5d-multinasional" value="multinasional" onchange="updateAnsweredCount()"><label for="f5d-multinasional" class="form-control__label-radio">Multinasional / Internasional</label></label>
-                                    </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f5d.</p>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -975,9 +875,13 @@
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-sendiri" value="wiraswasta_sendiri" onchange="updateAnsweredCount()"><label for="f1101-sendiri" class="form-control__label-radio">Wiraswasta / perusahaan sendiri</label></label>
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-lainnya" value="lainnya" onchange="updateAnsweredCount()"><label for="f1101-lainnya" class="form-control__label-radio">Lainnya</label></label>
                                     </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f1101.</p>
+                                </div>
+
+                                <div class="tsf-question tsf-conditional" id="lainnya-f1101-wrap" style="display: none;" aria-hidden="true">
+                                    <label for="input-lainnya-f1101" class="tsf-question__label">Sebutkan jenis perusahaan / instansi / institusi Anda</label>
+                                    <div class="form-control" style="margin-top: 0.5rem;">
+                                        <div class="form-control__group">
+                                            <input type="text" id="input-lainnya-f1101" class="form-control__input" placeholder="Tuliskan jenis perusahaan/instansi Anda" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
                                 </div>
@@ -991,11 +895,6 @@
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f14" id="f14-4" value="kurang_erat" onchange="updateAnsweredCount()"><label for="f14-4" class="form-control__label-radio">Kurang Erat</label></label>
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f14" id="f14-5" value="tidak_sama_sekali" onchange="updateAnsweredCount()"><label for="f14-5" class="form-control__label-radio">Tidak Sama Sekali</label></label>
                                     </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f14.</p>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="tsf-question" role="radiogroup" aria-labelledby="qf15-label">
@@ -1006,38 +905,31 @@
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f15" id="f15-3" value="setingkat_lebih_rendah" onchange="updateAnsweredCount()"><label for="f15-3" class="form-control__label-radio">Setingkat Lebih Rendah</label></label>
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f15" id="f15-4" value="tidak_perlu_pendidikan_tinggi" onchange="updateAnsweredCount()"><label for="f15-4" class="form-control__label-radio">Tidak Perlu Pendidikan Tinggi</label></label>
                                     </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f15.</p>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="tsf-question" role="radiogroup" aria-labelledby="qf301-label">
                                     <p class="tsf-question__label" id="qf301-label">Kapan Anda mulai mencari pekerjaan yang Anda jalani saat ini?</p>
                                     <div class="tsf-radio-group">
-                                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f301" id="f301-sebelum" value="sebelum_lulus" onchange="updateAnsweredCount()"><label for="f301-sebelum" class="form-control__label-radio">Sebelum lulus</label></label>
-                                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f301" id="f301-sesudah" value="sesudah_lulus" onchange="updateAnsweredCount()"><label for="f301-sesudah" class="form-control__label-radio">Sesudah lulus</label></label>
-                                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f301" id="f301-tidak" value="tidak_mencari" onchange="updateAnsweredCount()"><label for="f301-tidak" class="form-control__label-radio">Saya tidak mencari kerja</label></label>
+                                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f301" id="f301-sebelum" value="sebelum_lulus" onchange="applyF301Logic(this.value)"><label for="f301-sebelum" class="form-control__label-radio">Sebelum lulus</label></label>
+                                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f301" id="f301-sesudah" value="sesudah_lulus" onchange="applyF301Logic(this.value)"><label for="f301-sesudah" class="form-control__label-radio">Sesudah lulus</label></label>
+                                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f301" id="f301-tidak" value="tidak_mencari" onchange="applyF301Logic(this.value)"><label for="f301-tidak" class="form-control__label-radio">Saya tidak mencari kerja</label></label>
                                     </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f301.</p>
+                                </div>
+
+                                <div class="tsf-question tsf-conditional" id="f302-wrap" style="display: none;" aria-hidden="true">
+                                    <label for="input-f302" class="tsf-question__label">Berapa bulan sebelum lulus Anda mulai mencari pekerjaan?</label>
+                                    <div class="form-control" style="margin-top: 0.5rem;">
+                                        <div class="form-control__group">
+                                            <input type="number" id="input-f302" class="form-control__input" min="0" placeholder="cth. 2" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="grid cols-1 cols-sm-2" style="gap: 0.75rem;">
-                                    <div class="form-control">
-                                        <label class="form-control__label" for="input-f302">Jika sejak sebelum lulus, berapa bulan sebelum lulus mulai mencari pekerjaan?</label>
+                                <div class="tsf-question tsf-conditional" id="f303-wrap" style="display: none;" aria-hidden="true">
+                                    <label for="input-f303" class="tsf-question__label">Berapa bulan sesudah lulus Anda mulai mencari pekerjaan?</label>
+                                    <div class="form-control" style="margin-top: 0.5rem;">
                                         <div class="form-control__group">
-                                            <input type="number" id="input-f302" class="form-control__input" min="0" placeholder="Kode f302" oninput="updateAnsweredCount()">
-                                        </div>
-                                    </div>
-                                    <div class="form-control">
-                                        <label class="form-control__label" for="input-f303">Jika sejak sesudah lulus, berapa bulan sesudah lulus mulai mencari pekerjaan?</label>
-                                        <div class="form-control__group">
-                                            <input type="number" id="input-f303" class="form-control__input" min="0" placeholder="Kode f303" oninput="updateAnsweredCount()">
+                                            <input type="number" id="input-f303" class="form-control__input" min="0" placeholder="cth. 3" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
                                 </div>
@@ -1062,9 +954,13 @@
                                         <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-14" value="tempat_sama" onchange="updateAnsweredCount()"><label for="f4-14" class="form-control__label-checkbox">Bekerja di tempat yang sama dengan tempat kerja semasa kuliah</label></label>
                                         <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-15" value="lainnya" onchange="updateAnsweredCount()"><label for="f4-15" class="form-control__label-checkbox">Lainnya</label></label>
                                     </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f4 (f401-f416 per opsi).</p>
+                                </div>
+
+                                <div class="tsf-question tsf-conditional" id="lainnya-f4-checkbox-group-wrap" style="display: none;" aria-hidden="true">
+                                    <label for="input-lainnya-f4-checkbox-group" class="tsf-question__label">Sebutkan cara lain Anda mencari pekerjaan</label>
+                                    <div class="form-control" style="margin-top: 0.5rem;">
+                                        <div class="form-control__group">
+                                            <input type="text" id="input-lainnya-f4-checkbox-group" class="form-control__input" placeholder="Tuliskan cara Anda mencari pekerjaan" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
                                 </div>
@@ -1073,19 +969,19 @@
                                     <div class="form-control">
                                         <label class="form-control__label" for="input-f6">Berapa perusahaan yang sudah dilamar sampai saat ini?</label>
                                         <div class="form-control__group">
-                                            <input type="number" id="input-f6" class="form-control__input" min="0" placeholder="Kode f6" oninput="updateAnsweredCount()">
+                                            <input type="number" id="input-f6" class="form-control__input" min="0" placeholder="cth. 10" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
                                     <div class="form-control">
                                         <label class="form-control__label" for="input-f7">Berapa yang merespons lamaran Anda?</label>
                                         <div class="form-control__group">
-                                            <input type="number" id="input-f7" class="form-control__input" min="0" placeholder="Kode f7" oninput="updateAnsweredCount()">
+                                            <input type="number" id="input-f7" class="form-control__input" min="0" placeholder="cth. 5" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
                                     <div class="form-control">
                                         <label class="form-control__label" for="input-f7a">Berapa yang mengundang wawancara?</label>
                                         <div class="form-control__group">
-                                            <input type="number" id="input-f7a" class="form-control__input" min="0" placeholder="Kode f7a" oninput="updateAnsweredCount()">
+                                            <input type="number" id="input-f7a" class="form-control__input" min="0" placeholder="cth. 2" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
                                 </div>
@@ -1094,23 +990,27 @@
                                     <p class="tsf-question__label" id="qf16-label">Jika menurut Anda pekerjaan Anda saat ini tidak sesuai dengan pendidikan Anda, mengapa Anda mengambilnya?</p>
                                     <p class="tsf-question__desc">Jawaban bisa lebih dari satu. Relevan bila jawaban f14/f15 di atas menunjukkan pekerjaan tidak sesuai bidang studi.</p>
                                     <div class="tsf-checkbox-group" id="f16-checkbox-group">
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-1" value="sudah_sesuai" onchange="updateAnsweredCount()"><label for="f16-1" class="form-control__label-checkbox">Pertanyaan tidak sesuai, pekerjaan saya sekarang sudah sesuai dengan pendidikan saya</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-2" value="belum_dapat_lebih_sesuai" onchange="updateAnsweredCount()"><label for="f16-2" class="form-control__label-checkbox">Saya belum mendapatkan pekerjaan yang lebih sesuai</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-3" value="prospek_karir_baik" onchange="updateAnsweredCount()"><label for="f16-3" class="form-control__label-checkbox">Di pekerjaan ini, saya memperoleh prospek karir yang baik</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-4" value="lebih_suka_area_lain" onchange="updateAnsweredCount()"><label for="f16-4" class="form-control__label-checkbox">Saya lebih suka bekerja di area pekerjaan yang tidak ada hubungannya dengan pendidikan saya</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-5" value="dipromosikan" onchange="updateAnsweredCount()"><label for="f16-5" class="form-control__label-checkbox">Saya dipromosikan ke posisi yang kurang berhubungan dengan pendidikan saya dibanding posisi sebelumnya</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-6" value="pendapatan_lebih_tinggi" onchange="updateAnsweredCount()"><label for="f16-6" class="form-control__label-checkbox">Saya dapat memperoleh pendapatan yang lebih tinggi di pekerjaan ini</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-7" value="lebih_aman" onchange="updateAnsweredCount()"><label for="f16-7" class="form-control__label-checkbox">Pekerjaan saya saat ini lebih aman / terjamin / secure</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-8" value="lebih_menarik" onchange="updateAnsweredCount()"><label for="f16-8" class="form-control__label-checkbox">Pekerjaan saya saat ini lebih menarik</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-9" value="fleksibel" onchange="updateAnsweredCount()"><label for="f16-9" class="form-control__label-checkbox">Pekerjaan saya saat ini, lebih memungkinkan saya mengambil pekerjaan tambahan / jadwal yang fleksibel, dll</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-10" value="lokasi_dekat" onchange="updateAnsweredCount()"><label for="f16-10" class="form-control__label-checkbox">Pekerjaan saya saat ini lokasinya lebih dekat dari rumah saya</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-11" value="menjamin_keluarga" onchange="updateAnsweredCount()"><label for="f16-11" class="form-control__label-checkbox">Pekerjaan saya saat ini dapat lebih menjamin kebutuhan keluarga saya</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-12" value="awal_karir" onchange="updateAnsweredCount()"><label for="f16-12" class="form-control__label-checkbox">Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-13" value="lainnya" onchange="updateAnsweredCount()"><label for="f16-13" class="form-control__label-checkbox">Lainnya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-1" value="sudah_sesuai" onchange="handleExclusiveOption('#f16-checkbox-group', 'sudah_sesuai', this)"><label for="f16-1" class="form-control__label-checkbox">Pertanyaan tidak sesuai, pekerjaan saya sekarang sudah sesuai dengan pendidikan saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-2" value="belum_dapat_lebih_sesuai" onchange="handleExclusiveOption('#f16-checkbox-group', 'sudah_sesuai', this)"><label for="f16-2" class="form-control__label-checkbox">Saya belum mendapatkan pekerjaan yang lebih sesuai</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-3" value="prospek_karir_baik" onchange="handleExclusiveOption('#f16-checkbox-group', 'sudah_sesuai', this)"><label for="f16-3" class="form-control__label-checkbox">Di pekerjaan ini, saya memperoleh prospek karir yang baik</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-4" value="lebih_suka_area_lain" onchange="handleExclusiveOption('#f16-checkbox-group', 'sudah_sesuai', this)"><label for="f16-4" class="form-control__label-checkbox">Saya lebih suka bekerja di area pekerjaan yang tidak ada hubungannya dengan pendidikan saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-5" value="dipromosikan" onchange="handleExclusiveOption('#f16-checkbox-group', 'sudah_sesuai', this)"><label for="f16-5" class="form-control__label-checkbox">Saya dipromosikan ke posisi yang kurang berhubungan dengan pendidikan saya dibanding posisi sebelumnya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-6" value="pendapatan_lebih_tinggi" onchange="handleExclusiveOption('#f16-checkbox-group', 'sudah_sesuai', this)"><label for="f16-6" class="form-control__label-checkbox">Saya dapat memperoleh pendapatan yang lebih tinggi di pekerjaan ini</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-7" value="lebih_aman" onchange="handleExclusiveOption('#f16-checkbox-group', 'sudah_sesuai', this)"><label for="f16-7" class="form-control__label-checkbox">Pekerjaan saya saat ini lebih aman / terjamin / secure</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-8" value="lebih_menarik" onchange="handleExclusiveOption('#f16-checkbox-group', 'sudah_sesuai', this)"><label for="f16-8" class="form-control__label-checkbox">Pekerjaan saya saat ini lebih menarik</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-9" value="fleksibel" onchange="handleExclusiveOption('#f16-checkbox-group', 'sudah_sesuai', this)"><label for="f16-9" class="form-control__label-checkbox">Pekerjaan saya saat ini, lebih memungkinkan saya mengambil pekerjaan tambahan / jadwal yang fleksibel, dll</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-10" value="lokasi_dekat" onchange="handleExclusiveOption('#f16-checkbox-group', 'sudah_sesuai', this)"><label for="f16-10" class="form-control__label-checkbox">Pekerjaan saya saat ini lokasinya lebih dekat dari rumah saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-11" value="menjamin_keluarga" onchange="handleExclusiveOption('#f16-checkbox-group', 'sudah_sesuai', this)"><label for="f16-11" class="form-control__label-checkbox">Pekerjaan saya saat ini dapat lebih menjamin kebutuhan keluarga saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-12" value="awal_karir" onchange="handleExclusiveOption('#f16-checkbox-group', 'sudah_sesuai', this)"><label for="f16-12" class="form-control__label-checkbox">Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-13" value="lainnya" onchange="handleExclusiveOption('#f16-checkbox-group', 'sudah_sesuai', this)"><label for="f16-13" class="form-control__label-checkbox">Lainnya</label></label>
                                     </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f16 (f1601-f1614 per opsi).</p>
+                                </div>
+
+                                <div class="tsf-question tsf-conditional" id="lainnya-f16-checkbox-group-wrap" style="display: none;" aria-hidden="true">
+                                    <label for="input-lainnya-f16-checkbox-group" class="tsf-question__label">Sebutkan alasan lainnya</label>
+                                    <div class="form-control" style="margin-top: 0.5rem;">
+                                        <div class="form-control__group">
+                                            <input type="text" id="input-lainnya-f16-checkbox-group" class="form-control__input" placeholder="Tuliskan alasan Anda" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
                                 </div>
@@ -1129,11 +1029,6 @@
                                             <option value="profesi">Profesi</option>
                                         </select>
                                     </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Tidak ada autofill, isi manual, dapat diedit kapan saja.</p>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="tsf-question" role="radiogroup" aria-labelledby="qf18a-label">
@@ -1142,18 +1037,13 @@
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f18a" id="f18a-sendiri" value="biaya_sendiri" onchange="updateAnsweredCount()"><label for="f18a-sendiri" class="form-control__label-radio">Biaya Sendiri</label></label>
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f18a" id="f18a-beasiswa" value="beasiswa" onchange="updateAnsweredCount()"><label for="f18a-beasiswa" class="form-control__label-radio">Beasiswa</label></label>
                                     </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f18a.</p>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="tsf-question">
                                     <label for="input-f18b" class="tsf-question__label">Apa nama Perguruan Tinggi tempat Anda melanjutkan Pendidikan?</label>
                                     <div class="form-control" style="margin-top: 0.5rem;">
                                         <div class="form-control__group">
-                                            <input type="text" class="form-control__input" id="input-f18b" placeholder="Kode f18b" oninput="updateAnsweredCount()">
+                                            <input type="text" class="form-control__input" id="input-f18b" placeholder="cth. Universitas Indonesia" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
                                 </div>
@@ -1162,7 +1052,7 @@
                                     <label for="input-f18c" class="tsf-question__label">Apa nama program studi yang Anda ambil dalam melanjutkan pendidikan?</label>
                                     <div class="form-control" style="margin-top: 0.5rem;">
                                         <div class="form-control__group">
-                                            <input type="text" class="form-control__input" id="input-f18c" placeholder="Kode f18c" oninput="updateAnsweredCount()">
+                                            <input type="text" class="form-control__input" id="input-f18c" placeholder="cth. Magister Manajemen" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
                                 </div>
@@ -1177,11 +1067,6 @@
                                             <input type="text" class="form-control__input" id="input-bidang-usaha" placeholder="cth. Kuliner, Fashion, Jasa Konsultan" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Tidak ada autofill, isi manual, dapat diedit kapan saja.</p>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="tsf-question" role="radiogroup" aria-labelledby="qf5c-label">
@@ -1191,11 +1076,6 @@
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f5c" id="f5c-cofounder" value="co_founder" onchange="updateAnsweredCount()"><label for="f5c-cofounder" class="form-control__label-radio">Co-Founder</label></label>
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f5c" id="f5c-staff" value="staff" onchange="updateAnsweredCount()"><label for="f5c-staff" class="form-control__label-radio">Staff</label></label>
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f5c" id="f5c-freelance" value="freelance" onchange="updateAnsweredCount()"><label for="f5c-freelance" class="form-control__label-radio">Freelance / Kerja Lepas</label></label>
-                                    </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f5c.</p>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -1210,19 +1090,23 @@
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101usaha" id="f1101u-multilateral" value="multilateral" onchange="updateAnsweredCount()"><label for="f1101u-multilateral" class="form-control__label-radio">Institusi / Organisasi Multilateral</label></label>
                                         <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101usaha" id="f1101u-lainnya" value="lainnya" onchange="updateAnsweredCount()"><label for="f1101u-lainnya" class="form-control__label-radio">Lainnya, tuliskan</label></label>
                                     </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f1101 (konteks wiraswasta).</p>
+                                </div>
+
+                                <div class="tsf-question tsf-conditional" id="lainnya-f1101usaha-wrap" style="display: none;" aria-hidden="true">
+                                    <label for="input-lainnya-f1101usaha" class="tsf-question__label">Sebutkan jenis perusahaan / usaha wiraswasta Anda</label>
+                                    <div class="form-control" style="margin-top: 0.5rem;">
+                                        <div class="form-control__group">
+                                            <input type="text" id="input-lainnya-f1101usaha" class="form-control__input" placeholder="Tuliskan jenis usaha Anda" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="tsf-question">
                                     <label for="input-penghasilan-usaha" class="tsf-question__label">Berapa rata-rata pendapatan Anda dari usaha ini per bulan (Take Home Pay) saat ini?</label>
-                                    <div class="tsf-currency" style="max-width: 18rem;">
+                                    <div class="tsf-currency">
                                         <span class="tsf-currency__prefix">Rp</span>
                                         <div class="form-control__group">
-                                            <input type="number" id="input-penghasilan-usaha" class="form-control__input" min="0" placeholder="Kode f505" oninput="updateAnsweredCount()">
+                                            <input type="text" inputmode="numeric" id="input-penghasilan-usaha" class="form-control__input" placeholder="cth. 5.000.000" oninput="formatRupiahInput(this); updateAnsweredCount()">
                                         </div>
                                     </div>
                                 </div>
@@ -1231,23 +1115,27 @@
                                     <p class="tsf-question__label" id="qf16usaha-label">Jika menurut Anda pekerjaan Anda saat ini tidak sesuai dengan pendidikan Anda, mengapa Anda mengambilnya?</p>
                                     <p class="tsf-question__desc">Jawaban bisa lebih dari satu.</p>
                                     <div class="tsf-checkbox-group" id="f16usaha-checkbox-group">
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-1" value="sudah_sesuai" onchange="updateAnsweredCount()"><label for="f16u-1" class="form-control__label-checkbox">Pertanyaan tidak sesuai, pekerjaan saya sekarang sudah sesuai dengan pendidikan saya</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-2" value="belum_dapat_lebih_sesuai" onchange="updateAnsweredCount()"><label for="f16u-2" class="form-control__label-checkbox">Saya belum mendapatkan pekerjaan yang lebih sesuai</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-3" value="prospek_karir_baik" onchange="updateAnsweredCount()"><label for="f16u-3" class="form-control__label-checkbox">Di pekerjaan ini, saya memperoleh prospek karir yang baik</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-4" value="lebih_suka_area_lain" onchange="updateAnsweredCount()"><label for="f16u-4" class="form-control__label-checkbox">Saya lebih suka bekerja di area pekerjaan yang tidak ada hubungannya dengan pendidikan saya</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-5" value="dipromosikan" onchange="updateAnsweredCount()"><label for="f16u-5" class="form-control__label-checkbox">Saya dipromosikan ke posisi yang kurang berhubungan dengan pendidikan saya dibanding posisi sebelumnya</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-6" value="pendapatan_lebih_tinggi" onchange="updateAnsweredCount()"><label for="f16u-6" class="form-control__label-checkbox">Saya dapat memperoleh pendapatan yang lebih tinggi di pekerjaan ini</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-7" value="lebih_aman" onchange="updateAnsweredCount()"><label for="f16u-7" class="form-control__label-checkbox">Pekerjaan saya saat ini lebih aman / terjamin / secure</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-8" value="lebih_menarik" onchange="updateAnsweredCount()"><label for="f16u-8" class="form-control__label-checkbox">Pekerjaan saya saat ini lebih menarik</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-9" value="fleksibel" onchange="updateAnsweredCount()"><label for="f16u-9" class="form-control__label-checkbox">Pekerjaan saya saat ini, lebih memungkinkan saya mengambil pekerjaan tambahan / jadwal yang fleksibel, dll</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-10" value="lokasi_dekat" onchange="updateAnsweredCount()"><label for="f16u-10" class="form-control__label-checkbox">Pekerjaan saya saat ini lokasinya lebih dekat dari rumah saya</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-11" value="menjamin_keluarga" onchange="updateAnsweredCount()"><label for="f16u-11" class="form-control__label-checkbox">Pekerjaan saya saat ini dapat lebih menjamin kebutuhan keluarga saya</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-12" value="awal_karir" onchange="updateAnsweredCount()"><label for="f16u-12" class="form-control__label-checkbox">Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya</label></label>
-                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-13" value="lainnya" onchange="updateAnsweredCount()"><label for="f16u-13" class="form-control__label-checkbox">Lainnya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-1" value="sudah_sesuai" onchange="handleExclusiveOption('#f16usaha-checkbox-group', 'sudah_sesuai', this)"><label for="f16u-1" class="form-control__label-checkbox">Pertanyaan tidak sesuai, pekerjaan saya sekarang sudah sesuai dengan pendidikan saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-2" value="belum_dapat_lebih_sesuai" onchange="handleExclusiveOption('#f16usaha-checkbox-group', 'sudah_sesuai', this)"><label for="f16u-2" class="form-control__label-checkbox">Saya belum mendapatkan pekerjaan yang lebih sesuai</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-3" value="prospek_karir_baik" onchange="handleExclusiveOption('#f16usaha-checkbox-group', 'sudah_sesuai', this)"><label for="f16u-3" class="form-control__label-checkbox">Di pekerjaan ini, saya memperoleh prospek karir yang baik</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-4" value="lebih_suka_area_lain" onchange="handleExclusiveOption('#f16usaha-checkbox-group', 'sudah_sesuai', this)"><label for="f16u-4" class="form-control__label-checkbox">Saya lebih suka bekerja di area pekerjaan yang tidak ada hubungannya dengan pendidikan saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-5" value="dipromosikan" onchange="handleExclusiveOption('#f16usaha-checkbox-group', 'sudah_sesuai', this)"><label for="f16u-5" class="form-control__label-checkbox">Saya dipromosikan ke posisi yang kurang berhubungan dengan pendidikan saya dibanding posisi sebelumnya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-6" value="pendapatan_lebih_tinggi" onchange="handleExclusiveOption('#f16usaha-checkbox-group', 'sudah_sesuai', this)"><label for="f16u-6" class="form-control__label-checkbox">Saya dapat memperoleh pendapatan yang lebih tinggi di pekerjaan ini</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-7" value="lebih_aman" onchange="handleExclusiveOption('#f16usaha-checkbox-group', 'sudah_sesuai', this)"><label for="f16u-7" class="form-control__label-checkbox">Pekerjaan saya saat ini lebih aman / terjamin / secure</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-8" value="lebih_menarik" onchange="handleExclusiveOption('#f16usaha-checkbox-group', 'sudah_sesuai', this)"><label for="f16u-8" class="form-control__label-checkbox">Pekerjaan saya saat ini lebih menarik</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-9" value="fleksibel" onchange="handleExclusiveOption('#f16usaha-checkbox-group', 'sudah_sesuai', this)"><label for="f16u-9" class="form-control__label-checkbox">Pekerjaan saya saat ini, lebih memungkinkan saya mengambil pekerjaan tambahan / jadwal yang fleksibel, dll</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-10" value="lokasi_dekat" onchange="handleExclusiveOption('#f16usaha-checkbox-group', 'sudah_sesuai', this)"><label for="f16u-10" class="form-control__label-checkbox">Pekerjaan saya saat ini lokasinya lebih dekat dari rumah saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-11" value="menjamin_keluarga" onchange="handleExclusiveOption('#f16usaha-checkbox-group', 'sudah_sesuai', this)"><label for="f16u-11" class="form-control__label-checkbox">Pekerjaan saya saat ini dapat lebih menjamin kebutuhan keluarga saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-12" value="awal_karir" onchange="handleExclusiveOption('#f16usaha-checkbox-group', 'sudah_sesuai', this)"><label for="f16u-12" class="form-control__label-checkbox">Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya</label></label>
+                                        <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16u-13" value="lainnya" onchange="handleExclusiveOption('#f16usaha-checkbox-group', 'sudah_sesuai', this)"><label for="f16u-13" class="form-control__label-checkbox">Lainnya</label></label>
                                     </div>
-                                    <div class="alert alert_helper">
-                                        <div class="alert__content">
-                                            <p class="alert__description">Kode DIKTI f16 (f1601-f1614 per opsi).</p>
+                                </div>
+
+                                <div class="tsf-question tsf-conditional" id="lainnya-f16usaha-checkbox-group-wrap" style="display: none;" aria-hidden="true">
+                                    <label for="input-lainnya-f16usaha-checkbox-group" class="tsf-question__label">Sebutkan alasan lainnya</label>
+                                    <div class="form-control" style="margin-top: 0.5rem;">
+                                        <div class="form-control__group">
+                                            <input type="text" id="input-lainnya-f16usaha-checkbox-group" class="form-control__input" placeholder="Tuliskan alasan Anda" oninput="updateAnsweredCount()">
                                         </div>
                                     </div>
                                 </div>
@@ -1306,7 +1194,7 @@
                                 <div class="tsf-currency">
                                     <span class="tsf-currency__prefix">Rp</span>
                                     <div class="form-control__group">
-                                        <input type="number" class="form-control__input" data-name="job-gaji" placeholder="cth. 5000000" min="0" oninput="updateAnsweredCount()">
+                                        <input type="text" inputmode="numeric" class="form-control__input" data-name="job-gaji" placeholder="cth. 5.000.000" oninput="formatRupiahInput(this); updateAnsweredCount()">
                                     </div>
                                 </div>
                             </div>
@@ -1329,7 +1217,7 @@
             </div>
             <div class="footer-bar__buttons">
                 <button class="btn-outline-flat" id="btn-prev" disabled aria-disabled="true" onclick="goToPage(1)"><span class="icon icon-chevron-left-mini"></span> Sebelumnya</button>
-                <button class="btn-submit" id="btn-next" onclick="goToPage(2)">Selanjutnya <span class="icon icon-chevron-right-mini"></span></button>
+                <button class="btn-submit" id="btn-next" onclick="handlePrimaryAction()">Selanjutnya <span class="icon icon-chevron-right-mini"></span></button>
             </div>
         </div>
     </footer>
@@ -1344,6 +1232,133 @@
             if (!el || el.dataset.choicesInit) return;
             new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
             el.dataset.choicesInit = 'true';
+        }
+
+        // Data provinsi & kabupaten/kota (docs/Master_Import_Data_Tracer_Study.xlsx, sheet
+        // "Data Master Lokasi Kerja") - dipakai untuk dropdown pencarian Provinsi -> Kabupaten/
+        // Kota yang saling terhubung. Kode kabupaten/kota dikelompokkan per provinsi lewat
+        // LOKASI_KABKOTA supaya pilihan Kabupaten/Kota otomatis menyempit begitu provinsi dipilih.
+        const LOKASI_PROVINSI = [
+            { code: 350000, nama: 'Luar Negeri' },
+            { code: 60000, nama: 'Prov. Aceh' },
+            { code: 220000, nama: 'Prov. Bali' },
+            { code: 280000, nama: 'Prov. Banten' },
+            { code: 260000, nama: 'Prov. Bengkulu' },
+            { code: 40000, nama: 'Prov. D.I. Yogyakarta' },
+            { code: 10000, nama: 'Prov. D.K.I. Jakarta' },
+            { code: 300000, nama: 'Prov. Gorontalo' },
+            { code: 100000, nama: 'Prov. Jambi' },
+            { code: 20000, nama: 'Prov. Jawa Barat' },
+            { code: 30000, nama: 'Prov. Jawa Tengah' },
+            { code: 50000, nama: 'Prov. Jawa Timur' },
+            { code: 130000, nama: 'Prov. Kalimantan Barat' },
+            { code: 150000, nama: 'Prov. Kalimantan Selatan' },
+            { code: 140000, nama: 'Prov. Kalimantan Tengah' },
+            { code: 160000, nama: 'Prov. Kalimantan Timur' },
+            { code: 340000, nama: 'Prov. Kalimantan Utara' },
+            { code: 290000, nama: 'Prov. Kepulauan Bangka Belitung' },
+            { code: 310000, nama: 'Prov. Kepulauan Riau' },
+            { code: 120000, nama: 'Prov. Lampung' },
+            { code: 210000, nama: 'Prov. Maluku' },
+            { code: 270000, nama: 'Prov. Maluku Utara' },
+            { code: 230000, nama: 'Prov. Nusa Tenggara Barat' },
+            { code: 240000, nama: 'Prov. Nusa Tenggara Timur' },
+            { code: 250000, nama: 'Prov. Papua' },
+            { code: 320000, nama: 'Prov. Papua Barat' },
+            { code: 90000, nama: 'Prov. Riau' },
+            { code: 330000, nama: 'Prov. Sulawesi Barat' },
+            { code: 190000, nama: 'Prov. Sulawesi Selatan' },
+            { code: 180000, nama: 'Prov. Sulawesi Tengah' },
+            { code: 200000, nama: 'Prov. Sulawesi Tenggara' },
+            { code: 170000, nama: 'Prov. Sulawesi Utara' },
+            { code: 80000, nama: 'Prov. Sumatera Barat' },
+            { code: 110000, nama: 'Prov. Sumatera Selatan' },
+            { code: 70000, nama: 'Prov. Sumatera Utara' }
+        ];
+        const LOKASI_KABKOTA = {
+            '10000': [{ code: 10100, nama: 'Kab. Kepulauan Seribu' }, { code: 16200, nama: 'Kota Jakarta Barat' }, { code: 16000, nama: 'Kota Jakarta Pusat' }, { code: 16300, nama: 'Kota Jakarta Selatan' }, { code: 16400, nama: 'Kota Jakarta Timur' }, { code: 16100, nama: 'Kota Jakarta Utara' }],
+            '20000': [{ code: 20800, nama: 'Kab. Bandung' }, { code: 22300, nama: 'Kab. Bandung Barat' }, { code: 22200, nama: 'Kab. Bekasi' }, { code: 20500, nama: 'Kab. Bogor' }, { code: 21400, nama: 'Kab. Ciamis' }, { code: 20700, nama: 'Kab. Cianjur' }, { code: 21700, nama: 'Kab. Cirebon' }, { code: 21100, nama: 'Kab. Garut' }, { code: 21800, nama: 'Kab. Indramayu' }, { code: 22100, nama: 'Kab. Karawang' }, { code: 21500, nama: 'Kab. Kuningan' }, { code: 21600, nama: 'Kab. Majalengka' }, { code: 22500, nama: 'Kab. Pangandaran' }, { code: 22000, nama: 'Kab. Purwakarta' }, { code: 21900, nama: 'Kab. Subang' }, { code: 20600, nama: 'Kab. Sukabumi' }, { code: 21000, nama: 'Kab. Sumedang' }, { code: 21200, nama: 'Kab. Tasikmalaya' }, { code: 26000, nama: 'Kota Bandung' }, { code: 26900, nama: 'Kota Banjar' }, { code: 26500, nama: 'Kota Bekasi' }, { code: 26100, nama: 'Kota Bogor' }, { code: 26700, nama: 'Kota Cimahi' }, { code: 26300, nama: 'Kota Cirebon' }, { code: 26600, nama: 'Kota Depok' }, { code: 26200, nama: 'Kota Sukabumi' }, { code: 26800, nama: 'Kota Tasikmalaya' }],
+            '30000': [{ code: 30400, nama: 'Kab. Banjarnegara' }, { code: 30200, nama: 'Kab. Banyumas' }, { code: 32500, nama: 'Kab. Batang' }, { code: 31600, nama: 'Kab. Blora' }, { code: 30900, nama: 'Kab. Boyolali' }, { code: 32900, nama: 'Kab. Brebes' }, { code: 30100, nama: 'Kab. Cilacap' }, { code: 32100, nama: 'Kab. Demak' }, { code: 31500, nama: 'Kab. Grobogan' }, { code: 32000, nama: 'Kab. Jepara' }, { code: 31300, nama: 'Kab. Karanganyar' }, { code: 30500, nama: 'Kab. Kebumen' }, { code: 32400, nama: 'Kab. Kendal' }, { code: 31000, nama: 'Kab. Klaten' }, { code: 31900, nama: 'Kab. Kudus' }, { code: 30800, nama: 'Kab. Magelang' }, { code: 31800, nama: 'Kab. Pati' }, { code: 32600, nama: 'Kab. Pekalongan' }, { code: 32700, nama: 'Kab. Pemalang' }, { code: 30300, nama: 'Kab. Purbalingga' }, { code: 30600, nama: 'Kab. Purworejo' }, { code: 31700, nama: 'Kab. Rembang' }, { code: 32200, nama: 'Kab. Semarang' }, { code: 31400, nama: 'Kab. Sragen' }, { code: 31100, nama: 'Kab. Sukoharjo' }, { code: 32800, nama: 'Kab. Tegal' }, { code: 32300, nama: 'Kab. Temanggung' }, { code: 31200, nama: 'Kab. Wonogiri' }, { code: 30700, nama: 'Kab. Wonosobo' }, { code: 36000, nama: 'Kota Magelang' }, { code: 36400, nama: 'Kota Pekalongan' }, { code: 36200, nama: 'Kota Salatiga' }, { code: 36300, nama: 'Kota Semarang' }, { code: 36100, nama: 'Kota Surakarta' }, { code: 36500, nama: 'Kota Tegal' }],
+            '40000': [{ code: 40100, nama: 'Kab. Bantul' }, { code: 40300, nama: 'Kab. Gunung Kidul' }, { code: 40400, nama: 'Kab. Kulon Progo' }, { code: 40200, nama: 'Kab. Sleman' }, { code: 46000, nama: 'Kota Yogyakarta' }],
+            '50000': [{ code: 52900, nama: 'Kab. Bangkalan' }, { code: 52500, nama: 'Kab. Banyuwangi' }, { code: 51500, nama: 'Kab. Blitar' }, { code: 50500, nama: 'Kab. Bojonegoro' }, { code: 52200, nama: 'Kab. Bondowoso' }, { code: 50100, nama: 'Kab. Gresik' }, { code: 52400, nama: 'Kab. Jember' }, { code: 50400, nama: 'Kab. Jombang' }, { code: 51300, nama: 'Kab. Kediri' }, { code: 50700, nama: 'Kab. Lamongan' }, { code: 52100, nama: 'Kab. Lumajang' }, { code: 50800, nama: 'Kab. Madiun' }, { code: 51000, nama: 'Kab. Magetan' }, { code: 51800, nama: 'Kab. Malang' }, { code: 50300, nama: 'Kab. Mojokerto' }, { code: 51400, nama: 'Kab. Nganjuk' }, { code: 50900, nama: 'Kab. Ngawi' }, { code: 51200, nama: 'Kab. Pacitan' }, { code: 52600, nama: 'Kab. Pamekasan' }, { code: 51900, nama: 'Kab. Pasuruan' }, { code: 51100, nama: 'Kab. Ponorogo' }, { code: 52000, nama: 'Kab. Probolinggo' }, { code: 52700, nama: 'Kab. Sampang' }, { code: 50200, nama: 'Kab. Sidoarjo' }, { code: 52300, nama: 'Kab. Situbondo' }, { code: 52800, nama: 'Kab. Sumenep' }, { code: 51700, nama: 'Kab. Trenggalek' }, { code: 50600, nama: 'Kab. Tuban' }, { code: 51600, nama: 'Kab. Tulungagung' }, { code: 56800, nama: 'Kota Batu' }, { code: 56500, nama: 'Kota Blitar' }, { code: 56300, nama: 'Kota Kediri' }, { code: 56200, nama: 'Kota Madiun' }, { code: 56100, nama: 'Kota Malang' }, { code: 56400, nama: 'Kota Mojokerto' }, { code: 56600, nama: 'Kota Pasuruan' }, { code: 56700, nama: 'Kota Probolinggo' }, { code: 56000, nama: 'Kota Surabaya' }],
+            '60000': [{ code: 60600, nama: 'Kab. Aceh Barat' }, { code: 61700, nama: 'Kab. Aceh Barat Daya' }, { code: 60100, nama: 'Kab. Aceh Besar' }, { code: 61600, nama: 'Kab. Aceh Jaya' }, { code: 60700, nama: 'Kab. Aceh Selatan' }, { code: 61300, nama: 'Kab. Aceh Singkil' }, { code: 61400, nama: 'Kab. Aceh Tamiang' }, { code: 60500, nama: 'Kab. Aceh Tengah' }, { code: 60800, nama: 'Kab. Aceh Tenggara' }, { code: 60400, nama: 'Kab. Aceh Timur' }, { code: 60300, nama: 'Kab. Aceh Utara' }, { code: 61900, nama: 'Kab. Bener Meriah' }, { code: 61200, nama: 'Kab. Bireuen' }, { code: 61800, nama: 'Kab. Gayo Lues' }, { code: 61500, nama: 'Kab. Nagan Raya' }, { code: 60200, nama: 'Kab. Pidie' }, { code: 62000, nama: 'Kab. Pidie Jaya' }, { code: 61100, nama: 'Kab. Simeulue' }, { code: 66100, nama: 'Kota Banda Aceh' }, { code: 66300, nama: 'Kota Langsa' }, { code: 66200, nama: 'Kota Lhokseumawe' }, { code: 66000, nama: 'Kota Sabang' }, { code: 66400, nama: 'Kota Subulussalam' }],
+            '70000': [{ code: 70600, nama: 'Kab. Asahan' }, { code: 72200, nama: 'Kab. Batubara' }, { code: 70500, nama: 'Kab. Dairi' }, { code: 70100, nama: 'Kab. Deli Serdang' }, { code: 71900, nama: 'Kab. Humbang Hasudutan' }, { code: 70300, nama: 'Kab. Karo' }, { code: 70700, nama: 'Kab. Labuhan Batu' }, { code: 72600, nama: 'Kab. Labuhan Batu Selatan' }, { code: 72500, nama: 'Kab. Labuhan Batu Utara' }, { code: 70200, nama: 'Kab. Langkat' }, { code: 71500, nama: 'Kab. Mandailing Natal' }, { code: 71100, nama: 'Kab. Nias' }, { code: 72700, nama: 'Kab. Nias Barat' }, { code: 71700, nama: 'Kab. Nias Selatan' }, { code: 72800, nama: 'Kab. Nias Utara' }, { code: 72400, nama: 'Kab. Padang Lawas' }, { code: 72300, nama: 'Kab. Padang Lawas utara' }, { code: 71800, nama: 'Kab. Pakpak Bharat' }, { code: 72000, nama: 'Kab. Samosir' }, { code: 72100, nama: 'Kab. Serdang Bedagai' }, { code: 70400, nama: 'Kab. Simalungun' }, { code: 71000, nama: 'Kab. Tapanuli Selatan' }, { code: 70900, nama: 'Kab. Tapanuli Tengah' }, { code: 70800, nama: 'Kab. Tapanuli Utara' }, { code: 71600, nama: 'Kab. Toba Samosir' }, { code: 76100, nama: 'Kota Binjai' }, { code: 76700, nama: 'Kota Gunungsitoli' }, { code: 76000, nama: 'Kota Medan' }, { code: 76600, nama: 'Kota Padang Sidimpuan' }, { code: 76300, nama: 'Kota Pematangsiantar' }, { code: 76500, nama: 'Kota Sibolga' }, { code: 76400, nama: 'Kota Tanjung Balai' }, { code: 76200, nama: 'Kota Tebing Tinggi' }],
+            '80000': [{ code: 80100, nama: 'Kab. Agam' }, { code: 81200, nama: 'Kab. Dharmasraya' }, { code: 81000, nama: 'Kab. Kepulauan Mentawai' }, { code: 80300, nama: 'Kab. Lima Puluh Koto' }, { code: 80500, nama: 'Kab. Padang Pariaman' }, { code: 80200, nama: 'Kab. Pasaman' }, { code: 81300, nama: 'Kab. Pasaman Barat' }, { code: 80600, nama: 'Kab. Pesisir Selatan' }, { code: 80800, nama: 'Kab. Sijunjung' }, { code: 80400, nama: 'Kab. Solok' }, { code: 81100, nama: 'Kab. Solok Selatan' }, { code: 80700, nama: 'Kab. Tanah Datar' }, { code: 86000, nama: 'Kota Bukittinggi' }, { code: 86100, nama: 'Kota Padang' }, { code: 86200, nama: 'Kota Padang Panjang' }, { code: 86600, nama: 'Kota Pariaman' }, { code: 86500, nama: 'Kota Payakumbuh' }, { code: 86300, nama: 'Kota Sawah Lunto' }, { code: 86400, nama: 'Kota Solok' }],
+            '90000': [{ code: 90200, nama: 'Kab. Bengkalis' }, { code: 90500, nama: 'Kab. Indragiri Hilir' }, { code: 90400, nama: 'Kab. Indragiri Hulu' }, { code: 90100, nama: 'Kab. Kampar' }, { code: 91500, nama: 'Kab. Kepulauan Meranti' }, { code: 91400, nama: 'Kab. Kuantan Singingi' }, { code: 90800, nama: 'Kab. Pelalawan' }, { code: 91000, nama: 'Kab. Rokan Hilir' }, { code: 90900, nama: 'Kab. Rokan Hulu' }, { code: 91100, nama: 'Kab. Siak' }, { code: 96200, nama: 'Kota Dumai' }, { code: 96000, nama: 'Kota Pekanbaru' }],
+            '100000': [{ code: 100100, nama: 'Kab. Batang Hari' }, { code: 100200, nama: 'Kab. Bungo' }, { code: 100500, nama: 'Kab. Kerinci' }, { code: 100900, nama: 'Kab. Merangin' }, { code: 100700, nama: 'Kab. Muaro Jambi' }, { code: 100300, nama: 'Kab. Sarolangun' }, { code: 100400, nama: 'Kab. Tanjung Jabung Barat' }, { code: 100800, nama: 'Kab. Tanjung Jabung Timur' }, { code: 100600, nama: 'Kab. Tebo' }, { code: 106000, nama: 'Kota Jambi' }, { code: 106100, nama: 'Kota Sungai Penuh' }],
+            '110000': [{ code: 110700, nama: 'Kab. Banyuasin' }, { code: 111100, nama: 'Kab. Empat Lawang' }, { code: 110500, nama: 'Kab. Lahat' }, { code: 110400, nama: 'Kab. Muara Enim' }, { code: 110100, nama: 'Kab. Musi Banyuasin' }, { code: 110600, nama: 'Kab. Musi Rawas' }, { code: 111300, nama: 'Kab. Musi Rawas Utara' }, { code: 111000, nama: 'Kab. Ogan Ilir' }, { code: 110200, nama: 'Kab. Ogan Komering Ilir' }, { code: 110300, nama: 'Kab. Ogan Komering Ulu' }, { code: 110900, nama: 'Kab. Ogan Komering Ulu Selatan' }, { code: 110800, nama: 'Kab. Ogan Komering Ulu Timur' }, { code: 111200, nama: 'Kab. Penukal Abab Lematang Ilir' }, { code: 116200, nama: 'Kota Lubuk Linggau' }, { code: 116300, nama: 'Kota Pagar Alam' }, { code: 116000, nama: 'Kota Palembang' }, { code: 116100, nama: 'Kota Prabumulih' }],
+            '120000': [{ code: 120400, nama: 'Kab. Lampung Barat' }, { code: 120100, nama: 'Kab. Lampung Selatan' }, { code: 120200, nama: 'Kab. Lampung Tengah' }, { code: 120700, nama: 'Kab. Lampung Timur' }, { code: 120300, nama: 'Kab. Lampung Utara' }, { code: 121100, nama: 'Kab. Mesuji' }, { code: 120900, nama: 'Kab. Pesawaran' }, { code: 121300, nama: 'Kab. Pesisir Barat' }, { code: 121000, nama: 'Kab. Pringsewu' }, { code: 120600, nama: 'Kab. Tanggamus' }, { code: 120500, nama: 'Kab. Tulang Bawang' }, { code: 121200, nama: 'Kab. Tulang Bawang Barat' }, { code: 120800, nama: 'Kab. Way Kanan' }, { code: 126000, nama: 'Kota Bandar Lampung' }, { code: 126100, nama: 'Kota Metro' }],
+            '130000': [{ code: 130800, nama: 'Kab. Bengkayang' }, { code: 130500, nama: 'Kab. Kapuas Hulu' }, { code: 131200, nama: 'Kab. Kayong Utara' }, { code: 130600, nama: 'Kab. Ketapang' }, { code: 131300, nama: 'Kab. Kuburaya' }, { code: 130900, nama: 'Kab. Landak' }, { code: 131100, nama: 'Kab. Melawi' }, { code: 130200, nama: 'Kab. Mempawah' }, { code: 130100, nama: 'Kab. Sambas' }, { code: 130300, nama: 'Kab. Sanggau' }, { code: 131000, nama: 'Kab. Sekadau' }, { code: 130400, nama: 'Kab. Sintang' }, { code: 136000, nama: 'Kota Pontianak' }, { code: 136100, nama: 'Kota Singkawang' }],
+            '140000': [{ code: 140200, nama: 'Kab. Barito Selatan' }, { code: 141300, nama: 'Kab. Barito Timur' }, { code: 140300, nama: 'Kab. Barito Utara' }, { code: 141000, nama: 'Kab. Gunung Mas' }, { code: 140100, nama: 'Kab. Kapuas' }, { code: 140600, nama: 'Kab. Katingan' }, { code: 140500, nama: 'Kab. Kotawaringin Barat' }, { code: 140400, nama: 'Kab. Kotawaringin Timur' }, { code: 140900, nama: 'Kab. Lamandau' }, { code: 141200, nama: 'Kab. Murung Raya' }, { code: 141100, nama: 'Kab. Pulang Pisau' }, { code: 140700, nama: 'Kab. Seruyan' }, { code: 140800, nama: 'Kab. Sukamara' }, { code: 146000, nama: 'Kota Palangka Raya' }],
+            '150000': [{ code: 151000, nama: 'Kab. Balangan' }, { code: 150100, nama: 'Kab. Banjar' }, { code: 150300, nama: 'Kab. Barito Kuala' }, { code: 150500, nama: 'Kab. Hulu Sungai Selatan' }, { code: 150600, nama: 'Kab. Hulu Sungai Tengah' }, { code: 150700, nama: 'Kab. Hulu Sungai Utara' }, { code: 150900, nama: 'Kab. Kotabaru' }, { code: 150800, nama: 'Kab. Tabalong' }, { code: 151100, nama: 'Kab. Tanah Bumbu' }, { code: 150200, nama: 'Kab. Tanah Laut' }, { code: 150400, nama: 'Kab. Tapin' }, { code: 156100, nama: 'Kota Banjarbaru' }, { code: 156000, nama: 'Kota Banjarmasin' }],
+            '160000': [{ code: 160300, nama: 'Kab. Berau' }, { code: 160900, nama: 'Kab. Kutai Barat' }, { code: 160200, nama: 'Kab. Kutai Kartanegara' }, { code: 161000, nama: 'Kab. Kutai Timur' }, { code: 161200, nama: 'Kab. Mahakam Ulu' }, { code: 160100, nama: 'Kab. Paser' }, { code: 161100, nama: 'Kab. Penajam Paser Utara' }, { code: 166100, nama: 'Kota Balikpapan' }, { code: 166300, nama: 'Kota Bontang' }, { code: 166000, nama: 'Kota Samarinda' }],
+            '170000': [{ code: 170100, nama: 'Kab. Bolaang Mongondow' }, { code: 171200, nama: 'Kab. Bolaang Mongondow Selatan' }, { code: 171100, nama: 'Kab. Bolaang Mongondow Timur' }, { code: 170800, nama: 'Kab. Bolaang Mongondow Utara' }, { code: 170300, nama: 'Kab. Kep. Sangihe' }, { code: 170900, nama: 'Kab. Kepulauan Siau Tagulandang Biaro' }, { code: 170400, nama: 'Kab. Kepulauan Talaud' }, { code: 170200, nama: 'Kab. Minahasa' }, { code: 170500, nama: 'Kab. Minahasa Selatan' }, { code: 171000, nama: 'Kab. Minahasa Tenggara' }, { code: 170600, nama: 'Kab. Minahasa Utara' }, { code: 176100, nama: 'Kota Bitung' }, { code: 176300, nama: 'Kota Kotamobagu' }, { code: 176000, nama: 'Kota Manado' }, { code: 176200, nama: 'Kota Tomohon' }],
+            '180000': [{ code: 180400, nama: 'Kab. Banggai' }, { code: 180100, nama: 'Kab. Banggai Kepulauan' }, { code: 181100, nama: 'Kab. Banggai Laut' }, { code: 180500, nama: 'Kab. Buol' }, { code: 180200, nama: 'Kab. Donggala' }, { code: 180700, nama: 'Kab. Morowali' }, { code: 181200, nama: 'Kab. Morowali Utara' }, { code: 180800, nama: 'Kab. Parigi Moutong' }, { code: 180300, nama: 'Kab. Poso' }, { code: 181000, nama: 'Kab. Sigi' }, { code: 180900, nama: 'Kab. Tojo Una-Una' }, { code: 180600, nama: 'Kab. Tolitoli' }, { code: 186000, nama: 'Kota Palu' }],
+            '190000': [{ code: 191000, nama: 'Kab. Bantaeng' }, { code: 190600, nama: 'Kab. Barru' }, { code: 190700, nama: 'Kab. Bone' }, { code: 191100, nama: 'Kab. Bulukumba' }, { code: 191600, nama: 'Kab. Enrekang' }, { code: 190300, nama: 'Kab. Gowa' }, { code: 190500, nama: 'Kab. Jeneponto' }, { code: 191300, nama: 'Kab. Kepulauan Selayar' }, { code: 191700, nama: 'Kab. Luwu' }, { code: 192600, nama: 'Kab. Luwu Timur' }, { code: 192400, nama: 'Kab. Luwu Utara' }, { code: 190100, nama: 'Kab. Maros' }, { code: 190200, nama: 'Kab. Pangkajene Kepulauan' }, { code: 191400, nama: 'Kab. Pinrang' }, { code: 191500, nama: 'Kab. Sidenreng Rappang' }, { code: 191200, nama: 'Kab. Sinjai' }, { code: 190900, nama: 'Kab. Soppeng' }, { code: 190400, nama: 'Kab. Takalar' }, { code: 191800, nama: 'Kab. Tana Toraja' }, { code: 192700, nama: 'Kab. Toraja Utara' }, { code: 190800, nama: 'Kab. Wajo' }, { code: 196000, nama: 'Kota Makassar' }, { code: 196200, nama: 'Kota Palopo' }, { code: 196100, nama: 'Kota Parepare' }],
+            '200000': [{ code: 200700, nama: 'Kab. Bombana' }, { code: 200300, nama: 'Kab. Buton' }, { code: 201400, nama: 'Kab. Buton Selatan' }, { code: 201600, nama: 'Kab. Buton Tengah' }, { code: 201000, nama: 'Kab. Buton Utara' }, { code: 200400, nama: 'Kab. Kolaka' }, { code: 201100, nama: 'Kab. Kolaka Timur' }, { code: 200800, nama: 'Kab. Kolaka Utara' }, { code: 200100, nama: 'Kab. Konawe' }, { code: 201200, nama: 'Kab. Konawe Kepulauan' }, { code: 200500, nama: 'Kab. Konawe Selatan' }, { code: 200900, nama: 'Kab. Konawe Utara' }, { code: 200200, nama: 'Kab. Muna' }, { code: 201300, nama: 'Kab. Muna Barat' }, { code: 200600, nama: 'Kab. Wakatobi' }, { code: 206100, nama: 'Kota Baubau' }, { code: 206000, nama: 'Kota Kendari' }],
+            '210000': [{ code: 210300, nama: 'Kab. Buru' }, { code: 210900, nama: 'Kab. Buru Selatan' }, { code: 210700, nama: 'Kab. Kepulauan Aru' }, { code: 210400, nama: 'Kab. Kepulauan Tanimbar' }, { code: 210800, nama: 'Kab. Maluku Barat Daya' }, { code: 210100, nama: 'Kab. Maluku Tengah' }, { code: 210200, nama: 'Kab. Maluku Tenggara' }, { code: 210500, nama: 'Kab. Seram Bagian Barat' }, { code: 210600, nama: 'Kab. Seram Bagian Timur' }, { code: 216000, nama: 'Kota Ambon' }, { code: 216100, nama: 'Kota Tual' }],
+            '220000': [{ code: 220400, nama: 'Kab. Badung' }, { code: 220700, nama: 'Kab. Bangli' }, { code: 220100, nama: 'Kab. Buleleng' }, { code: 220500, nama: 'Kab. Gianyar' }, { code: 220200, nama: 'Kab. Jembrana' }, { code: 220800, nama: 'Kab. Karang Asem' }, { code: 220600, nama: 'Kab. Klungkung' }, { code: 220300, nama: 'Kab. Tabanan' }, { code: 226000, nama: 'Kota Denpasar' }],
+            '230000': [{ code: 230600, nama: 'Kab. Bima' }, { code: 230500, nama: 'Kab. Dompu' }, { code: 230100, nama: 'Kab. Lombok Barat' }, { code: 230200, nama: 'Kab. Lombok Tengah' }, { code: 230300, nama: 'Kab. Lombok Timur' }, { code: 230800, nama: 'Kab. Lombok Utara' }, { code: 230400, nama: 'Kab. Sumbawa' }, { code: 230700, nama: 'Kab. Sumbawa Barat' }, { code: 236100, nama: 'Kota Bima' }, { code: 236000, nama: 'Kota Mataram' }],
+            '240000': [{ code: 240600, nama: 'Kab. Alor' }, { code: 240500, nama: 'Kab. Belu' }, { code: 240900, nama: 'Kab. Ende' }, { code: 240700, nama: 'Kab. Flores Timur' }, { code: 240100, nama: 'Kab. Kupang' }, { code: 241400, nama: 'Kab. Lembata' }, { code: 242200, nama: 'Kab. Malaka' }, { code: 241100, nama: 'Kab. Manggarai' }, { code: 241600, nama: 'Kab. Manggarai Barat' }, { code: 242000, nama: 'Kab. Manggarai Timur' }, { code: 241700, nama: 'Kab. Nagakeo' }, { code: 241000, nama: 'Kab. Ngada' }, { code: 241500, nama: 'Kab. Rote-Ndao' }, { code: 242100, nama: 'Kab. Sabu Raijua' }, { code: 240800, nama: 'Kab. Sikka' }, { code: 241300, nama: 'Kab. Sumba Barat' }, { code: 241900, nama: 'Kab. Sumba Barat Daya' }, { code: 241800, nama: 'Kab. Sumba Tengah' }, { code: 241200, nama: 'Kab. Sumba Timur' }, { code: 240300, nama: 'Kab. Timor Tengah Selatan' }, { code: 240400, nama: 'Kab. Timor Tengah Utara' }, { code: 246000, nama: 'Kota Kupang' }],
+            '250000': [{ code: 251500, nama: 'Kab. Asmat' }, { code: 250200, nama: 'Kab. Biak Numfor' }, { code: 251300, nama: 'Kab. Boven Digoel' }, { code: 253500, nama: 'Kab. Deiyai' }, { code: 253400, nama: 'Kab. Dogiyai' }, { code: 253600, nama: 'Kab. Intan Jaya' }, { code: 250800, nama: 'Kab. Jaya Wijaya' }, { code: 250100, nama: 'Kab. Jayapura' }, { code: 252000, nama: 'Kab. Keerom' }, { code: 250300, nama: 'Kab. Kepulauan Yapen' }, { code: 253000, nama: 'Kab. Lanny Jaya' }, { code: 251400, nama: 'Kab. Mappi' }, { code: 252800, nama: 'Kab. Memberamo Raya' }, { code: 253100, nama: 'Kab. Membramo Tengah' }, { code: 250700, nama: 'Kab. Merauke' }, { code: 251200, nama: 'Kab. Mimika' }, { code: 250900, nama: 'Kab. Nabire' }, { code: 252900, nama: 'Kab. Nduga' }, { code: 251000, nama: 'Kab. Paniai' }, { code: 251700, nama: 'Kab. Pegunungan Bintang' }, { code: 251100, nama: 'Kab. Puncak Jaya' }, { code: 251900, nama: 'Kab. Sarmi' }, { code: 252700, nama: 'Kab. Supiori' }, { code: 251800, nama: 'Kab. Tolikara' }, { code: 252600, nama: 'Kab. Waropen' }, { code: 251600, nama: 'Kab. Yahukimo' }, { code: 253200, nama: 'Kab. Yalimo' }, { code: 256000, nama: 'Kota Jayapura' }, { code: 253300, nama: 'kab. Puncak' }],
+            '260000': [{ code: 260300, nama: 'Kab. Bengkulu Selatan' }, { code: 260900, nama: 'Kab. Bengkulu Tengah' }, { code: 260100, nama: 'Kab. Bengkulu Utara' }, { code: 260700, nama: 'Kab. Kaur' }, { code: 260500, nama: 'Kab. Kepahiang' }, { code: 260600, nama: 'Kab. Lebong' }, { code: 260400, nama: 'Kab. Muko-muko' }, { code: 260200, nama: 'Kab. Rejang Lebong' }, { code: 260800, nama: 'Kab. Seluma' }, { code: 266000, nama: 'Kota Bengkulu' }],
+            '270000': [{ code: 270300, nama: 'Kab. Halmahera Barat' }, { code: 270500, nama: 'Kab. Halmahera Selatan' }, { code: 270200, nama: 'Kab. Halmahera Tengah' }, { code: 270600, nama: 'Kab. Halmahera Timur' }, { code: 270800, nama: 'Kab. Kepulauan Morotai' }, { code: 270700, nama: 'Kab. Kepulauan Sula' }, { code: 270100, nama: 'Kab. Pulau Taliabu' }, { code: 270400, nama: 'Kab. halmahera Utara' }, { code: 276000, nama: 'Kota Ternate' }, { code: 276100, nama: 'Kota Tidore Kepulauan' }],
+            '280000': [{ code: 280200, nama: 'Kab. Lebak' }, { code: 280100, nama: 'Kab. Pandeglang' }, { code: 280400, nama: 'Kab. Serang' }, { code: 280300, nama: 'Kab. Tangerang' }, { code: 286000, nama: 'Kota Cilegon' }, { code: 286200, nama: 'Kota Serang' }, { code: 286100, nama: 'Kota Tangerang' }, { code: 286300, nama: 'Kota Tangerang Selatan' }],
+            '290000': [{ code: 290100, nama: 'Kab. Bangka' }, { code: 290400, nama: 'Kab. Bangka Barat' }, { code: 290500, nama: 'Kab. Bangka Selatan' }, { code: 290300, nama: 'Kab. Bangka Tengah' }, { code: 290200, nama: 'Kab. Belitung' }, { code: 290600, nama: 'Kab. Belitung Timur' }, { code: 296000, nama: 'Kota Pangkalpinang' }],
+            '300000': [{ code: 300100, nama: 'Kab. Boalemo' }, { code: 300400, nama: 'Kab. Bone Bolango' }, { code: 300200, nama: 'Kab. Gorontalo' }, { code: 300500, nama: 'Kab. Gorontalo Utara' }, { code: 300300, nama: 'Kab. Pohuwato' }, { code: 306000, nama: 'Kota Gorontalo' }],
+            '310000': [{ code: 310100, nama: 'Kab. Bintan' }, { code: 310200, nama: 'Kab. Karimun' }, { code: 310500, nama: 'Kab. Kepulauan Anambas' }, { code: 310400, nama: 'Kab. Lingga' }, { code: 310300, nama: 'Kab. Natuna' }, { code: 316000, nama: 'Kota Batam' }, { code: 316100, nama: 'Kota Tanjungpinang' }],
+            '320000': [{ code: 320100, nama: 'Kab. Fak-Fak' }, { code: 320200, nama: 'Kab. Kaimana' }, { code: 320500, nama: 'Kab. Manokwari' }, { code: 321200, nama: 'Kab. Manokwari Selatan' }, { code: 321000, nama: 'Kab. Maybrat' }, { code: 321100, nama: 'Kab. Pegunungan Arfak' }, { code: 320800, nama: 'Kab. Raja Ampat' }, { code: 320700, nama: 'Kab. Sorong' }, { code: 320600, nama: 'Kab. Sorong Selatan' }, { code: 320900, nama: 'Kab. Tambrauw' }, { code: 320400, nama: 'Kab. Teluk Bintuni' }, { code: 320300, nama: 'Kab. Teluk Wondama' }, { code: 326000, nama: 'Kota Sorong' }],
+            '330000': [{ code: 330500, nama: 'Kab. Majene' }, { code: 330400, nama: 'Kab. Mamasa' }, { code: 330100, nama: 'Kab. Mamuju' }, { code: 330600, nama: 'Kab. Mamuju Tengah' }, { code: 330200, nama: 'Kab. Pasangkayu' }, { code: 330300, nama: 'Kab. Polewali Mandar' }],
+            '340000': [{ code: 340200, nama: 'Kab. Bulungan' }, { code: 340100, nama: 'Kab. Malinau' }, { code: 340500, nama: 'Kab. Nunukan' }, { code: 340300, nama: 'Kab. Tana Tidung' }, { code: 346000, nama: 'Kota Tarakan' }],
+            '350000': [{ code: 350800, nama: 'Arab Saudi' }, { code: 350100, nama: 'Belanda' }, { code: 351500, nama: 'Brunei Darussalam' }, { code: 351400, nama: 'Cina' }, { code: 350600, nama: 'Filipina' }, { code: 350200, nama: 'Japan' }, { code: 999999, nama: 'Luar Negeri' }, { code: 350400, nama: 'Malaysia' }, { code: 350300, nama: 'Mesir' }, { code: 350500, nama: 'Myanmar' }, { code: 350700, nama: 'Rusia' }, { code: 351000, nama: 'Singapura' }, { code: 351300, nama: 'Taiwan' }, { code: 351200, nama: 'Thailand' }]
+        };
+
+        // Dropdown pencarian Provinsi -> Kabupaten/Kota (f5a1/f5a2). Provinsi diisi sekali dari
+        // LOKASI_PROVINSI; Kabupaten/Kota dikosongkan lalu diisi ulang (setChoices) tiap kali
+        // provinsi berubah, jadi pilihannya selalu subset dari provinsi yang sedang dipilih -
+        // bukan 528 kab/kota sekaligus.
+        const lokasiKabkotaChoices = {};
+        function initLokasiDropdowns() {
+            const provSelect = document.getElementById('select-provinsi-kerja');
+            if (!provSelect || provSelect.dataset.choicesInit) return;
+
+            LOKASI_PROVINSI.forEach(function (p) {
+                const opt = document.createElement('option');
+                opt.value = String(p.code);
+                opt.textContent = p.nama;
+                provSelect.appendChild(opt);
+            });
+
+            const provChoices = new Choices(provSelect, {
+                searchEnabled: true, itemSelectText: '', shouldSort: false,
+                placeholder: true, placeholderValue: 'Cari provinsi...',
+                searchPlaceholderValue: 'Ketik nama provinsi...'
+            });
+            provSelect.dataset.choicesInit = 'true';
+
+            const kabSelect = document.getElementById(provSelect.dataset.lokasiTarget);
+            if (!kabSelect) return;
+            const kabChoices = new Choices(kabSelect, {
+                searchEnabled: true, itemSelectText: '', shouldSort: false,
+                placeholder: true, placeholderValue: 'Pilih provinsi dulu',
+                searchPlaceholderValue: 'Ketik nama kabupaten/kota...'
+            });
+            kabSelect.dataset.choicesInit = 'true';
+            kabChoices.disable();
+            lokasiKabkotaChoices[kabSelect.id] = kabChoices;
+
+            provSelect.addEventListener('change', function () {
+                const cities = LOKASI_KABKOTA[provSelect.value] || [];
+                kabChoices.clearStore();
+                if (cities.length === 0) {
+                    kabChoices.setChoices([{ value: '', label: 'Tidak ada data untuk provinsi ini', disabled: true, placeholder: true }], 'value', 'label', true);
+                    kabChoices.disable();
+                } else {
+                    kabChoices.setChoices(cities.map(function (c) { return { value: String(c.code), label: c.nama }; }), 'value', 'label', true);
+                    kabChoices.enable();
+                }
+                updateAnsweredCount();
+            });
         }
 
         // =====================================================
@@ -1394,6 +1409,44 @@
             window.location.href = './tracer-study-success.html?wave=gs2';
         }
 
+        // Halaman 2 (Detail Status Saat Ini) cuma berisi pertanyaan lanjutan untuk status
+        // Bekerja/Wiraswasta/Melanjutkan pendidikan - kalau status yang dicentang cuma "Belum
+        // memungkinkan bekerja" dan/atau "Tidak kerja, tetapi sedang mencari kerja", halaman 2
+        // hanya menampilkan block-none (pesan statis, tanpa pertanyaan apa pun). Daripada
+        // memaksa alumni klik "Selanjutnya" ke halaman kosong lalu klik "Kirim" lagi, langsung
+        // kirim dari halaman 1.
+        function hasPage2Content(checked) {
+            return checked.indexOf('bekerja') !== -1 || checked.indexOf('wiraswasta') !== -1 || checked.indexOf('melanjutkan_pendidikan') !== -1;
+        }
+
+        function handlePrimaryAction() {
+            if (currentPage === 1) {
+                if (!validatePage1()) return;
+                recomputeTransisiKerja();
+                if (!hasPage2Content(getCheckedStatuses())) {
+                    submitForm();
+                    return;
+                }
+                goToPage(2);
+            } else {
+                submitForm();
+            }
+        }
+
+        // Tombol "Selanjutnya" di halaman 1 berubah jadi "Kirim Jawaban" begitu status yang
+        // dicentang membuat halaman 2 kosong, supaya alumni tahu klik berikutnya langsung
+        // mengirim - bukan berpindah ke halaman kosong dulu.
+        function updateNextButtonLabelForStatus() {
+            if (currentPage !== 1) return;
+            const checked = getCheckedStatuses();
+            const nextBtn = document.getElementById('btn-next');
+            if (checked.length > 0 && !hasPage2Content(checked)) {
+                nextBtn.innerHTML = 'Kirim Jawaban <span class="icon icon-arrow-up-right-mini"></span>';
+            } else {
+                nextBtn.innerHTML = 'Selanjutnya <span class="icon icon-chevron-right-mini"></span>';
+            }
+        }
+
         function validatePage1() {
             const problems = [];
             if (!document.getElementById('input-phone').value.trim()) problems.push('Nomor HP');
@@ -1402,6 +1455,12 @@
             const checked = getCheckedStatuses();
             if (checked.length === 0) problems.push('Status Anda saat ini');
             if (checked.length > 1 && !document.querySelector('#status-utama-options input:checked')) problems.push('Status Utama');
+            // Jaring pengaman - seharusnya sudah dicegah oleh resolveStatusConflict() saat
+            // checkbox diklik, tapi divalidasi ulang di sini juga (server-side equivalent
+            // untuk prototype ini) supaya state yang saling bertentangan tidak lolos submit.
+            const hasConflict = STATUS_CONFLICT_GROUPS[0].some(function (v) { return checked.indexOf(v) !== -1; })
+                && STATUS_CONFLICT_GROUPS[1].some(function (v) { return checked.indexOf(v) !== -1; });
+            if (hasConflict) problems.push('Status Anda saat ini (kombinasi bertentangan)');
 
             if (!document.querySelector('input[name="q6"]:checked')) problems.push('Sumber dana kuliah');
 
@@ -1428,6 +1487,16 @@
                     const instansi = card.querySelector('input[id^="job-instansi-"]');
                     if (instansi && !instansi.value.trim()) problems.push('Instansi pekerjaan #' + (i + 1));
                 });
+
+                // Corong lamaran kerja: jumlah yang mengundang wawancara tidak mungkin lebih
+                // banyak dari jumlah yang merespons, dan jumlah yang merespons tidak mungkin
+                // lebih banyak dari jumlah perusahaan yang dilamar - masing-masing cuma
+                // subset dari langkah sebelumnya.
+                const f6 = parseInt(document.getElementById('input-f6').value, 10);
+                const f7 = parseInt(document.getElementById('input-f7').value, 10);
+                const f7a = parseInt(document.getElementById('input-f7a').value, 10);
+                if (!isNaN(f6) && !isNaN(f7) && f7 > f6) problems.push('Jumlah yang merespons tidak bisa lebih banyak dari jumlah perusahaan yang dilamar');
+                if (!isNaN(f7) && !isNaN(f7a) && f7a > f7) problems.push('Jumlah yang mengundang wawancara tidak bisa lebih banyak dari jumlah yang merespons');
             }
             if (checked.includes('melanjutkan_pendidikan')) {
                 if (!document.getElementById('select-jenjang').value) problems.push('Jenjang studi lanjut');
@@ -1458,11 +1527,42 @@
             return Array.from(document.querySelectorAll('#q5-checkbox-group .form-control__checkbox:checked')).map(function (el) { return el.value; });
         }
 
-        function handleStatusChange() {
+        // Status yang berarti "sedang bekerja/berwirausaha" secara logis tidak mungkin
+        // dicentang bersamaan dengan status yang berarti "sedang tidak bekerja" - keduanya
+        // saling meniadakan (mis. tidak masuk akal sudah Bekerja tapi juga Belum memungkinkan
+        // bekerja). "Melanjutkan pendidikan" sengaja tidak masuk grup manapun karena status
+        // studi lanjut independen dari status kerja.
+        const STATUS_CONFLICT_GROUPS = [
+            ['bekerja', 'wiraswasta'],
+            ['mencari_kerja', 'belum_bekerja']
+        ];
+
+        function resolveStatusConflict(changedEl) {
+            if (!changedEl || !changedEl.checked) return null;
+            const changedValue = changedEl.value;
+            const groupIndex = STATUS_CONFLICT_GROUPS.findIndex(function (g) { return g.indexOf(changedValue) !== -1; });
+            if (groupIndex === -1) return null;
+            const opposingGroup = STATUS_CONFLICT_GROUPS[groupIndex === 0 ? 1 : 0];
+            const cleared = [];
+            opposingGroup.forEach(function (val) {
+                const box = document.querySelector('#q5-checkbox-group .form-control__checkbox[value="' + val + '"]');
+                if (box && box.checked) {
+                    box.checked = false;
+                    refreshOptionCard(box.closest('.tsf-option'));
+                    cleared.push(STATUS_META[val]);
+                }
+            });
+            if (cleared.length === 0) return null;
+            return '"' + STATUS_META[changedValue] + '" tidak bisa dipilih bersama "' + cleared.join('", "') + '" - keduanya bertentangan. Pilihan yang bertentangan otomatis dibatalkan.';
+        }
+
+        function handleStatusChange(changedEl) {
+            const conflictMessage = resolveStatusConflict(changedEl);
             const checked = getCheckedStatuses();
             updateStatusUtama(checked);
             recomputeTransisiKerja();
-            showToast('Jawaban disimpan');
+            updateNextButtonLabelForStatus();
+            showToast(conflictMessage || 'Jawaban disimpan');
             updateAnsweredCount();
         }
 
@@ -1544,6 +1644,26 @@
             }
 
             showToast('Jawaban disimpan');
+            updateAnsweredCount();
+        }
+
+        // f301 ("Kapan Anda mulai mencari pekerjaan...") gates its own two follow-ups: f302 hanya
+        // relevan kalau dijawab "Sebelum lulus", f303 hanya kalau "Sesudah lulus" - keduanya tidak
+        // pernah relevan bersamaan, dan tidak relevan sama sekali kalau "Saya tidak mencari kerja".
+        function applyF301Logic(value) {
+            const f302wrap = document.getElementById('f302-wrap');
+            const f303wrap = document.getElementById('f303-wrap');
+            const showBefore = value === 'sebelum_lulus';
+            const showAfter = value === 'sesudah_lulus';
+
+            f302wrap.style.display = showBefore ? 'block' : 'none';
+            f302wrap.setAttribute('aria-hidden', showBefore ? 'false' : 'true');
+            if (!showBefore) document.getElementById('input-f302').value = '';
+
+            f303wrap.style.display = showAfter ? 'block' : 'none';
+            f303wrap.setAttribute('aria-hidden', showAfter ? 'false' : 'true');
+            if (!showAfter) document.getElementById('input-f303').value = '';
+
             updateAnsweredCount();
         }
 
@@ -1692,6 +1812,27 @@
             const input = el.querySelector('input');
             el.classList.toggle('tsf-option--checked', !!(input && input.checked));
         }
+
+        // Beberapa checkbox-group punya satu opsi "tidak relevan/sudah sesuai" yang secara
+        // makna bertentangan dengan semua opsi lain di grup yang sama (mis. f16 "Pertanyaan
+        // tidak sesuai, pekerjaan saya sekarang sudah sesuai" vs alasan-alasan ketidaksesuaian
+        // lainnya) - keduanya tidak mungkin benar bersamaan. Sama seperti resolveStatusConflict,
+        // otomatis membatalkan opsi yang bertentangan alih-alih membiarkan kombinasi yang
+        // tidak masuk akal tersimpan.
+        function handleExclusiveOption(groupSelector, exclusiveValue, changedEl) {
+            if (changedEl && changedEl.checked) {
+                const boxes = document.querySelectorAll(groupSelector + ' .form-control__checkbox');
+                if (changedEl.value === exclusiveValue) {
+                    boxes.forEach(function (box) {
+                        if (box !== changedEl && box.checked) { box.checked = false; refreshOptionCard(box.closest('.tsf-option')); }
+                    });
+                } else {
+                    const exclusiveBox = document.querySelector(groupSelector + ' .form-control__checkbox[value="' + exclusiveValue + '"]');
+                    if (exclusiveBox && exclusiveBox.checked) { exclusiveBox.checked = false; refreshOptionCard(exclusiveBox.closest('.tsf-option')); }
+                }
+            }
+            updateAnsweredCount();
+        }
         function refreshOptionGroup(groupEl) {
             if (!groupEl) return;
             groupEl.querySelectorAll('.tsf-option').forEach(refreshOptionCard);
@@ -1707,6 +1848,9 @@
             } else {
                 const opt = input.closest ? input.closest('.tsf-option') : null;
                 if (opt) refreshOptionCard(opt);
+                if (input && input.type === 'checkbox' && input.closest('.tsf-checkbox-group')) {
+                    toggleLainnyaField(input);
+                }
             }
         });
 
@@ -1714,9 +1858,19 @@
         // "Lainnya" options reveal a freetext follow-up field
         // =====================================================
         function toggleLainnyaField(input) {
-            const wrap = document.getElementById('lainnya-' + input.name + '-wrap');
+            if (!input) return;
+            let wrap, showIt;
+            if (input.type === 'checkbox') {
+                const group = input.closest('.tsf-checkbox-group');
+                if (!group || !group.id) return;
+                wrap = document.getElementById('lainnya-' + group.id + '-wrap');
+                const lainnyaBox = group.querySelector('.form-control__checkbox[value="lainnya"]');
+                showIt = !!(lainnyaBox && lainnyaBox.checked);
+            } else {
+                wrap = document.getElementById('lainnya-' + input.name + '-wrap');
+                showIt = input.value === 'lainnya' && input.checked;
+            }
             if (!wrap) return;
-            const showIt = input.value === 'lainnya' && input.checked;
             wrap.style.display = showIt ? 'block' : 'none';
             wrap.setAttribute('aria-hidden', showIt ? 'false' : 'true');
             if (!showIt) {
@@ -1725,11 +1879,20 @@
             }
         }
 
+        // Rupiah fields are type="text" (native number inputs can't display "1.000.000" style
+        // separators) - strip non-digits then re-insert dots as thousand separators as the user types.
+        function formatRupiahInput(input) {
+            const digits = input.value.replace(/\D/g, '');
+            input.value = digits ? Number(digits).toLocaleString('id-ID') : '';
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.select-default').forEach(initSelectDefault);
             document.querySelectorAll('.tsf-radio-group, .tsf-checkbox-group').forEach(refreshOptionGroup);
+            initLokasiDropdowns();
 
             recomputeTransisiKerja();
+            updateNextButtonLabelForStatus();
             updateAnsweredCount();
         });
     </script>

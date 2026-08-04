@@ -72,9 +72,6 @@
 
         .tsf-radio-group, .tsf-checkbox-group { display: flex; flex-direction: column; gap: 0.625rem; margin-top: 0.5rem; }
         .tsf-checkbox-group > div { display: flex; align-items: center; }
-
-        /* Helper alert directly under every question (Quantum .alert / .alert_helper) */
-        .tsf-question .alert_helper { margin-top: 0.875rem; }
         .alert__description p { margin: 0.125rem 0; }
 
         /* 1-5 scale controls: hidden radio + visible button-box label, real semantics kept */
@@ -311,11 +308,6 @@
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-s3" value="s3" onchange="updateAnsweredCount()"><label for="q7-s3" class="form-control__label-radio">S3</label></label>
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-none" value="tidak_sekolah" onchange="updateAnsweredCount()"><label for="q7-none" class="form-control__label-radio">Tidak Sekolah</label></label>
                                 </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Tidak ada autofill, isi manual, dapat diedit kapan saja.</p>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Question 2 - Sumber Dana -->
@@ -334,17 +326,13 @@
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q8" id="q8-f" value="perusahaan" onchange="updateAnsweredCount()"><label for="q8-f" class="form-control__label-radio">Beasiswa Perusahaan / Swasta</label></label>
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q8" id="q8-g" value="lainnya" onchange="updateAnsweredCount()"><label for="q8-g" class="form-control__label-radio">Lainnya</label></label>
                                 </div>
-                                <div class="tsf-conditional" id="lainnya-q8-wrap" style="display: none; margin-top: 0.75rem;" aria-hidden="true">
-                                    <div class="form-control">
-                                        <label for="input-lainnya-q8" class="form-control__label">Sebutkan sumber dana lainnya</label>
-                                        <div class="form-control__group">
-                                            <input type="text" id="input-lainnya-q8" class="form-control__input" placeholder="Tuliskan sumber dana Anda" oninput="updateAnsweredCount()">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Tidak ada autofill, isi manual, dapat diedit kapan saja.</p>
+                            </div>
+
+                            <div class="tsf-question tsf-conditional" id="lainnya-q8-wrap" style="display: none;" aria-hidden="true">
+                                <label for="input-lainnya-q8" class="tsf-question__label">Sebutkan sumber dana lainnya</label>
+                                <div class="form-control" style="margin-top: 0.5rem;">
+                                    <div class="form-control__group">
+                                        <input type="text" id="input-lainnya-q8" class="form-control__input" placeholder="Tuliskan sumber dana Anda" oninput="updateAnsweredCount()">
                                     </div>
                                 </div>
                             </div>
@@ -452,11 +440,6 @@
                                     </div>
                                 </div>
 
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Penilaian diri (self-assessment), akan dibandingkan lagi saat GS-I/GS-II. Tidak ada autofill.</p>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Question 4 - Penekanan Metode Pembelajaran (matrix 7 aspek, kode f2 / f21-f27 per baris) -->
@@ -465,7 +448,7 @@
                                     <span class="tsf-question__number" aria-hidden="true">4.</span>
                                     <p class="tsf-question__label" id="q10-label">Penekanan Metode Pembelajaran di Program Studi<span class="tsf-required" aria-label="wajib diisi">*</span></p>
                                 </div>
-                                <p class="tsf-question__desc">Beri nilai 1 (tidak sama sekali) sampai 5 (sangat besar) untuk tiap aspek metode pembelajaran berikut. Kode DIKTI f2 (per-aspek: f21-f27).</p>
+                                <p class="tsf-question__desc">Beri nilai 1 (tidak sama sekali) sampai 5 (sangat besar) untuk tiap aspek metode pembelajaran berikut.</p>
 
                                 <div class="tsf-scale-table-wrap">
                                     <div class="tsf-scale-table">
@@ -562,11 +545,6 @@
                                     </div>
                                 </div>
 
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Tidak ada autofill, isi manual, dapat diedit kapan saja.</p>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Question 5 - Rencana Setelah Lulus -->
@@ -583,17 +561,13 @@
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q11" id="q11-d" value="belum_ada_rencana" onchange="updateAnsweredCount()"><label for="q11-d" class="form-control__label-radio">Belum Ada Rencana</label></label>
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q11" id="q11-e" value="lainnya" onchange="updateAnsweredCount()"><label for="q11-e" class="form-control__label-radio">Lainnya</label></label>
                                 </div>
-                                <div class="tsf-conditional" id="lainnya-q11-wrap" style="display: none; margin-top: 0.75rem;" aria-hidden="true">
-                                    <div class="form-control">
-                                        <label for="input-lainnya-q11" class="form-control__label">Sebutkan rencana Anda</label>
-                                        <div class="form-control__group">
-                                            <input type="text" id="input-lainnya-q11" class="form-control__input" placeholder="Tuliskan rencana Anda" oninput="updateAnsweredCount()">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="alert alert_helper">
-                                    <div class="alert__content">
-                                        <p class="alert__description">Prediktif untuk strategi kontak lanjutan, bukan status final. Tidak ada autofill, isi manual.</p>
+                            </div>
+
+                            <div class="tsf-question tsf-conditional" id="lainnya-q11-wrap" style="display: none;" aria-hidden="true">
+                                <label for="input-lainnya-q11" class="tsf-question__label">Sebutkan rencana Anda</label>
+                                <div class="form-control" style="margin-top: 0.5rem;">
+                                    <div class="form-control__group">
+                                        <input type="text" id="input-lainnya-q11" class="form-control__input" placeholder="Tuliskan rencana Anda" oninput="updateAnsweredCount()">
                                     </div>
                                 </div>
                             </div>

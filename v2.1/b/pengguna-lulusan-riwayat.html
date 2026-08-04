@@ -18,26 +18,27 @@
         .notif-item__desc { font-size: 0.75rem; color: var(--qn-neutral-600); }
         .notif-item__time { font-size: 0.6875rem; color: var(--qn-neutral-400); }
 
-        /* Overview stat-tiles - same pattern as kuesioner.html/index.html */
-        .stat-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.875rem; margin-bottom: 1.5rem; }
-        @media (max-width: 56rem) { .stat-tiles { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 30rem) { .stat-tiles { grid-template-columns: 1fr; } }
-        .stat-tile { padding: 1rem; border-radius: 0.625rem; display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
-        .stat-tile_success { background: var(--qn-success-100); }
-        .stat-tile_primary { background: var(--qn-primary-100); }
-        .stat-tile_warning { background: var(--qn-warning-100); }
-        .stat-tile_danger { background: #FEF2F2; }
-        .stat-tile__icon { width: 2.25rem; height: 2.25rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.0625rem; background: white; flex-shrink: 0; }
-        .stat-tile__icon_success { color: var(--qn-success-600, var(--qn-success-500)); }
-        .stat-tile__icon_primary { color: var(--qn-primary-600); }
-        .stat-tile__icon_warning { color: var(--qn-warning-600, #a15c07); }
-        .stat-tile__icon_danger { color: #DC2626; }
-        .stat-tile__value { display: block; font-size: 1.25rem; font-weight: 700; color: var(--qn-neutral-900); line-height: 1.2; }
-        .stat-tile__label { display: block; font-size: 0.8125rem; color: var(--qn-neutral-600); }
+        /* .stat-tiles / .stat-tile* now live in assets/css/main.css (promoted design-system
+           component, shared with index.html/detail-*.html) - no local override here anymore. */
+        .stat-tiles { margin-bottom: 1.5rem; }
 
         .rl-company { font-size: 0.8125rem; }
         .rl-company__name { font-weight: 500; color: var(--qn-neutral-800); margin: 0; }
         .rl-company__pic { color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
+
+        /* Alumni column - same pattern as alumni.html's cell-stack, missing here before
+           (undefined class let the browser's default table layout squeeze this column and
+           wrap every word onto its own line at narrower widths). */
+        .cell-stack { display: flex; flex-direction: column; gap: 0.125rem; min-width: 9rem; }
+        .cell-stack__name { font-weight: 600; color: var(--qn-neutral-800); margin: 0; }
+        .cell-stack__meta { font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0; }
+
+        /* Table columns need a floor width or they collapse unevenly once the table's total
+           content is wider than the viewport - .table-responsive already scrolls horizontally
+           (main.css), these just keep each column's content from wrapping into a ragged stack
+           before that scroll kicks in. */
+        .table .rl-company { min-width: 11rem; }
+        .table th:nth-child(4), .table td:nth-child(4) { white-space: nowrap; }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -173,31 +174,23 @@
             <div class="stat-tiles">
                 <div class="stat-tile stat-tile_success">
                     <span class="stat-tile__icon stat-tile__icon_success"><span class="icon icon-check-circle-mini"></span></span>
-                    <span>
-                        <span class="stat-tile__value">18</span>
-                        <span class="stat-tile__label">Sudah Diisi</span>
-                    </span>
+                    <span class="stat-tile__value">18</span>
+                    <span class="stat-tile__label">Sudah Diisi</span>
                 </div>
                 <div class="stat-tile stat-tile_primary">
                     <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-paper-airplane-mini"></span></span>
-                    <span>
-                        <span class="stat-tile__value">7</span>
-                        <span class="stat-tile__label">Terkirim, Menunggu Diisi</span>
-                    </span>
+                    <span class="stat-tile__value">7</span>
+                    <span class="stat-tile__label">Terkirim, Menunggu Diisi</span>
                 </div>
                 <div class="stat-tile stat-tile_warning">
                     <span class="stat-tile__icon stat-tile__icon_warning"><span class="icon icon-clock-mini"></span></span>
-                    <span>
-                        <span class="stat-tile__value">2</span>
-                        <span class="stat-tile__label">Terjadwal Mengirim</span>
-                    </span>
+                    <span class="stat-tile__value">2</span>
+                    <span class="stat-tile__label">Terjadwal Mengirim</span>
                 </div>
                 <div class="stat-tile stat-tile_danger">
                     <span class="stat-tile__icon stat-tile__icon_danger"><span class="icon icon-exclamation-triangle-mini"></span></span>
-                    <span>
-                        <span class="stat-tile__value">1</span>
-                        <span class="stat-tile__label">Gagal Terkirim</span>
-                    </span>
+                    <span class="stat-tile__value">1</span>
+                    <span class="stat-tile__label">Gagal Terkirim</span>
                 </div>
             </div>
 
