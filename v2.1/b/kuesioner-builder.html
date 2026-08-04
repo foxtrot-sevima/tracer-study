@@ -429,15 +429,41 @@
                 questions: [
                     { id: 20, tier: 'core', text: 'Berapa rata-rata pendapatan Anda per bulan (Take Home Pay) saat ini? (Rp)', desc: 'Dasar hitung skor IKU 2 - ambang 1,2x UMP (Kepmen Diktisaintek No. 358/M/2025).', type: 'number', required: true, code: 'f505' },
                     { id: 21, tier: 'core', text: 'Apa jenis tempat kerja Anda saat ini?', desc: 'Kategori resmi Kepmen Diktisaintek No. 358/M/2025.', type: 'radio', required: true, code: 'f1101',
-                        options: ['Perusahaan Swasta (Nasional/Multinasional/Startup/UMKM)', 'Lembaga/Organisasi Nirlaba', 'Institusi/Organisasi Multilateral (PBB, UNICEF, dsb.)', 'Instansi Pemerintah, BUMN, atau BUMD'] }
+                        options: ['Perusahaan Swasta (Nasional/Multinasional/Startup/UMKM)', 'Lembaga/Organisasi Nirlaba', 'Institusi/Organisasi Multilateral (PBB, UNICEF, dsb.)', 'Instansi Pemerintah, BUMN, atau BUMD'] },
+                    { id: 41, tier: 'core', text: 'Kapan Anda mulai mencari pekerjaan yang Anda jalani saat ini?', type: 'radio', required: false, code: 'f301',
+                        options: ['Sebelum lulus', 'Sesudah lulus', 'Saya tidak mencari kerja'] },
+                    { id: 42, tier: 'core', text: 'Jika Anda mulai mencari pekerjaan sejak sebelum lulus, dalam berapa bulan sebelum lulus Anda memulai mencari pekerjaan?', desc: 'Tanggal Lulus = tanggal Yudisium.', type: 'number', required: false, code: 'f302' },
+                    { id: 43, tier: 'core', text: 'Jika Anda mulai mencari pekerjaan sesudah lulus, dalam berapa bulan sesudah lulus Anda memulai mencari pekerjaan?', desc: 'Tanggal Lulus = tanggal Yudisium.', type: 'number', required: false, code: 'f303' },
+                    { id: 44, tier: 'core', text: 'Dimana tempat provinsi Anda bekerja saat ini?', type: 'text', required: true, code: 'f5a1' },
+                    { id: 45, tier: 'core', text: 'Dimana Kabupaten / Kota tempat Anda bekerja saat ini?', type: 'text', required: true, code: 'f5a2' },
+                    { id: 46, tier: 'core', text: 'Apa nama perusahaan / kantor tempat Anda bekerja saat ini?', type: 'text', required: true, code: 'f5b' },
+                    { id: 47, tier: 'core', text: 'Apa tingkat tempat kerja Anda saat ini?', type: 'radio', required: true, code: 'f5d',
+                        options: ['Lokal / Wilayah / Berwirausaha tidak Berbadan Hukum', 'Nasional / Berwirausaha Berbadan Hukum', 'Multinasional / Internasional'] },
+                    { id: 48, tier: 'core', text: 'Seberapa erat hubungan antara bidang studi dengan pekerjaan Anda saat ini?', type: 'radio', required: true, code: 'f14',
+                        options: ['Sangat Erat', 'Erat', 'Cukup Erat', 'Kurang Erat', 'Tidak Sama Sekali'] },
+                    { id: 49, tier: 'core', text: 'Tingkat pendidikan apa yang paling tepat / sesuai untuk pekerjaan Anda saat ini?', type: 'radio', required: true, code: 'f15',
+                        options: ['Setingkat Lebih Tinggi', 'Tingkat yang Sama', 'Setingkat Lebih Rendah', 'Tidak Perlu Pendidikan Tinggi'] }
                 ]
             },
             {
                 id: 3, name: 'Wiraswasta', locked: false, waveScope: ['gs-1', 'gs-2'],
                 questions: [
                     { id: 22, tier: 'core', text: 'Status kewirausahaan Anda saat ini?', desc: 'Menentukan bobot skor IKU 2 (Kepmen Diktisaintek No. 358/M/2025).', type: 'radio', required: true, code: 'f5c',
-                        options: ['Founder/Pendiri', 'Co-Founder', 'Freelancer'] },
-                    { id: 23, tier: 'core', text: 'Berapa rata-rata pendapatan Anda dari usaha ini per bulan (Take Home Pay) saat ini? (Rp)', type: 'number', required: true, code: 'f505' }
+                        options: ['Founder', 'Co-Founder', 'Staff', 'Freelance / Kerja Lepas'] },
+                    { id: 23, tier: 'core', text: 'Berapa rata-rata pendapatan Anda dari usaha ini per bulan (Take Home Pay) saat ini? (Rp)', type: 'number', required: true, code: 'f505' },
+                    { id: 50, tier: 'core', text: 'Kapan anda mulai merencanakan berwiraswasta?', type: 'radio', required: false, code: 'f301',
+                        options: ['Sebelum lulus', 'Sesudah lulus', 'Saya tidak merencanakan berwiraswasta'] },
+                    { id: 51, tier: 'core', text: 'Jika Anda mulai merencanakan berwiraswasta sejak sebelum lulus, dalam berapa bulan sebelum lulus Anda memulai merencanakannya?', desc: 'Tanggal Lulus = tanggal Yudisium.', type: 'number', required: false, code: 'f302' },
+                    { id: 52, tier: 'core', text: 'Jika Anda mulai merencanakan berwiraswasta sejak sesudah lulus, dalam berapa bulan sesudah lulus Anda memulai merencanakannya?', desc: 'Tanggal Lulus = tanggal Yudisium.', type: 'number', required: false, code: 'f303' },
+                    { id: 53, tier: 'core', text: 'Dimana provinsi tempat Anda berwiraswasta saat ini?', type: 'text', required: true, code: 'f5a1' },
+                    { id: 54, tier: 'core', text: 'Dimana Kabupaten / Kota tempat Anda berwiraswasta saat ini?', type: 'text', required: true, code: 'f5a2' },
+                    { id: 55, tier: 'core', text: 'Apa nama perusahaan / kantor tempat Anda berwiraswasta saat ini?', type: 'text', required: true, code: 'f5b' },
+                    { id: 56, tier: 'core', text: 'Apa tingkat / ukuran tempat berwiraswasta Anda saat ini?', type: 'radio', required: true, code: 'f5d',
+                        options: ['Lokal / Wilayah / Berwirausaha tidak Berbadan Hukum', 'Nasional / Berwirausaha Berbadan Hukum', 'Multinasional / Internasional'] },
+                    { id: 57, tier: 'core', text: 'Seberapa erat hubungan antara bidang studi dengan pekerjaan Anda saat ini?', type: 'radio', required: true, code: 'f14',
+                        options: ['Sangat Erat', 'Erat', 'Cukup Erat', 'Kurang Erat', 'Tidak Sama Sekali'] },
+                    { id: 58, tier: 'core', text: 'Tingkat pendidikan apa yang paling tepat / sesuai untuk pekerjaan Anda saat ini?', type: 'radio', required: true, code: 'f15',
+                        options: ['Setingkat Lebih Tinggi', 'Tingkat yang Sama', 'Setingkat Lebih Rendah', 'Tidak Perlu Pendidikan Tinggi'] }
                 ]
             },
             {
@@ -445,10 +471,24 @@
                 questions: [
                     { id: 24, tier: 'core', text: 'Kapan Anda menerima surat penerimaan studi lanjut?', desc: 'Kriteria IKU 2: diterima &lt;12 bulan sejak kelulusan dihitung sebagai outcome positif (Kepmen 358/M/2025).', type: 'date', required: true, code: 'f18d' },
                     { id: 40, tier: 'core', text: 'Jenjang Studi Lanjut', desc: 'Satu-satunya field block-studi di wizard responden saat ini.', type: 'radio', required: true, code: 'JENJANG_STUDI_LANJUT',
-                        options: ['S1', 'S2', 'S3', 'Profesi'] }
+                        options: ['S1', 'S2', 'S3', 'Profesi'] },
+                    { id: 59, tier: 'core', text: 'Dari manakah sumber biaya studi lanjut Anda', type: 'radio', required: true, code: 'f18a',
+                        options: ['Biaya Sendiri', 'Beasiswa'] },
+                    { id: 60, tier: 'core', text: 'Apa nama Perguruan Tinggi tempat Anda melanjutkan Pendidikan?', type: 'text', required: true, code: 'f18b' },
+                    { id: 61, tier: 'core', text: 'Apa nama program studi yang Anda ambil dalam melanjutkan pendidikan?', type: 'text', required: true, code: 'f18c' },
+                    { id: 62, tier: 'core', text: 'Seberapa erat hubungan antara bidang studi dengan pendidikan Anda?', type: 'radio', required: true, code: 'f14',
+                        options: ['Sangat Erat', 'Erat', 'Cukup Erat', 'Kurang Erat', 'Tidak Sama Sekali'] }
                 ]
             },
-            { id: 5, name: 'Belum Bekerja', locked: false, waveScope: ['gs-1', 'gs-2'], questions: [] },
+            {
+                id: 5, name: 'Belum Bekerja', locked: false, waveScope: ['gs-1', 'gs-2'],
+                questions: [
+                    { id: 63, tier: 'core', text: 'Kapan anda mulai mencari pekerjaan?', type: 'radio', required: false, code: 'f301',
+                        options: ['Sebelum lulus', 'Sesudah lulus', 'Saya tidak mencari kerja'] },
+                    { id: 64, tier: 'core', text: 'Jika Anda mulai mencari pekerjaan sejak sebelum lulus, dalam berapa bulan sebelum lulus Anda memulai mencari pekerjaan?', desc: 'Tanggal Lulus = tanggal Yudisium.', type: 'number', required: false, code: 'f302' },
+                    { id: 65, tier: 'core', text: 'Jika Anda mulai mencari pekerjaan sesudah lulus, dalam berapa bulan sesudah lulus Anda memulai mencari pekerjaan?', desc: 'Tanggal Lulus = tanggal Yudisium.', type: 'number', required: false, code: 'f303' }
+                ]
+            },
             {
                 id: 6, name: 'Tingkat Kompetensi', locked: false, waveScope: ['gs-1', 'gs-2'],
                 questions: [
@@ -462,7 +502,8 @@
             { id: 7, text: 'Sumber dana apa yang Anda gunakan untuk membiayai kuliah?', type: 'radio', required: true, regulatorTags: ['kemdikbud'], category: 'Sosiodemografi', assignedSectionId: null, code: 'f1201',
                 options: ['Biaya Sendiri / Keluarga', 'Beasiswa ADIK', 'Beasiswa BIDIKMISI', 'Beasiswa PPA', 'Beasiswa AFIRMASI', 'Beasiswa Perusahaan / Swasta', 'Lainnya'] },
             { id: 8, text: 'Kapan Anda mulai mencari pekerjaan?', type: 'text', required: false, regulatorTags: ['kemdikbud'], category: 'Proses Cari Kerja', assignedSectionId: null, code: 'f301' },
-            { id: 9, text: 'Bagaimana cara Anda mencari pekerjaan?', type: 'text', required: false, regulatorTags: ['kemdikbud'], category: 'Proses Cari Kerja', assignedSectionId: null, code: 'f4' },
+            { id: 9, text: 'Bagaimana Anda mencari pekerjaan tersebut?', type: 'checkbox', required: false, regulatorTags: ['kemdikbud'], category: 'Proses Cari Kerja', assignedSectionId: null, code: 'f4',
+                options: ['Melalui iklan di koran / majalah, brosur', 'Melamar ke perusahaan tanpa mengetahui lowongan yang ada', 'Pergi ke bursa / pameran kerja', 'Mencari lewat internet / iklan online / milis', 'Dihubungi oleh perusahaan', 'Menghubungi Kemenakertrans', 'Menghubungi agen tenaga kerja komersial / swasta', 'Memperoleh informasi dari pusat / kantor pengembangan karir fakultas / universitas', 'Menghubungi kantor kemahasiswaan / hubungan alumni', 'Membangun jejaring (network) sejak masih kuliah', 'Melalui relasi (misalnya dosen, orang tua, saudara, teman, dll)', 'Membangun bisnis sendiri', 'Melalui penempatan kerja atau magang', 'Bekerja di tempat yang sama dengan tempat kerja semasa kuliah', 'Lainnya'] },
             { id: 10, text: 'Berapa perusahaan yang sudah Anda lamar?', type: 'number', required: false, regulatorTags: ['kemdikbud'], category: 'Proses Cari Kerja', assignedSectionId: null, code: 'f6' },
             { id: 11, text: 'Apakah Anda bekerja di fasilitas kesehatan?', type: 'radio', required: false, regulatorTags: ['kemenkes'], category: 'Kesesuaian Kerja', assignedSectionId: null, options: ['Ya', 'Tidak'] },
             { id: 12, text: 'Status STR (Surat Tanda Registrasi) Anda saat ini?', type: 'radio', required: false, regulatorTags: ['kemenkes'], category: 'Kesesuaian Kerja', assignedSectionId: null,
@@ -475,7 +516,8 @@
             { id: 17, text: 'Bagaimana Anda menilai kesiapan kerja lulusan program studi ini secara umum?', type: 'scale', required: false, regulatorTags: ['lam'], category: 'Enrichment', assignedSectionId: null },
             { id: 101, text: 'Berapa yang merespons lamaran Anda?', type: 'number', required: false, regulatorTags: ['kemdikbud'], category: 'Proses Cari Kerja', assignedSectionId: null, code: 'f7' },
             { id: 102, text: 'Berapa yang mengundang wawancara?', type: 'number', required: false, regulatorTags: ['kemdikbud'], category: 'Proses Cari Kerja', assignedSectionId: null, code: 'f7a' },
-            { id: 103, text: 'Jika pekerjaan tidak sesuai pendidikan, mengapa Anda mengambilnya?', type: 'textarea', required: false, regulatorTags: ['kemdikbud'], category: 'Kesesuaian Kerja', assignedSectionId: null, code: 'f16' },
+            { id: 103, text: 'Jika menurut Anda pekerjaan Anda saat ini tidak sesuai dengan pendidikan Anda, mengapa Anda mengambilnya?', type: 'checkbox', required: false, regulatorTags: ['kemdikbud'], category: 'Kesesuaian Kerja', assignedSectionId: null, code: 'f16',
+                options: ['Pertanyaan tidak sesuai, pekerjaan saya sekarang sudah sesuai dengan pendidikan saya', 'Saya belum mendapatkan pekerjaan yang lebih sesuai', 'Di pekerjaan ini, saya memperoleh prospek karir yang baik', 'Saya lebih suka bekerja di area pekerjaan yang tidak ada hubungannya dengan pendidikan saya', 'Saya dipromosikan ke posisi yang kurang berhubungan dengan pendidikan saya dibanding posisi sebelumnya', 'Saya dapat memperoleh pendapatan yang lebih tinggi di pekerjaan ini', 'Pekerjaan saya saat ini lebih aman / terjamin / secure', 'Pekerjaan saya saat ini lebih menarik', 'Pekerjaan saya saat ini, lebih memungkinkan saya mengambil pekerjaan tambahan / jadwal yang fleksibel, dll', 'Pekerjaan saya saat ini lokasinya lebih dekat dari rumah saya', 'Pekerjaan saya saat ini dapat lebih menjamin kebutuhan keluarga saya', 'Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya', 'Lainnya'] },
             { id: 104, text: 'Apakah Anda memiliki sertifikat kompetensi/profesi di bidang kesehatan?', type: 'radio', required: false, regulatorTags: ['kemenkes'], category: 'Kesesuaian Kerja', assignedSectionId: null, options: ['Ya', 'Tidak'] },
             { id: 105, text: 'Seberapa besar otonomi/kebebasan Anda dalam mengambil keputusan di pekerjaan Anda?', type: 'scale', required: false, regulatorTags: ['banpt', 'lam'], category: 'Enrichment', assignedSectionId: null },
             { id: 106, text: 'Seberapa puas Anda dengan pekerjaan Anda secara keseluruhan?', type: 'scale', required: false, regulatorTags: ['banpt', 'lam'], category: 'Enrichment', assignedSectionId: null },

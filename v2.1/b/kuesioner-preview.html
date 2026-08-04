@@ -245,26 +245,63 @@
             { text: 'Sumber dana apa yang Anda gunakan untuk membiayai kuliah?', type: 'radio', required: true, code: 'f1201',
                 options: ['Biaya Sendiri / Keluarga', 'Beasiswa ADIK', 'Beasiswa BIDIKMISI', 'Beasiswa PPA', 'Beasiswa AFIRMASI', 'Beasiswa Perusahaan / Swasta', 'Lainnya'] },
             { text: 'Kapan Anda mulai mencari pekerjaan?', type: 'text', required: false, code: 'f301' },
-            { text: 'Bagaimana cara Anda mencari pekerjaan?', type: 'text', required: false, code: 'f4' },
+            { text: 'Bagaimana Anda mencari pekerjaan tersebut?', type: 'checkbox', required: false, code: 'f4',
+                options: ['Melalui iklan di koran / majalah, brosur', 'Melamar ke perusahaan tanpa mengetahui lowongan yang ada', 'Pergi ke bursa / pameran kerja', 'Mencari lewat internet / iklan online / milis', 'Dihubungi oleh perusahaan', 'Menghubungi Kemenakertrans', 'Menghubungi agen tenaga kerja komersial / swasta', 'Memperoleh informasi dari pusat / kantor pengembangan karir fakultas / universitas', 'Menghubungi kantor kemahasiswaan / hubungan alumni', 'Membangun jejaring (network) sejak masih kuliah', 'Melalui relasi (misalnya dosen, orang tua, saudara, teman, dll)', 'Membangun bisnis sendiri', 'Melalui penempatan kerja atau magang', 'Bekerja di tempat yang sama dengan tempat kerja semasa kuliah', 'Lainnya'] },
             { text: 'Berapa perusahaan yang sudah Anda lamar?', type: 'number', required: false, code: 'f6' },
             { text: 'Berapa yang merespons lamaran Anda?', type: 'number', required: false, code: 'f7' },
             { text: 'Berapa yang mengundang wawancara?', type: 'number', required: false, code: 'f7a' },
-            { text: 'Jika pekerjaan tidak sesuai pendidikan, mengapa Anda mengambilnya?', type: 'textarea', required: false, code: 'f16' }
+            { text: 'Jika menurut Anda pekerjaan Anda saat ini tidak sesuai dengan pendidikan Anda, mengapa Anda mengambilnya?', type: 'checkbox', required: false, code: 'f16',
+                options: ['Pertanyaan tidak sesuai, pekerjaan saya sekarang sudah sesuai dengan pendidikan saya', 'Saya belum mendapatkan pekerjaan yang lebih sesuai', 'Di pekerjaan ini, saya memperoleh prospek karir yang baik', 'Saya lebih suka bekerja di area pekerjaan yang tidak ada hubungannya dengan pendidikan saya', 'Saya dipromosikan ke posisi yang kurang berhubungan dengan pendidikan saya dibanding posisi sebelumnya', 'Saya dapat memperoleh pendapatan yang lebih tinggi di pekerjaan ini', 'Pekerjaan saya saat ini lebih aman / terjamin / secure', 'Pekerjaan saya saat ini lebih menarik', 'Pekerjaan saya saat ini, lebih memungkinkan saya mengambil pekerjaan tambahan / jadwal yang fleksibel, dll', 'Pekerjaan saya saat ini lokasinya lebih dekat dari rumah saya', 'Pekerjaan saya saat ini dapat lebih menjamin kebutuhan keluarga saya', 'Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya', 'Lainnya'] }
         ] },
         { name: 'Bekerja', waveScope: ['gs-1', 'gs-2'], questions: [
             { text: 'Berapa rata-rata pendapatan Anda per bulan (Take Home Pay) saat ini? (Rp)', type: 'number', required: true, code: 'f505' },
             { text: 'Apa jenis tempat kerja Anda saat ini?', type: 'radio', required: true, code: 'f1101',
-                options: ['Perusahaan Swasta (Nasional/Multinasional/Startup/UMKM)', 'Lembaga/Organisasi Nirlaba', 'Institusi/Organisasi Multilateral (PBB, UNICEF, dsb.)', 'Instansi Pemerintah, BUMN, atau BUMD'] }
+                options: ['Perusahaan Swasta (Nasional/Multinasional/Startup/UMKM)', 'Lembaga/Organisasi Nirlaba', 'Institusi/Organisasi Multilateral (PBB, UNICEF, dsb.)', 'Instansi Pemerintah, BUMN, atau BUMD'] },
+            { text: 'Kapan Anda mulai mencari pekerjaan yang Anda jalani saat ini?', type: 'radio', required: false, code: 'f301',
+                options: ['Sebelum lulus', 'Sesudah lulus', 'Saya tidak mencari kerja'] },
+            { text: 'Jika Anda mulai mencari pekerjaan sejak sebelum lulus, dalam berapa bulan sebelum lulus Anda memulai mencari pekerjaan?', type: 'number', required: false, code: 'f302' },
+            { text: 'Jika Anda mulai mencari pekerjaan sesudah lulus, dalam berapa bulan sesudah lulus Anda memulai mencari pekerjaan?', type: 'number', required: false, code: 'f303' },
+            { text: 'Dimana tempat provinsi Anda bekerja saat ini?', type: 'text', required: true, code: 'f5a1' },
+            { text: 'Dimana Kabupaten / Kota tempat Anda bekerja saat ini?', type: 'text', required: true, code: 'f5a2' },
+            { text: 'Apa nama perusahaan / kantor tempat Anda bekerja saat ini?', type: 'text', required: true, code: 'f5b' },
+            { text: 'Apa tingkat tempat kerja Anda saat ini?', type: 'radio', required: true, code: 'f5d',
+                options: ['Lokal / Wilayah / Berwirausaha tidak Berbadan Hukum', 'Nasional / Berwirausaha Berbadan Hukum', 'Multinasional / Internasional'] },
+            { text: 'Seberapa erat hubungan antara bidang studi dengan pekerjaan Anda saat ini?', type: 'radio', required: true, code: 'f14',
+                options: ['Sangat Erat', 'Erat', 'Cukup Erat', 'Kurang Erat', 'Tidak Sama Sekali'] },
+            { text: 'Tingkat pendidikan apa yang paling tepat / sesuai untuk pekerjaan Anda saat ini?', type: 'radio', required: true, code: 'f15',
+                options: ['Setingkat Lebih Tinggi', 'Tingkat yang Sama', 'Setingkat Lebih Rendah', 'Tidak Perlu Pendidikan Tinggi'] }
         ] },
         { name: 'Wiraswasta', waveScope: ['gs-1', 'gs-2'], questions: [
-            { text: 'Status kewirausahaan Anda saat ini?', type: 'radio', required: true, code: 'f5c', options: ['Founder/Pendiri', 'Co-Founder', 'Freelancer'] },
-            { text: 'Berapa rata-rata pendapatan Anda dari usaha ini per bulan (Take Home Pay) saat ini? (Rp)', type: 'number', required: true, code: 'f505' }
+            { text: 'Status kewirausahaan Anda saat ini?', type: 'radio', required: true, code: 'f5c', options: ['Founder', 'Co-Founder', 'Staff', 'Freelance / Kerja Lepas'] },
+            { text: 'Berapa rata-rata pendapatan Anda dari usaha ini per bulan (Take Home Pay) saat ini? (Rp)', type: 'number', required: true, code: 'f505' },
+            { text: 'Kapan anda mulai merencanakan berwiraswasta?', type: 'radio', required: false, code: 'f301',
+                options: ['Sebelum lulus', 'Sesudah lulus', 'Saya tidak merencanakan berwiraswasta'] },
+            { text: 'Jika Anda mulai merencanakan berwiraswasta sejak sebelum lulus, dalam berapa bulan sebelum lulus Anda memulai merencanakannya?', type: 'number', required: false, code: 'f302' },
+            { text: 'Jika Anda mulai merencanakan berwiraswasta sejak sesudah lulus, dalam berapa bulan sesudah lulus Anda memulai merencanakannya?', type: 'number', required: false, code: 'f303' },
+            { text: 'Dimana provinsi tempat Anda berwiraswasta saat ini?', type: 'text', required: true, code: 'f5a1' },
+            { text: 'Dimana Kabupaten / Kota tempat Anda berwiraswasta saat ini?', type: 'text', required: true, code: 'f5a2' },
+            { text: 'Apa nama perusahaan / kantor tempat Anda berwiraswasta saat ini?', type: 'text', required: true, code: 'f5b' },
+            { text: 'Apa tingkat / ukuran tempat berwiraswasta Anda saat ini?', type: 'radio', required: true, code: 'f5d',
+                options: ['Lokal / Wilayah / Berwirausaha tidak Berbadan Hukum', 'Nasional / Berwirausaha Berbadan Hukum', 'Multinasional / Internasional'] },
+            { text: 'Seberapa erat hubungan antara bidang studi dengan pekerjaan Anda saat ini?', type: 'radio', required: true, code: 'f14',
+                options: ['Sangat Erat', 'Erat', 'Cukup Erat', 'Kurang Erat', 'Tidak Sama Sekali'] },
+            { text: 'Tingkat pendidikan apa yang paling tepat / sesuai untuk pekerjaan Anda saat ini?', type: 'radio', required: true, code: 'f15',
+                options: ['Setingkat Lebih Tinggi', 'Tingkat yang Sama', 'Setingkat Lebih Rendah', 'Tidak Perlu Pendidikan Tinggi'] }
         ] },
         { name: 'Melanjutkan Pendidikan', waveScope: ['gs-1', 'gs-2'], questions: [
             { text: 'Kapan Anda menerima surat penerimaan studi lanjut?', type: 'date', required: true, code: 'f18d' },
-            { text: 'Jenjang Studi Lanjut', type: 'radio', required: true, code: 'JENJANG_STUDI_LANJUT', options: ['S1', 'S2', 'S3', 'Profesi'] }
+            { text: 'Jenjang Studi Lanjut', type: 'radio', required: true, code: 'JENJANG_STUDI_LANJUT', options: ['S1', 'S2', 'S3', 'Profesi'] },
+            { text: 'Dari manakah sumber biaya studi lanjut Anda', type: 'radio', required: true, code: 'f18a', options: ['Biaya Sendiri', 'Beasiswa'] },
+            { text: 'Apa nama Perguruan Tinggi tempat Anda melanjutkan Pendidikan?', type: 'text', required: true, code: 'f18b' },
+            { text: 'Apa nama program studi yang Anda ambil dalam melanjutkan pendidikan?', type: 'text', required: true, code: 'f18c' },
+            { text: 'Seberapa erat hubungan antara bidang studi dengan pendidikan Anda?', type: 'radio', required: true, code: 'f14',
+                options: ['Sangat Erat', 'Erat', 'Cukup Erat', 'Kurang Erat', 'Tidak Sama Sekali'] }
         ] },
         { name: 'Belum Bekerja', waveScope: ['gs-1', 'gs-2'], questions: [
+            { text: 'Kapan anda mulai mencari pekerjaan?', type: 'radio', required: false, code: 'f301',
+                options: ['Sebelum lulus', 'Sesudah lulus', 'Saya tidak mencari kerja'] },
+            { text: 'Jika Anda mulai mencari pekerjaan sejak sebelum lulus, dalam berapa bulan sebelum lulus Anda memulai mencari pekerjaan?', type: 'number', required: false, code: 'f302' },
+            { text: 'Jika Anda mulai mencari pekerjaan sesudah lulus, dalam berapa bulan sesudah lulus Anda memulai mencari pekerjaan?', type: 'number', required: false, code: 'f303' },
             { text: 'Apa alasan utama Anda belum bekerja saat ini?', type: 'radio', required: false,
                 options: ['Belum ada lowongan yang sesuai', 'Sedang mempersiapkan diri (kursus/sertifikasi)', 'Kondisi kesehatan/keluarga', 'Belum berminat bekerja saat ini', 'Lainnya'] },
             { text: 'Apakah Anda berencana aktif mencari kerja dalam 6 bulan ke depan?', type: 'radio', required: false, options: ['Ya', 'Tidak', 'Belum yakin'] }
