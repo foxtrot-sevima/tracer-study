@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi Umum — Wave G1</title>
+    <link rel="icon" href="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/assets/css/main.css">
+    <link rel="stylesheet" href="../../quantum/assets/css/main.css">
+    <style>
+        .stepper{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--qn-neutral-200);padding:.6rem 0;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.72rem;}
+        .stepper__item{padding:.3rem .7rem;border-radius:.25rem;color:var(--qn-neutral-400);}
+        .stepper__item.is-active{background:var(--qn-primary-500);color:#fff;font-weight:600;}
+        .stepper__item.is-done{color:var(--qn-primary-500);font-weight:500;}
+        .stepper__sep{color:var(--qn-neutral-300);}
+        select{appearance:menulist !important;}
+    </style>
+</head>
+<body class="body body_kl-white">
+
+<div class="stepper">
+    <span class="stepper__item is-active">Informasi Umum</span>
+    <span class="stepper__sep">→</span>
+    <span class="stepper__item">Cabang</span>
+    <span class="stepper__sep">→</span>
+    <span class="stepper__item">Kompetensi</span>
+</div>
+
+<div style="max-width:640px;margin:0 auto;padding:0 1rem 3rem;">
+
+    <a href="kuesioner.html" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--qn-primary-500);text-decoration:none;margin-bottom:1rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Kembali ke Kuesioner
+    </a>
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:1.5rem;">
+        <img src="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored.webp" alt="KarirLink" height="36" style="margin-bottom:.5rem;">
+        <h2 style="margin:0;font-size:1.1rem;">Tracer Study — Universitas Foxtrot</h2>
+        <p style="margin:.25rem 0 0;font-size:.8rem;color:var(--qn-neutral-500);">Wave G1</p>
+    </div>
+
+    <!-- f8: Status -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">1. Apa status Anda saat ini? <span class="important">*</span></label>
+
+        <a href="simulasi-g1-bekerja.html" style="text-decoration:none;display:block;">
+            <div class="radio-button" style="cursor:pointer;"><input type="radio" class="form-control__radio" name="f8"><label class="form-control__label-radio">Bekerja (full time / part time)</label></div>
+        </a>
+        <a href="simulasi-g1-wiraswasta.html" style="text-decoration:none;display:block;">
+            <div class="radio-button" style="cursor:pointer;"><input type="radio" class="form-control__radio" name="f8"><label class="form-control__label-radio">Wiraswasta</label></div>
+        </a>
+        <a href="simulasi-g1-studi.html" style="text-decoration:none;display:block;">
+            <div class="radio-button" style="cursor:pointer;"><input type="radio" class="form-control__radio" name="f8"><label class="form-control__label-radio">Melanjutkan Pendidikan</label></div>
+        </a>
+        <a href="simulasi-g1-mencari.html" style="text-decoration:none;display:block;">
+            <div class="radio-button" style="cursor:pointer;"><input type="radio" class="form-control__radio" name="f8"><label class="form-control__label-radio">Tidak kerja tetapi sedang mencari kerja</label></div>
+        </a>
+        <a href="simulasi-g1-belum.html" style="text-decoration:none;display:block;">
+            <div class="radio-button" style="cursor:pointer;"><input type="radio" class="form-control__radio" name="f8"><label class="form-control__label-radio">Belum memungkinkan bekerja</label></div>
+        </a>
+    </div>
+
+    <!-- Info box -->
+    <div style="background:var(--qn-primary-50);border:1px solid var(--qn-primary-200);border-radius:.5rem;padding:.75rem 1rem;margin-bottom:1.5rem;font-size:.8rem;color:var(--qn-primary-700);">
+        Pilih status Anda di atas. Setiap pilihan membuka halaman pertanyaan yang berbeda — Anda hanya akan melihat pertanyaan yang relevan dengan kondisi Anda.
+    </div>
+
+    <!-- f1201: Sumber dana kuliah -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">2. Sumber dana kuliah Anda <span class="important">*</span></label>
+        <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .5rem;">Bukan ketika studi lanjut.</p>
+        <div class="form-control__group">
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1201"><label class="form-control__label-radio">Biaya sendiri / keluarga</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1201"><label class="form-control__label-radio">Beasiswa ADIK</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1201"><label class="form-control__label-radio">Beasiswa BIDIKMISI</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1201"><label class="form-control__label-radio">Beasiswa PPA</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1201"><label class="form-control__label-radio">Beasiswa AFIRMASI</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1201"><label class="form-control__label-radio">Beasiswa perusahaan/sponsor</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1201"><label class="form-control__label-radio">Lainnya</label></div>
+            <input type="text" class="form-control__input" placeholder="Sebutkan sumber dana lainnya..." style="margin-top:.25rem;">
+        </div>
+    </div>
+
+    <!-- f1001: Aktif mencari kerja -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">3. Apakah Anda aktif mencari kerja dalam 6 bulan terakhir? <span class="important">*</span></label>
+        <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .5rem;">Pilihlah satu jawaban.</p>
+        <div class="form-control__group">
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1001"><label class="form-control__label-radio">Tidak</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1001"><label class="form-control__label-radio">Tidak, tetapi saya sedang menunggu hasil lamaran kerja</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1001"><label class="form-control__label-radio">Ya, saya akan mulai bekerja dalam 2 minggu ke depan</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1001"><label class="form-control__label-radio">Ya, saya aktif mencari kerja</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1001"><label class="form-control__label-radio">Lainnya</label></div>
+            <input type="text" class="form-control__input" placeholder="Sebutkan lainnya..." style="margin-top:.25rem;">
+        </div>
+    </div>
+
+    <!-- f502: Masa tunggu (conditional) -->
+    <div style="border:2px dashed var(--qn-neutral-300);border-radius:.5rem;padding:1rem;margin-bottom:1.5rem;">
+        <label class="form-control__label">4. Masa tunggu mendapatkan pekerjaan</label>
+        <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 .5rem;font-style:italic;">Muncul jika status: Bekerja, Wiraswasta, atau Melanjutkan Pendidikan</p>
+        <div class="form-control__group">
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f502"><label class="form-control__label-radio">Ya, sebelum lulus</label></div>
+            <div class="radio-button" style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
+                <input type="radio" class="form-control__radio" name="f502">
+                <label class="form-control__label-radio" style="margin:0;">Tidak — kira-kira</label>
+                <input type="number" class="form-control__input" style="width:60px;display:inline-block;" min="0">
+                <span style="font-size:.85rem;">bulan setelah lulus</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div style="display:flex;justify-content:flex-end;padding-top:1rem;border-top:1px solid var(--qn-neutral-200);">
+        <button class="btn btn_primary" disabled style="opacity:.5;cursor:not-allowed;">Lanjut →</button>
+    </div>
+    <p style="font-size:.72rem;color:var(--qn-neutral-400);text-align:right;margin-top:.25rem;">Pilih status di atas untuk melanjutkan</p>
+
+</div>
+
+</body>
+</html>

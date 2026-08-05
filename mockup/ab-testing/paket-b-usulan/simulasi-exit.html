@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuesioner — Wave Exit</title>
+    <link rel="icon" href="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/assets/css/main.css">
+    <link rel="stylesheet" href="../../quantum/assets/css/main.css">
+    <style>
+        .stepper{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--qn-neutral-200);padding:.6rem 0;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.72rem;}
+        .stepper__item{padding:.3rem .7rem;border-radius:.25rem;color:var(--qn-neutral-400);}
+        .stepper__item.is-active{background:var(--qn-primary-500);color:#fff;font-weight:600;}
+        select{appearance:menulist !important;}
+    </style>
+</head>
+<body class="body body_kl-white">
+
+<div class="stepper">
+    <span class="stepper__item is-active">Wave Exit</span>
+</div>
+
+<div style="max-width:640px;margin:0 auto;padding:0 1rem 3rem;">
+
+    <a href="kuesioner.html" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--qn-primary-500);text-decoration:none;margin-bottom:1rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Kembali ke Kuesioner
+    </a>
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:1.5rem;">
+        <img src="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored.webp" alt="KarirLink" height="36" style="margin-bottom:.5rem;">
+        <h2 style="margin:0;font-size:1.1rem;">Tracer Study — Universitas Foxtrot</h2>
+        <p style="margin:.25rem 0 0;font-size:.8rem;color:var(--qn-neutral-500);">Wave Exit · Pemutakhiran data setelah lulus</p>
+    </div>
+
+    <!-- Q1: Email -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">1. Alamat email aktif Anda saat ini <span class="important">*</span></label>
+        <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .5rem;">Isian awal dari SIAKAD. Pastikan masih aktif — email inilah yang dipakai untuk mengirim kuesioner berikutnya.</p>
+        <input type="email" class="form-control__input" value="ahmad.rizki@gmail.com">
+    </div>
+
+    <!-- Q2: Nomor HP -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">2. Nomor HP / WhatsApp aktif <span class="important">*</span></label>
+        <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .5rem;">Isian awal dari SIAKAD. Nomor ini dipakai untuk pengingat lewat WhatsApp.</p>
+        <input type="text" class="form-control__input" value="081234567890">
+    </div>
+
+    <!-- Q3: Sudah bekerja/berwirausaha sebelum lulus -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">3. Apakah Anda sudah bekerja atau berwirausaha sebelum lulus? <span class="important">*</span></label>
+        <div class="form-control__group">
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="q3"><label class="form-control__label-radio">Ya, saya sudah bekerja</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="q3"><label class="form-control__label-radio">Ya, saya sudah berwirausaha</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="q3"><label class="form-control__label-radio">Belum</label></div>
+        </div>
+    </div>
+
+    <!-- Q4: Nama perusahaan/usaha (conditional) -->
+    <div style="border:2px dashed var(--qn-neutral-300);border-radius:.5rem;padding:1rem;margin-bottom:1.5rem;">
+        <label class="form-control__label">4. Nama perusahaan/usaha</label>
+        <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 .5rem;font-style:italic;">Muncul jika menjawab Ya di atas</p>
+        <div class="form-control__group">
+            <select class="form-control__input" style="margin-bottom:.5rem;">
+                <option value="">— Pilih perusahaan —</option>
+                <option>PT Telkom Indonesia</option>
+                <option>Gojek</option>
+                <option>Tokopedia</option>
+                <option>Bank BCA</option>
+                <option>PT Astra International</option>
+                <option>Traveloka</option>
+                <option>Lainnya (ketik sendiri)</option>
+            </select>
+            <input type="text" class="form-control__input" placeholder="Ketik nama perusahaan/usaha jika memilih Lainnya...">
+        </div>
+    </div>
+
+    <!-- Q5: Rencana setelah lulus -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">5. Apa rencana utama Anda setelah lulus?</label>
+        <div class="form-control__group">
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="q5"><label class="form-control__label-radio">Bekerja</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="q5"><label class="form-control__label-radio">Berwirausaha</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="q5"><label class="form-control__label-radio">Melanjutkan studi</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="q5"><label class="form-control__label-radio">Lainnya</label></div>
+        </div>
+    </div>
+
+    <!-- Q6: Dukungan dari kampus -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">6. Dukungan apa yang Anda harapkan dari kampus?</label>
+        <div class="form-control__group">
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Informasi lowongan kerja</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Pelatihan membuat CV</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Pelatihan wawancara kerja</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Koneksi ke perusahaan mitra</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Job fair / bursa kerja</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Mentorship dari alumni senior</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Lainnya</label></div>
+            <input type="text" class="form-control__input" placeholder="Sebutkan dukungan lainnya..." style="margin-top:.25rem;">
+        </div>
+    </div>
+
+    <!-- Q7: LinkedIn -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">7. Tautan profil LinkedIn Anda</label>
+        <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .5rem;">Opsional. Membantu kampus memantau perkembangan karier Anda.</p>
+        <input type="url" class="form-control__input" placeholder="https://linkedin.com/in/nama-anda">
+    </div>
+
+    <!-- Bottom navigation -->
+    <div style="display:flex;justify-content:flex-end;padding-top:1rem;border-top:1px solid var(--qn-neutral-200);">
+        <button class="btn btn_primary" onclick="alert('Simulasi selesai — data tidak disimpan.')">Kirim Jawaban</button>
+    </div>
+
+    <!-- Success section -->
+    <div style="text-align:center;margin-top:2rem;padding:1.5rem;background:var(--qn-success-50);border:1px solid var(--qn-success-200);border-radius:.5rem;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--qn-success-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:.5rem;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <h3 style="margin:0 0 .25rem;font-size:1rem;color:var(--qn-success-700);">Terima kasih!</h3>
+        <p style="font-size:.82rem;color:var(--qn-success-600);margin:0 0 .75rem;">Jawaban Anda telah tercatat.</p>
+        <a href="kuesioner.html" style="font-size:.8rem;color:var(--qn-primary-500);text-decoration:none;">← Kembali ke Kuesioner</a>
+    </div>
+
+</div>
+
+</body>
+</html>

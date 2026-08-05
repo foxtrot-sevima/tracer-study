@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tingkat Kompetensi — Wave G1</title>
+    <link rel="icon" href="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/assets/css/main.css">
+    <link rel="stylesheet" href="../../quantum/assets/css/main.css">
+    <style>
+        .stepper{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--qn-neutral-200);padding:.6rem 0;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.72rem;}
+        .stepper__item{padding:.3rem .7rem;border-radius:.25rem;color:var(--qn-neutral-400);}
+        .stepper__item.is-active{background:var(--qn-primary-500);color:#fff;font-weight:600;}
+        .stepper__item.is-done{color:var(--qn-primary-500);font-weight:500;}
+        .stepper__sep{color:var(--qn-neutral-300);}
+        .matrix-table{width:100%;border-collapse:collapse;font-size:.75rem;margin-bottom:.5rem;}
+        .matrix-table th,.matrix-table td{border:1px solid var(--qn-neutral-200);padding:.4rem .3rem;text-align:center;vertical-align:middle;}
+        .matrix-table th{background:var(--qn-neutral-50);font-weight:600;font-size:.68rem;}
+        .matrix-table td:first-child{text-align:left;padding-left:.5rem;min-width:120px;}
+        .matrix-table input[type="radio"]{margin:0;cursor:pointer;}
+        .scale-label{font-size:.65rem;color:var(--qn-neutral-400);display:block;}
+    </style>
+</head>
+<body class="body body_kl-white">
+
+<div class="stepper">
+    <span class="stepper__item is-done">Informasi Umum</span>
+    <span class="stepper__sep">→</span>
+    <span class="stepper__item is-done">Cabang</span>
+    <span class="stepper__sep">→</span>
+    <span class="stepper__item is-active">Kompetensi</span>
+</div>
+
+<div style="max-width:640px;margin:0 auto;padding:0 1rem 3rem;">
+
+    <a href="javascript:history.back()" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--qn-primary-500);text-decoration:none;margin-bottom:1rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Kembali
+    </a>
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:1.5rem;">
+        <img src="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored.webp" alt="KarirLink" height="36" style="margin-bottom:.5rem;">
+        <h2 style="margin:0;font-size:1.1rem;">Tracer Study — Universitas Foxtrot</h2>
+        <p style="margin:.25rem 0 0;font-size:.8rem;color:var(--qn-neutral-500);">Wave G1</p>
+    </div>
+
+    <!-- f17: Matriks Kompetensi A+B -->
+    <div style="margin-bottom:2rem;">
+        <label class="form-control__label" style="margin-bottom:.5rem;">1. Tingkat Kompetensi yang Dikuasai (A) dan Diperlukan dalam Pekerjaan (B) <span class="important">*</span></label>
+        <p style="font-size:.72rem;color:var(--qn-neutral-500);margin:0 0 .75rem;">Skala: 1 = Sangat Rendah, 2 = Rendah, 3 = Cukup, 4 = Tinggi, 5 = Sangat Tinggi</p>
+        <div style="overflow-x:auto;">
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="min-width:130px;">Kompetensi</th>
+                        <th colspan="5">A — Dikuasai</th>
+                        <th colspan="5">B — Diperlukan</th>
+                    </tr>
+                    <tr>
+                        <th><span class="scale-label">1</span></th>
+                        <th><span class="scale-label">2</span></th>
+                        <th><span class="scale-label">3</span></th>
+                        <th><span class="scale-label">4</span></th>
+                        <th><span class="scale-label">5</span></th>
+                        <th><span class="scale-label">1</span></th>
+                        <th><span class="scale-label">2</span></th>
+                        <th><span class="scale-label">3</span></th>
+                        <th><span class="scale-label">4</span></th>
+                        <th><span class="scale-label">5</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Etika</td>
+                        <td><input type="radio" name="f17a1"></td><td><input type="radio" name="f17a1"></td><td><input type="radio" name="f17a1"></td><td><input type="radio" name="f17a1"></td><td><input type="radio" name="f17a1"></td>
+                        <td><input type="radio" name="f17b1"></td><td><input type="radio" name="f17b1"></td><td><input type="radio" name="f17b1"></td><td><input type="radio" name="f17b1"></td><td><input type="radio" name="f17b1"></td>
+                    </tr>
+                    <tr>
+                        <td>Keahlian berdasarkan bidang ilmu</td>
+                        <td><input type="radio" name="f17a2"></td><td><input type="radio" name="f17a2"></td><td><input type="radio" name="f17a2"></td><td><input type="radio" name="f17a2"></td><td><input type="radio" name="f17a2"></td>
+                        <td><input type="radio" name="f17b2"></td><td><input type="radio" name="f17b2"></td><td><input type="radio" name="f17b2"></td><td><input type="radio" name="f17b2"></td><td><input type="radio" name="f17b2"></td>
+                    </tr>
+                    <tr>
+                        <td>Bahasa Inggris</td>
+                        <td><input type="radio" name="f17a3"></td><td><input type="radio" name="f17a3"></td><td><input type="radio" name="f17a3"></td><td><input type="radio" name="f17a3"></td><td><input type="radio" name="f17a3"></td>
+                        <td><input type="radio" name="f17b3"></td><td><input type="radio" name="f17b3"></td><td><input type="radio" name="f17b3"></td><td><input type="radio" name="f17b3"></td><td><input type="radio" name="f17b3"></td>
+                    </tr>
+                    <tr>
+                        <td>Penggunaan Teknologi Informasi</td>
+                        <td><input type="radio" name="f17a4"></td><td><input type="radio" name="f17a4"></td><td><input type="radio" name="f17a4"></td><td><input type="radio" name="f17a4"></td><td><input type="radio" name="f17a4"></td>
+                        <td><input type="radio" name="f17b4"></td><td><input type="radio" name="f17b4"></td><td><input type="radio" name="f17b4"></td><td><input type="radio" name="f17b4"></td><td><input type="radio" name="f17b4"></td>
+                    </tr>
+                    <tr>
+                        <td>Komunikasi</td>
+                        <td><input type="radio" name="f17a5"></td><td><input type="radio" name="f17a5"></td><td><input type="radio" name="f17a5"></td><td><input type="radio" name="f17a5"></td><td><input type="radio" name="f17a5"></td>
+                        <td><input type="radio" name="f17b5"></td><td><input type="radio" name="f17b5"></td><td><input type="radio" name="f17b5"></td><td><input type="radio" name="f17b5"></td><td><input type="radio" name="f17b5"></td>
+                    </tr>
+                    <tr>
+                        <td>Kerja sama tim</td>
+                        <td><input type="radio" name="f17a6"></td><td><input type="radio" name="f17a6"></td><td><input type="radio" name="f17a6"></td><td><input type="radio" name="f17a6"></td><td><input type="radio" name="f17a6"></td>
+                        <td><input type="radio" name="f17b6"></td><td><input type="radio" name="f17b6"></td><td><input type="radio" name="f17b6"></td><td><input type="radio" name="f17b6"></td><td><input type="radio" name="f17b6"></td>
+                    </tr>
+                    <tr>
+                        <td>Pengembangan Diri</td>
+                        <td><input type="radio" name="f17a7"></td><td><input type="radio" name="f17a7"></td><td><input type="radio" name="f17a7"></td><td><input type="radio" name="f17a7"></td><td><input type="radio" name="f17a7"></td>
+                        <td><input type="radio" name="f17b7"></td><td><input type="radio" name="f17b7"></td><td><input type="radio" name="f17b7"></td><td><input type="radio" name="f17b7"></td><td><input type="radio" name="f17b7"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- f2: Metode Pembelajaran -->
+    <div style="margin-bottom:1.5rem;">
+        <label class="form-control__label" style="margin-bottom:.5rem;">2. Seberapa besar penekanan metode pembelajaran di bawah ini dilaksanakan di program studi Anda? <span class="important">*</span></label>
+        <p style="font-size:.72rem;color:var(--qn-neutral-500);margin:0 0 .75rem;">Skala: 1 = Sangat Besar, 2 = Besar, 3 = Cukup Besar, 4 = Kurang Besar, 5 = Tidak Sama Sekali</p>
+        <div style="overflow-x:auto;">
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th style="min-width:130px;">Metode</th>
+                        <th><span class="scale-label">1</span></th>
+                        <th><span class="scale-label">2</span></th>
+                        <th><span class="scale-label">3</span></th>
+                        <th><span class="scale-label">4</span></th>
+                        <th><span class="scale-label">5</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Perkuliahan</td>
+                        <td><input type="radio" name="f2_1"></td><td><input type="radio" name="f2_1"></td><td><input type="radio" name="f2_1"></td><td><input type="radio" name="f2_1"></td><td><input type="radio" name="f2_1"></td>
+                    </tr>
+                    <tr>
+                        <td>Demonstrasi</td>
+                        <td><input type="radio" name="f2_2"></td><td><input type="radio" name="f2_2"></td><td><input type="radio" name="f2_2"></td><td><input type="radio" name="f2_2"></td><td><input type="radio" name="f2_2"></td>
+                    </tr>
+                    <tr>
+                        <td>Partisipasi dalam proyek riset</td>
+                        <td><input type="radio" name="f2_3"></td><td><input type="radio" name="f2_3"></td><td><input type="radio" name="f2_3"></td><td><input type="radio" name="f2_3"></td><td><input type="radio" name="f2_3"></td>
+                    </tr>
+                    <tr>
+                        <td>Magang</td>
+                        <td><input type="radio" name="f2_4"></td><td><input type="radio" name="f2_4"></td><td><input type="radio" name="f2_4"></td><td><input type="radio" name="f2_4"></td><td><input type="radio" name="f2_4"></td>
+                    </tr>
+                    <tr>
+                        <td>Praktikum</td>
+                        <td><input type="radio" name="f2_5"></td><td><input type="radio" name="f2_5"></td><td><input type="radio" name="f2_5"></td><td><input type="radio" name="f2_5"></td><td><input type="radio" name="f2_5"></td>
+                    </tr>
+                    <tr>
+                        <td>Kerja Lapangan</td>
+                        <td><input type="radio" name="f2_6"></td><td><input type="radio" name="f2_6"></td><td><input type="radio" name="f2_6"></td><td><input type="radio" name="f2_6"></td><td><input type="radio" name="f2_6"></td>
+                    </tr>
+                    <tr>
+                        <td>Diskusi</td>
+                        <td><input type="radio" name="f2_7"></td><td><input type="radio" name="f2_7"></td><td><input type="radio" name="f2_7"></td><td><input type="radio" name="f2_7"></td><td><input type="radio" name="f2_7"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Info note -->
+    <div style="background:var(--qn-neutral-50);border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:.75rem 1rem;margin-bottom:2rem;font-size:.72rem;color:var(--qn-neutral-500);">
+        Perhatikan arah skala dua tabel di atas berlawanan — itu memang begitu di format resmi. Di tabel kompetensi, 5 = paling tinggi. Di tabel metode pembelajaran, 1 = paling besar.
+    </div>
+
+    <!-- Bottom nav -->
+    <div style="display:flex;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--qn-neutral-200);">
+        <a href="javascript:history.back()" class="btn btn_outline">← Kembali</a>
+        <button class="btn btn_primary" onclick="alert('Simulasi selesai — data tidak disimpan.')">Kirim Jawaban</button>
+    </div>
+
+    <!-- Success section (always visible for mockup) -->
+    <div style="border:1px solid var(--qn-success-200, #bbf7d0);background:var(--qn-success-50, #f0fdf4);border-radius:.75rem;padding:2rem 1.5rem;text-align:center;margin-top:2rem;">
+        <div style="font-size:2.5rem;color:var(--qn-success-500, #22c55e);margin-bottom:.5rem;">✓</div>
+        <h3 style="margin:0 0 .5rem;font-size:1rem;">Terima kasih! Jawaban Anda sudah tersimpan.</h3>
+        <a href="kuesioner.html" style="font-size:.85rem;color:var(--qn-primary-500);">← Kembali ke halaman kuesioner</a>
+    </div>
+
+</div>
+
+</body>
+</html>

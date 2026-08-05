@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cabang Tidak Kerja, Mencari Kerja — Wave G1</title>
+    <link rel="icon" href="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/assets/css/main.css">
+    <link rel="stylesheet" href="../../quantum/assets/css/main.css">
+    <style>
+        .stepper{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--qn-neutral-200);padding:.6rem 0;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.72rem;}
+        .stepper__item{padding:.3rem .7rem;border-radius:.25rem;color:var(--qn-neutral-400);}
+        .stepper__item.is-active{background:var(--qn-primary-500);color:#fff;font-weight:600;}
+        .stepper__item.is-done{color:var(--qn-primary-500);font-weight:500;}
+        .stepper__sep{color:var(--qn-neutral-300);}
+        select{appearance:menulist !important;}
+    </style>
+</head>
+<body class="body body_kl-white">
+
+<div class="stepper">
+    <span class="stepper__item is-done">Informasi Umum</span>
+    <span class="stepper__sep">→</span>
+    <span class="stepper__item is-active">Pencarian Kerja</span>
+    <span class="stepper__sep">→</span>
+    <span class="stepper__item">Kompetensi</span>
+</div>
+
+<div style="max-width:640px;margin:0 auto;padding:0 1rem 3rem;">
+
+    <a href="simulasi-g1-status.html" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--qn-primary-500);text-decoration:none;margin-bottom:1rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Kembali ke Informasi Umum
+    </a>
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:1.5rem;">
+        <img src="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored.webp" alt="KarirLink" height="36" style="margin-bottom:.5rem;">
+        <h2 style="margin:0;font-size:1.1rem;">Tracer Study — Universitas Foxtrot</h2>
+        <p style="margin:.25rem 0 0;font-size:.8rem;color:var(--qn-neutral-500);">Wave G1</p>
+    </div>
+
+    <!-- Note -->
+    <div style="background:var(--qn-warning-50, #fffbeb);border:1px solid var(--qn-warning-200, #fde68a);border-radius:.5rem;padding:.75rem 1rem;margin-bottom:1.5rem;font-size:.8rem;color:var(--qn-warning-700, #92400e);">
+        Seluruh pertanyaan di halaman ini tidak wajib — Anda boleh melewatinya.
+    </div>
+
+    <!-- f301+f302+f303: Kapan mulai mencari -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">1. Kapan Anda mulai mencari pekerjaan?</label>
+        <div class="form-control__group">
+            <div class="radio-button" style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
+                <input type="radio" class="form-control__radio" name="f301">
+                <label class="form-control__label-radio" style="margin:0;">Kira-kira</label>
+                <input type="number" class="form-control__input" style="width:60px;display:inline-block;" min="0">
+                <span style="font-size:.85rem;">bulan sebelum lulus</span>
+            </div>
+            <div class="radio-button" style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
+                <input type="radio" class="form-control__radio" name="f301">
+                <label class="form-control__label-radio" style="margin:0;">Kira-kira</label>
+                <input type="number" class="form-control__input" style="width:60px;display:inline-block;" min="0">
+                <span style="font-size:.85rem;">bulan sesudah lulus</span>
+            </div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f301"><label class="form-control__label-radio">Saya tidak mencari kerja</label></div>
+        </div>
+    </div>
+
+    <!-- f4: Cara mencari pekerjaan -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">2. Bagaimana Anda mencari pekerjaan?</label>
+        <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .5rem;">Jawaban bisa lebih dari satu.</p>
+        <div class="form-control__group">
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Melalui iklan di koran/majalah, brosur</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Melamar ke perusahaan</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Pergi ke bursa/pameran kerja</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Membangun networking sejak masih kuliah</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Melalui internet/iklan online/milis</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Dihubungi oleh perusahaan</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Menghubungi Kemenakertrans</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Menghubungi agen tenaga kerja komersial/swasta</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Memperoleh informasi dari pusat/kantor pengembangan karir kampus</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Menghubungi kantor kemahasiswaan/alumni</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Membina relasi (menjaga kontak) dengan dosen pembimbing</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Membangun bisnis sendiri</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Melalui penempatan kerja atau magang</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Bekerja di tempat yang sama dengan tempat kerja semasa kuliah</label></div>
+            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Lainnya</label></div>
+            <input type="text" class="form-control__input" placeholder="Sebutkan cara lainnya..." style="margin-top:.25rem;">
+        </div>
+    </div>
+
+    <!-- f6: Jumlah dilamar -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">3. Berapa perusahaan/instansi yang sudah Anda lamar?</label>
+        <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .5rem;">Dihitung sampai hari ini.</p>
+        <div style="display:flex;align-items:center;gap:.5rem;">
+            <input type="number" class="form-control__input" style="width:80px;" min="0">
+            <span style="font-size:.85rem;">perusahaan/instansi/institusi</span>
+        </div>
+    </div>
+
+    <!-- f7: Jumlah merespons -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">4. Berapa banyak yang merespons lamaran Anda?</label>
+        <div style="display:flex;align-items:center;gap:.5rem;">
+            <input type="number" class="form-control__input" style="width:80px;" min="0">
+            <span style="font-size:.85rem;">perusahaan/instansi/institusi</span>
+        </div>
+    </div>
+
+    <!-- f7a: Jumlah wawancara -->
+    <div class="form-control" style="margin-bottom:1.5rem;">
+        <label class="form-control__label">5. Berapa banyak yang mengundang Anda untuk wawancara?</label>
+        <div style="display:flex;align-items:center;gap:.5rem;">
+            <input type="number" class="form-control__input" style="width:80px;" min="0">
+            <span style="font-size:.85rem;">perusahaan/instansi/institusi</span>
+        </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div style="display:flex;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--qn-neutral-200);">
+        <a href="simulasi-g1-status.html" class="btn btn_outline">← Kembali</a>
+        <a href="simulasi-g1-kompetensi.html" class="btn btn_primary">Lanjut →</a>
+    </div>
+
+</div>
+
+</body>
+</html>

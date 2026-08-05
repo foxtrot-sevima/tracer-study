@@ -2,9 +2,23 @@
 
 Dokumen ini adalah lanjutan dari [Konsep Pertanyaan Core-Optional-Specific untuk Template Quisioner](Konsep%20Pertanyaan%20Core-Optional-Specific%20untuk%20Template%20Quisioner.md) — mencoba menjawab pertanyaan konkret: **pertanyaan mana saja yang sebaiknya Core, mana yang Optional**, supaya bisa jadi draf seed data untuk bank pertanyaan.
 
+> 🔴 **PENTING — penetapan tier di dokumen ini sudah digantikan.**
+>
+> Bagian **1** (metodologi) dan **6** (ringkasan tier) **tidak lagi dipakai** sebagai acuan. Penetapan Core/Optional yang berlaku sekarang ada di **[Mapping Kode Dikti — Pertanyaan & Jawaban Tracer Study](Mapping-Kode-Dikti-Tracer-Study.md) §7 dan §11**.
+>
+> **Apa yang berubah:** dokumen ini menetapkan Core = **3 item** (status, kompetensi A/B, metode pembelajaran), berdasarkan irisan antara yang diminta Kemdikbud dan Kemenkes. Penetapan yang berlaku sekarang: Core = **18 item** untuk satu alumni, berdasarkan flag `is_required` di template resmi Kemdiktisaintek (`template-pddikti.json`).
+>
+> **Kenapa berubah:** logika irisan hanya masuk akal kalau ada kampus yang lapor ke Kemenkes saja tanpa lapor ke PDDikti. Setelah ditelusuri, Poltekkes tetap perguruan tinggi di bawah PDDikti, jadi IKU#2 berlaku juga untuk mereka. Modelnya menjadi **Core Kemdikti + tambahan Kemenkes**, bukan irisan keduanya.
+>
+> **Yang masih berlaku dari dokumen ini:** bagian 4 (Optional enrichment Schomburg), bagian 5 (draf Survei Pengguna Lulusan), dan bagian 7 (pola pemakaian Specific question). Ketiganya tidak bersinggungan dengan penetapan tier Dikti.
+
 > ⚠️ **Status: Draft awal, belum final.** Bagian yang bersumber dari tabel riset KEMDIKTI vs KEMENKES sudah terverifikasi (ada di riset kamu). Bagian IKU PTN, BAN-PT, dan LAM di dokumen ini masih berdasarkan pengetahuan umum tentang pola instrumen akreditasi yang lazim dipublikasikan — **perlu divalidasi ke dokumen resmi terbaru** sebelum dipakai sebagai seed data produksi.
 
 ## 1. Metodologi Pemetaan
+
+> 🔴 **Sudah digantikan** — lihat [Mapping Kode Dikti §7](Mapping-Kode-Dikti-Tracer-Study.md). Isi bagian ini disimpan sebagai catatan riwayat pemikiran, bukan acuan yang berlaku.
+>
+> Satu hal dari bagian ini yang **tetap berlaku**: prinsip bahwa **regulator adalah tag, bukan penentu tier bercabang**. Tidak ada "Core versi Kemdikbud" dan "Core versi Kemenkes" yang berbeda. Yang berubah hanya dasar penentuan Core-nya.
 
 **Koreksi model dari draft sebelumnya:** Core tidak boleh berbeda-beda tergantung regulator institusi. Sesuai definisi Schomburg (slide 22), Core harus *"fixed for the whole project"* — sama untuk **semua** institusi, titik. Kalau sebuah pertanyaan cuma wajib untuk institusi yang lapor ke regulator tertentu (mis. wajib untuk Kemdikbud, tidak untuk Kemenkes), itu **bukan Core** — itu tetap **Optional**, meskipun secara default bisa dinyalakan otomatis untuk institusi yang relevan. Jadi hanya ada **dua tier**, bukan tier bercabang per regulator:
 
@@ -34,6 +48,17 @@ Sumber: [Perbandingan Pertanyaan yang di ajukan oleh KEMDIKTI & KEMENKES](Perban
 **Pola yang terlihat:** hanya 3 dari 11 pertanyaan (No. 1, 3, 4) yang Core — dijawab semua responden di semua institusi tanpa syarat. 8 sisanya masuk satu bank Optional yang sama; tag "Kemdikbud" di kolom terakhir cuma dipakai UI admin untuk menyarankan "aktifkan grup ini kalau institusi Anda lapor ke Kemdikbud" — bukan mengunci pertanyaan itu jadi Core untuk sebagian institusi.
 
 ## 3. Gap yang Teridentifikasi (Belum Tercakup Tabel Riset)
+
+> ✅ **Keempat gap di bawah sudah tertutup.** Semuanya ternyata ada di `template-pddikti.json` dengan kode Dikti masing-masing:
+>
+> | Gap | Ternyata ada sebagai | Kode |
+> |---|---|---|
+> | Besaran penghasilan/gaji | "Berapa rata-rata pendapatan Anda per bulan saat ini?" | `f505` |
+> | Lama waktu tunggu kerja pertama | "Dalam berapa bulan Anda mendapatkan pekerjaan pertama?" | `f502` |
+> | Skala/jenis instansi tempat bekerja | "Apa tingkat tempat kerja Anda saat ini?" + "Apa jenis perusahaan / instansi / institusi …" | `f5d`, `f1101` |
+> | Provinsi/lokasi tempat bekerja | "Dimana provinsi Anda bekerja saat ini?" + "Dimana Kabupaten / Kota …" | `f5a1`, `f5a2` |
+>
+> Tidak perlu lagi diverifikasi ke Buku Panduan — sumbernya template resmi itu sendiri. Rincian di [Mapping Kode Dikti §3](Mapping-Kode-Dikti-Tracer-Study.md).
 
 Beberapa pertanyaan yang lazim jadi indikator utama IKU PTN & instrumen BAN-PT/LAM tapi **tidak** muncul di tabel riset yang sudah dikumpulkan — kemungkinan karena tabel riset belum mencakup seluruh instrumen, bukan berarti tidak dibutuhkan:
 
@@ -74,7 +99,34 @@ Audiens berbeda dari lulusan (lih. bagian 8.2 dokumen konsep) — dipakai untuk 
 
 > ⚠️ Tiap LAM (LAM Teknik, LAMEMBA, LAM Kesehatan, dst) berpotensi punya varian item atau bobot berbeda — bagian ini **wajib dicek ulang** ke dokumen instrumen resmi LAM yang relevan dengan rumpun ilmu institusi sebelum dijadikan Core secara default.
 
+> ✅ **Sudah diverifikasi — ternyata 12 aspek, bukan 7.** Template resmi `template-pengguna-lulusan.json` memakai 12 baris penilaian dengan skala 4 poin (Kurang / Cukup / Baik / Sangat Baik):
+>
+> 7 aspek di tabel atas, ditambah **Kepemimpinan**, **Etos Kerja**, **Kesiapan terjun di Masyarakat**, **Berpikir Kritis**, dan **Kreatifitas**.
+>
+> Catatan penting: seluruh 12 baris ini **tidak punya kode Dikti** — konsisten dengan posisinya sebagai instrumen BAN-PT, bukan pelaporan PDDikti. Hanya tiga field pencocokan alumni yang berkode: `gu_nama_alumni`, `gu_prodi_alumni`, `gu_tahun_lulus`. Rincian di [Mapping Kode Dikti §6](Mapping-Kode-Dikti-Tracer-Study.md).
+>
+> Mockup `simulasi-pengguna-lulusan.html` sudah memakai 12 aspek.
+
 ## 6. Ringkasan Tier (Sementara)
+
+> 🔴 **Sudah digantikan** oleh [Mapping Kode Dikti §7 & §11](Mapping-Kode-Dikti-Tracer-Study.md).
+>
+> Perbandingan singkat supaya perbedaannya terlihat:
+>
+> | Pertanyaan | Tier di dokumen ini | Tier yang berlaku | Kode Dikti |
+> |---|---|---|---|
+> | Status saat ini | Core | **Core** | `f8` |
+> | Kompetensi A/B | Core | **Core** | `f17` |
+> | Metode pembelajaran | Core | **Core** (dasar internal, bukan format upload) | `f2` |
+> | Sumber dana pembiayaan kuliah | Optional | **Core** | `f1201` |
+> | Aktif mencari kerja 4 minggu terakhir | Optional | **Core** | `f1001` |
+> | Cara mencari pekerjaan | Optional | **Core** (di cabang Bekerja) | `f4` |
+> | Kapan mulai mencari pekerjaan | Optional | Optional | `f301` |
+> | Jumlah lamaran / respons / wawancara | Optional | Optional | `f6`, `f7`, `f7a` |
+> | Alasan kerja tidak sesuai pendidikan | Optional | Optional | `f16` |
+> | Gaji, waktu tunggu, skala instansi, lokasi kerja | "perlu verifikasi" | **Core** — tidak lagi dugaan | `f505`, `f502`, `f5d`, `f5a1`/`f5a2` |
+>
+> Empat item terakhir yang di bagian 3 ditandai "perlu verifikasi" sekarang **terverifikasi ada** di template resmi, lengkap dengan kodenya.
 
 **Survei Lulusan** — satu bank, dua tier:
 
@@ -116,9 +168,10 @@ Pola di atas menegaskan: **Specific paling berguna ketika dikaitkan (`depends_on
 
 ## 8. Langkah Verifikasi Selanjutnya
 
-- [ ] Validasi ke dokumen resmi terbaru Buku Panduan Tracer Study Kemdikbud, khususnya definisi indikator IKU 1 (gaji, waktu tunggu).
-- [ ] Validasi ke instrumen resmi LAM yang relevan (bisa berbeda per rumpun ilmu) untuk 7-item Pengguna Lulusan di bagian 5.
-- [ ] Lengkapi tabel riset KEMDIKTI vs KEMENKES kalau ternyata ada pertanyaan lain di luar yang sudah dicatat (tabel riset saat ini kemungkinan baru mencakup sebagian instrumen).
-- [ ] Diskusi dengan tim produk: apakah gap di bagian 3 (gaji, waktu tunggu, dst) sudah tersedia sebagai field lain di KarirLink yang belum masuk kuisioner.
-- [ ] Setelah tervalidasi, konversi tabel-tabel di atas jadi seed data aktual (`variable_code`, `answer_type`, `tier`, `regulator_tags`) sesuai skema di dokumen konsep bagian 6.1.
-- [ ] Kumpulkan contoh Specific question nyata dari beberapa institusi pilot untuk memperkaya pola di bagian 7.2 (saat ini masih ilustratif).
+- [x] ~~Validasi ke dokumen resmi terbaru Buku Panduan Tracer Study Kemdikbud, khususnya definisi indikator IKU 1 (gaji, waktu tunggu).~~ → Terjawab dari `template-pddikti.json`: gaji `f505`, waktu tunggu `f502`. Bobot IKU#2 sudah tercatat di [Komparasi §3](Komparasi%20Kuesioner%20KEMDIKTI%20(Kemdiktisaintek)%20vs%20KEMENKES.md).
+- [x] ~~Validasi ke instrumen resmi LAM yang relevan untuk 7-item Pengguna Lulusan di bagian 5.~~ → Ternyata **12 aspek**, bukan 7. Lihat catatan di bagian 5.
+- [x] ~~Diskusi dengan tim produk: apakah gap di bagian 3 sudah tersedia sebagai field lain di KarirLink.~~ → Keempatnya ada di template resmi, bukan gap.
+- [x] ~~Setelah tervalidasi, konversi tabel di atas jadi seed data aktual (`variable_code`, `answer_type`, `tier`, `regulator_tags`).~~ → Diganti pendekatan: seed data diambil langsung dari `template-pddikti.json` yang sudah memuat `code`, `answer_type_id`, `is_required`, dan `jump_to`. Tidak perlu menyusun `variable_code` sendiri — kode Dikti sekaligus jadi pengenal. Skema penyimpanan di [Mapping Kode Dikti §1 & §4](Mapping-Kode-Dikti-Tracer-Study.md).
+- [ ] **Masih terbuka:** cari instrumen resmi Kemenkes yang setara kedalamannya. Empat pertanyaan Kemenkes di mockup (faskes, STR, kesesuaian kompetensi, sertifikat profesi) masih berasal dari prototype lama, belum dari dokumen resmi.
+- [ ] **Masih terbuka:** kumpulkan contoh Specific question nyata dari beberapa institusi pilot untuk memperkaya pola di bagian 7.2.
+- [ ] **Masih terbuka:** verifikasi apakah tiap LAM punya varian item Pengguna Lulusan di luar 12 aspek template resmi.

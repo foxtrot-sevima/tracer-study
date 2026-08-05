@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Pengisian — Tracer Study (Paket A / Baseline)</title>
+    <link rel="icon" href="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="../../../../karir_prompt/slicing-karirlink-v2/assets/css/main.css">
+    <link rel="stylesheet" href="../../quantum/assets/css/main.css">
+    <style>
+        .ab-banner{background:#eff6ff;border:1px solid #bfdbfe;border-radius:.5rem;padding:.75rem 1rem;margin-bottom:1.25rem;font-size:.78rem;color:#1e3a8a;line-height:1.5;}
+        .portal-bar{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--qn-neutral-200);padding:.6rem 1rem;margin-bottom:0;background:#fff;border-radius:.5rem .5rem 0 0;}
+        .portal-bar__id{display:flex;align-items:center;gap:.6rem;font-size:.75rem;color:var(--qn-neutral-600);}
+        .preview-pill{background:#2563eb;color:#fff;font-size:.75rem;font-weight:600;padding:.35rem 1rem;border-radius:.25rem;display:inline-flex;align-items:center;gap:.75rem;}
+        .form-shell{border:1px solid var(--qn-neutral-200);border-top:none;border-radius:0 0 .5rem .5rem;background:var(--qn-neutral-50);padding:1.25rem;}
+        .sec-card{background:#fff;border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:1rem 1.25rem;margin-bottom:1rem;}
+        .sec-card__title{font-size:1rem;font-weight:600;margin:0;color:var(--qn-neutral-800);}
+        .q-card{background:#fff;border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:1rem 1.25rem;margin-bottom:1rem;transition:border-color .15s,background .15s;}
+        .q-card__num{font-size:.875rem;font-weight:600;color:var(--qn-neutral-800);margin:0 0 .15rem;line-height:1.45;}
+        .q-card__hint{font-size:.7rem;color:var(--qn-neutral-400);margin:0 0 .75rem;}
+        .opt{display:flex;align-items:center;gap:.6rem;border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:.55rem .75rem;margin-bottom:.5rem;}
+        .opt:last-child{margin-bottom:0;}
+        .opt__letter{width:1.4rem;height:1.4rem;border:1px solid var(--qn-neutral-200);border-radius:.3rem;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:600;color:var(--qn-neutral-500);flex-shrink:0;}
+        .opt__text{font-size:.82rem;color:var(--qn-neutral-700);}
+        .opt__inline{flex:1;border:none;border-bottom:1px solid var(--qn-neutral-300);font-size:.82rem;padding:.15rem 0;outline:none;background:transparent;}
+        .num-line{width:100%;border:none;border-bottom:1px solid var(--qn-neutral-300);font-size:.82rem;padding:.3rem 0;outline:none;background:transparent;color:var(--qn-neutral-400);}
+        .pager{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-top:.5rem;}
+        .pager__dots{display:flex;gap:.25rem;}
+        .pager__dot{width:2rem;height:5px;border-radius:999px;background:var(--qn-neutral-200);}
+        .pager__dot.active{background:var(--qn-primary-500);}
+        .pager__label{font-size:.7rem;color:var(--qn-neutral-500);margin:.4rem 0 0;}
+        /* Penanda masalah — mati secara default supaya reproduksinya jujur */
+        .flag-note{display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:.375rem;padding:.5rem .75rem;margin-top:.75rem;font-size:.72rem;color:#991b1b;align-items:flex-start;gap:.5rem;line-height:1.5;}
+        body.show-flags .flag-note{display:flex;}
+        body.show-flags .q-card--flagged{border-color:#fca5a5;background:#fffbfb;}
+        .toggle-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;}
+    </style>
+</head>
+<body class="body body_kl-white">
+    <main class="main">
+        <div class="container" style="max-width:720px;margin:2rem auto;">
+
+            <div class="ab-banner">
+                <b>Paket A · Baseline — sisi responden.</b> Halaman ini mereproduksi <b>perilaku KarirLink yang berjalan sekarang</b>, apa adanya. Dipakai sebagai pembanding terhadap <a href="../paket-b-usulan/simulasi-pengisian.html" class="link link_primary">sisi responden Paket B</a>.
+                <br><br>
+                Isi halaman 1 disusun dari tangkapan layar <b>Mode Pratinjau</b> KarirLink. Yang ditiru bukan hanya tampilannya, tapi juga <b>perilakunya</b>: seluruh pertanyaan dalam satu bagian tampil sekaligus, tanpa menyesuaikan jawaban sebelumnya.
+            </div>
+
+            <div class="toggle-row">
+                <div>
+                    <p style="font-size:.8rem;font-weight:600;margin:0;color:var(--qn-neutral-800);">Ingin melihat di mana masalahnya?</p>
+                    <p style="font-size:.72rem;color:var(--qn-neutral-500);margin:.1rem 0 0;">Secara bawaan halaman ini tampil apa adanya, tanpa penilaian. Tombol di samping menyalakan catatan pengamat.</p>
+                </div>
+                <button class="btn btn_outline btn_sm" onclick="document.body.classList.toggle('show-flags');this.textContent=document.body.classList.contains('show-flags')?'Sembunyikan penanda':'Tandai pertanyaan bermasalah'">Tandai pertanyaan bermasalah</button>
+            </div>
+
+            <!-- Bilah portal alumni -->
+            <div class="portal-bar">
+                <div class="portal-bar__id">
+                    <img src="../../../../karir_prompt/slicing-karirlink-v2/assets/images/logo/karirlink-colored-square.webp" alt="" height="28">
+                    <div>
+                        <div style="font-weight:600;color:var(--qn-neutral-800);">Portal Alumni dan Pusat Karir</div>
+                        <div style="font-size:.7rem;color:var(--qn-neutral-400);">Demo siAkadcloud</div>
+                    </div>
+                </div>
+                <span class="preview-pill">Mode Pratinjau <span style="opacity:.7;">&times;</span></span>
+            </div>
+
+            <div class="form-shell">
+
+                <div class="sec-card">
+                    <p class="sec-card__title">Informasi Umum</p>
+                </div>
+
+                <!-- 1 -->
+                <div class="q-card">
+                    <p class="q-card__num">1. Jelaskan status Anda saat ini? <span class="important">*</span></p>
+                    <div style="margin-top:.6rem;">
+                        <div class="opt"><span class="opt__letter">A</span><span class="opt__text">Bekerja (full time / part time)</span></div>
+                        <div class="opt"><span class="opt__letter">B</span><span class="opt__text">Belum memungkinkan bekerja</span></div>
+                        <div class="opt"><span class="opt__letter">C</span><span class="opt__text">Wiraswasta (Wirausaha)</span></div>
+                        <div class="opt"><span class="opt__letter">D</span><span class="opt__text">Melanjutkan pendidikan</span></div>
+                        <div class="opt"><span class="opt__letter">E</span><span class="opt__text">Tidak kerja, tetapi sedang mencari kerja</span></div>
+                    </div>
+                </div>
+
+                <!-- 2 -->
+                <div class="q-card">
+                    <p class="q-card__num">2. Sumber dana apa yang Anda gunakan untuk membiayai kuliah? <span class="important">*</span></p>
+                    <p class="q-card__hint">Bukan ketika studi lanjut</p>
+                    <div>
+                        <div class="opt"><span class="opt__letter">A</span><span class="opt__text">Biaya Sendiri / Keluarga</span></div>
+                        <div class="opt"><span class="opt__letter">B</span><span class="opt__text">Beasiswa ADIK</span></div>
+                        <div class="opt"><span class="opt__letter">C</span><span class="opt__text">Beasiswa BIDIKMISI</span></div>
+                        <div class="opt"><span class="opt__letter">D</span><span class="opt__text">Beasiswa PPA</span></div>
+                        <div class="opt"><span class="opt__letter">E</span><span class="opt__text">Beasiswa AFIRMASI</span></div>
+                        <div class="opt"><span class="opt__letter">F</span><span class="opt__text">Beasiswa Perusahaan / Swasta</span></div>
+                        <div class="opt"><span class="opt__letter">G</span><span class="opt__text" style="white-space:nowrap;">Lainnya:</span><input type="text" class="opt__inline"></div>
+                    </div>
+                </div>
+
+                <!-- 3 -->
+                <div class="q-card q-card--flagged">
+                    <p class="q-card__num">3. Apakah Anda mendapatkan pekerjaan pertama / melanjutkan pendidikan sebelum lulus? <span class="important">*</span></p>
+                    <div style="margin-top:.6rem;">
+                        <div class="opt"><span class="opt__letter">A</span><span class="opt__text">Ya</span></div>
+                        <div class="opt"><span class="opt__letter">B</span><span class="opt__text">Tidak</span></div>
+                    </div>
+                    <div class="flag-note">
+                        <span style="font-size:.95rem;line-height:1;">⚠️</span>
+                        <span><b>Muncul untuk semua status.</b> Alumni yang di pertanyaan 1 memilih <i>"Belum memungkinkan bekerja"</i> atau <i>"Tidak kerja, tetapi sedang mencari kerja"</i> tetap ditanya apakah ia mendapat pekerjaan sebelum lulus — padahal ia belum pernah bekerja. Tidak ada jawaban yang benar untuk mereka.</span>
+                    </div>
+                </div>
+
+                <!-- 4 -->
+                <div class="q-card q-card--flagged">
+                    <p class="q-card__num">4. Dalam berapa bulan Anda mendapatkan pekerjaan pertama / melanjutkan studi setelah lulus? <span class="important">*</span></p>
+                    <input type="text" class="num-line" placeholder="Jawaban angka">
+                    <div class="flag-note">
+                        <span style="font-size:.95rem;line-height:1;">⚠️</span>
+                        <span><b>Dua lapis masalah.</b> Pertama, sama seperti nomor 3: muncul untuk semua status, termasuk yang belum pernah bekerja. Kedua, <b>tidak menyesuaikan jawaban nomor 3</b> — alumni yang baru saja menjawab "Tidak" (belum dapat pekerjaan) tetap diminta menyebutkan berapa bulan ia mendapatkannya. Dan pertanyaan ini bertanda wajib.</span>
+                    </div>
+                </div>
+
+                <!-- 5 -->
+                <div class="q-card q-card--flagged">
+                    <p class="q-card__num">5. Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir? Pilihlah satu jawaban <span class="important">*</span></p>
+                    <div style="margin-top:.6rem;">
+                        <div class="opt"><span class="opt__letter">A</span><span class="opt__text">Tidak</span></div>
+                        <div class="opt"><span class="opt__letter">B</span><span class="opt__text">Tidak, tapi saya sedang menunggu hasil lamaran kerja</span></div>
+                        <div class="opt"><span class="opt__letter">C</span><span class="opt__text">Ya, saya akan mulai bekerja dalam 2 minggu ke depan</span></div>
+                        <div class="opt"><span class="opt__letter">D</span><span class="opt__text">Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan</span></div>
+                        <div class="opt"><span class="opt__letter">E</span><span class="opt__text" style="white-space:nowrap;">Lainnya:</span><input type="text" class="opt__inline"></div>
+                    </div>
+                    <div class="flag-note">
+                        <span style="font-size:.95rem;line-height:1;">⚠️</span>
+                        <span><b>Terasa aneh bagi yang sudah bekerja.</b> Alumni yang di nomor 1 memilih <i>"Bekerja"</i> atau <i>"Wiraswasta"</i> ditanya apakah ia sedang aktif mencari pekerjaan. Format resmi memang menanyakan ini ke semua status, tapi tanpa keterangan pendamping pertanyaannya mudah disalahpahami sebagai sindiran.</span>
+                    </div>
+                </div>
+
+                <div class="pager">
+                    <div>
+                        <div class="pager__dots">
+                            <span class="pager__dot active"></span>
+                            <span class="pager__dot"></span>
+                            <span class="pager__dot"></span>
+                            <span class="pager__dot"></span>
+                            <span class="pager__dot"></span>
+                            <span class="pager__dot"></span>
+                            <span class="pager__dot"></span>
+                            <span class="pager__dot"></span>
+                        </div>
+                        <p class="pager__label">Halaman 1 dari 8</p>
+                    </div>
+                    <button class="btn btn_primary" onclick="document.getElementById('nextInfo').style.display='block';this.disabled=true;this.style.opacity=.5">Selanjutnya</button>
+                </div>
+
+                <div id="nextInfo" style="display:none;background:#fff;border:1px dashed var(--qn-neutral-300);border-radius:.5rem;padding:1rem 1.25rem;margin-top:1rem;">
+                    <p style="font-size:.85rem;font-weight:600;margin:0 0 .4rem;color:var(--qn-neutral-800);">Halaman 2–8 belum ditangkap</p>
+                    <p style="font-size:.75rem;color:var(--qn-neutral-600);margin:0;line-height:1.6;">Tangkapan layar yang tersedia hanya halaman 1. Halaman berikutnya sengaja <b>tidak direka-reka</b> — mengisi dengan dugaan akan membuat pembanding ini tidak bisa dipercaya.<br><br>Untuk keperluan perbandingan, halaman 1 sudah cukup: tiga dari lima pertanyaan di sini muncul tanpa memeriksa jawaban sebelumnya, dan satu di antaranya bertanda wajib padahal bisa jadi tidak punya jawaban yang benar.</p>
+                </div>
+
+            </div>
+
+            <!-- Ringkasan pengamatan -->
+            <div class="card" style="margin-top:1.5rem;">
+                <h3 style="margin:0 0 .5rem;font-size:1rem;">Apa yang membedakan Paket A dan Paket B di sisi responden</h3>
+                <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 1rem;">Selisihnya bukan soal tampilan, tapi soal pertanyaan mana yang alumni lihat.</p>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr><th>Hal</th><th>Paket A (sekarang)</th><th>Paket B (usulan)</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-size:.8rem;">Pertanyaan menyesuaikan jawaban sebelumnya</td>
+                                <td style="font-size:.78rem;">Tidak. Seluruh isi satu bagian tampil sekaligus</td>
+                                <td style="font-size:.78rem;">Ya. Disaring per status dan per jawaban gate</td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:.8rem;">Masa tunggu &amp; pendapatan</td>
+                                <td style="font-size:.78rem;">Muncul untuk semua status</td>
+                                <td style="font-size:.78rem;">Hanya untuk Bekerja, Wiraswasta, Melanjutkan Pendidikan</td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:.8rem;">Bentuk pertanyaan masa tunggu</td>
+                                <td style="font-size:.78rem;">Dua pertanyaan terpisah yang bisa saling bertentangan</td>
+                                <td style="font-size:.78rem;">Satu pertanyaan: "Ya, sebelum lulus" atau "Tidak — kira-kira … bulan setelah lulus"</td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:.8rem;">Opsi "Lainnya"</td>
+                                <td style="font-size:.78rem;">Ada kotak isian</td>
+                                <td style="font-size:.78rem;">Ada kotak isian, dan disimpan sebagai dua data sesuai format resmi</td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:.8rem;">Jumlah halaman</td>
+                                <td style="font-size:.78rem;">8 halaman</td>
+                                <td style="font-size:.78rem;">Satu halaman per wave, dengan pengalih wave</td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:.8rem;">Keterangan untuk Admin CDC</td>
+                                <td style="font-size:.78rem;">Tidak ada</td>
+                                <td style="font-size:.78rem;">Kartu ℹ️ di tiap keputusan desain, menjelaskan alasannya</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="background:var(--qn-neutral-50);border:1px solid var(--qn-neutral-200);border-radius:.375rem;padding:.6rem .85rem;margin-top:1rem;font-size:.72rem;color:var(--qn-neutral-600);line-height:1.6;">
+                    <b>Catatan kejujuran.</b> Perilaku datar di Paket A bukan sepenuhnya kesalahan KarirLink — situs resmi Kemdiktisaintek juga menampilkan sebagian pertanyaan pencarian kerja ke semua status. Bedanya, situs resmi <b>menyembunyikan</b> pertanyaan cabang sampai status dipilih, sementara KarirLink menampilkannya sekaligus. Rinciannya di <code>docs/Mapping-Kode-Dikti-Tracer-Study.md</code> §15.4.
+                </div>
+
+                <div style="display:flex;gap:.5rem;margin-top:1.25rem;flex-wrap:wrap;">
+                    <a href="../paket-b-usulan/simulasi-pengisian.html" class="btn btn_primary" style="text-decoration:none;">Buka sisi responden Paket B</a>
+                    <a href="tracer-kuesioner.html" class="btn btn_outline" style="text-decoration:none;">Kembali ke Kuesioner Paket A</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <script src="../../../../karir_prompt/slicing-karirlink-v2/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+</body>
+</html>
