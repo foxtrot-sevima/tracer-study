@@ -411,33 +411,49 @@
                     { id: 6, tier: 'core', text: 'Dari status yang dipilih, mana status utama Anda?', desc: 'Muncul ke responden hanya jika Status Anda dicentang lebih dari 1 - opsi mengikuti status yang dicentang di atas.', type: 'radio', required: true, code: 'STATUS_UTAMA',
                         options: ['(otomatis mengikuti status yang dicentang di atas)'] },
                     { id: 18, tier: 'core', text: 'Berapa tempat kerja yang Anda jalani saat ini?', desc: 'Menentukan jumlah kartu "Detail Pekerjaan" yang muncul ke responden.', type: 'number', required: true, code: 'JUMLAH_PEKERJAAN' },
-                    { id: 19, tier: 'core', text: 'Tingkat kompetensi yang dikuasai saat lulus', type: 'scale', required: true, code: 'f17' },
+                    { id: 19, tier: 'core', text: 'Tingkat kompetensi yang dikuasai saat lulus', desc: 'Bagian A (PDDIKTI Q12): "Pada saat lulus, pada tingkat mana kompetensi di bawah ini Anda kuasai?" - dipasangkan dengan Bagian B ("Tingkat Kompetensi" section) untuk mengukur kesenjangan kompetensi. Tiap aspek punya kode f176X sendiri (ganjil = Bagian A).', type: 'scale', required: true, code: 'f17',
+                        aspects: [
+                            { label: 'Etika', code: 'f1761' },
+                            { label: 'Keahlian Bidang Ilmu', code: 'f1763' },
+                            { label: 'Bahasa Asing', code: 'f1765' },
+                            { label: 'Penggunaan Teknologi Informasi', code: 'f1767' },
+                            { label: 'Komunikasi', code: 'f1769' },
+                            { label: 'Kerja Sama Tim', code: 'f1771' },
+                            { label: 'Pengembangan Diri', code: 'f1773' }
+                        ] },
                     { id: 34, tier: 'core', text: 'Pendidikan Orang Tua', desc: 'Hanya tampil di Exit Survey.', type: 'radio', required: false, code: 'PENDIDIKAN_ORTU',
                         options: ['SD', 'SMP', 'SMA/SMK', 'Diploma', 'S1', 'S2', 'S3', 'Tidak Sekolah'] },
-                    { id: 35, tier: 'core', text: 'Penekanan Metode Pembelajaran di Program Studi', desc: 'Skala 1-5. Hanya tampil di Exit Survey.', type: 'scale', required: true, code: 'f2' },
+                    { id: 35, tier: 'core', text: 'Menurut Anda seberapa besar penekanan pada metode pembelajaran di bawah ini dilaksanakan di program studi Anda?', desc: 'Skala 1 (Sangat Besar) - 5 (Tidak Sama Sekali) - urutan terbalik sesuai dokumen resmi Kemdikti. Hanya tampil di Exit Survey. Tiap aspek metode pembelajaran punya kode f2X sendiri (di bawah bendera grup f2).', type: 'scale', required: true, code: 'f2',
+                        aspects: [
+                            { label: 'Perkuliahan', code: 'f21' },
+                            { label: 'Demonstrasi', code: 'f22' },
+                            { label: 'Partisipasi dalam Proyek Riset', code: 'f23' },
+                            { label: 'Magang', code: 'f24' },
+                            { label: 'Praktikum', code: 'f25' },
+                            { label: 'Kerja Lapangan', code: 'f26' },
+                            { label: 'Diskusi', code: 'f27' }
+                        ] },
                     { id: 36, tier: 'core', text: 'Rencana Anda Setelah Lulus', desc: 'Hanya tampil di Exit Survey. Opsi "Lainnya" disertai isian teks bebas.', type: 'radio', required: false, code: 'RENCANA_SETELAH_LULUS',
                         options: ['Bekerja', 'Melanjutkan Studi', 'Wirausaha', 'Belum Ada Rencana', 'Lainnya'] },
-                    { id: 37, tier: 'core', text: 'Apakah Anda mendapatkan pekerjaan pertama / melanjutkan pendidikan sebelum lulus?', desc: 'Hanya tampil di GS-I & GS-II. Jika "Tidak", memicu pertanyaan lanjutan jumlah bulan.', type: 'radio', required: true, code: 'f502',
-                        options: ['Ya', 'Tidak'] },
-                    { id: 38, tier: 'core', text: 'Dalam berapa bulan Anda mendapatkan pekerjaan pertama / melanjutkan studi setelah lulus?', desc: 'Hanya tampil di GS-I & GS-II, jika pertanyaan sebelumnya dijawab "Tidak".', type: 'number', required: false, code: 'f502' },
-                    { id: 39, tier: 'core', text: 'Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir? Pilihlah satu jawaban', desc: 'Hanya tampil di GS-I & GS-II.', type: 'radio', required: false, code: 'f1001',
+                    { id: 39, tier: 'core', text: 'Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir? Pilihlah satu jawaban', desc: 'Hanya tampil di GS-I & GS-II.', type: 'radio', required: false, code: 'f1001', lainnyaCode: 'f1002',
                         options: ['Tidak', 'Tidak, tapi saya sedang menunggu hasil lamaran kerja', 'Ya, saya akan mulai bekerja dalam 2 minggu ke depan', 'Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan', 'Lainnya'] },
-                    { id: 67, tier: 'core', text: 'Sumber dana apa yang Anda gunakan untuk membiayai kuliah?', desc: 'Bukan ketika studi lanjut. Kode DIKTI wajib - tidak dapat dinonaktifkan.', type: 'radio', required: true, code: 'f1201',
+                    { id: 67, tier: 'core', text: 'Sumber dana apa yang Anda gunakan untuk membiayai kuliah?', desc: 'Bukan ketika studi lanjut. Kode DIKTI wajib - tidak dapat dinonaktifkan.', type: 'radio', required: true, code: 'f1201', lainnyaCode: 'f1202',
                         options: ['Biaya Sendiri / Keluarga', 'Beasiswa ADIK', 'Beasiswa BIDIKMISI', 'Beasiswa PPA', 'Beasiswa AFIRMASI', 'Beasiswa Perusahaan / Swasta', 'Lainnya'] }
                 ]
             },
             {
                 id: 2, name: 'Bekerja', locked: false, waveScope: ['gs-1', 'gs-2'],
                 questions: [
+                    { id: 38, tier: 'core', text: 'Dalam berapa bulan Anda mendapatkan pekerjaan pertama ini?', desc: 'Hanya tampil di GS-I & GS-II. Isi 0 jika sudah bekerja sebelum lulus. Kode sama dipakai versi Melanjutkan Pendidikan dengan wording berbeda. Kode f504 (gate ≤6 bulan, Panduan Form 2023) sudah dihapus di Panduan Form 2024 - jangan diimplementasikan.', type: 'number', required: true, code: 'f502' },
                     { id: 20, tier: 'core', text: 'Berapa rata-rata pendapatan Anda per bulan (Take Home Pay) saat ini? (Rp)', desc: 'Dasar hitung skor IKU 2 - ambang 1,2x UMP (Kepmen Diktisaintek No. 358/M/2025).', type: 'number', required: true, code: 'f505' },
-                    { id: 21, tier: 'core', text: 'Apa jenis perusahaan / instansi / institusi tempat Anda bekerja saat ini?', desc: 'Kategori resmi Kepmen Diktisaintek No. 358/M/2025.', type: 'radio', required: true, code: 'f1101',
+                    { id: 21, tier: 'core', text: 'Apa jenis perusahaan / instansi / institusi tempat Anda bekerja saat ini?', desc: 'Kategori resmi Kepmen Diktisaintek No. 358/M/2025. Opsi "Lainnya" tetap tercatat di kode yang sama (f1101), bukan kode terpisah.', type: 'radio', required: true, code: 'f1101',
                         options: ['Instansi pemerintah', 'BUMN / BUMD', 'Institusi / Organisasi Multilateral', 'Organisasi non-profit / Lembaga Swadaya Masyarakat', 'Perusahaan swasta', 'Wiraswasta / perusahaan sendiri', 'Lainnya'] },
                     { id: 41, tier: 'core', text: 'Kapan Anda mulai mencari pekerjaan yang Anda jalani saat ini?', type: 'radio', required: false, code: 'f301',
                         options: ['Sebelum lulus', 'Sesudah lulus', 'Saya tidak mencari kerja'] },
                     { id: 42, tier: 'core', text: 'Jika Anda mulai mencari pekerjaan sejak sebelum lulus, dalam berapa bulan sebelum lulus Anda memulai mencari pekerjaan?', desc: 'Tanggal Lulus = tanggal Yudisium.', type: 'number', required: false, code: 'f302' },
                     { id: 43, tier: 'core', text: 'Jika Anda mulai mencari pekerjaan sesudah lulus, dalam berapa bulan sesudah lulus Anda memulai mencari pekerjaan?', desc: 'Tanggal Lulus = tanggal Yudisium.', type: 'number', required: false, code: 'f303' },
-                    { id: 44, tier: 'core', text: 'Dimana tempat provinsi Anda bekerja saat ini?', type: 'text', required: true, code: 'f5a1' },
-                    { id: 45, tier: 'core', text: 'Dimana Kabupaten / Kota tempat Anda bekerja saat ini?', type: 'text', required: true, code: 'f5a2' },
+                    { id: 44, tier: 'core', text: 'Di mana tempat provinsi Anda bekerja saat ini?', type: 'text', required: true, code: 'f5a1' },
+                    { id: 45, tier: 'core', text: 'Di mana Kabupaten / Kota tempat Anda bekerja saat ini?', type: 'text', required: true, code: 'f5a2' },
                     { id: 46, tier: 'core', text: 'Apa nama perusahaan / kantor tempat Anda bekerja saat ini?', type: 'text', required: true, code: 'f5b' },
                     { id: 47, tier: 'core', text: 'Apa tingkat tempat kerja Anda saat ini?', type: 'radio', required: true, code: 'f5d',
                         options: ['Lokal / Wilayah / Berwirausaha tidak Berbadan Hukum', 'Nasional / Berwirausaha Berbadan Hukum', 'Multinasional / Internasional'] },
@@ -445,13 +461,15 @@
                         options: ['Sangat Erat', 'Erat', 'Cukup Erat', 'Kurang Erat', 'Tidak Sama Sekali'] },
                     { id: 49, tier: 'core', text: 'Tingkat pendidikan apa yang paling tepat / sesuai untuk pekerjaan Anda saat ini?', type: 'radio', required: true, code: 'f15',
                         options: ['Setingkat Lebih Tinggi', 'Tingkat yang Sama', 'Setingkat Lebih Rendah', 'Tidak Perlu Pendidikan Tinggi'] },
-                    { id: 68, tier: 'core', text: 'Bagaimana Anda mencari pekerjaan tersebut?', desc: 'Jawaban bisa lebih dari satu. Kode DIKTI wajib - tidak dapat dinonaktifkan.', type: 'checkbox', required: false, code: 'f4',
-                        options: ['Melalui iklan di koran / majalah, brosur', 'Melamar ke perusahaan tanpa mengetahui lowongan yang ada', 'Pergi ke bursa / pameran kerja', 'Mencari lewat internet / iklan online / milis', 'Dihubungi oleh perusahaan', 'Menghubungi Kemenakertrans', 'Menghubungi agen tenaga kerja komersial / swasta', 'Memperoleh informasi dari pusat / kantor pengembangan karir fakultas / universitas', 'Menghubungi kantor kemahasiswaan / hubungan alumni', 'Membangun jejaring (network) sejak masih kuliah', 'Melalui relasi (misalnya dosen, orang tua, saudara, teman, dll)', 'Membangun bisnis sendiri', 'Melalui penempatan kerja atau magang', 'Bekerja di tempat yang sama dengan tempat kerja semasa kuliah', 'Lainnya'] },
+                    { id: 68, tier: 'core', text: 'Bagaimana Anda mencari pekerjaan tersebut?', desc: 'Jawaban bisa lebih dari satu. Kode DIKTI wajib - tidak dapat dinonaktifkan. Tiap opsi checklist punya kode f40X sendiri (di bawah bendera grup f4).', type: 'checkbox', required: false, code: 'f4', lainnyaCode: 'f4016',
+                        options: ['Melalui iklan di koran / majalah, brosur', 'Melamar ke perusahaan tanpa mengetahui lowongan yang ada', 'Pergi ke bursa / pameran kerja', 'Mencari lewat internet / iklan online / milis', 'Dihubungi oleh perusahaan', 'Menghubungi Kemenakertrans', 'Menghubungi agen tenaga kerja komersial / swasta', 'Memperoleh informasi dari pusat / kantor pengembangan karir fakultas / universitas', 'Menghubungi kantor kemahasiswaan / hubungan alumni', 'Membangun jejaring (network) sejak masih kuliah', 'Melalui relasi (misalnya dosen, orang tua, saudara, teman, dll)', 'Membangun bisnis sendiri', 'Melalui penempatan kerja atau magang', 'Bekerja di tempat yang sama dengan tempat kerja semasa kuliah', 'Lainnya'],
+                        optionCodes: ['f401', 'f402', 'f403', 'f404', 'f405', 'f406', 'f407', 'f408', 'f409', 'f410', 'f411', 'f412', 'f413', 'f414', 'f415'] },
                     { id: 69, tier: 'core', text: 'Berapa perusahaan / instansi / institusi yang sudah Anda lamar sampai saat ini?', desc: 'Kode DIKTI wajib - tidak dapat dinonaktifkan.', type: 'number', required: false, code: 'f6' },
                     { id: 70, tier: 'core', text: 'Berapa banyak perusahaan / instansi / institusi yang merespons lamaran Anda sampai saat ini?', desc: 'Kode DIKTI wajib - tidak dapat dinonaktifkan.', type: 'number', required: false, code: 'f7' },
                     { id: 71, tier: 'core', text: 'Berapa banyak perusahaan / instansi / institusi yang mengundang Anda untuk wawancara sampai saat ini?', desc: 'Kode DIKTI wajib - tidak dapat dinonaktifkan.', type: 'number', required: false, code: 'f7a' },
-                    { id: 72, tier: 'core', text: 'Jika menurut Anda pekerjaan Anda saat ini tidak sesuai dengan pendidikan Anda, mengapa Anda mengambilnya?', desc: 'Jawaban bisa lebih dari satu. Kode DIKTI wajib - tidak dapat dinonaktifkan.', type: 'checkbox', required: false, code: 'f16',
-                        options: ['Pertanyaan tidak sesuai, pekerjaan saya sekarang sudah sesuai dengan pendidikan saya', 'Saya belum mendapatkan pekerjaan yang lebih sesuai', 'Di pekerjaan ini, saya memperoleh prospek karir yang baik', 'Saya lebih suka bekerja di area pekerjaan yang tidak ada hubungannya dengan pendidikan saya', 'Saya dipromosikan ke posisi yang kurang berhubungan dengan pendidikan saya dibanding posisi sebelumnya', 'Saya dapat memperoleh pendapatan yang lebih tinggi di pekerjaan ini', 'Pekerjaan saya saat ini lebih aman / terjamin / secure', 'Pekerjaan saya saat ini lebih menarik', 'Pekerjaan saya saat ini, lebih memungkinkan saya mengambil pekerjaan tambahan / jadwal yang fleksibel, dll', 'Pekerjaan saya saat ini lokasinya lebih dekat dari rumah saya', 'Pekerjaan saya saat ini dapat lebih menjamin kebutuhan keluarga saya', 'Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya', 'Lainnya'] }
+                    { id: 72, tier: 'core', text: 'Jika menurut Anda pekerjaan Anda saat ini tidak sesuai dengan pendidikan Anda, mengapa Anda mengambilnya?', desc: 'Jawaban bisa lebih dari satu. Kode DIKTI wajib - tidak dapat dinonaktifkan. Tiap opsi checklist punya kode f16XX sendiri (di bawah bendera grup f16).', type: 'checkbox', required: false, code: 'f16', lainnyaCode: 'f1614',
+                        options: ['Pertanyaan tidak sesuai, pekerjaan saya sekarang sudah sesuai dengan pendidikan saya', 'Saya belum mendapatkan pekerjaan yang lebih sesuai', 'Di pekerjaan ini, saya memperoleh prospek karir yang baik', 'Saya lebih suka bekerja di area pekerjaan yang tidak ada hubungannya dengan pendidikan saya', 'Saya dipromosikan ke posisi yang kurang berhubungan dengan pendidikan saya dibanding posisi sebelumnya', 'Saya dapat memperoleh pendapatan yang lebih tinggi di pekerjaan ini', 'Pekerjaan saya saat ini lebih aman / terjamin / secure', 'Pekerjaan saya saat ini lebih menarik', 'Pekerjaan saya saat ini, lebih memungkinkan saya mengambil pekerjaan tambahan / jadwal yang fleksibel, dll', 'Pekerjaan saya saat ini lokasinya lebih dekat dari rumah saya', 'Pekerjaan saya saat ini dapat lebih menjamin kebutuhan keluarga saya', 'Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya', 'Lainnya'],
+                        optionCodes: ['f1601', 'f1602', 'f1603', 'f1604', 'f1605', 'f1606', 'f1607', 'f1608', 'f1609', 'f1610', 'f1611', 'f1612', 'f1613'] }
                 ]
             },
             {
@@ -460,14 +478,14 @@
                     { id: 22, tier: 'core', text: 'Status kewirausahaan Anda saat ini?', desc: 'Menentukan bobot skor IKU 2 (Kepmen Diktisaintek No. 358/M/2025).', type: 'radio', required: true, code: 'f5c',
                         options: ['Founder', 'Co-Founder', 'Staff', 'Freelance / Kerja Lepas'] },
                     { id: 23, tier: 'core', text: 'Berapa rata-rata pendapatan Anda dari usaha ini per bulan (Take Home Pay) saat ini? (Rp)', type: 'number', required: true, code: 'f505' },
-                    { id: 66, tier: 'core', text: 'Apa jenis perusahaan / usaha wiraswasta yang Anda kelola saat ini?', type: 'radio', required: true, code: 'f1101',
+                    { id: 66, tier: 'core', text: 'Apa jenis perusahaan / usaha wiraswasta yang Anda kelola saat ini?', desc: 'Opsi "Lainnya" tetap tercatat di kode yang sama (f1101), bukan kode terpisah.', type: 'radio', required: true, code: 'f1101',
                         options: ['Instansi pemerintah', 'BUMN / BUMD', 'Institusi / Organisasi Multilateral', 'Organisasi non-profit / Lembaga Swadaya Masyarakat', 'Perusahaan swasta', 'Wiraswasta / perusahaan sendiri', 'Lainnya'] },
                     { id: 50, tier: 'core', text: 'Kapan anda mulai merencanakan berwiraswasta?', type: 'radio', required: false, code: 'f301',
                         options: ['Sebelum lulus', 'Sesudah lulus', 'Saya tidak merencanakan berwiraswasta'] },
                     { id: 51, tier: 'core', text: 'Jika Anda mulai merencanakan berwiraswasta sejak sebelum lulus, dalam berapa bulan sebelum lulus Anda memulai merencanakannya?', desc: 'Tanggal Lulus = tanggal Yudisium.', type: 'number', required: false, code: 'f302' },
                     { id: 52, tier: 'core', text: 'Jika Anda mulai merencanakan berwiraswasta sejak sesudah lulus, dalam berapa bulan sesudah lulus Anda memulai merencanakannya?', desc: 'Tanggal Lulus = tanggal Yudisium.', type: 'number', required: false, code: 'f303' },
-                    { id: 53, tier: 'core', text: 'Dimana provinsi tempat Anda berwiraswasta saat ini?', type: 'text', required: true, code: 'f5a1' },
-                    { id: 54, tier: 'core', text: 'Dimana Kabupaten / Kota tempat Anda berwiraswasta saat ini?', type: 'text', required: true, code: 'f5a2' },
+                    { id: 53, tier: 'core', text: 'Di mana provinsi tempat Anda berwiraswasta saat ini?', type: 'text', required: true, code: 'f5a1' },
+                    { id: 54, tier: 'core', text: 'Di mana Kabupaten / Kota tempat Anda berwiraswasta saat ini?', type: 'text', required: true, code: 'f5a2' },
                     { id: 55, tier: 'core', text: 'Apa nama perusahaan / kantor tempat Anda berwiraswasta saat ini?', type: 'text', required: true, code: 'f5b' },
                     { id: 56, tier: 'core', text: 'Apa tingkat / ukuran tempat berwiraswasta Anda saat ini?', type: 'radio', required: true, code: 'f5d',
                         options: ['Lokal / Wilayah / Berwirausaha tidak Berbadan Hukum', 'Nasional / Berwirausaha Berbadan Hukum', 'Multinasional / Internasional'] },
@@ -475,15 +493,17 @@
                         options: ['Sangat Erat', 'Erat', 'Cukup Erat', 'Kurang Erat', 'Tidak Sama Sekali'] },
                     { id: 58, tier: 'core', text: 'Tingkat pendidikan apa yang paling tepat / sesuai untuk pekerjaan Anda saat ini?', type: 'radio', required: true, code: 'f15',
                         options: ['Setingkat Lebih Tinggi', 'Tingkat yang Sama', 'Setingkat Lebih Rendah', 'Tidak Perlu Pendidikan Tinggi'] },
-                    { id: 73, tier: 'core', text: 'Jika menurut Anda pekerjaan Anda saat ini tidak sesuai dengan pendidikan Anda, mengapa Anda mengambilnya?', desc: 'Jawaban bisa lebih dari satu. Kode DIKTI wajib - tidak dapat dinonaktifkan.', type: 'checkbox', required: false, code: 'f16',
-                        options: ['Pertanyaan tidak sesuai, pekerjaan saya sekarang sudah sesuai dengan pendidikan saya', 'Saya belum mendapatkan pekerjaan yang lebih sesuai', 'Di pekerjaan ini, saya memperoleh prospek karir yang baik', 'Saya lebih suka bekerja di area pekerjaan yang tidak ada hubungannya dengan pendidikan saya', 'Saya dipromosikan ke posisi yang kurang berhubungan dengan pendidikan saya dibanding posisi sebelumnya', 'Saya dapat memperoleh pendapatan yang lebih tinggi di pekerjaan ini', 'Pekerjaan saya saat ini lebih aman / terjamin / secure', 'Pekerjaan saya saat ini lebih menarik', 'Pekerjaan saya saat ini, lebih memungkinkan saya mengambil pekerjaan tambahan / jadwal yang fleksibel, dll', 'Pekerjaan saya saat ini lokasinya lebih dekat dari rumah saya', 'Pekerjaan saya saat ini dapat lebih menjamin kebutuhan keluarga saya', 'Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya', 'Lainnya'] }
+                    { id: 73, tier: 'core', text: 'Jika menurut Anda pekerjaan Anda saat ini tidak sesuai dengan pendidikan Anda, mengapa Anda mengambilnya?', desc: 'Jawaban bisa lebih dari satu. Kode DIKTI wajib - tidak dapat dinonaktifkan. Tiap opsi checklist punya kode f16XX sendiri (di bawah bendera grup f16).', type: 'checkbox', required: false, code: 'f16', lainnyaCode: 'f1614',
+                        options: ['Pertanyaan tidak sesuai, pekerjaan saya sekarang sudah sesuai dengan pendidikan saya', 'Saya belum mendapatkan pekerjaan yang lebih sesuai', 'Di pekerjaan ini, saya memperoleh prospek karir yang baik', 'Saya lebih suka bekerja di area pekerjaan yang tidak ada hubungannya dengan pendidikan saya', 'Saya dipromosikan ke posisi yang kurang berhubungan dengan pendidikan saya dibanding posisi sebelumnya', 'Saya dapat memperoleh pendapatan yang lebih tinggi di pekerjaan ini', 'Pekerjaan saya saat ini lebih aman / terjamin / secure', 'Pekerjaan saya saat ini lebih menarik', 'Pekerjaan saya saat ini, lebih memungkinkan saya mengambil pekerjaan tambahan / jadwal yang fleksibel, dll', 'Pekerjaan saya saat ini lokasinya lebih dekat dari rumah saya', 'Pekerjaan saya saat ini dapat lebih menjamin kebutuhan keluarga saya', 'Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya', 'Lainnya'],
+                        optionCodes: ['f1601', 'f1602', 'f1603', 'f1604', 'f1605', 'f1606', 'f1607', 'f1608', 'f1609', 'f1610', 'f1611', 'f1612', 'f1613'] }
                 ]
             },
             {
                 id: 4, name: 'Melanjutkan Pendidikan', locked: false, waveScope: ['gs-1', 'gs-2'],
                 questions: [
                     { id: 24, tier: 'core', text: 'Kapan Anda menerima surat penerimaan studi lanjut?', desc: 'Kriteria IKU 2: diterima &lt;12 bulan sejak kelulusan dihitung sebagai outcome positif (Kepmen 358/M/2025).', type: 'date', required: true, code: 'f18d' },
-                    { id: 40, tier: 'core', text: 'Jenjang Studi Lanjut', desc: 'Satu-satunya field block-studi di wizard responden saat ini.', type: 'radio', required: true, code: 'JENJANG_STUDI_LANJUT',
+                    { id: 113, tier: 'core', text: 'Dalam berapa bulan Anda mulai melanjutkan studi ini?', desc: 'Hanya tampil di GS-I & GS-II. Isi 0 jika sudah studi lanjut sebelum lulus. Kode sama dipakai versi Bekerja dengan wording berbeda. Kode f504 (gate ≤6 bulan, Panduan Form 2023) sudah dihapus di Panduan Form 2024 - jangan diimplementasikan.', type: 'number', required: true, code: 'f502' },
+                    { id: 40, tier: 'core', text: 'Jenjang Studi Lanjut', type: 'radio', required: true, code: 'JENJANG_STUDI_LANJUT',
                         options: ['S1', 'S2', 'S3', 'Profesi'] },
                     { id: 59, tier: 'core', text: 'Dari manakah sumber biaya studi lanjut Anda', type: 'radio', required: true, code: 'f18a',
                         options: ['Biaya Sendiri', 'Beasiswa'] },
@@ -500,8 +520,9 @@
                         options: ['Sebelum lulus', 'Sesudah lulus', 'Saya tidak mencari kerja'] },
                     { id: 64, tier: 'core', text: 'Jika Anda mulai mencari pekerjaan sejak sebelum lulus, dalam berapa bulan sebelum lulus Anda memulai mencari pekerjaan?', desc: 'Tanggal Lulus = tanggal Yudisium.', type: 'number', required: false, code: 'f302' },
                     { id: 65, tier: 'core', text: 'Jika Anda mulai mencari pekerjaan sesudah lulus, dalam berapa bulan sesudah lulus Anda memulai mencari pekerjaan?', desc: 'Tanggal Lulus = tanggal Yudisium.', type: 'number', required: false, code: 'f303' },
-                    { id: 74, tier: 'core', text: 'Bagaimana Anda mencari pekerjaan tersebut?', desc: 'Jawaban bisa lebih dari satu. Kode DIKTI wajib - tidak dapat dinonaktifkan.', type: 'checkbox', required: false, code: 'f4',
-                        options: ['Melalui iklan di koran / majalah, brosur', 'Melamar ke perusahaan tanpa mengetahui lowongan yang ada', 'Pergi ke bursa / pameran kerja', 'Mencari lewat internet / iklan online / milis', 'Dihubungi oleh perusahaan', 'Menghubungi Kemenakertrans', 'Menghubungi agen tenaga kerja komersial / swasta', 'Memperoleh informasi dari pusat / kantor pengembangan karir fakultas / universitas', 'Menghubungi kantor kemahasiswaan / hubungan alumni', 'Membangun jejaring (network) sejak masih kuliah', 'Melalui relasi (misalnya dosen, orang tua, saudara, teman, dll)', 'Membangun bisnis sendiri', 'Melalui penempatan kerja atau magang', 'Bekerja di tempat yang sama dengan tempat kerja semasa kuliah', 'Lainnya'] },
+                    { id: 74, tier: 'core', text: 'Bagaimana Anda mencari pekerjaan tersebut?', desc: 'Jawaban bisa lebih dari satu. Kode DIKTI wajib - tidak dapat dinonaktifkan. Tiap opsi checklist punya kode f40X sendiri (di bawah bendera grup f4).', type: 'checkbox', required: false, code: 'f4', lainnyaCode: 'f4016',
+                        options: ['Melalui iklan di koran / majalah, brosur', 'Melamar ke perusahaan tanpa mengetahui lowongan yang ada', 'Pergi ke bursa / pameran kerja', 'Mencari lewat internet / iklan online / milis', 'Dihubungi oleh perusahaan', 'Menghubungi Kemenakertrans', 'Menghubungi agen tenaga kerja komersial / swasta', 'Memperoleh informasi dari pusat / kantor pengembangan karir fakultas / universitas', 'Menghubungi kantor kemahasiswaan / hubungan alumni', 'Membangun jejaring (network) sejak masih kuliah', 'Melalui relasi (misalnya dosen, orang tua, saudara, teman, dll)', 'Membangun bisnis sendiri', 'Melalui penempatan kerja atau magang', 'Bekerja di tempat yang sama dengan tempat kerja semasa kuliah', 'Lainnya'],
+                        optionCodes: ['f401', 'f402', 'f403', 'f404', 'f405', 'f406', 'f407', 'f408', 'f409', 'f410', 'f411', 'f412', 'f413', 'f414', 'f415'] },
                     { id: 75, tier: 'core', text: 'Berapa perusahaan / instansi / institusi yang sudah Anda lamar sampai saat ini?', desc: 'Kode DIKTI wajib - tidak dapat dinonaktifkan.', type: 'number', required: false, code: 'f6' },
                     { id: 76, tier: 'core', text: 'Berapa banyak perusahaan / instansi / institusi yang merespon lamaran Anda sampai saat ini?', desc: 'Kode DIKTI wajib - tidak dapat dinonaktifkan.', type: 'number', required: false, code: 'f7' },
                     { id: 77, tier: 'core', text: 'Berapa banyak perusahaan / instansi / institusi yang mengundang Anda untuk wawancara sampai saat ini?', desc: 'Kode DIKTI wajib - tidak dapat dinonaktifkan.', type: 'number', required: false, code: 'f7a' }
@@ -510,7 +531,16 @@
             {
                 id: 6, name: 'Tingkat Kompetensi', locked: false, waveScope: ['gs-1', 'gs-2'],
                 questions: [
-                    { id: 25, tier: 'core', text: 'Tingkat kompetensi yang dibutuhkan pekerjaan/kegiatan Anda saat ini', desc: 'Bagian B - dibandingkan dengan "Tingkat kompetensi yang dikuasai saat lulus" (Bagian A, Section Informasi Umum) untuk mengukur kesenjangan kompetensi. Kemdikbud & Kemenkes (Konsep Pertanyaan §9.3).', type: 'scale', required: true, code: 'f17' }
+                    { id: 25, tier: 'core', text: 'Tingkat kompetensi yang dibutuhkan pekerjaan/kegiatan Anda saat ini', desc: 'Bagian B (PDDIKTI Q12): "Pada saat ini, pada tingkat mana kompetensi di bawah ini diperlukan dalam pekerjaan?" - dibandingkan dengan "Tingkat kompetensi yang dikuasai saat lulus" (Bagian A, Section Informasi Umum) untuk mengukur kesenjangan kompetensi. Tiap aspek punya kode f176X sendiri (genap = Bagian B). Kemdikbud & Kemenkes (Konsep Pertanyaan §9.3).', type: 'scale', required: true, code: 'f17',
+                        aspects: [
+                            { label: 'Etika', code: 'f1762' },
+                            { label: 'Keahlian Bidang Ilmu', code: 'f1764' },
+                            { label: 'Bahasa Asing', code: 'f1766' },
+                            { label: 'Penggunaan Teknologi Informasi', code: 'f1768' },
+                            { label: 'Komunikasi', code: 'f1770' },
+                            { label: 'Kerja Sama Tim', code: 'f1772' },
+                            { label: 'Pengembangan Diri', code: 'f1774' }
+                        ] }
                 ]
             },
             { id: 7, name: 'Rencana Karier Lanjutan', locked: false, waveScope: ['gs-2'], questions: [] }
@@ -781,11 +811,34 @@
                         <button type="button" class="btn btn_outline btn_xs btn_icon" onclick="deleteCustomOption(${sectionIndex}, ${qi}, ${oi})" ${q.options.length <= 1 ? 'style="visibility:hidden"' : ''}><span class="icon icon-x-mark-mini"></span></button>
                     </div>`;
                 }
-                return `<div class="question-card__option"><span class="question-card__option-index">${oi + 1}</span><span class="question-card__option-text">${opt}</span></div>`;
+                // Beberapa checklist DIKTI (mis. f4, f16) mengode tiap opsi secara terpisah
+                // (f401, f402, ... bukan cuma satu kode f4 untuk semua) - admin gampang tidak
+                // ngeh soal ini karena kartu pertanyaan cuma menampilkan satu kode di footer,
+                // jadi kode per-opsi ditampilkan langsung di sebelah tiap baris opsinya.
+                const optCode = (q.optionCodes && q.optionCodes[oi])
+                    ? `<span class="tag tag_outline tag_sm" style="background: var(--qn-warning-50, #fffbeb); border-color: var(--qn-warning-300, #fcd34d); color: var(--qn-warning-700, #b45309);" data-tooltip="Kode DIKTI opsi ini secara spesifik">${q.optionCodes[oi]}</span>`
+                    : '';
+                return `<div class="question-card__option"><span class="question-card__option-index">${oi + 1}</span><span class="question-card__option-text">${opt}</span>${optCode}</div>`;
             }).join('') + `</div>`;
             if (tier === 'custom') optionsHtml += `<span class="question-card__add-option" onclick="addCustomOption(${sectionIndex}, ${qi})">+ Tambah opsi</span>`;
         } else if (q.type === 'scale') {
-            optionsHtml = `<div class="question-card__options" style="flex-direction:row;">` + [1, 2, 3, 4, 5].map(n => `<div class="question-card__option" style="flex:1; justify-content:center;">${n}</div>`).join('') + `</div>`;
+            if (Array.isArray(q.aspects) && q.aspects.length) {
+                // Beberapa pertanyaan skala sebenarnya matriks multi-aspek (mis. 7 aspek kompetensi
+                // f1761-f1774, atau 7 aspek metode pembelajaran f21-f27) - kartu generik "cuma satu
+                // baris 1-5" menyembunyikan fakta itu dari admin. Tiap aspek dirender sebagai baris
+                // sendiri lengkap dengan kode DIKTI-nya masing-masing, meniru struktur asli di form.
+                optionsHtml = `<div class="question-card__options">` + q.aspects.map(a => {
+                    const scaleBar = `<div style="display:flex; gap:0.25rem; flex-shrink:0;">` + [1, 2, 3, 4, 5].map(n => `<span style="min-width:1.5rem; height:1.5rem; display:flex; align-items:center; justify-content:center; border:1px solid var(--qn-neutral-200); border-radius:0.25rem; font-size:0.75rem; color:var(--qn-neutral-500);">${n}</span>`).join('') + `</div>`;
+                    const aspectCode = a.code ? `<span class="tag tag_outline tag_sm" style="background: var(--qn-warning-50, #fffbeb); border-color: var(--qn-warning-300, #fcd34d); color: var(--qn-warning-700, #b45309);" data-tooltip="Kode DIKTI aspek ini secara spesifik">${a.code}</span>` : '';
+                    return `<div class="question-card__option" style="justify-content:space-between;">
+                        <span class="question-card__option-text" style="flex:1; font-weight:500;">${a.label}</span>
+                        ${scaleBar}
+                        ${aspectCode}
+                    </div>`;
+                }).join('') + `</div>`;
+            } else {
+                optionsHtml = `<div class="question-card__options" style="flex-direction:row;">` + [1, 2, 3, 4, 5].map(n => `<div class="question-card__option" style="flex:1; justify-content:center;">${n}</div>`).join('') + `</div>`;
+            }
         } else {
             optionsHtml = `<div class="question-card__option question-card__option--preview">Jawaban responden akan muncul di sini...</div>`;
         }
@@ -797,22 +850,32 @@
         // di docs/template-question/lengkap.json - dipakai admin untuk cross-check/monitoring, bukan
         // dibuat-buat untuk pertanyaan yang memang tidak punya kode standar.
         const codeTag = q.code ? `<span class="tag tag_outline tag_sm" data-tooltip="Kode pertanyaan - untuk monitoring/cross-check dengan docs/template-question/lengkap.json">Kode: ${q.code}</span>` : '';
+        // Kolom teks bebas yang muncul saat opsi "Lainnya" dipilih punya kode DIKTI sendiri (mis.
+        // f1002 untuk f1001, f4016 untuk f4) yang gampang luput dari perhatian admin karena tidak
+        // pernah tampil sebagai kartu pertanyaan terpisah - jadi ditandai eksplisit di sini,
+        // dibedakan warnanya (amber) dari kode pertanyaan utama supaya langsung "ngeh".
+        const hasLainnya = Array.isArray(q.options) && q.options.includes('Lainnya');
+        const lainnyaCodeTag = (hasLainnya && q.lainnyaCode)
+            ? `<span class="tag tag_outline tag_sm" style="background: var(--qn-warning-50, #fffbeb); border-color: var(--qn-warning-300, #fcd34d); color: var(--qn-warning-700, #b45309);" data-tooltip="Kolom teks bebas opsi &quot;Lainnya&quot; punya kode DIKTI sendiri, terpisah dari kode pertanyaan utama">Kode Lainnya: ${q.lainnyaCode}</span>`
+            : '';
         let footerHtml;
         if (tier === 'core') {
             footerHtml = `<div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.375rem;">
-                <span class="tag tag_outline tag_sm">${q.required ? 'Wajib diisi' : 'Opsional'}</span>
+                <span class="tag tag_outline tag_sm">${q.required ? 'Wajib' : 'Opsional'}</span>
                 ${codeTag}
+                ${lainnyaCodeTag}
             </div>`;
         } else if (tier === 'optional') {
             footerHtml = `<div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.375rem;">
                 ${(q.regulatorTags || []).map(t => `<span class="tag tag_outline tag_sm">${REGULATOR_LABELS[t]}</span>`).join('')}
-                <span class="tag tag_outline tag_sm">${q.required ? 'Wajib diisi' : 'Opsional'}</span>
+                <span class="tag tag_outline tag_sm">${q.required ? 'Wajib' : 'Opsional'}</span>
                 ${codeTag}
+                ${lainnyaCodeTag}
             </div>`;
         } else {
             footerHtml = `
                 <div style="display:flex; align-items:center; gap:0.5rem; font-size:0.8125rem; color:var(--qn-neutral-600);">
-                    <span>Wajib diisi</span>
+                    <span>Wajib</span>
                     ${switchHtml(`sw-req-${sectionIndex}-${qi}`, !!q.required, `updateCustomQuestion(${sectionIndex}, ${qi}, 'required', this.checked)`)}
                 </div>`;
         }

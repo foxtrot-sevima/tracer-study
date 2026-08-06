@@ -152,6 +152,10 @@
         .tsf-scale-table__row .tsf-scale-options, .tsf-scale-table__head-cols { justify-content: center; flex-wrap: nowrap; }
         .tsf-scale-table__label { font-size: 0.9375rem; color: var(--qn-neutral-800, #1f2937); }
 
+        .tsf-scale-single { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.75rem; flex-wrap: wrap; }
+        .tsf-scale-single .tsf-scale-options { flex: 1 1 14rem; }
+        .tsf-scale-single__caption { font-size: 0.8125rem; color: var(--qn-neutral-500, #6b7280); flex-shrink: 0; }
+
         /* Small note flagging variables that still need validation against the official guidebook */
         .tsf-caveat { font-size: 0.75em; color: var(--qn-warning-600, #d97706); margin-top: 0.375rem; font-style: italic; }
 
@@ -325,7 +329,7 @@
                             <div class="tsf-question" role="group" aria-labelledby="q5-label">
                                 <div class="tsf-question__label-row">
                                     <span class="tsf-question__number" aria-hidden="true">1.</span>
-                                    <p class="tsf-question__label" id="q5-label">Jelaskan status Anda saat ini?<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                    <p class="tsf-question__label" id="q5-label">Jelaskan status Anda saat ini?<span class="tsf-required" aria-label="Wajib">*</span></p>
                                 </div>
                                 <p class="tsf-question__desc">Boleh pilih lebih dari satu jika lebih dari satu status berlaku untuk Anda saat ini.</p>
                                 <div class="tsf-checkbox-group" id="q5-checkbox-group">
@@ -356,7 +360,7 @@
                             <div class="tsf-question tsf-conditional" id="question-status-utama" style="display: none;" aria-hidden="true" role="radiogroup" aria-labelledby="status-utama-label">
                                 <div class="tsf-question__label-row">
                                     <span class="tsf-question__number" aria-hidden="true">1a.</span>
-                                    <p class="tsf-question__label" id="status-utama-label">Dari status yang dipilih, mana status utama Anda?<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                    <p class="tsf-question__label" id="status-utama-label">Dari status yang dipilih, mana status utama Anda?<span class="tsf-required" aria-label="Wajib">*</span></p>
                                 </div>
                                 <p class="tsf-question__desc">Wajib dipilih untuk klasifikasi laporan nasional karena Anda memilih lebih dari satu status sekaligus.</p>
                                 <div class="tsf-radio-group" id="status-utama-options"></div>
@@ -366,7 +370,7 @@
                             <div class="tsf-question" role="radiogroup" aria-labelledby="q6-label">
                                 <div class="tsf-question__label-row">
                                     <span class="tsf-question__number" aria-hidden="true">2.</span>
-                                    <p class="tsf-question__label" id="q6-label">Sumber dana apa yang Anda gunakan untuk membiayai kuliah?<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                    <p class="tsf-question__label" id="q6-label">Sumber dana apa yang Anda gunakan untuk membiayai kuliah?<span class="tsf-required" aria-label="Wajib">*</span></p>
                                 </div>
                                 <p class="tsf-question__desc">Boleh ketika studi lanjut</p>
                                 <div class="tsf-radio-group">
@@ -389,36 +393,11 @@
                                 </div>
                             </div>
 
-                            <!-- Question 7 - Radio: Pekerjaan sebelum lulus (CONDITIONAL TRIGGER) -->
-                            <div class="tsf-question" role="radiogroup" aria-labelledby="q7-label" id="question-7">
-                                <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">3.</span>
-                                    <p class="tsf-question__label" id="q7-label">Apakah Anda mendapatkan pekerjaan pertama / melanjutkan pendidikan sebelum lulus?<span class="tsf-required" aria-label="wajib diisi">*</span></p>
-                                </div>
-                                <div class="tsf-radio-group">
-                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-ya" value="ya" onchange="applyQ7Logic('ya')"><label for="q7-ya" class="form-control__label-radio">Ya</label></label>
-                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q7" id="q7-tidak" value="tidak" onchange="applyQ7Logic('tidak')"><label for="q7-tidak" class="form-control__label-radio">Tidak</label></label>
-                                </div>
-                            </div>
-
-                            <!-- Question 8 - Number Input: Waktu tunggu (CONDITIONAL - only shows if Q7 = Tidak) -->
-                            <div class="tsf-question tsf-conditional" id="question-8" style="display: none;" aria-hidden="true">
-                                <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">3a.</span>
-                                    <label for="input-waiting-time" class="tsf-question__label">Dalam berapa bulan Anda mendapatkan pekerjaan pertama / melanjutkan studi setelah lulus?<span class="tsf-required" aria-label="wajib diisi">*</span></label>
-                                </div>
-                                <div class="form-control" style="margin-top: 0.5rem;">
-                                    <div class="form-control__group">
-                                        <input type="number" id="input-waiting-time" class="form-control__input" placeholder="Jawaban angka (dalam bulan)" min="0" max="120" inputmode="numeric" oninput="updateAnsweredCount()">
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- Question 9 - Radio: Aktif mencari pekerjaan -->
                             <div class="tsf-question" role="radiogroup" aria-labelledby="q9-label">
                                 <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">4.</span>
-                                    <p class="tsf-question__label" id="q9-label">Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir? Pilihlah satu jawaban<span class="tsf-required" aria-label="wajib diisi">*</span></p>
+                                    <span class="tsf-question__number" aria-hidden="true">3.</span>
+                                    <p class="tsf-question__label" id="q9-label">Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir? Pilihlah satu jawaban<span class="tsf-required" aria-label="Wajib">*</span></p>
                                 </div>
                                 <div class="tsf-radio-group">
                                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q9" id="q9-a" value="tidak" onchange="updateAnsweredCount()"><label for="q9-a" class="form-control__label-radio">Tidak</label></label>
@@ -438,38 +417,129 @@
                                 </div>
                             </div>
 
-                            <!-- Question 10 - Kompetensi B: tingkat kompetensi yang dibutuhkan pekerjaan saat ini (GS-I new) -->
-                            <div class="tsf-question" role="group" aria-labelledby="q10-label">
-                                <div class="tsf-question__label-row">
-                                    <span class="tsf-question__number" aria-hidden="true">5.</span>
-                                    <p class="tsf-question__label" id="q10-label">Tingkat Kompetensi yang Dibutuhkan Pekerjaan Saat Ini<span class="tsf-required" aria-label="wajib diisi">*</span></p>
-                                </div>
-                                <p class="tsf-question__desc">Nilai 1 (Sangat Rendah) - 5 (Sangat Tinggi) tiap aspek berikut, berdasarkan kebutuhan pekerjaan Anda SAAT INI (Kompetensi B) - untuk dibandingkan dengan Kompetensi A yang Anda nilai saat lulus.</p>
+                        </div>
+                    </div>
+                </section>
 
-                                <div class="card-insight">
-                                    <div class="card-insight__icon card-insight__icon_info">
-                                        <span class="icon icon-information-circle-mini"></span>
-                                    </div>
-                                    <div class="card-insight__text">
-                                        <p style="margin: 0 0 0.5rem;">Referensi (read-only) jawaban Kompetensi A Anda saat Exit Survey (2025):</p>
-                                        <div class="tsf-ref-table-wrap">
-                                            <table class="tsf-ref-table">
-                                                <thead>
-                                                    <tr><th>Aspek Kompetensi</th><th>Exit (2025)</th></tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr><td>Etika</td><td><span class="badge badge_success">4</span></td></tr>
-                                                    <tr><td>Keahlian Bidang Ilmu</td><td><span class="badge badge_warning">3</span></td></tr>
-                                                    <tr><td>Bahasa Asing</td><td><span class="badge badge_warning">3</span></td></tr>
-                                                    <tr><td>TIK</td><td><span class="badge badge_success">4</span></td></tr>
-                                                    <tr><td>Komunikasi</td><td><span class="badge badge_success">4</span></td></tr>
-                                                    <tr><td>Kerja Sama Tim</td><td><span class="badge badge_success">5</span></td></tr>
-                                                    <tr><td>Pengembangan Diri</td><td><span class="badge badge_success">4</span></td></tr>
-                                                </tbody>
-                                            </table>
+                <!-- Section: Tingkat Kompetensi (builder section id 6 - Kompetensi B + optional bank default-active) -->
+                <section aria-labelledby="section-kompetensi">
+                    <div class="card" style="margin-bottom: 1.5rem;">
+                        <div class="card__header">
+                            <h2 class="card__title" id="section-kompetensi">Tingkat Kompetensi</h2>
+                        </div>
+                        <div class="card__body">
+
+                            <!-- Question 1 - Kompetensi A: tingkat kompetensi yang dikuasai saat lulus (kode f17/f1761-f1773, ganjil) -->
+                            <div class="tsf-question" role="group" aria-labelledby="q9-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">1.</span>
+                                    <p class="tsf-question__label" id="q9-label">Tingkat Kompetensi yang Dikuasai Saat Lulus<span class="tsf-required" aria-label="Wajib">*</span></p>
+                                </div>
+                                <p class="tsf-question__desc">Beri nilai 1 (sangat rendah) sampai 5 (sangat tinggi) untuk tiap aspek kompetensi berikut (Kompetensi A) - dasar perbandingan untuk Kompetensi B di bawah.</p>
+
+                                <div class="tsf-scale-table-wrap">
+                                    <div class="tsf-scale-table">
+                                        <div class="tsf-scale-table__head">
+                                            <span>Aspek Kompetensi</span>
+                                            <div class="tsf-scale-table__head-cols">
+                                                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-1 Etika -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Etika">
+                                            <span class="tsf-scale-table__label">Etika</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-1" id="q9-1-1" value="1" onchange="updateAnsweredCount()"><label for="q9-1-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-1" id="q9-1-2" value="2" onchange="updateAnsweredCount()"><label for="q9-1-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-1" id="q9-1-3" value="3" onchange="updateAnsweredCount()"><label for="q9-1-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-1" id="q9-1-4" value="4" onchange="updateAnsweredCount()"><label for="q9-1-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-1" id="q9-1-5" value="5" onchange="updateAnsweredCount()"><label for="q9-1-5" class="tsf-scale-label">5</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-2 Keahlian Bidang Ilmu -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Keahlian Bidang Ilmu">
+                                            <span class="tsf-scale-table__label">Keahlian Bidang Ilmu</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-2" id="q9-2-1" value="1" onchange="updateAnsweredCount()"><label for="q9-2-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-2" id="q9-2-2" value="2" onchange="updateAnsweredCount()"><label for="q9-2-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-2" id="q9-2-3" value="3" onchange="updateAnsweredCount()"><label for="q9-2-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-2" id="q9-2-4" value="4" onchange="updateAnsweredCount()"><label for="q9-2-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-2" id="q9-2-5" value="5" onchange="updateAnsweredCount()"><label for="q9-2-5" class="tsf-scale-label">5</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-3 Bahasa Asing -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Bahasa Asing">
+                                            <span class="tsf-scale-table__label">Bahasa Asing</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-3" id="q9-3-1" value="1" onchange="updateAnsweredCount()"><label for="q9-3-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-3" id="q9-3-2" value="2" onchange="updateAnsweredCount()"><label for="q9-3-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-3" id="q9-3-3" value="3" onchange="updateAnsweredCount()"><label for="q9-3-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-3" id="q9-3-4" value="4" onchange="updateAnsweredCount()"><label for="q9-3-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-3" id="q9-3-5" value="5" onchange="updateAnsweredCount()"><label for="q9-3-5" class="tsf-scale-label">5</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-4 Penggunaan Teknologi Informasi -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Penggunaan Teknologi Informasi">
+                                            <span class="tsf-scale-table__label">Penggunaan Teknologi Informasi</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-4" id="q9-4-1" value="1" onchange="updateAnsweredCount()"><label for="q9-4-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-4" id="q9-4-2" value="2" onchange="updateAnsweredCount()"><label for="q9-4-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-4" id="q9-4-3" value="3" onchange="updateAnsweredCount()"><label for="q9-4-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-4" id="q9-4-4" value="4" onchange="updateAnsweredCount()"><label for="q9-4-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-4" id="q9-4-5" value="5" onchange="updateAnsweredCount()"><label for="q9-4-5" class="tsf-scale-label">5</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-5 Komunikasi -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Komunikasi">
+                                            <span class="tsf-scale-table__label">Komunikasi</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-5" id="q9-5-1" value="1" onchange="updateAnsweredCount()"><label for="q9-5-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-5" id="q9-5-2" value="2" onchange="updateAnsweredCount()"><label for="q9-5-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-5" id="q9-5-3" value="3" onchange="updateAnsweredCount()"><label for="q9-5-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-5" id="q9-5-4" value="4" onchange="updateAnsweredCount()"><label for="q9-5-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-5" id="q9-5-5" value="5" onchange="updateAnsweredCount()"><label for="q9-5-5" class="tsf-scale-label">5</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-6 Kerja Sama Tim -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Kerja Sama Tim">
+                                            <span class="tsf-scale-table__label">Kerja Sama Tim</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-6" id="q9-6-1" value="1" onchange="updateAnsweredCount()"><label for="q9-6-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-6" id="q9-6-2" value="2" onchange="updateAnsweredCount()"><label for="q9-6-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-6" id="q9-6-3" value="3" onchange="updateAnsweredCount()"><label for="q9-6-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-6" id="q9-6-4" value="4" onchange="updateAnsweredCount()"><label for="q9-6-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-6" id="q9-6-5" value="5" onchange="updateAnsweredCount()"><label for="q9-6-5" class="tsf-scale-label">5</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- q9-7 Pengembangan Diri -->
+                                        <div class="tsf-scale-table__row" role="radiogroup" aria-label="Pengembangan Diri">
+                                            <span class="tsf-scale-table__label">Pengembangan Diri</span>
+                                            <div class="tsf-scale-options">
+                                                <input type="radio" class="tsf-scale-input" name="q9-7" id="q9-7-1" value="1" onchange="updateAnsweredCount()"><label for="q9-7-1" class="tsf-scale-label">1</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-7" id="q9-7-2" value="2" onchange="updateAnsweredCount()"><label for="q9-7-2" class="tsf-scale-label">2</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-7" id="q9-7-3" value="3" onchange="updateAnsweredCount()"><label for="q9-7-3" class="tsf-scale-label">3</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-7" id="q9-7-4" value="4" onchange="updateAnsweredCount()"><label for="q9-7-4" class="tsf-scale-label">4</label>
+                                                <input type="radio" class="tsf-scale-input" name="q9-7" id="q9-7-5" value="5" onchange="updateAnsweredCount()"><label for="q9-7-5" class="tsf-scale-label">5</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <!-- Question 2 - Kompetensi B: tingkat kompetensi yang dibutuhkan pekerjaan saat ini (kode f17/f1762-f1774, genap) -->
+                            <div class="tsf-question" role="group" aria-labelledby="q10-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">2.</span>
+                                    <p class="tsf-question__label" id="q10-label">Tingkat Kompetensi yang Dibutuhkan Pekerjaan Saat Ini<span class="tsf-required" aria-label="Wajib">*</span></p>
+                                </div>
+                                <p class="tsf-question__desc">Nilai 1 (Sangat Rendah) - 5 (Sangat Tinggi) tiap aspek berikut, berdasarkan kebutuhan pekerjaan Anda SAAT INI (Kompetensi B) - untuk dibandingkan dengan Kompetensi A yang Anda nilai di atas.</p>
 
                                 <div class="tsf-scale-table-wrap">
                                     <div class="tsf-scale-table">
@@ -561,6 +631,126 @@
 
                             </div>
 
+                            <!-- Question 2 (opsional, id13) - Kesesuaian bidang kerja dengan kompetensi tenaga kesehatan -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="qopt13-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">3.</span>
+                                    <p class="tsf-question__label" id="qopt13-label">Apakah bidang kerja Anda sesuai dengan kompetensi tenaga kesehatan yang dimiliki?</p>
+                                </div>
+                                <div class="tsf-radio-group">
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="opt13" id="opt13-a" value="sesuai" onchange="updateAnsweredCount()"><label for="opt13-a" class="form-control__label-radio">Sesuai</label></label>
+                                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="opt13" id="opt13-b" value="tidak_sesuai" onchange="updateAnsweredCount()"><label for="opt13-b" class="form-control__label-radio">Tidak sesuai</label></label>
+                                </div>
+                            </div>
+
+                            <!-- Question 3 (opsional, id15) - Kesesuaian pekerjaan dengan bidang studi -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="qopt15-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">4.</span>
+                                    <p class="tsf-question__label" id="qopt15-label">Seberapa sesuai pekerjaan Anda saat ini dengan bidang studi Anda?</p>
+                                </div>
+                                <div class="tsf-scale-single">
+                                    <span class="tsf-scale-single__caption">Sangat Tidak Sesuai</span>
+                                    <div class="tsf-scale-options">
+                                        <input type="radio" class="tsf-scale-input" name="opt15" id="opt15-1" value="1" onchange="updateAnsweredCount()"><label for="opt15-1" class="tsf-scale-label">1</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt15" id="opt15-2" value="2" onchange="updateAnsweredCount()"><label for="opt15-2" class="tsf-scale-label">2</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt15" id="opt15-3" value="3" onchange="updateAnsweredCount()"><label for="opt15-3" class="tsf-scale-label">3</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt15" id="opt15-4" value="4" onchange="updateAnsweredCount()"><label for="opt15-4" class="tsf-scale-label">4</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt15" id="opt15-5" value="5" onchange="updateAnsweredCount()"><label for="opt15-5" class="tsf-scale-label">5</label>
+                                    </div>
+                                    <span class="tsf-scale-single__caption">Sangat Sesuai</span>
+                                </div>
+                            </div>
+
+                            <!-- Question 4 (opsional, id16) - Saran perbaikan kurikulum -->
+                            <div class="tsf-question">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">5.</span>
+                                    <label for="textarea-saran-kompetensi" class="tsf-question__label">Saran perbaikan untuk program studi/kurikulum</label>
+                                </div>
+                                <div class="form-control" style="margin-top: 0.5rem;">
+                                    <div class="form-control__group">
+                                        <textarea id="textarea-saran-kompetensi" class="form-control__input" rows="4" placeholder="Tulis saran Anda di sini (opsional)" oninput="updateAnsweredCount()"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Question 5 (opsional, id17) - Kesiapan kerja lulusan -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="qopt17-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">6.</span>
+                                    <p class="tsf-question__label" id="qopt17-label">Bagaimana Anda menilai kesiapan kerja lulusan program studi ini secara umum?</p>
+                                </div>
+                                <div class="tsf-scale-single">
+                                    <span class="tsf-scale-single__caption">Sangat Tidak Siap</span>
+                                    <div class="tsf-scale-options">
+                                        <input type="radio" class="tsf-scale-input" name="opt17" id="opt17-1" value="1" onchange="updateAnsweredCount()"><label for="opt17-1" class="tsf-scale-label">1</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt17" id="opt17-2" value="2" onchange="updateAnsweredCount()"><label for="opt17-2" class="tsf-scale-label">2</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt17" id="opt17-3" value="3" onchange="updateAnsweredCount()"><label for="opt17-3" class="tsf-scale-label">3</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt17" id="opt17-4" value="4" onchange="updateAnsweredCount()"><label for="opt17-4" class="tsf-scale-label">4</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt17" id="opt17-5" value="5" onchange="updateAnsweredCount()"><label for="opt17-5" class="tsf-scale-label">5</label>
+                                    </div>
+                                    <span class="tsf-scale-single__caption">Sangat Siap</span>
+                                </div>
+                            </div>
+
+                            <!-- Question 6 (opsional, id105) - Otonomi kerja -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="qopt105-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">7.</span>
+                                    <p class="tsf-question__label" id="qopt105-label">Seberapa besar otonomi/kebebasan Anda dalam mengambil keputusan di pekerjaan Anda?</p>
+                                </div>
+                                <div class="tsf-scale-single">
+                                    <span class="tsf-scale-single__caption">Sangat Kecil</span>
+                                    <div class="tsf-scale-options">
+                                        <input type="radio" class="tsf-scale-input" name="opt105" id="opt105-1" value="1" onchange="updateAnsweredCount()"><label for="opt105-1" class="tsf-scale-label">1</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt105" id="opt105-2" value="2" onchange="updateAnsweredCount()"><label for="opt105-2" class="tsf-scale-label">2</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt105" id="opt105-3" value="3" onchange="updateAnsweredCount()"><label for="opt105-3" class="tsf-scale-label">3</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt105" id="opt105-4" value="4" onchange="updateAnsweredCount()"><label for="opt105-4" class="tsf-scale-label">4</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt105" id="opt105-5" value="5" onchange="updateAnsweredCount()"><label for="opt105-5" class="tsf-scale-label">5</label>
+                                    </div>
+                                    <span class="tsf-scale-single__caption">Sangat Besar</span>
+                                </div>
+                            </div>
+
+                            <!-- Question 7 (opsional, id106) - Kepuasan kerja -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="qopt106-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">8.</span>
+                                    <p class="tsf-question__label" id="qopt106-label">Seberapa puas Anda dengan pekerjaan Anda secara keseluruhan?</p>
+                                </div>
+                                <div class="tsf-scale-single">
+                                    <span class="tsf-scale-single__caption">Sangat Tidak Puas</span>
+                                    <div class="tsf-scale-options">
+                                        <input type="radio" class="tsf-scale-input" name="opt106" id="opt106-1" value="1" onchange="updateAnsweredCount()"><label for="opt106-1" class="tsf-scale-label">1</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt106" id="opt106-2" value="2" onchange="updateAnsweredCount()"><label for="opt106-2" class="tsf-scale-label">2</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt106" id="opt106-3" value="3" onchange="updateAnsweredCount()"><label for="opt106-3" class="tsf-scale-label">3</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt106" id="opt106-4" value="4" onchange="updateAnsweredCount()"><label for="opt106-4" class="tsf-scale-label">4</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt106" id="opt106-5" value="5" onchange="updateAnsweredCount()"><label for="opt106-5" class="tsf-scale-label">5</label>
+                                    </div>
+                                    <span class="tsf-scale-single__caption">Sangat Puas</span>
+                                </div>
+                            </div>
+
+                            <!-- Question 8 (opsional, id107) - Kompetensi dimanfaatkan -->
+                            <div class="tsf-question" role="radiogroup" aria-labelledby="qopt107-label">
+                                <div class="tsf-question__label-row">
+                                    <span class="tsf-question__number" aria-hidden="true">9.</span>
+                                    <p class="tsf-question__label" id="qopt107-label">Seberapa besar kompetensi yang Anda peroleh selama kuliah dimanfaatkan dalam pekerjaan Anda saat ini?</p>
+                                </div>
+                                <div class="tsf-scale-single">
+                                    <span class="tsf-scale-single__caption">Sangat Kecil</span>
+                                    <div class="tsf-scale-options">
+                                        <input type="radio" class="tsf-scale-input" name="opt107" id="opt107-1" value="1" onchange="updateAnsweredCount()"><label for="opt107-1" class="tsf-scale-label">1</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt107" id="opt107-2" value="2" onchange="updateAnsweredCount()"><label for="opt107-2" class="tsf-scale-label">2</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt107" id="opt107-3" value="3" onchange="updateAnsweredCount()"><label for="opt107-3" class="tsf-scale-label">3</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt107" id="opt107-4" value="4" onchange="updateAnsweredCount()"><label for="opt107-4" class="tsf-scale-label">4</label>
+                                        <input type="radio" class="tsf-scale-input" name="opt107" id="opt107-5" value="5" onchange="updateAnsweredCount()"><label for="opt107-5" class="tsf-scale-label">5</label>
+                                    </div>
+                                    <span class="tsf-scale-single__caption">Sangat Besar</span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </section>
@@ -596,7 +786,7 @@
                             <!-- Shown if Bekerja OR Wiraswasta checked -->
                             <div id="block-pekerjaan" style="display: none;">
                                 <div class="tsf-question">
-                                    <label for="input-jumlah-pekerjaan" class="tsf-question__label">Berapa tempat kerja yang Anda jalani saat ini?<span class="tsf-required" aria-label="wajib diisi">*</span></label>
+                                    <label for="input-jumlah-pekerjaan" class="tsf-question__label">Berapa tempat kerja yang Anda jalani saat ini?<span class="tsf-required" aria-label="Wajib">*</span></label>
                                     <div class="form-control" style="margin-top: 0.5rem;">
                                         <div class="form-control__group">
                                             <input type="number" id="input-jumlah-pekerjaan" class="form-control__input" min="1" max="10" value="1" placeholder="cth. 1" oninput="syncJobCount()">
@@ -664,6 +854,17 @@
 
                                 </div>
 
+                                <!-- Kode f502 - dalam berapa bulan mendapatkan pekerjaan pertama ini (isi 0 jika sebelum lulus). Kode f504 (gate <=6 bulan, Panduan Form 2023) dihapus - tidak ada lagi di Panduan Form 2024. -->
+                                <div class="tsf-question">
+                                    <label for="input-waiting-time-job" class="tsf-question__label">Dalam berapa bulan Anda mendapatkan pekerjaan pertama ini?<span class="tsf-required" aria-label="Wajib">*</span></label>
+                                    <p class="tsf-question__desc">Isi 0 jika Anda sudah bekerja sebelum lulus.</p>
+                                    <div class="form-control" style="margin-top: 0.5rem;">
+                                        <div class="form-control__group">
+                                            <input type="number" id="input-waiting-time-job" class="form-control__input" placeholder="Jawaban angka (dalam bulan, isi 0 jika sebelum lulus)" min="0" max="120" inputmode="numeric" oninput="updateAnsweredCount()">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- Gaji, waktu tunggu, skala instansi, provinsi kerja - only relevant once alumni has confirmed they are working -->
                                 <div class="tsf-question">
                                     <label for="input-gaji-pertama" class="tsf-question__label">Berapa besaran penghasilan/gaji pertama Anda?</label>
@@ -697,7 +898,7 @@
                                 </div>
 
                                 <div class="tsf-question">
-                                    <label for="select-provinsi-kerja" class="tsf-question__label">Dimana tempat provinsi Anda bekerja saat ini?</label>
+                                    <label for="select-provinsi-kerja" class="tsf-question__label">Di mana tempat provinsi Anda bekerja saat ini?</label>
                                     <div style="margin-top: 0.5rem;">
                                         <select class="select-lokasi" id="select-provinsi-kerja" data-lokasi-role="provinsi" data-lokasi-target="select-kabkota-kerja">
                                             <option value="" selected disabled>Cari provinsi...</option>
@@ -706,7 +907,7 @@
                                 </div>
 
                                 <div class="tsf-question">
-                                    <label for="select-kabkota-kerja" class="tsf-question__label">Dimana Kabupaten / Kota tempat Anda bekerja saat ini?</label>
+                                    <label for="select-kabkota-kerja" class="tsf-question__label">Di mana Kabupaten / Kota tempat Anda bekerja saat ini?</label>
                                     <div style="margin-top: 0.5rem;">
                                         <select class="select-lokasi" id="select-kabkota-kerja" data-lokasi-role="kabkota" disabled>
                                             <option value="" selected disabled>Pilih provinsi dulu</option>
@@ -886,8 +1087,19 @@
 
                             <!-- Shown if Melanjutkan pendidikan checked -->
                             <div id="block-studi" style="display: none;">
+                                <!-- Kode f502 - dalam berapa bulan mulai melanjutkan studi ini (isi 0 jika sebelum lulus). Kode f504 (gate <=6 bulan, Panduan Form 2023) dihapus - tidak ada lagi di Panduan Form 2024. -->
                                 <div class="tsf-question">
-                                    <label for="select-jenjang" class="tsf-question__label">Jenjang Studi Lanjut<span class="tsf-required" aria-label="wajib diisi">*</span></label>
+                                    <label for="input-waiting-time-studi" class="tsf-question__label">Dalam berapa bulan Anda mulai melanjutkan studi ini?<span class="tsf-required" aria-label="Wajib">*</span></label>
+                                    <p class="tsf-question__desc">Isi 0 jika Anda sudah studi lanjut sebelum lulus.</p>
+                                    <div class="form-control" style="margin-top: 0.5rem;">
+                                        <div class="form-control__group">
+                                            <input type="number" id="input-waiting-time-studi" class="form-control__input" placeholder="Jawaban angka (dalam bulan, isi 0 jika sebelum lulus)" min="0" max="120" inputmode="numeric" oninput="updateAnsweredCount()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tsf-question">
+                                    <label for="select-jenjang" class="tsf-question__label">Jenjang Studi Lanjut<span class="tsf-required" aria-label="Wajib">*</span></label>
                                     <div style="margin-top: 0.5rem;">
                                         <select class="select-default" id="select-jenjang" onchange="updateAnsweredCount()">
                                             <option value="" selected disabled>Pilih jenjang studi lanjut</option>
@@ -929,7 +1141,7 @@
                             <!-- Shown if Wiraswasta checked -->
                             <div id="block-usaha" style="display: none;">
                                 <div class="tsf-question">
-                                    <label for="input-bidang-usaha" class="tsf-question__label">Bidang Usaha<span class="tsf-required" aria-label="wajib diisi">*</span></label>
+                                    <label for="input-bidang-usaha" class="tsf-question__label">Bidang Usaha<span class="tsf-required" aria-label="Wajib">*</span></label>
                                     <div class="form-control" style="margin-top: 0.5rem;">
                                         <div class="form-control__group">
                                             <input type="text" class="form-control__input" id="input-bidang-usaha" placeholder="cth. Kuliner, Fashion, Jasa Konsultan" oninput="updateAnsweredCount()">
@@ -1332,10 +1544,6 @@
 
             if (!document.querySelector('input[name="q6"]:checked')) problems.push('Sumber dana kuliah');
 
-            const q7Checked = document.querySelector('input[name="q7"]:checked');
-            if (!q7Checked) problems.push('Pekerjaan/pendidikan sebelum lulus');
-            if (q7Checked && q7Checked.value === 'tidak' && !document.getElementById('input-waiting-time').value.trim()) problems.push('Waktu tunggu');
-
             if (!document.querySelector('input[name="q9"]:checked')) problems.push('Status aktif mencari kerja');
 
             if (problems.length > 0) {
@@ -1365,9 +1573,15 @@
                 const f7a = parseInt(document.getElementById('input-f7a').value, 10);
                 if (!isNaN(f6) && !isNaN(f7) && f7 > f6) problems.push('Jumlah yang merespons tidak bisa lebih banyak dari jumlah perusahaan yang dilamar');
                 if (!isNaN(f7) && !isNaN(f7a) && f7a > f7) problems.push('Jumlah yang mengundang wawancara tidak bisa lebih banyak dari jumlah yang merespons');
+
+                // Kode f502 - waktu tunggu pekerjaan pertama (isi 0 kalau sebelum lulus)
+                if (!document.getElementById('input-waiting-time-job').value.trim()) problems.push('Waktu tunggu pekerjaan pertama');
             }
             if (checked.includes('melanjutkan_pendidikan')) {
                 if (!document.getElementById('select-jenjang').value) problems.push('Jenjang studi lanjut');
+
+                // Kode f502 - waktu tunggu melanjutkan studi (isi 0 kalau sebelum lulus)
+                if (!document.getElementById('input-waiting-time-studi').value.trim()) problems.push('Waktu tunggu melanjutkan studi');
             }
             if (checked.includes('wiraswasta')) {
                 if (!document.getElementById('input-bidang-usaha').value.trim()) problems.push('Bidang usaha');
@@ -1488,32 +1702,8 @@
             }
         }
 
-        // =====================================================
-        // Question 7/8: conditional waiting-time question
-        // =====================================================
-        function applyQ7Logic(value) {
-            const q8 = document.getElementById('question-8');
-            const input = document.getElementById('input-waiting-time');
-
-            if (value === 'tidak') {
-                q8.style.display = 'block';
-                q8.setAttribute('aria-hidden', 'false');
-                input.setAttribute('required', '');
-                input.setAttribute('aria-required', 'true');
-                setTimeout(function () {
-                    q8.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 100);
-            } else {
-                q8.style.display = 'none';
-                q8.setAttribute('aria-hidden', 'true');
-                input.removeAttribute('required');
-                input.removeAttribute('aria-required');
-                input.value = '';
-            }
-
-            showToast('Jawaban disimpan');
-            updateAnsweredCount();
-        }
+        // Kode f502 kini satu field per konteks (job/studi), tanpa gate f504 (Panduan Form 2023,
+        // sudah dihapus di Panduan Form 2024) - alumni langsung isi jumlah bulan, 0 = sebelum lulus.
 
         // f301 ("Kapan Anda mulai mencari pekerjaan...") gates its own two follow-ups: f302 hanya
         // relevan kalau dijawab "Sebelum lulus", f303 hanya kalau "Sesudah lulus" - keduanya tidak

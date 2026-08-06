@@ -345,9 +345,9 @@
         }
 
         const footerHtml = tier === 'core'
-            ? `<span class="tag tag_outline tag_sm">${q.required ? 'Wajib diisi' : 'Opsional'}</span>`
+            ? `<span class="tag tag_outline tag_sm">${q.required ? 'Wajib' : 'Opsional'}</span>`
             : `<div style="display:flex; align-items:center; gap:0.5rem; font-size:0.8125rem; color:var(--qn-neutral-600);">
-                <span>Wajib diisi</span>
+                <span>Wajib</span>
                 ${switchHtml(`sw-req-${qi}`, !!q.required, `updateCustomQuestion(${qi}, 'required', this.checked)`)}
             </div>`;
 
