@@ -4,7 +4,7 @@
     <base href="/v3/b/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuesioner — Wave Exit</title>
+    <title>Kuesioner - Wave Exit</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -13,6 +13,32 @@
         .stepper__item{padding:.3rem .7rem;border-radius:.25rem;color:var(--qn-neutral-400);}
         .stepper__item.is-active{background:var(--qn-primary-500);color:#fff;font-weight:600;}
         select{appearance:menulist !important;}
+
+        /* tsf-question / tsf-option component set - same pattern as v2.1/b's tracer-study-form-*.html */
+        .tsf-question { padding: 1.25rem 0; border-bottom: 1px solid var(--qn-neutral-100, #f3f4f6); }
+        .tsf-question:last-child { border-bottom: none; padding-bottom: 0.25rem; }
+        .tsf-question:first-child { padding-top: 0.25rem; }
+        .tsf-question__label-row { display: flex; gap: 0.375rem; margin-bottom: 0.25rem; }
+        .tsf-question__number { font-size: 1.0625rem; color: var(--qn-neutral-500, #6b7280); font-weight: 500; }
+        .tsf-question__label { font-size: 1.0625rem; color: var(--qn-neutral-900, #111827); font-weight: 500; line-height: 1.5; }
+        .tsf-question__desc { font-size: 0.9375rem; color: var(--qn-neutral-500, #6b7280); margin: 0.25rem 0 0.75rem; line-height: 1.5; }
+        .tsf-required { color: var(--qn-danger-500, #ef4444); margin-left: 0.125rem; }
+
+        .tsf-conditional { border-left: 3px solid var(--qn-warning-500, #f59e0b); background: linear-gradient(to right, rgba(245, 158, 11, 0.08), transparent); padding-left: 1rem; margin-left: -1rem; }
+        .tsf-conditional::before { content: "\21B3 Pertanyaan lanjutan"; display: block; font-size: 0.75rem; color: var(--qn-warning-600, #d97706); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+
+        .tsf-radio-group, .tsf-checkbox-group { display: flex; flex-direction: column; gap: 0.625rem; margin-top: 0.5rem; }
+        .tsf-radio-group .form-control__label-radio,
+        .tsf-checkbox-group .form-control__label-checkbox { font-size: 1rem; color: var(--qn-neutral-800, #1f2937); }
+
+        .tsf-option {
+            display: block; border: 1.5px solid var(--qn-neutral-200, #e5e7eb); border-radius: 0.625rem;
+            padding: 0.75rem 1rem; margin: 0 !important; cursor: pointer;
+            transition: border-color .15s ease, background-color .15s ease;
+        }
+        .tsf-option:hover { border-color: var(--qn-primary-300, #93c5fd); background: var(--qn-primary-50, #eff6ff); }
+        .tsf-option.tsf-option--checked { border-color: var(--qn-primary-500, #3b82f6); background: var(--qn-primary-50, #eff6ff); }
+        .tsf-checkbox-group > label.tsf-option { display: flex; align-items: center; gap: 0.625rem; }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -31,89 +57,138 @@
     <!-- Header -->
     <div style="text-align:center;margin-bottom:1.5rem;">
         <img src="assets/karirlink/images/logo/karirlink-colored.webp" alt="KarirLink" height="36" style="margin-bottom:.5rem;">
-        <h2 style="margin:0;font-size:1.1rem;">Tracer Study — Universitas Foxtrot</h2>
+        <h2 style="margin:0;font-size:1.1rem;">Tracer Study - Universitas Foxtrot</h2>
         <p style="margin:.25rem 0 0;font-size:.8rem;color:var(--qn-neutral-500);">Wave Exit · Pemutakhiran data setelah lulus</p>
     </div>
 
-    <!-- Q1: Email -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">1. Alamat email aktif Anda saat ini <span class="important">*</span></label>
-        <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .5rem;">Isian awal dari SIAKAD. Pastikan masih aktif — email inilah yang dipakai untuk mengirim kuesioner berikutnya.</p>
-        <input type="email" class="form-control__input" value="ahmad.rizki@gmail.com">
-    </div>
-
-    <!-- Q2: Nomor HP -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">2. Nomor HP / WhatsApp aktif <span class="important">*</span></label>
-        <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .5rem;">Isian awal dari SIAKAD. Nomor ini dipakai untuk pengingat lewat WhatsApp.</p>
-        <input type="text" class="form-control__input" value="081234567890">
-    </div>
-
-    <!-- Q3: Sudah bekerja/berwirausaha sebelum lulus -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">3. Apakah Anda sudah bekerja atau berwirausaha sebelum lulus? <span class="important">*</span></label>
-        <div class="form-control__group">
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="q3"><label class="form-control__label-radio">Ya, saya sudah bekerja</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="q3"><label class="form-control__label-radio">Ya, saya sudah berwirausaha</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="q3"><label class="form-control__label-radio">Belum</label></div>
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card__header">
+            <h2 class="card__title">Informasi Umum - Wave Exit</h2>
         </div>
-    </div>
+        <div class="card__body">
 
-    <!-- Q4: Nama perusahaan/usaha (conditional) -->
-    <div style="border:2px dashed var(--qn-neutral-300);border-radius:.5rem;padding:1rem;margin-bottom:1.5rem;">
-        <label class="form-control__label">4. Nama perusahaan/usaha</label>
-        <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 .5rem;font-style:italic;">Muncul jika menjawab Ya di atas</p>
-        <div class="form-control__group">
-            <select class="form-control__input" style="margin-bottom:.5rem;">
-                <option value="">— Pilih perusahaan —</option>
-                <option>PT Telkom Indonesia</option>
-                <option>Gojek</option>
-                <option>Tokopedia</option>
-                <option>Bank BCA</option>
-                <option>PT Astra International</option>
-                <option>Traveloka</option>
-                <option>Lainnya (ketik sendiri)</option>
-            </select>
-            <input type="text" class="form-control__input" placeholder="Ketik nama perusahaan/usaha jika memilih Lainnya...">
+            <!-- Q1: Email -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">1.</span>
+                    <label for="input-email" class="tsf-question__label">Alamat email aktif Anda saat ini<span class="tsf-required" aria-label="Wajib">*</span></label>
+                </div>
+                <p class="tsf-question__desc">Isian awal dari SIAKAD. Pastikan masih aktif - email inilah yang dipakai untuk mengirim kuesioner berikutnya.</p>
+                <div class="form-control">
+                    <div class="form-control__group"><input type="email" id="input-email" class="form-control__input" value="ahmad.rizki@gmail.com"></div>
+                </div>
+            </div>
+
+            <!-- Q2: Nomor HP -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">2.</span>
+                    <label for="input-hp" class="tsf-question__label">Nomor HP / WhatsApp aktif<span class="tsf-required" aria-label="Wajib">*</span></label>
+                </div>
+                <p class="tsf-question__desc">Isian awal dari SIAKAD. Nomor ini dipakai untuk pengingat lewat WhatsApp.</p>
+                <div class="form-control">
+                    <div class="form-control__group"><input type="text" id="input-hp" class="form-control__input" value="081234567890"></div>
+                </div>
+            </div>
+
+            <!-- Q3: Sudah bekerja/berwirausaha sebelum lulus -->
+            <div class="tsf-question" role="radiogroup" aria-labelledby="q3-label">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">3.</span>
+                    <p class="tsf-question__label" id="q3-label">Apakah Anda sudah bekerja atau berwirausaha sebelum lulus?<span class="tsf-required" aria-label="Wajib">*</span></p>
+                </div>
+                <div class="tsf-radio-group">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q3" id="q3-bekerja" value="bekerja" onchange="applyQ3Logic(this.value)"><label for="q3-bekerja" class="form-control__label-radio">Ya, saya sudah bekerja</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q3" id="q3-wiraswasta" value="wiraswasta" onchange="applyQ3Logic(this.value)"><label for="q3-wiraswasta" class="form-control__label-radio">Ya, saya sudah berwirausaha</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q3" id="q3-belum" value="belum" onchange="applyQ3Logic(this.value)"><label for="q3-belum" class="form-control__label-radio">Belum</label></label>
+                </div>
+            </div>
+
+            <!-- Q4: Nama perusahaan/usaha (conditional - muncul hanya jika Q3 = Ya bekerja/berwirausaha) -->
+            <div class="tsf-question tsf-conditional" id="q4-wrap" style="display: none;" aria-hidden="true">
+                <label for="select-q4" class="tsf-question__label">Nama perusahaan/usaha</label>
+                <div class="form-control" style="margin-top: 0.5rem;">
+                    <div class="form-control__group">
+                        <select id="select-q4" class="form-control__input" style="margin-bottom:.5rem;" onchange="toggleLainnyaField(this)">
+                            <option value="" selected disabled>- Pilih perusahaan -</option>
+                            <option>PT Telkom Indonesia</option>
+                            <option>Gojek</option>
+                            <option>Tokopedia</option>
+                            <option>Bank BCA</option>
+                            <option>PT Astra International</option>
+                            <option>Traveloka</option>
+                            <option value="lainnya">Lainnya (ketik sendiri)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="tsf-question tsf-conditional" id="lainnya-q4-wrap" style="display: none;" aria-hidden="true">
+                    <div class="form-control">
+                        <div class="form-control__group">
+                            <input type="text" id="input-lainnya-q4" class="form-control__input" placeholder="Ketik nama perusahaan/usaha Anda">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q5: Rencana setelah lulus -->
+            <div class="tsf-question" role="radiogroup" aria-labelledby="q5-label">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">4.</span>
+                    <p class="tsf-question__label" id="q5-label">Apa rencana utama Anda setelah lulus?</p>
+                </div>
+                <div class="tsf-radio-group">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q5" id="q5-a" value="bekerja"><label for="q5-a" class="form-control__label-radio">Bekerja</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q5" id="q5-b" value="wiraswasta"><label for="q5-b" class="form-control__label-radio">Berwirausaha</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q5" id="q5-c" value="studi"><label for="q5-c" class="form-control__label-radio">Melanjutkan studi</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="q5" id="q5-d" value="lainnya"><label for="q5-d" class="form-control__label-radio">Lainnya</label></label>
+                </div>
+            </div>
+
+            <!-- Q6: Dukungan dari kampus -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">5.</span>
+                    <p class="tsf-question__label" id="q6-label">Dukungan apa yang Anda harapkan dari kampus?</p>
+                </div>
+                <p class="tsf-question__desc">Jawaban bisa lebih dari satu.</p>
+                <div class="tsf-checkbox-group" id="q6-checkbox-group">
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="q6-1" value="info_lowongan"><label for="q6-1" class="form-control__label-checkbox">Informasi lowongan kerja</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="q6-2" value="pelatihan_cv"><label for="q6-2" class="form-control__label-checkbox">Pelatihan membuat CV</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="q6-3" value="pelatihan_wawancara"><label for="q6-3" class="form-control__label-checkbox">Pelatihan wawancara kerja</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="q6-4" value="koneksi_mitra"><label for="q6-4" class="form-control__label-checkbox">Koneksi ke perusahaan mitra</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="q6-5" value="job_fair"><label for="q6-5" class="form-control__label-checkbox">Job fair / bursa kerja</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="q6-6" value="mentorship"><label for="q6-6" class="form-control__label-checkbox">Mentorship dari alumni senior</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="q6-7" value="lainnya"><label for="q6-7" class="form-control__label-checkbox">Lainnya</label></label>
+                </div>
+            </div>
+
+            <div class="tsf-question tsf-conditional" id="lainnya-q6-checkbox-group-wrap" style="display: none;" aria-hidden="true">
+                <label for="input-lainnya-q6" class="tsf-question__label">Sebutkan dukungan lainnya</label>
+                <div class="form-control" style="margin-top: 0.5rem;">
+                    <div class="form-control__group">
+                        <input type="text" id="input-lainnya-q6" class="form-control__input" placeholder="Tuliskan dukungan yang Anda harapkan">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q7: LinkedIn -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">6.</span>
+                    <label for="input-linkedin" class="tsf-question__label">Tautan profil LinkedIn Anda</label>
+                </div>
+                <p class="tsf-question__desc">Opsional. Membantu kampus memantau perkembangan karier Anda.</p>
+                <div class="form-control">
+                    <div class="form-control__group"><input type="url" id="input-linkedin" class="form-control__input" placeholder="https://linkedin.com/in/nama-anda"></div>
+                </div>
+            </div>
+
         </div>
-    </div>
-
-    <!-- Q5: Rencana setelah lulus -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">5. Apa rencana utama Anda setelah lulus?</label>
-        <div class="form-control__group">
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="q5"><label class="form-control__label-radio">Bekerja</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="q5"><label class="form-control__label-radio">Berwirausaha</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="q5"><label class="form-control__label-radio">Melanjutkan studi</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="q5"><label class="form-control__label-radio">Lainnya</label></div>
-        </div>
-    </div>
-
-    <!-- Q6: Dukungan dari kampus -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">6. Dukungan apa yang Anda harapkan dari kampus?</label>
-        <div class="form-control__group">
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Informasi lowongan kerja</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Pelatihan membuat CV</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Pelatihan wawancara kerja</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Koneksi ke perusahaan mitra</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Job fair / bursa kerja</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Mentorship dari alumni senior</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox" name="q6"><label class="form-control__label-checkbox">Lainnya</label></div>
-            <input type="text" class="form-control__input" placeholder="Sebutkan dukungan lainnya..." style="margin-top:.25rem;">
-        </div>
-    </div>
-
-    <!-- Q7: LinkedIn -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">7. Tautan profil LinkedIn Anda</label>
-        <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .5rem;">Opsional. Membantu kampus memantau perkembangan karier Anda.</p>
-        <input type="url" class="form-control__input" placeholder="https://linkedin.com/in/nama-anda">
     </div>
 
     <!-- Bottom navigation -->
     <div style="display:flex;justify-content:flex-end;padding-top:1rem;border-top:1px solid var(--qn-neutral-200);">
-        <button class="btn btn_primary" onclick="alert('Simulasi selesai — data tidak disimpan.')">Kirim Jawaban</button>
+        <button class="btn btn_primary" onclick="alert('Simulasi selesai - data tidak disimpan.')">Kirim Jawaban</button>
     </div>
 
     <!-- Success section -->
@@ -126,5 +201,63 @@
 
 </div>
 
+<script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+<script>
+    // Q3 -> Q4: nama perusahaan/usaha only relevant once alumni confirms they're already
+    // working/self-employed pre-graduation. Same show/hide pattern as tracer-study-form-*.html.
+    function applyQ3Logic(value) {
+        const wrap = document.getElementById('q4-wrap');
+        const show = value === 'bekerja' || value === 'wiraswasta';
+        wrap.style.display = show ? 'block' : 'none';
+        wrap.setAttribute('aria-hidden', show ? 'false' : 'true');
+        if (!show) {
+            document.getElementById('select-q4').value = '';
+            document.getElementById('lainnya-q4-wrap').style.display = 'none';
+            document.getElementById('input-lainnya-q4').value = '';
+        }
+    }
+
+    // "Lainnya" free-text reveal - works for both a <select> (Q4) and a checkbox group (Q6).
+    function toggleLainnyaField(el) {
+        let wrapId, isLainnya;
+        if (el.tagName === 'SELECT') {
+            wrapId = 'lainnya-' + el.id.replace('select-', '') + '-wrap';
+            isLainnya = el.value === 'lainnya';
+        } else {
+            const group = el.closest('.tsf-checkbox-group');
+            wrapId = 'lainnya-' + group.id + '-wrap';
+            isLainnya = !!group.querySelector('input[value="lainnya"]:checked');
+        }
+        const wrap = document.getElementById(wrapId);
+        if (!wrap) return;
+        wrap.style.display = isLainnya ? 'block' : 'none';
+        wrap.setAttribute('aria-hidden', isLainnya ? 'false' : 'true');
+        if (!isLainnya) {
+            const input = wrap.querySelector('input[type="text"]');
+            if (input) input.value = '';
+        }
+    }
+
+    // Selectable option-card highlight (.tsf-option--checked), same convention as
+    // tracer-study-form-*.html's refreshOptionCard/global change listener.
+    function refreshOptionCard(el) {
+        if (!el) return;
+        const input = el.querySelector('input');
+        el.classList.toggle('tsf-option--checked', !!(input && input.checked));
+    }
+    document.addEventListener('change', function (e) {
+        const input = e.target;
+        if (input && input.type === 'radio' && input.name) {
+            document.querySelectorAll('input[type="radio"][name="' + input.name + '"]').forEach(function (r) {
+                const opt = r.closest('.tsf-option');
+                if (opt) refreshOptionCard(opt);
+            });
+        } else if (input && input.type === 'checkbox') {
+            const opt = input.closest('.tsf-option');
+            if (opt) refreshOptionCard(opt);
+            if (input.closest('.tsf-checkbox-group')) toggleLainnyaField(input);
+        }
+    });
+</script>
 </body>
 </html>

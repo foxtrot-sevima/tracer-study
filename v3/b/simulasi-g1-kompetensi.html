@@ -4,7 +4,7 @@
     <base href="/v3/b/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tingkat Kompetensi — Wave G1</title>
+    <title>Tingkat Kompetensi - Wave G1</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -14,12 +14,41 @@
         .stepper__item.is-active{background:var(--qn-primary-500);color:#fff;font-weight:600;}
         .stepper__item.is-done{color:var(--qn-primary-500);font-weight:500;}
         .stepper__sep{color:var(--qn-neutral-300);}
-        .matrix-table{width:100%;border-collapse:collapse;font-size:.75rem;margin-bottom:.5rem;}
-        .matrix-table th,.matrix-table td{border:1px solid var(--qn-neutral-200);padding:.4rem .3rem;text-align:center;vertical-align:middle;}
-        .matrix-table th{background:var(--qn-neutral-50);font-weight:600;font-size:.68rem;}
-        .matrix-table td:first-child{text-align:left;padding-left:.5rem;min-width:120px;}
-        .matrix-table input[type="radio"]{margin:0;cursor:pointer;}
-        .scale-label{font-size:.65rem;color:var(--qn-neutral-400);display:block;}
+
+        /* tsf-question / tsf-scale-table component set - same pattern as v2.1/b's tracer-study-form-*.html */
+        .tsf-question { padding: 1.25rem 0; border-bottom: 1px solid var(--qn-neutral-100, #f3f4f6); }
+        .tsf-question:last-child { border-bottom: none; padding-bottom: 0.25rem; }
+        .tsf-question:first-child { padding-top: 0.25rem; }
+        .tsf-question__label-row { display: flex; gap: 0.375rem; margin-bottom: 0.25rem; }
+        .tsf-question__number { font-size: 1.0625rem; color: var(--qn-neutral-500, #6b7280); font-weight: 500; }
+        .tsf-question__label { font-size: 1.0625rem; color: var(--qn-neutral-900, #111827); font-weight: 500; line-height: 1.5; }
+        .tsf-question__desc { font-size: 0.9375rem; color: var(--qn-neutral-500, #6b7280); margin: 0.25rem 0 0.75rem; line-height: 1.5; }
+        .tsf-required { color: var(--qn-danger-500, #ef4444); margin-left: 0.125rem; }
+
+        .tsf-scale-options { display: flex; gap: 0.375rem; flex-wrap: nowrap; justify-content: center; }
+        .tsf-scale-input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+        .tsf-scale-label { flex: 1; min-width: 2.25rem; display: flex; align-items: center; justify-content: center; padding: 0.5rem 0.375rem; border: 1.5px solid var(--qn-neutral-200, #e5e7eb); border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-700, #374151); cursor: pointer; transition: all 0.15s ease; }
+        .tsf-scale-label:hover { border-color: var(--qn-primary-300, #93c5fd); background: var(--qn-primary-50, #eff6ff); }
+        .tsf-scale-input:checked + .tsf-scale-label { background: var(--qn-primary-500, #3b82f6); border-color: var(--qn-primary-500, #3b82f6); color: white; }
+        .tsf-scale-input:focus-visible + .tsf-scale-label { outline: 3px solid var(--qn-primary-500, #3b82f6); outline-offset: 2px; }
+
+        .tsf-scale-table-wrap { overflow-x: auto; margin-top: 0.75rem; }
+        .tsf-scale-table { min-width: 30rem; }
+        .tsf-scale-table__head, .tsf-scale-table__row { display: grid; grid-template-columns: minmax(9rem, 1fr) 1fr; align-items: center; gap: 0.5rem; padding: 0.625rem 0.25rem; }
+        .tsf-scale-table__head { font-size: 0.8125rem; color: var(--qn-neutral-500, #6b7280); font-weight: 600; }
+        .tsf-scale-table__head-cols { display: flex; gap: 0.375rem; justify-content: center; }
+        .tsf-scale-table__head-cols span { flex: 1; min-width: 2.25rem; text-align: center; }
+        .tsf-scale-table__row { border-top: 1px solid var(--qn-neutral-100, #f3f4f6); }
+        .tsf-scale-table__label { font-size: 0.9375rem; color: var(--qn-neutral-800, #1f2937); }
+        .tsf-scale-table__caption-row { display: grid; grid-template-columns: minmax(9rem, 1fr) 1fr; padding: 0 0.25rem 0.5rem; font-size: 0.6875rem; color: var(--qn-neutral-400, #9ca3af); }
+
+        /* Dual-column variant (Kompetensi A + B merged in one table, matching the official
+           Kemdiktisaintek site which shows both as a single instrument). */
+        .tsf-scale-table--dual { min-width: 40rem; }
+        .tsf-scale-table--dual .tsf-scale-table__head,
+        .tsf-scale-table--dual .tsf-scale-table__row { grid-template-columns: minmax(10rem, 1fr) 1fr 1fr; }
+        .tsf-scale-table__dual-head { display: flex; flex-direction: column; gap: 0.25rem; }
+        .tsf-scale-table__dual-head-title { text-align: center; font-weight: 700; color: var(--qn-neutral-600, #4b5563); }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -32,7 +61,7 @@
     <span class="stepper__item is-active">Kompetensi</span>
 </div>
 
-<div style="max-width:640px;margin:0 auto;padding:0 1rem 3rem;">
+<div style="max-width:720px;margin:0 auto;padding:0 1rem 3rem;">
 
     <a href="javascript:history.back()" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--qn-primary-500);text-decoration:none;margin-bottom:1rem;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
@@ -42,145 +71,283 @@
     <!-- Header -->
     <div style="text-align:center;margin-bottom:1.5rem;">
         <img src="assets/karirlink/images/logo/karirlink-colored.webp" alt="KarirLink" height="36" style="margin-bottom:.5rem;">
-        <h2 style="margin:0;font-size:1.1rem;">Tracer Study — Universitas Foxtrot</h2>
+        <h2 style="margin:0;font-size:1.1rem;">Tracer Study - Universitas Foxtrot</h2>
         <p style="margin:.25rem 0 0;font-size:.8rem;color:var(--qn-neutral-500);">Wave G1</p>
     </div>
 
-    <!-- f17: Matriks Kompetensi A+B -->
-    <div style="margin-bottom:2rem;">
-        <label class="form-control__label" style="margin-bottom:.5rem;">1. Tingkat Kompetensi yang Dikuasai (A) dan Diperlukan dalam Pekerjaan (B) <span class="important">*</span></label>
-        <p style="font-size:.72rem;color:var(--qn-neutral-500);margin:0 0 .75rem;">Skala: 1 = Sangat Rendah, 2 = Rendah, 3 = Cukup, 4 = Tinggi, 5 = Sangat Tinggi</p>
-        <div style="overflow-x:auto;">
-            <table class="matrix-table">
-                <thead>
-                    <tr>
-                        <th rowspan="2" style="min-width:130px;">Kompetensi</th>
-                        <th colspan="5">A — Dikuasai</th>
-                        <th colspan="5">B — Diperlukan</th>
-                    </tr>
-                    <tr>
-                        <th><span class="scale-label">1</span></th>
-                        <th><span class="scale-label">2</span></th>
-                        <th><span class="scale-label">3</span></th>
-                        <th><span class="scale-label">4</span></th>
-                        <th><span class="scale-label">5</span></th>
-                        <th><span class="scale-label">1</span></th>
-                        <th><span class="scale-label">2</span></th>
-                        <th><span class="scale-label">3</span></th>
-                        <th><span class="scale-label">4</span></th>
-                        <th><span class="scale-label">5</span></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Etika</td>
-                        <td><input type="radio" name="f17a1"></td><td><input type="radio" name="f17a1"></td><td><input type="radio" name="f17a1"></td><td><input type="radio" name="f17a1"></td><td><input type="radio" name="f17a1"></td>
-                        <td><input type="radio" name="f17b1"></td><td><input type="radio" name="f17b1"></td><td><input type="radio" name="f17b1"></td><td><input type="radio" name="f17b1"></td><td><input type="radio" name="f17b1"></td>
-                    </tr>
-                    <tr>
-                        <td>Keahlian berdasarkan bidang ilmu</td>
-                        <td><input type="radio" name="f17a2"></td><td><input type="radio" name="f17a2"></td><td><input type="radio" name="f17a2"></td><td><input type="radio" name="f17a2"></td><td><input type="radio" name="f17a2"></td>
-                        <td><input type="radio" name="f17b2"></td><td><input type="radio" name="f17b2"></td><td><input type="radio" name="f17b2"></td><td><input type="radio" name="f17b2"></td><td><input type="radio" name="f17b2"></td>
-                    </tr>
-                    <tr>
-                        <td>Bahasa Inggris</td>
-                        <td><input type="radio" name="f17a3"></td><td><input type="radio" name="f17a3"></td><td><input type="radio" name="f17a3"></td><td><input type="radio" name="f17a3"></td><td><input type="radio" name="f17a3"></td>
-                        <td><input type="radio" name="f17b3"></td><td><input type="radio" name="f17b3"></td><td><input type="radio" name="f17b3"></td><td><input type="radio" name="f17b3"></td><td><input type="radio" name="f17b3"></td>
-                    </tr>
-                    <tr>
-                        <td>Penggunaan Teknologi Informasi</td>
-                        <td><input type="radio" name="f17a4"></td><td><input type="radio" name="f17a4"></td><td><input type="radio" name="f17a4"></td><td><input type="radio" name="f17a4"></td><td><input type="radio" name="f17a4"></td>
-                        <td><input type="radio" name="f17b4"></td><td><input type="radio" name="f17b4"></td><td><input type="radio" name="f17b4"></td><td><input type="radio" name="f17b4"></td><td><input type="radio" name="f17b4"></td>
-                    </tr>
-                    <tr>
-                        <td>Komunikasi</td>
-                        <td><input type="radio" name="f17a5"></td><td><input type="radio" name="f17a5"></td><td><input type="radio" name="f17a5"></td><td><input type="radio" name="f17a5"></td><td><input type="radio" name="f17a5"></td>
-                        <td><input type="radio" name="f17b5"></td><td><input type="radio" name="f17b5"></td><td><input type="radio" name="f17b5"></td><td><input type="radio" name="f17b5"></td><td><input type="radio" name="f17b5"></td>
-                    </tr>
-                    <tr>
-                        <td>Kerja sama tim</td>
-                        <td><input type="radio" name="f17a6"></td><td><input type="radio" name="f17a6"></td><td><input type="radio" name="f17a6"></td><td><input type="radio" name="f17a6"></td><td><input type="radio" name="f17a6"></td>
-                        <td><input type="radio" name="f17b6"></td><td><input type="radio" name="f17b6"></td><td><input type="radio" name="f17b6"></td><td><input type="radio" name="f17b6"></td><td><input type="radio" name="f17b6"></td>
-                    </tr>
-                    <tr>
-                        <td>Pengembangan Diri</td>
-                        <td><input type="radio" name="f17a7"></td><td><input type="radio" name="f17a7"></td><td><input type="radio" name="f17a7"></td><td><input type="radio" name="f17a7"></td><td><input type="radio" name="f17a7"></td>
-                        <td><input type="radio" name="f17b7"></td><td><input type="radio" name="f17b7"></td><td><input type="radio" name="f17b7"></td><td><input type="radio" name="f17b7"></td><td><input type="radio" name="f17b7"></td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card__header">
+            <h2 class="card__title">Tingkat Kompetensi</h2>
         </div>
-    </div>
+        <div class="card__body">
 
-    <!-- f2: Metode Pembelajaran -->
-    <div style="margin-bottom:1.5rem;">
-        <label class="form-control__label" style="margin-bottom:.5rem;">2. Seberapa besar penekanan metode pembelajaran di bawah ini dilaksanakan di program studi Anda? <span class="important">*</span></label>
-        <p style="font-size:.72rem;color:var(--qn-neutral-500);margin:0 0 .75rem;">Skala: 1 = Sangat Besar, 2 = Besar, 3 = Cukup Besar, 4 = Kurang Besar, 5 = Tidak Sama Sekali</p>
-        <div style="overflow-x:auto;">
-            <table class="matrix-table">
-                <thead>
-                    <tr>
-                        <th style="min-width:130px;">Metode</th>
-                        <th><span class="scale-label">1</span></th>
-                        <th><span class="scale-label">2</span></th>
-                        <th><span class="scale-label">3</span></th>
-                        <th><span class="scale-label">4</span></th>
-                        <th><span class="scale-label">5</span></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Perkuliahan</td>
-                        <td><input type="radio" name="f2_1"></td><td><input type="radio" name="f2_1"></td><td><input type="radio" name="f2_1"></td><td><input type="radio" name="f2_1"></td><td><input type="radio" name="f2_1"></td>
-                    </tr>
-                    <tr>
-                        <td>Demonstrasi</td>
-                        <td><input type="radio" name="f2_2"></td><td><input type="radio" name="f2_2"></td><td><input type="radio" name="f2_2"></td><td><input type="radio" name="f2_2"></td><td><input type="radio" name="f2_2"></td>
-                    </tr>
-                    <tr>
-                        <td>Partisipasi dalam proyek riset</td>
-                        <td><input type="radio" name="f2_3"></td><td><input type="radio" name="f2_3"></td><td><input type="radio" name="f2_3"></td><td><input type="radio" name="f2_3"></td><td><input type="radio" name="f2_3"></td>
-                    </tr>
-                    <tr>
-                        <td>Magang</td>
-                        <td><input type="radio" name="f2_4"></td><td><input type="radio" name="f2_4"></td><td><input type="radio" name="f2_4"></td><td><input type="radio" name="f2_4"></td><td><input type="radio" name="f2_4"></td>
-                    </tr>
-                    <tr>
-                        <td>Praktikum</td>
-                        <td><input type="radio" name="f2_5"></td><td><input type="radio" name="f2_5"></td><td><input type="radio" name="f2_5"></td><td><input type="radio" name="f2_5"></td><td><input type="radio" name="f2_5"></td>
-                    </tr>
-                    <tr>
-                        <td>Kerja Lapangan</td>
-                        <td><input type="radio" name="f2_6"></td><td><input type="radio" name="f2_6"></td><td><input type="radio" name="f2_6"></td><td><input type="radio" name="f2_6"></td><td><input type="radio" name="f2_6"></td>
-                    </tr>
-                    <tr>
-                        <td>Diskusi</td>
-                        <td><input type="radio" name="f2_7"></td><td><input type="radio" name="f2_7"></td><td><input type="radio" name="f2_7"></td><td><input type="radio" name="f2_7"></td><td><input type="radio" name="f2_7"></td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- f17: Matriks Kompetensi A+B (satu tabel gabungan, mengikuti format resmi Kemdiktisaintek) -->
+            <div class="tsf-question" role="group" aria-labelledby="f17-label">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">1.</span>
+                    <p class="tsf-question__label" id="f17-label">Tingkat Kompetensi yang Dikuasai (A) dan Diperlukan dalam Pekerjaan (B)<span class="tsf-required" aria-label="Wajib">*</span></p>
+                </div>
+                <p class="tsf-question__desc">Beri nilai 1 (sangat rendah) sampai 5 (sangat tinggi) untuk tiap aspek kompetensi, di kedua kolom.</p>
+
+                <div class="tsf-scale-table-wrap">
+                    <div class="tsf-scale-table tsf-scale-table--dual">
+                        <div class="tsf-scale-table__head">
+                            <span>Aspek Kompetensi</span>
+                            <div class="tsf-scale-table__dual-head">
+                                <span class="tsf-scale-table__dual-head-title">A - Dikuasai</span>
+                                <div class="tsf-scale-table__head-cols"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                            </div>
+                            <div class="tsf-scale-table__dual-head">
+                                <span class="tsf-scale-table__dual-head-title">B - Diperlukan</span>
+                                <div class="tsf-scale-table__head-cols"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                            </div>
+                        </div>
+
+                        <!-- One row per aspect: label + 5-point scale (A) + 5-point scale (B) -->
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Etika</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17a1" id="f17a1-1" value="1"><label for="f17a1-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a1" id="f17a1-2" value="2"><label for="f17a1-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a1" id="f17a1-3" value="3"><label for="f17a1-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a1" id="f17a1-4" value="4"><label for="f17a1-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a1" id="f17a1-5" value="5"><label for="f17a1-5" class="tsf-scale-label">5</label>
+                            </div>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17b1" id="f17b1-1" value="1"><label for="f17b1-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b1" id="f17b1-2" value="2"><label for="f17b1-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b1" id="f17b1-3" value="3"><label for="f17b1-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b1" id="f17b1-4" value="4"><label for="f17b1-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b1" id="f17b1-5" value="5"><label for="f17b1-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Keahlian berdasarkan bidang ilmu</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17a2" id="f17a2-1" value="1"><label for="f17a2-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a2" id="f17a2-2" value="2"><label for="f17a2-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a2" id="f17a2-3" value="3"><label for="f17a2-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a2" id="f17a2-4" value="4"><label for="f17a2-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a2" id="f17a2-5" value="5"><label for="f17a2-5" class="tsf-scale-label">5</label>
+                            </div>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17b2" id="f17b2-1" value="1"><label for="f17b2-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b2" id="f17b2-2" value="2"><label for="f17b2-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b2" id="f17b2-3" value="3"><label for="f17b2-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b2" id="f17b2-4" value="4"><label for="f17b2-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b2" id="f17b2-5" value="5"><label for="f17b2-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Bahasa Inggris</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17a3" id="f17a3-1" value="1"><label for="f17a3-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a3" id="f17a3-2" value="2"><label for="f17a3-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a3" id="f17a3-3" value="3"><label for="f17a3-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a3" id="f17a3-4" value="4"><label for="f17a3-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a3" id="f17a3-5" value="5"><label for="f17a3-5" class="tsf-scale-label">5</label>
+                            </div>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17b3" id="f17b3-1" value="1"><label for="f17b3-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b3" id="f17b3-2" value="2"><label for="f17b3-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b3" id="f17b3-3" value="3"><label for="f17b3-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b3" id="f17b3-4" value="4"><label for="f17b3-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b3" id="f17b3-5" value="5"><label for="f17b3-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Penggunaan Teknologi Informasi</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17a4" id="f17a4-1" value="1"><label for="f17a4-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a4" id="f17a4-2" value="2"><label for="f17a4-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a4" id="f17a4-3" value="3"><label for="f17a4-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a4" id="f17a4-4" value="4"><label for="f17a4-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a4" id="f17a4-5" value="5"><label for="f17a4-5" class="tsf-scale-label">5</label>
+                            </div>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17b4" id="f17b4-1" value="1"><label for="f17b4-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b4" id="f17b4-2" value="2"><label for="f17b4-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b4" id="f17b4-3" value="3"><label for="f17b4-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b4" id="f17b4-4" value="4"><label for="f17b4-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b4" id="f17b4-5" value="5"><label for="f17b4-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Komunikasi</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17a5" id="f17a5-1" value="1"><label for="f17a5-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a5" id="f17a5-2" value="2"><label for="f17a5-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a5" id="f17a5-3" value="3"><label for="f17a5-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a5" id="f17a5-4" value="4"><label for="f17a5-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a5" id="f17a5-5" value="5"><label for="f17a5-5" class="tsf-scale-label">5</label>
+                            </div>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17b5" id="f17b5-1" value="1"><label for="f17b5-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b5" id="f17b5-2" value="2"><label for="f17b5-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b5" id="f17b5-3" value="3"><label for="f17b5-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b5" id="f17b5-4" value="4"><label for="f17b5-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b5" id="f17b5-5" value="5"><label for="f17b5-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Kerja sama tim</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17a6" id="f17a6-1" value="1"><label for="f17a6-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a6" id="f17a6-2" value="2"><label for="f17a6-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a6" id="f17a6-3" value="3"><label for="f17a6-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a6" id="f17a6-4" value="4"><label for="f17a6-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a6" id="f17a6-5" value="5"><label for="f17a6-5" class="tsf-scale-label">5</label>
+                            </div>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17b6" id="f17b6-1" value="1"><label for="f17b6-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b6" id="f17b6-2" value="2"><label for="f17b6-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b6" id="f17b6-3" value="3"><label for="f17b6-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b6" id="f17b6-4" value="4"><label for="f17b6-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b6" id="f17b6-5" value="5"><label for="f17b6-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Pengembangan Diri</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17a7" id="f17a7-1" value="1"><label for="f17a7-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a7" id="f17a7-2" value="2"><label for="f17a7-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a7" id="f17a7-3" value="3"><label for="f17a7-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a7" id="f17a7-4" value="4"><label for="f17a7-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17a7" id="f17a7-5" value="5"><label for="f17a7-5" class="tsf-scale-label">5</label>
+                            </div>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f17b7" id="f17b7-1" value="1"><label for="f17b7-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b7" id="f17b7-2" value="2"><label for="f17b7-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b7" id="f17b7-3" value="3"><label for="f17b7-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b7" id="f17b7-4" value="4"><label for="f17b7-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f17b7" id="f17b7-5" value="5"><label for="f17b7-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- f2: Metode Pembelajaran (arah skala berlawanan dari tabel Kompetensi - 1 = paling besar) -->
+            <div class="tsf-question" role="group" aria-labelledby="f2-label">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">2.</span>
+                    <p class="tsf-question__label" id="f2-label">Seberapa besar penekanan metode pembelajaran di bawah ini dilaksanakan di program studi Anda?<span class="tsf-required" aria-label="Wajib">*</span></p>
+                </div>
+
+                <div class="tsf-scale-table-wrap">
+                    <div class="tsf-scale-table">
+                        <div class="tsf-scale-table__caption-row">
+                            <span></span>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Sangat Besar</span>
+                                <span>Tidak Sama Sekali</span>
+                            </div>
+                        </div>
+
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Perkuliahan</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f2_1" id="f2_1-1" value="1"><label for="f2_1-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_1" id="f2_1-2" value="2"><label for="f2_1-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_1" id="f2_1-3" value="3"><label for="f2_1-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_1" id="f2_1-4" value="4"><label for="f2_1-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_1" id="f2_1-5" value="5"><label for="f2_1-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Demonstrasi</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f2_2" id="f2_2-1" value="1"><label for="f2_2-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_2" id="f2_2-2" value="2"><label for="f2_2-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_2" id="f2_2-3" value="3"><label for="f2_2-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_2" id="f2_2-4" value="4"><label for="f2_2-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_2" id="f2_2-5" value="5"><label for="f2_2-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Partisipasi dalam proyek riset</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f2_3" id="f2_3-1" value="1"><label for="f2_3-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_3" id="f2_3-2" value="2"><label for="f2_3-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_3" id="f2_3-3" value="3"><label for="f2_3-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_3" id="f2_3-4" value="4"><label for="f2_3-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_3" id="f2_3-5" value="5"><label for="f2_3-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Magang</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f2_4" id="f2_4-1" value="1"><label for="f2_4-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_4" id="f2_4-2" value="2"><label for="f2_4-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_4" id="f2_4-3" value="3"><label for="f2_4-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_4" id="f2_4-4" value="4"><label for="f2_4-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_4" id="f2_4-5" value="5"><label for="f2_4-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Praktikum</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f2_5" id="f2_5-1" value="1"><label for="f2_5-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_5" id="f2_5-2" value="2"><label for="f2_5-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_5" id="f2_5-3" value="3"><label for="f2_5-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_5" id="f2_5-4" value="4"><label for="f2_5-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_5" id="f2_5-5" value="5"><label for="f2_5-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Kerja Lapangan</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f2_6" id="f2_6-1" value="1"><label for="f2_6-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_6" id="f2_6-2" value="2"><label for="f2_6-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_6" id="f2_6-3" value="3"><label for="f2_6-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_6" id="f2_6-4" value="4"><label for="f2_6-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_6" id="f2_6-5" value="5"><label for="f2_6-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+                        <div class="tsf-scale-table__row">
+                            <span class="tsf-scale-table__label">Diskusi</span>
+                            <div class="tsf-scale-options">
+                                <input type="radio" class="tsf-scale-input" name="f2_7" id="f2_7-1" value="1"><label for="f2_7-1" class="tsf-scale-label">1</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_7" id="f2_7-2" value="2"><label for="f2_7-2" class="tsf-scale-label">2</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_7" id="f2_7-3" value="3"><label for="f2_7-3" class="tsf-scale-label">3</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_7" id="f2_7-4" value="4"><label for="f2_7-4" class="tsf-scale-label">4</label>
+                                <input type="radio" class="tsf-scale-input" name="f2_7" id="f2_7-5" value="5"><label for="f2_7-5" class="tsf-scale-label">5</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert_helper" style="margin-top: 1rem;">
+                <div class="alert__content"><p class="alert__description">Perhatikan arah skala dua tabel di atas berlawanan - itu memang begitu di format resmi. Di tabel kompetensi, 5 = paling tinggi. Di tabel metode pembelajaran, 1 = paling besar.</p></div>
+            </div>
+
         </div>
-    </div>
-
-    <!-- Info note -->
-    <div style="background:var(--qn-neutral-50);border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:.75rem 1rem;margin-bottom:2rem;font-size:.72rem;color:var(--qn-neutral-500);">
-        Perhatikan arah skala dua tabel di atas berlawanan — itu memang begitu di format resmi. Di tabel kompetensi, 5 = paling tinggi. Di tabel metode pembelajaran, 1 = paling besar.
     </div>
 
     <!-- Bottom nav -->
     <div style="display:flex;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--qn-neutral-200);">
         <a href="javascript:history.back()" class="btn btn_outline">← Kembali</a>
-        <button class="btn btn_primary" onclick="alert('Simulasi selesai — data tidak disimpan.')">Kirim Jawaban</button>
+        <button class="btn btn_primary" onclick="alert('Simulasi selesai - data tidak disimpan.')">Kirim Jawaban</button>
     </div>
 
     <!-- Success section (always visible for mockup) -->
-    <div style="border:1px solid var(--qn-success-200, #bbf7d0);background:var(--qn-success-50, #f0fdf4);border-radius:.75rem;padding:2rem 1.5rem;text-align:center;margin-top:2rem;">
-        <div style="font-size:2.5rem;color:var(--qn-success-500, #22c55e);margin-bottom:.5rem;">✓</div>
-        <h3 style="margin:0 0 .5rem;font-size:1rem;">Terima kasih! Jawaban Anda sudah tersimpan.</h3>
-        <a href="kuesioner.html" style="font-size:.85rem;color:var(--qn-primary-500);">← Kembali ke halaman kuesioner</a>
+    <div class="alert alert_success" style="text-align:center;margin-top:2rem;padding:2rem 1.5rem;">
+        <div class="alert__content">
+            <span class="icon icon-check-circle-solid" style="font-size: 2.5rem; color: var(--qn-success-500); margin-bottom: 0.5rem; display: inline-block;"></span>
+            <h3 style="margin:0 0 .5rem;font-size:1rem;">Terima kasih! Jawaban Anda sudah tersimpan.</h3>
+            <a href="kuesioner.html" style="font-size:.85rem;color:var(--qn-primary-500);">← Kembali ke halaman kuesioner</a>
+        </div>
     </div>
 
 </div>
 
+<script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
 </body>
 </html>

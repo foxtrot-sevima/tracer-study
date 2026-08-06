@@ -4,7 +4,7 @@
     <base href="/v3/b/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulasi Email Undangan — Tracer Study</title>
+    <title>Simulasi Email Undangan - Tracer Study</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -20,9 +20,6 @@
         .email-body p{margin:0 0 1rem;}
         .email-cta{display:inline-block;padding:.6rem 1.25rem;background:var(--qn-primary-500);color:#fff;border-radius:.375rem;text-decoration:none;font-weight:500;font-size:.875rem;}
         .email-footer{padding:1rem 1.5rem;background:var(--qn-neutral-50);font-size:.75rem;color:var(--qn-neutral-400);border-top:1px solid var(--qn-neutral-100);}
-        .wave-tabs{display:flex;gap:.5rem;margin-bottom:1.25rem;}
-        .wave-tabs__btn{padding:.5rem 1rem;border-radius:.375rem;border:1px solid var(--qn-neutral-200);background:#fff;font-size:.8rem;cursor:pointer;font-weight:500;}
-        .wave-tabs__btn.active{background:var(--qn-primary-500);color:#fff;border-color:var(--qn-primary-500);}
         .email-variant{display:none;}
         .email-variant.active{display:block;}
     </style>
@@ -31,39 +28,40 @@
     <main class="main">
         <div class="email-wrapper">
             <!-- Banner simulasi -->
-            <div style="background:#fef3c7;border:1px solid #fde68a;border-radius:.5rem;padding:.6rem 1rem;display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;">
-                <span style="font-size:1.25rem;">ℹ️</span>
-                <span style="font-size:.8rem;color:#92400e;"><b>Ini adalah simulasi</b> — email ini tidak benar-benar terkirim. Anda sedang melihat contoh tampilan email undangan yang akan diterima alumni di tiap wave.</span>
+            <div class="alert alert_warning" style="margin-bottom: 1.5rem;">
+                <div class="alert__content"><p class="alert__description"><b>Ini adalah simulasi</b> - email ini tidak benar-benar terkirim. Anda sedang melihat contoh tampilan email undangan yang akan diterima alumni di tiap wave.</p></div>
             </div>
 
             <!-- Wave tabs -->
-            <div class="wave-tabs">
-                <button class="wave-tabs__btn active" onclick="showEmail('exit')">Wave Exit</button>
-                <button class="wave-tabs__btn" onclick="showEmail('g1')">Wave G1</button>
-                <button class="wave-tabs__btn" onclick="showEmail('g2')">Wave G2</button>
-            </div>
+            <nav class="nav-tab" style="margin-bottom: 1.25rem;">
+                <ul class="nav-tab__wrapper">
+                    <li class="nav-tab__item active" onclick="showEmail('exit', this)">Wave Exit</li>
+                    <li class="nav-tab__item" onclick="showEmail('g1', this)">Wave G1</li>
+                    <li class="nav-tab__item" onclick="showEmail('g2', this)">Wave G2</li>
+                </ul>
+            </nav>
 
             <!-- ========== EMAIL WAVE EXIT ========== -->
             <div id="email-exit" class="email-variant active">
                 <div class="email-inbox">
                     <div class="email-toolbar">
                         <span class="email-toolbar__dot"></span><span class="email-toolbar__dot"></span><span class="email-toolbar__dot"></span>
-                        <span style="margin-left:auto;">Inbox — ahmad.rizki@gmail.com</span>
+                        <span style="margin-left:auto;">Inbox - ahmad.rizki@gmail.com</span>
                     </div>
                     <div class="email-header">
-                        <p class="email-header__from">Dari: <b>KarirLink — Universitas Foxtrot</b> &lt;noreply@karirlink.id&gt;</p>
+                        <p class="email-header__from">Dari: <b>KarirLink - Universitas Foxtrot</b> &lt;noreply@karirlink.id&gt;</p>
                         <h2 class="email-header__subject">Selamat atas kelulusan Anda! Bantu kami mengenal kabar Anda</h2>
                     </div>
                     <div class="email-body">
                         <p>Halo <b>Ahmad Rizki</b>,</p>
                         <p>Selamat atas kelulusan Anda dari <b>S1 Teknik Informatika, Universitas Foxtrot</b>! 🎓</p>
-                        <p>Sebelum Anda melangkah ke fase berikutnya, kami ingin memastikan data kontak Anda masih aktif dan mengetahui kondisi awal Anda saat ini. Jawaban Anda akan membantu kami menyediakan program karier yang tepat — seperti informasi lowongan, pelatihan, dan koneksi ke perusahaan mitra.</p>
+                        <p>Sebelum Anda melangkah ke fase berikutnya, kami ingin memastikan data kontak Anda masih aktif dan mengetahui kondisi awal Anda saat ini. Jawaban Anda akan membantu kami menyediakan program karier yang tepat - seperti informasi lowongan, pelatihan, dan koneksi ke perusahaan mitra.</p>
                         <p>Pengisian hanya memakan waktu <b>kurang dari 3 menit</b>:</p>
                         <p style="text-align:center;margin:1.5rem 0;">
                             <a href="simulasi-g1-status.html" class="email-cta">Isi Sekarang →</a>
                         </p>
                         <p>Terima kasih atas waktu Anda. Kabar dari Anda sangat berarti bagi kami dan adik-adik tingkat Anda.</p>
-                        <p>Salam hangat,<br><b>Tim CDC — Universitas Foxtrot</b></p>
+                        <p>Salam hangat,<br><b>Tim CDC - Universitas Foxtrot</b></p>
                     </div>
                     <div class="email-footer">
                         Email ini dikirim oleh KarirLink atas nama Universitas Foxtrot. Jika Anda merasa tidak seharusnya menerima email ini, silakan abaikan.
@@ -76,22 +74,22 @@
                 <div class="email-inbox">
                     <div class="email-toolbar">
                         <span class="email-toolbar__dot"></span><span class="email-toolbar__dot"></span><span class="email-toolbar__dot"></span>
-                        <span style="margin-left:auto;">Inbox — ahmad.rizki@gmail.com</span>
+                        <span style="margin-left:auto;">Inbox - ahmad.rizki@gmail.com</span>
                     </div>
                     <div class="email-header">
-                        <p class="email-header__from">Dari: <b>KarirLink — Universitas Foxtrot</b> &lt;noreply@karirlink.id&gt;</p>
-                        <h2 class="email-header__subject">Sudah setahun sejak kelulusan — bagaimana kabar Anda?</h2>
+                        <p class="email-header__from">Dari: <b>KarirLink - Universitas Foxtrot</b> &lt;noreply@karirlink.id&gt;</p>
+                        <h2 class="email-header__subject">Sudah setahun sejak kelulusan - bagaimana kabar Anda?</h2>
                     </div>
                     <div class="email-body">
                         <p>Halo <b>Ahmad Rizki</b>,</p>
                         <p>Tidak terasa sudah lebih dari setahun sejak Anda lulus dari <b>S1 Teknik Informatika, Universitas Foxtrot</b>. Semoga perjalanan Anda setelah kampus berjalan baik!</p>
-                        <p>Kami ingin mengetahui perkembangan karier Anda saat ini — apakah sudah bekerja, berwirausaha, melanjutkan studi, atau sedang dalam proses pencarian. Jawaban Anda penting untuk membantu kampus meningkatkan kualitas lulusan ke depan dan memenuhi standar pelaporan nasional.</p>
+                        <p>Kami ingin mengetahui perkembangan karier Anda saat ini - apakah sudah bekerja, berwirausaha, melanjutkan studi, atau sedang dalam proses pencarian. Jawaban Anda penting untuk membantu kampus meningkatkan kualitas lulusan ke depan dan memenuhi standar pelaporan nasional.</p>
                         <p>Pengisian hanya memakan waktu <b>kurang dari 5 menit</b>:</p>
                         <p style="text-align:center;margin:1.5rem 0;">
                             <a href="simulasi-g1-status.html" class="email-cta">Isi Tracer Study Sekarang →</a>
                         </p>
                         <p>Sebagai bentuk terima kasih, kami juga menyediakan informasi lowongan kerja terbaru yang mungkin relevan untuk Anda setelah pengisian selesai.</p>
-                        <p>Salam hangat,<br><b>Tim CDC — Universitas Foxtrot</b></p>
+                        <p>Salam hangat,<br><b>Tim CDC - Universitas Foxtrot</b></p>
                     </div>
                     <div class="email-footer">
                         Email ini dikirim oleh KarirLink atas nama Universitas Foxtrot. Anda menerima email ini sebagai alumni angkatan 2024. Jika data Anda tidak sesuai, silakan hubungi CDC.
@@ -104,22 +102,22 @@
                 <div class="email-inbox">
                     <div class="email-toolbar">
                         <span class="email-toolbar__dot"></span><span class="email-toolbar__dot"></span><span class="email-toolbar__dot"></span>
-                        <span style="margin-left:auto;">Inbox — ahmad.rizki@gmail.com</span>
+                        <span style="margin-left:auto;">Inbox - ahmad.rizki@gmail.com</span>
                     </div>
                     <div class="email-header">
-                        <p class="email-header__from">Dari: <b>KarirLink — Universitas Foxtrot</b> &lt;noreply@karirlink.id&gt;</p>
+                        <p class="email-header__from">Dari: <b>KarirLink - Universitas Foxtrot</b> &lt;noreply@karirlink.id&gt;</p>
                         <h2 class="email-header__subject">Kami ingin mendengar perjalanan karier Anda sejauh ini</h2>
                     </div>
                     <div class="email-body">
                         <p>Halo <b>Ahmad Rizki</b>,</p>
                         <p>Sudah beberapa tahun sejak Anda lulus dari <b>S1 Teknik Informatika, Universitas Foxtrot</b>. Kami berharap perjalanan karier Anda berjalan dengan baik!</p>
-                        <p>Kali ini kami ingin menggali lebih dalam — seberapa relevan pendidikan yang Anda tempuh dengan pekerjaan saat ini, dan apa yang bisa kami perbaiki untuk mahasiswa generasi berikutnya. Masukan Anda sangat berharga untuk pengembangan kurikulum dan program prodi.</p>
+                        <p>Kali ini kami ingin menggali lebih dalam - seberapa relevan pendidikan yang Anda tempuh dengan pekerjaan saat ini, dan apa yang bisa kami perbaiki untuk mahasiswa generasi berikutnya. Masukan Anda sangat berharga untuk pengembangan kurikulum dan program prodi.</p>
                         <p>Pengisian hanya memakan waktu <b>kurang dari 5 menit</b>:</p>
                         <p style="text-align:center;margin:1.5rem 0;">
                             <a href="simulasi-g1-status.html" class="email-cta">Isi Survei Lanjutan →</a>
                         </p>
                         <p>Terima kasih atas kontribusi Anda. Bersama, kita membangun almamater yang lebih baik.</p>
-                        <p>Salam hangat,<br><b>Tim CDC — Universitas Foxtrot</b></p>
+                        <p>Salam hangat,<br><b>Tim CDC - Universitas Foxtrot</b></p>
                     </div>
                     <div class="email-footer">
                         Email ini dikirim oleh KarirLink atas nama Universitas Foxtrot. Anda menerima email ini sebagai alumni angkatan 2020. Jika data Anda tidak sesuai, silakan hubungi CDC.
@@ -134,11 +132,11 @@
         </div>
     </main>
     <script>
-        function showEmail(wave) {
+        function showEmail(wave, tabEl) {
             document.querySelectorAll('.email-variant').forEach(el => el.classList.remove('active'));
             document.getElementById('email-' + wave).classList.add('active');
-            document.querySelectorAll('.wave-tabs__btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            document.querySelectorAll('.nav-tab__item').forEach(tab => tab.classList.remove('active'));
+            tabEl.classList.add('active');
         }
     </script>
 </body>

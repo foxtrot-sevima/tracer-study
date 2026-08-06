@@ -4,7 +4,7 @@
     <base href="/v3/b/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cabang Bekerja — Wave G1</title>
+    <title>Cabang Bekerja - Wave G1</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -15,6 +15,37 @@
         .stepper__item.is-done{color:var(--qn-primary-500);font-weight:500;}
         .stepper__sep{color:var(--qn-neutral-300);}
         select{appearance:menulist !important;}
+
+        /* tsf-question / tsf-option component set - same pattern as v2.1/b's tracer-study-form-*.html */
+        .tsf-question { padding: 1.25rem 0; border-bottom: 1px solid var(--qn-neutral-100, #f3f4f6); }
+        .tsf-question:last-child { border-bottom: none; padding-bottom: 0.25rem; }
+        .tsf-question:first-child { padding-top: 0.25rem; }
+        .tsf-question__label-row { display: flex; gap: 0.375rem; margin-bottom: 0.25rem; }
+        .tsf-question__number { font-size: 1.0625rem; color: var(--qn-neutral-500, #6b7280); font-weight: 500; }
+        .tsf-question__label { font-size: 1.0625rem; color: var(--qn-neutral-900, #111827); font-weight: 500; line-height: 1.5; }
+        .tsf-question__desc { font-size: 0.9375rem; color: var(--qn-neutral-500, #6b7280); margin: 0.25rem 0 0.75rem; line-height: 1.5; }
+        .tsf-required { color: var(--qn-danger-500, #ef4444); margin-left: 0.125rem; }
+
+        .tsf-conditional { border-left: 3px solid var(--qn-warning-500, #f59e0b); background: linear-gradient(to right, rgba(245, 158, 11, 0.08), transparent); padding-left: 1rem; margin-left: -1rem; }
+        .tsf-conditional::before { content: "\21B3 Pertanyaan lanjutan"; display: block; font-size: 0.75rem; color: var(--qn-warning-600, #d97706); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+
+        .tsf-radio-group, .tsf-checkbox-group { display: flex; flex-direction: column; gap: 0.625rem; margin-top: 0.5rem; }
+        .tsf-radio-group .form-control__label-radio,
+        .tsf-checkbox-group .form-control__label-checkbox { font-size: 1rem; color: var(--qn-neutral-800, #1f2937); }
+
+        .tsf-option {
+            display: block; border: 1.5px solid var(--qn-neutral-200, #e5e7eb); border-radius: 0.625rem;
+            padding: 0.75rem 1rem; margin: 0 !important; cursor: pointer;
+            transition: border-color .15s ease, background-color .15s ease;
+        }
+        .tsf-option:hover { border-color: var(--qn-primary-300, #93c5fd); background: var(--qn-primary-50, #eff6ff); }
+        .tsf-option.tsf-option--checked { border-color: var(--qn-primary-500, #3b82f6); background: var(--qn-primary-50, #eff6ff); }
+        .tsf-checkbox-group > label.tsf-option { display: flex; align-items: center; gap: 0.625rem; }
+
+        .tsf-currency { display: flex; align-items: stretch; border: 1px solid var(--qn-neutral-200, #e3e8ef); border-radius: 0.5rem; overflow: hidden; background: #fff; margin-top: 0.5rem; }
+        .tsf-currency__prefix { display: flex; align-items: center; padding: 0 0.875rem; font-size: 0.875rem; font-weight: 500; color: var(--qn-neutral-700, #374151); background: var(--qn-neutral-50, #f9fafb); border-right: 1px solid var(--qn-neutral-200, #e3e8ef); flex-shrink: 0; }
+        .tsf-currency .form-control__group { flex: 1; }
+        .tsf-currency .form-control__input { border: none; border-radius: 0; box-shadow: none; }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -37,167 +68,241 @@
     <!-- Header -->
     <div style="text-align:center;margin-bottom:1.5rem;">
         <img src="assets/karirlink/images/logo/karirlink-colored.webp" alt="KarirLink" height="36" style="margin-bottom:.5rem;">
-        <h2 style="margin:0;font-size:1.1rem;">Tracer Study — Universitas Foxtrot</h2>
+        <h2 style="margin:0;font-size:1.1rem;">Tracer Study - Universitas Foxtrot</h2>
         <p style="margin:.25rem 0 0;font-size:.8rem;color:var(--qn-neutral-500);">Wave G1</p>
     </div>
 
-    <!-- f505: Pendapatan -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">1. Berapa rata-rata pendapatan Anda per bulan (Take Home Pay) saat ini? <span class="important">*</span></label>
-        <div style="display:flex;align-items:center;gap:.5rem;">
-            <span style="font-weight:600;">Rp</span>
-            <input type="text" class="form-control__input" inputmode="numeric" placeholder="0" style="flex:1;">
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card__header">
+            <h2 class="card__title">Cabang: Bekerja</h2>
         </div>
-    </div>
+        <div class="card__body">
 
-    <!-- f5a1: Provinsi -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">2. Provinsi tempat Anda bekerja <span class="important">*</span></label>
-        <select class="form-control__input">
-            <option value="">— Pilih provinsi —</option>
-            <option>Prov. Jawa Timur</option>
-            <option>Prov. D.K.I. Jakarta</option>
-            <option>Prov. Jawa Barat</option>
-            <option>Prov. Jawa Tengah</option>
-            <option>Prov. Bali</option>
-            <option>Luar Negeri</option>
-        </select>
-    </div>
+            <!-- f505: Pendapatan -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">1.</span>
+                    <label for="input-f505" class="tsf-question__label">Berapa rata-rata pendapatan Anda per bulan (Take Home Pay) saat ini?<span class="tsf-required" aria-label="Wajib">*</span></label>
+                </div>
+                <div class="tsf-currency">
+                    <span class="tsf-currency__prefix">Rp</span>
+                    <div class="form-control__group">
+                        <input type="text" id="input-f505" class="form-control__input" inputmode="numeric" placeholder="0">
+                    </div>
+                </div>
+            </div>
 
-    <!-- f5a2: Kab/Kota -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">3. Kabupaten/Kota tempat Anda bekerja <span class="important">*</span></label>
-        <select class="form-control__input">
-            <option value="">— Pilih kab/kota —</option>
-            <option>Kota Surabaya</option>
-            <option>Kota Malang</option>
-            <option>Kab. Sidoarjo</option>
-            <option>Kota Jakarta Selatan</option>
-            <option>Kota Bandung</option>
-        </select>
-    </div>
+            <!-- f5a1: Provinsi -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">2.</span>
+                    <label for="select-f5a1" class="tsf-question__label">Provinsi tempat Anda bekerja<span class="tsf-required" aria-label="Wajib">*</span></label>
+                </div>
+                <div class="form-control" style="margin-top: 0.5rem;">
+                    <select id="select-f5a1" class="form-control__input">
+                        <option value="" selected disabled>- Pilih provinsi -</option>
+                        <option>Prov. Jawa Timur</option>
+                        <option>Prov. D.K.I. Jakarta</option>
+                        <option>Prov. Jawa Barat</option>
+                        <option>Prov. Jawa Tengah</option>
+                        <option>Prov. Bali</option>
+                        <option>Luar Negeri</option>
+                    </select>
+                </div>
+            </div>
 
-    <!-- f1101: Jenis instansi -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">4. Apa jenis perusahaan/instansi/institusi tempat Anda bekerja sekarang? <span class="important">*</span></label>
-        <div class="form-control__group">
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1101"><label class="form-control__label-radio">Instansi pemerintah</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1101"><label class="form-control__label-radio">BUMN/BUMD</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1101"><label class="form-control__label-radio">Institusi/Organisasi Multilateral</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1101"><label class="form-control__label-radio">Organisasi non-profit/LSM</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1101"><label class="form-control__label-radio">Perusahaan swasta</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1101"><label class="form-control__label-radio">Wiraswasta/perusahaan sendiri</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1101"><label class="form-control__label-radio">Lainnya</label></div>
-            <input type="text" class="form-control__input" placeholder="Sebutkan jenis instansi lainnya..." style="margin-top:.25rem;">
-        </div>
-    </div>
+            <!-- f5a2: Kab/Kota -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">3.</span>
+                    <label for="select-f5a2" class="tsf-question__label">Kabupaten/Kota tempat Anda bekerja<span class="tsf-required" aria-label="Wajib">*</span></label>
+                </div>
+                <div class="form-control" style="margin-top: 0.5rem;">
+                    <select id="select-f5a2" class="form-control__input">
+                        <option value="" selected disabled>- Pilih kab/kota -</option>
+                        <option>Kota Surabaya</option>
+                        <option>Kota Malang</option>
+                        <option>Kab. Sidoarjo</option>
+                        <option>Kota Jakarta Selatan</option>
+                        <option>Kota Bandung</option>
+                    </select>
+                </div>
+            </div>
 
-    <!-- f5b: Nama perusahaan -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">5. Nama perusahaan/kantor tempat Anda bekerja <span class="important">*</span></label>
-        <select class="form-control__input">
-            <option value="">— Pilih atau ketik —</option>
-            <option>PT Telkom Indonesia</option>
-            <option>PT Bank Mandiri (Persero) Tbk</option>
-            <option>PT Astra International Tbk</option>
-            <option>Gojek</option>
-            <option>Tokopedia</option>
-            <option>Lainnya (ketik sendiri)</option>
-        </select>
-        <input type="text" class="form-control__input" placeholder="Ketik nama perusahaan..." style="margin-top:.25rem;">
-    </div>
+            <!-- f1101: Jenis instansi -->
+            <div class="tsf-question" role="radiogroup" aria-labelledby="f1101-label">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">4.</span>
+                    <p class="tsf-question__label" id="f1101-label">Apa jenis perusahaan/instansi/institusi tempat Anda bekerja sekarang?<span class="tsf-required" aria-label="Wajib">*</span></p>
+                </div>
+                <div class="tsf-radio-group" id="f1101-radio-group">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-a" value="pemerintah" onchange="toggleLainnyaField(this)"><label for="f1101-a" class="form-control__label-radio">Instansi pemerintah</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-b" value="bumn" onchange="toggleLainnyaField(this)"><label for="f1101-b" class="form-control__label-radio">BUMN/BUMD</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-c" value="multilateral" onchange="toggleLainnyaField(this)"><label for="f1101-c" class="form-control__label-radio">Institusi/Organisasi Multilateral</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-d" value="nonprofit" onchange="toggleLainnyaField(this)"><label for="f1101-d" class="form-control__label-radio">Organisasi non-profit/LSM</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-e" value="swasta" onchange="toggleLainnyaField(this)"><label for="f1101-e" class="form-control__label-radio">Perusahaan swasta</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-f" value="wiraswasta" onchange="toggleLainnyaField(this)"><label for="f1101-f" class="form-control__label-radio">Wiraswasta/perusahaan sendiri</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1101" id="f1101-g" value="lainnya" onchange="toggleLainnyaField(this)"><label for="f1101-g" class="form-control__label-radio">Lainnya</label></label>
+                </div>
+            </div>
 
-    <!-- f5c: Posisi/jabatan -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">6. Apa posisi/jabatan Anda saat ini? <span class="important">*</span></label>
-        <div class="form-control__group">
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f5c"><label class="form-control__label-radio">Founder</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f5c"><label class="form-control__label-radio">Co-Founder</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f5c"><label class="form-control__label-radio">Staff</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f5c"><label class="form-control__label-radio">Freelance/Kerja Lepas</label></div>
-        </div>
-        <p style="font-size:.7rem;color:var(--qn-neutral-400);margin:.5rem 0 0;font-style:italic;">Pertanyaan ini ditambahkan oleh kami — jawabannya tidak dikirim ke Kemdiktisaintek, hanya disimpan untuk laporan internal kampus.</p>
-    </div>
+            <div class="tsf-question tsf-conditional" id="lainnya-f1101-radio-group-wrap" style="display: none;" aria-hidden="true">
+                <label for="input-lainnya-f1101" class="tsf-question__label">Sebutkan jenis instansi lainnya</label>
+                <div class="form-control" style="margin-top: 0.5rem;">
+                    <div class="form-control__group">
+                        <input type="text" id="input-lainnya-f1101" class="form-control__input" placeholder="Tuliskan jenis instansi Anda">
+                    </div>
+                </div>
+            </div>
 
-    <!-- f5d: Tingkat tempat kerja -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">7. Apa tingkat tempat kerja Anda? <span class="important">*</span></label>
-        <div class="form-control__group">
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f5d"><label class="form-control__label-radio">Lokal/wilayah/wiraswasta tidak berbadan hukum</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f5d"><label class="form-control__label-radio">Nasional/wiraswasta berbadan hukum</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f5d"><label class="form-control__label-radio">Multinasional/internasional</label></div>
-        </div>
-    </div>
+            <!-- f5b: Nama perusahaan -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">5.</span>
+                    <label for="select-f5b" class="tsf-question__label">Nama perusahaan/kantor tempat Anda bekerja<span class="tsf-required" aria-label="Wajib">*</span></label>
+                </div>
+                <div class="form-control" style="margin-top: 0.5rem;">
+                    <select id="select-f5b" class="form-control__input" onchange="toggleLainnyaField(this)" style="margin-bottom: 0.5rem;">
+                        <option value="" selected disabled>- Pilih atau ketik -</option>
+                        <option>PT Telkom Indonesia</option>
+                        <option>PT Bank Mandiri (Persero) Tbk</option>
+                        <option>PT Astra International Tbk</option>
+                        <option>Gojek</option>
+                        <option>Tokopedia</option>
+                        <option value="lainnya">Lainnya (ketik sendiri)</option>
+                    </select>
+                </div>
+                <div class="tsf-question tsf-conditional" id="lainnya-select-f5b-wrap" style="display: none;" aria-hidden="true">
+                    <div class="form-control">
+                        <div class="form-control__group">
+                            <input type="text" id="input-lainnya-select-f5b" class="form-control__input" placeholder="Ketik nama perusahaan Anda">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- f14: Keeratan -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">8. Seberapa erat hubungan antara bidang studi dengan pekerjaan Anda? <span class="important">*</span></label>
-        <div class="form-control__group">
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f14"><label class="form-control__label-radio">Sangat Erat</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f14"><label class="form-control__label-radio">Erat</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f14"><label class="form-control__label-radio">Cukup Erat</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f14"><label class="form-control__label-radio">Kurang Erat</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f14"><label class="form-control__label-radio">Tidak Sama Sekali</label></div>
-        </div>
-    </div>
+            <!-- f5c: Posisi/jabatan (internal-only untuk cabang Bekerja - tidak dikirim ke Kemdiktisaintek) -->
+            <div class="tsf-question" role="radiogroup" aria-labelledby="f5c-label">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">6.</span>
+                    <p class="tsf-question__label" id="f5c-label">Apa posisi/jabatan Anda saat ini?<span class="tsf-required" aria-label="Wajib">*</span></p>
+                </div>
+                <p class="tsf-question__desc">Pertanyaan ini ditambahkan oleh kami - jawabannya tidak dikirim ke Kemdiktisaintek, hanya disimpan untuk laporan internal kampus.</p>
+                <div class="tsf-radio-group">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f5c" id="f5c-founder" value="founder"><label for="f5c-founder" class="form-control__label-radio">Founder</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f5c" id="f5c-cofounder" value="co_founder"><label for="f5c-cofounder" class="form-control__label-radio">Co-Founder</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f5c" id="f5c-staff" value="staff"><label for="f5c-staff" class="form-control__label-radio">Staff</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f5c" id="f5c-freelance" value="freelance"><label for="f5c-freelance" class="form-control__label-radio">Freelance/Kerja Lepas</label></label>
+                </div>
+            </div>
 
-    <!-- f15: Jenjang -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">9. Tingkat pendidikan apa yang paling tepat/sesuai untuk pekerjaan Anda saat ini? <span class="important">*</span></label>
-        <div class="form-control__group">
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f15"><label class="form-control__label-radio">Setingkat Lebih Tinggi</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f15"><label class="form-control__label-radio">Tingkat yang Sama</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f15"><label class="form-control__label-radio">Setingkat Lebih Rendah</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f15"><label class="form-control__label-radio">Tidak Perlu Pendidikan Tinggi</label></div>
-        </div>
-    </div>
+            <!-- f5d: Tingkat tempat kerja -->
+            <div class="tsf-question" role="radiogroup" aria-labelledby="f5d-label">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">7.</span>
+                    <p class="tsf-question__label" id="f5d-label">Apa tingkat tempat kerja Anda?<span class="tsf-required" aria-label="Wajib">*</span></p>
+                </div>
+                <div class="tsf-radio-group">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f5d" id="f5d-a" value="lokal"><label for="f5d-a" class="form-control__label-radio">Lokal/wilayah/wiraswasta tidak berbadan hukum</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f5d" id="f5d-b" value="nasional"><label for="f5d-b" class="form-control__label-radio">Nasional/wiraswasta berbadan hukum</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f5d" id="f5d-c" value="multinasional"><label for="f5d-c" class="form-control__label-radio">Multinasional/internasional</label></label>
+                </div>
+            </div>
 
-    <!-- f4: Cara mencari pekerjaan -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">10. Bagaimana Anda mencari pekerjaan tersebut? <span class="important">*</span></label>
-        <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .5rem;">Jawaban bisa lebih dari satu.</p>
-        <div class="form-control__group">
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Melalui iklan di koran/majalah, brosur</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Melamar ke perusahaan</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Pergi ke bursa/pameran kerja</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Membangun networking sejak masih kuliah</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Melalui internet/iklan online/milis</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Dihubungi oleh perusahaan</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Menghubungi Kemenakertrans</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Menghubungi agen tenaga kerja komersial/swasta</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Memperoleh informasi dari pusat/kantor pengembangan karir kampus</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Menghubungi kantor kemahasiswaan/alumni</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Membina relasi (menjaga kontak) dengan dosen pembimbing</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Membangun bisnis sendiri</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Melalui penempatan kerja atau magang</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Bekerja di tempat yang sama dengan tempat kerja semasa kuliah</label></div>
-            <div class="checkbox"><input type="checkbox" class="form-control__checkbox"><label class="form-control__label-checkbox">Lainnya</label></div>
-            <input type="text" class="form-control__input" placeholder="Sebutkan cara lainnya..." style="margin-top:.25rem;">
-        </div>
-    </div>
+            <!-- f14: Keeratan -->
+            <div class="tsf-question" role="radiogroup" aria-labelledby="f14-label">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">8.</span>
+                    <p class="tsf-question__label" id="f14-label">Seberapa erat hubungan antara bidang studi dengan pekerjaan Anda?<span class="tsf-required" aria-label="Wajib">*</span></p>
+                </div>
+                <div class="tsf-radio-group">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f14" id="f14-a" value="sangat_erat"><label for="f14-a" class="form-control__label-radio">Sangat Erat</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f14" id="f14-b" value="erat"><label for="f14-b" class="form-control__label-radio">Erat</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f14" id="f14-c" value="cukup_erat"><label for="f14-c" class="form-control__label-radio">Cukup Erat</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f14" id="f14-d" value="kurang_erat"><label for="f14-d" class="form-control__label-radio">Kurang Erat</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f14" id="f14-e" value="tidak_sama_sekali"><label for="f14-e" class="form-control__label-radio">Tidak Sama Sekali</label></label>
+                </div>
+            </div>
 
-    <!-- Data atasan -->
-    <div style="border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:1rem;margin-bottom:1.5rem;">
-        <h3 style="margin:0 0 .75rem;font-size:.95rem;">11. Data Atasan</h3>
-        <div class="form-control" style="margin-bottom:1rem;">
-            <label class="form-control__label">Nama atasan <span class="important">*</span></label>
-            <input type="text" class="form-control__input" placeholder="Nama lengkap atasan">
-        </div>
-        <div class="form-control" style="margin-bottom:1rem;">
-            <label class="form-control__label">Jabatan atasan <span class="important">*</span></label>
-            <input type="text" class="form-control__input" placeholder="Jabatan atasan">
-        </div>
-        <div class="form-control" style="margin-bottom:1rem;">
-            <label class="form-control__label">Email atasan <span class="important">*</span></label>
-            <input type="email" class="form-control__input" placeholder="email@perusahaan.co.id">
-        </div>
-        <div class="form-control" style="margin-bottom:1rem;">
-            <label class="form-control__label">No. Telp atasan <span class="important">*</span></label>
-            <input type="tel" class="form-control__input" placeholder="08xxxxxxxxxx">
-        </div>
-        <div class="form-control">
-            <label class="form-control__label">Alamat perusahaan <span class="important">*</span></label>
-            <input type="text" class="form-control__input" placeholder="Alamat lengkap perusahaan">
+            <!-- f15: Jenjang -->
+            <div class="tsf-question" role="radiogroup" aria-labelledby="f15-label">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">9.</span>
+                    <p class="tsf-question__label" id="f15-label">Tingkat pendidikan apa yang paling tepat/sesuai untuk pekerjaan Anda saat ini?<span class="tsf-required" aria-label="Wajib">*</span></p>
+                </div>
+                <div class="tsf-radio-group">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f15" id="f15-a" value="lebih_tinggi"><label for="f15-a" class="form-control__label-radio">Setingkat Lebih Tinggi</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f15" id="f15-b" value="sama"><label for="f15-b" class="form-control__label-radio">Tingkat yang Sama</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f15" id="f15-c" value="lebih_rendah"><label for="f15-c" class="form-control__label-radio">Setingkat Lebih Rendah</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f15" id="f15-d" value="tidak_perlu"><label for="f15-d" class="form-control__label-radio">Tidak Perlu Pendidikan Tinggi</label></label>
+                </div>
+            </div>
+
+            <!-- f4: Cara mencari pekerjaan -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">10.</span>
+                    <p class="tsf-question__label" id="f4-label">Bagaimana Anda mencari pekerjaan tersebut?<span class="tsf-required" aria-label="Wajib">*</span></p>
+                </div>
+                <p class="tsf-question__desc">Jawaban bisa lebih dari satu.</p>
+                <div class="tsf-checkbox-group" id="f4-checkbox-group">
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-1" value="iklan_koran"><label for="f4-1" class="form-control__label-checkbox">Melalui iklan di koran/majalah, brosur</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-2" value="melamar_perusahaan"><label for="f4-2" class="form-control__label-checkbox">Melamar ke perusahaan</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-3" value="bursa_kerja"><label for="f4-3" class="form-control__label-checkbox">Pergi ke bursa/pameran kerja</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-4" value="networking"><label for="f4-4" class="form-control__label-checkbox">Membangun networking sejak masih kuliah</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-5" value="internet"><label for="f4-5" class="form-control__label-checkbox">Melalui internet/iklan online/milis</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-6" value="dihubungi_perusahaan"><label for="f4-6" class="form-control__label-checkbox">Dihubungi oleh perusahaan</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-7" value="kemenakertrans"><label for="f4-7" class="form-control__label-checkbox">Menghubungi Kemenakertrans</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-8" value="agen_tenaga_kerja"><label for="f4-8" class="form-control__label-checkbox">Menghubungi agen tenaga kerja komersial/swasta</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-9" value="pusat_karir_kampus"><label for="f4-9" class="form-control__label-checkbox">Memperoleh informasi dari pusat/kantor pengembangan karir kampus</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-10" value="kemahasiswaan"><label for="f4-10" class="form-control__label-checkbox">Menghubungi kantor kemahasiswaan/alumni</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-11" value="dosen_pembimbing"><label for="f4-11" class="form-control__label-checkbox">Membina relasi (menjaga kontak) dengan dosen pembimbing</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-12" value="bisnis_sendiri"><label for="f4-12" class="form-control__label-checkbox">Membangun bisnis sendiri</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-13" value="magang"><label for="f4-13" class="form-control__label-checkbox">Melalui penempatan kerja atau magang</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-14" value="tempat_kerja_kuliah"><label for="f4-14" class="form-control__label-checkbox">Bekerja di tempat yang sama dengan tempat kerja semasa kuliah</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f4-15" value="lainnya"><label for="f4-15" class="form-control__label-checkbox">Lainnya</label></label>
+                </div>
+            </div>
+
+            <div class="tsf-question tsf-conditional" id="lainnya-f4-checkbox-group-wrap" style="display: none;" aria-hidden="true">
+                <label for="input-lainnya-f4" class="tsf-question__label">Sebutkan cara lainnya</label>
+                <div class="form-control" style="margin-top: 0.5rem;">
+                    <div class="form-control__group">
+                        <input type="text" id="input-lainnya-f4" class="form-control__input" placeholder="Tuliskan cara Anda mencari pekerjaan">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Atasan (internal - tidak dikirim ke Kemdiktisaintek, dipakai untuk mengirim Survei Pengguna Lulusan otomatis) -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">11.</span>
+                    <p class="tsf-question__label">Data Atasan</p>
+                </div>
+                <div class="grid cols-2" style="gap: 0.75rem; margin-top: 0.5rem;">
+                    <div class="form-control">
+                        <label class="form-control__label">Nama atasan<span class="tsf-required" aria-label="Wajib">*</span></label>
+                        <div class="form-control__group"><input type="text" class="form-control__input" placeholder="Nama lengkap atasan"></div>
+                    </div>
+                    <div class="form-control">
+                        <label class="form-control__label">Jabatan atasan<span class="tsf-required" aria-label="Wajib">*</span></label>
+                        <div class="form-control__group"><input type="text" class="form-control__input" placeholder="Jabatan atasan"></div>
+                    </div>
+                    <div class="form-control">
+                        <label class="form-control__label">Email atasan<span class="tsf-required" aria-label="Wajib">*</span></label>
+                        <div class="form-control__group"><input type="email" class="form-control__input" placeholder="email@perusahaan.co.id"></div>
+                    </div>
+                    <div class="form-control">
+                        <label class="form-control__label">No. Telp atasan<span class="tsf-required" aria-label="Wajib">*</span></label>
+                        <div class="form-control__group"><input type="tel" class="form-control__input" placeholder="08xxxxxxxxxx"></div>
+                    </div>
+                    <div class="form-control" style="grid-column: 1 / -1;">
+                        <label class="form-control__label">Alamat perusahaan<span class="tsf-required" aria-label="Wajib">*</span></label>
+                        <div class="form-control__group"><input type="text" class="form-control__input" placeholder="Alamat lengkap perusahaan"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -209,5 +314,50 @@
 
 </div>
 
+<script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+<script>
+    // "Lainnya" free-text reveal - works for a radio group, a <select>, or a checkbox group,
+    // same convention as tracer-study-form-*.html's toggleLainnyaField.
+    function toggleLainnyaField(el) {
+        let wrapId, isLainnya;
+        if (el.tagName === 'SELECT') {
+            wrapId = 'lainnya-' + el.id + '-wrap';
+            isLainnya = el.value === 'lainnya';
+        } else {
+            const group = el.closest('.tsf-radio-group, .tsf-checkbox-group');
+            wrapId = 'lainnya-' + group.id + '-wrap';
+            isLainnya = el.type === 'checkbox'
+                ? !!group.querySelector('input[value="lainnya"]:checked')
+                : (el.value === 'lainnya' && el.checked);
+        }
+        const wrap = document.getElementById(wrapId);
+        if (!wrap) return;
+        wrap.style.display = isLainnya ? 'block' : 'none';
+        wrap.setAttribute('aria-hidden', isLainnya ? 'false' : 'true');
+        if (!isLainnya) {
+            const input = wrap.querySelector('input[type="text"]');
+            if (input) input.value = '';
+        }
+    }
+
+    function refreshOptionCard(el) {
+        if (!el) return;
+        const input = el.querySelector('input');
+        el.classList.toggle('tsf-option--checked', !!(input && input.checked));
+    }
+    document.addEventListener('change', function (e) {
+        const input = e.target;
+        if (input && input.type === 'radio' && input.name) {
+            document.querySelectorAll('input[type="radio"][name="' + input.name + '"]').forEach(function (r) {
+                const opt = r.closest('.tsf-option');
+                if (opt) refreshOptionCard(opt);
+            });
+        } else if (input && input.type === 'checkbox') {
+            const opt = input.closest('.tsf-option');
+            if (opt) refreshOptionCard(opt);
+            if (input.closest('.tsf-checkbox-group')) toggleLainnyaField(input);
+        }
+    });
+</script>
 </body>
 </html>

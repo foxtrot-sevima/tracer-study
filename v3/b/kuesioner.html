@@ -53,12 +53,12 @@
             <div class="main__header main__header_kl-list">
                 <div class="main__location"><div class="main__wrapper"><h1 class="main__title">Kuesioner Tracer Study</h1></div></div>
                 <div class="main__action">
-                    <button class="btn btn_outline" onclick="document.getElementById('simModal').style.display='flex'"><span class="icon icon-play-mini"></span>Simulasi Pengisian</button>
-                    <button class="btn btn_primary" onclick="document.getElementById('reminderModal').style.display='flex'"><span class="icon icon-bell-mini"></span>Ingatkan Alumni</button>
+                    <a href="#" class="btn btn_outline" data-toggle="modal" data-target="#modal-simulasi"><span class="icon icon-play-mini"></span>Simulasi Pengisian</a>
+                    <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-reminder"><span class="icon icon-bell-mini"></span>Ingatkan Alumni</a>
                 </div>
             </div>
             <div class="alert alert_info" style="margin-bottom:1rem;">
-                <div class="alert__content"><p class="alert__description"><b>Paket B · Single &amp; Living</b> — satu kuesioner untuk seluruh PT. Konten mengikuti wave lulusan; tidak perlu membuat template berulang.</p></div>
+                <div class="alert__content"><p class="alert__description"><b>Paket B · Single &amp; Living</b> - satu kuesioner untuk seluruh PT. Konten mengikuti wave lulusan; tidak perlu membuat template berulang.</p></div>
             </div>
 
             <!-- Time Window (always visible) -->
@@ -93,99 +93,111 @@
             </div>
         </div>
     </main>
-    <!-- Modal Ingatkan Alumni -->
-    <div id="reminderModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9998;align-items:center;justify-content:center;" onclick="if(event.target===this)this.style.display='none'">
-        <div style="background:#fff;border-radius:.75rem;padding:1.5rem;width:90%;max-width:440px;box-shadow:0 8px 32px rgba(0,0,0,.15);">
-            <h3 style="margin:0 0 .25rem;font-size:1rem;">Ingatkan Alumni</h3>
-            <p style="font-size:.8rem;color:var(--qn-neutral-500);margin:0 0 1rem;">Kirim pengingat ke alumni yang belum mengisi kuesioner pada periode tertentu.</p>
-            <div class="form-control">
-                <label class="form-control__label">Periode Yudisium</label>
-                <div class="form-control__group">
-                    <select class="form-control__input" style="-webkit-appearance:menulist!important;appearance:menulist!important;">
-                        <option selected>Semester Genap 2023/2024 (31 Jul 2024)</option>
-                        <option>Semester Ganjil 2024/2025 (31 Jan 2025)</option>
-                        <option>Semester Genap 2024/2025 (31 Jul 2025)</option>
-                    </select>
+    <!-- Modal: Ingatkan Alumni -->
+    <div class="modal" id="modal-reminder">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title">Ingatkan Alumni</h3>
+                    <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0;">Kirim pengingat ke alumni yang belum mengisi kuesioner pada periode tertentu.</p>
+                </div>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <div class="form-control">
+                    <label class="form-control__label">Periode Yudisium</label>
+                    <div class="form-control__group">
+                        <select class="form-control__input" style="-webkit-appearance:menulist!important;appearance:menulist!important;">
+                            <option selected>Semester Genap 2023/2024 (31 Jul 2024)</option>
+                            <option>Semester Ganjil 2024/2025 (31 Jan 2025)</option>
+                            <option>Semester Genap 2024/2025 (31 Jul 2025)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-control">
+                    <label class="form-control__label">Wave</label>
+                    <div class="form-control__group">
+                        <select class="form-control__input" style="-webkit-appearance:menulist!important;appearance:menulist!important;">
+                            <option selected>Wave Exit</option>
+                            <option>Wave G1</option>
+                            <option>Wave G2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="alert alert_helper">
+                    <div class="alert__content">
+                        <p class="alert__description"><b>50</b> dari 150 alumni belum mengisi Wave Exit. Pengingat akan dikirim via email dan notifikasi in-app.</p>
+                    </div>
                 </div>
             </div>
-            <div class="form-control">
-                <label class="form-control__label">Wave</label>
-                <div class="form-control__group">
-                    <select class="form-control__input" style="-webkit-appearance:menulist!important;appearance:menulist!important;">
-                        <option selected>Wave Exit</option>
-                        <option>Wave G1</option>
-                        <option>Wave G2</option>
-                    </select>
-                </div>
-            </div>
-            <div style="background:var(--qn-neutral-50);border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:.75rem 1rem;margin-bottom:1.25rem;">
-                <p style="font-size:.8rem;margin:0;color:var(--qn-neutral-700);"><b>50</b> dari 150 alumni belum mengisi Wave Exit.</p>
-                <p style="font-size:.7rem;color:var(--qn-neutral-400);margin:.25rem 0 0;">Pengingat akan dikirim via email dan notifikasi in-app.</p>
-            </div>
-            <div style="display:flex;gap:.5rem;justify-content:flex-end;">
-                <button class="btn btn_outline" onclick="document.getElementById('reminderModal').style.display='none'">Batal</button>
-                <button class="btn btn_primary" onclick="document.getElementById('reminderModal').style.display='none';alert('Pengingat terkirim ke 50 alumni (mockup)')">Kirim Pengingat</button>
+            <div class="modal__footer">
+                <button class="btn btn_outline" data-dismiss="modal">Batal</button>
+                <button class="btn btn_primary" data-dismiss="modal" onclick="alert('Pengingat terkirim ke 50 alumni (mockup)')">Kirim Pengingat</button>
             </div>
         </div>
     </div>
-    <!-- Modal Simulasi Pengisian -->
-    <div id="simModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9999;align-items:center;justify-content:center;" onclick="if(event.target===this)this.style.display='none'">
-        <div style="background:#fff;border-radius:.75rem;padding:1.5rem;width:90%;max-width:480px;box-shadow:0 8px 32px rgba(0,0,0,.15);">
-            <h3 style="margin:0 0 .25rem;">Simulasi Pengisian</h3>
-            <p style="font-size:.8rem;color:var(--qn-neutral-500);margin:0 0 1rem;">Coba alur pengisian dari sisi responden — data tidak akan masuk ke laporan.</p>
 
-            <!-- Tab switcher -->
-            <div style="display:flex;gap:0;margin-bottom:1rem;border:1px solid var(--qn-neutral-200);border-radius:.5rem;overflow:hidden;">
-                <button id="simTabAlumni" onclick="switchSimTab('alumni')" style="flex:1;padding:.5rem;font-size:.8rem;font-weight:500;border:none;cursor:pointer;background:var(--qn-primary-500);color:#fff;">Sisi Alumni</button>
-                <button id="simTabPerusahaan" onclick="switchSimTab('perusahaan')" style="flex:1;padding:.5rem;font-size:.8rem;font-weight:500;border:none;cursor:pointer;background:#fff;color:var(--qn-neutral-600);">Sisi Pengguna Lulusan</button>
-            </div>
-
-            <!-- Panel: Sisi Alumni -->
-            <div id="simPanelAlumni">
-                <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .75rem;">Pilih wave yang ingin dicoba sebagai alumni:</p>
-                <div style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.25rem;">
-                    <label style="display:flex;align-items:center;gap:.75rem;padding:.6rem .75rem;border:1px solid var(--qn-neutral-200);border-radius:.5rem;cursor:pointer;">
-                        <input type="radio" name="simWave" value="exit" checked>
-                        <div><b style="font-size:.875rem;">Wave Exit</b><br><span style="font-size:.75rem;color:var(--qn-neutral-400);">Saat baru lulus — data ringan</span></div>
-                    </label>
-                    <label style="display:flex;align-items:center;gap:.75rem;padding:.6rem .75rem;border:1px solid var(--qn-neutral-200);border-radius:.5rem;cursor:pointer;">
-                        <input type="radio" name="simWave" value="g1">
-                        <div><b style="font-size:.875rem;">Wave G1</b><br><span style="font-size:.75rem;color:var(--qn-neutral-400);">Min. 1 tahun setelah lulus — pertanyaan inti IKU</span></div>
-                    </label>
-                    <label style="display:flex;align-items:center;gap:.75rem;padding:.6rem .75rem;border:1px solid var(--qn-neutral-200);border-radius:.5rem;cursor:pointer;">
-                        <input type="radio" name="simWave" value="g2">
-                        <div><b style="font-size:.875rem;">Wave G2</b><br><span style="font-size:.75rem;color:var(--qn-neutral-400);">Lanjutan — pendalaman prodi (simulasi belum tersedia)</span></div>
-                    </label>
+    <!-- Modal: Simulasi Pengisian -->
+    <div class="modal" id="modal-simulasi">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title">Simulasi Pengisian</h3>
+                    <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0;">Coba alur pengisian dari sisi responden - data tidak akan masuk ke laporan.</p>
                 </div>
-                <div style="display:flex;flex-direction:column;gap:.5rem;">
-                    <a id="simStartBtn" href="simulasi-exit.html" class="btn btn_primary" style="text-align:center;text-decoration:none;">Mulai Simulasi Alumni (Wave Exit)</a>
-                    <p style="font-size:.7rem;color:var(--qn-neutral-400);text-align:center;margin:0;">Opsional: kirim email undangan percobaan ke diri sendiri</p>
-                    <div style="display:flex;gap:.5rem;">
-                        <input type="email" placeholder="email@kampus.ac.id" style="flex:1;padding:.4rem .6rem;border:1px solid var(--qn-neutral-200);border-radius:.375rem;font-size:.8rem;">
-                        <a href="simulasi-email.html" class="btn btn_outline btn_sm" style="text-decoration:none;">Kirim</a>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <!-- Tab switcher -->
+                <nav class="nav-tab" style="margin-bottom: 1rem;">
+                    <ul class="nav-tab__wrapper">
+                        <li class="nav-tab__item active" id="simTabAlumni" onclick="switchSimTab('alumni')">Sisi Alumni</li>
+                        <li class="nav-tab__item" id="simTabPerusahaan" onclick="switchSimTab('perusahaan')">Sisi Pengguna Lulusan</li>
+                    </ul>
+                </nav>
+
+                <!-- Panel: Sisi Alumni -->
+                <div id="simPanelAlumni">
+                    <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .75rem;">Pilih wave yang ingin dicoba sebagai alumni:</p>
+                    <div class="tsf-radio-group" style="margin-bottom: 1.25rem;">
+                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="simWave" value="exit" checked><label class="form-control__label-radio"><b>Wave Exit</b><br><span style="font-weight: 400; font-size: .8125rem; color: var(--qn-neutral-500);">Saat baru lulus - data ringan</span></label></label>
+                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="simWave" value="g1"><label class="form-control__label-radio"><b>Wave G1</b><br><span style="font-weight: 400; font-size: .8125rem; color: var(--qn-neutral-500);">Min. 1 tahun setelah lulus - pertanyaan inti IKU</span></label></label>
+                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="simWave" value="g2"><label class="form-control__label-radio"><b>Wave G2</b><br><span style="font-weight: 400; font-size: .8125rem; color: var(--qn-neutral-500);">Lanjutan - pendalaman prodi (simulasi belum tersedia)</span></label></label>
                     </div>
-                </div>
-            </div>
-
-            <!-- Panel: Sisi Pengguna Lulusan -->
-            <div id="simPanelPerusahaan" style="display:none;">
-                <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .75rem;">Coba alur pengisian dari sisi atasan/perusahaan yang menilai alumni:</p>
-                <div style="background:var(--qn-neutral-50);border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:.75rem 1rem;margin-bottom:1rem;">
-                    <div style="display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.5rem;">
-                        <span style="font-size:1.1rem;">🏢</span>
-                        <div>
-                            <b style="font-size:.85rem;">Survei Pengguna Lulusan</b>
-                            <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:.15rem 0 0;">Perusahaan/atasan menilai kinerja alumni yang bekerja di tempatnya — integritas, keahlian, komunikasi, kepemimpinan, dll.</p>
+                    <div style="display:flex;flex-direction:column;gap:.5rem;">
+                        <a id="simStartBtn" href="simulasi-exit.html" class="btn btn_primary" style="text-align:center;text-decoration:none;">Mulai Simulasi Alumni (Wave Exit)</a>
+                        <p style="font-size:.7rem;color:var(--qn-neutral-400);text-align:center;margin:0;">Opsional: kirim email undangan percobaan ke diri sendiri</p>
+                        <div class="form-control form-control_stand-alone" style="display:flex;gap:.5rem;">
+                            <div class="form-control__group" style="flex:1;">
+                                <input type="email" class="form-control__input" placeholder="email@kampus.ac.id">
+                            </div>
+                            <a href="simulasi-email.html" class="btn btn_outline btn_sm" style="text-decoration:none;">Kirim</a>
                         </div>
                     </div>
-                    <ul style="margin:0;padding-left:1.25rem;font-size:.75rem;color:var(--qn-neutral-500);line-height:1.6;">
-                        <li>12 aspek kinerja alumni (matriks skala)</li>
-                        <li>Data perusahaan & jabatan penilai</li>
-                        <li>Saran & harapan untuk PT</li>
-                    </ul>
                 </div>
-                <a href="simulasi-pengguna-lulusan.html" class="btn btn_primary" style="text-align:center;text-decoration:none;display:block;">Mulai Simulasi Pengguna Lulusan</a>
-                <p style="font-size:.7rem;color:var(--qn-neutral-400);text-align:center;margin:.5rem 0 0;">Form ini dikirim melalui link khusus ke atasan/perusahaan alumni.</p>
+
+                <!-- Panel: Sisi Pengguna Lulusan -->
+                <div id="simPanelPerusahaan" style="display:none;">
+                    <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .75rem;">Coba alur pengisian dari sisi atasan/perusahaan yang menilai alumni:</p>
+                    <div class="card card_empty" style="margin-bottom: 1rem;">
+                        <div style="display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.5rem;">
+                            <span class="icon icon-building-office-mini" style="color: var(--qn-primary-500); font-size: 1.1rem;"></span>
+                            <div>
+                                <b style="font-size:.85rem;">Survei Pengguna Lulusan</b>
+                                <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:.15rem 0 0;">Perusahaan/atasan menilai kinerja alumni yang bekerja di tempatnya - integritas, keahlian, komunikasi, kepemimpinan, dll.</p>
+                            </div>
+                        </div>
+                        <ul style="margin:0;padding-left:1.25rem;font-size:.75rem;color:var(--qn-neutral-500);line-height:1.6;">
+                            <li>12 aspek kinerja alumni (matriks skala)</li>
+                            <li>Data perusahaan &amp; jabatan penilai</li>
+                            <li>Saran &amp; harapan untuk PT</li>
+                        </ul>
+                    </div>
+                    <a href="simulasi-pengguna-lulusan.html" class="btn btn_primary" style="text-align:center;text-decoration:none;display:block;">Mulai Simulasi Pengguna Lulusan</a>
+                    <p style="font-size:.7rem;color:var(--qn-neutral-400);text-align:center;margin:.5rem 0 0;">Form ini dikirim melalui link khusus ke atasan/perusahaan alumni.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -197,79 +209,68 @@
             const perusahaan = document.getElementById('simPanelPerusahaan');
             const btnAlumni = document.getElementById('simTabAlumni');
             const btnPerusahaan = document.getElementById('simTabPerusahaan');
-            if (tab === 'alumni') {
-                alumni.style.display = 'block';
-                perusahaan.style.display = 'none';
-                btnAlumni.style.background = 'var(--qn-primary-500)';
-                btnAlumni.style.color = '#fff';
-                btnPerusahaan.style.background = '#fff';
-                btnPerusahaan.style.color = 'var(--qn-neutral-600)';
-            } else {
-                alumni.style.display = 'none';
-                perusahaan.style.display = 'block';
-                btnPerusahaan.style.background = 'var(--qn-primary-500)';
-                btnPerusahaan.style.color = '#fff';
-                btnAlumni.style.background = '#fff';
-                btnAlumni.style.color = 'var(--qn-neutral-600)';
-            }
+            alumni.style.display = tab === 'alumni' ? 'block' : 'none';
+            perusahaan.style.display = tab === 'alumni' ? 'none' : 'block';
+            btnAlumni.classList.toggle('active', tab === 'alumni');
+            btnPerusahaan.classList.toggle('active', tab !== 'alumni');
         }
         const waves = {
             exit:{label:'Wave Exit',when:'Saat baru lulus',dot:'#3b82f6',canAdd:true,
                 desc:'Pemutakhiran data individu lulusan. Regulasi (Kepmen 358/2025): tracer inti baru di G1, jadi Exit ringan.',
-                tierNote:'Pertanyaan <b>Core</b> tidak bisa dinonaktifkan — data kontak dibutuhkan untuk mengirim wave berikutnya, dan status pekerjaan pra-lulus dipakai IKU#2. Pertanyaan <b>Optional</b> bisa diaktifkan/nonaktifkan. Admin CDC dapat menambah pertanyaan <b>Specific</b> sendiri.<br><br>Pertanyaan di wave ini <b>tidak punya kode Dikti</b> — jawabannya jadi isian awal untuk Wave G1, bukan data yang dikirim ke Kemdiktisaintek.',
+                tierNote:'Pertanyaan <b>Core</b> tidak bisa dinonaktifkan - data kontak dibutuhkan untuk mengirim wave berikutnya, dan status pekerjaan pra-lulus dipakai IKU#2. Pertanyaan <b>Optional</b> bisa diaktifkan/nonaktifkan. Admin CDC dapat menambah pertanyaan <b>Specific</b> sendiri.<br><br>Pertanyaan di wave ini <b>tidak punya kode Dikti</b> - jawabannya jadi isian awal untuk Wave G1, bukan data yang dikirim ke Kemdiktisaintek.',
                 schedule:{type:'event',options:['Saat yudisium','1 minggu sebelum wisuda','Saat wisuda'],reminder:{interval:7,max:3}},
                 q:[['Alamat email aktif Anda saat ini','core',1,'Isian teks (email)','','','',''],['Nomor HP / WhatsApp aktif','core',1,'Isian teks (nomor)','','','',''],['Apakah Anda sudah bekerja atau berwirausaha sebelum lulus?','core',1,'Pilihan: Ya sudah bekerja / Ya sudah berwirausaha / Belum','','','',''],['Nama perusahaan/usaha, posisi, bidang industri, dan kisaran penghasilan','core',1,'Dropdown + input angka (muncul jika menjawab Ya)','','','',''],['Apa rencana utama Anda setelah lulus?','specific',0,'Pilihan ganda (bekerja / wirausaha / lanjut studi / lainnya)','','','',''],['Dukungan apa yang Anda harapkan dari kampus untuk membantu rencana Anda?','optional',0,'Multi-select (conditional per rencana: lowongan / CV / job fair / mentorship / beasiswa / dll)','','','',''],['Tautan profil LinkedIn Anda','specific',0,'Isian teks (URL)','','','','']]},
             g1:{label:'Wave G1',when:'Min. 1 tahun setelah lulus',dot:'#294A9A',canAdd:false,
-                desc:'Pertanyaan inti untuk IKU #2, redaksi Core mengikuti format resmi Kemdiktisaintek. Daftar di bawah memuat semua pertanyaan dari seluruh cabang — alumni hanya melewati satu cabang sesuai status yang dipilih, jadi tidak semuanya tampil ke satu orang.',
-                tierNote:'<b>Core</b> = punya <b>kode Dikti</b> dan ditandai wajib di format resmi Kemdiktisaintek — tidak bisa dinonaktifkan. <b>Optional bundle Kemdikbud</b> juga punya kode Dikti tapi tidak wajib, jadi boleh dinonaktifkan. <b>Optional bundle Kemenkes</b> tidak ada di format Dikti — khusus kampus kesehatan (mis. Poltekkes), default nonaktif untuk PT umum.<br><br><b>Yang benar-benar tidak boleh diubah adalah struktur opsi jawaban</b>, bukan kata-katanya. Kode Dikti melekat ke tiap baris opsi, jadi menggabungkan atau menghapus opsi berarti membuang kodenya. Redaksi sendiri dikunci atas dasar yang berbeda: supaya jawaban tetap bisa dibandingkan antar-PT, dan supaya alumni yang pernah mengisi di situs resmi menemukan kalimat yang sama.<br><br>Redaksi mengikuti <b>Template Lengkap</b> (format Dikti + kebutuhan BAN-PT), dengan urutan pertanyaan cabang Bekerja disamakan dengan situs resmi Kemdiktisaintek.',
-                schedule:{type:'month',value:12,min:12,max:36,warning:'⚠️ Min. 12 bulan — syarat IKU#2 & BAN-PT',reminder:{interval:7,max:3}},
+                desc:'Pertanyaan inti untuk IKU #2, redaksi Core mengikuti format resmi Kemdiktisaintek. Daftar di bawah memuat semua pertanyaan dari seluruh cabang - alumni hanya melewati satu cabang sesuai status yang dipilih, jadi tidak semuanya tampil ke satu orang.',
+                tierNote:'<b>Core</b> = punya <b>kode Dikti</b> dan ditandai wajib di format resmi Kemdiktisaintek - tidak bisa dinonaktifkan. <b>Optional bundle Kemdikbud</b> juga punya kode Dikti tapi tidak wajib, jadi boleh dinonaktifkan. <b>Optional bundle Kemenkes</b> tidak ada di format Dikti - khusus kampus kesehatan (mis. Poltekkes), default nonaktif untuk PT umum.<br><br><b>Yang benar-benar tidak boleh diubah adalah struktur opsi jawaban</b>, bukan kata-katanya. Kode Dikti melekat ke tiap baris opsi, jadi menggabungkan atau menghapus opsi berarti membuang kodenya. Redaksi sendiri dikunci atas dasar yang berbeda: supaya jawaban tetap bisa dibandingkan antar-PT, dan supaya alumni yang pernah mengisi di situs resmi menemukan kalimat yang sama.<br><br>Redaksi mengikuti <b>Template Lengkap</b> (format Dikti + kebutuhan BAN-PT), dengan urutan pertanyaan cabang Bekerja disamakan dengan situs resmi Kemdiktisaintek.',
+                schedule:{type:'month',value:12,min:12,max:36,warning:'⚠️ Min. 12 bulan - syarat IKU#2 & BAN-PT',reminder:{interval:7,max:3}},
                 q:[
                     ['__section__','Informasi Umum','Ditanyakan ke semua alumni, apa pun statusnya.'],
-                    ['Apakah pekerjaan/usaha sebelum lulus masih Anda jalankan?','core',1,'Pilihan tunggal — Ya, masih / Tidak','','<b>Kondisional</b> · muncul jika di Wave Exit alumni menjawab sudah bekerja/berwirausaha. Pertanyaan internal — tidak punya kode Dikti, tidak dikirim ke Kemdiktisaintek. Jika Ya → f8 otomatis terpilih dan f502 = 0.','g1_verif_pralulus',''],
-                    ['Jelaskan status Anda saat ini?','core',1,'Pilihan tunggal — 5 opsi','','<b>Informasi Umum</b> · Jawaban ini menentukan cabang pertanyaan mana yang dibuka. Keterangan bantuan "pilih yang paling menggambarkan kondisi utama" boleh disesuaikan kampus.','f8','1=Bekerja (full time / part time), 2=Belum memungkinkan bekerja, 3=Wiraswasta, 4=Melanjutkan Pendidikan, 5=Tidak kerja tetapi sedang mencari kerja'],
-                    ['Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir?','core',1,'Pilihan tunggal — 4 opsi + Lainnya','','<b>Informasi Umum</b> · keterangan "pilihlah satu jawaban" ditaruh di bawah pertanyaan, bukan di dalam redaksinya.','f1001','1=Tidak, 2=Tidak tapi sedang menunggu hasil lamaran kerja, 3=Ya saya akan mulai bekerja dalam 2 minggu ke depan, 4=Ya tapi saya belum pasti akan bekerja dalam 2 minggu ke depan, 5=Lainnya'],
-                    ['Sumber dana apa yang Anda gunakan untuk membiayai kuliah?','core',1,'Pilihan tunggal — 6 opsi + Lainnya','','<b>Informasi Umum</b>','f1201','1=Biaya Sendiri/Keluarga, 2=Beasiswa ADIK, 3=Beasiswa BIDIKMISI, 4=Beasiswa PPA, 5=Beasiswa AFIRMASI, 6=Beasiswa Perusahaan/Swasta, 7=Lainnya'],
-                    ['Apakah Anda mendapatkan pekerjaan pertama / melanjutkan pendidikan sebelum lulus?','core',1,'Pilihan tunggal + isian angka di dalam opsi','','<b>Informasi Umum</b> · muncul jika status Bekerja, Wiraswasta, atau Melanjutkan Pendidikan. <b>Satu pertanyaan, bukan dua</b> — "Ya, sebelum lulus" berarti masa tunggu nol bulan; "Tidak" diikuti isian jumlah bulan setelah lulus. Bentuk ini mengikuti format resmi Kemdiktisaintek. Terisi otomatis dari jawaban Wave Exit, alumni cukup memeriksa. Pengelompokan "&lt;6 bulan" untuk IKU#2 dihitung otomatis.','f502','0=Ya (sebelum lulus), angka bulan=Tidak'],
+                    ['Apakah pekerjaan/usaha sebelum lulus masih Anda jalankan?','core',1,'Pilihan tunggal - Ya, masih / Tidak','','<b>Kondisional</b> · muncul jika di Wave Exit alumni menjawab sudah bekerja/berwirausaha. Pertanyaan internal - tidak punya kode Dikti, tidak dikirim ke Kemdiktisaintek. Jika Ya → f8 otomatis terpilih dan f502 = 0.','g1_verif_pralulus',''],
+                    ['Jelaskan status Anda saat ini?','core',1,'Pilihan tunggal - 5 opsi','','<b>Informasi Umum</b> · Jawaban ini menentukan cabang pertanyaan mana yang dibuka. Keterangan bantuan "pilih yang paling menggambarkan kondisi utama" boleh disesuaikan kampus.','f8','1=Bekerja (full time / part time), 2=Belum memungkinkan bekerja, 3=Wiraswasta, 4=Melanjutkan Pendidikan, 5=Tidak kerja tetapi sedang mencari kerja'],
+                    ['Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir?','core',1,'Pilihan tunggal - 4 opsi + Lainnya','','<b>Informasi Umum</b> · keterangan "pilihlah satu jawaban" ditaruh di bawah pertanyaan, bukan di dalam redaksinya.','f1001','1=Tidak, 2=Tidak tapi sedang menunggu hasil lamaran kerja, 3=Ya saya akan mulai bekerja dalam 2 minggu ke depan, 4=Ya tapi saya belum pasti akan bekerja dalam 2 minggu ke depan, 5=Lainnya'],
+                    ['Sumber dana apa yang Anda gunakan untuk membiayai kuliah?','core',1,'Pilihan tunggal - 6 opsi + Lainnya','','<b>Informasi Umum</b>','f1201','1=Biaya Sendiri/Keluarga, 2=Beasiswa ADIK, 3=Beasiswa BIDIKMISI, 4=Beasiswa PPA, 5=Beasiswa AFIRMASI, 6=Beasiswa Perusahaan/Swasta, 7=Lainnya'],
+                    ['Apakah Anda mendapatkan pekerjaan pertama / melanjutkan pendidikan sebelum lulus?','core',1,'Pilihan tunggal + isian angka di dalam opsi','','<b>Informasi Umum</b> · muncul jika status Bekerja, Wiraswasta, atau Melanjutkan Pendidikan. <b>Satu pertanyaan, bukan dua</b> - "Ya, sebelum lulus" berarti masa tunggu nol bulan; "Tidak" diikuti isian jumlah bulan setelah lulus. Bentuk ini mengikuti format resmi Kemdiktisaintek. Terisi otomatis dari jawaban Wave Exit, alumni cukup memeriksa. Pengelompokan "&lt;6 bulan" untuk IKU#2 dihitung otomatis.','f502','0=Ya (sebelum lulus), angka bulan=Tidak'],
                     ['__section__','Cabang: Bekerja (full time / part time)','Muncul jika alumni memilih status Bekerja di pertanyaan 2.'],
-                    ['Berapa rata-rata pendapatan Anda per bulan (Take Home Pay) saat ini?','core',1,'Isian angka (rupiah)','','<b>Cabang Bekerja</b> · urutan 1 di situs resmi. Ditanyakan juga di cabang Wiraswasta dengan kode yang sama. Nilai UMP untuk pembanding IKU#2 diambil sistem dari provinsi kerja — tidak ditanyakan ke alumni.','f505',''],
+                    ['Berapa rata-rata pendapatan Anda per bulan (Take Home Pay) saat ini?','core',1,'Isian angka (rupiah)','','<b>Cabang Bekerja</b> · urutan 1 di situs resmi. Ditanyakan juga di cabang Wiraswasta dengan kode yang sama. Nilai UMP untuk pembanding IKU#2 diambil sistem dari provinsi kerja - tidak ditanyakan ke alumni.','f505',''],
                     ['Dimana provinsi Anda bekerja saat ini?','core',1,'Dropdown provinsi (35 opsi)','','<b>Cabang Bekerja</b> · urutan 2 di situs resmi','f5a1','kode numerik provinsi'],
                     ['Dimana Kabupaten / Kota Anda bekerja saat ini?','core',1,'Dropdown kabupaten/kota','','<b>Cabang Bekerja</b> · urutan 3 di situs resmi','f5a2','kode numerik kab/kota'],
-                    ['Apa jenis perusahaan / instansi / institusi tempat Anda bekerja saat ini?','core',1,'Pilihan tunggal — 6 opsi + Lainnya','','<b>Cabang Bekerja</b> · urutan 4 di situs resmi','f1101','1=Instansi pemerintah, 2=Organisasi non-profit/LSM, 3=Perusahaan swasta, 4=Wiraswasta/perusahaan sendiri, 5=Lainnya, 6=BUMN/BUMD, 7=Institusi/Organisasi Multilateral'],
+                    ['Apa jenis perusahaan / instansi / institusi tempat Anda bekerja saat ini?','core',1,'Pilihan tunggal - 6 opsi + Lainnya','','<b>Cabang Bekerja</b> · urutan 4 di situs resmi','f1101','1=Instansi pemerintah, 2=Organisasi non-profit/LSM, 3=Perusahaan swasta, 4=Wiraswasta/perusahaan sendiri, 5=Lainnya, 6=BUMN/BUMD, 7=Institusi/Organisasi Multilateral'],
                     ['Apa nama perusahaan / kantor tempat Anda bekerja saat ini?','core',1,'Dropdown + ketik sendiri','','<b>Cabang Bekerja</b> · urutan 5 di situs resmi','f5b',''],
-                    ['Apa tingkat tempat kerja Anda saat ini?','core',1,'Pilihan tunggal — lokal / nasional / multinasional','','<b>Cabang Bekerja</b> · urutan 6 di situs resmi','f5d','1=Lokal/Wilayah/Wiraswasta tidak berbadan hukum, 2=Nasional/Wiraswasta berbadan hukum, 3=Multinasional/Internasional'],
-                    ['Seberapa erat hubungan antara bidang studi dengan pekerjaan Anda saat ini?','core',1,'Pilihan tunggal — 5 tingkat','','<b>Cabang Bekerja</b> · urutan 7 di situs resmi. Ditanyakan juga di cabang Wiraswasta dan Melanjutkan Pendidikan dengan kode yang sama.','f14','1=Sangat Erat, 2=Erat, 3=Cukup Erat, 4=Kurang Erat, 5=Tidak Sama Sekali'],
-                    ['Tingkat pendidikan apa yang paling tepat / sesuai untuk pekerjaan Anda saat ini?','core',1,'Pilihan tunggal — 4 jenjang','','<b>Cabang Bekerja</b> · urutan 8 di situs resmi. Ditanyakan juga di cabang Wiraswasta.','f15','1=Setingkat Lebih Tinggi, 2=Tingkat yang Sama, 3=Setingkat Lebih Rendah, 4=Tidak Perlu Pendidikan Tinggi'],
-                    ['Bagaimana Anda mencari pekerjaan tersebut?','core',1,'Pilihan ganda — 14 opsi + Lainnya','','<b>Cabang Bekerja</b> · setiap opsi jawaban punya kode Dikti sendiri, jadi <b>jumlah opsinya tidak boleh dikurangi atau digabung</b>. Tidak ada di situs resmi tapi ditandai wajib di template, jadi ditaruh setelah delapan pertanyaan yang urutannya mengikuti situs resmi.','f4','f401-f414 (0/1 per opsi) + f415 flag + f416 teks'],
+                    ['Apa tingkat tempat kerja Anda saat ini?','core',1,'Pilihan tunggal - lokal / nasional / multinasional','','<b>Cabang Bekerja</b> · urutan 6 di situs resmi','f5d','1=Lokal/Wilayah/Wiraswasta tidak berbadan hukum, 2=Nasional/Wiraswasta berbadan hukum, 3=Multinasional/Internasional'],
+                    ['Seberapa erat hubungan antara bidang studi dengan pekerjaan Anda saat ini?','core',1,'Pilihan tunggal - 5 tingkat','','<b>Cabang Bekerja</b> · urutan 7 di situs resmi. Ditanyakan juga di cabang Wiraswasta dan Melanjutkan Pendidikan dengan kode yang sama.','f14','1=Sangat Erat, 2=Erat, 3=Cukup Erat, 4=Kurang Erat, 5=Tidak Sama Sekali'],
+                    ['Tingkat pendidikan apa yang paling tepat / sesuai untuk pekerjaan Anda saat ini?','core',1,'Pilihan tunggal - 4 jenjang','','<b>Cabang Bekerja</b> · urutan 8 di situs resmi. Ditanyakan juga di cabang Wiraswasta.','f15','1=Setingkat Lebih Tinggi, 2=Tingkat yang Sama, 3=Setingkat Lebih Rendah, 4=Tidak Perlu Pendidikan Tinggi'],
+                    ['Bagaimana Anda mencari pekerjaan tersebut?','core',1,'Pilihan ganda - 14 opsi + Lainnya','','<b>Cabang Bekerja</b> · setiap opsi jawaban punya kode Dikti sendiri, jadi <b>jumlah opsinya tidak boleh dikurangi atau digabung</b>. Tidak ada di situs resmi tapi ditandai wajib di template, jadi ditaruh setelah delapan pertanyaan yang urutannya mengikuti situs resmi.','f4','f401-f414 (0/1 per opsi) + f415 flag + f416 teks'],
                     ['Data atasan di tempat kerja: nama, jabatan, email, no. telp, alamat perusahaan','core',1,'5 isian teks','','<b>Cabang Bekerja</b> · tidak punya kode Dikti, tidak di-upload. Email atasan inilah yang dipakai sistem untuk mengirim <b>Survei Pengguna Lulusan otomatis</b>. Tanpa ini, survei akreditasi BAN-PT harus dicari manual.','k1, k2',''],
-                    ['Apa posisi / jabatan Anda saat ini?','core',1,'Pilihan tunggal — Founder / Co-Founder / Staff / Freelance','','<b>Cabang Bekerja</b> · <b>kami tambahkan, tidak dilaporkan ke Kemdiktisaintek.</b> Format resmi hanya menaruh pertanyaan ini di cabang Wiraswasta, sehingga jabatan alumni yang bekerja tidak pernah terekam — padahal jabatan atasannya iya. Karena format resmi mengharapkan kolom ini terisi hanya untuk Wiraswasta, jawaban dari cabang Bekerja disimpan sebagai <b>data internal kampus</b> dan tidak ikut terkirim. Empat pilihannya milik Dikti dan tidak bisa ditambah; untuk nama jabatan yang lebih rinci, buat pertanyaan Spesifik berupa isian teks.','f5c','1=Founder, 2=Co-Founder, 3=Staff, 4=Freelance/Kerja Lepas (tidak dikirim ke Dikti)'],
-                    ['Apa posisi / jabatan Anda saat ini?','core',1,'Pilihan tunggal — Founder / Co-Founder / Staff / Freelance','','<b>Cabang Wiraswasta</b> · kode sama dengan versi cabang Bekerja.','f5c','1=Founder, 2=Co-Founder, 3=Staff, 4=Freelance/Kerja Lepas'],
+                    ['Apa posisi / jabatan Anda saat ini?','core',1,'Pilihan tunggal - Founder / Co-Founder / Staff / Freelance','','<b>Cabang Bekerja</b> · <b>kami tambahkan, tidak dilaporkan ke Kemdiktisaintek.</b> Format resmi hanya menaruh pertanyaan ini di cabang Wiraswasta, sehingga jabatan alumni yang bekerja tidak pernah terekam - padahal jabatan atasannya iya. Karena format resmi mengharapkan kolom ini terisi hanya untuk Wiraswasta, jawaban dari cabang Bekerja disimpan sebagai <b>data internal kampus</b> dan tidak ikut terkirim. Empat pilihannya milik Dikti dan tidak bisa ditambah; untuk nama jabatan yang lebih rinci, buat pertanyaan Spesifik berupa isian teks.','f5c','1=Founder, 2=Co-Founder, 3=Staff, 4=Freelance/Kerja Lepas (tidak dikirim ke Dikti)'],
+                    ['Apa posisi / jabatan Anda saat ini?','core',1,'Pilihan tunggal - Founder / Co-Founder / Staff / Freelance','','<b>Cabang Wiraswasta</b> · kode sama dengan versi cabang Bekerja.','f5c','1=Founder, 2=Co-Founder, 3=Staff, 4=Freelance/Kerja Lepas'],
                     ['__section__','Cabang: Wiraswasta (Wirausaha)','Muncul jika alumni memilih status Wiraswasta di pertanyaan 2.'],
-                    ['Apa jenis perusahaan / usaha wiraswasta yang Anda kelola saat ini?','core',1,'Pilihan tunggal — 6 opsi + Lainnya','','<b>Cabang Wiraswasta</b>','f1101','(sama dengan cabang Bekerja)'],
-                    ['Apa tingkat / ukuran tempat berwiraswasta Anda saat ini?','core',1,'Pilihan tunggal — lokal / nasional / multinasional','','<b>Cabang Wiraswasta</b>','f5d','1=Lokal/Wilayah/Wiraswasta tidak berbadan hukum, 2=Nasional/Wiraswasta berbadan hukum, 3=Multinasional/Internasional'],
+                    ['Apa jenis perusahaan / usaha wiraswasta yang Anda kelola saat ini?','core',1,'Pilihan tunggal - 6 opsi + Lainnya','','<b>Cabang Wiraswasta</b>','f1101','(sama dengan cabang Bekerja)'],
+                    ['Apa tingkat / ukuran tempat berwiraswasta Anda saat ini?','core',1,'Pilihan tunggal - lokal / nasional / multinasional','','<b>Cabang Wiraswasta</b>','f5d','1=Lokal/Wilayah/Wiraswasta tidak berbadan hukum, 2=Nasional/Wiraswasta berbadan hukum, 3=Multinasional/Internasional'],
                     ['Dimana provinsi tempat Anda berwiraswasta saat ini?','core',1,'Dropdown provinsi (35 opsi)','','<b>Cabang Wiraswasta</b>','f5a1',''],
                     ['Dimana Kabupaten / Kota tempat Anda berwiraswasta saat ini?','core',1,'Dropdown kabupaten/kota','','<b>Cabang Wiraswasta</b>','f5a2',''],
                     ['Apa nama perusahaan / kantor tempat Anda berwiraswasta saat ini?','core',1,'Isian teks','','<b>Cabang Wiraswasta</b>','f5b',''],
-                    ['Data atasan atau pemilik usaha: nama, jabatan, email, no. telp, alamat usaha','core',1,'5 isian teks','','<b>Cabang Wiraswasta</b> · tetap diminta meski alumni pemiliknya sendiri, karena Survei Pengguna Lulusan butuh penilai. Untuk kasus itu penilaian jadi penilaian diri — perlu ditandai berbeda saat analisis.','k1, k2',''],
+                    ['Data atasan atau pemilik usaha: nama, jabatan, email, no. telp, alamat usaha','core',1,'5 isian teks','','<b>Cabang Wiraswasta</b> · tetap diminta meski alumni pemiliknya sendiri, karena Survei Pengguna Lulusan butuh penilai. Untuk kasus itu penilaian jadi penilaian diri - perlu ditandai berbeda saat analisis.','k1, k2',''],
                     ['__section__','Cabang: Melanjutkan Pendidikan','Muncul jika alumni memilih status Melanjutkan Pendidikan di pertanyaan 2.'],
-                    ['Dari manakah sumber biaya studi lanjut Anda','core',1,'Pilihan tunggal — Biaya Sendiri / Beasiswa','','<b>Cabang Melanjutkan Pendidikan</b>','f18a','1=Biaya Sendiri, 2=Beasiswa'],
+                    ['Dari manakah sumber biaya studi lanjut Anda','core',1,'Pilihan tunggal - Biaya Sendiri / Beasiswa','','<b>Cabang Melanjutkan Pendidikan</b>','f18a','1=Biaya Sendiri, 2=Beasiswa'],
                     ['Apa nama Perguruan Tinggi tempat Anda melanjutkan Pendidikan?','core',1,'Isian teks','','<b>Cabang Melanjutkan Pendidikan</b>','f18b',''],
                     ['Apa nama program studi yang Anda ambil dalam melanjutkan pendidikan?','core',1,'Isian teks','','<b>Cabang Melanjutkan Pendidikan</b>','f18c',''],
                     ['Kapan Anda mulai masuk melanjutkan pendidikan?','core',1,'Isian tanggal','','<b>Cabang Melanjutkan Pendidikan</b>','f18d','dd/mm/yyyy'],
-                    ['Seberapa erat hubungan antara bidang studi dengan pendidikan Anda?','core',1,'Pilihan tunggal — 5 tingkat','','<b>Cabang Melanjutkan Pendidikan</b> · kode sama dengan versi cabang Bekerja, redaksi disesuaikan konteks studi lanjut. Membuat prodi tetap bisa mengukur relevansi kurikulum untuk alumni yang melanjutkan kuliah.','f14','1=Sangat Erat, 2=Erat, 3=Cukup Erat, 4=Kurang Erat, 5=Tidak Sama Sekali'],
+                    ['Seberapa erat hubungan antara bidang studi dengan pendidikan Anda?','core',1,'Pilihan tunggal - 5 tingkat','','<b>Cabang Melanjutkan Pendidikan</b> · kode sama dengan versi cabang Bekerja, redaksi disesuaikan konteks studi lanjut. Membuat prodi tetap bisa mengukur relevansi kurikulum untuk alumni yang melanjutkan kuliah.','f14','1=Sangat Erat, 2=Erat, 3=Cukup Erat, 4=Kurang Erat, 5=Tidak Sama Sekali'],
                     ['__section__','Cabang: Tidak Kerja, Tetapi Sedang Mencari Kerja','Muncul jika alumni memilih status ini di pertanyaan 2. Seluruh pertanyaan cabang ini tidak wajib.'],
-                    ['Pada saat lulus, pada tingkat mana kompetensi di bawah ini Anda kuasai?','core',1,'Matriks 7 baris × skala 5','','<b>Tingkat Kompetensi</b> · diisi semua status. Ditampilkan sebagai kolom A pada tabel gabungan — <b>situs resmi Kemdiktisaintek juga menggabungkannya</b>, jadi bentuk ini bukan penyederhanaan dari kami. Skalanya meningkat: 5 berarti paling tinggi.','f17','f1761-f1773 (ganjil), skala 1-5'],
-                    ['Pada saat ini, pada tingkat mana kompetensi di bawah ini diperlukan dalam pekerjaan / studi lanjut Anda?','core',1,'Matriks 7 baris × skala 5','','<b>Tingkat Kompetensi</b> · ditampilkan sebagai kolom B pada tabel yang sama. Tujuh baris kolom A dan tujuh baris kolom B punya kode Dikti masing-masing — semuanya tetap terkirim terpisah meski tampil menyatu.','f17','f1762-f1774 (genap), skala 1-5'],
-                    ['Menurut Anda seberapa besar penekanan pada metode pembelajaran di bawah ini dilaksanakan di program studi Anda?','core',1,'Matriks 7 baris × skala 5','','<b>Tingkat Kompetensi</b> · diisi semua status. Terkunci karena satu-satunya pertanyaan yang mengukur proses pembelajaran — tanpa ini prodi tidak bisa mengaitkan kelemahan kompetensi alumni ke metode pengajaran. Diminta juga oleh Kemenkes. <b>Arah skalanya berlawanan</b> dengan tabel kompetensi: di sini 1 berarti paling besar. Itu memang ketetapan Dikti; sistem sudah menyesuaikan perhitungannya.','f2','f21-f27, skala 1=Sangat Besar ... 5=Tidak Sama Sekali'],
-                    ['__section__','Tingkat Kompetensi (semua status)','Diisi semua alumni, apa pun statusnya — termasuk yang melanjutkan pendidikan dan yang belum bekerja.'],
-                    ['Kapan Anda mulai mencari pekerjaan yang Anda jalani saat ini?','optional',0,'Pilihan tunggal + isian angka di dalam opsi','kemdikbud','<b>Cabang Bekerja</b> · <b>Satu pertanyaan, bukan tiga</b> — alumni memilih "Kira-kira … bulan sebelum lulus", "Kira-kira … bulan sesudah lulus", atau "Saya tidak mencari kerja", lalu mengisi angka pada baris yang dipilih. Bentuk gabungan ini mengikuti format resmi Kemdiktisaintek.','f301+f302+f303','f301: 1=Sebelum, 2=Sesudah, 3=Tidak mencari'],
+                    ['Pada saat lulus, pada tingkat mana kompetensi di bawah ini Anda kuasai?','core',1,'Matriks 7 baris × skala 5','','<b>Tingkat Kompetensi</b> · diisi semua status. Ditampilkan sebagai kolom A pada tabel gabungan - <b>situs resmi Kemdiktisaintek juga menggabungkannya</b>, jadi bentuk ini bukan penyederhanaan dari kami. Skalanya meningkat: 5 berarti paling tinggi.','f17','f1761-f1773 (ganjil), skala 1-5'],
+                    ['Pada saat ini, pada tingkat mana kompetensi di bawah ini diperlukan dalam pekerjaan / studi lanjut Anda?','core',1,'Matriks 7 baris × skala 5','','<b>Tingkat Kompetensi</b> · ditampilkan sebagai kolom B pada tabel yang sama. Tujuh baris kolom A dan tujuh baris kolom B punya kode Dikti masing-masing - semuanya tetap terkirim terpisah meski tampil menyatu.','f17','f1762-f1774 (genap), skala 1-5'],
+                    ['Menurut Anda seberapa besar penekanan pada metode pembelajaran di bawah ini dilaksanakan di program studi Anda?','core',1,'Matriks 7 baris × skala 5','','<b>Tingkat Kompetensi</b> · diisi semua status. Terkunci karena satu-satunya pertanyaan yang mengukur proses pembelajaran - tanpa ini prodi tidak bisa mengaitkan kelemahan kompetensi alumni ke metode pengajaran. Diminta juga oleh Kemenkes. <b>Arah skalanya berlawanan</b> dengan tabel kompetensi: di sini 1 berarti paling besar. Itu memang ketetapan Dikti; sistem sudah menyesuaikan perhitungannya.','f2','f21-f27, skala 1=Sangat Besar ... 5=Tidak Sama Sekali'],
+                    ['__section__','Tingkat Kompetensi (semua status)','Diisi semua alumni, apa pun statusnya - termasuk yang melanjutkan pendidikan dan yang belum bekerja.'],
+                    ['Kapan Anda mulai mencari pekerjaan yang Anda jalani saat ini?','optional',0,'Pilihan tunggal + isian angka di dalam opsi','kemdikbud','<b>Cabang Bekerja</b> · <b>Satu pertanyaan, bukan tiga</b> - alumni memilih "Kira-kira … bulan sebelum lulus", "Kira-kira … bulan sesudah lulus", atau "Saya tidak mencari kerja", lalu mengisi angka pada baris yang dipilih. Bentuk gabungan ini mengikuti format resmi Kemdiktisaintek.','f301+f302+f303','f301: 1=Sebelum, 2=Sesudah, 3=Tidak mencari'],
                     ['Kapan Anda mulai merencanakan berwiraswasta?','optional',0,'Pilihan tunggal + isian angka di dalam opsi','kemdikbud','<b>Cabang Wiraswasta</b> · kode sama dengan pertanyaan di cabang Bekerja, redaksi disesuaikan konteks usaha. Bentuknya juga gabungan.','f301+f302+f303','(kode sama, redaksi beda)'],
-                    ['Apa tipe kontrak pekerjaan Anda saat ini?','optional',0,'Pilihan tunggal — Kontrak / Tetap / Tanpa kontrak','','<b>Cabang Bekerja</b> · tanpa kode Dikti, tidak diminta regulator mana pun. Berguna untuk analisis stabilitas kerja alumni. Bebas dinonaktifkan.','',''],
+                    ['Apa tipe kontrak pekerjaan Anda saat ini?','optional',0,'Pilihan tunggal - Kontrak / Tetap / Tanpa kontrak','','<b>Cabang Bekerja</b> · tanpa kode Dikti, tidak diminta regulator mana pun. Berguna untuk analisis stabilitas kerja alumni. Bebas dinonaktifkan.','',''],
                     ['Berapa perusahaan / instansi / institusi yang sudah Anda lamar?','optional',0,'Isian angka','kemdikbud','<b>Cabang Bekerja &amp; Belum Bekerja</b> · <b>titik hitungnya berbeda per cabang</b>. Di cabang Bekerja: "sebelum memperoleh pekerjaan pertama", mengikuti situs resmi. Di cabang Belum Bekerja: "sampai saat ini", karena belum ada pekerjaan pertama.','f6',''],
                     ['Berapa banyak yang merespons lamaran Anda?','optional',0,'Isian angka','kemdikbud','<b>Cabang Bekerja &amp; Belum Bekerja</b> · titik hitung mengikuti pertanyaan di atas, supaya angka lamaran dan angka respons tetap bisa dibandingkan.','f7',''],
                     ['Berapa banyak yang mengundang Anda untuk wawancara?','optional',0,'Isian angka','kemdikbud','<b>Cabang Bekerja &amp; Belum Bekerja</b> · titik hitung mengikuti dua pertanyaan di atas.','f7a',''],
-                    ['Jika menurut Anda pekerjaan Anda saat ini tidak sesuai dengan pendidikan Anda, mengapa Anda mengambilnya?','optional',0,'Pilihan ganda — 12 opsi + Lainnya','kemdikbud','<b>Cabang Bekerja &amp; Wiraswasta</b> · setiap opsi jawaban punya kode Dikti sendiri. Boleh dinonaktifkan, tapi kalau aktif jumlah opsinya tidak boleh dikurangi.','f16','f1601-f1613 (0/1) + f1614 teks'],
+                    ['Jika menurut Anda pekerjaan Anda saat ini tidak sesuai dengan pendidikan Anda, mengapa Anda mengambilnya?','optional',0,'Pilihan ganda - 12 opsi + Lainnya','kemdikbud','<b>Cabang Bekerja &amp; Wiraswasta</b> · setiap opsi jawaban punya kode Dikti sendiri. Boleh dinonaktifkan, tapi kalau aktif jumlah opsinya tidak boleh dikurangi.','f16','f1601-f1613 (0/1) + f1614 teks'],
                     ['Kapan Anda mulai mencari pekerjaan?','optional',0,'Pilihan tunggal + isian angka di dalam opsi','kemdikbud','<b>Cabang Belum Bekerja</b> · kode dan bentuknya sama dengan versi di cabang Bekerja. Seluruh pertanyaan cabang ini ditandai tidak wajib di format resmi.','f301+f302+f303',''],
-                    ['Bagaimana Anda mencari pekerjaan tersebut?','optional',0,'Pilihan ganda — 14 opsi + Lainnya','kemdikbud','<b>Cabang Belum Bekerja</b> · kode sama dengan versi di cabang Bekerja.','f4','f401-f415 + f416'],
+                    ['Bagaimana Anda mencari pekerjaan tersebut?','optional',0,'Pilihan ganda - 14 opsi + Lainnya','kemdikbud','<b>Cabang Belum Bekerja</b> · kode sama dengan versi di cabang Bekerja.','f4','f401-f415 + f416'],
                     ['__section__','Optional: Bundle Kemenkes','Khusus kampus kesehatan (mis. Poltekkes). Default nonaktif untuk PT umum.'],
                     ['Apakah Anda bekerja di fasilitas kesehatan?','optional',0,'Pilihan: Ya / Tidak','kemenkes','','',''],
                     ['Bagaimana status STR (Surat Tanda Registrasi) Anda saat ini?','optional',0,'Pilihan: Aktif / Dalam proses / Belum memiliki','kemenkes','','',''],
@@ -278,7 +279,7 @@
                 ]},
             pengguna:{label:'Pengguna Lulusan',when:'Sejajar G1 · jika alumni bekerja',dot:'#f59e0b',canAdd:false,
                 desc:'Survei penilaian kinerja alumni oleh atasan/perusahaan. Dikirim otomatis ke perusahaan yang disebut alumni saat mengisi G1 (hanya jika status alumni = Bekerja). Wajib untuk akreditasi BAN-PT (Indikator 14B).',
-                tierNote:'Semua pertanyaan <b>Core</b> — mengikuti format standar BAN-PT Indikator 14B, tidak bisa dinonaktifkan. Kuesioner ini <b>hanya aktif</b> jika alumni menjawab "Bekerja" di Wave G1.<br><br>Hampir seluruhnya <b>tanpa kode Dikti</b> — instrumen ini untuk akreditasi, bukan pelaporan PDDikti. Yang berkode hanya tiga field pencocokan alumni (nama, program studi, tahun lulus) supaya penilaian perusahaan bisa ditautkan ke record yang benar.',
+                tierNote:'Semua pertanyaan <b>Core</b> - mengikuti format standar BAN-PT Indikator 14B, tidak bisa dinonaktifkan. Kuesioner ini <b>hanya aktif</b> jika alumni menjawab "Bekerja" di Wave G1.<br><br>Hampir seluruhnya <b>tanpa kode Dikti</b> - instrumen ini untuk akreditasi, bukan pelaporan PDDikti. Yang berkode hanya tiga field pencocokan alumni (nama, program studi, tahun lulus) supaya penilaian perusahaan bisa ditautkan ke record yang benar.',
                 schedule:{type:'event',options:['Otomatis setelah alumni isi G1 (status: Bekerja)','Manual (Admin kirim sendiri)'],note:'Link dikirim ke perusahaan yang disebut alumni di G1. Hanya untuk alumni berstatus Bekerja.',reminder:{interval:7,max:2}},
                 q:[
                     ['Nama penilai (atasan/HRD)','core',1,'Isian teks','','','',''],
@@ -307,7 +308,7 @@
                 ]},
             g2:{label:'Wave G2',when:'Lanjutan (berulang)',dot:'#8b5cf6',canAdd:true,
                 desc:'Pendalaman relevansi prodi/internal. Bisa dikirim berulang (tiap 2 tahun, maks 3 siklus). Pertanyaan yang sudah dijawab di G1 otomatis di-skip.',
-                tierNote:'Dominan tier <b>Optional</b> — kampus memilih yang relevan. Admin CDC dapat menambah pertanyaan Specific dan mengaktifkan/menonaktifkan Optional.',
+                tierNote:'Dominan tier <b>Optional</b> - kampus memilih yang relevan. Admin CDC dapat menambah pertanyaan Specific dan mengaktifkan/menonaktifkan Optional.',
                 schedule:{type:'month',value:48,min:24,max:72,repeat:true,repeatInterval:24,repeatMax:3,reminder:{interval:7,max:3}},
                 q:[['Seberapa puas Anda terhadap kompetensi yang diperoleh selama kuliah?','optional',0,'Skala 1–5 (sangat tidak puas – sangat puas)','','','',''],['Apa saran Anda untuk perbaikan kurikulum program studi?','optional',0,'Isian teks panjang (paragraf)','','','',''],['Mata kuliah mana yang paling relevan dengan pekerjaan Anda saat ini?','optional',0,'Pilihan ganda (daftar mata kuliah prodi)','','','',''],['Pertanyaan tambahan dari program studi Anda','specific',0,'Disesuaikan oleh Admin CDC','','','','']]}
         };
@@ -316,7 +317,7 @@
         let active='exit';
         function renderSchedule(){
             const w=waves[active];const s=w.schedule;
-            let h='<p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 1rem;line-height:1.5;">Reminder otomatis berhenti begitu responden sudah mengisi. Link tetap aktif kapan saja — tidak ada batas waktu.</p>';
+            let h='<p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 1rem;line-height:1.5;">Reminder otomatis berhenti begitu responden sudah mengisi. Link tetap aktif kapan saja - tidak ada batas waktu.</p>';
             h+='<div style="border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:1rem;">';
             h+='<p style="font-weight:600;font-size:.85rem;margin:0 0 .75rem;color:var(--qn-neutral-800);">'+w.label+'</p>';
             h+='<div style="display:flex;flex-wrap:wrap;gap:1rem;">';
@@ -333,7 +334,7 @@
                 h+='<div style="border-top:1px solid var(--qn-neutral-200);margin-top:.75rem;padding-top:.75rem;display:flex;flex-wrap:wrap;gap:.75rem;align-items:flex-end;"><div><label style="font-size:.7rem;color:var(--qn-neutral-500);display:block;margin-bottom:.2rem;">Ulangi pengiriman setiap</label><div style="display:flex;align-items:center;gap:.3rem;"><input type="number" value="'+s.repeatInterval+'" min="12" max="60" style="width:50px;padding:.4rem .5rem;border:1px solid var(--qn-neutral-200);border-radius:.375rem;font-size:.8rem;text-align:center;"><span style="font-size:.75rem;color:var(--qn-neutral-500);">bulan</span></div></div><div><label style="font-size:.7rem;color:var(--qn-neutral-500);display:block;margin-bottom:.2rem;">Maksimal siklus</label><div style="display:flex;align-items:center;gap:.3rem;"><input type="number" value="'+s.repeatMax+'" min="1" max="10" style="width:40px;padding:.4rem .5rem;border:1px solid var(--qn-neutral-200);border-radius:.375rem;font-size:.8rem;text-align:center;"><span style="font-size:.75rem;color:var(--qn-neutral-500);">kali</span></div></div><p style="font-size:.65rem;color:var(--qn-neutral-400);margin:0;line-height:1.4;">Contoh: pertama bulan ke-'+s.value+', ulangi tiap '+s.repeatInterval+' bulan, maks '+s.repeatMax+'×</p></div>';
             }
             h+='</div>';
-            // Cutoff pelaporan — only for G1/G2 (waves that feed IKU/BAN-PT)
+            // Cutoff pelaporan - only for G1/G2 (waves that feed IKU/BAN-PT)
             if(active==='g1'||active==='g2'){
                 h+='<div style="border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:1rem;margin-top:1rem;">';
                 h+='<p style="font-weight:600;font-size:.85rem;margin:0 0 .25rem;color:var(--qn-neutral-800);">Cutoff Pelaporan</p>';
@@ -373,7 +374,7 @@
                 // Pertanyaan kondisional/internal tidak dinomori
                 var isConditional = (code === 'g1_verif_pralulus');
                 if(!isConditional){ qNum++; }
-                var displayNum = isConditional ? '—' : qNum;
+                var displayNum = isConditional ? '-' : qNum;
                 var action;
                 if(locked){
                     action='<span style="font-size:.75rem;color:var(--qn-neutral-400);display:flex;align-items:center;gap:.25rem;white-space:nowrap;"><span class="icon icon-lock-closed-mini"></span>Terkunci</span>';
@@ -385,8 +386,8 @@
                     action='<div style="display:flex;gap:.5rem;"><button class="btn btn_outline btn_sm">Edit</button><button class="btn btn_outline btn_sm" style="color:var(--qn-danger-500);border-color:var(--qn-danger-200);" title="Hapus pertanyaan">&times;</button></div>';
                 }
                 var tagBadge = tag ? '<span class="badge badge_secondary-default badge_sm" style="text-transform:capitalize;">'+tag+'</span>' : '';
-                var codeBadge = code ? '<span style="font-size:.68rem;font-family:monospace;background:#1e3a8a;color:#fff;border-radius:.25rem;padding:.15rem .45rem;font-weight:600;">'+code+'</span>' : '';
-                var valuesLine = values ? '<div style="font-size:.72rem;color:#1e3a8a;margin-top:.35rem;font-family:monospace;line-height:1.8;background:#eff6ff;border:1px solid #bfdbfe;border-radius:.3rem;padding:.4rem .6rem;">'+values+'</div>' : '';
+                var codeBadge = code ? '<span class="badge badge_primary badge_sm" style="font-family:monospace;">'+code+'</span>' : '';
+                var valuesLine = values ? '<div style="font-size:.72rem;color:var(--qn-primary-700, #1e3a8a);margin-top:.35rem;font-family:monospace;line-height:1.8;background:var(--qn-primary-50, #eff6ff);border:1px solid var(--qn-primary-200, #bfdbfe);border-radius:.3rem;padding:.4rem .6rem;">'+values+'</div>' : '';
                 return '<div class="q-row" style="flex-wrap:wrap;gap:.5rem;"><div style="display:flex;align-items:center;gap:.5rem;flex:1;min-width:250px;"><span style="font-size:.75rem;font-weight:700;color:var(--qn-neutral-400);min-width:1.5rem;text-align:right;">'+displayNum+'</span><span class="badge '+tierBadgeCls[tier]+' badge_sm">'+tierLabel[tier]+'</span>'+tagBadge+codeBadge+'<div><span style="font-size:.875rem;color:var(--qn-neutral-800);">'+q+'</span><div style="font-size:.7rem;color:var(--qn-neutral-400);margin-top:.2rem;">Tipe jawaban: '+ansType+'</div>'+valuesLine+(note?'<div style="font-size:.7rem;color:var(--qn-neutral-500);margin-top:.3rem;display:flex;align-items:flex-start;gap:.3rem;line-height:1.4;"><span>ℹ️</span><span>'+note+'</span></div>':'')+'</div></div>'+action+'</div>';
             }).join('')
                 + (w.canAdd
@@ -399,7 +400,7 @@
         // Simulasi wave radio handler
         var simWaveMap = {exit:'simulasi-exit.html',g1:'simulasi-g1-status.html',g2:'simulasi-g1-status.html'};
         var simWaveLabel = {exit:'Wave Exit',g1:'Wave G1',g2:'Wave G2'};
-        var simWaveNote = {exit:'',g1:'',g2:' (belum tersedia — menampilkan G1)'};
+        var simWaveNote = {exit:'',g1:'',g2:' (belum tersedia - menampilkan G1)'};
         document.querySelectorAll('input[name="simWave"]').forEach(function(r){
             r.addEventListener('change',function(){
                 var btn = document.getElementById('simStartBtn');

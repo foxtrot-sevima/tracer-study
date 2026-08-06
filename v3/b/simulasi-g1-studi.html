@@ -4,7 +4,7 @@
     <base href="/v3/b/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cabang Melanjutkan Pendidikan — Wave G1</title>
+    <title>Cabang Melanjutkan Pendidikan - Wave G1</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -15,6 +15,26 @@
         .stepper__item.is-done{color:var(--qn-primary-500);font-weight:500;}
         .stepper__sep{color:var(--qn-neutral-300);}
         select{appearance:menulist !important;}
+
+        /* tsf-question / tsf-option component set - same pattern as v2.1/b's tracer-study-form-*.html */
+        .tsf-question { padding: 1.25rem 0; border-bottom: 1px solid var(--qn-neutral-100, #f3f4f6); }
+        .tsf-question:last-child { border-bottom: none; padding-bottom: 0.25rem; }
+        .tsf-question:first-child { padding-top: 0.25rem; }
+        .tsf-question__label-row { display: flex; gap: 0.375rem; margin-bottom: 0.25rem; }
+        .tsf-question__number { font-size: 1.0625rem; color: var(--qn-neutral-500, #6b7280); font-weight: 500; }
+        .tsf-question__label { font-size: 1.0625rem; color: var(--qn-neutral-900, #111827); font-weight: 500; line-height: 1.5; }
+        .tsf-required { color: var(--qn-danger-500, #ef4444); margin-left: 0.125rem; }
+
+        .tsf-radio-group { display: flex; flex-direction: column; gap: 0.625rem; margin-top: 0.5rem; }
+        .tsf-radio-group .form-control__label-radio { font-size: 1rem; color: var(--qn-neutral-800, #1f2937); }
+
+        .tsf-option {
+            display: block; border: 1.5px solid var(--qn-neutral-200, #e5e7eb); border-radius: 0.625rem;
+            padding: 0.75rem 1rem; margin: 0 !important; cursor: pointer;
+            transition: border-color .15s ease, background-color .15s ease;
+        }
+        .tsf-option:hover { border-color: var(--qn-primary-300, #93c5fd); background: var(--qn-primary-50, #eff6ff); }
+        .tsf-option.tsf-option--checked { border-color: var(--qn-primary-500, #3b82f6); background: var(--qn-primary-50, #eff6ff); }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -37,47 +57,76 @@
     <!-- Header -->
     <div style="text-align:center;margin-bottom:1.5rem;">
         <img src="assets/karirlink/images/logo/karirlink-colored.webp" alt="KarirLink" height="36" style="margin-bottom:.5rem;">
-        <h2 style="margin:0;font-size:1.1rem;">Tracer Study — Universitas Foxtrot</h2>
+        <h2 style="margin:0;font-size:1.1rem;">Tracer Study - Universitas Foxtrot</h2>
         <p style="margin:.25rem 0 0;font-size:.8rem;color:var(--qn-neutral-500);">Wave G1</p>
     </div>
 
-    <!-- f18a: Sumber biaya studi lanjut -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">1. Sumber biaya untuk studi lanjut <span class="important">*</span></label>
-        <div class="form-control__group">
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f18a"><label class="form-control__label-radio">Biaya Sendiri</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f18a"><label class="form-control__label-radio">Beasiswa</label></div>
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card__header">
+            <h2 class="card__title">Cabang: Melanjutkan Pendidikan</h2>
         </div>
-    </div>
+        <div class="card__body">
 
-    <!-- f18b: Perguruan Tinggi -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">2. Perguruan Tinggi tujuan studi lanjut <span class="important">*</span></label>
-        <input type="text" class="form-control__input" placeholder="Nama perguruan tinggi">
-    </div>
+            <!-- f18a: Sumber biaya studi lanjut -->
+            <div class="tsf-question" role="radiogroup" aria-labelledby="f18a-label">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">1.</span>
+                    <p class="tsf-question__label" id="f18a-label">Sumber biaya untuk studi lanjut<span class="tsf-required" aria-label="Wajib">*</span></p>
+                </div>
+                <div class="tsf-radio-group">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f18a" id="f18a-a" value="biaya_sendiri"><label for="f18a-a" class="form-control__label-radio">Biaya Sendiri</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f18a" id="f18a-b" value="beasiswa"><label for="f18a-b" class="form-control__label-radio">Beasiswa</label></label>
+                </div>
+            </div>
 
-    <!-- f18c: Program Studi -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">3. Program Studi <span class="important">*</span></label>
-        <input type="text" class="form-control__input" placeholder="Nama program studi">
-    </div>
+            <!-- f18b: Perguruan Tinggi -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">2.</span>
+                    <label for="input-f18b" class="tsf-question__label">Perguruan Tinggi tujuan studi lanjut<span class="tsf-required" aria-label="Wajib">*</span></label>
+                </div>
+                <div class="form-control" style="margin-top: 0.5rem;">
+                    <div class="form-control__group"><input type="text" id="input-f18b" class="form-control__input" placeholder="Nama perguruan tinggi"></div>
+                </div>
+            </div>
 
-    <!-- f18d: Tanggal Masuk -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">4. Tanggal masuk studi lanjut <span class="important">*</span></label>
-        <input type="date" class="form-control__input">
-    </div>
+            <!-- f18c: Program Studi -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">3.</span>
+                    <label for="input-f18c" class="tsf-question__label">Program Studi<span class="tsf-required" aria-label="Wajib">*</span></label>
+                </div>
+                <div class="form-control" style="margin-top: 0.5rem;">
+                    <div class="form-control__group"><input type="text" id="input-f18c" class="form-control__input" placeholder="Nama program studi"></div>
+                </div>
+            </div>
 
-    <!-- f14: Keeratan bidang studi -->
-    <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">5. Seberapa erat hubungan antara bidang studi lanjut dengan pendidikan Anda sebelumnya? <span class="important">*</span></label>
-        <p style="font-size:.72rem;color:var(--qn-neutral-400);margin:0 0 .5rem;font-style:italic;">Redaksi: "dengan pendidikan Anda" (bukan "pekerjaan")</p>
-        <div class="form-control__group">
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f14"><label class="form-control__label-radio">Sangat Erat</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f14"><label class="form-control__label-radio">Erat</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f14"><label class="form-control__label-radio">Cukup Erat</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f14"><label class="form-control__label-radio">Kurang Erat</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f14"><label class="form-control__label-radio">Tidak Sama Sekali</label></div>
+            <!-- f18d: Tanggal Masuk -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">4.</span>
+                    <label for="input-f18d" class="tsf-question__label">Tanggal masuk studi lanjut<span class="tsf-required" aria-label="Wajib">*</span></label>
+                </div>
+                <div class="form-control" style="margin-top: 0.5rem;">
+                    <div class="form-control__group"><input type="date" id="input-f18d" class="form-control__input"></div>
+                </div>
+            </div>
+
+            <!-- f14: Keeratan bidang studi (redaksi "dengan pendidikan Anda", bukan "pekerjaan" - beda dari cabang Bekerja/Wiraswasta) -->
+            <div class="tsf-question" role="radiogroup" aria-labelledby="f14-label">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">5.</span>
+                    <p class="tsf-question__label" id="f14-label">Seberapa erat hubungan antara bidang studi lanjut dengan pendidikan Anda sebelumnya?<span class="tsf-required" aria-label="Wajib">*</span></p>
+                </div>
+                <div class="tsf-radio-group">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f14" id="f14-a" value="sangat_erat"><label for="f14-a" class="form-control__label-radio">Sangat Erat</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f14" id="f14-b" value="erat"><label for="f14-b" class="form-control__label-radio">Erat</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f14" id="f14-c" value="cukup_erat"><label for="f14-c" class="form-control__label-radio">Cukup Erat</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f14" id="f14-d" value="kurang_erat"><label for="f14-d" class="form-control__label-radio">Kurang Erat</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f14" id="f14-e" value="tidak_sama_sekali"><label for="f14-e" class="form-control__label-radio">Tidak Sama Sekali</label></label>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -89,5 +138,22 @@
 
 </div>
 
+<script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+<script>
+    function refreshOptionCard(el) {
+        if (!el) return;
+        const input = el.querySelector('input');
+        el.classList.toggle('tsf-option--checked', !!(input && input.checked));
+    }
+    document.addEventListener('change', function (e) {
+        const input = e.target;
+        if (input && input.type === 'radio' && input.name) {
+            document.querySelectorAll('input[type="radio"][name="' + input.name + '"]').forEach(function (r) {
+                const opt = r.closest('.tsf-option');
+                if (opt) refreshOptionCard(opt);
+            });
+        }
+    });
+</script>
 </body>
 </html>

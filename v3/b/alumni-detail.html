@@ -15,10 +15,6 @@
         .profile-hero__name{font-size:1.25rem;font-weight:700;margin:0;color:var(--qn-neutral-900);}
         .profile-hero__meta{font-size:.8rem;color:var(--qn-neutral-500);margin:.25rem 0 0;}
         .profile-hero__badges{display:flex;gap:.4rem;flex-wrap:wrap;}
-        .stat-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem;}
-        .stat-card{flex:1;min-width:120px;background:var(--qn-neutral-50);border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:.75rem 1rem;text-align:center;}
-        .stat-card__value{font-size:1.1rem;font-weight:700;color:var(--qn-neutral-900);margin:0;}
-        .stat-card__label{font-size:.7rem;color:var(--qn-neutral-500);margin:.15rem 0 0;}
         .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .75rem;}
         .detail-grid__item{display:flex;flex-direction:column;padding:.5rem 0;border-bottom:1px solid var(--qn-neutral-100);}
         .detail-grid__label{font-size:.7rem;color:var(--qn-neutral-400);margin-bottom:.1rem;}
@@ -97,22 +93,22 @@
                 </div>
                 <!-- Quick Stats -->
                 <div style="padding:0 1.5rem 1.25rem;">
-                    <div class="stat-row">
-                        <div class="stat-card">
-                            <p class="stat-card__value">3.72</p>
-                            <p class="stat-card__label">IPK</p>
+                    <div class="stat-tiles" style="grid-template-columns: repeat(4, 1fr);">
+                        <div class="stat-tile stat-tile_neutral">
+                            <span class="stat-tile__value">3.72</span>
+                            <span class="stat-tile__label">IPK</span>
                         </div>
-                        <div class="stat-card">
-                            <p class="stat-card__value">0 bln</p>
-                            <p class="stat-card__label">Masa Tunggu Kerja</p>
+                        <div class="stat-tile stat-tile_neutral">
+                            <span class="stat-tile__value">0 bln</span>
+                            <span class="stat-tile__label">Masa Tunggu Kerja</span>
                         </div>
-                        <div class="stat-card">
-                            <p class="stat-card__value">Rp 15jt</p>
-                            <p class="stat-card__label">Penghasilan</p>
+                        <div class="stat-tile stat-tile_neutral">
+                            <span class="stat-tile__value">Rp 15jt</span>
+                            <span class="stat-tile__label">Penghasilan</span>
                         </div>
-                        <div class="stat-card">
-                            <p class="stat-card__value" style="color:var(--qn-success-500);">&gt; 1,2×</p>
-                            <p class="stat-card__label">Rasio UMP</p>
+                        <div class="stat-tile stat-tile_success">
+                            <span class="stat-tile__value">&gt; 1,2&times;</span>
+                            <span class="stat-tile__label">Rasio UMP</span>
                         </div>
                     </div>
                 </div>
@@ -213,9 +209,8 @@
                                     <div class="detail-grid__item"><span class="detail-grid__label">Alamat perusahaan</span><span class="detail-grid__value">Jl. Basuki Rahmat 1, Surabaya</span></div>
                                     <div class="detail-grid__item"><span class="detail-grid__label">Survei Pengguna Lulusan</span><span class="detail-grid__value"><span class="badge badge_secondary-success badge_sm">Sudah diisi 12 Mar 2025</span></span></div>
                                 </div>
-                                <div style="background:var(--qn-neutral-50);border:1px solid var(--qn-neutral-200);border-radius:.375rem;padding:.5rem .75rem;margin-top:.75rem;font-size:.72rem;color:var(--qn-neutral-600);display:flex;align-items:flex-start;gap:.5rem;">
-                                    <span style="font-size:1rem;line-height:1;">ℹ️</span>
-                                    <span><b>Untuk Admin CDC:</b> Data kontak ini <b>tidak di-upload ke Kemdiktisaintek</b> — fungsinya mengirim Survei Pengguna Lulusan secara otomatis. Kalau kolom terakhir masih kosong, artinya survei sudah terkirim tapi belum diisi perusahaan; Anda bisa mengirim pengingat dari halaman Kuesioner.</span>
+                                <div class="alert alert_helper" style="margin-top:.75rem;">
+                                    <div class="alert__content"><p class="alert__description"><b>Untuk Admin CDC:</b> Data kontak ini <b>tidak di-upload ke Kemdiktisaintek</b> - fungsinya mengirim Survei Pengguna Lulusan secara otomatis. Kalau kolom terakhir masih kosong, artinya survei sudah terkirim tapi belum diisi perusahaan; Anda bisa mengirim pengingat dari halaman Kuesioner.</p></div>
                                 </div>
                             </div>
                         </div>
@@ -237,7 +232,7 @@
                                     <div class="detail-grid__item"><span class="detail-grid__label">Rencana setelah lulus</span><span class="detail-grid__value">Bekerja</span></div>
                                     <div class="detail-grid__item"><span class="detail-grid__label">LinkedIn</span><span class="detail-grid__value">linkedin.com/in/ahmad-rizki</span></div>
                                 </div>
-                                <p style="font-size:.65rem;color:var(--qn-neutral-400);margin:.5rem 0 0;">Jawaban Specific tidak terkunci — Admin CDC dapat mengubah pertanyaan antar periode.</p>
+                                <p style="font-size:.65rem;color:var(--qn-neutral-400);margin:.5rem 0 0;">Jawaban Specific tidak terkunci - Admin CDC dapat mengubah pertanyaan antar periode.</p>
                             </div>
                         </div>
                     </div>
@@ -250,7 +245,7 @@
                             <h3 style="margin:0;font-size:1rem;">Riwayat Karier & Pengalaman</h3>
                             <span class="badge badge_secondary-success badge_sm">append-only</span>
                         </div>
-                        <p style="font-size:.72rem;color:var(--qn-neutral-400);margin:0 0 1.25rem;">Seluruh perpindahan karier, magang, dan pengalaman organisasi — bukan hanya posisi terakhir.</p>
+                        <p style="font-size:.72rem;color:var(--qn-neutral-400);margin:0 0 1.25rem;">Seluruh perpindahan karier, magang, dan pengalaman organisasi - bukan hanya posisi terakhir.</p>
                         <div class="timeline" id="career"></div>
                     </div>
                 </div>
@@ -281,9 +276,9 @@
         const career=[
             ['Mei 2026 – sekarang','Backend Engineer','PT Telkom Indonesia','Kota Bandung, Jawa Barat','kerja'],
             ['Ags 2024 – Apr 2026','Junior Developer','PT Cahaya Seruni','Kota Surabaya, Jawa Timur','kerja'],
-            ['Jul 2024','Lulus S1 Teknik Informatika','Universitas Foxtrot','—','milestone'],
+            ['Jul 2024','Lulus S1 Teknik Informatika','Universitas Foxtrot','-','milestone'],
             ['Feb – Jun 2024','Magang Backend Developer','PT Gojek Indonesia','Jakarta Selatan','magang'],
-            ['2022 – 2024','Ketua Himpunan Mahasiswa Informatika','HMTI Universitas Foxtrot','—','organisasi'],
+            ['2022 – 2024','Ketua Himpunan Mahasiswa Informatika','HMTI Universitas Foxtrot','-','organisasi'],
             ['Jun – Ags 2023','Magang Data Analyst','Bank BCA','Surabaya','magang'],
         ];
         const dotStyle={kerja:'',magang:'background:#f59e0b;box-shadow:0 0 0 2px #fef3c7;',organisasi:'background:#8b5cf6;box-shadow:0 0 0 2px #ede9fe;',milestone:'background:#10b981;box-shadow:0 0 0 2px #d1fae5;'};
@@ -293,7 +288,7 @@
                 <span class="tl-dot" style="${dotStyle[type]||''}"></span>
                 <p class="tl-item__time">${t}${typeLabel[type]?' <span class="badge badge_secondary-default badge_sm" style="font-size:.6rem;">'+typeLabel[type]+'</span>':''}</p>
                 <p class="tl-item__title">${pos}</p>
-                <p class="tl-item__sub">${co}${loc!=='—'?' · '+loc:''}</p>
+                <p class="tl-item__sub">${co}${loc!=='-'?' · '+loc:''}</p>
             </div>`).join('');
 
         // Audit log data
@@ -301,10 +296,10 @@
             ['12 Mei 2026 10:22','Domisili <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Profil Terkini)</span>','Kota Surabaya, Jawa Timur','Kota Bandung, Jawa Barat','<span class="badge badge_secondary-success badge_sm">Alumni (self-update)</span>'],
             ['12 Mei 2026 10:22','Perusahaan <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Profil Terkini)</span>','PT Cahaya Seruni','PT Telkom Indonesia','<span class="badge badge_secondary-success badge_sm">Alumni (self-update)</span>'],
             ['12 Mei 2026 10:22','Posisi terbaru <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Karier &amp; Pengalaman)</span>','Junior Dev · Cahaya Seruni','Backend Eng · Telkom','<span class="badge badge_secondary-success badge_sm">Alumni (self-update)</span>'],
-            ['10 Apr 2025 11:30','Penilaian perusahaan <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Jawaban Tracer)</span>','—','Skor rata-rata: Baik','<span class="badge badge_secondary-danger badge_sm">PT Cahaya Seruni</span>'],
-            ['03 Mar 2025 14:10','Wave G1 <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Jawaban Tracer)</span>','—','Disubmit (12 Core)','<span class="badge badge_secondary-default badge_sm">Alumni (wave G1)</span>'],
+            ['10 Apr 2025 11:30','Penilaian perusahaan <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Jawaban Tracer)</span>','-','Skor rata-rata: Baik','<span class="badge badge_secondary-danger badge_sm">PT Cahaya Seruni</span>'],
+            ['03 Mar 2025 14:10','Wave G1 <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Jawaban Tracer)</span>','-','Disubmit (12 Core)','<span class="badge badge_secondary-default badge_sm">Alumni (wave G1)</span>'],
             ['15 Jan 2025 09:05','Email <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Profil Terkini)</span>','@yahoo.com','@gmail.com','<span class="badge badge_secondary-warning badge_sm">Admin CDC</span>'],
-            ['01 Agu 2024 08:00','Data awal <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Profil Terkini)</span>','—','Tersinkronisasi','<span class="badge badge_secondary-primary badge_sm">SIAKAD sync</span>'],
+            ['01 Agu 2024 08:00','Data awal <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Profil Terkini)</span>','-','Tersinkronisasi','<span class="badge badge_secondary-primary badge_sm">SIAKAD sync</span>'],
         ];
         document.getElementById('audit').innerHTML=audit.map(([w,f,b,a,by])=>`
             <tr>

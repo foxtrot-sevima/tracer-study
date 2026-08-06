@@ -49,7 +49,7 @@
                 <div class="main__location"><div class="main__wrapper"><h1 class="main__title">Dashboard</h1></div></div>
             </div>
             <div class="alert alert_success" style="margin-bottom:1rem;">
-                <div class="alert__content"><p class="alert__description"><b>Paket B · Tergabung</b> — data Portal Karir &amp; Tracer Study tersinkron dalam satu dashboard.</p></div>
+                <div class="alert__content"><p class="alert__description"><b>Paket B · Tergabung</b> - data Portal Karir &amp; Tracer Study tersinkron dalam satu dashboard.</p></div>
             </div>
 
             <!-- Filter Bar -->
@@ -62,45 +62,73 @@
                 </div>
             </div>
 
-            <div class="grid dashboard-grid" style="margin-bottom:1rem;">
-                <div class="col-6 col-md-3"><div class="card card_empty"><p style="color:var(--qn-neutral-500);font-size:.8rem;margin:0;">Pengisian Tracer</p><p style="font-size:1.5rem;font-weight:700;color:var(--qn-primary-500);margin:.25rem 0;">4%</p><small style="color:var(--qn-neutral-400);">98 / 2088</small></div></div>
-                <div class="col-6 col-md-3"><div class="card card_empty"><p style="color:var(--qn-neutral-500);font-size:.8rem;margin:0;">Lamaran Alumni</p><p style="font-size:1.5rem;font-weight:700;color:var(--qn-primary-500);margin:.25rem 0;">142</p><small style="color:var(--qn-neutral-400);">Portal Karir · bulan ini</small></div></div>
-                <div class="col-6 col-md-3"><div class="card card_empty"><p style="color:var(--qn-neutral-500);font-size:.8rem;margin:0;">Alumni Diterima Kerja</p><p style="font-size:1.5rem;font-weight:700;color:#16a34a;margin:.25rem 0;">38</p><small style="color:#059669;">&#8635; sync ke data karier</small></div></div>
-                <div class="col-6 col-md-3"><div class="card card_empty"><p style="color:var(--qn-neutral-500);font-size:.8rem;margin:0;">Waktu Tunggu &lt; 6 bln</p><p style="font-size:1.5rem;font-weight:700;color:var(--qn-primary-500);margin:.25rem 0;">59%</p><small style="color:var(--qn-neutral-400);">IKU #2</small></div></div>
+            <div class="stat-tiles" style="margin-bottom:1rem;">
+                <div class="stat-tile stat-tile_primary">
+                    <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-clipboard-document-list"></span></span>
+                    <span class="stat-tile__value">4%</span>
+                    <span class="stat-tile__label">Pengisian Tracer</span>
+                    <span class="stat-tile__sub">98 / 2088</span>
+                </div>
+                <div class="stat-tile stat-tile_primary">
+                    <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-briefcase"></span></span>
+                    <span class="stat-tile__value">142</span>
+                    <span class="stat-tile__label">Lamaran Alumni</span>
+                    <span class="stat-tile__sub">Portal Karir &middot; bulan ini</span>
+                </div>
+                <div class="stat-tile stat-tile_success">
+                    <span class="stat-tile__icon stat-tile__icon_success"><span class="icon icon-check-circle"></span></span>
+                    <span class="stat-tile__value">38</span>
+                    <span class="stat-tile__label">Alumni Diterima Kerja</span>
+                    <span class="stat-tile__sub">&#8635; sync ke data karier</span>
+                </div>
+                <div class="stat-tile stat-tile_primary">
+                    <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-clock"></span></span>
+                    <span class="stat-tile__value">59%</span>
+                    <span class="stat-tile__label">Waktu Tunggu &lt; 6 bln</span>
+                    <span class="stat-tile__sub">IKU #2</span>
+                </div>
             </div>
             <div class="grid cols-1 cols-md-2" style="gap:1rem;">
-                <div class="card card_empty">
-                    <h3 style="margin-top:0;">Riwayat Karier &amp; Profil Alumni</h3>
-                    <p style="font-size:.75rem;color:var(--qn-neutral-400);margin-top:-.5rem;">Sumber: Portal Karir</p>
-                    <table class="table"><tbody>
-                        <tr><td>Ahmad Rizki — S1 TI</td><td style="text-align:right;"><span class="badge badge_secondary-success badge_sm">Diterima · PT Telkom</span></td></tr>
-                        <tr><td>Siti Nur — S1 SI</td><td style="text-align:right;"><span class="badge badge_secondary-warning badge_sm">Proses · Gojek</span></td></tr>
-                        <tr><td>Budi Santoso — S1 Akuntansi</td><td style="text-align:right;"><span class="badge badge_secondary-success badge_sm">Diterima · BCA</span></td></tr>
-                    </tbody></table>
-                    <div class="alert alert_success" style="margin-top:.75rem;"><div class="alert__content"><p class="alert__description" style="font-size:.75rem;">Nice to have: alumni dapat kerja via Portal Karir → status otomatis mengisi data karier di sini.</p></div></div>
+                <div class="card card_dashboard">
+                    <div class="card__header"><h3 class="card__title">Riwayat Karier &amp; Profil Alumni</h3></div>
+                    <div class="card__body">
+                        <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 .75rem;">Sumber: Portal Karir</p>
+                        <table class="table"><tbody>
+                            <tr><td>Ahmad Rizki - S1 TI</td><td style="text-align:right;"><span class="badge badge_secondary-success badge_sm">Diterima &middot; PT Telkom</span></td></tr>
+                            <tr><td>Siti Nur - S1 SI</td><td style="text-align:right;"><span class="badge badge_secondary-warning badge_sm">Proses &middot; Gojek</span></td></tr>
+                            <tr><td>Budi Santoso - S1 Akuntansi</td><td style="text-align:right;"><span class="badge badge_secondary-success badge_sm">Diterima &middot; BCA</span></td></tr>
+                        </tbody></table>
+                        <div class="alert alert_success" style="margin-top:.75rem;"><div class="alert__content"><p class="alert__description" style="font-size:.75rem;">Nice to have: alumni dapat kerja via Portal Karir &rarr; status otomatis mengisi data karier di sini.</p></div></div>
+                    </div>
                 </div>
-                <div class="card card_empty">
-                    <h3 style="margin-top:0;">Riwayat Pengisian Tracer Study</h3>
-                    <p style="font-size:.75rem;color:var(--qn-neutral-400);margin-top:-.5rem;">Sumber: Kuesioner (Single Living)</p>
-                    <div class="chart-container chart-container_bar"><canvas id="cw"></canvas></div>
-                    <a href="kuesioner.html" class="link link_primary" style="margin-top:.75rem;display:inline-block;">Kelola kuesioner &rarr;</a>
+                <div class="card card_dashboard">
+                    <div class="card__header"><h3 class="card__title">Riwayat Pengisian Tracer Study</h3></div>
+                    <div class="card__body">
+                        <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 .75rem;">Sumber: Kuesioner (Single Living)</p>
+                        <div class="chart-container chart-container_bar"><canvas id="cw"></canvas></div>
+                        <a href="kuesioner.html" class="link link_primary" style="margin-top:.75rem;display:inline-block;">Kelola kuesioner &rarr;</a>
+                    </div>
                 </div>
             </div>
 
             <!-- Persebaran lokasi & demografi (request Institut Muslim Cendekia) -->
             <div class="grid cols-1 cols-md-2" style="gap:1rem;margin-top:1rem;">
-                <div class="card card_empty">
-                    <div style="display:flex;align-items:center;justify-content:space-between;">
-                        <h3 style="margin:0;">Persebaran Alumni per Lokasi Kerja</h3>
+                <div class="card card_dashboard">
+                    <div class="card__header" style="display:flex;align-items:center;justify-content:space-between;">
+                        <h3 class="card__title">Persebaran Alumni per Lokasi Kerja</h3>
                         <span class="badge badge_secondary-primary badge_sm">Provinsi</span>
                     </div>
-                    <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:.25rem 0 1rem;">Sumber: jawaban tracer + self-update profil terkini</p>
-                    <div id="geoList" style="display:flex;flex-direction:column;gap:.6rem;"></div>
+                    <div class="card__body">
+                        <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 1rem;">Sumber: jawaban tracer + self-update profil terkini</p>
+                        <div id="geoList" style="display:flex;flex-direction:column;gap:.6rem;"></div>
+                    </div>
                 </div>
-                <div class="card card_empty">
-                    <h3 style="margin:0;">Demografi Alumni Bekerja per Daerah</h3>
-                    <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:.25rem 0 1rem;">Gender dari data SIAKAD (tidak ditanya ulang)</p>
-                    <div class="chart-container chart-container_bar"><canvas id="cdemo"></canvas></div>
+                <div class="card card_dashboard">
+                    <div class="card__header"><h3 class="card__title">Demografi Alumni Bekerja per Daerah</h3></div>
+                    <div class="card__body">
+                        <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 1rem;">Gender dari data SIAKAD (tidak ditanya ulang)</p>
+                        <div class="chart-container chart-container_bar"><canvas id="cdemo"></canvas></div>
+                    </div>
                 </div>
             </div>
         </div>
