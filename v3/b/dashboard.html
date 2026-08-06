@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v3/b/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | KarirLink Admin CDC (Paket B)</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="body body_kl-white">
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="dashboard.html" class="header__identity">
+                    <img class="header__logo" src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item active"><a class="nav__link" href="dashboard.html"><span class="icon icon-chart-bar-square"></span><span>Dashboard</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="kuesioner.html"><span class="icon icon-clipboard-document-list"></span><span>Kuesioner</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="mahasiswa-alumni.html"><span class="icon icon-academic-cap"></span><span>Mahasiswa/Alumni</span></a></li>
+                        <li class="nav__item"><a class="nav__link" href="aktivitas.html"><span class="icon icon-briefcase"></span><span>Aktivitas</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar"><span class="avatar avatar_sm"><img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="" width="44"></span></span>
+                        <span class="header__user-info"><span class="header__user-name">Admin CDC</span><span class="header__user-role">admin@foxtrot.ac.id</span></span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="main__header main__header_kl-list">
+                <div class="main__location"><div class="main__wrapper"><h1 class="main__title">Dashboard</h1></div></div>
+            </div>
+            <div class="alert alert_success" style="margin-bottom:1rem;">
+                <div class="alert__content"><p class="alert__description"><b>Paket B · Tergabung</b> — data Portal Karir &amp; Tracer Study tersinkron dalam satu dashboard.</p></div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="card card_empty" style="margin-bottom:1rem;">
+                <div class="grid cols-2 cols-md-4" style="gap:.75rem;align-items:end;">
+                    <div class="form-control"><label class="form-control__label">Fakultas</label><select class="select-default"><option selected>Semua Fakultas</option><option>FTIK</option><option>FEB</option></select></div>
+                    <div class="form-control"><label class="form-control__label">Program Studi</label><select class="select-default"><option selected>Semua Prodi</option><option>S1 Teknik Informatika</option><option>S1 Sistem Informasi</option></select></div>
+                    <div class="form-control"><label class="form-control__label">Angkatan</label><select class="select-default"><option selected>Semua Angkatan</option><option>2020</option><option>2021</option></select></div>
+                    <div class="form-control"><label class="form-control__label">Tahun Lulus</label><select class="select-default"><option selected>Semua Tahun</option><option>2024</option><option>2023</option></select></div>
+                </div>
+            </div>
+
+            <div class="grid dashboard-grid" style="margin-bottom:1rem;">
+                <div class="col-6 col-md-3"><div class="card card_empty"><p style="color:var(--qn-neutral-500);font-size:.8rem;margin:0;">Pengisian Tracer</p><p style="font-size:1.5rem;font-weight:700;color:var(--qn-primary-500);margin:.25rem 0;">4%</p><small style="color:var(--qn-neutral-400);">98 / 2088</small></div></div>
+                <div class="col-6 col-md-3"><div class="card card_empty"><p style="color:var(--qn-neutral-500);font-size:.8rem;margin:0;">Lamaran Alumni</p><p style="font-size:1.5rem;font-weight:700;color:var(--qn-primary-500);margin:.25rem 0;">142</p><small style="color:var(--qn-neutral-400);">Portal Karir · bulan ini</small></div></div>
+                <div class="col-6 col-md-3"><div class="card card_empty"><p style="color:var(--qn-neutral-500);font-size:.8rem;margin:0;">Alumni Diterima Kerja</p><p style="font-size:1.5rem;font-weight:700;color:#16a34a;margin:.25rem 0;">38</p><small style="color:#059669;">&#8635; sync ke data karier</small></div></div>
+                <div class="col-6 col-md-3"><div class="card card_empty"><p style="color:var(--qn-neutral-500);font-size:.8rem;margin:0;">Waktu Tunggu &lt; 6 bln</p><p style="font-size:1.5rem;font-weight:700;color:var(--qn-primary-500);margin:.25rem 0;">59%</p><small style="color:var(--qn-neutral-400);">IKU #2</small></div></div>
+            </div>
+            <div class="grid cols-1 cols-md-2" style="gap:1rem;">
+                <div class="card card_empty">
+                    <h3 style="margin-top:0;">Riwayat Karier &amp; Profil Alumni</h3>
+                    <p style="font-size:.75rem;color:var(--qn-neutral-400);margin-top:-.5rem;">Sumber: Portal Karir</p>
+                    <table class="table"><tbody>
+                        <tr><td>Ahmad Rizki — S1 TI</td><td style="text-align:right;"><span class="badge badge_secondary-success badge_sm">Diterima · PT Telkom</span></td></tr>
+                        <tr><td>Siti Nur — S1 SI</td><td style="text-align:right;"><span class="badge badge_secondary-warning badge_sm">Proses · Gojek</span></td></tr>
+                        <tr><td>Budi Santoso — S1 Akuntansi</td><td style="text-align:right;"><span class="badge badge_secondary-success badge_sm">Diterima · BCA</span></td></tr>
+                    </tbody></table>
+                    <div class="alert alert_success" style="margin-top:.75rem;"><div class="alert__content"><p class="alert__description" style="font-size:.75rem;">Nice to have: alumni dapat kerja via Portal Karir → status otomatis mengisi data karier di sini.</p></div></div>
+                </div>
+                <div class="card card_empty">
+                    <h3 style="margin-top:0;">Riwayat Pengisian Tracer Study</h3>
+                    <p style="font-size:.75rem;color:var(--qn-neutral-400);margin-top:-.5rem;">Sumber: Kuesioner (Single Living)</p>
+                    <div class="chart-container chart-container_bar"><canvas id="cw"></canvas></div>
+                    <a href="kuesioner.html" class="link link_primary" style="margin-top:.75rem;display:inline-block;">Kelola kuesioner &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Persebaran lokasi & demografi (request Institut Muslim Cendekia) -->
+            <div class="grid cols-1 cols-md-2" style="gap:1rem;margin-top:1rem;">
+                <div class="card card_empty">
+                    <div style="display:flex;align-items:center;justify-content:space-between;">
+                        <h3 style="margin:0;">Persebaran Alumni per Lokasi Kerja</h3>
+                        <span class="badge badge_secondary-primary badge_sm">Provinsi</span>
+                    </div>
+                    <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:.25rem 0 1rem;">Sumber: jawaban tracer + self-update profil terkini</p>
+                    <div id="geoList" style="display:flex;flex-direction:column;gap:.6rem;"></div>
+                </div>
+                <div class="card card_empty">
+                    <h3 style="margin:0;">Demografi Alumni Bekerja per Daerah</h3>
+                    <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:.25rem 0 1rem;">Gender dari data SIAKAD (tidak ditanya ulang)</p>
+                    <div class="chart-container chart-container_bar"><canvas id="cdemo"></canvas></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        new Chart(document.getElementById('cw'),{type:'bar',data:{labels:['Exit','G1','G2'],datasets:[{label:'Sudah mengisi',data:[312,98,21],backgroundColor:['#3b82f6','#294A9A','#8b5cf6']}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+
+        // Persebaran per provinsi (bar horizontal sederhana)
+        const geo = [['Jawa Timur',412],['DKI Jakarta',287],['Jawa Barat',176],['Jawa Tengah',134],['Bali',58],['Lainnya',96]];
+        const maxGeo = Math.max(...geo.map(g=>g[1]));
+        document.getElementById('geoList').innerHTML = geo.map(([prov,n])=>`
+            <div>
+                <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.25rem;"><span>${prov}</span><b>${n}</b></div>
+                <div style="height:.5rem;background:var(--qn-neutral-100);border-radius:999px;"><div style="height:.5rem;background:var(--qn-primary-500);border-radius:999px;width:${Math.round(n/maxGeo*100)}%;"></div></div>
+            </div>`).join('');
+
+        // Demografi gender per daerah (stacked bar)
+        new Chart(document.getElementById('cdemo'),{type:'bar',data:{labels:['Jatim','Jakarta','Jabar','Jateng','Bali'],datasets:[
+            {label:'Laki-laki',data:[230,150,95,70,32],backgroundColor:'#294A9A'},
+            {label:'Perempuan',data:[182,137,81,64,26],backgroundColor:'#ec4899'}
+        ]},options:{plugins:{legend:{position:'bottom'}},responsive:true,scales:{x:{stacked:true},y:{stacked:true,beginAtZero:true}}}});
+    </script>
+</body>
+</html>

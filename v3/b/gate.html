@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v3/b/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gate Sevima | Paket B</title>
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        body { min-height: 100vh; background: linear-gradient(rgba(15,23,42,.55),rgba(15,23,42,.55)), url('https://images.unsplash.com/photo-1562774053-701939374585?w=1200') center/cover; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+        .gate-card { width: 100%; max-width: 64rem; background: #fff; border-radius: 0.75rem; box-shadow: 0 20px 45px rgba(0,0,0,0.25); overflow: hidden; }
+        .gate-card__top { background: var(--qn-primary-500); color: #fff; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+        .gate-card__identity { display: flex; align-items: center; gap: 0.75rem; }
+        .gate-card__mark { width: 2.75rem; height: 2.75rem; background: #fff; color: var(--qn-primary-500); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+        .gate-card__system { font-size: 0.75rem; opacity: 0.8; }
+        .gate-card__org { font-size: 0.875rem; font-weight: 600; }
+        .gate-card__actions { display: flex; gap: 0.5rem; }
+        .gate-card__actions button { font-size: 0.75rem; color: #fff; background: rgba(255,255,255,0.15); border: none; border-radius: 0.375rem; padding: 0.375rem 0.75rem; cursor: pointer; }
+        .gate-card__actions button:hover { background: rgba(255,255,255,0.25); }
+        .gate-card__body { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; padding: 1.5rem; }
+        @media (max-width: 48rem) { .gate-card__body { grid-template-columns: 1fr; } }
+        .gate-section__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-700, #374151); margin: 0 0 1rem; }
+        .module-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+        .module-tile { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--qn-neutral-200, #e5e7eb); text-align: center; text-decoration: none; transition: background-color .15s ease, border-color .15s ease; }
+        .module-tile:hover { background: var(--qn-neutral-50, #f9fafb); }
+        .module-tile--active { border-color: var(--qn-primary-500); background: var(--qn-primary-50, #eff6ff); box-shadow: 0 0 0 2px rgba(59,130,246,0.2); }
+        .module-tile__icon { width: 2.5rem; height: 2.5rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 0.875rem; }
+        .module-tile__label { font-size: 0.6875rem; line-height: 1.2; color: var(--qn-neutral-700, #374151); }
+        .role-card { border: 1px solid var(--qn-primary-500); border-radius: 0.5rem; padding: 0.75rem; }
+        .role-card__name { font-size: 0.875rem; font-weight: 600; color: var(--qn-primary-500); margin: 0 0 0.125rem; }
+        .role-card__org { font-size: 0.75rem; color: var(--qn-neutral-500, #6b7280); margin: 0; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <div class="gate-card">
+        <div class="gate-card__top">
+            <div class="gate-card__identity">
+                <div class="gate-card__mark">S</div>
+                <div>
+                    <p class="gate-card__system">SITU AKADEMIK 2.0</p>
+                    <p class="gate-card__org">UNIVERSITAS SEVIMA TESTING - F</p>
+                </div>
+            </div>
+            <div class="gate-card__actions">
+                <button type="button">Halaman Profil</button>
+                <button type="button">Keluar</button>
+            </div>
+        </div>
+        <div class="gate-card__body">
+            <div>
+                <p class="gate-section__title">Daftar Modul</p>
+                <div class="module-grid" id="moduleGrid"></div>
+            </div>
+            <div>
+                <p class="gate-section__title">Daftar Role</p>
+                <p style="font-size: 0.75rem; color: var(--qn-neutral-500, #6b7280); margin: 0 0 0.5rem;">KarirLink</p>
+                <div class="role-card">
+                    <p class="role-card__name">Admin CDC</p>
+                    <p class="role-card__org">Universitas Foxtrot</p>
+                </div>
+                <div class="alert alert_success" style="margin-top: 1rem;">
+                    <div class="alert__content"><p class="alert__description"><b>Paket B:</b> Portal Karir &amp; Tracer Study <b>tergabung</b>. Satu entri KarirLink langsung ke dashboard terpadu.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        const modules = [
+            ['Administrasi Aplikasi', '#f97316'], ['Edlink', '#16a34a'], ['SIM Akademik', '#2563eb'],
+            ['SIM Akreditasi', '#e11d48'], ['SIM CBT', '#0ea5e9'], ['Dashboard & Pelaporan', '#8b5cf6'],
+            ['SIM Keuangan', '#0d9488'], ['SIM Kepegawaian', '#f59e0b'], ['SIM Seleksi', '#3b82f6'],
+            ['SIM Helpdesk', '#a855f7'], ['KarirLink', 'var(--qn-primary-500)'], ['(NEW) SIM Penerimaan', '#ec4899']
+        ];
+        document.getElementById('moduleGrid').innerHTML = modules.map(([n, c]) => {
+            const isKarir = n === 'KarirLink';
+            return '<a href="' + (isKarir ? 'dashboard.html' : '#') + '" class="module-tile' + (isKarir ? ' module-tile--active' : '') + '">' +
+                '<span class="module-tile__icon" style="background:' + c + '">' + n[0] + '</span>' +
+                '<span class="module-tile__label">' + n + '</span>' +
+                '</a>';
+        }).join('');
+    </script>
+</body>
+</html>
