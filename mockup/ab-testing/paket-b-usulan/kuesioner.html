@@ -225,7 +225,7 @@
                 schedule:{type:'month',value:12,min:12,max:36,warning:'⚠️ Min. 12 bulan — syarat IKU#2 & BAN-PT',reminder:{interval:7,max:3}},
                 q:[
                     ['__section__','Informasi Umum','Ditanyakan ke semua alumni, apa pun statusnya.'],
-                    ['Apakah pekerjaan/usaha sebelum lulus masih Anda jalankan?','core',1,'Pilihan tunggal — 3 opsi','','<b>Informasi Umum</b> · muncul jika di Wave Exit alumni menjawab sudah bekerja/berwirausaha. Pertanyaan internal — tidak punya kode Dikti, tidak dikirim ke Kemdiktisaintek.','',''],
+                    ['Apakah pekerjaan/usaha sebelum lulus masih Anda jalankan?','core',1,'Pilihan tunggal — Ya, masih / Tidak','','<b>Kondisional</b> · muncul jika di Wave Exit alumni menjawab sudah bekerja/berwirausaha. Pertanyaan internal — tidak punya kode Dikti, tidak dikirim ke Kemdiktisaintek. Jika Ya → f8 otomatis terpilih dan f502 = 0.','g1_verif_pralulus',''],
                     ['Jelaskan status Anda saat ini?','core',1,'Pilihan tunggal — 5 opsi','','<b>Informasi Umum</b> · Jawaban ini menentukan cabang pertanyaan mana yang dibuka. Keterangan bantuan "pilih yang paling menggambarkan kondisi utama" boleh disesuaikan kampus.','f8','1=Bekerja (full time / part time), 2=Belum memungkinkan bekerja, 3=Wiraswasta, 4=Melanjutkan Pendidikan, 5=Tidak kerja tetapi sedang mencari kerja'],
                     ['Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir?','core',1,'Pilihan tunggal — 4 opsi + Lainnya','','<b>Informasi Umum</b> · keterangan "pilihlah satu jawaban" ditaruh di bawah pertanyaan, bukan di dalam redaksinya.','f1001','1=Tidak, 2=Tidak tapi sedang menunggu hasil lamaran kerja, 3=Ya saya akan mulai bekerja dalam 2 minggu ke depan, 4=Ya tapi saya belum pasti akan bekerja dalam 2 minggu ke depan, 5=Lainnya'],
                     ['Sumber dana apa yang Anda gunakan untuk membiayai kuliah?','core',1,'Pilihan tunggal — 6 opsi + Lainnya','','<b>Informasi Umum</b>','f1201','1=Biaya Sendiri/Keluarga, 2=Beasiswa ADIK, 3=Beasiswa BIDIKMISI, 4=Beasiswa PPA, 5=Beasiswa AFIRMASI, 6=Beasiswa Perusahaan/Swasta, 7=Lainnya'],
@@ -370,13 +370,16 @@
                         <p style="margin:0;font-size:.72rem;color:var(--qn-neutral-500);">${locked}</p>
                     </div>`;
                 }
-                qNum++;
+                // Pertanyaan kondisional/internal tidak dinomori
+                var isConditional = (code === 'g1_verif_pralulus');
+                if(!isConditional){ qNum++; }
+                var displayNum = isConditional ? '—' : qNum;
                 var action;
                 if(locked){
                     action='<span style="font-size:.75rem;color:var(--qn-neutral-400);display:flex;align-items:center;gap:.25rem;white-space:nowrap;"><span class="icon icon-lock-closed-mini"></span>Terkunci</span>';
                 } else if(tier==='optional'){
                     var checked = tag==='kemenkes' ? '' : 'checked';
-                    var cbId = 'akt-'+active+'-'+qNum;
+                    var cbId = 'akt-'+active+'-'+(isConditional?code:qNum);
                     action='<div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="'+cbId+'" '+checked+'><label for="'+cbId+'" class="form-control__label-checkbox" style="font-size:.75rem;white-space:nowrap;">Aktif</label></div>';
                 } else {
                     action='<div style="display:flex;gap:.5rem;"><button class="btn btn_outline btn_sm">Edit</button><button class="btn btn_outline btn_sm" style="color:var(--qn-danger-500);border-color:var(--qn-danger-200);" title="Hapus pertanyaan">&times;</button></div>';
@@ -384,7 +387,7 @@
                 var tagBadge = tag ? '<span class="badge badge_secondary-default badge_sm" style="text-transform:capitalize;">'+tag+'</span>' : '';
                 var codeBadge = code ? '<span style="font-size:.68rem;font-family:monospace;background:#1e3a8a;color:#fff;border-radius:.25rem;padding:.15rem .45rem;font-weight:600;">'+code+'</span>' : '';
                 var valuesLine = values ? '<div style="font-size:.72rem;color:#1e3a8a;margin-top:.35rem;font-family:monospace;line-height:1.8;background:#eff6ff;border:1px solid #bfdbfe;border-radius:.3rem;padding:.4rem .6rem;">'+values+'</div>' : '';
-                return '<div class="q-row" style="flex-wrap:wrap;gap:.5rem;"><div style="display:flex;align-items:center;gap:.5rem;flex:1;min-width:250px;"><span style="font-size:.75rem;font-weight:700;color:var(--qn-neutral-400);min-width:1.5rem;text-align:right;">'+qNum+'</span><span class="badge '+tierBadgeCls[tier]+' badge_sm">'+tierLabel[tier]+'</span>'+tagBadge+codeBadge+'<div><span style="font-size:.875rem;color:var(--qn-neutral-800);">'+q+'</span><div style="font-size:.7rem;color:var(--qn-neutral-400);margin-top:.2rem;">Tipe jawaban: '+ansType+'</div>'+valuesLine+(note?'<div style="font-size:.7rem;color:var(--qn-neutral-500);margin-top:.3rem;display:flex;align-items:flex-start;gap:.3rem;line-height:1.4;"><span>ℹ️</span><span>'+note+'</span></div>':'')+'</div></div>'+action+'</div>';
+                return '<div class="q-row" style="flex-wrap:wrap;gap:.5rem;"><div style="display:flex;align-items:center;gap:.5rem;flex:1;min-width:250px;"><span style="font-size:.75rem;font-weight:700;color:var(--qn-neutral-400);min-width:1.5rem;text-align:right;">'+displayNum+'</span><span class="badge '+tierBadgeCls[tier]+' badge_sm">'+tierLabel[tier]+'</span>'+tagBadge+codeBadge+'<div><span style="font-size:.875rem;color:var(--qn-neutral-800);">'+q+'</span><div style="font-size:.7rem;color:var(--qn-neutral-400);margin-top:.2rem;">Tipe jawaban: '+ansType+'</div>'+valuesLine+(note?'<div style="font-size:.7rem;color:var(--qn-neutral-500);margin-top:.3rem;display:flex;align-items:flex-start;gap:.3rem;line-height:1.4;"><span>ℹ️</span><span>'+note+'</span></div>':'')+'</div></div>'+action+'</div>';
             }).join('')
                 + (w.canAdd
                     ? `<button class="btn btn_outline btn_sm" style="margin-top:.5rem;display:inline-flex;align-items:center;gap:.35rem;"><span class="icon icon-plus-mini"></span>Tambah Pertanyaan Khusus</button>`

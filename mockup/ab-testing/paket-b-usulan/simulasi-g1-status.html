@@ -41,6 +41,17 @@
         <p style="margin:.25rem 0 0;font-size:.8rem;color:var(--qn-neutral-500);">Wave G1</p>
     </div>
 
+    <!-- g1_verif_pralulus: Verifikasi pekerjaan/usaha sebelum lulus -->
+    <div style="border:2px dashed var(--qn-neutral-300);border-radius:.5rem;padding:1rem;margin-bottom:1.5rem;">
+        <p style="font-size:.72rem;color:var(--qn-neutral-400);margin:0 0 .5rem;font-style:italic;">Muncul jika di Wave Exit alumni menjawab sudah bekerja/berwirausaha</p>
+        <label class="form-control__label">Sebelumnya Anda menyebutkan sudah bekerja/berwirausaha sebelum lulus. Apakah pekerjaan/usaha tersebut masih Anda jalankan saat ini? <span class="important">*</span></label>
+        <div class="form-control__group" style="margin-top:.5rem;">
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="verif"><label class="form-control__label-radio">Ya, masih</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="verif"><label class="form-control__label-radio">Tidak</label></div>
+        </div>
+        <p style="font-size:.68rem;color:var(--qn-neutral-400);margin:.75rem 0 0;line-height:1.6;">Pertanyaan internal — tidak dikirim ke Kemdiktisaintek.<br>• Jika <b>Ya</b> → <code>f8</code> otomatis terpilih (Bekerja/Wiraswasta sesuai jawaban Exit), <code>f502</code> otomatis terisi <code>0</code> (masa tunggu nol bulan), dan jawaban ini dicatat untuk IKU#2 kriteria (e)/(f).<br>• Jika <b>Tidak</b> → alumni memilih status sendiri di bawah, <code>f502</code> tidak di-pre-fill.</p>
+    </div>
+
     <!-- f8: Status -->
     <div class="form-control" style="margin-bottom:1.5rem;">
         <label class="form-control__label">1. Apa status Anda saat ini? <span class="important">*</span></label>
@@ -85,15 +96,15 @@
 
     <!-- f1001: Aktif mencari kerja -->
     <div class="form-control" style="margin-bottom:1.5rem;">
-        <label class="form-control__label">3. Apakah Anda aktif mencari kerja dalam 6 bulan terakhir? <span class="important">*</span></label>
+        <label class="form-control__label">3. Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir? <span class="important">*</span></label>
         <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .5rem;">Pilihlah satu jawaban.</p>
         <div class="form-control__group">
             <div class="radio-button"><input type="radio" class="form-control__radio" name="f1001"><label class="form-control__label-radio">Tidak</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1001"><label class="form-control__label-radio">Tidak, tetapi saya sedang menunggu hasil lamaran kerja</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1001"><label class="form-control__label-radio">Tidak, tapi saya sedang menunggu hasil lamaran kerja</label></div>
             <div class="radio-button"><input type="radio" class="form-control__radio" name="f1001"><label class="form-control__label-radio">Ya, saya akan mulai bekerja dalam 2 minggu ke depan</label></div>
-            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1001"><label class="form-control__label-radio">Ya, saya aktif mencari kerja</label></div>
+            <div class="radio-button"><input type="radio" class="form-control__radio" name="f1001"><label class="form-control__label-radio">Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan</label></div>
             <div class="radio-button"><input type="radio" class="form-control__radio" name="f1001"><label class="form-control__label-radio">Lainnya</label></div>
-            <input type="text" class="form-control__input" placeholder="Sebutkan lainnya..." style="margin-top:.25rem;">
+            <input type="text" class="form-control__input" placeholder="Tuliskan kondisi Anda..." style="margin-top:.25rem;">
         </div>
     </div>
 
