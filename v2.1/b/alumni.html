@@ -111,6 +111,11 @@
         .subtable td { padding: 0.5rem 1.25rem; font-size: 0.8125rem; color: var(--qn-neutral-700); border-bottom: 1px solid var(--qn-neutral-100); }
         .subtable tr:last-child td { border-bottom: none; }
         .subtable td:first-child { width: 220px; color: var(--qn-neutral-500); font-weight: 600; }
+
+        /* Advanced filter panel (collapsible via Filter toggle button, mirrors v3/b
+           mahasiswa-alumni.html) - auto-fill grid so however many filters exist, they
+           wrap responsively instead of relying on fixed col-md-2 breakpoints. */
+        .filter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem; }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -320,83 +325,106 @@
                     </div>
                 </div>
 
-                <div class="dashboard-filter">
-                    <div class="grid" style="margin-bottom: 0.75rem;">
-                        <div class="col-12 col-md-9">
-                            <div class="form-control">
-                                <div class="form-control__group">
-                                    <span data-input-icon="search"></span>
-                                    <input type="search" class="form-control__input" placeholder="Cari nama atau NIM alumni/mahasiswa">
-                                </div>
+                <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.75rem;">
+                    <div class="form-control" style="flex: 1; min-width: 200px; margin: 0;">
+                        <div class="form-control__group">
+                            <span data-input-icon="search"></span>
+                            <input type="search" class="form-control__input" placeholder="Cari nama atau NIM alumni/mahasiswa">
+                        </div>
+                    </div>
+                    <div class="dropdown dropdown_action">
+                        <button class="btn btn_outline btn_sm" data-toggle="dropdown">
+                            <span class="icon icon-arrow-down-tray-mini"></span>
+                            Ekspor Data
+                            <span class="icon icon-chevron-down-mini"></span>
+                        </button>
+                        <div class="dropdown__box dropdown__box_menu-end">
+                            <ul class="dropdown__list">
+                                <li class="dropdown__item"><a href="#">Excel (.xlsx)</a></li>
+                                <li class="dropdown__item"><a href="#">PDF (.pdf)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="btn btn_outline btn_sm" id="filterToggle" onclick="toggleFilterPanel()" aria-expanded="false">
+                        <span class="icon icon-funnel-mini"></span> <span id="filterToggleLabel">Filter</span>
+                    </button>
+                </div>
+
+                <!-- Filter Panel (collapsible) -->
+                <div class="collapse" id="filterPanel" style="display: none; border: 1px solid var(--qn-neutral-200); border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; background: var(--qn-neutral-50);">
+                    <div class="filter-grid">
+                        <div class="form-control" style="margin: 0;">
+                            <label class="form-control__label">Tahun Lulus</label>
+                            <div class="form-control__group">
+                                <select class="select-default" id="filter-tahun">
+                                    <option value="" selected>5 Tahun Terakhir</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-12 col-md-3">
-                            <div class="dropdown dropdown_action">
-                                <button class="btn btn_outline btn_block" data-toggle="dropdown">
-                                    <span class="icon icon-arrow-down-tray-mini"></span>
-                                    Ekspor Data
-                                    <span class="icon icon-chevron-down-mini"></span>
-                                </button>
-                                <div class="dropdown__box dropdown__box_menu-end">
-                                    <ul class="dropdown__list">
-                                        <li class="dropdown__item"><a href="#">Excel (.xlsx)</a></li>
-                                        <li class="dropdown__item"><a href="#">PDF (.pdf)</a></li>
-                                    </ul>
-                                </div>
+                        <div class="form-control" style="margin: 0;">
+                            <label class="form-control__label">Jenjang</label>
+                            <div class="form-control__group">
+                                <select class="select-default" id="filter-jenjang">
+                                    <option value="" selected>Semua Jenjang</option>
+                                    <option value="d3">D3</option>
+                                    <option value="s1">S1</option>
+                                    <option value="s2">S2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-control" style="margin: 0;">
+                            <label class="form-control__label">Program Studi</label>
+                            <div class="form-control__group">
+                                <select class="select-default" id="filter-prodi">
+                                    <option value="" selected>Semua Program Studi</option>
+                                    <option value="ti">Teknik Informatika</option>
+                                    <option value="si">Sistem Informasi</option>
+                                    <option value="manajemen">Manajemen</option>
+                                    <option value="akuntansi">Akuntansi</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-control" style="margin: 0;">
+                            <label class="form-control__label" title="Filter berdasarkan status kemahasiswaan">Tipe</label>
+                            <div class="form-control__group">
+                                <select class="select-default" id="filter-tipe">
+                                    <option value="" selected>Semua Tipe</option>
+                                    <option value="alumni">Alumni</option>
+                                    <option value="mahasiswa">Mahasiswa (Belum Lulus)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-control" style="margin: 0;">
+                            <label class="form-control__label" title="Cari cepat berdasarkan predikat IPK">Predikat IPK</label>
+                            <div class="form-control__group">
+                                <select class="select-default" id="filter-ipk">
+                                    <option value="" selected>Semua Predikat IPK</option>
+                                    <option value="pujian">Pujian (&gt; 3,50)</option>
+                                    <option value="sangat-memuaskan">Sangat Memuaskan (3,01-3,50)</option>
+                                    <option value="memuaskan">Memuaskan (2,76-3,00)</option>
+                                    <option value="lainnya">&lt; 2,76</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-control" style="margin: 0;">
+                            <label class="form-control__label">Urutkan</label>
+                            <div class="form-control__group">
+                                <select class="select-default" id="filter-urutkan">
+                                    <option value="terbaru" selected>Urutkan: Terbaru</option>
+                                    <option value="ipk-tertinggi">Urutkan: IPK Tertinggi</option>
+                                    <option value="nama">Urutkan: Nama (A-Z)</option>
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="grid">
-                        <div class="col-12 col-sm-4 col-md-2">
-                            <select class="select-default" id="filter-tahun">
-                                <option value="" selected>5 Tahun Terakhir</option>
-                                <option value="2026">2026</option>
-                                <option value="2025">2025</option>
-                                <option value="2024">2024</option>
-                                <option value="2023">2023</option>
-                                <option value="2022">2022</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-4 col-md-2">
-                            <select class="select-default" id="filter-jenjang">
-                                <option value="" selected>Semua Jenjang</option>
-                                <option value="d3">D3</option>
-                                <option value="s1">S1</option>
-                                <option value="s2">S2</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-4 col-md-2">
-                            <select class="select-default" id="filter-prodi">
-                                <option value="" selected>Semua Program Studi</option>
-                                <option value="ti">Teknik Informatika</option>
-                                <option value="si">Sistem Informasi</option>
-                                <option value="manajemen">Manajemen</option>
-                                <option value="akuntansi">Akuntansi</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-4 col-md-2">
-                            <select class="select-default" id="filter-tipe" title="Filter berdasarkan status kemahasiswaan">
-                                <option value="" selected>Semua Tipe</option>
-                                <option value="alumni">Alumni</option>
-                                <option value="mahasiswa">Mahasiswa (Belum Lulus)</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-4 col-md-2">
-                            <select class="select-default" id="filter-ipk" title="Cari cepat berdasarkan predikat IPK">
-                                <option value="" selected>Semua Predikat IPK</option>
-                                <option value="pujian">Pujian (&gt; 3,50)</option>
-                                <option value="sangat-memuaskan">Sangat Memuaskan (3,01-3,50)</option>
-                                <option value="memuaskan">Memuaskan (2,76-3,00)</option>
-                                <option value="lainnya">&lt; 2,76</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-4 col-md-2">
-                            <select class="select-default" id="filter-urutkan">
-                                <option value="terbaru" selected>Urutkan: Terbaru</option>
-                                <option value="ipk-tertinggi">Urutkan: IPK Tertinggi</option>
-                                <option value="nama">Urutkan: Nama (A-Z)</option>
-                            </select>
-                        </div>
+                    <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem;">
+                        <button class="btn btn_primary btn_sm">Terapkan Filter</button>
+                        <button class="btn btn_outline btn_sm">Reset</button>
                     </div>
                 </div>
 
@@ -689,6 +717,15 @@
         // transition produced a double, delayed animation. This is the only mechanism now.
         function toggleSubrow(id) {
             document.getElementById(id).classList.toggle('show');
+        }
+
+        function toggleFilterPanel() {
+            const panel = document.getElementById('filterPanel');
+            const btn = document.getElementById('filterToggle');
+            const open = panel.style.display !== 'block';
+            panel.style.display = open ? 'block' : 'none';
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            document.getElementById('filterToggleLabel').textContent = open ? 'Tutup Filter' : 'Filter';
         }
 
         // Sync Modal Functions

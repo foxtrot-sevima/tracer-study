@@ -28,6 +28,10 @@
         .notif-item__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); }
         .notif-item__desc { font-size: 0.75rem; color: var(--qn-neutral-600); }
         .notif-item__time { font-size: 0.6875rem; color: var(--qn-neutral-400); }
+
+        /* Advanced filter panel (collapsible via Filter toggle button, mirrors index.html /
+           alumni.html) - auto-fill grid so filters wrap responsively. */
+        .filter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem; }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -171,44 +175,61 @@
                         <p class="main__subtitle">Ringkasan pengisian kuesioner tracer study oleh lulusan</p>
                     </div>
                 </div>
+                <div class="main__action">
+                    <div class="dropdown dropdown_action">
+                        <button class="btn btn_primary btn_sm" data-toggle="dropdown">
+                            <span class="icon icon-arrow-down-tray-mini"></span>
+                            Unduh Laporan
+                            <span class="icon icon-chevron-down-mini"></span>
+                        </button>
+                        <div class="dropdown__box dropdown__box_menu-end">
+                            <ul class="dropdown__list">
+                                <li class="dropdown__item"><a href="#">Excel (.xlsx)</a></li>
+                                <li class="dropdown__item"><a href="#">PDF (.pdf)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="btn btn_outline btn_sm" id="filterToggle" onclick="toggleFilterPanel()" aria-expanded="false">
+                        <span class="icon icon-funnel-mini"></span> <span id="filterToggleLabel">Filter</span>
+                    </button>
+                </div>
             </div>
 
-            <!-- Filter Bar -->
-            <div class="card card_empty">
+            <!-- Filter Panel (collapsible) - the whole card toggles, not just the grid inside it,
+                 so no empty padded box is left behind between the title and the next card when
+                 the filter is closed. -->
+            <div class="card card_empty" id="filterPanel" style="display: none;">
                 <div class="dashboard-filter">
-                    <div class="grid">
-                        <div class="col-12 col-sm-3">
-                            <select class="select-default" id="filter-tahun">
-                                <option value="" selected>Semua Tahun Lulus</option>
-                                <option value="2026">2026</option>
-                                <option value="2025">2025</option>
-                                <option value="2024">2024</option>
-                                <option value="2023">2023</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-3">
-                            <select class="select-default select-multiple" id="filter-prodi" multiple>
-                                <option value="" selected>Semua Program Studi</option>
-                                <option value="ti">S1 - Teknik Informatika</option>
-                                <option value="si">S1 - Sistem Informasi</option>
-                                <option value="akuntansi">S1 - Akuntansi</option>
-                                <option value="manajemen">S1 - Manajemen</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-3">
-                            <div class="dropdown dropdown_action">
-                                <button class="btn btn_primary btn_block" data-toggle="dropdown">
-                                    <span class="icon icon-arrow-down-tray-mini"></span>
-                                    Unduh Laporan
-                                    <span class="icon icon-chevron-down-mini"></span>
-                                </button>
-                                <div class="dropdown__box dropdown__box_menu-end">
-                                    <ul class="dropdown__list">
-                                        <li class="dropdown__item"><a href="#">Excel (.xlsx)</a></li>
-                                        <li class="dropdown__item"><a href="#">PDF (.pdf)</a></li>
-                                    </ul>
+                    <div style="border: 1px solid var(--qn-neutral-200); border-radius: 0.5rem; padding: 1rem; background: var(--qn-neutral-50);">
+                        <div class="filter-grid">
+                            <div class="form-control" style="margin: 0;">
+                                <label class="form-control__label">Tahun Lulus</label>
+                                <div class="form-control__group">
+                                    <select class="select-default" id="filter-tahun">
+                                        <option value="" selected>Semua Tahun Lulus</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2023">2023</option>
+                                    </select>
                                 </div>
                             </div>
+                            <div class="form-control" style="margin: 0;">
+                                <label class="form-control__label">Program Studi</label>
+                                <div class="form-control__group">
+                                    <select class="select-default select-multiple" id="filter-prodi" multiple>
+                                        <option value="" selected>Semua Program Studi</option>
+                                        <option value="ti">S1 - Teknik Informatika</option>
+                                        <option value="si">S1 - Sistem Informasi</option>
+                                        <option value="akuntansi">S1 - Akuntansi</option>
+                                        <option value="manajemen">S1 - Manajemen</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem;">
+                            <button class="btn btn_primary btn_sm">Terapkan Filter</button>
+                            <button class="btn btn_outline btn_sm">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -502,6 +523,15 @@
     <!-- Quantum JavaScript -->
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
     <script>
+        function toggleFilterPanel() {
+            const panel = document.getElementById('filterPanel');
+            const btn = document.getElementById('filterToggle');
+            const open = panel.style.display !== 'block';
+            panel.style.display = open ? 'block' : 'none';
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            document.getElementById('filterToggleLabel').textContent = open ? 'Tutup Filter' : 'Filter';
+        }
+
         // Initialize Choices.js for select elements
         document.addEventListener('DOMContentLoaded', function() {
             const selectElements = document.querySelectorAll('.select-default');

@@ -63,6 +63,11 @@
            unifying card (Kuesioner Lulusan) - drop the shadow so it reads as a flat,
            bordered panel rather than a second elevated card floating above the page. */
         .card_dashboard { box-shadow: none; }
+
+        /* Advanced filter panel (collapsible via Filter toggle button, mirrors v3/b
+           mahasiswa-alumni.html) - auto-fill grid so however many filters exist, they
+           wrap responsively instead of relying on fixed col-sm-3 breakpoints. */
+        .filter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem; }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -200,56 +205,98 @@
                         <p class="main__subtitle">Ringkasan hasil pengisian tracer study dan tren karier lulusan</p>
                     </div>
                 </div>
+                <div class="main__action">
+                    <div class="dropdown dropdown_action">
+                        <button class="btn btn_primary btn_sm" data-toggle="dropdown">
+                            <span class="icon icon-arrow-down-tray-mini"></span>
+                            Unduh Laporan
+                            <span class="icon icon-chevron-down-mini"></span>
+                        </button>
+                        <div class="dropdown__box dropdown__box_menu-end">
+                            <ul class="dropdown__list">
+                                <li class="dropdown__item"><a href="#">Semua Informasi</a></li>
+                                <li class="dropdown__item"><a href="#">Pengisian Tracer Study</a></li>
+                                <li class="dropdown__item"><a href="#">Waktu Tunggu Lulusan</a></li>
+                                <li class="dropdown__item"><a href="#">Status Lulusan</a></li>
+                                <li class="dropdown__item"><a href="#">Kesesuaian Bidang Kerja</a></li>
+                                <li class="dropdown__item"><a href="#">Tingkat Tempat Kerja</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="btn btn_outline btn_sm" id="filterToggle" onclick="toggleFilterPanel()" aria-expanded="false">
+                        <span class="icon icon-funnel-mini"></span> <span id="filterToggleLabel">Filter</span>
+                    </button>
+                </div>
             </div>
 
-            <!-- Filter Bar (di atas - berlaku untuk seluruh ringkasan & kedua kelompok kuesioner) -->
-            <div class="card card_empty">
+            <!-- Filter Panel (collapsible) - the whole card toggles, not just the grid inside it,
+                 so no empty padded box is left behind between the title and the next card when
+                 the filter is closed. -->
+            <div class="card card_empty" id="filterPanel" style="display: none;">
                 <div class="dashboard-filter">
-                    <div class="grid">
-                        <div class="col-12 col-sm-3">
-                            <select class="select-default" id="filter-tahun">
-                                <option value="" selected>Semua Tahun Lulus</option>
-                                <option value="2026">2026</option>
-                                <option value="2025">2025</option>
-                                <option value="2024">2024</option>
-                                <option value="2023">2023</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-3">
-                            <select class="select-default" id="filter-jenjang">
-                                <option value="" selected>Semua Jenjang</option>
-                                <option value="d3">D3 - Diploma 3</option>
-                                <option value="s1">S1 - Sarjana</option>
-                                <option value="s2">S2 - Magister</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-3">
-                            <select class="select-default select-multiple" id="filter-prodi" multiple>
-                                <option value="" selected>Semua Program Studi</option>
-                                <option value="ti">S1 - Teknik Informatika</option>
-                                <option value="si">S1 - Sistem Informasi</option>
-                                <option value="akuntansi">S1 - Akuntansi</option>
-                                <option value="manajemen">S1 - Manajemen</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-sm-3">
-                            <div class="dropdown dropdown_action">
-                                <button class="btn btn_primary btn_block" data-toggle="dropdown">
-                                    <span class="icon icon-arrow-down-tray-mini"></span>
-                                    Unduh Laporan
-                                    <span class="icon icon-chevron-down-mini"></span>
-                                </button>
-                                <div class="dropdown__box dropdown__box_menu-end">
-                                    <ul class="dropdown__list">
-                                        <li class="dropdown__item"><a href="#">Semua Informasi</a></li>
-                                        <li class="dropdown__item"><a href="#">Pengisian Tracer Study</a></li>
-                                        <li class="dropdown__item"><a href="#">Waktu Tunggu Lulusan</a></li>
-                                        <li class="dropdown__item"><a href="#">Status Lulusan</a></li>
-                                        <li class="dropdown__item"><a href="#">Kesesuaian Bidang Kerja</a></li>
-                                        <li class="dropdown__item"><a href="#">Tingkat Tempat Kerja</a></li>
-                                    </ul>
+                    <div style="border: 1px solid var(--qn-neutral-200); border-radius: 0.5rem; padding: 1rem; background: var(--qn-neutral-50);">
+                        <div class="filter-grid">
+                            <div class="form-control" style="margin: 0;">
+                                <label class="form-control__label">Tahun Lulus</label>
+                                <div class="form-control__group">
+                                    <select class="select-default" id="filter-tahun">
+                                        <option value="" selected>Semua Tahun Lulus</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2023">2023</option>
+                                    </select>
                                 </div>
                             </div>
+                            <div class="form-control" style="margin: 0;">
+                                <label class="form-control__label">Jenjang</label>
+                                <div class="form-control__group">
+                                    <select class="select-default" id="filter-jenjang">
+                                        <option value="" selected>Semua Jenjang</option>
+                                        <option value="d3">D3 - Diploma 3</option>
+                                        <option value="s1">S1 - Sarjana</option>
+                                        <option value="s2">S2 - Magister</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-control" style="margin: 0;">
+                                <label class="form-control__label">Program Studi</label>
+                                <div class="form-control__group">
+                                    <select class="select-default select-multiple" id="filter-prodi" multiple>
+                                        <option value="" selected>Semua Program Studi</option>
+                                        <option value="ti">S1 - Teknik Informatika</option>
+                                        <option value="si">S1 - Sistem Informasi</option>
+                                        <option value="akuntansi">S1 - Akuntansi</option>
+                                        <option value="manajemen">S1 - Manajemen</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-control" style="margin: 0;">
+                                <label class="form-control__label" title="Menyaring berdasarkan kategori outcome pada Skor IKU 2">Kategori Outcome</label>
+                                <div class="form-control__group">
+                                    <select class="select-default" id="filter-outcome">
+                                        <option value="" selected>Semua Kategori</option>
+                                        <option value="bekerja">Bekerja</option>
+                                        <option value="wiraswasta">Wiraswasta</option>
+                                        <option value="studi-lanjut">Melanjutkan Studi</option>
+                                        <option value="mencari-kerja">Mencari Kerja</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-control" style="margin: 0;">
+                                <label class="form-control__label" title="Menyaring bagian Kuesioner Lulusan / Kuesioner Pengguna Lulusan">Jenis Kuesioner</label>
+                                <div class="form-control__group">
+                                    <select class="select-default" id="filter-jenis-kuesioner">
+                                        <option value="" selected>Semua Kuesioner</option>
+                                        <option value="lulusan">Kuesioner Lulusan</option>
+                                        <option value="pengguna-lulusan">Kuesioner Pengguna Lulusan</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem;">
+                            <button class="btn btn_primary btn_sm">Terapkan Filter</button>
+                            <button class="btn btn_outline btn_sm">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -748,6 +795,15 @@
 
     <!-- Dashboard Charts Script -->
     <script>
+        function toggleFilterPanel() {
+            const panel = document.getElementById('filterPanel');
+            const btn = document.getElementById('filterToggle');
+            const open = panel.style.display !== 'block';
+            panel.style.display = open ? 'block' : 'none';
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            document.getElementById('filterToggleLabel').textContent = open ? 'Tutup Filter' : 'Filter';
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize Choices.js for selects
             const selectElements = document.querySelectorAll('.select-default:not(.select-multiple)');
