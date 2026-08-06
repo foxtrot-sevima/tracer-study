@@ -48,15 +48,27 @@
 
     <!-- f17: Matriks Kompetensi A+B -->
     <div style="margin-bottom:2rem;">
-        <label class="form-control__label" style="margin-bottom:.5rem;">1. Tingkat Kompetensi yang Dikuasai (A) dan Diperlukan dalam Pekerjaan (B) <span class="important">*</span></label>
+        <label class="form-control__label" style="margin-bottom:.5rem;">1. Tingkat Kompetensi <span class="important">*</span></label>
+        <p style="font-size:.8rem;color:var(--qn-neutral-700);margin:0 0 .25rem;line-height:1.5;"><b>A — Yang Anda kuasai saat lulus</b> (hasil dari proses pembelajaran di perguruan tinggi)</p>
+        <p style="font-size:.8rem;color:var(--qn-neutral-700);margin:0 0 .75rem;line-height:1.5;"><b>B — Yang saat ini diperlukan dalam <span id="konteksB">pekerjaan Anda</span></b></p>
         <p style="font-size:.72rem;color:var(--qn-neutral-500);margin:0 0 .75rem;">Skala: 1 = Sangat Rendah, 2 = Rendah, 3 = Cukup, 4 = Tinggi, 5 = Sangat Tinggi</p>
+
+        <!-- Redaksi dinamis per status -->
+        <div style="background:var(--qn-neutral-50);border:1px solid var(--qn-neutral-200);border-radius:.375rem;padding:.5rem .75rem;margin-bottom:.75rem;font-size:.72rem;line-height:1.6;color:var(--qn-neutral-500);">
+            Kolom B menyesuaikan status alumni:<br>
+            <b>Bekerja:</b> "Yang saat ini diperlukan dalam pekerjaan Anda"<br>
+            <b>Wiraswasta:</b> "Yang saat ini diperlukan dalam menjalankan usaha Anda"<br>
+            <b>Melanjutkan Pendidikan:</b> "Yang saat ini diperlukan dalam studi lanjut Anda"<br>
+            <b>Tidak kerja / Belum memungkinkan:</b> "Yang menurut Anda diperlukan dalam dunia kerja"
+        </div>
+
         <div style="overflow-x:auto;">
             <table class="matrix-table">
                 <thead>
                     <tr>
                         <th rowspan="2" style="min-width:130px;">Kompetensi</th>
-                        <th colspan="5">A — Dikuasai</th>
-                        <th colspan="5">B — Diperlukan</th>
+                        <th colspan="5">A — Dikuasai saat lulus</th>
+                        <th colspan="5">B — Diperlukan saat ini</th>
                     </tr>
                     <tr>
                         <th><span class="scale-label">1</span></th>
