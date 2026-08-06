@@ -7,6 +7,7 @@
     <title>Aktivitas | Paket B</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body class="body body_kl-white">
@@ -45,61 +46,92 @@
     <main class="main">
         <div class="container">
             <div class="main__header main__header_kl-list">
-                <div class="main__location"><div class="main__wrapper"><h1 class="main__title">Aktivitas</h1></div></div>
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Aktivitas</h1>
+                        <p class="main__subtitle">Kerja sama perusahaan, event karier, dan rekomendasi alumni dalam satu menu</p>
+                    </div>
+                </div>
             </div>
-            <div class="alert alert_success" style="margin-bottom:1rem;">
+            <div class="alert alert_helper" style="margin-top:1.25rem;margin-bottom:1rem;">
                 <div class="alert__content"><p class="alert__description"><b>Paket B</b> - aktivitas Portal Karir (kerja sama, event, kalender CDC) jadi satu menu di app tergabung.</p></div>
             </div>
             <div class="grid cols-1 cols-md-3" style="gap:1rem;">
-                <div class="card card_empty">
-                    <span class="icon icon-user-group" style="font-size:2rem;color:var(--qn-primary-500);"></span>
-                    <h3 style="margin:.5rem 0 .25rem;">Kerja Sama Perusahaan</h3>
-                    <p style="color:var(--qn-neutral-500);font-size:.875rem;">Pantau status kerja sama mitra.</p>
-                    <p style="font-size:1.5rem;font-weight:700;color:var(--qn-primary-500);margin:0;">18 <span style="font-size:.8rem;color:var(--qn-neutral-500);font-weight:400;">mitra aktif</span></p>
+                <div class="card card_dashboard">
+                    <div class="card__body">
+                        <span class="icon icon-user-group" style="font-size:2rem;color:var(--qn-primary-500);"></span>
+                        <h3 style="margin:.5rem 0 .25rem;">Kerja Sama Perusahaan</h3>
+                        <p style="color:var(--qn-neutral-500);font-size:.875rem;">Pantau status kerja sama mitra.</p>
+                        <p style="font-size:1.5rem;font-weight:700;color:var(--qn-primary-500);margin:.5rem 0 0;">18 <span style="font-size:.8rem;color:var(--qn-neutral-500);font-weight:400;">mitra aktif</span></p>
+                    </div>
                 </div>
-                <div class="card card_empty">
-                    <span class="icon icon-calendar" style="font-size:2rem;color:#d97706;"></span>
-                    <h3 style="margin:.5rem 0 .25rem;">Event</h3>
-                    <p style="color:var(--qn-neutral-500);font-size:.875rem;">Pantau & buat event karier.</p>
-                    <button class="btn btn_primary btn_sm"><span class="icon icon-plus-circle-mini"></span>Buat Event</button>
+                <div class="card card_dashboard">
+                    <div class="card__body">
+                        <span class="icon icon-calendar" style="font-size:2rem;color:var(--qn-warning-600, #d97706);"></span>
+                        <h3 style="margin:.5rem 0 .25rem;">Event</h3>
+                        <p style="color:var(--qn-neutral-500);font-size:.875rem;">Pantau &amp; buat event karier.</p>
+                    </div>
+                    <div class="card__footer">
+                        <button class="btn btn_primary btn_sm"><span class="icon icon-plus-circle-mini"></span>Buat Event</button>
+                    </div>
                 </div>
-                <div class="card card_empty">
-                    <span class="icon icon-calendar-days" style="font-size:2rem;color:#7c3aed;"></span>
-                    <h3 style="margin:.5rem 0 .25rem;">Kalender Aktivitas CDC</h3>
-                    <p style="color:var(--qn-neutral-500);font-size:.875rem;">Lihat jadwal seluruh aktivitas CDC.</p>
-                    <a href="#" class="link link_primary">Buka kalender &rarr;</a>
+                <div class="card card_dashboard">
+                    <div class="card__body">
+                        <span class="icon icon-calendar-days" style="font-size:2rem;color:#7c3aed;"></span>
+                        <h3 style="margin:.5rem 0 .25rem;">Kalender Aktivitas CDC</h3>
+                        <p style="color:var(--qn-neutral-500);font-size:.875rem;">Lihat jadwal seluruh aktivitas CDC.</p>
+                    </div>
+                    <div class="card__footer">
+                        <a href="#" class="link link_primary">Buka kalender &rarr;</a>
+                    </div>
                 </div>
             </div>
-            <div class="card card_empty" style="margin-top:1rem;">
-                <h3 style="margin-top:0;">Kerja Sama Terbaru</h3>
-                <table class="table"><tbody>
-                    <tr><td>PT Foxtrot</td><td style="text-align:right;"><span class="badge badge_secondary-success badge_sm">Berhasil</span></td></tr>
-                    <tr><td>PT Sentra Vidya Utama</td><td style="text-align:right;"><span class="badge badge_secondary-warning badge_sm">Menunggu</span></td></tr>
-                    <tr><td>PT Cahaya Seruni</td><td style="text-align:right;"><span class="badge badge_secondary-success badge_sm">Berhasil</span></td></tr>
-                </tbody></table>
+            <div class="card" style="margin-top:1rem;">
+                <div class="card__header"><h3 class="card__title">Kerja Sama Terbaru</h3></div>
+                <div class="card__body">
+                    <table class="table"><tbody>
+                        <tr><td>PT Foxtrot</td><td style="text-align:right;"><span class="badge badge_secondary-success badge_sm">Berhasil</span></td></tr>
+                        <tr><td>PT Sentra Vidya Utama</td><td style="text-align:right;"><span class="badge badge_secondary-warning badge_sm">Menunggu</span></td></tr>
+                        <tr><td>PT Cahaya Seruni</td><td style="text-align:right;"><span class="badge badge_secondary-success badge_sm">Berhasil</span></td></tr>
+                    </tbody></table>
+                </div>
             </div>
 
             <!-- Rekomendasi Terkirim -->
-            <div class="card card_empty" style="margin-top:1rem;">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;">
-                    <h3 style="margin:0;">Rekomendasi Alumni Terkirim</h3>
+            <div class="card" style="margin-top:1rem;">
+                <div class="card__header" style="display:flex;align-items:center;justify-content:space-between;">
+                    <h3 class="card__title">Rekomendasi Alumni Terkirim</h3>
                     <span class="badge badge_secondary-primary badge_sm">4 rekomendasi</span>
                 </div>
-                <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 .75rem;">Daftar alumni yang sudah direkomendasikan ke perusahaan mitra. Pantau statusnya di sini.</p>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead><tr><th>Mahasiswa/Alumni</th><th>Mitra Tujuan</th><th>Tanggal</th><th>Status</th></tr></thead>
-                        <tbody>
-                            <tr><td><b>Ahmad Rizki</b> · S1 TI</td><td>PT Telkom Indonesia</td><td style="font-size:.78rem;color:var(--qn-neutral-500);">15 Jul 2026</td><td><span class="badge badge_secondary-success badge_sm">Diterima</span></td></tr>
-                            <tr><td><b>Fajar Nugroho</b> · S1 TI</td><td>PT Telkom Indonesia</td><td style="font-size:.78rem;color:var(--qn-neutral-500);">15 Jul 2026</td><td><span class="badge badge_secondary-warning badge_sm">Menunggu persetujuan</span></td></tr>
-                            <tr><td><b>Rina Wulandari</b> · S1 SI</td><td>Gojek</td><td style="font-size:.78rem;color:var(--qn-neutral-500);">10 Jul 2026</td><td><span class="badge badge_secondary-primary badge_sm">Terkirim ke mitra</span></td></tr>
-                            <tr><td><b>Dimas Prasetyo</b> · S1 TI (mhs aktif)</td><td>Dinas Kominfo Surabaya</td><td style="font-size:.78rem;color:var(--qn-neutral-500);">8 Jul 2026</td><td><span class="badge badge_secondary-primary badge_sm">Mitra hubungi mahasiswa</span></td></tr>
-                            <tr><td><b>Budi Santoso</b> · S1 Akuntansi</td><td>Bank BCA</td><td style="font-size:.78rem;color:var(--qn-neutral-500);">5 Jul 2026</td><td><span class="badge badge_secondary-danger badge_sm">Ditolak oleh alumni</span></td></tr>
-                        </tbody>
-                    </table>
+                <div class="card__body">
+                    <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 .75rem;">Daftar alumni yang sudah direkomendasikan ke perusahaan mitra. Pantau statusnya di sini.</p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead><tr><th>Mahasiswa/Alumni</th><th>Mitra Tujuan</th><th>Tanggal</th><th>Status</th></tr></thead>
+                            <tbody>
+                                <tr><td><b>Ahmad Rizki</b> &middot; S1 TI</td><td>PT Telkom Indonesia</td><td style="font-size:.78rem;color:var(--qn-neutral-500);">15 Jul 2026</td><td><span class="badge badge_secondary-success badge_sm">Diterima</span></td></tr>
+                                <tr><td><b>Fajar Nugroho</b> &middot; S1 TI</td><td>PT Telkom Indonesia</td><td style="font-size:.78rem;color:var(--qn-neutral-500);">15 Jul 2026</td><td><span class="badge badge_secondary-warning badge_sm">Menunggu persetujuan</span></td></tr>
+                                <tr><td><b>Rina Wulandari</b> &middot; S1 SI</td><td>Gojek</td><td style="font-size:.78rem;color:var(--qn-neutral-500);">10 Jul 2026</td><td><span class="badge badge_secondary-primary badge_sm">Terkirim ke mitra</span></td></tr>
+                                <tr><td><b>Dimas Prasetyo</b> &middot; S1 TI (mhs aktif)</td><td>Dinas Kominfo Surabaya</td><td style="font-size:.78rem;color:var(--qn-neutral-500);">8 Jul 2026</td><td><span class="badge badge_secondary-primary badge_sm">Mitra hubungi mahasiswa</span></td></tr>
+                                <tr><td><b>Budi Santoso</b> &middot; S1 Akuntansi</td><td>Bank BCA</td><td style="font-size:.78rem;color:var(--qn-neutral-500);">5 Jul 2026</td><td><span class="badge badge_secondary-danger badge_sm">Ditolak oleh alumni</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">&copy; 2005-2026 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
 </body>

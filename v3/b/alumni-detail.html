@@ -7,6 +7,7 @@
     <title>Detail Alumni | Paket B</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <style>
         .profile-hero{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;padding:1.5rem;}
@@ -22,21 +23,31 @@
         .detail-grid__value a{color:var(--qn-primary-500);}
         @media(max-width:640px){.detail-grid{grid-template-columns:1fr;}}
         .wave-card{border:1px solid var(--qn-neutral-200);border-radius:.5rem;margin-bottom:.75rem;overflow:hidden;}
-        .wave-card__header{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem;background:var(--qn-neutral-50);border-bottom:1px solid var(--qn-neutral-200);cursor:pointer;}
-        .wave-card__title{font-weight:600;font-size:.8rem;margin:0;color:var(--qn-neutral-800);display:flex;align-items:center;gap:.4rem;}
-        .wave-card__date{font-size:.65rem;color:var(--qn-neutral-400);}
-        .wave-card__body{padding:.75rem 1rem;display:none;}
+        .wave-card__header{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;background:var(--qn-neutral-50);border-bottom:1px solid var(--qn-neutral-200);cursor:pointer;}
+        .wave-card__title{font-weight:600;font-size:.875rem;margin:0;color:var(--qn-neutral-800);display:flex;align-items:center;gap:.5rem;}
+        .wave-card__dot{width:.5rem;height:.5rem;border-radius:50%;flex-shrink:0;}
+        .wave-card__dot_exit{background:#3b82f6;}
+        .wave-card__dot_g1{background:#294A9A;}
+        .wave-card__dot_g2{background:#8b5cf6;}
+        .wave-card__date{font-size:.75rem;color:var(--qn-neutral-400);}
+        .wave-card__chevron{color:var(--qn-neutral-400);transition:transform .2s ease;}
+        .wave-card__body{padding:1rem;display:none;}
         .wave-card__body.open{display:block;}
+        .wave-card__body.open ~ .wave-card__header .wave-card__chevron,
+        .wave-card__header.is-open .wave-card__chevron{transform:rotate(180deg);}
         .wave-card--empty{border-style:dashed;opacity:.7;}
-        .wave-card--empty .wave-card__header{background:transparent;}
+        .wave-card--empty .wave-card__header{background:transparent;cursor:default;}
         .timeline{position:relative;padding-left:1.75rem;}
         .timeline::before{content:'';position:absolute;left:.45rem;top:.5rem;bottom:.5rem;width:2px;background:var(--qn-neutral-200);}
         .tl-item{position:relative;padding-bottom:1.25rem;}
         .tl-item:last-child{padding-bottom:0;}
         .tl-dot{position:absolute;left:-1.75rem;top:.25rem;width:.75rem;height:.75rem;border-radius:50%;background:var(--qn-primary-500);border:2px solid #fff;box-shadow:0 0 0 2px var(--qn-primary-200);}
-        .tl-item__time{font-size:.7rem;color:var(--qn-neutral-400);margin:0;}
-        .tl-item__title{font-size:.85rem;font-weight:600;margin:.1rem 0;color:var(--qn-neutral-800);}
-        .tl-item__sub{font-size:.78rem;color:var(--qn-neutral-500);margin:0;}
+        .tl-dot_magang{background:#f59e0b;box-shadow:0 0 0 2px #fef3c7;}
+        .tl-dot_organisasi{background:#8b5cf6;box-shadow:0 0 0 2px #ede9fe;}
+        .tl-dot_milestone{background:#10b981;box-shadow:0 0 0 2px #d1fae5;}
+        .tl-item__time{font-size:.75rem;color:var(--qn-neutral-400);margin:0;}
+        .tl-item__title{font-size:.9375rem;font-weight:600;margin:.125rem 0;color:var(--qn-neutral-800);}
+        .tl-item__sub{font-size:.8125rem;color:var(--qn-neutral-500);margin:0;}
     </style>
 </head>
 <body class="body body_kl-white">
@@ -128,11 +139,12 @@
                 <!-- TAB: Profil Terkini -->
                 <div class="tab-pane active" id="secProfil">
                     <div class="card">
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;">
-                            <h3 style="margin:0;font-size:1rem;">Profil Terkini</h3>
+                        <div class="card__header" style="display:flex;align-items:center;justify-content:space-between;">
+                            <h3 class="card__title">Profil Terkini</h3>
                             <span class="badge badge_secondary-success badge_sm">Self-update + SIAKAD</span>
                         </div>
-                        <p style="font-size:.72rem;color:var(--qn-neutral-400);margin:0 0 1rem;">Gabungan data SIAKAD dan pembaruan mandiri alumni/mahasiswa · terakhir diperbarui 12 Mei 2026.</p>
+                        <div class="card__body">
+                        <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 1rem;">Gabungan data SIAKAD dan pembaruan mandiri alumni/mahasiswa · terakhir diperbarui 12 Mei 2026.</p>
                         <div class="detail-grid">
                             <div class="detail-grid__item"><span class="detail-grid__label">Status Akademik</span><span class="detail-grid__value"><span class="badge badge_secondary-success badge_sm">Lulus</span> · 15 Juli 2024</span></div>
                             <div class="detail-grid__item"><span class="detail-grid__label">IPK</span><span class="detail-grid__value"><b>3.72</b> / 4.00</span></div>
@@ -145,23 +157,28 @@
                             <div class="detail-grid__item"><span class="detail-grid__label">Penghasilan</span><span class="detail-grid__value">Rp 15.000.000 · <span class="badge badge_secondary-success badge_sm">&gt; 1,2× UMP Jabar</span></span></div>
                             <div class="detail-grid__item"><span class="detail-grid__label">LinkedIn</span><span class="detail-grid__value"><a href="https://linkedin.com/in/ahmad-rizki" target="_blank" rel="noopener">ahmad-rizki</a></span></div>
                         </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- TAB: Jawaban Tracer -->
                 <div class="tab-pane" id="secTracer">
                     <div class="card">
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
-                            <h3 style="margin:0;font-size:1rem;">Jawaban Tracer Study</h3>
-                            <span class="badge badge_secondary-default badge_sm">Terkunci · IKU</span>
+                        <div class="card__header" style="display:flex;align-items:center;justify-content:space-between;">
+                            <h3 class="card__title">Jawaban Tracer Study</h3>
+                            <span class="badge badge_secondary-default badge_sm">Terkunci &middot; IKU</span>
                         </div>
-                        <p style="font-size:.72rem;color:var(--qn-neutral-400);margin:0 0 1rem;">Data per wave, tidak berubah setelah submit. Dipakai untuk pelaporan IKU & akreditasi.</p>
+                        <div class="card__body">
+                        <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 1.25rem;">Data per wave, tidak berubah setelah submit. Dipakai untuk pelaporan IKU &amp; akreditasi.</p>
 
                         <!-- Wave Exit (collapsible) -->
                         <div class="wave-card">
                             <div class="wave-card__header" onclick="this.nextElementSibling.classList.toggle('open')">
-                                <p class="wave-card__title"><span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;display:inline-block;"></span> Wave Exit</p>
-                                <span class="wave-card__date">Diisi 20 Juli 2024</span>
+                                <p class="wave-card__title"><span class="wave-card__dot wave-card__dot_exit"></span> Wave Exit</p>
+                                <span style="display:flex;align-items:center;gap:.75rem;">
+                                    <span class="wave-card__date">Diisi 20 Juli 2024</span>
+                                    <span class="icon icon-chevron-down-mini wave-card__chevron"></span>
+                                </span>
                             </div>
                             <div class="wave-card__body open">
                                 <div class="detail-grid">
@@ -180,14 +197,17 @@
                         <!-- Wave G1 (collapsible) -->
                         <div class="wave-card">
                             <div class="wave-card__header" onclick="this.nextElementSibling.classList.toggle('open')">
-                                <p class="wave-card__title"><span style="width:8px;height:8px;border-radius:50%;background:#294A9A;display:inline-block;"></span> Wave G1</p>
-                                <span class="wave-card__date">Diisi 3 Maret 2025</span>
+                                <p class="wave-card__title"><span class="wave-card__dot wave-card__dot_g1"></span> Wave G1</p>
+                                <span style="display:flex;align-items:center;gap:.75rem;">
+                                    <span class="wave-card__date">Diisi 3 Maret 2025</span>
+                                    <span class="icon icon-chevron-down-mini wave-card__chevron"></span>
+                                </span>
                             </div>
                             <div class="wave-card__body open">
                                 <div class="detail-grid">
                                     <div class="detail-grid__item"><span class="detail-grid__label">Status saat ini</span><span class="detail-grid__value">Bekerja (full time / part time)</span></div>
                                     <div class="detail-grid__item"><span class="detail-grid__label">Pekerjaan pertama diperoleh</span><span class="detail-grid__value">Sebelum lulus <span class="badge badge_secondary-success badge_sm">masa tunggu 0 bulan</span></span></div>
-                                    <div class="detail-grid__item"><span class="detail-grid__label">Pendapatan / bulan</span><span class="detail-grid__value">Rp 8.500.000 <span style="color:var(--qn-neutral-400);font-size:.7rem;">(take home pay)</span></span></div>
+                                    <div class="detail-grid__item"><span class="detail-grid__label">Pendapatan / bulan</span><span class="detail-grid__value">Rp 8.500.000 <span style="color:var(--qn-neutral-400);font-weight:400;">(take home pay)</span></span></div>
                                     <div class="detail-grid__item"><span class="detail-grid__label">Lokasi kerja</span><span class="detail-grid__value">Kota Surabaya, Jawa Timur</span></div>
                                     <div class="detail-grid__item"><span class="detail-grid__label">Jenis instansi</span><span class="detail-grid__value">Perusahaan swasta</span></div>
                                     <div class="detail-grid__item"><span class="detail-grid__label">Nama perusahaan</span><span class="detail-grid__value">PT Cahaya Seruni</span></div>
@@ -197,10 +217,10 @@
                                     <div class="detail-grid__item"><span class="detail-grid__label">Jenjang sesuai pekerjaan</span><span class="detail-grid__value">Tingkat yang Sama</span></div>
                                     <div class="detail-grid__item"><span class="detail-grid__label">Kompetensi lulus (avg)</span><span class="detail-grid__value">3.7 / 5</span></div>
                                     <div class="detail-grid__item"><span class="detail-grid__label">Kompetensi kerja (avg)</span><span class="detail-grid__value">4.1 / 5</span></div>
-                                    <div class="detail-grid__item"><span class="detail-grid__label">Rasio gaji thd UMP</span><span class="detail-grid__value"><span class="badge badge_secondary-success badge_sm">&gt; 1,2× UMP Jatim</span></span></div>
+                                    <div class="detail-grid__item"><span class="detail-grid__label">Rasio gaji thd UMP</span><span class="detail-grid__value"><span class="badge badge_secondary-success badge_sm">&gt; 1,2&times; UMP Jatim</span></span></div>
                                 </div>
 
-                                <p style="font-size:.75rem;font-weight:600;color:var(--qn-neutral-600);margin:1rem 0 .5rem;">Kontak atasan yang disebutkan alumni</p>
+                                <p class="detail-subhead">Kontak atasan yang disebutkan alumni</p>
                                 <div class="detail-grid">
                                     <div class="detail-grid__item"><span class="detail-grid__label">Nama atasan</span><span class="detail-grid__value">Budi Santoso</span></div>
                                     <div class="detail-grid__item"><span class="detail-grid__label">Jabatan atasan</span><span class="detail-grid__value">Engineering Manager</span></div>
@@ -209,7 +229,7 @@
                                     <div class="detail-grid__item"><span class="detail-grid__label">Alamat perusahaan</span><span class="detail-grid__value">Jl. Basuki Rahmat 1, Surabaya</span></div>
                                     <div class="detail-grid__item"><span class="detail-grid__label">Survei Pengguna Lulusan</span><span class="detail-grid__value"><span class="badge badge_secondary-success badge_sm">Sudah diisi 12 Mar 2025</span></span></div>
                                 </div>
-                                <div class="alert alert_helper" style="margin-top:.75rem;">
+                                <div class="alert alert_helper" style="margin-top:1rem;">
                                     <div class="alert__content"><p class="alert__description"><b>Untuk Admin CDC:</b> Data kontak ini <b>tidak di-upload ke Kemdiktisaintek</b> - fungsinya mengirim Survei Pengguna Lulusan secara otomatis. Kalau kolom terakhir masih kosong, artinya survei sudah terkirim tapi belum diisi perusahaan; Anda bisa mengirim pengingat dari halaman Kuesioner.</p></div>
                                 </div>
                             </div>
@@ -218,22 +238,23 @@
                         <!-- Wave G2 (empty) -->
                         <div class="wave-card wave-card--empty">
                             <div class="wave-card__header">
-                                <p class="wave-card__title" style="color:var(--qn-neutral-400);"><span style="width:8px;height:8px;border-radius:50%;background:#8b5cf6;display:inline-block;"></span> Wave G2</p>
+                                <p class="wave-card__title" style="color:var(--qn-neutral-400);"><span class="wave-card__dot wave-card__dot_g2"></span> Wave G2</p>
                                 <span class="badge badge_secondary-primary badge_sm">Belum masuk periode</span>
                             </div>
                         </div>
-                        <p style="font-size:.7rem;color:var(--qn-neutral-400);margin:.5rem 0 0;">Dijadwalkan: Juli 2028 (48 bulan setelah lulus)</p>
+                        <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:.5rem 0 0;">Dijadwalkan: Juli 2028 (48 bulan setelah lulus)</p>
 
                         <!-- Specific (expandable) -->
-                        <div style="margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--qn-neutral-200);">
-                            <button onclick="document.getElementById('specificBlock').style.display=document.getElementById('specificBlock').style.display==='none'?'block':'none'" class="btn btn_outline btn_sm" style="font-size:.75rem;">Lihat Jawaban Internal (Specific)</button>
+                        <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--qn-neutral-200);">
+                            <button onclick="document.getElementById('specificBlock').style.display=document.getElementById('specificBlock').style.display==='none'?'block':'none'" class="btn btn_outline btn_sm">Lihat Jawaban Internal (Specific)</button>
                             <div id="specificBlock" style="display:none;margin-top:.75rem;">
-                                <div class="detail-grid" style="padding:.75rem;border:1px solid var(--qn-neutral-200);border-radius:.5rem;">
+                                <div class="detail-grid" style="padding:.75rem 1rem;border:1px solid var(--qn-neutral-200);border-radius:.5rem;">
                                     <div class="detail-grid__item"><span class="detail-grid__label">Rencana setelah lulus</span><span class="detail-grid__value">Bekerja</span></div>
                                     <div class="detail-grid__item"><span class="detail-grid__label">LinkedIn</span><span class="detail-grid__value">linkedin.com/in/ahmad-rizki</span></div>
                                 </div>
-                                <p style="font-size:.65rem;color:var(--qn-neutral-400);margin:.5rem 0 0;">Jawaban Specific tidak terkunci - Admin CDC dapat mengubah pertanyaan antar periode.</p>
+                                <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:.5rem 0 0;">Jawaban Specific tidak terkunci - Admin CDC dapat mengubah pertanyaan antar periode.</p>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -241,33 +262,48 @@
                 <!-- TAB: Karier & Pengalaman -->
                 <div class="tab-pane" id="secKarier">
                     <div class="card">
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;">
-                            <h3 style="margin:0;font-size:1rem;">Riwayat Karier & Pengalaman</h3>
+                        <div class="card__header" style="display:flex;align-items:center;justify-content:space-between;">
+                            <h3 class="card__title">Riwayat Karier &amp; Pengalaman</h3>
                             <span class="badge badge_secondary-success badge_sm">append-only</span>
                         </div>
-                        <p style="font-size:.72rem;color:var(--qn-neutral-400);margin:0 0 1.25rem;">Seluruh perpindahan karier, magang, dan pengalaman organisasi - bukan hanya posisi terakhir.</p>
+                        <div class="card__body">
+                        <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 1.25rem;">Seluruh perpindahan karier, magang, dan pengalaman organisasi - bukan hanya posisi terakhir.</p>
                         <div class="timeline" id="career"></div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- TAB: Log Aktivitas -->
                 <div class="tab-pane" id="secLog">
                     <div class="card">
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;">
-                            <h3 style="margin:0;font-size:1rem;">Log Aktivitas</h3>
+                        <div class="card__header" style="display:flex;align-items:center;justify-content:space-between;">
+                            <h3 class="card__title">Log Aktivitas</h3>
                             <button class="btn btn_outline btn_sm"><span class="icon icon-bell-mini"></span> Notifikasi</button>
                         </div>
-                        <p style="font-size:.72rem;color:var(--qn-neutral-400);margin:0 0 1rem;">Seluruh aktivitas terkait alumni ini: perubahan data, pengisian tracer, penilaian perusahaan, dan koreksi admin.</p>
+                        <div class="card__body">
+                        <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 1rem;">Seluruh aktivitas terkait alumni ini: perubahan data, pengisian tracer, penilaian perusahaan, dan koreksi admin.</p>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead><tr><th>Waktu</th><th>Field / Aktivitas</th><th>Sebelum</th><th>Sesudah</th><th>Oleh / Sumber</th></tr></thead>
                                 <tbody id="audit"></tbody>
                             </table>
                         </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">&copy; 2005-2026 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
 
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
@@ -281,32 +317,32 @@
             ['2022 – 2024','Ketua Himpunan Mahasiswa Informatika','HMTI Universitas Foxtrot','-','organisasi'],
             ['Jun – Ags 2023','Magang Data Analyst','Bank BCA','Surabaya','magang'],
         ];
-        const dotStyle={kerja:'',magang:'background:#f59e0b;box-shadow:0 0 0 2px #fef3c7;',organisasi:'background:#8b5cf6;box-shadow:0 0 0 2px #ede9fe;',milestone:'background:#10b981;box-shadow:0 0 0 2px #d1fae5;'};
+        const dotClass={kerja:'',magang:'tl-dot_magang',organisasi:'tl-dot_organisasi',milestone:'tl-dot_milestone'};
         const typeLabel={kerja:'Kerja',magang:'Magang',organisasi:'Organisasi',milestone:''};
         document.getElementById('career').innerHTML=career.map(([t,pos,co,loc,type])=>`
             <div class="tl-item">
-                <span class="tl-dot" style="${dotStyle[type]||''}"></span>
-                <p class="tl-item__time">${t}${typeLabel[type]?' <span class="badge badge_secondary-default badge_sm" style="font-size:.6rem;">'+typeLabel[type]+'</span>':''}</p>
+                <span class="tl-dot ${dotClass[type]||''}"></span>
+                <p class="tl-item__time">${t}${typeLabel[type]?' <span class="badge badge_secondary-default badge_sm">'+typeLabel[type]+'</span>':''}</p>
                 <p class="tl-item__title">${pos}</p>
-                <p class="tl-item__sub">${co}${loc!=='-'?' · '+loc:''}</p>
+                <p class="tl-item__sub">${co}${loc!=='-'?' &middot; '+loc:''}</p>
             </div>`).join('');
 
         // Audit log data
         const audit=[
-            ['12 Mei 2026 10:22','Domisili <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Profil Terkini)</span>','Kota Surabaya, Jawa Timur','Kota Bandung, Jawa Barat','<span class="badge badge_secondary-success badge_sm">Alumni (self-update)</span>'],
-            ['12 Mei 2026 10:22','Perusahaan <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Profil Terkini)</span>','PT Cahaya Seruni','PT Telkom Indonesia','<span class="badge badge_secondary-success badge_sm">Alumni (self-update)</span>'],
-            ['12 Mei 2026 10:22','Posisi terbaru <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Karier &amp; Pengalaman)</span>','Junior Dev · Cahaya Seruni','Backend Eng · Telkom','<span class="badge badge_secondary-success badge_sm">Alumni (self-update)</span>'],
-            ['10 Apr 2025 11:30','Penilaian perusahaan <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Jawaban Tracer)</span>','-','Skor rata-rata: Baik','<span class="badge badge_secondary-danger badge_sm">PT Cahaya Seruni</span>'],
-            ['03 Mar 2025 14:10','Wave G1 <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Jawaban Tracer)</span>','-','Disubmit (12 Core)','<span class="badge badge_secondary-default badge_sm">Alumni (wave G1)</span>'],
-            ['15 Jan 2025 09:05','Email <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Profil Terkini)</span>','@yahoo.com','@gmail.com','<span class="badge badge_secondary-warning badge_sm">Admin CDC</span>'],
-            ['01 Agu 2024 08:00','Data awal <span style="font-size:.65rem;color:var(--qn-neutral-400);">(Profil Terkini)</span>','-','Tersinkronisasi','<span class="badge badge_secondary-primary badge_sm">SIAKAD sync</span>'],
+            ['12 Mei 2026 10:22','Domisili','Profil Terkini','Kota Surabaya, Jawa Timur','Kota Bandung, Jawa Barat','<span class="badge badge_secondary-success badge_sm">Alumni (self-update)</span>'],
+            ['12 Mei 2026 10:22','Perusahaan','Profil Terkini','PT Cahaya Seruni','PT Telkom Indonesia','<span class="badge badge_secondary-success badge_sm">Alumni (self-update)</span>'],
+            ['12 Mei 2026 10:22','Posisi terbaru','Karier &amp; Pengalaman','Junior Dev &middot; Cahaya Seruni','Backend Eng &middot; Telkom','<span class="badge badge_secondary-success badge_sm">Alumni (self-update)</span>'],
+            ['10 Apr 2025 11:30','Penilaian perusahaan','Jawaban Tracer','-','Skor rata-rata: Baik','<span class="badge badge_secondary-danger badge_sm">PT Cahaya Seruni</span>'],
+            ['03 Mar 2025 14:10','Wave G1','Jawaban Tracer','-','Disubmit (12 Core)','<span class="badge badge_secondary-default badge_sm">Alumni (wave G1)</span>'],
+            ['15 Jan 2025 09:05','Email','Profil Terkini','@yahoo.com','@gmail.com','<span class="badge badge_secondary-warning badge_sm">Admin CDC</span>'],
+            ['01 Agu 2024 08:00','Data awal','Profil Terkini','-','Tersinkronisasi','<span class="badge badge_secondary-primary badge_sm">SIAKAD sync</span>'],
         ];
-        document.getElementById('audit').innerHTML=audit.map(([w,f,b,a,by])=>`
+        document.getElementById('audit').innerHTML=audit.map(([w,f,section,b,a,by])=>`
             <tr>
-                <td style="white-space:nowrap;font-size:.73rem;color:var(--qn-neutral-500);">${w}</td>
-                <td style="font-size:.8rem;">${f}</td>
-                <td style="font-size:.75rem;color:var(--qn-neutral-400);">${b}</td>
-                <td style="font-size:.75rem;font-weight:500;">${a}</td>
+                <td style="white-space:nowrap;color:var(--qn-neutral-500);">${w}</td>
+                <td>${f}<br><span style="font-size:.75rem;color:var(--qn-neutral-400);">${section}</span></td>
+                <td style="color:var(--qn-neutral-400);">${b}</td>
+                <td style="font-weight:500;">${a}</td>
                 <td>${by}</td>
             </tr>`).join('');
     </script>

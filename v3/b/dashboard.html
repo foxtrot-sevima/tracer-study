@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | KarirLink Admin CDC (Paket B)</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -46,10 +50,15 @@
     <main class="main">
         <div class="container">
             <div class="main__header main__header_kl-list">
-                <div class="main__location"><div class="main__wrapper"><h1 class="main__title">Dashboard</h1></div></div>
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Dashboard</h1>
+                        <p class="main__subtitle">Ringkasan aktivitas Portal Karir &amp; Tracer Study dalam satu tampilan terpadu</p>
+                    </div>
+                </div>
             </div>
-            <div class="alert alert_success" style="margin-bottom:1rem;">
-                <div class="alert__content"><p class="alert__description"><b>Paket B · Tergabung</b> - data Portal Karir &amp; Tracer Study tersinkron dalam satu dashboard.</p></div>
+            <div class="alert alert_helper" style="margin-top:1.25rem;margin-bottom:1rem;">
+                <div class="alert__content"><p class="alert__description"><b>Paket B &middot; Tergabung</b> - data Portal Karir &amp; Tracer Study tersinkron dalam satu dashboard.</p></div>
             </div>
 
             <!-- Filter Bar -->
@@ -111,8 +120,29 @@
                 </div>
             </div>
 
-            <!-- Persebaran lokasi & demografi (request Institut Muslim Cendekia) -->
+            <!-- Distribusi status & persebaran lokasi -->
             <div class="grid cols-1 cols-md-2" style="gap:1rem;margin-top:1rem;">
+                <div class="card card_dashboard">
+                    <div class="card__header"><h3 class="card__title">Distribusi Status Karier Alumni</h3></div>
+                    <div class="card__body">
+                        <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 1rem;">Sumber: Wave G1/G2 &middot; status utama per alumni</p>
+                        <div class="chart-panel-row">
+                            <div class="chart-container" style="height: 150px; width: 150px; flex-shrink: 0;">
+                                <canvas id="cstatus"></canvas>
+                                <div class="chart-center">
+                                    <span class="chart-center__value">52%</span>
+                                    <span class="chart-center__total">Bekerja</span>
+                                </div>
+                            </div>
+                            <div class="chart-legend chart-legend_pill">
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #065f46;"></span><span>Bekerja &ndash; 52%</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #059669;"></span><span>Wiraswasta &ndash; 11%</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #6ee7b7;"></span><span>Melanjutkan Studi &ndash; 7%</span></div>
+                                <div class="chart-legend__item"><span class="chart-legend__color" style="background: #d1fae5;"></span><span>Mencari Kerja &ndash; 30%</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card card_dashboard">
                     <div class="card__header" style="display:flex;align-items:center;justify-content:space-between;">
                         <h3 class="card__title">Persebaran Alumni per Lokasi Kerja</h3>
@@ -120,37 +150,63 @@
                     </div>
                     <div class="card__body">
                         <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 1rem;">Sumber: jawaban tracer + self-update profil terkini</p>
-                        <div id="geoList" style="display:flex;flex-direction:column;gap:.6rem;"></div>
+                        <div class="chart-container chart-container_wide"><canvas id="cgeo"></canvas></div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Demografi -->
+            <div class="grid cols-1" style="gap:1rem;margin-top:1rem;">
                 <div class="card card_dashboard">
                     <div class="card__header"><h3 class="card__title">Demografi Alumni Bekerja per Daerah</h3></div>
                     <div class="card__body">
                         <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0 0 1rem;">Gender dari data SIAKAD (tidak ditanya ulang)</p>
+                        <div class="chart-legend chart-legend_compact" style="margin-bottom:1rem;">
+                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #294A9A;"></span><span class="chart-legend__text">Laki-laki</span></div>
+                            <div class="chart-legend__item"><span class="chart-legend__color" style="background: #ec4899;"></span><span class="chart-legend__text">Perempuan</span></div>
+                        </div>
                         <div class="chart-container chart-container_bar"><canvas id="cdemo"></canvas></div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">&copy; 2005-2026 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
     <script>
-        new Chart(document.getElementById('cw'),{type:'bar',data:{labels:['Exit','G1','G2'],datasets:[{label:'Sudah mengisi',data:[312,98,21],backgroundColor:['#3b82f6','#294A9A','#8b5cf6']}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+        // Choices.js init (Quantum select-default pattern)
+        document.querySelectorAll('.select-default').forEach(function (el) {
+            new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+        });
 
-        // Persebaran per provinsi (bar horizontal sederhana)
-        const geo = [['Jawa Timur',412],['DKI Jakarta',287],['Jawa Barat',176],['Jawa Tengah',134],['Bali',58],['Lainnya',96]];
-        const maxGeo = Math.max(...geo.map(g=>g[1]));
-        document.getElementById('geoList').innerHTML = geo.map(([prov,n])=>`
-            <div>
-                <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.25rem;"><span>${prov}</span><b>${n}</b></div>
-                <div style="height:.5rem;background:var(--qn-neutral-100);border-radius:999px;"><div style="height:.5rem;background:var(--qn-primary-500);border-radius:999px;width:${Math.round(n/maxGeo*100)}%;"></div></div>
-            </div>`).join('');
+        // Riwayat pengisian per wave (ranked count bar - same pattern as alumni-activity.html's
+        // "Top 5 Perusahaan Tujuan": single series, legend hidden, own HTML title above)
+        new Chart(document.getElementById('cw'),{type:'bar',data:{labels:['Exit','G1','G2'],datasets:[{label:'Sudah mengisi',data:[312,98,21],backgroundColor:['#3b82f6','#294A9A','#8b5cf6'],borderWidth:0,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
 
-        // Demografi gender per daerah (stacked bar)
+        // Distribusi status karier alumni (doughnut - part-of-whole metric, same pattern as
+        // detail-status-lulusan.html's chart-panel-row + chart-legend_pill + chart-center)
+        new Chart(document.getElementById('cstatus'),{type:'doughnut',data:{labels:['Bekerja','Wiraswasta','Melanjutkan Studi','Mencari Kerja'],datasets:[{data:[52,11,7,30],backgroundColor:['#065f46','#059669','#6ee7b7','#d1fae5'],borderWidth:2,borderColor:'#ffffff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'70%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed+'% alumni'}}}}});
+
+        // Persebaran per provinsi (ranked horizontal bar, single color - same pattern as
+        // alumni-activity.html's "Top 5 Perusahaan Tujuan")
+        new Chart(document.getElementById('cgeo'),{type:'bar',data:{labels:['Jawa Timur','DKI Jakarta','Jawa Barat','Jawa Tengah','Bali','Lainnya'],datasets:[{data:[412,287,176,134,58,96],backgroundColor:'#294A9A',borderWidth:0,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true},y:{grid:{display:false}}}}});
+
+        // Demografi gender per daerah (stacked bar) - legend rendered as real HTML
+        // .chart-legend_compact markup above, not Chart.js's built-in legend plugin.
         new Chart(document.getElementById('cdemo'),{type:'bar',data:{labels:['Jatim','Jakarta','Jabar','Jateng','Bali'],datasets:[
             {label:'Laki-laki',data:[230,150,95,70,32],backgroundColor:'#294A9A'},
             {label:'Perempuan',data:[182,137,81,64,26],backgroundColor:'#ec4899'}
-        ]},options:{plugins:{legend:{position:'bottom'}},responsive:true,scales:{x:{stacked:true},y:{stacked:true,beginAtZero:true}}}});
+        ]},options:{plugins:{legend:{display:false}},responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true},y:{stacked:true,beginAtZero:true}}}});
     </script>
 </body>
 </html>

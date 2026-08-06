@@ -7,10 +7,12 @@
     <title>Simulasi Pengisian - Pengguna Lulusan (Perusahaan)</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
     <style>
         /* keep native dropdown arrow */
-        select.form-control__input{-webkit-appearance:menulist !important;-moz-appearance:menulist !important;appearance:menulist !important;background-image:none !important;padding-right:.75rem !important;}
 
         /* tsf-scale-table component set - same pattern as v2.1/b's tracer-study-form-*.html */
         .tsf-scale-table-wrap { overflow-x: auto; margin-top: 0.75rem; }
@@ -62,7 +64,7 @@
                     <div class="form-control">
                         <label class="form-control__label">Jenjang Pendidikan <span class="important">*</span></label>
                         <div class="form-control__group">
-                            <select class="form-control__input">
+                            <select class="select-default">
                                 <option disabled>- Pilih jenjang -</option>
                                 <option>D3</option>
                                 <option selected>S1</option>
@@ -73,7 +75,7 @@
                     <div class="form-control">
                         <label class="form-control__label">Program Studi <span class="important">*</span></label>
                         <div class="form-control__group">
-                            <select class="form-control__input">
+                            <select class="select-default">
                                 <option selected>S1 - Teknik Informatika</option>
                                 <option>S1 - Akuntansi</option>
                                 <option>S1 - Manajemen</option>
@@ -83,7 +85,7 @@
                     <div class="form-control">
                         <label class="form-control__label">Tahun Lulus <span class="important">*</span></label>
                         <div class="form-control__group">
-                            <select class="form-control__input">
+                            <select class="select-default">
                                 <option selected>2025</option>
                                 <option>2024</option>
                                 <option>2023</option>
@@ -93,7 +95,7 @@
                     <div class="form-control">
                         <label class="form-control__label">Nama Alumni yang akan dinilai <span class="important">*</span></label>
                         <div class="form-control__group">
-                            <select class="form-control__input">
+                            <select class="select-search">
                                 <option selected disabled>- Cari nama alumni -</option>
                                 <option selected>Ahmad Rizki Pratama</option>
                             </select>
@@ -239,6 +241,14 @@
     </main>
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
     <script>
+        // Choices.js init (Quantum select-default/select-search pattern)
+        document.querySelectorAll('.select-default').forEach(function (el) {
+            new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+        });
+        document.querySelectorAll('.select-search').forEach(function (el) {
+            new Choices(el, { searchEnabled: true, itemSelectText: '', shouldSort: false });
+        });
+
         // Quantum's .modal component is driven by an 'is-visible' class (added/removed by
         // the qn-*.js bundle's own click-delegation for [data-toggle="modal"]/[data-dismiss="modal"]).
         // Opening the "thank you" modal programmatically (not from a user click on a

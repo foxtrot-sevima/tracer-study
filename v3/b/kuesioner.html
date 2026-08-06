@@ -6,13 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuesioner (Single Living) | Paket B</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <style>
         .wave-tab{display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;border:1px solid var(--qn-neutral-200);border-radius:.5rem;cursor:pointer;background:#fff;}
         .wave-tab.active{border-color:var(--qn-primary-500);background:var(--qn-primary-50);}
         .wave-dot{width:10px;height:10px;border-radius:50%;}
-        .q-row{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:.75rem 1rem;}
+        /* Question list row - two-column layout: content grows on the left, action
+           (locked indicator / on-off switch / edit-delete) stays put on the right,
+           vertically centered so it's easy to scan down a long list. */
+        .q-row{display:flex;align-items:center;gap:1rem;border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:1rem;}
+        .q-row__main{flex:1;min-width:0;}
+        .q-row__title-line{display:flex;align-items:baseline;gap:.5rem;margin-bottom:.5rem;}
+        .q-row__num{font-size:.75rem;font-weight:700;color:var(--qn-neutral-400);flex-shrink:0;}
+        .q-row__text{font-size:.9375rem;color:var(--qn-neutral-800);font-weight:500;line-height:1.4;}
+        .q-row__badges{display:flex;flex-wrap:wrap;align-items:center;gap:.375rem;margin-bottom:.5rem;}
+        .q-row__meta{font-size:.75rem;color:var(--qn-neutral-400);}
+        .q-row__action{flex-shrink:0;}
+
+        /* tsf-option / tsf-radio-group - same selectable-card pattern used across the
+           alumni-facing tracer-study-form-*.html pages, reused here for the Simulasi
+           modal's wave picker. */
+        .tsf-radio-group{display:flex;flex-direction:column;gap:.625rem;}
+        .tsf-radio-group .form-control__label-radio{font-size:1rem;color:var(--qn-neutral-800, #1f2937);}
+        .tsf-option{display:block;border:1.5px solid var(--qn-neutral-200, #e5e7eb);border-radius:.625rem;padding:.75rem 1rem;margin:0 !important;cursor:pointer;transition:border-color .15s ease, background-color .15s ease;}
+        .tsf-option:hover{border-color:var(--qn-primary-300, #93c5fd);background:var(--qn-primary-50, #eff6ff);}
+        .tsf-option.tsf-option--checked{border-color:var(--qn-primary-500, #3b82f6);background:var(--qn-primary-50, #eff6ff);}
     </style>
 </head>
 <body class="body body_kl-white">
@@ -51,14 +74,19 @@
     <main class="main">
         <div class="container">
             <div class="main__header main__header_kl-list">
-                <div class="main__location"><div class="main__wrapper"><h1 class="main__title">Kuesioner Tracer Study</h1></div></div>
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Kuesioner Tracer Study</h1>
+                        <p class="main__subtitle">Satu kuesioner tunggal untuk seluruh wave, disusun dari pertanyaan Core &middot; Optional &middot; Specific</p>
+                    </div>
+                </div>
                 <div class="main__action">
                     <a href="#" class="btn btn_outline" data-toggle="modal" data-target="#modal-simulasi"><span class="icon icon-play-mini"></span>Simulasi Pengisian</a>
                     <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-reminder"><span class="icon icon-bell-mini"></span>Ingatkan Alumni</a>
                 </div>
             </div>
-            <div class="alert alert_info" style="margin-bottom:1rem;">
-                <div class="alert__content"><p class="alert__description"><b>Paket B · Single &amp; Living</b> - satu kuesioner untuk seluruh PT. Konten mengikuti wave lulusan; tidak perlu membuat template berulang.</p></div>
+            <div class="alert alert_helper" style="margin-top:1.25rem;margin-bottom:1rem;">
+                <div class="alert__content"><p class="alert__description"><b>Paket B &middot; Single &amp; Living</b> - satu kuesioner untuk seluruh PT. Konten mengikuti wave lulusan; tidak perlu membuat template berulang.</p></div>
             </div>
 
             <!-- Time Window (always visible) -->
@@ -80,7 +108,7 @@
                 <div class="tab-pane active" id="tabPertanyaan">
                     <div class="card card_empty">
                         <div id="waveHeader"></div>
-                        <div id="questionList" style="margin-top:1rem;display:flex;flex-direction:column;gap:.75rem;"></div>
+                        <div id="questionList" style="display:flex;flex-direction:column;gap:.75rem;"></div>
                     </div>
                 </div>
 
@@ -92,6 +120,17 @@
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">&copy; 2005-2026 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
     <!-- Modal: Ingatkan Alumni -->
     <div class="modal" id="modal-reminder">
@@ -105,29 +144,31 @@
                 <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
             </div>
             <div class="modal__body">
-                <div class="form-control">
-                    <label class="form-control__label">Periode Yudisium</label>
-                    <div class="form-control__group">
-                        <select class="form-control__input" style="-webkit-appearance:menulist!important;appearance:menulist!important;">
-                            <option selected>Semester Genap 2023/2024 (31 Jul 2024)</option>
-                            <option>Semester Ganjil 2024/2025 (31 Jan 2025)</option>
-                            <option>Semester Genap 2024/2025 (31 Jul 2025)</option>
-                        </select>
+                <div class="grid cols-1">
+                    <div class="form-control" style="margin:0;">
+                        <label class="form-control__label">Periode Yudisium</label>
+                        <div class="form-control__group">
+                            <select class="select-default">
+                                <option selected>Semester Genap 2023/2024 (31 Jul 2024)</option>
+                                <option>Semester Ganjil 2024/2025 (31 Jan 2025)</option>
+                                <option>Semester Genap 2024/2025 (31 Jul 2025)</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-control">
-                    <label class="form-control__label">Wave</label>
-                    <div class="form-control__group">
-                        <select class="form-control__input" style="-webkit-appearance:menulist!important;appearance:menulist!important;">
-                            <option selected>Wave Exit</option>
-                            <option>Wave G1</option>
-                            <option>Wave G2</option>
-                        </select>
+                    <div class="form-control" style="margin:0;">
+                        <label class="form-control__label">Wave</label>
+                        <div class="form-control__group">
+                            <select class="select-default">
+                                <option selected>Wave Exit</option>
+                                <option>Wave G1</option>
+                                <option>Wave G2</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="alert alert_helper">
-                    <div class="alert__content">
-                        <p class="alert__description"><b>50</b> dari 150 alumni belum mengisi Wave Exit. Pengingat akan dikirim via email dan notifikasi in-app.</p>
+                    <div class="alert alert_helper">
+                        <div class="alert__content">
+                            <p class="alert__description"><b>50</b> dari 150 alumni belum mengisi Wave Exit. Pengingat akan dikirim via email dan notifikasi in-app.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -150,53 +191,60 @@
                 <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
             </div>
             <div class="modal__body">
-                <!-- Tab switcher -->
+                <!-- Tab switcher: real Quantum tab component (data-toggle="tab" / .tab-content
+                     /.tab-pane, wired by the vendor bundle's own delegated click handler -
+                     same pattern as v2.1/b/kuesioner.html's card tabs). No custom JS needed. -->
                 <nav class="nav-tab" style="margin-bottom: 1rem;">
                     <ul class="nav-tab__wrapper">
-                        <li class="nav-tab__item active" id="simTabAlumni" onclick="switchSimTab('alumni')">Sisi Alumni</li>
-                        <li class="nav-tab__item" id="simTabPerusahaan" onclick="switchSimTab('perusahaan')">Sisi Pengguna Lulusan</li>
+                        <li class="nav-tab__item active" data-toggle="tab" data-target="#sim-tab-alumni">Sisi Alumni</li>
+                        <li class="nav-tab__item" data-toggle="tab" data-target="#sim-tab-perusahaan">Sisi Pengguna Lulusan</li>
                     </ul>
                 </nav>
 
-                <!-- Panel: Sisi Alumni -->
-                <div id="simPanelAlumni">
-                    <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .75rem;">Pilih wave yang ingin dicoba sebagai alumni:</p>
-                    <div class="tsf-radio-group" style="margin-bottom: 1.25rem;">
-                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="simWave" value="exit" checked><label class="form-control__label-radio"><b>Wave Exit</b><br><span style="font-weight: 400; font-size: .8125rem; color: var(--qn-neutral-500);">Saat baru lulus - data ringan</span></label></label>
-                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="simWave" value="g1"><label class="form-control__label-radio"><b>Wave G1</b><br><span style="font-weight: 400; font-size: .8125rem; color: var(--qn-neutral-500);">Min. 1 tahun setelah lulus - pertanyaan inti IKU</span></label></label>
-                        <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="simWave" value="g2"><label class="form-control__label-radio"><b>Wave G2</b><br><span style="font-weight: 400; font-size: .8125rem; color: var(--qn-neutral-500);">Lanjutan - pendalaman prodi (simulasi belum tersedia)</span></label></label>
-                    </div>
-                    <div style="display:flex;flex-direction:column;gap:.5rem;">
-                        <a id="simStartBtn" href="simulasi-exit.html" class="btn btn_primary" style="text-align:center;text-decoration:none;">Mulai Simulasi Alumni (Wave Exit)</a>
-                        <p style="font-size:.7rem;color:var(--qn-neutral-400);text-align:center;margin:0;">Opsional: kirim email undangan percobaan ke diri sendiri</p>
-                        <div class="form-control form-control_stand-alone" style="display:flex;gap:.5rem;">
-                            <div class="form-control__group" style="flex:1;">
-                                <input type="email" class="form-control__input" placeholder="email@kampus.ac.id">
+                <!-- Fixed min-height so the modal doesn't resize/jump when switching tabs
+                     (Sisi Alumni has more content than Sisi Pengguna Lulusan). -->
+                <div class="tab-content" style="min-height: 23rem;">
+                    <!-- Panel: Sisi Alumni -->
+                    <div class="tab-pane active" id="sim-tab-alumni">
+                        <div class="grid cols-1">
+                            <p class="form-control__label" style="margin:0;">Pilih wave yang ingin dicoba sebagai alumni</p>
+                            <div class="tsf-radio-group" style="margin:0;">
+                                <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="simWave" value="exit" checked><label class="form-control__label-radio"><b>Wave Exit</b><br><span style="font-weight: 400; font-size: .8125rem; color: var(--qn-neutral-500);">Saat baru lulus - data ringan</span></label></label>
+                                <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="simWave" value="g1"><label class="form-control__label-radio"><b>Wave G1</b><br><span style="font-weight: 400; font-size: .8125rem; color: var(--qn-neutral-500);">Min. 1 tahun setelah lulus - pertanyaan inti IKU</span></label></label>
+                                <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="simWave" value="g2"><label class="form-control__label-radio"><b>Wave G2</b><br><span style="font-weight: 400; font-size: .8125rem; color: var(--qn-neutral-500);">Lanjutan - pendalaman prodi (simulasi belum tersedia)</span></label></label>
                             </div>
-                            <a href="simulasi-email.html" class="btn btn_outline btn_sm" style="text-decoration:none;">Kirim</a>
+                            <a id="simStartBtn" href="simulasi-exit.html" class="btn btn_primary" style="text-align:center;text-decoration:none;display:block;">Mulai Simulasi Alumni (Wave Exit)</a>
+                            <div class="form-control" style="margin:0;">
+                                <label class="form-control__label">Opsional: kirim email undangan percobaan ke diri sendiri</label>
+                                <div class="form-control__group">
+                                    <input type="email" class="form-control__input" placeholder="email@kampus.ac.id">
+                                </div>
+                            </div>
+                            <a href="simulasi-email.html" class="btn btn_outline btn_sm" style="text-decoration:none;display:block;text-align:center;">Kirim</a>
                         </div>
                     </div>
-                </div>
 
-                <!-- Panel: Sisi Pengguna Lulusan -->
-                <div id="simPanelPerusahaan" style="display:none;">
-                    <p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .75rem;">Coba alur pengisian dari sisi atasan/perusahaan yang menilai alumni:</p>
-                    <div class="card card_empty" style="margin-bottom: 1rem;">
-                        <div style="display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.5rem;">
-                            <span class="icon icon-building-office-mini" style="color: var(--qn-primary-500); font-size: 1.1rem;"></span>
-                            <div>
-                                <b style="font-size:.85rem;">Survei Pengguna Lulusan</b>
-                                <p style="font-size:.75rem;color:var(--qn-neutral-400);margin:.15rem 0 0;">Perusahaan/atasan menilai kinerja alumni yang bekerja di tempatnya - integritas, keahlian, komunikasi, kepemimpinan, dll.</p>
+                    <!-- Panel: Sisi Pengguna Lulusan -->
+                    <div class="tab-pane" id="sim-tab-perusahaan">
+                        <div class="grid cols-1">
+                            <p class="form-control__label" style="margin:0;">Coba alur pengisian dari sisi atasan/perusahaan yang menilai alumni</p>
+                            <div class="card card_dashboard" style="margin:0;">
+                                <div class="card__header">
+                                    <h3 class="card__title">Survei Pengguna Lulusan</h3>
+                                </div>
+                                <div class="card__body">
+                                    <p style="font-size:.8125rem;color:var(--qn-neutral-500);margin:0 0 .5rem;">Perusahaan/atasan menilai kinerja alumni yang bekerja di tempatnya - integritas, keahlian, komunikasi, kepemimpinan, dll.</p>
+                                    <ul style="margin:0;padding-left:1.25rem;font-size:.8125rem;color:var(--qn-neutral-500);line-height:1.6;">
+                                        <li>12 aspek kinerja alumni (matriks skala)</li>
+                                        <li>Data perusahaan &amp; jabatan penilai</li>
+                                        <li>Saran &amp; harapan untuk PT</li>
+                                    </ul>
+                                </div>
                             </div>
+                            <a href="simulasi-pengguna-lulusan.html" class="btn btn_primary" style="text-align:center;text-decoration:none;display:block;">Mulai Simulasi Pengguna Lulusan</a>
+                            <p style="font-size:.75rem;color:var(--qn-neutral-400);text-align:center;margin:0;">Form ini dikirim melalui link khusus ke atasan/perusahaan alumni.</p>
                         </div>
-                        <ul style="margin:0;padding-left:1.25rem;font-size:.75rem;color:var(--qn-neutral-500);line-height:1.6;">
-                            <li>12 aspek kinerja alumni (matriks skala)</li>
-                            <li>Data perusahaan &amp; jabatan penilai</li>
-                            <li>Saran &amp; harapan untuk PT</li>
-                        </ul>
                     </div>
-                    <a href="simulasi-pengguna-lulusan.html" class="btn btn_primary" style="text-align:center;text-decoration:none;display:block;">Mulai Simulasi Pengguna Lulusan</a>
-                    <p style="font-size:.7rem;color:var(--qn-neutral-400);text-align:center;margin:.5rem 0 0;">Form ini dikirim melalui link khusus ke atasan/perusahaan alumni.</p>
                 </div>
             </div>
         </div>
@@ -204,16 +252,18 @@
 
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
     <script>
-        function switchSimTab(tab) {
-            const alumni = document.getElementById('simPanelAlumni');
-            const perusahaan = document.getElementById('simPanelPerusahaan');
-            const btnAlumni = document.getElementById('simTabAlumni');
-            const btnPerusahaan = document.getElementById('simTabPerusahaan');
-            alumni.style.display = tab === 'alumni' ? 'block' : 'none';
-            perusahaan.style.display = tab === 'alumni' ? 'none' : 'block';
-            btnAlumni.classList.toggle('active', tab === 'alumni');
-            btnPerusahaan.classList.toggle('active', tab !== 'alumni');
+        // Choices.js init helper (Quantum select-default pattern) - re-run after any
+        // innerHTML re-render since that replaces the <select> with a brand-new element.
+        function initSelectDefault(root) {
+            (root || document).querySelectorAll('.select-default').forEach(function (el) {
+                if (el.dataset.choicesInit) return;
+                new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+                el.dataset.choicesInit = 'true';
+            });
         }
+
+        // Tab switching itself is handled by the vendor bundle's own [data-toggle="tab"]
+        // delegated click listener (see qn-*.js) - no custom JS needed here anymore.
         const waves = {
             exit:{label:'Wave Exit',when:'Saat baru lulus',dot:'#3b82f6',canAdd:true,
                 desc:'Pemutakhiran data individu lulusan. Regulasi (Kepmen 358/2025): tracer inti baru di G1, jadi Exit ringan.',
@@ -223,7 +273,7 @@
             g1:{label:'Wave G1',when:'Min. 1 tahun setelah lulus',dot:'#294A9A',canAdd:false,
                 desc:'Pertanyaan inti untuk IKU #2, redaksi Core mengikuti format resmi Kemdiktisaintek. Daftar di bawah memuat semua pertanyaan dari seluruh cabang - alumni hanya melewati satu cabang sesuai status yang dipilih, jadi tidak semuanya tampil ke satu orang.',
                 tierNote:'<b>Core</b> = punya <b>kode Dikti</b> dan ditandai wajib di format resmi Kemdiktisaintek - tidak bisa dinonaktifkan. <b>Optional bundle Kemdikbud</b> juga punya kode Dikti tapi tidak wajib, jadi boleh dinonaktifkan. <b>Optional bundle Kemenkes</b> tidak ada di format Dikti - khusus kampus kesehatan (mis. Poltekkes), default nonaktif untuk PT umum.<br><br><b>Yang benar-benar tidak boleh diubah adalah struktur opsi jawaban</b>, bukan kata-katanya. Kode Dikti melekat ke tiap baris opsi, jadi menggabungkan atau menghapus opsi berarti membuang kodenya. Redaksi sendiri dikunci atas dasar yang berbeda: supaya jawaban tetap bisa dibandingkan antar-PT, dan supaya alumni yang pernah mengisi di situs resmi menemukan kalimat yang sama.<br><br>Redaksi mengikuti <b>Template Lengkap</b> (format Dikti + kebutuhan BAN-PT), dengan urutan pertanyaan cabang Bekerja disamakan dengan situs resmi Kemdiktisaintek.',
-                schedule:{type:'month',value:12,min:12,max:36,warning:'⚠️ Min. 12 bulan - syarat IKU#2 & BAN-PT',reminder:{interval:7,max:3}},
+                schedule:{type:'month',value:12,min:12,max:36,warning:'Min. 12 bulan - syarat IKU#2 &amp; BAN-PT',reminder:{interval:7,max:3}},
                 q:[
                     ['__section__','Informasi Umum','Ditanyakan ke semua alumni, apa pun statusnya.'],
                     ['Apakah pekerjaan/usaha sebelum lulus masih Anda jalankan?','core',1,'Pilihan tunggal - Ya, masih / Tidak','','<b>Kondisional</b> · muncul jika di Wave Exit alumni menjawab sudah bekerja/berwirausaha. Pertanyaan internal - tidak punya kode Dikti, tidak dikirim ke Kemdiktisaintek. Jika Ya → f8 otomatis terpilih dan f502 = 0.','g1_verif_pralulus',''],
@@ -313,40 +363,46 @@
                 q:[['Seberapa puas Anda terhadap kompetensi yang diperoleh selama kuliah?','optional',0,'Skala 1–5 (sangat tidak puas – sangat puas)','','','',''],['Apa saran Anda untuk perbaikan kurikulum program studi?','optional',0,'Isian teks panjang (paragraf)','','','',''],['Mata kuliah mana yang paling relevan dengan pekerjaan Anda saat ini?','optional',0,'Pilihan ganda (daftar mata kuliah prodi)','','','',''],['Pertanyaan tambahan dari program studi Anda','specific',0,'Disesuaikan oleh Admin CDC','','','','']]}
         };
         const tierLabel={core:'Core',optional:'Optional',specific:'Specific'};
-        const tierBadgeCls={core:'badge_secondary-primary',optional:'badge_secondary-warning',specific:'badge_secondary-success'};
+        // core = locked/protected (green, same as kuesioner-builder.html's locked-Core badge),
+        // optional = neutral-emphasis toggleable (blue), specific/custom = admin-editable (amber) -
+        // same success/primary/warning semantics as v2.1/b's tier badges.
+        const tierBadgeCls={core:'badge_secondary-success',optional:'badge_secondary-primary',specific:'badge_secondary-warning'};
         let active='exit';
         function renderSchedule(){
             const w=waves[active];const s=w.schedule;
-            let h='<p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 1rem;line-height:1.5;">Reminder otomatis berhenti begitu responden sudah mengisi. Link tetap aktif kapan saja - tidak ada batas waktu.</p>';
-            h+='<div style="border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:1rem;">';
-            h+='<p style="font-weight:600;font-size:.85rem;margin:0 0 .75rem;color:var(--qn-neutral-800);">'+w.label+'</p>';
+            let h='<div class="alert alert_helper" style="margin-bottom:1rem;"><div class="alert__content"><p class="alert__description">Reminder otomatis berhenti begitu responden sudah mengisi. Link tetap aktif kapan saja - tidak ada batas waktu.</p></div></div>';
+            h+='<div class="card card_dashboard">';
+            h+='<div class="card__header"><h3 class="card__title">'+w.label+'</h3></div>';
+            h+='<div class="card__body">';
             h+='<div style="display:flex;flex-wrap:wrap;gap:1rem;">';
             if(s.type==='event'){
-                h+='<div style="flex:1;min-width:200px;"><label style="font-size:.7rem;color:var(--qn-neutral-500);display:block;margin-bottom:.2rem;">Dikirim saat</label><select style="width:100%;padding:.4rem .5rem;border:1px solid var(--qn-neutral-200);border-radius:.375rem;font-size:.8rem;-webkit-appearance:menulist!important;appearance:menulist!important;">';
+                h+='<div class="form-control" style="flex:1;min-width:200px;margin:0;"><label class="form-control__label">Dikirim saat</label><div class="form-control__group"><select class="select-default" id="select-dikirim-saat">';
                 s.options.forEach(function(o,i){h+='<option'+(i===0?' selected':'')+'>'+o+'</option>';});
-                h+='</select>'+(s.note?'<p style="font-size:.65rem;color:var(--qn-neutral-400);margin:.25rem 0 0;">'+s.note+'</p>':'')+'</div>';
+                h+='</select></div>'+(s.note?'<p style="font-size:.75rem;color:var(--qn-neutral-400);margin:.375rem 0 0;">'+s.note+'</p>':'')+'</div>';
             } else {
-                h+='<div style="min-width:180px;"><label style="font-size:.7rem;color:var(--qn-neutral-500);display:block;margin-bottom:.2rem;">'+(s.repeat?'Pengiriman pertama setelah lulus':'Dikirim setelah lulus')+'</label><div style="display:flex;align-items:center;gap:.3rem;"><input type="number" value="'+s.value+'" min="'+s.min+'" max="'+s.max+'" style="width:50px;padding:.4rem .5rem;border:1px solid var(--qn-neutral-200);border-radius:.375rem;font-size:.8rem;text-align:center;"><span style="font-size:.75rem;color:var(--qn-neutral-500);">bulan</span></div>'+(s.warning?'<p style="font-size:.65rem;color:var(--qn-danger-500);margin:.25rem 0 0;">'+s.warning+'</p>':'')+'</div>';
+                h+='<div class="form-control" style="min-width:200px;margin:0;"><label class="form-control__label">'+(s.repeat?'Pengiriman pertama setelah lulus':'Dikirim setelah lulus')+'</label><div style="display:flex;align-items:center;gap:.5rem;"><div class="form-control__group" style="max-width:5rem;"><input type="number" class="form-control__input" value="'+s.value+'" min="'+s.min+'" max="'+s.max+'" style="text-align:center;"></div><span style="font-size:.8125rem;color:var(--qn-neutral-500);">bulan</span></div>'+(s.warning?'<div class="alert alert_warning" style="margin-top:.5rem;"><div class="alert__content"><p class="alert__description">'+s.warning+'</p></div></div>':'')+'</div>';
             }
-            h+='<div style="min-width:200px;"><label style="font-size:.7rem;color:var(--qn-neutral-500);display:block;margin-bottom:.2rem;">Reminder (berhenti jika sudah isi)</label><div style="display:flex;align-items:center;gap:.3rem;"><span style="font-size:.75rem;color:var(--qn-neutral-500);">Setiap</span><input type="number" value="'+s.reminder.interval+'" min="3" max="14" style="width:40px;padding:.4rem .5rem;border:1px solid var(--qn-neutral-200);border-radius:.375rem;font-size:.8rem;text-align:center;"><span style="font-size:.75rem;color:var(--qn-neutral-500);">hari, maks</span><input type="number" value="'+s.reminder.max+'" min="1" max="5" style="width:35px;padding:.4rem .5rem;border:1px solid var(--qn-neutral-200);border-radius:.375rem;font-size:.8rem;text-align:center;"><span style="font-size:.75rem;color:var(--qn-neutral-500);">×</span></div></div>';
+            h+='<div class="form-control" style="min-width:220px;margin:0;"><label class="form-control__label">Reminder (berhenti jika sudah isi)</label><div style="display:flex;align-items:center;gap:.375rem;flex-wrap:wrap;"><span style="font-size:.8125rem;color:var(--qn-neutral-500);">Setiap</span><div class="form-control__group" style="max-width:4rem;"><input type="number" class="form-control__input" value="'+s.reminder.interval+'" min="3" max="14" style="text-align:center;"></div><span style="font-size:.8125rem;color:var(--qn-neutral-500);">hari, maks</span><div class="form-control__group" style="max-width:3.5rem;"><input type="number" class="form-control__input" value="'+s.reminder.max+'" min="1" max="5" style="text-align:center;"></div><span style="font-size:.8125rem;color:var(--qn-neutral-500);">&times;</span></div></div>';
             h+='</div>';
             if(s.repeat){
-                h+='<div style="border-top:1px solid var(--qn-neutral-200);margin-top:.75rem;padding-top:.75rem;display:flex;flex-wrap:wrap;gap:.75rem;align-items:flex-end;"><div><label style="font-size:.7rem;color:var(--qn-neutral-500);display:block;margin-bottom:.2rem;">Ulangi pengiriman setiap</label><div style="display:flex;align-items:center;gap:.3rem;"><input type="number" value="'+s.repeatInterval+'" min="12" max="60" style="width:50px;padding:.4rem .5rem;border:1px solid var(--qn-neutral-200);border-radius:.375rem;font-size:.8rem;text-align:center;"><span style="font-size:.75rem;color:var(--qn-neutral-500);">bulan</span></div></div><div><label style="font-size:.7rem;color:var(--qn-neutral-500);display:block;margin-bottom:.2rem;">Maksimal siklus</label><div style="display:flex;align-items:center;gap:.3rem;"><input type="number" value="'+s.repeatMax+'" min="1" max="10" style="width:40px;padding:.4rem .5rem;border:1px solid var(--qn-neutral-200);border-radius:.375rem;font-size:.8rem;text-align:center;"><span style="font-size:.75rem;color:var(--qn-neutral-500);">kali</span></div></div><p style="font-size:.65rem;color:var(--qn-neutral-400);margin:0;line-height:1.4;">Contoh: pertama bulan ke-'+s.value+', ulangi tiap '+s.repeatInterval+' bulan, maks '+s.repeatMax+'×</p></div>';
+                h+='<div style="border-top:1px solid var(--qn-neutral-100);margin-top:1rem;padding-top:1rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;"><div class="form-control" style="margin:0;"><label class="form-control__label">Ulangi pengiriman setiap</label><div style="display:flex;align-items:center;gap:.375rem;"><div class="form-control__group" style="max-width:5rem;"><input type="number" class="form-control__input" value="'+s.repeatInterval+'" min="12" max="60" style="text-align:center;"></div><span style="font-size:.8125rem;color:var(--qn-neutral-500);">bulan</span></div></div><div class="form-control" style="margin:0;"><label class="form-control__label">Maksimal siklus</label><div style="display:flex;align-items:center;gap:.375rem;"><div class="form-control__group" style="max-width:4rem;"><input type="number" class="form-control__input" value="'+s.repeatMax+'" min="1" max="10" style="text-align:center;"></div><span style="font-size:.8125rem;color:var(--qn-neutral-500);">kali</span></div></div><p style="font-size:.75rem;color:var(--qn-neutral-400);margin:0;line-height:1.4;flex-basis:100%;">Contoh: pertama bulan ke-'+s.value+', ulangi tiap '+s.repeatInterval+' bulan, maks '+s.repeatMax+'&times;</p></div>';
             }
-            h+='</div>';
+            h+='</div></div>';
             // Cutoff pelaporan - only for G1/G2 (waves that feed IKU/BAN-PT)
             if(active==='g1'||active==='g2'){
-                h+='<div style="border:1px solid var(--qn-neutral-200);border-radius:.5rem;padding:1rem;margin-top:1rem;">';
-                h+='<p style="font-weight:600;font-size:.85rem;margin:0 0 .25rem;color:var(--qn-neutral-800);">Cutoff Pelaporan</p>';
-                h+='<p style="font-size:.75rem;color:var(--qn-neutral-500);margin:0 0 .75rem;line-height:1.4;">Setelah tanggal ini, alumni tidak bisa merevisi jawaban tracer lagi. Data dikunci untuk pelaporan ke Kemdiktisaintek. <b>Sesuaikan dengan surat edaran terbaru dari Kemdiktisaintek/LLDIKTI.</b></p>';
+                h+='<div class="card card_dashboard" style="margin-top:1rem;">';
+                h+='<div class="card__header"><h3 class="card__title">Cutoff Pelaporan</h3></div>';
+                h+='<div class="card__body">';
+                h+='<div class="alert alert_helper" style="margin-bottom:1rem;"><div class="alert__content"><p class="alert__description">Setelah tanggal ini, alumni tidak bisa merevisi jawaban tracer lagi. Data dikunci untuk pelaporan ke Kemdiktisaintek. <b>Sesuaikan dengan surat edaran terbaru dari Kemdiktisaintek/LLDIKTI.</b></p></div></div>';
                 h+='<div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;">';
-                h+='<div><label style="font-size:.7rem;color:var(--qn-neutral-500);display:block;margin-bottom:.2rem;">Triwulan pelaporan</label><select class="form-control__input" style="padding:.4rem .5rem;font-size:.8rem;-webkit-appearance:menulist!important;appearance:menulist!important;"><option>Triwulan I (Maret)</option><option>Triwulan II (Juni)</option><option selected>Triwulan III (September)</option><option>Triwulan IV (Desember)</option></select></div>';
-                h+='<div><label style="font-size:.7rem;color:var(--qn-neutral-500);display:block;margin-bottom:.2rem;">Tanggal cutoff</label><input type="date" value="2025-09-15" class="form-control__input" style="padding:.4rem .5rem;font-size:.8rem;"></div>';
+                h+='<div class="form-control" style="margin:0;"><label class="form-control__label">Triwulan pelaporan</label><div class="form-control__group"><select class="select-default" id="select-triwulan"><option>Triwulan I (Maret)</option><option>Triwulan II (Juni)</option><option selected>Triwulan III (September)</option><option>Triwulan IV (Desember)</option></select></div></div>';
+                h+='<div class="form-control" style="margin:0;"><label class="form-control__label">Tanggal cutoff</label><div class="form-control__group"><input type="date" value="2025-09-15" class="form-control__input"></div></div>';
                 h+='</div>';
-                h+='<p style="font-size:.65rem;color:var(--qn-neutral-400);margin:.5rem 0 0;">Alumni masih bisa merevisi jawaban (dengan persetujuan) sampai tanggal cutoff. Setelahnya, jawaban dikunci permanen untuk pelaporan triwulan ini.</p>';
-                h+='</div>';
+                h+='<p style="font-size:.75rem;color:var(--qn-neutral-400);margin:.75rem 0 0;">Alumni masih bisa merevisi jawaban (dengan persetujuan) sampai tanggal cutoff. Setelahnya, jawaban dikunci permanen untuk pelaporan triwulan ini.</p>';
+                h+='</div></div>';
             }
             document.getElementById('scheduleContent').innerHTML=h;
+            initSelectDefault(document.getElementById('scheduleContent'));
         }
         function render(){
             document.getElementById('waveTabs').innerHTML=Object.entries(waves).map(([k,w],i)=>`
@@ -358,9 +414,9 @@
                 </div>`).join('');
             const w=waves[active];
             document.getElementById('waveHeader').innerHTML=`
-                <h3 style="margin:0;">${w.label} <span style="font-weight:400;color:var(--qn-neutral-400);font-size:.875rem;">· ${w.when}</span></h3>
-                <p style="color:var(--qn-neutral-500);font-size:.875rem;margin:.5rem 0;max-width:640px;">${w.desc}</p>
-                <div style="font-size:.75rem;color:var(--qn-neutral-600);background:var(--qn-neutral-100);border-radius:.5rem;padding:.5rem .75rem;">${w.tierNote}</div>`;
+                <h3 style="margin:0 0 .5rem;">${w.label} <span style="font-weight:400;color:var(--qn-neutral-400);font-size:.875rem;">&middot; ${w.when}</span></h3>
+                <p style="color:var(--qn-neutral-600);font-size:.875rem;line-height:1.6;margin:0 0 1rem;">${w.desc}</p>
+                <div class="alert alert_helper" style="margin-bottom:1rem;"><div class="alert__content"><p class="alert__description">${w.tierNote}</p></div></div>`;
             var qNum = 0;
             document.getElementById('questionList').innerHTML=w.q.map(function(entry){
                 var q=entry[0],tier=entry[1],locked=entry[2],ansType=entry[3],tag=entry[4]||'',note=entry[5]||'',code=entry[6]||'',values=entry[7]||'';
@@ -381,14 +437,24 @@
                 } else if(tier==='optional'){
                     var checked = tag==='kemenkes' ? '' : 'checked';
                     var cbId = 'akt-'+active+'-'+(isConditional?code:qNum);
-                    action='<div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="'+cbId+'" '+checked+'><label for="'+cbId+'" class="form-control__label-checkbox" style="font-size:.75rem;white-space:nowrap;">Aktif</label></div>';
+                    action='<div class="form-control"><div class="switch"><input type="checkbox" class="form-control__switch" id="'+cbId+'" '+checked+' title="Aktifkan/nonaktifkan pertanyaan ini"><label for="'+cbId+'" class="form-control__label-switch"></label></div></div>';
                 } else {
                     action='<div style="display:flex;gap:.5rem;"><button class="btn btn_outline btn_sm">Edit</button><button class="btn btn_outline btn_sm" style="color:var(--qn-danger-500);border-color:var(--qn-danger-200);" title="Hapus pertanyaan">&times;</button></div>';
                 }
                 var tagBadge = tag ? '<span class="badge badge_secondary-default badge_sm" style="text-transform:capitalize;">'+tag+'</span>' : '';
                 var codeBadge = code ? '<span class="badge badge_primary badge_sm" style="font-family:monospace;">'+code+'</span>' : '';
-                var valuesLine = values ? '<div style="font-size:.72rem;color:var(--qn-primary-700, #1e3a8a);margin-top:.35rem;font-family:monospace;line-height:1.8;background:var(--qn-primary-50, #eff6ff);border:1px solid var(--qn-primary-200, #bfdbfe);border-radius:.3rem;padding:.4rem .6rem;">'+values+'</div>' : '';
-                return '<div class="q-row" style="flex-wrap:wrap;gap:.5rem;"><div style="display:flex;align-items:center;gap:.5rem;flex:1;min-width:250px;"><span style="font-size:.75rem;font-weight:700;color:var(--qn-neutral-400);min-width:1.5rem;text-align:right;">'+displayNum+'</span><span class="badge '+tierBadgeCls[tier]+' badge_sm">'+tierLabel[tier]+'</span>'+tagBadge+codeBadge+'<div><span style="font-size:.875rem;color:var(--qn-neutral-800);">'+q+'</span><div style="font-size:.7rem;color:var(--qn-neutral-400);margin-top:.2rem;">Tipe jawaban: '+ansType+'</div>'+valuesLine+(note?'<div style="font-size:.7rem;color:var(--qn-neutral-500);margin-top:.3rem;display:flex;align-items:flex-start;gap:.3rem;line-height:1.4;"><span>ℹ️</span><span>'+note+'</span></div>':'')+'</div></div>'+action+'</div>';
+                var valuesLine = values ? '<div style="font-size:.75rem;color:var(--qn-primary-700, #1e3a8a);margin-top:.5rem;font-family:monospace;line-height:1.8;background:var(--qn-primary-50, #eff6ff);border:1px solid var(--qn-primary-200, #bfdbfe);border-radius:.375rem;padding:.5rem .75rem;">'+values+'</div>' : '';
+                var noteLine = note ? '<div style="font-size:.75rem;color:var(--qn-neutral-500);margin-top:.5rem;display:flex;align-items:flex-start;gap:.375rem;line-height:1.4;"><span class="icon icon-information-circle-mini" style="flex-shrink:0;margin-top:.125rem;"></span><span>'+note+'</span></div>' : '';
+                return '<div class="q-row">'
+                    + '<div class="q-row__main">'
+                        + '<div class="q-row__title-line"><span class="q-row__num">'+displayNum+'.</span><span class="q-row__text">'+q+'</span></div>'
+                        + '<div class="q-row__badges"><span class="badge '+tierBadgeCls[tier]+' badge_sm">'+tierLabel[tier]+'</span>'+tagBadge+codeBadge+'</div>'
+                        + '<div class="q-row__meta">Tipe jawaban: '+ansType+'</div>'
+                        + valuesLine
+                        + noteLine
+                    + '</div>'
+                    + '<div class="q-row__action">'+action+'</div>'
+                + '</div>';
             }).join('')
                 + (w.canAdd
                     ? `<button class="btn btn_outline btn_sm" style="margin-top:.5rem;display:inline-flex;align-items:center;gap:.35rem;"><span class="icon icon-plus-mini"></span>Tambah Pertanyaan Khusus</button>`
@@ -397,17 +463,26 @@
         }
         function sel(k){active=k;render();}
         render();
+        initSelectDefault(); // reminder modal's static selects (Periode Yudisium, Wave)
         // Simulasi wave radio handler
         var simWaveMap = {exit:'simulasi-exit.html',g1:'simulasi-g1-status.html',g2:'simulasi-g1-status.html'};
         var simWaveLabel = {exit:'Wave Exit',g1:'Wave G1',g2:'Wave G2'};
         var simWaveNote = {exit:'',g1:'',g2:' (belum tersedia - menampilkan G1)'};
+        function refreshSimWaveCards(){
+            document.querySelectorAll('input[name="simWave"]').forEach(function(r){
+                var opt = r.closest('.tsf-option');
+                if (opt) opt.classList.toggle('tsf-option--checked', r.checked);
+            });
+        }
         document.querySelectorAll('input[name="simWave"]').forEach(function(r){
             r.addEventListener('change',function(){
                 var btn = document.getElementById('simStartBtn');
                 btn.href = simWaveMap[this.value];
                 btn.textContent = 'Mulai Simulasi Alumni (' + simWaveLabel[this.value] + ')' + simWaveNote[this.value];
+                refreshSimWaveCards();
             });
         });
+        refreshSimWaveCards();
     </script>
 </body>
 </html>

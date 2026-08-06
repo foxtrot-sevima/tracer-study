@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuesioner - Wave Exit</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <style>
         .stepper{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--qn-neutral-200);padding:.6rem 0;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.72rem;}
         .stepper__item{padding:.3rem .7rem;border-radius:.25rem;color:var(--qn-neutral-400);}
         .stepper__item.is-active{background:var(--qn-primary-500);color:#fff;font-weight:600;}
-        select{appearance:menulist !important;}
 
         /* tsf-question / tsf-option component set - same pattern as v2.1/b's tracer-study-form-*.html */
         .tsf-question { padding: 1.25rem 0; border-bottom: 1px solid var(--qn-neutral-100, #f3f4f6); }
@@ -109,7 +112,7 @@
                 <label for="select-q4" class="tsf-question__label">Nama perusahaan/usaha</label>
                 <div class="form-control" style="margin-top: 0.5rem;">
                     <div class="form-control__group">
-                        <select id="select-q4" class="form-control__input" style="margin-bottom:.5rem;" onchange="toggleLainnyaField(this)">
+                        <select id="select-q4" class="select-default" onchange="toggleLainnyaField(this)">
                             <option value="" selected disabled>- Pilih perusahaan -</option>
                             <option>PT Telkom Indonesia</option>
                             <option>Gojek</option>
@@ -203,6 +206,11 @@
 
 <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
 <script>
+    // Choices.js init (Quantum select-default pattern)
+    document.querySelectorAll('.select-default').forEach(function (el) {
+        new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+    });
+
     // Q3 -> Q4: nama perusahaan/usaha only relevant once alumni confirms they're already
     // working/self-employed pre-graduation. Same show/hide pattern as tracer-study-form-*.html.
     function applyQ3Logic(value) {

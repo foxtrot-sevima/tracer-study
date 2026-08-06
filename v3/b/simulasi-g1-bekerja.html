@@ -7,14 +7,16 @@
     <title>Cabang Bekerja - Wave G1</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
     <style>
         .stepper{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--qn-neutral-200);padding:.6rem 0;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.72rem;}
         .stepper__item{padding:.3rem .7rem;border-radius:.25rem;color:var(--qn-neutral-400);}
         .stepper__item.is-active{background:var(--qn-primary-500);color:#fff;font-weight:600;}
         .stepper__item.is-done{color:var(--qn-primary-500);font-weight:500;}
         .stepper__sep{color:var(--qn-neutral-300);}
-        select{appearance:menulist !important;}
 
         /* tsf-question / tsf-option component set - same pattern as v2.1/b's tracer-study-form-*.html */
         .tsf-question { padding: 1.25rem 0; border-bottom: 1px solid var(--qn-neutral-100, #f3f4f6); }
@@ -99,7 +101,7 @@
                     <label for="select-f5a1" class="tsf-question__label">Provinsi tempat Anda bekerja<span class="tsf-required" aria-label="Wajib">*</span></label>
                 </div>
                 <div class="form-control" style="margin-top: 0.5rem;">
-                    <select id="select-f5a1" class="form-control__input">
+                    <select id="select-f5a1" class="select-default">
                         <option value="" selected disabled>- Pilih provinsi -</option>
                         <option>Prov. Jawa Timur</option>
                         <option>Prov. D.K.I. Jakarta</option>
@@ -118,7 +120,7 @@
                     <label for="select-f5a2" class="tsf-question__label">Kabupaten/Kota tempat Anda bekerja<span class="tsf-required" aria-label="Wajib">*</span></label>
                 </div>
                 <div class="form-control" style="margin-top: 0.5rem;">
-                    <select id="select-f5a2" class="form-control__input">
+                    <select id="select-f5a2" class="select-default">
                         <option value="" selected disabled>- Pilih kab/kota -</option>
                         <option>Kota Surabaya</option>
                         <option>Kota Malang</option>
@@ -162,7 +164,7 @@
                     <label for="select-f5b" class="tsf-question__label">Nama perusahaan/kantor tempat Anda bekerja<span class="tsf-required" aria-label="Wajib">*</span></label>
                 </div>
                 <div class="form-control" style="margin-top: 0.5rem;">
-                    <select id="select-f5b" class="form-control__input" onchange="toggleLainnyaField(this)" style="margin-bottom: 0.5rem;">
+                    <select id="select-f5b" class="select-default" onchange="toggleLainnyaField(this)">
                         <option value="" selected disabled>- Pilih atau ketik -</option>
                         <option>PT Telkom Indonesia</option>
                         <option>PT Bank Mandiri (Persero) Tbk</option>
@@ -316,6 +318,11 @@
 
 <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
 <script>
+    // Choices.js init (Quantum select-default pattern)
+    document.querySelectorAll('.select-default').forEach(function (el) {
+        new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+    });
+
     // "Lainnya" free-text reveal - works for a radio group, a <select>, or a checkbox group,
     // same convention as tracer-study-form-*.html's toggleLainnyaField.
     function toggleLainnyaField(el) {

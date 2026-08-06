@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mahasiswa/Alumni | Paket B</title>
     <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <!-- Choices CSS & JS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/styles/choices.min.css">
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/vendors/choices.js-10.2.0/public/assets/scripts/choices.min.js"></script>
     <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="assets/karirlink/css/main.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <style>
         .filter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem;}
-        select.form-control__input{-webkit-appearance:menulist!important;appearance:menulist!important;background-image:none!important;padding-right:.75rem!important;}
     </style>
 </head>
 <body class="body body_kl-white">
@@ -49,7 +52,12 @@
     <main class="main">
         <div class="container">
             <div class="main__header main__header_kl-list">
-                <div class="main__location"><div class="main__wrapper"><h1 class="main__title">Mahasiswa / Alumni</h1></div></div>
+                <div class="main__location">
+                    <div class="main__wrapper">
+                        <h1 class="main__title">Mahasiswa / Alumni</h1>
+                        <p class="main__subtitle">Direktori mahasiswa aktif &amp; alumni, terpadu dengan status Portal Karir</p>
+                    </div>
+                </div>
                 <div class="main__action">
                     <button class="btn btn_outline btn_sm" onclick="alert('Ekspor CSV (mockup)')"><span class="icon icon-arrow-down-tray-mini"></span> Ekspor</button>
                     <a href="#" class="btn btn_primary btn_sm" data-toggle="modal" data-target="#modal-rekomendasi"><span class="icon icon-paper-airplane-mini"></span> Rekomendasikan</a>
@@ -57,7 +65,7 @@
             </div>
 
             <!-- Stats -->
-            <div class="stat-tiles" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 1.25rem;">
+            <div class="stat-tiles" style="grid-template-columns: repeat(4, 1fr); margin-top: 1.25rem; margin-bottom: 1.25rem;">
                 <div class="stat-tile stat-tile_neutral">
                     <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-users"></span></span>
                     <span class="stat-tile__value">2.088</span>
@@ -90,7 +98,7 @@
             </nav>
 
             <!-- Search + Filter toggle -->
-            <div class="card">
+            <div class="card card_empty">
                 <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;margin-bottom:.75rem;">
                     <div class="form-control" style="flex:1;min-width:200px;margin:0;">
                         <div class="form-control__group">
@@ -109,7 +117,7 @@
                         <div class="form-control" style="margin:0;">
                             <label class="form-control__label">Program Studi</label>
                             <div class="form-control__group">
-                                <select class="form-control__input">
+                                <select class="select-default">
                                     <option selected>Semua Prodi</option>
                                     <option>S1 - Teknik Informatika</option>
                                     <option>S1 - Sistem Informasi</option>
@@ -127,7 +135,7 @@
                         <div class="form-control" style="margin:0;">
                             <label class="form-control__label">Tahun Lulus</label>
                             <div class="form-control__group">
-                                <select class="form-control__input">
+                                <select class="select-default">
                                     <option selected>Semua</option>
                                     <option>2025</option>
                                     <option>2024</option>
@@ -139,7 +147,7 @@
                         <div class="form-control" style="margin:0;">
                             <label class="form-control__label">Pengalaman</label>
                             <div class="form-control__group">
-                                <select class="form-control__input">
+                                <select class="select-default">
                                     <option selected>Semua</option>
                                     <option>Punya magang</option>
                                     <option>Punya organisasi</option>
@@ -150,7 +158,7 @@
                         <div class="form-control" style="margin:0;">
                             <label class="form-control__label">Status Karier</label>
                             <div class="form-control__group">
-                                <select class="form-control__input">
+                                <select class="select-default">
                                     <option selected>Semua</option>
                                     <option>Belum bekerja</option>
                                     <option>Mencari kerja</option>
@@ -162,7 +170,7 @@
                         <div class="form-control" style="margin:0;">
                             <label class="form-control__label">Ketersediaan</label>
                             <div class="form-control__group">
-                                <select class="form-control__input">
+                                <select class="select-default">
                                     <option selected>Semua</option>
                                     <option>Bersedia dihubungi</option>
                                 </select>
@@ -178,11 +186,11 @@
                 <!-- Table -->
                 <div class="tab-content">
                     <div class="tab-pane active" id="tabSemua">
-                        <div class="table-responsive" style="margin-top:.75rem;">
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th style="width:2rem;"><input type="checkbox" class="form-control__checkbox"></th>
+                                        <th style="width:40px;">No</th>
                                         <th>Nama</th>
                                         <th>Prodi</th>
                                         <th>IPK</th>
@@ -190,37 +198,51 @@
                                         <th>Pengalaman</th>
                                         <th>Status Karier</th>
                                         <th>Tracer</th>
-                                        <th></th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody id="rows"></tbody>
                             </table>
                         </div>
+                        <div class="pagination-wrapper">
+                            <nav class="pagination">
+                                <button class="pagination__btn" disabled><span class="icon icon-chevron-left-mini"></span></button>
+                                <span class="pagination__info">Halaman 1 dari 278</span>
+                                <button class="pagination__btn"><span class="icon icon-chevron-right-mini"></span></button>
+                            </nav>
+                        </div>
                     </div>
                     <div class="tab-pane" id="tabAktif">
-                        <div class="table-responsive" style="margin-top:.75rem;">
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th style="width:2rem;"><input type="checkbox" class="form-control__checkbox"></th>
+                                        <th style="width:40px;">No</th>
                                         <th>Nama</th>
                                         <th>Prodi</th>
                                         <th>IPK</th>
                                         <th>Semester</th>
                                         <th>Pengalaman</th>
-                                        <th></th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody id="rowsAktif"></tbody>
                             </table>
                         </div>
+                        <div class="pagination-wrapper">
+                            <nav class="pagination">
+                                <button class="pagination__btn" disabled><span class="icon icon-chevron-left-mini"></span></button>
+                                <span class="pagination__info">Halaman 1 dari 104</span>
+                                <button class="pagination__btn"><span class="icon icon-chevron-right-mini"></span></button>
+                            </nav>
+                        </div>
                     </div>
                     <div class="tab-pane" id="tabAlumni">
-                        <div class="table-responsive" style="margin-top:.75rem;">
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th style="width:2rem;"><input type="checkbox" class="form-control__checkbox"></th>
+                                        <th style="width:40px;">No</th>
                                         <th>Nama</th>
                                         <th>Prodi</th>
                                         <th>IPK</th>
@@ -228,20 +250,48 @@
                                         <th>Pengalaman</th>
                                         <th>Status Karier</th>
                                         <th>Tracer</th>
-                                        <th></th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody id="rowsAlumni"></tbody>
                             </table>
                         </div>
+                        <div class="pagination-wrapper">
+                            <nav class="pagination">
+                                <button class="pagination__btn" disabled><span class="icon icon-chevron-left-mini"></span></button>
+                                <span class="pagination__info">Halaman 1 dari 174</span>
+                                <button class="pagination__btn"><span class="icon icon-chevron-right-mini"></span></button>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">&copy; 2005-2026 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
     </main>
 
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
     <script>
+        // Choices.js init helper (Quantum select-default pattern)
+        function initSelectDefault(root) {
+            (root || document).querySelectorAll('.select-default').forEach(function (el) {
+                if (el.dataset.choicesInit) return;
+                new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
+                el.dataset.choicesInit = 'true';
+            });
+        }
+        initSelectDefault();
+
         function toggleFilterPanel() {
             const panel = document.getElementById('filterPanel');
             const btn = document.getElementById('filterToggle');
@@ -283,21 +333,20 @@
             {nama:'Putri Ayu',prodi:'S1 Sistem Informasi',ipk:3.55,semester:5,exp:[]},
         ];
 
-        function expBadges(arr){
-            if(!arr.length) return '<span style="color:var(--qn-neutral-400);font-size:.75rem;">-</span>';
-            return arr.map(e=>'<span class="badge badge_secondary-default badge_sm">'+e+'</span>').join(' ');
+        function expText(arr){
+            return arr.length ? arr.join(', ') : '<span style="color:var(--qn-neutral-400);">-</span>';
         }
 
         // Render tab Semua (alumni + aktif gabung)
         document.getElementById('rows').innerHTML=
-            alumni.map(r=>`<tr><td><input type="checkbox" class="form-control__checkbox"></td><td><b>${r.nama}</b></td><td>${r.prodi}</td><td>${r.ipk.toFixed(2)}</td><td>${r.lulus}</td><td>${expBadges(r.exp)}</td><td><span class="badge ${r.karierCls} badge_sm">${r.karier}</span>${r.rekom?' <span style="font-size:.65rem;color:var(--qn-primary-500);" title="Pernah direkomendasikan">📨</span>':''}</td><td>${r.tracer}</td><td style="text-align:right;"><a href="alumni-detail.html" class="link link_primary">Detail</a></td></tr>`).join('')+
-            aktif.map(r=>`<tr><td><input type="checkbox" class="form-control__checkbox"></td><td><b>${r.nama}</b></td><td>${r.prodi}</td><td>${r.ipk.toFixed(2)}</td><td><span class="badge badge_secondary-primary badge_sm">Semester ${r.semester}</span></td><td>${expBadges(r.exp)}</td><td><span class="badge badge_secondary-default badge_sm">Mahasiswa aktif</span></td><td>-</td><td style="text-align:right;"><a href="alumni-detail.html" class="link link_primary">Detail</a></td></tr>`).join('');
+            alumni.map((r,i)=>`<tr><td>${i+1}</td><td><b>${r.nama}</b></td><td>${r.prodi}</td><td>${r.ipk.toFixed(2)}</td><td>${r.lulus}</td><td>${expText(r.exp)}</td><td><span class="badge ${r.karierCls} badge_sm">${r.karier}</span></td><td>${r.tracer}</td><td><a href="alumni-detail.html" class="link link_primary">Detail</a></td></tr>`).join('')+
+            aktif.map((r,i)=>`<tr><td>${alumni.length+i+1}</td><td><b>${r.nama}</b></td><td>${r.prodi}</td><td>${r.ipk.toFixed(2)}</td><td><span class="badge badge_secondary-primary badge_sm">Semester ${r.semester}</span></td><td>${expText(r.exp)}</td><td><span class="badge badge_secondary-default badge_sm">Mahasiswa aktif</span></td><td>-</td><td><a href="alumni-detail.html" class="link link_primary">Detail</a></td></tr>`).join('');
 
         // Render tab Aktif
-        document.getElementById('rowsAktif').innerHTML=aktif.map(r=>`<tr><td><input type="checkbox" class="form-control__checkbox"></td><td><b>${r.nama}</b></td><td>${r.prodi}</td><td>${r.ipk.toFixed(2)}</td><td>Semester ${r.semester}</td><td>${expBadges(r.exp)}</td><td style="text-align:right;"><a href="alumni-detail.html" class="link link_primary">Detail</a></td></tr>`).join('');
+        document.getElementById('rowsAktif').innerHTML=aktif.map((r,i)=>`<tr><td>${i+1}</td><td><b>${r.nama}</b></td><td>${r.prodi}</td><td>${r.ipk.toFixed(2)}</td><td>Semester ${r.semester}</td><td>${expText(r.exp)}</td><td><a href="alumni-detail.html" class="link link_primary">Detail</a></td></tr>`).join('');
 
         // Render tab Alumni
-        document.getElementById('rowsAlumni').innerHTML=alumni.map(r=>`<tr><td><input type="checkbox" class="form-control__checkbox"></td><td><b>${r.nama}</b></td><td>${r.prodi}</td><td>${r.ipk.toFixed(2)}</td><td>${r.lulus}</td><td>${expBadges(r.exp)}</td><td><span class="badge ${r.karierCls} badge_sm">${r.karier}</span>${r.rekom?' <span style="font-size:.65rem;color:var(--qn-primary-500);" title="Pernah direkomendasikan">📨</span>':''}</td><td>${r.tracer}</td><td style="text-align:right;"><a href="alumni-detail.html" class="link link_primary">Detail</a></td></tr>`).join('');
+        document.getElementById('rowsAlumni').innerHTML=alumni.map((r,i)=>`<tr><td>${i+1}</td><td><b>${r.nama}</b></td><td>${r.prodi}</td><td>${r.ipk.toFixed(2)}</td><td>${r.lulus}</td><td>${expText(r.exp)}</td><td><span class="badge ${r.karierCls} badge_sm">${r.karier}</span></td><td>${r.tracer}</td><td><a href="alumni-detail.html" class="link link_primary">Detail</a></td></tr>`).join('');
     </script>
 
     <!-- Modal: Rekomendasikan ke Mitra -->
@@ -312,50 +361,52 @@
                 <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
             </div>
             <div class="modal__body">
-                <!-- Terpilih -->
-                <div class="card card_empty" style="margin-bottom: 1rem;">
-                    <p style="font-size:.7rem;font-weight:600;color:var(--qn-neutral-500);margin:0 0 .4rem;">Terpilih (contoh):</p>
-                    <div style="display:flex;flex-direction:column;gap:.25rem;font-size:.8rem;">
-                        <span>&bull; <b>Fajar Nugroho</b> - S1 TI &middot; IPK 3.90 &middot; Magang, Organisasi</span>
-                        <span>&bull; <b>Ahmad Rizki</b> - S1 TI &middot; IPK 3.72 &middot; Magang, Organisasi</span>
+                <div class="grid cols-1">
+                    <!-- Terpilih -->
+                    <div class="card card_empty" style="margin:0;">
+                        <p style="font-size:.75rem;font-weight:600;color:var(--qn-neutral-500);margin:0 0 .4rem;">Terpilih (contoh):</p>
+                        <div style="display:flex;flex-direction:column;gap:.25rem;font-size:.8125rem;">
+                            <span>&bull; <b>Fajar Nugroho</b> - S1 TI &middot; IPK 3.90 &middot; Magang, Organisasi</span>
+                            <span>&bull; <b>Ahmad Rizki</b> - S1 TI &middot; IPK 3.72 &middot; Magang, Organisasi</span>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Warning duplikat -->
-                <div class="alert alert_warning" style="margin-bottom: 1rem;">
-                    <div class="alert__content"><p class="alert__description">1 dari 2 orang yang dipilih sudah pernah direkomendasikan ke mitra yang sama. Anda tetap bisa mengirim ulang jika diperlukan.</p></div>
-                </div>
+                    <!-- Warning duplikat -->
+                    <div class="alert alert_warning">
+                        <div class="alert__content"><p class="alert__description">1 dari 2 orang yang dipilih sudah pernah direkomendasikan ke mitra yang sama. Anda tetap bisa mengirim ulang jika diperlukan.</p></div>
+                    </div>
 
-                <!-- Kirim ke -->
-                <div class="form-control">
-                    <label class="form-control__label">Kirim ke mitra</label>
-                    <div class="form-control__group">
-                        <select class="form-control__input">
-                            <option selected disabled>- Pilih mitra -</option>
-                            <option>PT Telkom Indonesia</option>
-                            <option>Gojek</option>
-                            <option>Bank BCA</option>
-                            <option>Dinas Kominfo Kota Surabaya</option>
-                            <option>Yayasan Pendidikan Nusantara</option>
-                        </select>
+                    <!-- Kirim ke -->
+                    <div class="form-control" style="margin:0;">
+                        <label class="form-control__label">Kirim ke mitra</label>
+                        <div class="form-control__group">
+                            <select class="select-default">
+                                <option selected disabled>- Pilih mitra -</option>
+                                <option>PT Telkom Indonesia</option>
+                                <option>Gojek</option>
+                                <option>Bank BCA</option>
+                                <option>Dinas Kominfo Kota Surabaya</option>
+                                <option>Yayasan Pendidikan Nusantara</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-control">
-                    <label class="form-control__label">Atau kirim ke email mitra baru</label>
-                    <div class="form-control__group">
-                        <input type="email" class="form-control__input" placeholder="email@mitra.co.id">
+                    <div class="form-control" style="margin:0;">
+                        <label class="form-control__label">Atau kirim ke email mitra baru</label>
+                        <div class="form-control__group">
+                            <input type="email" class="form-control__input" placeholder="email@mitra.co.id">
+                        </div>
                     </div>
-                </div>
-                <div class="form-control">
-                    <label class="form-control__label">Catatan untuk mitra (opsional)</label>
-                    <div class="form-control__group">
-                        <textarea class="form-control__input" placeholder="Contoh: Kandidat ini sesuai kebutuhan posisi yang Bapak/Ibu sampaikan..." style="min-height:60px;resize:vertical;"></textarea>
+                    <div class="form-control" style="margin:0;">
+                        <label class="form-control__label">Catatan untuk mitra (opsional)</label>
+                        <div class="form-control__group">
+                            <textarea class="form-control__input" placeholder="Contoh: Kandidat ini sesuai kebutuhan posisi yang Bapak/Ibu sampaikan..." style="min-height:60px;resize:vertical;"></textarea>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Info consent flow -->
-                <div class="alert alert_helper">
-                    <div class="alert__content"><p class="alert__description">Setelah Anda klik "Kirim", mahasiswa/alumni akan menerima notifikasi untuk <b>menyetujui</b> terlebih dahulu. Profil baru terkirim ke mitra setelah mereka menyetujui.</p></div>
+                    <!-- Info consent flow -->
+                    <div class="alert alert_helper">
+                        <div class="alert__content"><p class="alert__description">Setelah Anda klik "Kirim", mahasiswa/alumni akan menerima notifikasi untuk <b>menyetujui</b> terlebih dahulu. Profil baru terkirim ke mitra setelah mereka menyetujui.</p></div>
+                    </div>
                 </div>
             </div>
             <div class="modal__footer">
