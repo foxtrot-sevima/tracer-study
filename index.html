@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A/B Test Alur | Karirlink</title>
+    <link rel="icon" href="v2.1/b/assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Quantum CSS (reused from v2.1/b/, both prototypes share identical copies) -->
+    <link rel="stylesheet" href="v2.1/b/assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="v2.1/b/assets/css/main.css">
+
+    <style>
+        body { background: #f7f8fc; }
+        .ab-page { max-width: 72rem; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+        .ab-header { text-align: center; margin-bottom: 2.5rem; }
+        .ab-header img { height: 40px; margin-bottom: 1.25rem; }
+        .ab-header__ticket { display: inline-block; font-size: 0.75rem; font-weight: 600; color: #294A9A; background: #EAEDF5; padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 0.75rem; }
+        .ab-header h1 { font-size: 1.75rem; font-weight: 700; color: #15254D; margin-bottom: 0.75rem; }
+        .ab-header p { font-size: 0.9375rem; color: #64748b; max-width: 42rem; margin: 0 auto; line-height: 1.7; }
+
+        .ab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+        @media (max-width: 768px) { .ab-grid { grid-template-columns: 1fr; } }
+
+        .ab-card { background: white; border: 1px solid var(--qn-neutral-200); border-radius: 1rem; padding: 2rem; display: flex; flex-direction: column; box-shadow: 0 4px 12px rgba(21,37,77,0.05); }
+        .ab-card__badge { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 0.625rem; font-weight: 700; font-size: 0.9375rem; margin-bottom: 1rem; }
+        .ab-card--a .ab-card__badge { background: #EAEDF5; color: #294A9A; }
+        .ab-card--b .ab-card__badge { background: #FEF3C7; color: #92400E; }
+        .ab-card h2 { font-size: 1.25rem; font-weight: 700; color: #15254D; margin-bottom: 0.5rem; }
+        .ab-card__tagline { font-size: 0.8125rem; font-weight: 600; color: #64748b; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.03em; }
+        .ab-card__desc { font-size: 0.875rem; color: #45516b; line-height: 1.7; margin-bottom: 1.25rem; }
+        .ab-card ul { margin: 0 0 1.5rem; padding-left: 1.125rem; }
+        .ab-card li { font-size: 0.8125rem; color: #45516b; line-height: 1.7; margin-bottom: 0.375rem; }
+        .ab-card__actions { margin-top: auto; display: flex; gap: 0.625rem; flex-wrap: wrap; }
+
+        .ab-table-wrap { background: white; border: 1px solid var(--qn-neutral-200); border-radius: 1rem; padding: 1.75rem 2rem; overflow-x: auto; }
+        .ab-table-wrap h3 { font-size: 1rem; font-weight: 700; color: #15254D; margin-bottom: 1rem; }
+        .ab-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+        .ab-table th, .ab-table td { text-align: left; padding: 0.625rem 0.75rem; border-bottom: 1px solid var(--qn-neutral-100); }
+        .ab-table th { color: #64748b; font-weight: 600; text-transform: uppercase; font-size: 0.6875rem; letter-spacing: 0.03em; }
+        .ab-table td { color: #45516b; }
+        .ab-table td:first-child { font-weight: 500; color: #15254D; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <div class="ab-page">
+        <div class="ab-header">
+            <img src="v2.1/b/assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink">
+            <h1>Perbandingan Alur Tracer Study</h1>
+            <p>
+                Piloting penyederhanaan skema Tracer Study: dua alur baru, <b>v2.1/b</b> dan <b>v3/b</b>, disusun dan
+                dibandingkan untuk hal-hal utama yang dirasakan admin & alumni - kesederhanaan pengisian, ada/tidaknya
+                versioning kuesioner, dashboard yang berpusat ke IKU, dan apakah alumni mengisi sekali atau bisa
+                mengisi ulang - sebelum PM memutuskan arah pengembangan final.
+            </p>
+        </div>
+
+        <div class="ab-grid">
+            <!-- A: v2.1/b -->
+            <div class="ab-card ab-card--a">
+                <span class="ab-card__badge">A</span>
+                <h2>Kuesioner Versioned + Dashboard IKU</h2>
+                <p class="ab-card__tagline">Isi lebih sederhana, ada riwayat versi, dashboard berpusat ke Skor IKU 2</p>
+                <p class="ab-card__desc">
+                    Alumni mengisi kuesioner yang dirancang lebih ringkas, dengan pertanyaan tetap interaktif
+                    (conditional reveal, dropdown bertingkat, dll). Di sisi admin, tiap perubahan pertanyaan
+                    tersimpan sebagai <b>Versi Kuesioner</b> baru (draft -&gt; Published - versi yang sudah
+                    dipublikasikan tidak bisa diubah lagi) dan Campaign memilih versi mana yang dipakai. Dashboard-nya
+                    berpusat pada <b>Kepatuhan & Skor IKU 2</b> (Kepmen Diktisaintek 358/2025) lengkap dengan
+                    kecukupan sampel (rumus Slovin) dan rincian skor per kategori bobot.
+                </p>
+                <ul>
+                    <li>Pengisian kuesioner dirancang lebih sederhana untuk alumni</li>
+                    <li>Ada riwayat versi kuesioner (draft -&gt; Published) - Campaign memilih versi yang dipakai, versi lama tidak bisa diubah lagi</li>
+                    <li>Admin bisa mengubah/menambah pertanyaan: Core (terkunci) + Optional (bank soal, toggle) + Custom (bebas ditulis)</li>
+                    <li>Dashboard berpusat pada Kepatuhan & Skor IKU 2, lengkap kecukupan sampel (rumus Slovin) dan rincian per kategori bobot</li>
+                    <li>Alumni bisa mengisi ulang/mengedit jawaban selama campaign aktif (Riwayat Pengisian)</li>
+                </ul>
+                <div class="ab-card__actions">
+                    <a href="v2.1/b/index.html" class="btn btn_primary">
+                        Lihat Prototype
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- B: v3/b -->
+            <div class="ab-card ab-card--b">
+                <span class="ab-card__badge">B</span>
+                <h2>Kuesioner Tunggal, Sekali Isi</h2>
+                <p class="ab-card__tagline">Hanya satu kuesioner per wave yang terus diubah, alumni isi sekali</p>
+                <p class="ab-card__desc">
+                    Hanya ada <b>satu kuesioner per wave</b> (Exit/G1/G2) yang terus-menerus diubah langsung di
+                    tempat - tidak ada riwayat versi maupun proses draft/publish terpisah, setiap perubahan tier
+                    atau redaksi langsung berlaku untuk pengisian berikutnya. Pertanyaannya tetap interaktif seperti
+                    di sisi A (conditional reveal, matrix skala, dropdown bertingkat), namun alumni hanya mengisi
+                    <b>sekali</b> dan tidak ada opsi edit setelah submit. Portal Karir & Admin CDC juga digabung jadi
+                    satu dashboard lewat satu Gate.
+                </p>
+                <ul>
+                    <li>Hanya satu kuesioner per wave - tidak ada riwayat versi, perubahan pertanyaan langsung berlaku tanpa proses draft/publish</li>
+                    <li>Pertanyaan tetap interaktif (conditional reveal, matrix skala, dropdown bertingkat) - pola sama seperti sisi A</li>
+                    <li>Alumni mengisi sekali, tidak ada opsi edit setelah submit</li>
+                    <li>Portal Karir & Admin CDC digabung satu dashboard - satu entri KarirLink dari Gate, tidak ada modul terpisah</li>
+                    <li>Tiap wave punya satu aturan jadwal + reminder yang hidup terus, bukan Campaign sekali kirim per angkatan</li>
+                </ul>
+                <div class="ab-card__actions">
+                    <a href="v3/b/dashboard.html" class="btn btn_primary">
+                        Lihat Prototype
+                        <span class="icon icon-arrow-up-right-mini"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="ab-table-wrap">
+            <h3>Ringkasan Cepat</h3>
+            <table class="ab-table">
+                <thead>
+                    <tr>
+                        <th>Aspek</th>
+                        <th>A - v2.1/b</th>
+                        <th>B - v3/b</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Versioning kuesioner</td>
+                        <td>Ada - Riwayat Versi Kuesioner (draft -&gt; Published), Campaign memilih versi yang dipakai</td>
+                        <td>Tidak ada - satu kuesioner per wave, perubahan langsung berlaku</td>
+                    </tr>
+                    <tr>
+                        <td>Pengisian oleh alumni</td>
+                        <td>Dirancang lebih sederhana, bisa diisi ulang/diedit selama campaign aktif</td>
+                        <td>Sekali isi, tidak ada opsi edit setelah submit</td>
+                    </tr>
+                    <tr>
+                        <td>Pertanyaan interaktif</td>
+                        <td>Ya (conditional reveal, dropdown bertingkat, dll)</td>
+                        <td>Ya (pola sama - conditional reveal, matrix skala, dropdown bertingkat)</td>
+                    </tr>
+                    <tr>
+                        <td>Dashboard</td>
+                        <td>Berpusat pada Kepatuhan & Skor IKU 2 (Kepmen 358/2025), kecukupan sampel, rincian per kategori bobot</td>
+                        <td>Ringkasan umum + 1 stat tile IKU #2</td>
+                    </tr>
+                    <tr>
+                        <td>Tingkat pertanyaan</td>
+                        <td>Core (terkunci) + Optional (bank soal, toggle) + Custom (bebas ditulis admin)</td>
+                        <td>Core (terkunci, kode Dikti dijelaskan) + Optional (toggle per bundle Kemdikbud/Kemenkes) + Specific (bebas ditulis admin)</td>
+                    </tr>
+                    <tr>
+                        <td>Struktur produk</td>
+                        <td>Admin CDC & Portal Karir dua sisi terpisah</td>
+                        <td>Admin CDC & Portal Karir tergabung satu dashboard (satu entri lewat Gate)</td>
+                    </tr>
+                    <tr>
+                        <td>Pengiriman ke alumni</td>
+                        <td>Admin membuat Campaign baru tiap institusi/wave/angkatan, lalu mengirim manual</td>
+                        <td>Otomatis begitu alumni melewati ambang jadwal wave - tidak perlu bikin Campaign baru</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
