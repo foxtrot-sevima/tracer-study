@@ -275,10 +275,47 @@
                 </div>
             </div>
 
-            <!-- Data Atasan (internal - tidak dikirim ke Kemdiktisaintek, dipakai untuk mengirim Survei Pengguna Lulusan otomatis) -->
+            <!-- f6: Jumlah dilamar (titik hitung "sebelum memperoleh pekerjaan pertama" - beda dari cabang Belum/Mencari yang pakai "sampai saat ini") -->
             <div class="tsf-question">
                 <div class="tsf-question__label-row">
                     <span class="tsf-question__number" aria-hidden="true">11.</span>
+                    <label for="input-f6" class="tsf-question__label">Berapa perusahaan/instansi yang sudah Anda lamar?</label>
+                </div>
+                <p class="tsf-question__desc">Dihitung sebelum Anda memperoleh pekerjaan pertama ini.</p>
+                <div class="form-control" style="display:flex;align-items:center;gap:.5rem;">
+                    <div class="form-control__group" style="max-width: 6rem;"><input type="number" id="input-f6" class="form-control__input" min="0"></div>
+                    <span style="font-size:.85rem;">perusahaan/instansi/institusi</span>
+                </div>
+            </div>
+
+            <!-- f7: Jumlah merespons -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">12.</span>
+                    <label for="input-f7" class="tsf-question__label">Berapa banyak yang merespons lamaran Anda?</label>
+                </div>
+                <div class="form-control" style="display:flex;align-items:center;gap:.5rem;">
+                    <div class="form-control__group" style="max-width: 6rem;"><input type="number" id="input-f7" class="form-control__input" min="0"></div>
+                    <span style="font-size:.85rem;">perusahaan/instansi/institusi</span>
+                </div>
+            </div>
+
+            <!-- f7a: Jumlah wawancara -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">13.</span>
+                    <label for="input-f7a" class="tsf-question__label">Berapa banyak yang mengundang Anda untuk wawancara?</label>
+                </div>
+                <div class="form-control" style="display:flex;align-items:center;gap:.5rem;">
+                    <div class="form-control__group" style="max-width: 6rem;"><input type="number" id="input-f7a" class="form-control__input" min="0"></div>
+                    <span style="font-size:.85rem;">perusahaan/instansi/institusi</span>
+                </div>
+            </div>
+
+            <!-- Data Atasan (internal - tidak dikirim ke Kemdiktisaintek, dipakai untuk mengirim Survei Pengguna Lulusan otomatis) -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">14.</span>
                     <p class="tsf-question__label">Data Atasan</p>
                 </div>
                 <div class="grid cols-2" style="gap: 0.75rem; margin-top: 0.5rem;">

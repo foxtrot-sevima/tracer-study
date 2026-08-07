@@ -70,10 +70,59 @@
         </div>
         <div class="card__body">
 
-            <!-- Q1: Email -->
+            <!-- Blok Identitas: Kode PT, Kode Prodi, NIM, Tahun Lulus - konstan per alumni/PT, terisi otomatis
+                 dari SIAKAD (bukan pertanyaan interaktif, jadi tidak diberi nomor). Bagian dari 9 kolom Identitas
+                 pengiriman Dikti yang sebelumnya belum masuk mockup. -->
+            <div class="tsf-question">
+                <p class="tsf-question__label" style="font-size: 0.875rem; color: var(--qn-neutral-500, #6b7280); margin-bottom: 0.75rem;">Identitas (otomatis dari SIAKAD)</p>
+                <div class="grid cols-2" style="gap: 0.75rem;">
+                    <div class="form-control" style="margin:0;">
+                        <label class="form-control__label">Kode Perguruan Tinggi</label>
+                        <div class="form-control__group"><input type="text" class="form-control__input" value="041008" disabled></div>
+                    </div>
+                    <div class="form-control" style="margin:0;">
+                        <label class="form-control__label">Kode Program Studi</label>
+                        <div class="form-control__group"><input type="text" class="form-control__input" value="70201" disabled></div>
+                    </div>
+                    <div class="form-control" style="margin:0;">
+                        <label class="form-control__label">NIM</label>
+                        <div class="form-control__group"><input type="text" class="form-control__input" value="2019012345" disabled></div>
+                    </div>
+                    <div class="form-control" style="margin:0;">
+                        <label class="form-control__label">Tahun Lulus</label>
+                        <div class="form-control__group"><input type="text" class="form-control__input" value="2025" disabled></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q1: NIK -->
             <div class="tsf-question">
                 <div class="tsf-question__label-row">
                     <span class="tsf-question__number" aria-hidden="true">1.</span>
+                    <label for="input-nik" class="tsf-question__label">NIK (Nomor Induk Kependudukan)<span class="tsf-required" aria-label="Wajib">*</span></label>
+                </div>
+                <p class="tsf-question__desc">16 digit sesuai KTP. Bagian dari data Identitas yang dikirim ke Kemdiktisaintek.</p>
+                <div class="form-control">
+                    <div class="form-control__group"><input type="text" id="input-nik" class="form-control__input" inputmode="numeric" maxlength="16" value="3578012345670001"></div>
+                </div>
+            </div>
+
+            <!-- Q2: NPWP -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">2.</span>
+                    <label for="input-npwp" class="tsf-question__label">NPWP</label>
+                </div>
+                <p class="tsf-question__desc">Opsional - boleh dikosongkan bila belum memiliki NPWP.</p>
+                <div class="form-control">
+                    <div class="form-control__group"><input type="text" id="input-npwp" class="form-control__input" placeholder="00.000.000.0-000.000"></div>
+                </div>
+            </div>
+
+            <!-- Q3: Email -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">3.</span>
                     <label for="input-email" class="tsf-question__label">Alamat email aktif Anda saat ini<span class="tsf-required" aria-label="Wajib">*</span></label>
                 </div>
                 <p class="tsf-question__desc">Isian awal dari SIAKAD. Pastikan masih aktif - email inilah yang dipakai untuk mengirim kuesioner berikutnya.</p>
@@ -82,10 +131,10 @@
                 </div>
             </div>
 
-            <!-- Q2: Nomor HP -->
+            <!-- Q4: Nomor HP -->
             <div class="tsf-question">
                 <div class="tsf-question__label-row">
-                    <span class="tsf-question__number" aria-hidden="true">2.</span>
+                    <span class="tsf-question__number" aria-hidden="true">4.</span>
                     <label for="input-hp" class="tsf-question__label">Nomor HP / WhatsApp aktif<span class="tsf-required" aria-label="Wajib">*</span></label>
                 </div>
                 <p class="tsf-question__desc">Isian awal dari SIAKAD. Nomor ini dipakai untuk pengingat lewat WhatsApp.</p>
@@ -94,10 +143,10 @@
                 </div>
             </div>
 
-            <!-- Q3: Sudah bekerja/berwirausaha sebelum lulus -->
+            <!-- Q5: Sudah bekerja/berwirausaha sebelum lulus -->
             <div class="tsf-question" role="radiogroup" aria-labelledby="q3-label">
                 <div class="tsf-question__label-row">
-                    <span class="tsf-question__number" aria-hidden="true">3.</span>
+                    <span class="tsf-question__number" aria-hidden="true">5.</span>
                     <p class="tsf-question__label" id="q3-label">Apakah Anda sudah bekerja atau berwirausaha sebelum lulus?<span class="tsf-required" aria-label="Wajib">*</span></p>
                 </div>
                 <div class="tsf-radio-group">
@@ -133,10 +182,10 @@
                 </div>
             </div>
 
-            <!-- Q5: Rencana setelah lulus -->
+            <!-- Q6: Rencana setelah lulus -->
             <div class="tsf-question" role="radiogroup" aria-labelledby="q5-label">
                 <div class="tsf-question__label-row">
-                    <span class="tsf-question__number" aria-hidden="true">4.</span>
+                    <span class="tsf-question__number" aria-hidden="true">6.</span>
                     <p class="tsf-question__label" id="q5-label">Apa rencana utama Anda setelah lulus?</p>
                 </div>
                 <div class="tsf-radio-group">
@@ -147,10 +196,10 @@
                 </div>
             </div>
 
-            <!-- Q6: Dukungan dari kampus -->
+            <!-- Q7: Dukungan dari kampus -->
             <div class="tsf-question">
                 <div class="tsf-question__label-row">
-                    <span class="tsf-question__number" aria-hidden="true">5.</span>
+                    <span class="tsf-question__number" aria-hidden="true">7.</span>
                     <p class="tsf-question__label" id="q6-label">Dukungan apa yang Anda harapkan dari kampus?</p>
                 </div>
                 <p class="tsf-question__desc">Jawaban bisa lebih dari satu.</p>
@@ -174,10 +223,10 @@
                 </div>
             </div>
 
-            <!-- Q7: LinkedIn -->
+            <!-- Q8: LinkedIn -->
             <div class="tsf-question">
                 <div class="tsf-question__label-row">
-                    <span class="tsf-question__number" aria-hidden="true">6.</span>
+                    <span class="tsf-question__number" aria-hidden="true">8.</span>
                     <label for="input-linkedin" class="tsf-question__label">Tautan profil LinkedIn Anda</label>
                 </div>
                 <p class="tsf-question__desc">Opsional. Membantu kampus memantau perkembangan karier Anda.</p>
