@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <!-- Google tag (gtag.js) - flow_version lets GA4 Explore reports segment/compare
+         this version against the others being A/B tested. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-46BCSZ3W2G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-46BCSZ3W2G', { 'flow_version': 'v2.1b' });
+    </script>
     <base href="/v2.1/b/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -629,6 +638,7 @@
         // =====================================================
         function submitForm() {
             if (!validateForm()) return;
+            if (typeof gtag === 'function') gtag('event', 'submit_kuesioner', { flow_version: 'v2.1b', wave: 'exit' });
             window.location.href = './tracer-study-success.html?wave=exit';
         }
 
