@@ -10,7 +10,7 @@ tracer-study.vercel.app/v1/kuesioner.html
 tracer-study.vercel.app/v1/alumni.html
 ```
 
-Polanya mengikuti struktur project [DimsPorf](https://dimsporf.vercel.app): **tidak ada rewrite, tidak ada folder nested** - folder versi (`v1/`, `v2/`, dst.) langsung berisi semua halaman HTML dan `assets/`-nya di level yang sama. Karena struktur fisik sudah 1:1 dengan URL yang diakses, tidak perlu `vercel.json` atau konfigurasi tambahan apa pun.
+Polanya: **tidak ada rewrite, tidak ada folder nested** - folder versi (`v1/`, `v2/`, dst.) langsung berisi semua halaman HTML dan `assets/`-nya di level yang sama. Karena struktur fisik sudah 1:1 dengan URL yang diakses, tidak perlu `vercel.json` atau konfigurasi tambahan apa pun.
 
 ---
 
