@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <!-- Google tag (gtag.js) - flow_version lets GA4 Explore reports segment/compare
+         this version against the others being A/B tested. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-46BCSZ3W2G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-46BCSZ3W2G', { 'flow_version': 'v3b' });
+    </script>
     <base href="/v3/b/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -240,7 +249,7 @@
 
     <!-- Bottom navigation -->
     <div style="display:flex;justify-content:flex-end;padding-top:1rem;border-top:1px solid var(--qn-neutral-200);">
-        <button class="btn btn_primary" onclick="window.location.href='simulasi-selesai.html?wave=exit'">Kirim Jawaban</button>
+        <button class="btn btn_primary" onclick="if(typeof gtag==='function')gtag('event','submit_kuesioner',{flow_version:'v3b',wave:'exit'});window.location.href='simulasi-selesai.html?wave=exit'">Kirim Jawaban</button>
     </div>
 
     <!-- Success section -->
