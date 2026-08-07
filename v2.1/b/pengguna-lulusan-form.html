@@ -67,7 +67,7 @@
         @media (max-width: 30rem) { .tsf-id-grid { grid-template-columns: 1fr; } }
 
         /* Q1-3 (Nama/No. Telp/Email) are pre-filled from the invite link's contact record and
-           locked - only Nama Perusahaan/Alamat Perusahaan stay editable in case the Pimpinan
+           locked - only Nama Perusahaan/Alamat Perusahaan stay editable in case the Perwakilan
            Perusahaan wants to correct/detail it. Native :read-only skips pointer events but
            doesn't get :disabled's muted look, so it's added explicitly here for the same
            "locked field" cue used elsewhere (e.g. tracer-study-form-exit.html's Informasi Pribadi). */
@@ -184,7 +184,7 @@
                             <div class="tsf-id-grid" style="margin-top: 0;">
                                 <div class="form-control">
                                     <label class="form-control__label" id="q7-label">Nama Alumni</label>
-                                    <div class="form-control__group"><input type="text" class="form-control__input" id="input-q7" aria-labelledby="q7-label" value="Henni" readonly disabled></div>
+                                    <div class="form-control__group"><input type="text" class="form-control__input" id="input-q7" aria-labelledby="q7-label" value="Henni Sendi Sejawa" readonly disabled></div>
                                 </div>
                                 <div class="form-control">
                                     <label class="form-control__label" id="q-univ-label">Universitas</label>
@@ -257,7 +257,7 @@
                                 </div>
                                 <div class="form-control" style="margin-top: 0.5rem;">
                                     <div class="form-control__group">
-                                        <input type="text" class="form-control__input" id="input-q4" aria-labelledby="q4-label" value="PT Maju Bersama Sejahtera" oninput="updateAnsweredCount()">
+                                        <input type="text" class="form-control__input" id="input-q4" aria-labelledby="q4-label" value="PT Maju Bersama" oninput="updateAnsweredCount()">
                                     </div>
                                 </div>
                             </div>

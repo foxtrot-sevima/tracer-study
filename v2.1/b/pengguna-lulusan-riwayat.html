@@ -159,7 +159,7 @@
                 <div class="main__location">
                     <div class="main__wrapper">
                         <h1 class="main__title">Riwayat Pengiriman Kuesioner Pengguna Lulusan</h1>
-                        <p class="main__subtitle">Setiap baris = satu email undangan ke Pimpinan Perusahaan, terpicu otomatis saat alumni mengirim Tracer Study-nya</p>
+                        <p class="main__subtitle">Setiap baris = satu email undangan ke Perwakilan Perusahaan, terpicu otomatis saat alumni mengirim Tracer Study-nya</p>
                     </div>
                 </div>
                 <div class="main__action">
@@ -224,7 +224,7 @@
                             <tr>
                                 <th style="width: 40px;">No</th>
                                 <th>Alumni</th>
-                                <th>Perusahaan &amp; Pimpinan Tujuan</th>
+                                <th>Perusahaan &amp; Perwakilan Tujuan</th>
                                 <th>Tanggal</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
@@ -254,7 +254,7 @@
     <script>
     // Setiap baris mewakili satu case pengiriman - mencakup semua skenario yang mungkin
     // terjadi: sudah diisi, terkirim tapi menunggu, terjadwal (belum sempat terkirim), dan
-    // gagal terkirim (mis. email Pimpinan Perusahaan tidak valid/bounce).
+    // gagal terkirim (mis. email Perwakilan Perusahaan tidak valid/bounce).
     const records = [
         { alumni: 'Raden Dimas', prodi: 'S1 - Bimbingan dan Konseling', perusahaan: 'PT Tes Dimas', pic: 'hrd@testdimas.co.id', tanggal: '20 Jul 2026', status: 'diisi' },
         { alumni: 'Fadhil Ramadhan', prodi: 'S1 - Manajemen', perusahaan: 'PT Karirlink', pic: 'people@karirlink.id', tanggal: '18 Jul 2026', status: 'diisi' },
@@ -318,7 +318,7 @@
 
     function resend(alumniName) {
         const toast = document.getElementById('toast');
-        toast.innerHTML = '<span style="font-size: 16px;">&check;</span> Email dikirim ulang ke Pimpinan Perusahaan ' + alumniName;
+        toast.innerHTML = '<span style="font-size: 16px;">&check;</span> Email dikirim ulang ke Perwakilan Perusahaan ' + alumniName;
         toast.style.opacity = '1';
         setTimeout(() => { toast.style.opacity = '0'; }, 2500);
     }
