@@ -176,7 +176,7 @@
                     </div>
                 </div>
                 <div class="main__action">
-                    <a href="./kuesioner.html" class="btn btn_outline btn_sm">
+                    <a href="./kuesioner.html" class="btn btn_outline btn_sm" id="pv-back-link">
                         <span class="icon icon-arrow-left-mini"></span>
                         Kembali ke Kuesioner
                     </a>
@@ -460,6 +460,21 @@
     document.addEventListener('DOMContentLoaded', function() {
         const params = new URLSearchParams(location.search);
         const type = params.get('type') === 'pengguna-lulusan' ? 'pengguna-lulusan' : 'tracer';
+        const fromBuilder = params.get('from') === 'builder';
+
+        // "Kembali ke Kuesioner" goes back to wherever this preview was opened from - the
+        // relevant builder (opened via its "Pratinjau" button) or the front-list card view
+        // (opened via a published version's "Preview" button), landing on the matching tab.
+        const backLink = document.getElementById('pv-back-link');
+        if (backLink) {
+            if (fromBuilder) {
+                backLink.href = type === 'pengguna-lulusan' ? './kuesioner-pengguna-lulusan-builder.html' : './kuesioner-builder.html';
+            } else if (type === 'pengguna-lulusan') {
+                backLink.addEventListener('click', function() {
+                    sessionStorage.setItem('openTab', 'kuesioner-pengguna-lulusan');
+                });
+            }
+        }
 
         if (type === 'pengguna-lulusan') {
             document.getElementById('pv-title').textContent = 'Pratinjau Kuesioner Pengguna Lulusan';
