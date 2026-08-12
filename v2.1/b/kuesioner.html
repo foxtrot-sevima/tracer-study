@@ -226,7 +226,7 @@
                     <div class="main__header main__header_kl-list">
                         <div class="main__location">
                             <div class="main__wrapper">
-                                <h1 class="main__title">Kuesioner Tracer Study &amp; Pengguna Lulusan</h1>
+                                <h1 class="main__title">Kuesioner Tracer Study</h1>
                                 <p class="main__subtitle">Satu kuesioner tunggal per jenis, disusun dari pertanyaan Core &middot; Optional &middot; Custom, dikelola lewat riwayat versi.</p>
                             </div>
                         </div>
@@ -251,13 +251,13 @@
                         <nav class="nav-tab">
                             <ul class="nav-tab__wrapper">
                                 <li class="nav-tab__item active" data-toggle="tab" data-target="#kuesioner-versi">
-                                    Riwayat Versi Kuesioner (3)
-                                </li>
-                                <li class="nav-tab__item" data-toggle="tab" data-target="#kuesioner-campaign">
-                                    Campaign (2)
+                                    Kuesioner Lulusan
                                 </li>
                                 <li class="nav-tab__item" data-toggle="tab" data-target="#kuesioner-pengguna-lulusan">
                                     Kuesioner Pengguna Lulusan
+                                </li>
+                                <li class="nav-tab__item" data-toggle="tab" data-target="#kuesioner-campaign">
+                                    Campaign Tahun Lulus
                                 </li>
                             </ul>
                         </nav>
@@ -265,7 +265,7 @@
 
                         <!-- Tab Content -->
                         <div class="tab-content">
-                            <!-- Tab: Riwayat Versi Kuesioner -->
+                            <!-- Tab: Kuesioner Lulusan (riwayat versi kuesioner) -->
                             <div class="tab-pane" id="kuesioner-versi">
                                 <div class="grid grid_qnaire-list-head">
                                     <div class="col-12 col-sm-4">
@@ -356,10 +356,6 @@
                                                     <span class="icon icon-eye-mini"></span>
                                                     Preview
                                                 </a>
-                                                <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-kirim">
-                                                    <span class="icon icon-paper-airplane-mini"></span>
-                                                    Buat Campaign
-                                                </a>
                                             </div>
                                         </div>
                                         <div class="card__footer">
@@ -434,10 +430,10 @@
                             </div>
 
 
-                            <!-- Tab: Campaign -->
+                            <!-- Tab: Campaign Tahun Lulus (satu campaign = 4 fase: Exit Survey, GS-I, Pengguna Lulusan, GS-II) -->
                             <div class="tab-pane" id="kuesioner-campaign">
                                 <div class="grid grid_qnaire-list-head">
-                                    <div class="col-12 col-md-4">
+                                    <div class="col-12 col-md-6">
                                         <div class="form-control">
                                             <div class="form-control__group">
                                                 <span data-input-icon="search"></span>
@@ -446,141 +442,224 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-start-md-5 col-end-md-12">
-                                        <div class="grid cols-2 cols-sm-3">
-                                            <select class="select-default">
-                                                <option value="" selected>Wave</option>
-                                                <option value="exit">Exit Survey</option>
-                                                <option value="gs-1">GS-I</option>
-                                                <option value="gs-2">GS-II</option>
-                                            </select>
-                                            <select class="select-search">
-                                                <option value="" selected disabled>Tahun Lulus</option>
-                                                <option value="2024">2024</option>
-                                                <option value="2023">2023</option>
-                                            </select>
-                                            <div class="col-2 col-sm-1">
-                                                <select class="select-search">
-                                                    <option value="" selected disabled>Program Studi</option>
-                                                    <option value="1">S1 - Teknik Informatika</option>
-                                                    <option value="2">S1 - Sistem Informasi</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                    <div class="col-12 col-start-md-9 col-end-md-12" style="display: flex; justify-content: flex-end;">
+                                        <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-buat-campaign">
+                                            <span class="icon icon-plus-mini"></span>
+                                            Buat Campaign
+                                        </a>
                                     </div>
                                 </div>
 
                                 <div class="qnaire-lists">
-                                    <!-- Campaign: belum dikirim -->
-                                    <div class="card card_qnaire-list">
+                                    <!-- Campaign: draft, belum dikirim -->
+                                    <div class="card card_qnaire-list" id="campaign-card-2026" data-tahun="2026">
                                         <div class="card__body">
                                             <div class="card__body-left">
                                                 <div class="card__header">
-                                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                                        <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
-                                                        <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
-                                                    </svg>
+                                                    <span class="campaign-icon">
+                                                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                                            <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                                            <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                                                        </svg>
+                                                    </span>
                                                     <div class="card__header-wrapper">
-                                                        <a href="#" class="card__title">Campaign Exit Survey - Angkatan 2026</a>
-                                                        <p class="card__desc">Dibuat 01 Juni 2025 · memakai versi v3</p>
+                                                        <a href="#" class="card__title">Campaign Angkatan 2026</a>
+                                                        <p class="card__desc">Dibuat 01 Juni 2025 · Kuesioner Lulusan v3 &amp; Pengguna Lulusan v1</p>
                                                     </div>
-                                                </div>
-                                                <div class="card__body-action">
-                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Hapus">
-                                                        <span class="icon icon-trash-mini"></span>
-                                                    </button>
-                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Duplikasi">
-                                                        <span class="icon icon-document-duplicate-mini"></span>
-                                                    </button>
                                                 </div>
                                             </div>
                                             <div class="card__body-right">
-                                                <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-kirim">
+                                                <span class="tag tag_outline" title="Tahun Lulus">Angkatan 2026</span>
+                                                <span class="badge badge_secondary-default">Belum Dikirim</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="campaign-section">
+                                            <div class="section-title">
+                                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-calendar"></span></span>
+                                                <h3>Fase Tracer Study</h3>
+                                            </div>
+                                            <div class="campaign-phase-panel">
+                                                <div class="grid cols-2 cols-sm-4">
+                                                    <div class="campaign-phase">
+                                                        <span class="campaign-phase__label">Exit Survey</span>
+                                                        <div class="campaign-phase__tags">
+                                                            <span class="tag tag_outline tag_sm">v3</span>
+                                                            <span class="badge badge_secondary-default badge_sm"><span class="icon icon-clock-mini"></span>Menunggu</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="campaign-phase">
+                                                        <span class="campaign-phase__label">GS-I</span>
+                                                        <div class="campaign-phase__tags">
+                                                            <span class="tag tag_outline tag_sm">v3</span>
+                                                            <span class="badge badge_secondary-default badge_sm"><span class="icon icon-clock-mini"></span>Menunggu</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="campaign-phase">
+                                                        <span class="campaign-phase__label">Pengguna Lulusan</span>
+                                                        <div class="campaign-phase__tags">
+                                                            <span class="tag tag_outline tag_sm">v1</span>
+                                                            <span class="badge badge_secondary-default badge_sm"><span class="icon icon-clock-mini"></span>Menunggu</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="campaign-phase">
+                                                        <span class="campaign-phase__label">GS-II</span>
+                                                        <div class="campaign-phase__tags">
+                                                            <span class="tag tag_outline tag_sm">v3</span>
+                                                            <span class="badge badge_secondary-default badge_sm"><span class="icon icon-clock-mini"></span>Menunggu</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="campaign-section">
+                                            <div class="card-insight">
+                                                <div class="card-insight__icon card-insight__icon_info">
+                                                    <span class="icon icon-information-circle-mini"></span>
+                                                </div>
+                                                <p class="card-insight__text">Klik <strong>Kirim</strong> untuk mengaktifkan campaign ini dan memulai pengiriman Exit Survey ke lulusan Angkatan 2026. GS-I, GS-II, dan Pengguna Lulusan menyusul otomatis sesuai jadwalnya masing-masing.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="card__footer" style="justify-content: flex-end;">
+                                            <div class="card__footer-wrapper">
+                                                <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-kirim-campaign" onclick="openKirimCampaignModal(this)">
                                                     <span class="icon icon-paper-airplane-mini"></span>
                                                     Kirim
                                                 </a>
                                             </div>
                                         </div>
-                                        <div class="card__footer">
-                                            <div class="card__footer-left">
-                                                <span class="tag tag_outline" title="Wave / Periode Survei">Exit Survey</span>
-                                                <span class="tag tag_outline tag_sm">v3</span>
-                                                <span class="tag tag_neutral">Belum Dikirim</span>
-                                            </div>
-                                        </div>
                                     </div>
 
-                                    <!-- Campaign: sudah terkirim, dengan monitoring -->
-                                    <div class="card card_qnaire-list">
-                                        <div class="card__body card__body_with-info">
+                                    <!-- Campaign: aktif, berjalan lintas fase, dengan monitoring -->
+                                    <div class="card card_qnaire-list" id="campaign-card-2023" data-tahun="2023">
+                                        <div class="card__body">
                                             <div class="card__body-left">
                                                 <div class="card__header">
-                                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                                        <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
-                                                        <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
-                                                    </svg>
+                                                    <span class="campaign-icon">
+                                                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                                            <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                                            <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                                                        </svg>
+                                                    </span>
                                                     <div class="card__header-wrapper">
-                                                        <a href="#" class="card__title">Campaign GS-I - Angkatan 2023</a>
-                                                        <p class="card__desc">Dikirim 05 September 2024, 15:35 · memakai versi v2</p>
+                                                        <a href="#" class="card__title">Campaign Angkatan 2023</a>
+                                                        <p class="card__desc">Dikirim 05 September 2024, 15:35 · Kuesioner Lulusan v2 &amp; Pengguna Lulusan v1</p>
                                                     </div>
                                                 </div>
-                                                <div class="card__body-action">
-                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Hapus">
-                                                        <span class="icon icon-trash-mini"></span>
-                                                    </button>
-                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Salin tautan">
-                                                        <span class="icon icon-link-mini"></span>
-                                                    </button>
-                                                    <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Reset hasil">
-                                                        <span class="icon icon-arrow-path-mini"></span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card__body-info">
-                                                <a href="#" class="info">
-                                                    <div class="info__value-wrapper">
-                                                        <span class="info__value">2088</span>
-                                                        <span class="info__subtitle">Lulusan</span>
-                                                    </div>
-                                                    <p class="info__desc">Menerima Kuesioner</p>
-                                                </a>
-                                                <a href="#" class="info">
-                                                    <div class="info__value-wrapper">
-                                                        <span class="info__value">98</span>
-                                                        <span class="info__subtitle">Lulusan</span>
-                                                    </div>
-                                                    <p class="info__desc">Mengisi Kuesioner</p>
-                                                </a>
                                             </div>
                                             <div class="card__body-right">
+                                                <span class="tag tag_outline" title="Tahun Lulus">Angkatan 2023</span>
+                                                <span class="badge badge_success">Aktif</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="campaign-section">
+                                            <div class="section-title">
+                                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-calendar"></span></span>
+                                                <h3>Fase Tracer Study</h3>
+                                            </div>
+                                            <div class="campaign-phase-panel">
+                                                <div class="grid cols-2 cols-sm-4">
+                                                    <div class="campaign-phase">
+                                                        <span class="campaign-phase__label">Exit Survey</span>
+                                                        <div class="campaign-phase__tags">
+                                                            <span class="tag tag_outline tag_sm">v2</span>
+                                                            <span class="badge badge_success badge_sm"><span class="icon icon-check-circle-mini"></span>Terkirim</span>
+                                                        </div>
+                                                        <p class="card__desc" style="margin: 0.375rem 0 0;">690/700 mengisi</p>
+                                                    </div>
+                                                    <div class="campaign-phase">
+                                                        <span class="campaign-phase__label">GS-I</span>
+                                                        <div class="campaign-phase__tags">
+                                                            <span class="tag tag_outline tag_sm">v2</span>
+                                                            <span class="badge badge_primary badge_sm"><span class="icon icon-arrow-path-mini"></span>Aktif</span>
+                                                        </div>
+                                                        <p class="card__desc" style="margin: 0.375rem 0 0;">98/2088 mengisi</p>
+                                                    </div>
+                                                    <div class="campaign-phase">
+                                                        <span class="campaign-phase__label">Pengguna Lulusan</span>
+                                                        <div class="campaign-phase__tags">
+                                                            <span class="tag tag_outline tag_sm">v1</span>
+                                                            <span class="badge badge_secondary-primary badge_sm">Otomatis</span>
+                                                        </div>
+                                                        <p class="card__desc" style="margin: 0.375rem 0 0;" title="Dikirim otomatis sejajar GS-I, ke perusahaan alumni yang berstatus Bekerja">41 perusahaan dihubungi</p>
+                                                    </div>
+                                                    <div class="campaign-phase">
+                                                        <span class="campaign-phase__label">GS-II</span>
+                                                        <div class="campaign-phase__tags">
+                                                            <span class="tag tag_outline tag_sm">v2</span>
+                                                            <span class="badge badge_secondary-default badge_sm"><span class="icon icon-clock-mini"></span>Menunggu</span>
+                                                        </div>
+                                                        <p class="card__desc" style="margin: 0.375rem 0 0;">Dimulai 05 Sep 2025</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="campaign-section">
+                                            <div class="section-title">
+                                                <span class="section-title__icon section-title__icon_success"><span class="icon icon-document-text"></span></span>
+                                                <h3>Statistik Pengiriman</h3>
+                                            </div>
+                                            <div class="stat-tiles">
+                                                <div class="stat-tile stat-tile_primary">
+                                                    <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-paper-airplane-mini"></span></span>
+                                                    <span class="stat-tile__value">2088</span>
+                                                    <span class="stat-tile__label">Lulusan Menerima Kuesioner</span>
+                                                    <span class="stat-tile__sub">GS-I &middot; Angkatan 2023</span>
+                                                </div>
+                                                <div class="stat-tile stat-tile_success">
+                                                    <span class="stat-tile__icon stat-tile__icon_success"><span class="icon icon-check-circle-mini"></span></span>
+                                                    <span class="stat-tile__value">98</span>
+                                                    <span class="stat-tile__label">Lulusan Mengisi Kuesioner</span>
+                                                    <span class="stat-tile__sub">GS-I &middot; response rate 4,7%</span>
+                                                </div>
+                                                <div class="stat-tile stat-tile_warning">
+                                                    <span class="stat-tile__icon stat-tile__icon_warning"><span class="icon icon-arrow-path-mini"></span></span>
+                                                    <span class="stat-tile__value">41</span>
+                                                    <span class="stat-tile__label">Perusahaan Dihubungi</span>
+                                                    <span class="stat-tile__sub">Otomatis via Pengguna Lulusan</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="campaign-section">
+                                            <div class="card-insight">
+                                                <div class="card-insight__icon card-insight__icon_info">
+                                                    <span class="icon icon-information-circle-mini"></span>
+                                                </div>
+                                                <p class="card-insight__text">Kuesioner <strong>Pengguna Lulusan</strong> tidak punya jadwal sendiri - dikirim otomatis begitu alumni menyelesaikan GS-I dengan status Bekerja.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="card__footer" style="justify-content: flex-end;">
+                                            <div class="card__footer-wrapper">
+                                                <button class="btn btn_outline btn_sm" data-toggle="collapse" data-target="#terkirim-collapse-1">
+                                                    Detail Penerima
+                                                    <span class="icon icon-chevron-down-mini"></span>
+                                                </button>
+                                                <a href="./pengguna-lulusan-riwayat.html" class="btn btn_outline btn_sm">
+                                                    <span class="icon icon-clock-mini"></span>
+                                                    Riwayat Pengiriman
+                                                </a>
                                                 <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-unduh">
                                                     <span class="icon icon-arrow-down-tray-mini"></span>
                                                     Unduh
                                                 </a>
                                             </div>
                                         </div>
-                                        <div class="card__footer">
-                                            <div class="card__footer-left">
-                                                <span class="tag tag_outline" title="Wave / Periode Survei">GS-I</span>
-                                                <span class="tag tag_outline tag_sm">v2</span>
-                                                <span class="tag tag_success">Aktif</span>
-                                            </div>
-                                            <div class="card__footer-wrapper">
-                                                <button class="btn btn_outline btn_sm" data-toggle="collapse" data-target="#terkirim-collapse-1">
-                                                    Detail Penerima
-                                                    <span class="icon icon-chevron-down-mini"></span>
-                                                </button>
-                                            </div>
-                                        </div>
+
                                         <div class="collapse" id="terkirim-collapse-1">
                                             <div class="card__footer card__footer_collapse" style="flex-direction: column; align-items: stretch; gap: 12px;">
                                                 <div class="monitoring-dropout">
                                                     <span class="icon icon-exclamation-triangle-mini"></span>
-                                                    <strong>156 lulusan</strong>&nbsp;telah membuka tautan kuesioner namun belum menyelesaikan pengisian (drop-out)
+                                                    <strong>156 lulusan</strong>&nbsp;telah membuka tautan kuesioner GS-I namun belum menyelesaikan pengisian (drop-out)
                                                 </div>
                                                 <div class="grid cols-1 cols-sm-2">
                                                     <div class="card__footer-left">
-                                                        <span class="card__footer-title">Response Rate per Program Studi</span>
+                                                        <span class="card__footer-title">Response Rate GS-I per Program Studi</span>
                                                         <div class="monitoring-breakdown">
                                                             <div class="monitoring-breakdown__row">
                                                                 <span class="monitoring-breakdown__label">S1 - Teknik Informatika</span>
@@ -601,18 +680,18 @@
                                                         </div>
                                                     </div>
                                                     <div class="card__footer-right">
-                                                        <span class="card__footer-title">Response Rate per Angkatan</span>
+                                                        <span class="card__footer-title">Response Rate Exit Survey per Angkatan Masuk</span>
                                                         <div class="monitoring-breakdown">
                                                             <div class="monitoring-breakdown__row">
-                                                                <span class="monitoring-breakdown__label">Angkatan 2021</span>
+                                                                <span class="monitoring-breakdown__label">Angkatan Masuk 2019</span>
                                                                 <span class="monitoring-breakdown__value">40/700 <span class="monitoring-breakdown__pct">(5.7%)</span></span>
                                                             </div>
                                                             <div class="monitoring-breakdown__row">
-                                                                <span class="monitoring-breakdown__label">Angkatan 2022</span>
+                                                                <span class="monitoring-breakdown__label">Angkatan Masuk 2018</span>
                                                                 <span class="monitoring-breakdown__value">33/696 <span class="monitoring-breakdown__pct">(4.7%)</span></span>
                                                             </div>
                                                             <div class="monitoring-breakdown__row">
-                                                                <span class="monitoring-breakdown__label">Angkatan 2023</span>
+                                                                <span class="monitoring-breakdown__label">Angkatan Masuk 2017</span>
                                                                 <span class="monitoring-breakdown__value">25/692 <span class="monitoring-breakdown__pct">(3.6%)</span></span>
                                                             </div>
                                                         </div>
@@ -732,10 +811,6 @@
                                                     <span class="icon icon-eye-mini"></span>
                                                     Preview
                                                 </a>
-                                                <a href="./pengguna-lulusan-riwayat.html" class="btn btn_primary btn_sm">
-                                                    <span class="icon icon-clock-mini"></span>
-                                                    Riwayat Pengiriman
-                                                </a>
                                             </div>
                                         </div>
                                         <div class="card__footer">
@@ -818,7 +893,7 @@
             </div>
             <div class="modal__body">
                 <div class="grid cols-1">
-                    <p class="modal__paragraph">Draft ini akan dipublikasikan sebagai <strong>Versi Kuesioner 4</strong> dan masuk ke Riwayat Versi Kuesioner dengan status "Published", siap dipakai untuk Campaign baru. Versi yang sudah dipublikasikan tidak dapat diubah lagi - perubahan berikutnya akan membuat draft Version 5.</p>
+                    <p class="modal__paragraph">Draft ini akan dipublikasikan sebagai <strong>Versi Kuesioner 4</strong> dan masuk ke tab Kuesioner Lulusan dengan status "Published", siap dipakai untuk Campaign baru. Versi yang sudah dipublikasikan tidak dapat diubah lagi - perubahan berikutnya akan membuat draft Version 5.</p>
                     <div class="tier-summary" style="background: var(--qn-neutral-50); border: 1px solid var(--qn-neutral-200); border-radius: 0.5rem; padding: 0.625rem 0.875rem;">
                         <span class="tier-summary__item tier-summary__item--core"><strong>8</strong> Core</span>
                         <span class="tier-summary__dot">&middot;</span>
@@ -877,175 +952,146 @@
     <!-- [END] Modal: Finalisasi Pengguna Lulusan -->
 
     <!-- [START] Modal: Kirim -->
-    <div class="modal modal_qnaire-action" id="modal-kirim">
+    <div class="modal modal_qnaire-action" id="modal-buat-campaign">
         <div class="modal__overlay" data-dismiss="modal"></div>
-        <div class="modal__wrapper" style="max-width: 520px;">
+        <div class="modal__wrapper" style="max-width: 560px;">
             <div class="modal__header">
                 <div class="modal__header-wrapper">
-                    <h3 class="modal__title">Kirim Kuesioner</h3>
+                    <h3 class="modal__title">Buat Campaign</h3>
                 </div>
                 <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
             </div>
             <div class="modal__body">
                 <div class="grid cols-1">
-                    <p class="modal__paragraph" style="color: var(--qn-neutral-500); font-size: 0.875rem; margin-bottom: 0.25rem;">Link pengisian kuesioner akan dikirim ke email lulusan.</p>
+                    <p class="modal__paragraph" style="color: var(--qn-neutral-500); font-size: 0.875rem; margin-bottom: 0.25rem;">Satu campaign berlaku untuk satu Tahun Lulus dan menaungi keempat fase Tracer Study-nya (Exit Survey, GS-I, Pengguna Lulusan, GS-II).</p>
 
-                    <span class="field-section-label"><span class="icon icon-document-text"></span>Sumber & Gelombang</span>
+                    <span class="field-section-label"><span class="icon icon-academic-cap"></span>Tahun Lulus</span>
 
-                    <!-- Versi Kuesioner -->
+                    <!-- Tahun Lulus -->
                     <div class="form-control">
-                        <label class="form-control__label">
-                            Versi Kuesioner<span class="important">*</span>
-                            <span class="icon icon-question-mark-circle-mini" style="color: #94a3b8; font-size: 14px; margin-left: 4px;" title="Campaign akan memakai isi pertanyaan dari versi kuesioner yang dipilih"></span>
+                        <label for="input-campaign-tahun" class="form-control__label">
+                            Tahun Lulus<span class="important">*</span>
+                            <span class="icon icon-question-mark-circle-mini" style="color: #94a3b8; font-size: 14px; margin-left: 4px;" title="Satu Tahun Lulus hanya bisa memiliki satu campaign"></span>
                         </label>
                         <div class="form-control__group">
-                            <select class="select-default" id="input-template-version">
+                            <select class="select-search" id="input-campaign-tahun">
+                                <option value="" selected disabled>Pilih Tahun Lulus</option>
+                                <option value="2026">2026</option>
+                                <option value="2025">2025</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <span class="field-section-label"><span class="icon icon-document-text"></span>Versi Kuesioner yang Dipakai</span>
+
+                    <!-- Versi Kuesioner Lulusan -->
+                    <div class="form-control">
+                        <label for="input-campaign-versi-alumni" class="form-control__label">
+                            Versi Kuesioner Lulusan<span class="important">*</span>
+                            <span class="icon icon-question-mark-circle-mini" style="color: #94a3b8; font-size: 14px; margin-left: 4px;" title="Dipakai untuk fase Exit Survey, GS-I, dan GS-II. Satu versi bisa dipakai berkali-kali di Tahun Lulus yang berbeda"></span>
+                        </label>
+                        <div class="form-control__group">
+                            <select class="select-default" id="input-campaign-versi-alumni">
                                 <option value="v3" selected>v3 (Published - 01 Juni 2025)</option>
                                 <option value="v2">v2 (Published - 25 Juni 2024)</option>
                             </select>
                         </div>
                     </div>
 
-                    <!-- Wave / Periode Survei -->
+                    <!-- Versi Kuesioner Pengguna Lulusan -->
                     <div class="form-control">
-                        <label class="form-control__label">
-                            Wave / Periode Survei<span class="important">*</span>
-                            <span class="icon icon-question-mark-circle-mini" style="color: #94a3b8; font-size: 14px; margin-left: 4px;" title="Wave menentukan kapan lulusan disurvei relatif terhadap waktu kelulusan"></span>
+                        <label for="input-campaign-versi-pl" class="form-control__label">
+                            Versi Kuesioner Pengguna Lulusan<span class="important">*</span>
+                            <span class="icon icon-question-mark-circle-mini" style="color: #94a3b8; font-size: 14px; margin-left: 4px;" title="Dikirim otomatis ke perusahaan/atasan, sejajar dengan fase GS-I. Satu versi bisa dipakai berkali-kali di Tahun Lulus yang berbeda"></span>
                         </label>
                         <div class="form-control__group">
-                            <select class="select-default" id="input-wave">
-                                <option value="" selected disabled>Pilih Wave</option>
-                                <option value="exit">Exit Survey (saat kelulusan)</option>
-                                <option value="gs-1">Tracer Study GS-I (1 tahun setelah lulus)</option>
-                                <option value="gs-2">Tracer Study GS-II (2 tahun setelah lulus)</option>
+                            <select class="select-default" id="input-campaign-versi-pl">
+                                <option value="v1" selected>v1 (Published - 01 Juni 2025)</option>
                             </select>
                         </div>
                     </div>
 
-                    <span class="field-section-label"><span class="icon icon-academic-cap"></span>Target Penerima</span>
+                    <span class="field-section-label"><span class="icon icon-calendar"></span>Batas Waktu per Fase</span>
 
-                    <!-- Tahun Lulus - Multi Select -->
+                    <!-- Batas Waktu: Exit Survey -->
                     <div class="form-control">
-                        <label class="form-control__label">
-                            Tahun Lulus<span class="important">*</span>
-                            <span class="icon icon-question-mark-circle-mini" style="color: #94a3b8; font-size: 14px; margin-left: 4px;" title="Pilih tahun lulus yang akan menerima kuesioner"></span>
-                        </label>
-                        <div class="multiselect-container" id="tahun-lulus-container">
-                            <div class="multiselect-input" onclick="toggleDropdown('tahun-lulus')">
-                                <div class="multiselect-tags" id="tahun-lulus-tags">
-                                    <span class="multiselect-placeholder">Pilih Tahun Lulus</span>
-                                </div>
-                                <span class="icon icon-chevron-down-mini multiselect-arrow"></span>
+                        <label class="form-control__label" style="margin-bottom: 0.5rem;">Exit Survey</label>
+                        <div class="grid cols-1 cols-sm-2">
+                            <div class="form-control__group">
+                                <input type="date" class="form-control__input" id="input-exit-awal" placeholder="Batas Awal">
                             </div>
-                            <div class="multiselect-dropdown" id="tahun-lulus-dropdown">
-                                <div class="multiselect-option multiselect-option-all" onclick="toggleSelectAll('tahun-lulus')">
-                                    <input type="checkbox" id="tahun-lulus-all">
-                                    <label>Pilih Semua</label>
-                                </div>
-                                <div class="multiselect-option" data-value="2026">
-                                    <input type="checkbox" id="tahun-2026" onchange="updateMultiselect('tahun-lulus')">
-                                    <label for="tahun-2026">2026</label>
-                                </div>
-                                <div class="multiselect-option" data-value="2025">
-                                    <input type="checkbox" id="tahun-2025" onchange="updateMultiselect('tahun-lulus')">
-                                    <label for="tahun-2025">2025</label>
-                                </div>
-                                <div class="multiselect-option" data-value="2024">
-                                    <input type="checkbox" id="tahun-2024" onchange="updateMultiselect('tahun-lulus')">
-                                    <label for="tahun-2024">2024</label>
-                                </div>
-                                <div class="multiselect-option" data-value="2023">
-                                    <input type="checkbox" id="tahun-2023" onchange="updateMultiselect('tahun-lulus')">
-                                    <label for="tahun-2023">2023</label>
-                                </div>
-                                <div class="multiselect-option" data-value="2022">
-                                    <input type="checkbox" id="tahun-2022" onchange="updateMultiselect('tahun-lulus')">
-                                    <label for="tahun-2022">2022</label>
-                                </div>
-                                <div class="multiselect-option" data-value="2021">
-                                    <input type="checkbox" id="tahun-2021" onchange="updateMultiselect('tahun-lulus')">
-                                    <label for="tahun-2021">2021</label>
-                                </div>
+                            <div class="form-control__group">
+                                <input type="date" class="form-control__input" id="input-exit-akhir" placeholder="Batas Akhir">
                             </div>
                         </div>
                     </div>
 
-                    <!-- Program Studi - Multi Select -->
+                    <!-- Batas Waktu: GS-I -->
                     <div class="form-control">
-                        <label class="form-control__label">
-                            Program Studi<span class="important">*</span>
-                            <span class="icon icon-question-mark-circle-mini" style="color: #94a3b8; font-size: 14px; margin-left: 4px;" title="Pilih program studi yang akan menerima kuesioner"></span>
-                        </label>
-                        <div class="multiselect-container" id="prodi-container">
-                            <div class="multiselect-input" onclick="toggleDropdown('prodi')">
-                                <div class="multiselect-tags" id="prodi-tags">
-                                    <span class="multiselect-placeholder">Pilih Program Studi</span>
-                                </div>
-                                <span class="icon icon-chevron-down-mini multiselect-arrow"></span>
+                        <label class="form-control__label" style="margin-bottom: 0.5rem;">GS-I</label>
+                        <div class="grid cols-1 cols-sm-2">
+                            <div class="form-control__group">
+                                <input type="date" class="form-control__input" id="input-gs1-awal" placeholder="Batas Awal">
                             </div>
-                            <div class="multiselect-dropdown" id="prodi-dropdown">
-                                <div class="multiselect-option multiselect-option-all" onclick="toggleSelectAll('prodi')">
-                                    <input type="checkbox" id="prodi-all">
-                                    <label>Semua Program Studi</label>
-                                </div>
-                                <div class="multiselect-option" data-value="S1 - (PTI) Pendidikan Teknologi Informasi">
-                                    <input type="checkbox" id="prodi-pti" onchange="updateMultiselect('prodi')">
-                                    <label for="prodi-pti">S1 - (PTI) Pendidikan Teknologi Informasi</label>
-                                </div>
-                                <div class="multiselect-option" data-value="S1 - Administrasi Publik">
-                                    <input type="checkbox" id="prodi-ap" onchange="updateMultiselect('prodi')">
-                                    <label for="prodi-ap">S1 - Administrasi Publik</label>
-                                </div>
-                                <div class="multiselect-option" data-value="S1 - Akuntansi">
-                                    <input type="checkbox" id="prodi-akun" onchange="updateMultiselect('prodi')">
-                                    <label for="prodi-akun">S1 - Akuntansi</label>
-                                </div>
-                                <div class="multiselect-option" data-value="S1 - Teknik Informatika">
-                                    <input type="checkbox" id="prodi-ti" onchange="updateMultiselect('prodi')">
-                                    <label for="prodi-ti">S1 - Teknik Informatika</label>
-                                </div>
-                                <div class="multiselect-option" data-value="S1 - Sistem Informasi">
-                                    <input type="checkbox" id="prodi-si" onchange="updateMultiselect('prodi')">
-                                    <label for="prodi-si">S1 - Sistem Informasi</label>
-                                </div>
+                            <div class="form-control__group">
+                                <input type="date" class="form-control__input" id="input-gs1-akhir" placeholder="Batas Akhir">
                             </div>
                         </div>
                     </div>
 
-                    <span class="field-section-label"><span class="icon icon-calendar"></span>Batas Waktu</span>
-
-                    <!-- Batas Akhir Pengisian -->
-                    <div class="form-control" id="deadline-field">
-                        <label for="input-send-deadline" class="form-control__label">
-                            Batas Akhir Pengisian<span class="important">*</span>
-                        </label>
-                        <div class="form-control__group">
-                            <div class="form-control__group-icon" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none;">
-                                <span class="icon icon-calendar" style="color: #94a3b8;"></span>
+                    <!-- Batas Waktu: GS-II -->
+                    <div class="form-control">
+                        <label class="form-control__label" style="margin-bottom: 0.5rem;">GS-II</label>
+                        <div class="grid cols-1 cols-sm-2">
+                            <div class="form-control__group">
+                                <input type="date" class="form-control__input" id="input-gs2-awal" placeholder="Batas Awal">
                             </div>
-                            <input type="date" class="form-control__input" id="input-send-deadline" placeholder="Atur batas akhir pengisian kuesioner" style="padding-left: 40px;">
-                        </div>
-                    </div>
-
-                    <!-- Checkbox: Tidak ada batas waktu -->
-                    <div class="form-control" style="margin-top: -8px;">
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <input type="checkbox" class="form-control__checkbox" id="input-no-deadline" name="no-deadline" onchange="toggleDeadlineField()">
-                            <label for="input-no-deadline" style="font-size: 14px; color: #475569; cursor: pointer;">Tidak ada batas waktu pengisian</label>
+                            <div class="form-control__group">
+                                <input type="date" class="form-control__input" id="input-gs2-akhir" placeholder="Batas Akhir">
+                            </div>
                         </div>
                     </div>
 
                     <!-- Alert Info Box -->
                     <div class="alert alert_dark" style="display: flex; align-items: flex-start; gap: 0.75rem; margin-top: 0.25rem;">
                         <span class="icon icon-information-circle" style="color: var(--tier-optional); font-size: 1.125rem; flex-shrink: 0; margin-top: 0.125rem;"></span>
-                        <p class="alert__description" style="margin: 0;">Kuesioner ini menyertakan Kuesioner Pengguna Lulusan yang dikirimkan secara otomatis.</p>
+                        <p class="alert__description" style="margin: 0;">Kuesioner Pengguna Lulusan tidak memiliki jadwal sendiri - dikirim otomatis begitu alumni menyelesaikan GS-I dengan status Bekerja.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <div class="grid cols-1 cols-sm-2">
+                    <button class="btn btn_outline" data-dismiss="modal">Batal</button>
+                    <button class="btn btn_primary" id="btn-simpan-campaign">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [END] Modal: Buat Campaign -->
+
+    <!-- [START] Modal: Kirim Campaign (konfirmasi kirim, tidak bisa diubah setelahnya) -->
+    <div class="modal modal_qnaire-action" id="modal-kirim-campaign">
+        <div class="modal__overlay" data-dismiss="modal"></div>
+        <div class="modal__wrapper" style="max-width: 480px;">
+            <div class="modal__header">
+                <div class="modal__header-wrapper">
+                    <h3 class="modal__title" id="modal-kirim-campaign-title">Kirim Campaign</h3>
+                </div>
+                <span class="icon icon-x-mark-mini" data-dismiss="modal"></span>
+            </div>
+            <div class="modal__body">
+                <div class="grid cols-1">
+                    <div class="alert alert_dark" style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <p class="alert__description" style="margin: 0;">Setelah dikirim, Tahun Lulus, versi kuesioner, dan jadwal campaign ini <strong>terkunci dan tidak dapat diubah lagi</strong>.</p>
                     </div>
 
                     <!-- Checkbox Konfirmasi -->
                     <div class="alert alert_dark alert_checkbox" style="margin-top: 0.25rem;">
-                        <input type="checkbox" class="form-control__checkbox" id="input-send-agree" name="group" onchange="toggleKirimButton()">
+                        <input type="checkbox" class="form-control__checkbox" id="input-kirim-campaign-agree" onchange="toggleKirimCampaignButton()">
                         <div class="alert__content">
-                            <label for="input-send-agree" class="alert__description" style="cursor: pointer;">Saya yakin untuk mengirim kuesioner untuk lulusan dengan <strong>Wave</strong>, <strong>Tahun Lulus</strong>, dan <strong>Program Studi</strong> tersebut</label>
+                            <label for="input-kirim-campaign-agree" class="alert__description" style="cursor: pointer;">Saya memahami campaign <strong id="modal-kirim-campaign-tahun">ini</strong> tidak dapat diubah setelah dikirim</label>
                         </div>
                     </div>
                 </div>
@@ -1053,130 +1099,46 @@
             <div class="modal__footer">
                 <div class="grid cols-1 cols-sm-2">
                     <button class="btn btn_outline" data-dismiss="modal">Batal</button>
-                    <button class="btn btn_primary" id="btn-kirim-kuesioner" disabled style="opacity: 0.5; cursor: not-allowed;">Kirim</button>
+                    <button class="btn btn_primary" id="btn-kirim-campaign" disabled style="opacity: 0.5; cursor: not-allowed;">Kirim</button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- [END] Modal: Kirim -->
+    <!-- [END] Modal: Kirim Campaign -->
 
-    <!-- Multiselect Styles -->
+    <!-- Campaign Tahun Lulus & Monitoring Breakdown Styles -->
     <style>
-        .multiselect-container {
-            position: relative;
-            width: 100%;
-        }
-        .multiselect-input {
+        /* Campaign icon-in-circle (same recipe as .prestasi-item__icon in alumni.html) */
+        .campaign-icon {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            min-height: 44px;
-            padding: 8px 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            background: white;
-            cursor: pointer;
-            transition: border-color 0.2s;
+            justify-content: center;
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 50%;
+            background: var(--qn-primary-100);
+            flex-shrink: 0;
         }
-        .multiselect-input:hover {
-            border-color: #cbd5e1;
+        .campaign-icon svg {
+            width: 20px;
+            height: 20px;
         }
-        .multiselect-input:focus-within {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-        .multiselect-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            flex: 1;
-        }
-        .multiselect-placeholder {
-            color: #94a3b8;
-            font-size: 14px;
-        }
-        .multiselect-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 8px;
-            background: #3b82f6;
-            color: white;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        .multiselect-tag-remove {
-            cursor: pointer;
-            font-size: 14px;
-            line-height: 1;
-            opacity: 0.8;
-        }
-        .multiselect-tag-remove:hover {
-            opacity: 1;
-        }
-        .multiselect-arrow {
-            color: #64748b;
-            transition: transform 0.2s;
-        }
-        .multiselect-container.open .multiselect-arrow {
-            transform: rotate(180deg);
-        }
-        .multiselect-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            margin-top: 4px;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            max-height: 240px;
-            overflow-y: auto;
-        }
-        .multiselect-container.open .multiselect-dropdown {
-            display: block;
-        }
-        .multiselect-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            cursor: pointer;
-            transition: background 0.15s;
-            font-size: 14px;
-        }
-        .multiselect-option:hover {
-            background: #f1f5f9;
-        }
-        .multiselect-option.selected {
-            background: #eff6ff;
-        }
-        .multiselect-option-all {
-            background: #3b82f6;
-            color: white;
-        }
-        .multiselect-option-all:hover {
-            background: #2563eb;
-        }
-        .multiselect-option-all.selected {
-            background: #1d4ed8;
-        }
-        .multiselect-option input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #3b82f6;
-        }
-        .multiselect-option label {
-            cursor: pointer;
-            flex: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+
+        /* Section header inside a campaign card body (same recipe as .section-title in alumni-detail.html) */
+        .section-title { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 0.875rem; }
+        .section-title__icon { flex-shrink: 0; width: 1.75rem; height: 1.75rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 0.9375rem; }
+        .section-title__icon_primary { background: var(--qn-primary-100); color: var(--qn-primary-600); }
+        .section-title__icon_success { background: var(--qn-success-100); color: var(--qn-success-600, var(--qn-success-500)); }
+        .section-title h3 { font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
+
+        /* Each campaign card body is broken into separate sections, not crammed into the header */
+        .campaign-section { padding: 0 1rem 1rem; }
+
+        /* Fase Tracer Study: a bordered/tinted sub-panel (same recipe as .prestasi-item / .stat-tile) */
+        .campaign-phase-panel { border: 1px solid var(--qn-neutral-200); border-radius: 0.625rem; background: var(--qn-neutral-50); padding: 1rem 1.25rem; }
+        .campaign-phase { display: flex; flex-direction: column; gap: 0.375rem; }
+        .campaign-phase__label { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-700); }
+        .campaign-phase__tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
 
         /* Monitoring Breakdown (per prodi / per angkatan) */
         .monitoring-dropout {
@@ -1394,10 +1356,6 @@
                         <span class="icon icon-eye-mini"></span>
                         Preview
                     </a>
-                    <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-kirim">
-                        <span class="icon icon-paper-airplane-mini"></span>
-                        Buat Campaign
-                    </a>
                 `;
             }
 
@@ -1561,143 +1519,184 @@
             }, 3000);
         }
 
-        // ========== MULTISELECT FUNCTIONS ==========
+        // ========== CAMPAIGN (TAHUN LULUS) FUNCTIONS ==========
 
-        // Toggle dropdown visibility
-        function toggleDropdown(type) {
-            const container = document.getElementById(type + '-container');
-            const allContainers = document.querySelectorAll('.multiselect-container');
-
-            // Close all other dropdowns
-            allContainers.forEach(c => {
-                if (c !== container) c.classList.remove('open');
-            });
-
-            // Toggle current dropdown
-            container.classList.toggle('open');
-        }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.multiselect-container')) {
-                document.querySelectorAll('.multiselect-container').forEach(c => {
-                    c.classList.remove('open');
+        // Reset "Buat Campaign" form fields whenever the modal is dismissed
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalBuatCampaign = document.getElementById('modal-buat-campaign');
+            if (modalBuatCampaign) {
+                modalBuatCampaign.querySelectorAll('[data-dismiss="modal"]').forEach(el => {
+                    el.addEventListener('click', resetBuatCampaignModal);
                 });
             }
         });
 
-        // Toggle select all
-        function toggleSelectAll(type) {
-            const container = document.getElementById(type + '-container');
-            const allCheckbox = document.getElementById(type + (type === 'tahun-lulus' ? '-all' : '-all'));
-            const options = container.querySelectorAll('.multiselect-option:not(.multiselect-option-all) input[type="checkbox"]');
-            const selectAllOption = container.querySelector('.multiselect-option-all');
-
-            // Toggle the "all" state
-            const newState = !allCheckbox.checked;
-            allCheckbox.checked = newState;
-
-            // Update visual state
-            if (newState) {
-                selectAllOption.classList.add('selected');
-            } else {
-                selectAllOption.classList.remove('selected');
-            }
-
-            // Check/uncheck all options
-            options.forEach(opt => {
-                opt.checked = newState;
-                if (newState) {
-                    opt.closest('.multiselect-option').classList.add('selected');
-                } else {
-                    opt.closest('.multiselect-option').classList.remove('selected');
-                }
+        function resetBuatCampaignModal() {
+            const tahunSelect = document.getElementById('input-campaign-tahun');
+            if (tahunSelect) tahunSelect.value = '';
+            ['input-exit-awal', 'input-exit-akhir', 'input-gs1-awal', 'input-gs1-akhir', 'input-gs2-awal', 'input-gs2-akhir'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
             });
-
-            // Update tags display
-            updateMultiselect(type);
         }
 
-        // Update multiselect display
-        function updateMultiselect(type) {
-            const container = document.getElementById(type + '-container');
-            const tagsContainer = document.getElementById(type + '-tags');
-            const options = container.querySelectorAll('.multiselect-option:not(.multiselect-option-all) input[type="checkbox"]');
-            const allCheckbox = document.getElementById(type + '-all');
-            const selectAllOption = container.querySelector('.multiselect-option-all');
+        // Handle "Simpan" click on the "Buat Campaign" modal - creates a new campaign card (belum dikirim)
+        document.addEventListener('DOMContentLoaded', function() {
+            const simpanBtn = document.getElementById('btn-simpan-campaign');
+            if (simpanBtn) {
+                simpanBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
 
-            // Get selected values
-            const selectedValues = [];
-            options.forEach(opt => {
-                if (opt.checked) {
-                    const value = opt.closest('.multiselect-option').dataset.value;
-                    selectedValues.push(value);
-                    opt.closest('.multiselect-option').classList.add('selected');
-                } else {
-                    opt.closest('.multiselect-option').classList.remove('selected');
-                }
-            });
-
-            // Check if all are selected
-            const allSelected = selectedValues.length === options.length && options.length > 0;
-            allCheckbox.checked = allSelected;
-            if (allSelected) {
-                selectAllOption.classList.add('selected');
-            } else {
-                selectAllOption.classList.remove('selected');
-            }
-
-            // Update tags display
-            if (selectedValues.length === 0) {
-                tagsContainer.innerHTML = '<span class="multiselect-placeholder">' +
-                    (type === 'tahun-lulus' ? 'Pilih Tahun Lulus' : 'Pilih Program Studi') + '</span>';
-            } else {
-                let tagsHtml = '';
-                selectedValues.forEach(val => {
-                    // Shorten display for long values
-                    let displayVal = val;
-                    if (val.length > 20) {
-                        displayVal = val.substring(0, 18) + '...';
+                    const tahunSelect = document.getElementById('input-campaign-tahun');
+                    const tahun = tahunSelect && tahunSelect.value ? tahunSelect.value : '';
+                    if (!tahun) {
+                        showToast('Pilih Tahun Lulus terlebih dahulu', 'error');
+                        return;
                     }
-                    tagsHtml += `<span class="multiselect-tag">${displayVal}<span class="multiselect-tag-remove" onclick="removeTag(event, '${type}', '${val}')">×</span></span>`;
+                    if (document.getElementById('campaign-card-' + tahun)) {
+                        showToast('Campaign untuk Angkatan ' + tahun + ' sudah ada', 'error');
+                        return;
+                    }
+
+                    const versiAlumni = document.getElementById('input-campaign-versi-alumni').value;
+                    const versiPl = document.getElementById('input-campaign-versi-pl').value;
+
+                    // Close the modal
+                    const modalBuatCampaign = document.getElementById('modal-buat-campaign');
+                    if (modalBuatCampaign) {
+                        modalBuatCampaign.classList.remove('active');
+                        modalBuatCampaign.style.display = 'none';
+                        document.body.classList.remove('modal-open');
+                        document.body.style.overflow = '';
+                        const dismissBtn = modalBuatCampaign.querySelector('[data-dismiss="modal"]');
+                        if (dismissBtn) dismissBtn.click();
+                    }
+
+                    // Switch to "Campaign Tahun Lulus" tab after short delay
+                    setTimeout(function() {
+                        const campaignTab = document.querySelector('[data-target="#kuesioner-campaign"]');
+                        const campaignContent = document.getElementById('kuesioner-campaign');
+                        document.querySelectorAll('.nav-tab__item').forEach(tab => tab.classList.remove('active'));
+                        document.querySelectorAll('.tab-pane').forEach(content => content.classList.remove('active'));
+                        if (campaignTab) campaignTab.classList.add('active');
+                        if (campaignContent) campaignContent.classList.add('active');
+
+                        addNewCampaignCard(tahun, versiAlumni, versiPl);
+                        resetBuatCampaignModal();
+                        showToast('Campaign Angkatan ' + tahun + ' berhasil dibuat', 'success');
+                    }, 100);
                 });
-                tagsContainer.innerHTML = tagsHtml;
             }
+        });
+
+        // Add a new campaign card (belum dikirim) for a Tahun Lulus to the Campaign list
+        function addNewCampaignCard(tahun, versiAlumni, versiPl) {
+            const campaignList = document.querySelector('#kuesioner-campaign .qnaire-lists');
+            if (!campaignList) return;
+
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+
+            const phases = [
+                { label: 'Exit Survey', versi: versiAlumni },
+                { label: 'GS-I', versi: versiAlumni },
+                { label: 'Pengguna Lulusan', versi: versiPl },
+                { label: 'GS-II', versi: versiAlumni }
+            ];
+            const phaseCells = phases.map(p => `
+                                    <div class="campaign-phase">
+                                        <span class="campaign-phase__label">${p.label}</span>
+                                        <div class="campaign-phase__tags">
+                                            <span class="tag tag_outline tag_sm">${p.versi}</span>
+                                            <span class="badge badge_secondary-default badge_sm"><span class="icon icon-clock-mini"></span>Menunggu</span>
+                                        </div>
+                                    </div>`).join('');
+
+            const newCard = document.createElement('div');
+            newCard.id = 'campaign-card-' + tahun;
+            newCard.className = 'card card_qnaire-list';
+            newCard.dataset.tahun = tahun;
+            newCard.style.cssText = 'animation: highlightNew 2s ease-out;';
+            newCard.innerHTML = `
+                <div class="card__body">
+                    <div class="card__body-left">
+                        <div class="card__header">
+                            <span class="campaign-icon">
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                    <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                    <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                                </svg>
+                            </span>
+                            <div class="card__header-wrapper">
+                                <a href="#" class="card__title">Campaign Angkatan ${tahun}</a>
+                                <p class="card__desc">Dibuat ${dateStr} · Kuesioner Lulusan ${versiAlumni} &amp; Pengguna Lulusan ${versiPl}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card__body-right">
+                        <span class="tag tag_outline" title="Tahun Lulus">Angkatan ${tahun}</span>
+                        <span class="badge badge_secondary-default">Belum Dikirim</span>
+                    </div>
+                </div>
+
+                <div class="campaign-section">
+                    <div class="section-title">
+                        <span class="section-title__icon section-title__icon_primary"><span class="icon icon-calendar"></span></span>
+                        <h3>Fase Tracer Study</h3>
+                    </div>
+                    <div class="campaign-phase-panel">
+                        <div class="grid cols-2 cols-sm-4">${phaseCells}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="campaign-section">
+                    <div class="card-insight">
+                        <div class="card-insight__icon card-insight__icon_info">
+                            <span class="icon icon-information-circle-mini"></span>
+                        </div>
+                        <p class="card-insight__text">Klik <strong>Kirim</strong> untuk mengaktifkan campaign ini dan memulai pengiriman Exit Survey ke lulusan Angkatan ${tahun}. GS-I, GS-II, dan Pengguna Lulusan menyusul otomatis sesuai jadwalnya masing-masing.</p>
+                    </div>
+                </div>
+
+                <div class="card__footer" style="justify-content: flex-end;">
+                    <div class="card__footer-wrapper">
+                        <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-kirim-campaign" onclick="openKirimCampaignModal(this)">
+                            <span class="icon icon-paper-airplane-mini"></span>
+                            Kirim
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            campaignList.insertBefore(newCard, campaignList.firstChild);
+
+            setTimeout(() => {
+                newCard.style.animation = '';
+            }, 2000);
         }
 
-        // Remove individual tag
-        function removeTag(event, type, value) {
-            event.stopPropagation();
-            const container = document.getElementById(type + '-container');
-            const option = container.querySelector(`.multiselect-option[data-value="${value}"] input[type="checkbox"]`);
-            if (option) {
-                option.checked = false;
-                updateMultiselect(type);
-            }
+        // Open the "Kirim Campaign" confirmation modal, remembering which card triggered it
+        let kirimCampaignTargetCardId = null;
+        function openKirimCampaignModal(triggerEl) {
+            const card = triggerEl.closest('.card');
+            if (!card) return;
+            kirimCampaignTargetCardId = card.id;
+            const tahun = card.dataset.tahun || '';
+
+            const titleEl = document.getElementById('modal-kirim-campaign-tahun');
+            if (titleEl) titleEl.textContent = 'Angkatan ' + tahun + ' ini';
+
+            const checkbox = document.getElementById('input-kirim-campaign-agree');
+            if (checkbox) checkbox.checked = false;
+            toggleKirimCampaignButton();
         }
 
-        // Toggle deadline field based on checkbox
-        function toggleDeadlineField() {
-            const checkbox = document.getElementById('input-no-deadline');
-            const deadlineField = document.getElementById('deadline-field');
-            const deadlineInput = document.getElementById('input-send-deadline');
-
-            if (checkbox.checked) {
-                deadlineField.style.opacity = '0.5';
-                deadlineField.style.pointerEvents = 'none';
-                deadlineInput.value = '';
-                deadlineInput.removeAttribute('required');
-            } else {
-                deadlineField.style.opacity = '1';
-                deadlineField.style.pointerEvents = 'auto';
-                deadlineInput.setAttribute('required', 'required');
-            }
-        }
-
-        // Toggle Kirim button based on confirmation checkbox
-        function toggleKirimButton() {
-            const confirmCheckbox = document.getElementById('input-send-agree');
-            const kirimBtn = document.getElementById('btn-kirim-kuesioner');
+        // Toggle "Kirim" button on the confirmation modal based on the required checkbox
+        function toggleKirimCampaignButton() {
+            const confirmCheckbox = document.getElementById('input-kirim-campaign-agree');
+            const kirimBtn = document.getElementById('btn-kirim-campaign');
+            if (!confirmCheckbox || !kirimBtn) return;
 
             if (confirmCheckbox.checked) {
                 kirimBtn.disabled = false;
@@ -1710,248 +1709,62 @@
             }
         }
 
-        // Reset modal state when opened
+        // Handle "Kirim" confirm click - locks the campaign in as sent/active
         document.addEventListener('DOMContentLoaded', function() {
-            const modalKirim = document.getElementById('modal-kirim');
-            if (modalKirim) {
-                // Observer to detect when modal is shown
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        if (mutation.attributeName === 'class' || mutation.attributeName === 'style') {
-                            const isVisible = modalKirim.classList.contains('active') ||
-                                            modalKirim.style.display === 'block' ||
-                                            getComputedStyle(modalKirim).display !== 'none';
-                            if (isVisible) {
-                                // Reset form when modal opens
-                                resetKirimModal();
-                            }
-                        }
-                    });
-                });
-                observer.observe(modalKirim, { attributes: true });
-            }
-        });
-
-        // Reset Kirim modal to initial state
-        function resetKirimModal() {
-            // Reset multiselects
-            ['tahun-lulus', 'prodi'].forEach(type => {
-                const container = document.getElementById(type + '-container');
-                if (container) {
-                    const options = container.querySelectorAll('input[type="checkbox"]');
-                    options.forEach(opt => {
-                        opt.checked = false;
-                        const optionEl = opt.closest('.multiselect-option');
-                        if (optionEl) optionEl.classList.remove('selected');
-                    });
-                    updateMultiselect(type);
-                }
-            });
-
-            // Reset deadline
-            const deadlineInput = document.getElementById('input-send-deadline');
-            if (deadlineInput) deadlineInput.value = '';
-
-            const noDeadlineCheckbox = document.getElementById('input-no-deadline');
-            if (noDeadlineCheckbox) {
-                noDeadlineCheckbox.checked = false;
-                toggleDeadlineField();
-            }
-
-            // Reset confirmation
-            const confirmCheckbox = document.getElementById('input-send-agree');
-            if (confirmCheckbox) {
-                confirmCheckbox.checked = false;
-                toggleKirimButton();
-            }
-        }
-
-        // Handle Kirim Kuesioner button click
-        document.addEventListener('DOMContentLoaded', function() {
-            const kirimBtn = document.getElementById('btn-kirim-kuesioner');
-            if (kirimBtn) {
-                kirimBtn.addEventListener('click', function(e) {
+            const kirimCampaignBtn = document.getElementById('btn-kirim-campaign');
+            if (kirimCampaignBtn) {
+                kirimCampaignBtn.addEventListener('click', function(e) {
                     e.preventDefault();
+                    if (kirimCampaignBtn.disabled || !kirimCampaignTargetCardId) return;
 
-                    // Only proceed if button is enabled
-                    if (kirimBtn.disabled) return;
+                    const card = document.getElementById(kirimCampaignTargetCardId);
+                    if (card) {
+                        // Card-level status: Belum Dikirim -> Aktif
+                        const statusBadge = card.querySelector('.card__body-right .badge_secondary-default');
+                        if (statusBadge) {
+                            statusBadge.className = 'badge badge_success';
+                            statusBadge.textContent = 'Aktif';
+                        }
 
-                    // Get selected values for the card
-                    const selectedTahun = getSelectedValues('tahun-lulus');
-                    const selectedProdi = getSelectedValues('prodi');
+                        // Exit Survey is the only fase that can start immediately; the rest still
+                        // wait for their own Batas Awal (GS-I/GS-II) or trigger otomatis (Pengguna Lulusan).
+                        const firstPhaseBadge = card.querySelector('.campaign-phase-panel .campaign-phase__tags .badge_secondary-default');
+                        if (firstPhaseBadge) {
+                            firstPhaseBadge.className = 'badge badge_success badge_sm';
+                            firstPhaseBadge.innerHTML = '<span class="icon icon-check-circle-mini"></span>Terkirim';
+                        }
 
-                    // Close the modal
-                    const modalKirim = document.getElementById('modal-kirim');
-                    if (modalKirim) {
-                        modalKirim.classList.remove('active');
-                        modalKirim.style.display = 'none';
+                        // Swap the "Kirim" CTA for "Unduh" now that the campaign is running
+                        const kirimCta = card.querySelector('.card__footer-wrapper [data-target="#modal-kirim-campaign"]');
+                        if (kirimCta) {
+                            kirimCta.setAttribute('data-target', '#modal-unduh');
+                            kirimCta.removeAttribute('onclick');
+                            kirimCta.innerHTML = '<span class="icon icon-arrow-down-tray-mini"></span>Unduh';
+
+                            // Add "Riwayat Pengiriman" now that there's something to track
+                            const riwayatLink = document.createElement('a');
+                            riwayatLink.href = './pengguna-lulusan-riwayat.html';
+                            riwayatLink.className = 'btn btn_outline btn_sm';
+                            riwayatLink.innerHTML = '<span class="icon icon-clock-mini"></span>Riwayat Pengiriman';
+                            kirimCta.parentNode.insertBefore(riwayatLink, kirimCta);
+                        }
+                    }
+
+                    const modalKirimCampaign = document.getElementById('modal-kirim-campaign');
+                    if (modalKirimCampaign) {
+                        modalKirimCampaign.classList.remove('active');
+                        modalKirimCampaign.style.display = 'none';
                         document.body.classList.remove('modal-open');
                         document.body.style.overflow = '';
-
-                        // Also try clicking the dismiss button
-                        const dismissBtn = modalKirim.querySelector('[data-dismiss="modal"]');
+                        const dismissBtn = modalKirimCampaign.querySelector('[data-dismiss="modal"]');
                         if (dismissBtn) dismissBtn.click();
                     }
 
-                    // Switch to "Campaign" tab after short delay
-                    setTimeout(function() {
-                        const campaignTab = document.querySelector('[data-target="#kuesioner-campaign"]');
-                        const campaignContent = document.getElementById('kuesioner-campaign');
-
-                        // Remove active from all tabs and contents
-                        document.querySelectorAll('.nav-tab__item').forEach(tab => tab.classList.remove('active'));
-                        document.querySelectorAll('.tab-pane').forEach(content => content.classList.remove('active'));
-
-                        // Activate Campaign tab
-                        if (campaignTab) campaignTab.classList.add('active');
-                        if (campaignContent) campaignContent.classList.add('active');
-
-                        // Add new campaign card to the Campaign list
-                        const waveSelect = document.getElementById('input-wave');
-                        const versionSelect = document.getElementById('input-template-version');
-                        const waveLabel = waveSelect && waveSelect.selectedOptions[0] ? waveSelect.selectedOptions[0].text.replace(/\s*\(.*\)$/, '') : 'Exit Survey';
-                        const versionValue = versionSelect ? versionSelect.value : 'v3';
-                        addSentQuestionnaire(selectedTahun, selectedProdi, waveLabel, versionValue);
-
-                        // Show success toast
-                        showToast('Campaign berhasil dikirim', 'success');
-                    }, 100);
+                    showToast('Campaign berhasil dikirim', 'success');
+                    kirimCampaignTargetCardId = null;
                 });
             }
         });
-
-        // Get selected values from multiselect
-        function getSelectedValues(type) {
-            const container = document.getElementById(type + '-container');
-            if (!container) return [];
-
-            const values = [];
-            const options = container.querySelectorAll('.multiselect-option:not(.multiselect-option-all) input[type="checkbox"]:checked');
-            options.forEach(opt => {
-                const value = opt.closest('.multiselect-option').dataset.value;
-                values.push(value);
-            });
-            return values;
-        }
-
-        // Add new campaign card to the Campaign tab
-        function addSentQuestionnaire(tahunLulus, prodi, waveLabel, versionValue) {
-            const campaignList = document.querySelector('#kuesioner-campaign .qnaire-lists');
-            if (!campaignList) return;
-
-            // Check if already added (to prevent duplicates on demo)
-            if (document.getElementById('new-sent-card')) return;
-
-            // Format current date
-            const now = new Date();
-            const options = { day: '2-digit', month: 'long', year: 'numeric' };
-            const dateStr = now.toLocaleDateString('id-ID', options);
-            const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-
-            // Generate tahun lulus tags
-            let tahunTags = tahunLulus.map(t => `<span class="tag tag_outline tag_sm">${t}</span>`).join('');
-            if (!tahunTags) tahunTags = '<span class="tag tag_outline tag_sm">2024</span>';
-
-            // Generate prodi tags (shorten if too long)
-            let prodiTags = prodi.map(p => {
-                const shortName = p.length > 25 ? p.substring(0, 22) + '...' : p;
-                return `<span class="tag tag_outline tag_sm">${shortName}</span>`;
-            }).join('');
-            if (!prodiTags) prodiTags = '<span class="tag tag_outline tag_sm">Semua Program Studi</span>';
-
-            // Create new card
-            const newCard = document.createElement('div');
-            newCard.id = 'new-sent-card';
-            newCard.className = 'card card_qnaire-list';
-            newCard.style.cssText = 'animation: highlightNew 2s ease-out; border: 2px solid #10B981; border-radius: 8px;';
-            newCard.innerHTML = `
-                <div class="card__body card__body_with-info">
-                    <div class="card__body-left">
-                        <div class="card__header">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
-                                <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
-                            </svg>
-                            <div class="card__header-wrapper">
-                                <a href="#" class="card__title">Campaign ${waveLabel} - Angkatan ${tahunLulus[0] || '2024'}</a>
-                                <p class="card__desc">Dikirim pada ${dateStr}, ${timeStr} · memakai versi ${versionValue}</p>
-                            </div>
-                        </div>
-                        <div class="card__body-action">
-                            <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Hapus">
-                                <span class="icon icon-trash-mini"></span>
-                            </button>
-                            <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Salin tautan">
-                                <span class="icon icon-link-mini"></span>
-                            </button>
-                            <button class="btn btn_outline btn_sm btn_icon" data-tooltip="Reset hasil">
-                                <span class="icon icon-arrow-path-mini"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card__body-info">
-                        <a href="#" class="info">
-                            <div class="info__value-wrapper">
-                                <span class="info__value">0</span>
-                                <span class="info__subtitle">Lulusan</span>
-                            </div>
-                            <p class="info__desc">Menerima Kuesioner</p>
-                        </a>
-                        <a href="#" class="info">
-                            <div class="info__value-wrapper">
-                                <span class="info__value">0</span>
-                                <span class="info__subtitle">Lulusan</span>
-                            </div>
-                            <p class="info__desc">Mengisi Kuesioner</p>
-                        </a>
-                    </div>
-                    <div class="card__body-right">
-                        <a href="#" class="btn btn_primary" data-toggle="modal" data-target="#modal-unduh">
-                            <span class="icon icon-arrow-down-tray-mini"></span>
-                            Unduh
-                        </a>
-                    </div>
-                </div>
-                <div class="card__footer">
-                    <div class="card__footer-left">
-                        <span class="tag tag_outline" title="Wave / Periode Survei">${waveLabel}</span>
-                        <span class="tag tag_outline tag_sm">${versionValue}</span>
-                        <span class="tag tag_success">Aktif</span>
-                    </div>
-                    <div class="card__footer-wrapper">
-                        <button class="btn btn_outline btn_sm" onclick="toggleCollapse('new-sent-collapse')">
-                            Detail Penerima
-                            <span class="icon icon-chevron-down-mini"></span>
-                        </button>
-                    </div>
-                </div>
-                <div class="collapse" id="new-sent-collapse" style="display: none;">
-                    <div class="card__footer card__footer_collapse">
-                        <div class="card__footer-left">
-                            <span class="card__footer-title">Tahun Lulus</span>
-                            <div class="card__footer-tags">
-                                ${tahunTags}
-                            </div>
-                        </div>
-                        <div class="card__footer-right">
-                            <span class="card__footer-title">Program Studi</span>
-                            <div class="card__footer-tags">
-                                ${prodiTags}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Insert at the beginning of the list
-            campaignList.insertBefore(newCard, campaignList.firstChild);
-
-            // Remove highlight after animation
-            setTimeout(() => {
-                newCard.style.animation = '';
-                newCard.style.border = '';
-            }, 2000);
-        }
 
         // Toggle collapse for detail penerima
         function toggleCollapse(collapseId) {
