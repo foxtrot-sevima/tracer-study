@@ -42,27 +42,6 @@
         .field-section-label .icon { font-size: 0.8125rem; }
         .modal-field-group { display: flex; flex-direction: column; gap: 1rem; }
 
-        /* Tier legend KPI tiles - same pattern as the stat-tile row on index.html/alumni-detail.html */
-        .stat-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.875rem; }
-        @media (max-width: 40rem) { .stat-tiles { grid-template-columns: 1fr; } }
-        .stat-tile { padding: 1rem; border-radius: 0.625rem; display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
-        .stat-tile_success { background: var(--qn-success-100); }
-        .stat-tile_primary { background: var(--qn-primary-100); }
-        .stat-tile_warning { background: var(--qn-warning-100); }
-        .stat-tile__icon { width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1rem; background: white; flex-shrink: 0; }
-        .stat-tile__icon_success { color: var(--qn-success-600, var(--qn-success-500)); }
-        .stat-tile__icon_primary { color: var(--qn-primary-600); }
-        .stat-tile__icon_warning { color: var(--qn-warning-600, #a15c07); }
-        .stat-tile__value { font-size: 1rem; font-weight: 700; color: var(--qn-neutral-900); }
-        .stat-tile__label { font-size: 0.8125rem; color: var(--qn-neutral-600); line-height: 1.4; }
-
-        /* Section title with colored icon accent - same pattern as alumni-detail.html */
-        .section-title { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 1.25rem; }
-        .section-title__icon { flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.0625rem; }
-        .section-title__icon_primary { background: var(--qn-primary-100); color: var(--qn-primary-600); }
-        .section-title h3 { font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
-        .section-title__sub { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
-
         /* This card sits at .grid > .col-12 > .card - Quantum's ".grid > * > .card { block-size:100% }"
            (meant to equalize side-by-side feature cards) would otherwise stretch it to fill the whole
            page-grid row. Scoped override, not a shared stylesheet. */
@@ -416,8 +395,9 @@
                                                             <div style="display: flex; align-items: center; gap: 0.5rem;">
                                                                 <span class="card__footer-title">v2.1</span>
                                                                 <span class="tag tag_neutral tag_sm">Published</span>
+                                                                <span class="tag tag_neutral" title="Bisa dipakai campaign Tahun Lulus mana pun">Dipakai 1 Campaign</span>
                                                             </div>
-                                                            <p class="card__desc" style="margin: 0.25rem 0 0;">Angkatan 2023 &middot; GS-I &middot; Semua Program Studi</p>
+                                                            <p class="card__desc" style="margin: 0.25rem 0 0;">Override untuk fase GS-I</p>
                                                         </div>
                                                         <a href="#" class="btn btn_outline btn_sm btn_icon" data-tooltip="Preview" data-sub="v2.1" data-base="v2" onclick="previewSubversion(this); return false;">
                                                             <span class="icon icon-eye-mini"></span>
@@ -480,12 +460,10 @@
                                         <div class="card__body">
                                             <div class="card__body-left">
                                                 <div class="card__header">
-                                                    <span class="campaign-icon">
-                                                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                                            <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
-                                                            <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
-                                                        </svg>
-                                                    </span>
+                                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                                        <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                                        <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                                                    </svg>
                                                     <div class="card__header-wrapper">
                                                         <a href="#" class="card__title">Campaign Angkatan 2026</a>
                                                         <p class="card__desc">Dibuat 01 Juni 2025 · Kuesioner Lulusan v3 &amp; Pengguna Lulusan v1</p>
@@ -503,39 +481,33 @@
                                                 <span class="section-title__icon section-title__icon_primary"><span class="icon icon-calendar"></span></span>
                                                 <h3>Fase Tracer Study</h3>
                                             </div>
-                                            <div class="campaign-phase-panel">
-                                                <div class="grid cols-2 cols-sm-4">
-                                                    <div class="campaign-phase">
-                                                        <span class="campaign-phase__label">Exit Survey</span>
-                                                        <div class="campaign-phase__tags">
-                                                            <span class="tag tag_outline tag_sm">v3</span>
-                                                            <span class="badge badge_secondary-default badge_sm"><span class="icon icon-clock-mini"></span>Menunggu</span>
-                                                        </div>
-                                                        <a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v3', '2026', 'Exit Survey');"><span class="icon icon-plus-mini"></span>Override</a>
-                                                    </div>
-                                                    <div class="campaign-phase">
-                                                        <span class="campaign-phase__label">GS-I</span>
-                                                        <div class="campaign-phase__tags">
-                                                            <span class="tag tag_outline tag_sm">v3</span>
-                                                            <span class="badge badge_secondary-default badge_sm"><span class="icon icon-clock-mini"></span>Menunggu</span>
-                                                        </div>
-                                                        <a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v3', '2026', 'GS-I');"><span class="icon icon-plus-mini"></span>Override</a>
-                                                    </div>
-                                                    <div class="campaign-phase">
-                                                        <span class="campaign-phase__label">Pengguna Lulusan</span>
-                                                        <div class="campaign-phase__tags">
-                                                            <span class="tag tag_outline tag_sm">v1</span>
-                                                            <span class="badge badge_secondary-default badge_sm"><span class="icon icon-clock-mini"></span>Menunggu</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="campaign-phase">
-                                                        <span class="campaign-phase__label">GS-II</span>
-                                                        <div class="campaign-phase__tags">
-                                                            <span class="tag tag_outline tag_sm">v3</span>
-                                                            <span class="badge badge_secondary-default badge_sm"><span class="icon icon-clock-mini"></span>Menunggu</span>
-                                                        </div>
-                                                        <a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v3', '2026', 'GS-II');"><span class="icon icon-plus-mini"></span>Override</a>
-                                                    </div>
+                                            <div class="stat-tiles">
+                                                <div class="stat-tile stat-tile_neutral">
+                                                    <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
+                                                    <span class="stat-tile__value">-</span>
+                                                    <span class="stat-tile__label">Exit Survey</span>
+                                                    <span class="stat-tile__sub">v3 &middot; Menunggu</span>
+                                                    <a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem; margin-top: 0.125rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v3', '2026', 'Exit Survey');"><span class="icon icon-plus-mini"></span>Override</a>
+                                                </div>
+                                                <div class="stat-tile stat-tile_neutral">
+                                                    <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
+                                                    <span class="stat-tile__value">-</span>
+                                                    <span class="stat-tile__label">GS-I</span>
+                                                    <span class="stat-tile__sub">v3 &middot; Menunggu</span>
+                                                    <a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem; margin-top: 0.125rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v3', '2026', 'GS-I');"><span class="icon icon-plus-mini"></span>Override</a>
+                                                </div>
+                                                <div class="stat-tile stat-tile_neutral">
+                                                    <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
+                                                    <span class="stat-tile__value">-</span>
+                                                    <span class="stat-tile__label">Pengguna Lulusan</span>
+                                                    <span class="stat-tile__sub">v1 &middot; Menunggu</span>
+                                                </div>
+                                                <div class="stat-tile stat-tile_neutral">
+                                                    <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
+                                                    <span class="stat-tile__value">-</span>
+                                                    <span class="stat-tile__label">GS-II</span>
+                                                    <span class="stat-tile__sub">v3 &middot; Menunggu</span>
+                                                    <a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem; margin-top: 0.125rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v3', '2026', 'GS-II');"><span class="icon icon-plus-mini"></span>Override</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -564,12 +536,10 @@
                                         <div class="card__body">
                                             <div class="card__body-left">
                                                 <div class="card__header">
-                                                    <span class="campaign-icon">
-                                                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                                            <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
-                                                            <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
-                                                        </svg>
-                                                    </span>
+                                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                                        <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                                        <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                                                    </svg>
                                                     <div class="card__header-wrapper">
                                                         <a href="#" class="card__title">Campaign Angkatan 2023</a>
                                                         <p class="card__desc">Dikirim 05 September 2024, 15:35 · Kuesioner Lulusan v2 &amp; Pengguna Lulusan v1</p>
@@ -587,69 +557,32 @@
                                                 <span class="section-title__icon section-title__icon_primary"><span class="icon icon-calendar"></span></span>
                                                 <h3>Fase Tracer Study</h3>
                                             </div>
-                                            <div class="campaign-phase-panel">
-                                                <div class="grid cols-2 cols-sm-4">
-                                                    <div class="campaign-phase">
-                                                        <span class="campaign-phase__label">Exit Survey</span>
-                                                        <div class="campaign-phase__tags">
-                                                            <span class="tag tag_outline tag_sm">v2</span>
-                                                            <span class="badge badge_success badge_sm"><span class="icon icon-check-circle-mini"></span>Terkirim</span>
-                                                        </div>
-                                                        <p class="card__desc" style="margin: 0.375rem 0 0;">690/700 mengisi</p>
-                                                    </div>
-                                                    <div class="campaign-phase">
-                                                        <span class="campaign-phase__label">GS-I</span>
-                                                        <div class="campaign-phase__tags">
-                                                            <span class="tag tag_outline tag_sm">v2</span>
-                                                            <span class="badge badge_primary badge_sm"><span class="icon icon-arrow-path-mini"></span>Aktif</span>
-                                                            <span class="badge badge_secondary-primary badge_sm" title="Sub-Version v2.1 aktif untuk Angkatan 2023, GS-I, Semua Program Studi"><span class="icon icon-document-duplicate-mini"></span>Override v2.1</span>
-                                                        </div>
-                                                        <p class="card__desc" style="margin: 0.375rem 0 0;">98/2088 mengisi</p>
-                                                    </div>
-                                                    <div class="campaign-phase">
-                                                        <span class="campaign-phase__label">Pengguna Lulusan</span>
-                                                        <div class="campaign-phase__tags">
-                                                            <span class="tag tag_outline tag_sm">v1</span>
-                                                            <span class="badge badge_secondary-primary badge_sm">Otomatis</span>
-                                                        </div>
-                                                        <p class="card__desc" style="margin: 0.375rem 0 0;" title="Dikirim otomatis sejajar GS-I, ke perusahaan alumni yang berstatus Bekerja">41 perusahaan dihubungi</p>
-                                                    </div>
-                                                    <div class="campaign-phase">
-                                                        <span class="campaign-phase__label">GS-II</span>
-                                                        <div class="campaign-phase__tags">
-                                                            <span class="tag tag_outline tag_sm">v2</span>
-                                                            <span class="badge badge_secondary-default badge_sm"><span class="icon icon-clock-mini"></span>Menunggu</span>
-                                                        </div>
-                                                        <p class="card__desc" style="margin: 0.375rem 0 0;">Dimulai 05 Sep 2025</p>
-                                                        <a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v2', '2023', 'GS-II');"><span class="icon icon-plus-mini"></span>Override</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="campaign-section">
-                                            <div class="section-title">
-                                                <span class="section-title__icon section-title__icon_success"><span class="icon icon-document-text"></span></span>
-                                                <h3>Statistik Pengiriman</h3>
-                                            </div>
                                             <div class="stat-tiles">
-                                                <div class="stat-tile stat-tile_primary">
-                                                    <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-paper-airplane-mini"></span></span>
-                                                    <span class="stat-tile__value">2088</span>
-                                                    <span class="stat-tile__label">Lulusan Menerima Kuesioner</span>
-                                                    <span class="stat-tile__sub">GS-I &middot; Angkatan 2023</span>
-                                                </div>
                                                 <div class="stat-tile stat-tile_success">
                                                     <span class="stat-tile__icon stat-tile__icon_success"><span class="icon icon-check-circle-mini"></span></span>
-                                                    <span class="stat-tile__value">98</span>
-                                                    <span class="stat-tile__label">Lulusan Mengisi Kuesioner</span>
-                                                    <span class="stat-tile__sub">GS-I &middot; response rate 4,7%</span>
+                                                    <span class="stat-tile__value">690/700</span>
+                                                    <span class="stat-tile__label">Exit Survey</span>
+                                                    <span class="stat-tile__sub">v2 &middot; Terkirim</span>
+                                                </div>
+                                                <div class="stat-tile stat-tile_primary">
+                                                    <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-arrow-path-mini"></span></span>
+                                                    <span class="stat-tile__value">98/2088</span>
+                                                    <span class="stat-tile__label">GS-I</span>
+                                                    <span class="stat-tile__sub">v2 &middot; Aktif &middot; RR 4,7%</span>
+                                                    <p style="margin: 0.125rem 0 0; font-size: 0.6875rem; color: var(--qn-neutral-500);" title="Sub-Version v2.1 aktif untuk Angkatan 2023, GS-I, Semua Program Studi"><span class="icon icon-document-duplicate-mini"></span> Override v2.1 aktif</p>
                                                 </div>
                                                 <div class="stat-tile stat-tile_warning">
                                                     <span class="stat-tile__icon stat-tile__icon_warning"><span class="icon icon-arrow-path-mini"></span></span>
                                                     <span class="stat-tile__value">41</span>
-                                                    <span class="stat-tile__label">Perusahaan Dihubungi</span>
-                                                    <span class="stat-tile__sub">Otomatis via Pengguna Lulusan</span>
+                                                    <span class="stat-tile__label">Pengguna Lulusan</span>
+                                                    <span class="stat-tile__sub" title="Dikirim otomatis sejajar GS-I, ke perusahaan alumni yang berstatus Bekerja">v1 &middot; Otomatis via GS-I</span>
+                                                </div>
+                                                <div class="stat-tile stat-tile_neutral">
+                                                    <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
+                                                    <span class="stat-tile__value">-</span>
+                                                    <span class="stat-tile__label">GS-II</span>
+                                                    <span class="stat-tile__sub">v2 &middot; Dimulai 05 Sep 2025</span>
+                                                    <a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem; margin-top: 0.125rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v2', '2023', 'GS-II');"><span class="icon icon-plus-mini"></span>Override</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -829,7 +762,7 @@
                                                         <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
                                                     </svg>
                                                     <div class="card__header-wrapper">
-                                                        <span class="card__title" style="color: var(--qn-neutral-500);" title="Sudah dipublikasikan - terkunci, tidak bisa diedit">Kuesioner Pengguna Lulusan - v1</span>
+                                                        <a href="./kuesioner-preview.html?type=pengguna-lulusan&base=v1" class="card__title" style="color: var(--qn-primary-500);">Kuesioner Pengguna Lulusan - v1</a>
                                                         <p class="card__desc" id="pl-version-v1-desc">Dipublikasikan 01 Juni 2025 &middot; Sedang aktif mengirim</p>
                                                         <div class="tier-summary">
                                                             <span class="tier-summary__item tier-summary__item--core"><strong>7</strong> Core</span>
@@ -1125,40 +1058,58 @@
                     <span class="field-section-label"><span class="icon icon-calendar"></span>Batas Waktu per Fase</span>
 
                     <!-- Batas Waktu: Exit Survey -->
-                    <div class="form-control">
+                    <div>
                         <label class="form-control__label" style="margin-bottom: 0.5rem;">Exit Survey</label>
                         <div class="grid cols-1 cols-sm-2">
-                            <div class="form-control__group">
-                                <input type="date" class="form-control__input" id="input-exit-awal" placeholder="Batas Awal">
+                            <div class="form-control">
+                                <label for="input-exit-awal" class="form-control__label" style="font-size: 0.75rem; font-weight: 500; color: var(--qn-neutral-500);">Batas Awal</label>
+                                <div class="form-control__group">
+                                    <input type="date" class="form-control__input" id="input-exit-awal">
+                                </div>
                             </div>
-                            <div class="form-control__group">
-                                <input type="date" class="form-control__input" id="input-exit-akhir" placeholder="Batas Akhir">
+                            <div class="form-control">
+                                <label for="input-exit-akhir" class="form-control__label" style="font-size: 0.75rem; font-weight: 500; color: var(--qn-neutral-500);">Batas Akhir</label>
+                                <div class="form-control__group">
+                                    <input type="date" class="form-control__input" id="input-exit-akhir">
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Batas Waktu: GS-I -->
-                    <div class="form-control">
+                    <div>
                         <label class="form-control__label" style="margin-bottom: 0.5rem;">GS-I</label>
                         <div class="grid cols-1 cols-sm-2">
-                            <div class="form-control__group">
-                                <input type="date" class="form-control__input" id="input-gs1-awal" placeholder="Batas Awal">
+                            <div class="form-control">
+                                <label for="input-gs1-awal" class="form-control__label" style="font-size: 0.75rem; font-weight: 500; color: var(--qn-neutral-500);">Batas Awal</label>
+                                <div class="form-control__group">
+                                    <input type="date" class="form-control__input" id="input-gs1-awal">
+                                </div>
                             </div>
-                            <div class="form-control__group">
-                                <input type="date" class="form-control__input" id="input-gs1-akhir" placeholder="Batas Akhir">
+                            <div class="form-control">
+                                <label for="input-gs1-akhir" class="form-control__label" style="font-size: 0.75rem; font-weight: 500; color: var(--qn-neutral-500);">Batas Akhir</label>
+                                <div class="form-control__group">
+                                    <input type="date" class="form-control__input" id="input-gs1-akhir">
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Batas Waktu: GS-II -->
-                    <div class="form-control">
+                    <div>
                         <label class="form-control__label" style="margin-bottom: 0.5rem;">GS-II</label>
                         <div class="grid cols-1 cols-sm-2">
-                            <div class="form-control__group">
-                                <input type="date" class="form-control__input" id="input-gs2-awal" placeholder="Batas Awal">
+                            <div class="form-control">
+                                <label for="input-gs2-awal" class="form-control__label" style="font-size: 0.75rem; font-weight: 500; color: var(--qn-neutral-500);">Batas Awal</label>
+                                <div class="form-control__group">
+                                    <input type="date" class="form-control__input" id="input-gs2-awal">
+                                </div>
                             </div>
-                            <div class="form-control__group">
-                                <input type="date" class="form-control__input" id="input-gs2-akhir" placeholder="Batas Akhir">
+                            <div class="form-control">
+                                <label for="input-gs2-akhir" class="form-control__label" style="font-size: 0.75rem; font-weight: 500; color: var(--qn-neutral-500);">Batas Akhir</label>
+                                <div class="form-control__group">
+                                    <input type="date" class="form-control__input" id="input-gs2-akhir">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1216,22 +1167,6 @@
 
     <!-- Campaign Tahun Lulus & Monitoring Breakdown Styles -->
     <style>
-        /* Campaign icon-in-circle (same recipe as .prestasi-item__icon in alumni.html) */
-        .campaign-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 2.25rem;
-            height: 2.25rem;
-            border-radius: 50%;
-            background: var(--qn-primary-100);
-            flex-shrink: 0;
-        }
-        .campaign-icon svg {
-            width: 20px;
-            height: 20px;
-        }
-
         /* Section header inside a campaign card body (same recipe as .section-title in alumni-detail.html) */
         .section-title { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 0.875rem; }
         .section-title__icon { flex-shrink: 0; width: 1.75rem; height: 1.75rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 0.9375rem; }
@@ -1241,12 +1176,6 @@
 
         /* Each campaign card body is broken into separate sections, not crammed into the header */
         .campaign-section { padding: 0 1rem 1rem; }
-
-        /* Fase Tracer Study: a bordered/tinted sub-panel (same recipe as .prestasi-item / .stat-tile) */
-        .campaign-phase-panel { border: 1px solid var(--qn-neutral-200); border-radius: 0.625rem; background: var(--qn-neutral-50); padding: 1rem 1.25rem; }
-        .campaign-phase { display: flex; flex-direction: column; gap: 0.375rem; }
-        .campaign-phase__label { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-700); }
-        .campaign-phase__tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
 
         /* Monitoring Breakdown (per prodi / per angkatan) */
         .monitoring-dropout {
@@ -1731,13 +1660,12 @@
                 { label: 'GS-II', versi: versiAlumni, overridable: true }
             ];
             const phaseCells = phases.map(p => `
-                                    <div class="campaign-phase">
-                                        <span class="campaign-phase__label">${p.label}</span>
-                                        <div class="campaign-phase__tags">
-                                            <span class="tag tag_outline tag_sm">${p.versi}</span>
-                                            <span class="badge badge_secondary-default badge_sm"><span class="icon icon-clock-mini"></span>Menunggu</span>
-                                        </div>
-                                        ${p.overridable ? `<a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, '${p.versi}', '${tahun}', '${p.label}');"><span class="icon icon-plus-mini"></span>Override</a>` : ''}
+                                    <div class="stat-tile stat-tile_neutral">
+                                        <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
+                                        <span class="stat-tile__value">-</span>
+                                        <span class="stat-tile__label">${p.label}</span>
+                                        <span class="stat-tile__sub">${p.versi} &middot; Menunggu</span>
+                                        ${p.overridable ? `<a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem; margin-top: 0.125rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, '${p.versi}', '${tahun}', '${p.label}');"><span class="icon icon-plus-mini"></span>Override</a>` : ''}
                                     </div>`).join('');
 
             const newCard = document.createElement('div');
@@ -1749,12 +1677,10 @@
                 <div class="card__body">
                     <div class="card__body-left">
                         <div class="card__header">
-                            <span class="campaign-icon">
-                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                    <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
-                                    <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
-                                </svg>
-                            </span>
+                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                <path opacity="0.3" d="M19.014 29.9385C19.4265 30.0345 19.464 30.5745 19.062 30.708L16.692 31.488C10.737 33.408 7.60197 31.803 5.66697 25.848L3.74697 19.923C1.82697 13.968 3.41697 10.818 9.37197 8.898L10.158 8.637C10.7625 8.4375 11.3505 9.0435 11.178 9.657C11.094 9.96 11.013 10.278 10.932 10.608L9.46197 16.893C7.81197 23.958 10.227 27.858 17.292 29.538L19.014 29.9385Z" fill="var(--qn-primary-400)"/>
+                                <path d="M25.755 4.81349L23.25 4.22849C18.24 3.04349 15.255 4.01849 13.5 7.64849C13.05 8.56349 12.69 9.67349 12.39 10.9485L10.92 17.2335C9.45003 23.5035 11.385 26.5935 17.64 28.0785L20.16 28.6785C21.03 28.8885 21.84 29.0235 22.59 29.0835C27.27 29.5335 29.76 27.3435 31.02 21.9285L32.49 15.6585C33.96 9.38849 32.04 6.28349 25.755 4.81349ZM22.935 19.9935C22.8 20.5035 22.35 20.8335 21.84 20.8335C21.75 20.8335 21.66 20.8185 21.555 20.8035L17.19 19.6935C16.9194 19.6042 16.6927 19.4156 16.5557 19.1656C16.4188 18.9157 16.3818 18.6231 16.4523 18.3469C16.5227 18.0708 16.6954 17.8317 16.9354 17.6779C17.1753 17.5241 17.4647 17.4671 17.745 17.5185L22.11 18.6285C22.725 18.7785 23.085 19.3935 22.935 19.9935ZM27.33 14.9235C27.195 15.4335 26.745 15.7635 26.235 15.7635C26.145 15.7635 26.055 15.7485 25.95 15.7335L18.675 13.8885C18.4044 13.7992 18.1777 13.6106 18.0407 13.3606C17.9038 13.1107 17.8668 12.8181 17.9373 12.5419C18.0077 12.2658 18.1804 12.0267 18.4204 11.8729C18.6603 11.7191 18.9497 11.6621 19.23 11.7135L26.505 13.5585C27.12 13.6935 27.48 14.3085 27.33 14.9235Z" fill="var(--qn-primary-400)"/>
+                            </svg>
                             <div class="card__header-wrapper">
                                 <a href="#" class="card__title">Campaign Angkatan ${tahun}</a>
                                 <p class="card__desc">Dibuat ${dateStr} · Kuesioner Lulusan ${versiAlumni} &amp; Pengguna Lulusan ${versiPl}</p>
@@ -1772,9 +1698,7 @@
                         <span class="section-title__icon section-title__icon_primary"><span class="icon icon-calendar"></span></span>
                         <h3>Fase Tracer Study</h3>
                     </div>
-                    <div class="campaign-phase-panel">
-                        <div class="grid cols-2 cols-sm-4">${phaseCells}
-                        </div>
+                    <div class="stat-tiles">${phaseCells}
                     </div>
                 </div>
 
@@ -1856,14 +1780,19 @@
 
                         // Exit Survey is the only fase that can start immediately; the rest still
                         // wait for their own Batas Awal (GS-I/GS-II) or trigger otomatis (Pengguna Lulusan).
-                        const firstPhaseBadge = card.querySelector('.campaign-phase-panel .campaign-phase__tags .badge_secondary-default');
-                        if (firstPhaseBadge) {
-                            firstPhaseBadge.className = 'badge badge_success badge_sm';
-                            firstPhaseBadge.innerHTML = '<span class="icon icon-check-circle-mini"></span>Terkirim';
+                        const firstPhaseTile = card.querySelector('.stat-tiles .stat-tile_neutral');
+                        if (firstPhaseTile) {
+                            firstPhaseTile.className = 'stat-tile stat-tile_success';
+                            const icon = firstPhaseTile.querySelector('.stat-tile__icon');
+                            if (icon) { icon.className = 'stat-tile__icon stat-tile__icon_success'; icon.innerHTML = '<span class="icon icon-check-circle-mini"></span>'; }
+                            const value = firstPhaseTile.querySelector('.stat-tile__value');
+                            if (value) value.textContent = '0/-';
+                            const sub = firstPhaseTile.querySelector('.stat-tile__sub');
+                            if (sub) sub.textContent = sub.textContent.replace('Menunggu', 'Terkirim');
 
                             // This fase is no longer "Menunggu" - overrides can only be created
                             // before a fase starts, so its "+ Override" link goes away too.
-                            const overrideLink = firstPhaseBadge.closest('.campaign-phase')?.querySelector('.campaign-phase__override-link');
+                            const overrideLink = firstPhaseTile.querySelector('.campaign-phase__override-link');
                             if (overrideLink) overrideLink.remove();
                         }
 
@@ -2076,8 +2005,9 @@
                     <div style="display: flex; align-items: center; gap: 0.5rem;">
                         <span class="card__footer-title">${sub}</span>
                         <span class="tag tag_neutral tag_sm">Draft</span>
+                        <span class="tag tag_neutral" title="Bisa dipakai campaign Tahun Lulus mana pun">Dipakai 1 Campaign</span>
                     </div>
-                    <p class="card__desc" style="margin: 0.25rem 0 0;">Angkatan ${tahun} &middot; ${wave} &middot; ${prodi}</p>
+                    <p class="card__desc" style="margin: 0.25rem 0 0;">Override untuk fase ${wave}</p>
                 </div>
                 <a href="#" class="btn btn_outline btn_sm btn_icon" data-tooltip="Preview" data-sub="${sub}" data-base="${base}" onclick="previewSubversion(this); return false;">
                     <span class="icon icon-eye-mini"></span>
