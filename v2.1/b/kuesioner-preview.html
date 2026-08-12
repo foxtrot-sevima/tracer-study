@@ -183,6 +183,15 @@
                 </div>
             </div>
 
+            <!-- Preview limitation banner - shown for every version (main or Sub-Version), since
+                 this mockup never modeled per-version content differences either. -->
+            <div class="alert alert_warning" id="pv-preview-banner" style="margin-bottom: 1.25rem;">
+                <div class="alert__content">
+                    <p class="alert__heading" id="pv-preview-heading">Pratinjau Kuesioner Lulusan</p>
+                    <p class="alert__description" id="pv-preview-desc">Pertanyaan di bawah adalah representasi umum - variasi isi antar versi belum disimulasikan pada pratinjau ini.</p>
+                </div>
+            </div>
+
             <!-- Narrower reading column for the wave tabs + question list - matches the real
                  respondent forms' max-width:46rem convention instead of stretching full width,
                  which read as unnecessarily long. -->
@@ -461,14 +470,24 @@
         const params = new URLSearchParams(location.search);
         const type = params.get('type') === 'pengguna-lulusan' ? 'pengguna-lulusan' : 'tracer';
         const fromBuilder = params.get('from') === 'builder';
+        const subVersion = params.get('sub');
+        const baseVersion = params.get('base');
 
         // "Kembali ke Kuesioner" goes back to wherever this preview was opened from - the
-        // relevant builder (opened via its "Pratinjau" button) or the front-list card view
-        // (opened via a published version's "Preview" button), landing on the matching tab.
+        // relevant builder (opened via its "Pratinjau" button, carrying its override params
+        // along so the same Sub-Version session resumes) or the front-list card view (opened
+        // via a published version's "Preview" button), landing on the matching tab.
         const backLink = document.getElementById('pv-back-link');
         if (backLink) {
             if (fromBuilder) {
-                backLink.href = type === 'pengguna-lulusan' ? './kuesioner-pengguna-lulusan-builder.html' : './kuesioner-builder.html';
+                if (subVersion) {
+                    backLink.href = './kuesioner-builder.html?' + new URLSearchParams({
+                        override: '1', base: baseVersion || '', sub: subVersion,
+                        tahun: params.get('tahun') || '', wave: params.get('wave') || '', prodi: params.get('prodi') || ''
+                    }).toString();
+                } else {
+                    backLink.href = type === 'pengguna-lulusan' ? './kuesioner-pengguna-lulusan-builder.html' : './kuesioner-builder.html';
+                }
             } else if (type === 'pengguna-lulusan') {
                 backLink.addEventListener('click', function() {
                     sessionStorage.setItem('openTab', 'kuesioner-pengguna-lulusan');
@@ -476,12 +495,28 @@
             }
         }
 
+        // The content below always renders the same shared question bank regardless of which
+        // version/Sub-Version is being previewed (this mockup never modeled per-version content
+        // differences), so every preview - main version or Sub-Version - gets a banner making
+        // that limitation explicit instead of silently implying it shows that version's own
+        // exact wording.
+        const heading = document.getElementById('pv-preview-heading');
+        const desc = document.getElementById('pv-preview-desc');
+        if (subVersion) {
+            document.getElementById('pv-title').textContent = 'Pratinjau Sub-Version ' + subVersion;
+            if (heading) heading.textContent = 'Sub-Version ' + subVersion + ' - override dari ' + (baseVersion || '-');
+            if (desc) desc.textContent = 'Pertanyaan di bawah menampilkan versi utama - perbedaan Sub-Version ini belum disimulasikan pada pratinjau.';
+        } else if (heading) {
+            const label = type === 'pengguna-lulusan' ? 'Pratinjau Kuesioner Pengguna Lulusan' : 'Pratinjau Kuesioner Lulusan';
+            heading.textContent = label + (baseVersion ? ' - ' + baseVersion : '');
+        }
+
         if (type === 'pengguna-lulusan') {
-            document.getElementById('pv-title').textContent = 'Pratinjau Kuesioner Pengguna Lulusan';
+            document.getElementById('pv-title').textContent = subVersion ? document.getElementById('pv-title').textContent : 'Pratinjau Kuesioner Pengguna Lulusan';
             document.getElementById('pv-wave-tabs').style.display = 'none';
             renderPL();
         } else {
-            document.getElementById('pv-title').textContent = 'Pratinjau Kuesioner Tracer Study';
+            document.getElementById('pv-title').textContent = subVersion ? document.getElementById('pv-title').textContent : 'Pratinjau Kuesioner Lulusan';
             document.getElementById('pv-wave-tabs').style.display = '';
             setWave('exit');
         }

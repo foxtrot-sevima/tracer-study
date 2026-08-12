@@ -266,13 +266,22 @@
             <div class="main__header main__header_kl-list">
                 <div class="main__location">
                     <div class="main__wrapper">
-                        <h1 class="main__title">Kuesioner Tracer Study</h1>
-                        <p class="main__subtitle">Draft v4 &middot; Core selalu ada, Optional diaktifkan dari bank, Custom ditulis bebas</p>
+                        <h1 class="main__title" id="builder-title">Kuesioner Lulusan</h1>
+                        <p class="main__subtitle" id="builder-subtitle">Draft v4 &middot; Core selalu ada, Optional diaktifkan dari bank, Custom ditulis bebas</p>
                     </div>
                 </div>
                 <div class="main__action">
-                    <a href="./kuesioner-preview.html?from=builder" class="btn btn_outline btn_sm" target="_blank">Pratinjau</a>
-                    <button class="btn btn_primary btn_sm" onclick="saveAll()">Simpan ke Draft</button>
+                    <a href="./kuesioner-preview.html?from=builder&base=v4" class="btn btn_outline btn_sm" id="builder-preview-link" target="_blank">Pratinjau</a>
+                    <button class="btn btn_primary btn_sm" id="builder-save-btn" onclick="saveAll()">Simpan ke Draft</button>
+                </div>
+            </div>
+
+            <!-- Override-mode banner: only shown when this editor was opened from "+ Override"
+                 on a Campaign fase (kuesioner.html's Campaign Tahun Lulus tab) -->
+            <div class="alert alert_warning" id="override-banner" style="display: none; margin-bottom: 1.25rem;">
+                <div class="alert__content">
+                    <p class="alert__heading">Mode Override - membuat Sub-Version</p>
+                    <p class="alert__description" id="override-banner-text"></p>
                 </div>
             </div>
 
@@ -1105,10 +1114,27 @@
 
     // ==================== Save ====================
     // Versi (v1, v2, ...) diberi otomatis oleh backend saat draft disimpan - tidak perlu judul manual.
+    // In override mode this instead saves a Sub-Version scoped to (Tahun Lulus, Wave, Program
+    // Studi) under its base version - it never creates a new main version.
     function saveAll() {
         console.log('Saved data:', data);
-        showToast('Kuesioner berhasil disimpan!');
 
+        const params = new URLSearchParams(location.search);
+        if (params.get('override') === '1') {
+            showToast('Sub-Version ' + (params.get('sub') || '') + ' berhasil disimpan sebagai draft!');
+            setTimeout(() => {
+                sessionStorage.setItem('showOverrideToast', 'true');
+                sessionStorage.setItem('overrideBase', params.get('base') || '');
+                sessionStorage.setItem('overrideSubVersion', params.get('sub') || '');
+                sessionStorage.setItem('overrideTahun', params.get('tahun') || '');
+                sessionStorage.setItem('overrideWave', params.get('wave') || '');
+                sessionStorage.setItem('overrideProdi', params.get('prodi') || '');
+                window.location.href = './kuesioner.html';
+            }, 1500);
+            return;
+        }
+
+        showToast('Kuesioner berhasil disimpan!');
         setTimeout(() => {
             sessionStorage.setItem('showDraftToast', 'true');
             window.location.href = './kuesioner.html';
@@ -1117,6 +1143,32 @@
 
     // ==================== Init ====================
     document.addEventListener('DOMContentLoaded', function() {
+        // Override mode: this editor was opened via "+ Buat Override" on a Published
+        // version's Sub-Version picker - contextualize the header and warn that only this
+        // specific Tahun Lulus/Wave/Program Studi combination is affected.
+        const overrideParams = new URLSearchParams(location.search);
+        if (overrideParams.get('override') === '1') {
+            const base = overrideParams.get('base') || '-';
+            const sub = overrideParams.get('sub') || '-';
+            const tahun = overrideParams.get('tahun') || '-';
+            const wave = overrideParams.get('wave') || '-';
+            const prodi = overrideParams.get('prodi') || 'Semua Program Studi';
+
+            document.getElementById('builder-title').textContent = 'Kuesioner Lulusan - Override ' + sub;
+            document.getElementById('builder-subtitle').textContent = 'Sub-Version dari ' + base + ' &middot; hanya berlaku untuk Angkatan ' + tahun + ', ' + wave;
+            document.getElementById('builder-save-btn').textContent = 'Simpan Override';
+
+            const previewLink = document.getElementById('builder-preview-link');
+            if (previewLink) previewLink.href = './kuesioner-preview.html?from=builder&base=' + encodeURIComponent(base) + '&sub=' + encodeURIComponent(sub);
+
+            const banner = document.getElementById('override-banner');
+            const bannerText = document.getElementById('override-banner-text');
+            if (banner && bannerText) {
+                bannerText.innerHTML = 'Pertanyaan yang Anda ubah di sini hanya menggantikan versi utama <strong>' + base + '</strong> untuk kombinasi <strong>Angkatan ' + tahun + '</strong>, wave <strong>' + wave + '</strong>, Program Studi <strong>' + prodi + '</strong>. Kombinasi lain tetap memakai ' + base + ' apa adanya.';
+                banner.style.display = 'flex';
+            }
+        }
+
         renderAllSections();
     });
     </script>
