@@ -47,7 +47,7 @@
                 <ul class="nav-tab__wrapper">
                     <li class="nav-tab__item active" onclick="showEmail('exit', this)">Wave Exit</li>
                     <li class="nav-tab__item" onclick="showEmail('g1', this)">Wave G1</li>
-                    <li class="nav-tab__item" onclick="showEmail('g2', this)">Wave G2</li>
+                    <li class="nav-tab__item" onclick="showEmail('g2', this)">Wave G2 (instrumen sama dengan G1)</li>
                 </ul>
             </nav>
 
@@ -68,7 +68,7 @@
                         <p>Sebelum Anda melangkah ke fase berikutnya, kami ingin memastikan data kontak Anda masih aktif dan mengetahui kondisi awal Anda saat ini. Jawaban Anda akan membantu kami menyediakan program karier yang tepat - seperti informasi lowongan, pelatihan, dan koneksi ke perusahaan mitra.</p>
                         <p>Pengisian hanya memakan waktu <b>kurang dari 3 menit</b>:</p>
                         <p style="text-align:center;margin:1.5rem 0;">
-                            <a href="simulasi-g1-status.html" class="email-cta">Isi Sekarang →</a>
+                            <a href="simulasi-exit.html" class="email-cta">Isi Sekarang →</a>
                         </p>
                         <p>Terima kasih atas waktu Anda. Kabar dari Anda sangat berarti bagi kami dan adik-adik tingkat Anda.</p>
                         <p>Salam hangat,<br><b>Tim CDC - Universitas Foxtrot</b></p>
@@ -108,6 +108,11 @@
             </div>
 
             <!-- ========== EMAIL WAVE G2 ========== -->
+            <!-- arsitektur-pertanyaan.md hanya mendefinisikan instrumen Wave Exit dan Wave G1 (lihat
+                 §1 catatan: "sistem punya kontak aktif untuk mengirim Wave G1 dan G2 nanti") - tidak ada
+                 kumpulan pertanyaan G2 yang terpisah, dan v3/b belum punya simulasi-g2-*.html tersendiri.
+                 CTA di bawah sengaja diarahkan ke instrumen G1 yang sama (dikirim ulang di gelombang
+                 berikutnya), bukan bug - beri tahu jika nanti perlu dibuatkan alur G2 terpisah. -->
             <div id="email-g2" class="email-variant">
                 <div class="email-inbox">
                     <div class="email-toolbar">
@@ -122,6 +127,7 @@
                         <p>Halo <b>Ahmad Rizki</b>,</p>
                         <p>Sudah beberapa tahun sejak Anda lulus dari <b>S1 Teknik Informatika, Universitas Foxtrot</b>. Kami berharap perjalanan karier Anda berjalan dengan baik!</p>
                         <p>Kali ini kami ingin menggali lebih dalam - seberapa relevan pendidikan yang Anda tempuh dengan pekerjaan saat ini, dan apa yang bisa kami perbaiki untuk mahasiswa generasi berikutnya. Masukan Anda sangat berharga untuk pengembangan kurikulum dan program prodi.</p>
+                        <p style="font-size:.75rem;color:var(--qn-neutral-400);border-left:3px solid var(--qn-neutral-200);padding-left:.75rem;">Catatan: pertanyaan yang akan Anda isi sama dengan Wave G1 - kami tanyakan kembali secara berkala karena status karier Anda mungkin sudah berubah sejak pengisian terakhir.</p>
                         <p>Pengisian hanya memakan waktu <b>kurang dari 5 menit</b>:</p>
                         <p style="text-align:center;margin:1.5rem 0;">
                             <a href="simulasi-g1-status.html" class="email-cta">Isi Survei Lanjutan →</a>

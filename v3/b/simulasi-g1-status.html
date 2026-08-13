@@ -49,9 +49,9 @@
         }
         .tsf-option:hover { border-color: var(--qn-primary-300, #93c5fd); background: var(--qn-primary-50, #eff6ff); }
         .tsf-option.tsf-option--checked { border-color: var(--qn-primary-500, #3b82f6); background: var(--qn-primary-50, #eff6ff); }
+        .tsf-option.tsf-option--locked { cursor: not-allowed; opacity: 0.6; }
 
-        /* f8 status options double as page links (each choice opens a different branch page) */
-        .tsf-option--nav { display: flex; align-items: center; gap: 0.625rem; }
+        .tsf-auto-note { display: flex; align-items: center; gap: 0.375rem; font-size: 0.75rem; color: var(--qn-primary-600, #2563eb); font-weight: 500; margin-top: 0.625rem; }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -85,90 +85,57 @@
         <div class="card__body">
 
             <!-- g1_verif_pralulus: shown only if alumni told Wave Exit they were already
-                 working/self-employed pre-graduation. Internal question, not sent to
-                 Kemdiktisaintek. If "Ya" -> f8 auto-selected (Bekerja/Wiraswasta per Exit
-                 answer) and f502 auto-filled 0 (masa tunggu nol bulan), recorded for IKU#2
-                 kriteria (e)/(f). If "Tidak" -> alumni picks their own status below,
-                 f502 is not pre-filled. Gated here by a mock constant since this
-                 prototype has no real backend. -->
+                 working/self-employed pre-graduation (exit_status_pralulus, carried over via
+                 sessionStorage - see EXIT_STATUS_PRALULUS below). Internal question, not sent
+                 to Kemdiktisaintek. If "Ya" -> f8 auto-selected (Bekerja/Wiraswasta matching
+                 the Exit answer) and locked, and f502 auto-filled 0/"sebelum lulus" and locked
+                 (recorded for IKU#2 kriteria (e)/(f)). If "Tidak" -> alumni picks their own
+                 status and masa tunggu below, nothing pre-filled or locked. -->
             <div class="tsf-question tsf-conditional" id="verif-pralulus-wrap" style="display: none;" aria-hidden="true">
                 <p class="tsf-question__label" id="verif-label">Sebelumnya Anda menyebutkan sudah bekerja/berwirausaha sebelum lulus. Apakah pekerjaan/usaha tersebut masih Anda jalankan saat ini?<span class="tsf-required" aria-label="Wajib">*</span></p>
                 <div class="tsf-radio-group">
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="verif" id="verif-ya" value="ya"><label for="verif-ya" class="form-control__label-radio">Ya, masih</label></label>
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="verif" id="verif-tidak" value="tidak"><label for="verif-tidak" class="form-control__label-radio">Tidak</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="verif" id="verif-ya" value="ya" onchange="applyVerifPralulusLogic('ya')"><label for="verif-ya" class="form-control__label-radio">Ya, masih</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="verif" id="verif-tidak" value="tidak" onchange="applyVerifPralulusLogic('tidak')"><label for="verif-tidak" class="form-control__label-radio">Tidak</label></label>
                 </div>
+                <p class="tsf-auto-note" id="verif-auto-note" style="display: none;">
+                    <span class="icon icon-check-circle-mini" aria-hidden="true"></span>
+                    Status dan masa tunggu di bawah otomatis terisi dari jawaban Anda, dan terkunci.
+                </p>
             </div>
 
-            <!-- f8: Status -->
+            <!-- f8: Status (gate question - drives which branch page "Lanjut" sends the alumni to) -->
             <div class="tsf-question" role="radiogroup" aria-labelledby="f8-label">
                 <div class="tsf-question__label-row">
                     <span class="tsf-question__number" aria-hidden="true">1.</span>
                     <p class="tsf-question__label" id="f8-label">Apa status Anda saat ini?<span class="tsf-required" aria-label="Wajib">*</span></p>
                 </div>
-                <p class="tsf-question__desc">Pilih yang paling menggambarkan kondisi utama Anda.</p>
-                <div class="tsf-radio-group">
-                    <a href="simulasi-g1-bekerja.html" style="text-decoration:none;">
-                        <label class="form-control tsf-option tsf-option--nav"><input type="radio" class="form-control__radio" name="f8" id="f8-bekerja" value="bekerja"><label for="f8-bekerja" class="form-control__label-radio">Bekerja (full time / part time)</label></label>
-                    </a>
-                    <a href="simulasi-g1-wiraswasta.html" style="text-decoration:none;">
-                        <label class="form-control tsf-option tsf-option--nav"><input type="radio" class="form-control__radio" name="f8" id="f8-wiraswasta" value="wiraswasta"><label for="f8-wiraswasta" class="form-control__label-radio">Wiraswasta</label></label>
-                    </a>
-                    <a href="simulasi-g1-studi.html" style="text-decoration:none;">
-                        <label class="form-control tsf-option tsf-option--nav"><input type="radio" class="form-control__radio" name="f8" id="f8-studi" value="studi"><label for="f8-studi" class="form-control__label-radio">Melanjutkan Pendidikan</label></label>
-                    </a>
-                    <a href="simulasi-g1-mencari.html" style="text-decoration:none;">
-                        <label class="form-control tsf-option tsf-option--nav"><input type="radio" class="form-control__radio" name="f8" id="f8-mencari" value="mencari"><label for="f8-mencari" class="form-control__label-radio">Tidak kerja tetapi sedang mencari kerja</label></label>
-                    </a>
-                    <a href="simulasi-g1-belum.html" style="text-decoration:none;">
-                        <label class="form-control tsf-option tsf-option--nav"><input type="radio" class="form-control__radio" name="f8" id="f8-belum" value="belum"><label for="f8-belum" class="form-control__label-radio">Belum memungkinkan bekerja</label></label>
-                    </a>
+                <p class="tsf-question__desc">Pilih yang paling menggambarkan kondisi utama Anda. Jawaban ini menentukan pertanyaan lanjutan yang akan Anda lihat.</p>
+                <div class="tsf-radio-group" id="f8-radio-group">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f8" id="f8-bekerja" value="bekerja" onchange="applyF8Logic('bekerja')"><label for="f8-bekerja" class="form-control__label-radio">Bekerja (full time / part time)</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f8" id="f8-wiraswasta" value="wiraswasta" onchange="applyF8Logic('wiraswasta')"><label for="f8-wiraswasta" class="form-control__label-radio">Wiraswasta</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f8" id="f8-studi" value="studi" onchange="applyF8Logic('studi')"><label for="f8-studi" class="form-control__label-radio">Melanjutkan Pendidikan</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f8" id="f8-mencari" value="mencari" onchange="applyF8Logic('mencari')"><label for="f8-mencari" class="form-control__label-radio">Tidak kerja tetapi sedang mencari kerja</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f8" id="f8-belum" value="belum" onchange="applyF8Logic('belum')"><label for="f8-belum" class="form-control__label-radio">Belum memungkinkan bekerja</label></label>
                 </div>
             </div>
 
-            <div class="alert alert_info" style="margin: 1rem 0;">
-                <div class="alert__content"><p class="alert__description">Pilih status Anda di atas. Setiap pilihan membuka halaman pertanyaan yang berbeda - Anda hanya akan melihat pertanyaan yang relevan dengan kondisi Anda.</p></div>
-            </div>
-
-            <!-- f1201: Sumber dana kuliah -->
-            <div class="tsf-question" role="radiogroup" aria-labelledby="f1201-label">
-                <div class="tsf-question__label-row">
-                    <span class="tsf-question__number" aria-hidden="true">2.</span>
-                    <p class="tsf-question__label" id="f1201-label">Sumber dana kuliah Anda<span class="tsf-required" aria-label="Wajib">*</span></p>
-                </div>
-                <p class="tsf-question__desc">Bukan ketika studi lanjut.</p>
-                <div class="tsf-radio-group" id="f1201-radio-group">
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-a" value="biaya_sendiri" onchange="toggleLainnyaField(this)"><label for="f1201-a" class="form-control__label-radio">Biaya sendiri / keluarga</label></label>
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-b" value="adik" onchange="toggleLainnyaField(this)"><label for="f1201-b" class="form-control__label-radio">Beasiswa ADIK</label></label>
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-c" value="bidikmisi" onchange="toggleLainnyaField(this)"><label for="f1201-c" class="form-control__label-radio">Beasiswa BIDIKMISI</label></label>
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-d" value="ppa" onchange="toggleLainnyaField(this)"><label for="f1201-d" class="form-control__label-radio">Beasiswa PPA</label></label>
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-e" value="afirmasi" onchange="toggleLainnyaField(this)"><label for="f1201-e" class="form-control__label-radio">Beasiswa AFIRMASI</label></label>
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-f" value="perusahaan" onchange="toggleLainnyaField(this)"><label for="f1201-f" class="form-control__label-radio">Beasiswa perusahaan/sponsor</label></label>
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-g" value="lainnya" onchange="toggleLainnyaField(this)"><label for="f1201-g" class="form-control__label-radio">Lainnya</label></label>
-                </div>
-            </div>
-
-            <div class="tsf-question tsf-conditional" id="lainnya-f1201-radio-group-wrap" style="display: none;" aria-hidden="true">
-                <label for="input-lainnya-f1201" class="tsf-question__label">Sebutkan sumber dana lainnya</label>
-                <div class="form-control" style="margin-top: 0.5rem;">
-                    <div class="form-control__group">
-                        <input type="text" id="input-lainnya-f1201" class="form-control__input" placeholder="Tuliskan sumber dana Anda">
-                    </div>
-                </div>
+            <div class="alert alert_helper" style="margin: 1rem 0;">
+                <div class="alert__content"><p class="alert__description">Lengkapi semua pertanyaan di halaman ini dulu, baru tekan <strong>Lanjut</strong> di bawah - Anda akan diarahkan ke pertanyaan lanjutan yang sesuai dengan status yang dipilih.</p></div>
             </div>
 
             <!-- f1001: Aktif mencari kerja -->
             <div class="tsf-question" role="radiogroup" aria-labelledby="f1001-label">
                 <div class="tsf-question__label-row">
-                    <span class="tsf-question__number" aria-hidden="true">3.</span>
+                    <span class="tsf-question__number" aria-hidden="true">2.</span>
                     <p class="tsf-question__label" id="f1001-label">Apakah Anda aktif mencari pekerjaan dalam 4 minggu terakhir?<span class="tsf-required" aria-label="Wajib">*</span></p>
                 </div>
                 <p class="tsf-question__desc">Pilihlah satu jawaban.</p>
                 <div class="tsf-radio-group" id="f1001-radio-group">
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1001" id="f1001-a" value="tidak" onchange="toggleLainnyaField(this)"><label for="f1001-a" class="form-control__label-radio">Tidak</label></label>
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1001" id="f1001-b" value="menunggu_hasil" onchange="toggleLainnyaField(this)"><label for="f1001-b" class="form-control__label-radio">Tidak, tapi saya sedang menunggu hasil lamaran kerja</label></label>
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1001" id="f1001-c" value="mulai_2minggu" onchange="toggleLainnyaField(this)"><label for="f1001-c" class="form-control__label-radio">Ya, saya akan mulai bekerja dalam 2 minggu ke depan</label></label>
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1001" id="f1001-d" value="belum_pasti" onchange="toggleLainnyaField(this)"><label for="f1001-d" class="form-control__label-radio">Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan</label></label>
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1001" id="f1001-e" value="lainnya" onchange="toggleLainnyaField(this)"><label for="f1001-e" class="form-control__label-radio">Lainnya</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1001" id="f1001-a" value="tidak" onchange="toggleLainnyaField(this); checkFormComplete();"><label for="f1001-a" class="form-control__label-radio">Tidak</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1001" id="f1001-b" value="menunggu_hasil" onchange="toggleLainnyaField(this); checkFormComplete();"><label for="f1001-b" class="form-control__label-radio">Tidak, tapi saya sedang menunggu hasil lamaran kerja</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1001" id="f1001-c" value="mulai_2minggu" onchange="toggleLainnyaField(this); checkFormComplete();"><label for="f1001-c" class="form-control__label-radio">Ya, saya akan mulai bekerja dalam 2 minggu ke depan</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1001" id="f1001-d" value="belum_pasti" onchange="toggleLainnyaField(this); checkFormComplete();"><label for="f1001-d" class="form-control__label-radio">Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1001" id="f1001-e" value="lainnya" onchange="toggleLainnyaField(this); checkFormComplete();"><label for="f1001-e" class="form-control__label-radio">Lainnya</label></label>
                 </div>
             </div>
 
@@ -176,27 +143,55 @@
                 <label for="input-lainnya-f1001" class="tsf-question__label">Tuliskan kondisi Anda</label>
                 <div class="form-control" style="margin-top: 0.5rem;">
                     <div class="form-control__group">
-                        <input type="text" id="input-lainnya-f1001" class="form-control__input" placeholder="Tuliskan kondisi Anda">
+                        <input type="text" id="input-lainnya-f1001" class="form-control__input" placeholder="Tuliskan kondisi Anda" oninput="checkFormComplete()">
                     </div>
                 </div>
             </div>
 
-            <!-- f502: Masa tunggu - shown for status Bekerja/Wiraswasta/Melanjutkan Pendidikan -->
-            <div class="tsf-question tsf-conditional">
-                <label for="input-f502" class="tsf-question__label">Masa tunggu mendapatkan pekerjaan</label>
-                <p class="tsf-question__desc">Muncul jika status: Bekerja, Wiraswasta, atau Melanjutkan Pendidikan.</p>
-                <div class="tsf-radio-group">
-                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f502-gate" id="f502-sebelum" value="sebelum_lulus" onchange="applyF502Logic(this.value)"><label for="f502-sebelum" class="form-control__label-radio">Ya, sebelum lulus</label></label>
-                    <label class="form-control tsf-option" style="display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
-                        <span style="display: flex; align-items: center; gap: 0.5rem;">
-                            <input type="radio" class="form-control__radio" name="f502-gate" id="f502-sesudah" value="sesudah_lulus" onchange="applyF502Logic(this.value)">
-                            <label for="f502-sesudah" class="form-control__label-radio">Tidak - kira-kira</label>
-                        </span>
+            <!-- f1201: Sumber dana kuliah -->
+            <div class="tsf-question" role="radiogroup" aria-labelledby="f1201-label">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">3.</span>
+                    <p class="tsf-question__label" id="f1201-label">Sumber dana kuliah Anda<span class="tsf-required" aria-label="Wajib">*</span></p>
+                </div>
+                <p class="tsf-question__desc">Bukan ketika studi lanjut.</p>
+                <div class="tsf-radio-group" id="f1201-radio-group">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-a" value="biaya_sendiri" onchange="toggleLainnyaField(this); checkFormComplete();"><label for="f1201-a" class="form-control__label-radio">Biaya sendiri / keluarga</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-b" value="adik" onchange="toggleLainnyaField(this); checkFormComplete();"><label for="f1201-b" class="form-control__label-radio">Beasiswa ADIK</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-c" value="bidikmisi" onchange="toggleLainnyaField(this); checkFormComplete();"><label for="f1201-c" class="form-control__label-radio">Beasiswa BIDIKMISI</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-d" value="ppa" onchange="toggleLainnyaField(this); checkFormComplete();"><label for="f1201-d" class="form-control__label-radio">Beasiswa PPA</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-e" value="afirmasi" onchange="toggleLainnyaField(this); checkFormComplete();"><label for="f1201-e" class="form-control__label-radio">Beasiswa AFIRMASI</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-f" value="perusahaan" onchange="toggleLainnyaField(this); checkFormComplete();"><label for="f1201-f" class="form-control__label-radio">Beasiswa perusahaan/sponsor</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f1201" id="f1201-g" value="lainnya" onchange="toggleLainnyaField(this); checkFormComplete();"><label for="f1201-g" class="form-control__label-radio">Lainnya</label></label>
+                </div>
+            </div>
+
+            <div class="tsf-question tsf-conditional" id="lainnya-f1201-radio-group-wrap" style="display: none;" aria-hidden="true">
+                <label for="input-lainnya-f1201" class="tsf-question__label">Sebutkan sumber dana lainnya</label>
+                <div class="form-control" style="margin-top: 0.5rem;">
+                    <div class="form-control__group">
+                        <input type="text" id="input-lainnya-f1201" class="form-control__input" placeholder="Tuliskan sumber dana Anda" oninput="checkFormComplete()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- f502: Masa tunggu - only shown for status Bekerja/Wiraswasta/Melanjutkan Pendidikan,
+                 hidden entirely for Mencari/Belum (toggled by applyF8Logic below). -->
+            <div class="tsf-question tsf-conditional" id="f502-question" style="display: none;" aria-hidden="true">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">4.</span>
+                    <label for="input-f502" class="tsf-question__label">Masa tunggu mendapatkan pekerjaan<span class="tsf-required" aria-label="Wajib">*</span></label>
+                </div>
+                <p class="tsf-question__desc">Hanya muncul untuk status Bekerja, Wiraswasta, atau Melanjutkan Pendidikan.</p>
+                <div class="tsf-radio-group" id="f502-radio-group">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f502-gate" id="f502-sebelum" value="sebelum_lulus" onchange="applyF502Logic(this.value); checkFormComplete();"><label for="f502-sebelum" class="form-control__label-radio">Ya, sebelum lulus</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f502-gate" id="f502-sesudah" value="sesudah_lulus" onchange="applyF502Logic(this.value); checkFormComplete();"><label for="f502-sesudah" class="form-control__label-radio" style="display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; width: 100%;">
+                        <span>Tidak - kira-kira</span>
                         <span style="display: flex; align-items: center; gap: 0.375rem;">
-                            <input type="number" id="input-f502" class="form-control__input" min="0" style="width: 5rem;" disabled onclick="event.stopPropagation()">
+                            <input type="number" id="input-f502" class="form-control__input" min="0" style="width: 5rem;" disabled onclick="event.stopPropagation()" oninput="checkFormComplete()">
                             <span style="font-size: 0.8125rem; color: var(--qn-neutral-500, #6b7280);">bulan setelah lulus</span>
                         </span>
-                    </label>
+                    </label></label>
                 </div>
             </div>
 
@@ -205,17 +200,26 @@
 
     <!-- Bottom nav -->
     <div style="display:flex;justify-content:flex-end;padding-top:1rem;border-top:1px solid var(--qn-neutral-200);">
-        <button class="btn btn_primary" disabled style="opacity:.5;cursor:not-allowed;">Lanjut →</button>
+        <button class="btn btn_primary" id="btn-lanjut" disabled style="opacity:.5;cursor:not-allowed;" onclick="goToNextBranch()">Lanjut →</button>
     </div>
-    <p style="font-size:.72rem;color:var(--qn-neutral-400);text-align:right;margin-top:.25rem;">Pilih status di atas untuk melanjutkan</p>
+    <p style="font-size:.72rem;color:var(--qn-neutral-400);text-align:right;margin-top:.25rem;" id="lanjut-hint">Lengkapi status dan pertanyaan lain di atas untuk melanjutkan</p>
 
 </div>
 
 <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
 <script>
-    // Mock of the alumni's Wave Exit answer, since this prototype has no real backend.
-    // 'bekerja' | 'wiraswasta' | null - drives whether g1_verif_pralulus shows at all.
-    const MOCK_EXIT_STATUS = 'bekerja';
+    // Cross-wave persistence: simulasi-exit.html writes this when the alumni submits Wave Exit
+    // ('bekerja' | 'wiraswasta' | 'belum' | null). No real backend in this prototype, so
+    // sessionStorage stands in for what would be a database read.
+    const EXIT_STATUS_PRALULUS = sessionStorage.getItem('exit_status_pralulus');
+
+    const BRANCH_PAGES = {
+        bekerja: 'simulasi-g1-bekerja.html',
+        wiraswasta: 'simulasi-g1-wiraswasta.html',
+        studi: 'simulasi-g1-studi.html',
+        mencari: 'simulasi-g1-mencari.html',
+        belum: 'simulasi-g1-belum.html'
+    };
 
     function toggleLainnyaField(el) {
         const group = el.closest('.tsf-radio-group, .tsf-checkbox-group');
@@ -237,10 +241,70 @@
         if (!showAfter) input.value = '';
     }
 
+    // f8 gate: toggles whether f502 is asked at all, per the doc's branch-visibility rule
+    // (Bekerja/Wiraswasta/Melanjutkan Pendidikan only - not Mencari/Belum).
+    function applyF8Logic(value) {
+        const f502Question = document.getElementById('f502-question');
+        const showF502 = value === 'bekerja' || value === 'wiraswasta' || value === 'studi';
+        f502Question.style.display = showF502 ? 'block' : 'none';
+        f502Question.setAttribute('aria-hidden', showF502 ? 'false' : 'true');
+        if (!showF502) {
+            document.querySelectorAll('input[name="f502-gate"]').forEach(function (r) { r.checked = false; });
+            applyF502Logic('');
+        }
+        refreshAllOptionCards();
+        checkFormComplete();
+    }
+
+    // g1_verif_pralulus: "Ya" auto-selects + locks f8 (matching the Exit answer) and f502
+    // (masa tunggu = 0/"sebelum lulus"), per the doc's IKU#2 (e)/(f) business rule.
+    // "Tidak" unlocks everything so the alumni picks their own status normally.
+    function applyVerifPralulusLogic(value) {
+        const autoNote = document.getElementById('verif-auto-note');
+        const isYa = value === 'ya';
+        autoNote.style.display = isYa ? 'flex' : 'none';
+
+        document.querySelectorAll('#f8-radio-group input[type="radio"]').forEach(function (r) {
+            r.disabled = false;
+            r.closest('.tsf-option').classList.remove('tsf-option--locked');
+        });
+
+        if (isYa && (EXIT_STATUS_PRALULUS === 'bekerja' || EXIT_STATUS_PRALULUS === 'wiraswasta')) {
+            const matchingF8 = document.getElementById('f8-' + EXIT_STATUS_PRALULUS);
+            matchingF8.checked = true;
+            applyF8Logic(EXIT_STATUS_PRALULUS);
+            document.querySelectorAll('#f8-radio-group input[type="radio"]').forEach(function (r) {
+                r.disabled = true;
+                r.closest('.tsf-option').classList.add('tsf-option--locked');
+            });
+
+            document.getElementById('f502-sebelum').checked = true;
+            applyF502Logic('sebelum_lulus');
+            document.querySelectorAll('#f502-radio-group input[type="radio"], #f502-radio-group input[type="number"]').forEach(function (r) {
+                r.disabled = true;
+                const opt = r.closest('.tsf-option');
+                if (opt) opt.classList.add('tsf-option--locked');
+            });
+        } else {
+            document.querySelectorAll('#f502-radio-group input[type="radio"]').forEach(function (r) {
+                r.disabled = false;
+                r.closest('.tsf-option').classList.remove('tsf-option--locked');
+            });
+            const sesudah = document.getElementById('f502-sesudah');
+            if (sesudah && sesudah.checked) document.getElementById('input-f502').disabled = false;
+        }
+
+        refreshAllOptionCards();
+        checkFormComplete();
+    }
+
     function refreshOptionCard(el) {
         if (!el) return;
         const input = el.querySelector('input');
         el.classList.toggle('tsf-option--checked', !!(input && input.checked));
+    }
+    function refreshAllOptionCards() {
+        document.querySelectorAll('.tsf-option').forEach(refreshOptionCard);
     }
     document.addEventListener('change', function (e) {
         const input = e.target;
@@ -252,12 +316,65 @@
         }
     });
 
+    // Enable "Lanjut" only once every currently-visible required field is filled.
+    function checkFormComplete() {
+        const btn = document.getElementById('btn-lanjut');
+        const hint = document.getElementById('lanjut-hint');
+        const verifWrap = document.getElementById('verif-pralulus-wrap');
+        let ok = true;
+
+        if (verifWrap.style.display !== 'none' && !document.querySelector('input[name="verif"]:checked')) ok = false;
+
+        const f8 = document.querySelector('input[name="f8"]:checked');
+        if (!f8) ok = false;
+
+        const f1001 = document.querySelector('input[name="f1001"]:checked');
+        if (!f1001) ok = false;
+        else if (f1001.value === 'lainnya' && !document.getElementById('input-lainnya-f1001').value.trim()) ok = false;
+
+        const f1201 = document.querySelector('input[name="f1201"]:checked');
+        if (!f1201) ok = false;
+        else if (f1201.value === 'lainnya' && !document.getElementById('input-lainnya-f1201').value.trim()) ok = false;
+
+        const f502Question = document.getElementById('f502-question');
+        if (f502Question.style.display !== 'none') {
+            const f502Gate = document.querySelector('input[name="f502-gate"]:checked');
+            if (!f502Gate) ok = false;
+            else if (f502Gate.value === 'sesudah_lulus' && !document.getElementById('input-f502').value) ok = false;
+        }
+
+        btn.disabled = !ok;
+        btn.style.opacity = ok ? '1' : '.5';
+        btn.style.cursor = ok ? 'pointer' : 'not-allowed';
+        hint.style.display = ok ? 'none' : 'block';
+    }
+
+    function goToNextBranch() {
+        if (document.getElementById('btn-lanjut').disabled) return;
+
+        const f8 = document.querySelector('input[name="f8"]:checked').value;
+        const f502Gate = document.querySelector('input[name="f502-gate"]:checked');
+
+        // Persist this page's answers so downstream pages (and a real backend) would have
+        // them - no actual consumer yet in this mockup beyond the cross-wave demo above.
+        sessionStorage.setItem('g1_f8', f8);
+        sessionStorage.setItem('g1_f1001', document.querySelector('input[name="f1001"]:checked').value);
+        sessionStorage.setItem('g1_f1201', document.querySelector('input[name="f1201"]:checked').value);
+        if (f502Gate) {
+            sessionStorage.setItem('g1_f502', f502Gate.value === 'sebelum_lulus' ? '0' : document.getElementById('input-f502').value);
+        }
+
+        if (typeof gtag === 'function') gtag('event', 'submit_kuesioner', { flow_version: 'v3b', wave: 'g1_informasi_umum' });
+        window.location.href = BRANCH_PAGES[f8] || 'kuesioner.html';
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
-        if (MOCK_EXIT_STATUS === 'bekerja' || MOCK_EXIT_STATUS === 'wiraswasta') {
+        if (EXIT_STATUS_PRALULUS === 'bekerja' || EXIT_STATUS_PRALULUS === 'wiraswasta') {
             const wrap = document.getElementById('verif-pralulus-wrap');
             wrap.style.display = 'block';
             wrap.setAttribute('aria-hidden', 'false');
         }
+        checkFormComplete();
     });
 </script>
 </body>
