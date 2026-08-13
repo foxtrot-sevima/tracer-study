@@ -47,6 +47,41 @@
            page-grid row. Scoped override, not a shared stylesheet. */
         .card.no-stretch { block-size: auto; }
 
+        /* Fase Tracer Study phase-tiles - a scoped restyle of the shared .stat-tile component
+           (base classes kept as-is so openKirimCampaignModal's Kirim handler, which mutates
+           .stat-tile/.stat-tile__icon/.stat-tile__value/.stat-tile__sub directly, keeps working
+           untouched). ".campaign-phase-tile" is the local hook everything below keys off of, so
+           the other 16 pages that also use .stat-tile for unrelated dashboard stats are untouched.
+           Head/body/foot rows replace the old flat stack of spans: icon+title group up top, the
+           metric+schedule in the middle, and a reserved-height footer for the override link/note
+           so every tile in a row lines up at the same height even when a phase has no override
+           (e.g. Pengguna Lulusan) - previously that left a ragged, uneven-looking row. */
+        .campaign-phase-tile {
+            background: var(--qn-neutral-50, #f9fafb);
+            border: 1px solid var(--qn-neutral-100, #f3f4f6);
+            border-radius: 0.75rem;
+            padding: 0.875rem 1rem;
+            gap: 0.625rem;
+        }
+        .campaign-phase-tile.stat-tile_primary { background: var(--qn-primary-50, #eff6ff); }
+        .campaign-phase-tile.stat-tile_success { background: var(--qn-success-50, #ecfdf5); }
+        .campaign-phase-tile.stat-tile_warning { background: var(--qn-warning-50, #fffbeb); }
+
+        .campaign-phase-tile .stat-tile__head { display: flex; align-items: center; gap: 0.5rem; }
+        .campaign-phase-tile .stat-tile__icon { width: 1.75rem; height: 1.75rem; border-radius: 0.5rem; background: #fff; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08); flex-shrink: 0; }
+        .campaign-phase-tile .stat-tile__heading { min-width: 0; display: flex; flex-direction: column; gap: 0.0625rem; }
+        .campaign-phase-tile .stat-tile__label { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .campaign-phase-tile .stat-tile__sub { font-size: 0.6875rem; color: var(--qn-neutral-500); }
+
+        .campaign-phase-tile .stat-tile__body { display: flex; flex-direction: column; gap: 0.25rem; }
+        .campaign-phase-tile .stat-tile__value { font-size: 1.3125rem; font-weight: 700; color: var(--qn-neutral-900); line-height: 1; }
+        .campaign-phase-tile .stat-tile__period { display: flex; align-items: center; gap: 0.25rem; font-size: 0.6875rem; color: var(--qn-neutral-500); }
+        .campaign-phase-tile .stat-tile__period .icon { font-size: 0.75rem; }
+
+        .campaign-phase-tile .stat-tile__foot { margin-top: auto; min-height: 1.125rem; padding-top: 0.125rem; }
+        .campaign-phase-tile .stat-tile__foot p { margin: 0; }
+        .campaign-phase-tile .campaign-phase__override-link { font-size: 0.75rem; text-transform: none; letter-spacing: normal; }
+
         /* Per-version tier-count line on the Riwayat Versi Kuesioner cards */
         .tier-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 0.375rem; font-size: 0.75rem; color: var(--qn-neutral-500); margin-top: 0.375rem; }
         .tier-summary strong { font-weight: 600; }
@@ -482,32 +517,67 @@
                                                 <h3>Fase Tracer Study</h3>
                                             </div>
                                             <div class="stat-tiles">
-                                                <div class="stat-tile stat-tile_neutral">
-                                                    <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
-                                                    <span class="stat-tile__value">-</span>
-                                                    <span class="stat-tile__label">Exit Survey</span>
-                                                    <span class="stat-tile__sub">v3 &middot; Menunggu</span>
-                                                    <a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem; margin-top: 0.125rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v3', '2026', 'Exit Survey');"><span class="icon icon-plus-mini"></span>Override</a>
+                                                <div class="stat-tile stat-tile_neutral campaign-phase-tile">
+                                                    <div class="stat-tile__head">
+                                                        <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
+                                                        <div class="stat-tile__heading">
+                                                            <span class="stat-tile__label">Exit Survey</span>
+                                                            <span class="stat-tile__sub">v3 &middot; Menunggu</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="stat-tile__body">
+                                                        <span class="stat-tile__value">-</span>
+                                                        <span class="stat-tile__period"><span class="icon icon-calendar-mini"></span>01 &ndash; 20 Des 2026</span>
+                                                    </div>
+                                                    <div class="stat-tile__foot">
+                                                        <a href="#" class="link link_primary campaign-phase__override-link" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v3', '2026', 'Exit Survey');"><span class="icon icon-plus-mini"></span>Override</a>
+                                                    </div>
                                                 </div>
-                                                <div class="stat-tile stat-tile_neutral">
-                                                    <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
-                                                    <span class="stat-tile__value">-</span>
-                                                    <span class="stat-tile__label">GS-I</span>
-                                                    <span class="stat-tile__sub">v3 &middot; Menunggu</span>
-                                                    <a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem; margin-top: 0.125rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v3', '2026', 'GS-I');"><span class="icon icon-plus-mini"></span>Override</a>
+                                                <div class="stat-tile stat-tile_neutral campaign-phase-tile">
+                                                    <div class="stat-tile__head">
+                                                        <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
+                                                        <div class="stat-tile__heading">
+                                                            <span class="stat-tile__label">GS-I</span>
+                                                            <span class="stat-tile__sub">v3 &middot; Menunggu</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="stat-tile__body">
+                                                        <span class="stat-tile__value">-</span>
+                                                        <span class="stat-tile__period"><span class="icon icon-calendar-mini"></span>01 Des 2027 &ndash; 28 Feb 2028</span>
+                                                    </div>
+                                                    <div class="stat-tile__foot">
+                                                        <a href="#" class="link link_primary campaign-phase__override-link" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v3', '2026', 'GS-I');"><span class="icon icon-plus-mini"></span>Override</a>
+                                                    </div>
                                                 </div>
-                                                <div class="stat-tile stat-tile_neutral">
-                                                    <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
-                                                    <span class="stat-tile__value">-</span>
-                                                    <span class="stat-tile__label">Pengguna Lulusan</span>
-                                                    <span class="stat-tile__sub">v1 &middot; Menunggu</span>
+                                                <div class="stat-tile stat-tile_neutral campaign-phase-tile">
+                                                    <div class="stat-tile__head">
+                                                        <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
+                                                        <div class="stat-tile__heading">
+                                                            <span class="stat-tile__label">Pengguna Lulusan</span>
+                                                            <span class="stat-tile__sub">v1 &middot; Menunggu</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="stat-tile__body">
+                                                        <span class="stat-tile__value">-</span>
+                                                        <span class="stat-tile__period"><span class="icon icon-arrow-path-mini"></span>Mengikuti jadwal GS-I</span>
+                                                    </div>
+                                                    <div class="stat-tile__foot"></div>
                                                 </div>
-                                                <div class="stat-tile stat-tile_neutral">
-                                                    <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
-                                                    <span class="stat-tile__value">-</span>
-                                                    <span class="stat-tile__label">GS-II</span>
-                                                    <span class="stat-tile__sub">v3 &middot; Menunggu</span>
-                                                    <a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem; margin-top: 0.125rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v3', '2026', 'GS-II');"><span class="icon icon-plus-mini"></span>Override</a>
+                                                <div class="stat-tile stat-tile_neutral campaign-phase-tile">
+                                                    <div class="stat-tile__head">
+                                                        <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
+                                                        <div class="stat-tile__heading">
+                                                            <span class="stat-tile__label">GS-II</span>
+                                                            <span class="stat-tile__sub">v3 &middot; Menunggu</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="stat-tile__body">
+                                                        <span class="stat-tile__value">-</span>
+                                                        <span class="stat-tile__period"><span class="icon icon-calendar-mini"></span>01 Des 2029 &ndash; 28 Feb 2030</span>
+                                                    </div>
+                                                    <div class="stat-tile__foot">
+                                                        <a href="#" class="link link_primary campaign-phase__override-link" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v3', '2026', 'GS-II');"><span class="icon icon-plus-mini"></span>Override</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -558,31 +628,65 @@
                                                 <h3>Fase Tracer Study</h3>
                                             </div>
                                             <div class="stat-tiles">
-                                                <div class="stat-tile stat-tile_success">
-                                                    <span class="stat-tile__icon stat-tile__icon_success"><span class="icon icon-check-circle-mini"></span></span>
-                                                    <span class="stat-tile__value">690/700</span>
-                                                    <span class="stat-tile__label">Exit Survey</span>
-                                                    <span class="stat-tile__sub">v2 &middot; Terkirim</span>
+                                                <div class="stat-tile stat-tile_success campaign-phase-tile">
+                                                    <div class="stat-tile__head">
+                                                        <span class="stat-tile__icon stat-tile__icon_success"><span class="icon icon-check-circle-mini"></span></span>
+                                                        <div class="stat-tile__heading">
+                                                            <span class="stat-tile__label">Exit Survey</span>
+                                                            <span class="stat-tile__sub">v2 &middot; Terkirim</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="stat-tile__body">
+                                                        <span class="stat-tile__value">690/700</span>
+                                                        <span class="stat-tile__period"><span class="icon icon-calendar-mini"></span>01 &ndash; 20 Sep 2023</span>
+                                                    </div>
+                                                    <div class="stat-tile__foot"></div>
                                                 </div>
-                                                <div class="stat-tile stat-tile_primary">
-                                                    <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-arrow-path-mini"></span></span>
-                                                    <span class="stat-tile__value">98/2088</span>
-                                                    <span class="stat-tile__label">GS-I</span>
-                                                    <span class="stat-tile__sub">v2 &middot; Aktif &middot; RR 4,7%</span>
-                                                    <p style="margin: 0.125rem 0 0; font-size: 0.6875rem; color: var(--qn-neutral-500);" title="Sub-Version v2.1 aktif untuk Angkatan 2023, GS-I, Semua Program Studi"><span class="icon icon-document-duplicate-mini"></span> Override v2.1 aktif</p>
+                                                <div class="stat-tile stat-tile_primary campaign-phase-tile">
+                                                    <div class="stat-tile__head">
+                                                        <span class="stat-tile__icon stat-tile__icon_primary"><span class="icon icon-arrow-path-mini"></span></span>
+                                                        <div class="stat-tile__heading">
+                                                            <span class="stat-tile__label">GS-I</span>
+                                                            <span class="stat-tile__sub">v2 &middot; Aktif &middot; RR 14%</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="stat-tile__body">
+                                                        <span class="stat-tile__value">98/700</span>
+                                                        <span class="stat-tile__period"><span class="icon icon-calendar-mini"></span>05 Sep &ndash; 05 Des 2024</span>
+                                                    </div>
+                                                    <div class="stat-tile__foot">
+                                                        <p title="Sub-Version v2.1 aktif untuk Angkatan 2023, GS-I, Semua Program Studi"><span class="icon icon-document-duplicate-mini"></span> Override v2.1 aktif</p>
+                                                    </div>
                                                 </div>
-                                                <div class="stat-tile stat-tile_warning">
-                                                    <span class="stat-tile__icon stat-tile__icon_warning"><span class="icon icon-arrow-path-mini"></span></span>
-                                                    <span class="stat-tile__value">41</span>
-                                                    <span class="stat-tile__label">Pengguna Lulusan</span>
-                                                    <span class="stat-tile__sub" title="Dikirim otomatis sejajar GS-I, ke perusahaan alumni yang berstatus Bekerja">v1 &middot; Otomatis via GS-I</span>
+                                                <div class="stat-tile stat-tile_warning campaign-phase-tile">
+                                                    <div class="stat-tile__head">
+                                                        <span class="stat-tile__icon stat-tile__icon_warning"><span class="icon icon-arrow-path-mini"></span></span>
+                                                        <div class="stat-tile__heading">
+                                                            <span class="stat-tile__label">Pengguna Lulusan</span>
+                                                            <span class="stat-tile__sub" title="Dikirim otomatis sejajar GS-I, ke perusahaan alumni yang berstatus Bekerja">v1 &middot; Otomatis via GS-I</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="stat-tile__body">
+                                                        <span class="stat-tile__value">18/41</span>
+                                                        <span class="stat-tile__period"><span class="icon icon-arrow-path-mini"></span>43,9% sudah mengisi</span>
+                                                    </div>
+                                                    <div class="stat-tile__foot"></div>
                                                 </div>
-                                                <div class="stat-tile stat-tile_neutral">
-                                                    <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
-                                                    <span class="stat-tile__value">-</span>
-                                                    <span class="stat-tile__label">GS-II</span>
-                                                    <span class="stat-tile__sub">v2 &middot; Dimulai 05 Sep 2025</span>
-                                                    <a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem; margin-top: 0.125rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v2', '2023', 'GS-II');"><span class="icon icon-plus-mini"></span>Override</a>
+                                                <div class="stat-tile stat-tile_neutral campaign-phase-tile">
+                                                    <div class="stat-tile__head">
+                                                        <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
+                                                        <div class="stat-tile__heading">
+                                                            <span class="stat-tile__label">GS-II</span>
+                                                            <span class="stat-tile__sub">v2 &middot; Menunggu</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="stat-tile__body">
+                                                        <span class="stat-tile__value">-</span>
+                                                        <span class="stat-tile__period"><span class="icon icon-calendar-mini"></span>05 Sep &ndash; 05 Des 2025</span>
+                                                    </div>
+                                                    <div class="stat-tile__foot">
+                                                        <a href="#" class="link link_primary campaign-phase__override-link" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, 'v2', '2023', 'GS-II');"><span class="icon icon-plus-mini"></span>Override</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -625,19 +729,19 @@
                                                         <div class="monitoring-breakdown">
                                                             <div class="monitoring-breakdown__row">
                                                                 <span class="monitoring-breakdown__label">S1 - Teknik Informatika</span>
-                                                                <span class="monitoring-breakdown__value">24/612 <span class="monitoring-breakdown__pct">(3.9%)</span></span>
+                                                                <span class="monitoring-breakdown__value">24/210 <span class="monitoring-breakdown__pct">(11.4%)</span></span>
                                                             </div>
                                                             <div class="monitoring-breakdown__row">
                                                                 <span class="monitoring-breakdown__label">S1 - Sistem Informasi</span>
-                                                                <span class="monitoring-breakdown__value">19/540 <span class="monitoring-breakdown__pct">(3.5%)</span></span>
+                                                                <span class="monitoring-breakdown__value">19/180 <span class="monitoring-breakdown__pct">(10.6%)</span></span>
                                                             </div>
                                                             <div class="monitoring-breakdown__row">
                                                                 <span class="monitoring-breakdown__label">S1 - Akuntansi</span>
-                                                                <span class="monitoring-breakdown__value">31/580 <span class="monitoring-breakdown__pct">(5.3%)</span></span>
+                                                                <span class="monitoring-breakdown__value">31/198 <span class="monitoring-breakdown__pct">(15.7%)</span></span>
                                                             </div>
                                                             <div class="monitoring-breakdown__row">
                                                                 <span class="monitoring-breakdown__label">S1 - Administrasi Publik</span>
-                                                                <span class="monitoring-breakdown__value">24/356 <span class="monitoring-breakdown__pct">(6.7%)</span></span>
+                                                                <span class="monitoring-breakdown__value">24/112 <span class="monitoring-breakdown__pct">(21.4%)</span></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1617,6 +1721,14 @@
                     const versiAlumni = document.getElementById('input-campaign-versi-alumni').value;
                     const versiPl = document.getElementById('input-campaign-versi-pl').value;
 
+                    // Batas Awal & Akhir per fase - sebelumnya dibaca di form tapi tidak pernah
+                    // dipakai, jadi jadwal yang diisi Admin hilang begitu saja setelah Simpan.
+                    const jadwal = {
+                        exit: { awal: document.getElementById('input-exit-awal').value, akhir: document.getElementById('input-exit-akhir').value },
+                        gs1: { awal: document.getElementById('input-gs1-awal').value, akhir: document.getElementById('input-gs1-akhir').value },
+                        gs2: { awal: document.getElementById('input-gs2-awal').value, akhir: document.getElementById('input-gs2-akhir').value }
+                    };
+
                     // Close the modal
                     const modalBuatCampaign = document.getElementById('modal-buat-campaign');
                     if (modalBuatCampaign) {
@@ -1637,7 +1749,7 @@
                         if (campaignTab) campaignTab.classList.add('active');
                         if (campaignContent) campaignContent.classList.add('active');
 
-                        addNewCampaignCard(tahun, versiAlumni, versiPl);
+                        addNewCampaignCard(tahun, versiAlumni, versiPl, jadwal);
                         resetBuatCampaignModal();
                         showToast('Campaign Angkatan ' + tahun + ' berhasil dibuat', 'success');
                     }, 100);
@@ -1645,28 +1757,56 @@
             }
         });
 
+        // Format a Batas Awal/Akhir date pair (yyyy-mm-dd from <input type="date">) into the
+        // compact "DD Mon – DD Mon YYYY" display used on stat-tile__period. Handles either
+        // end being blank (still show what's known) and returns '' if both are empty.
+        function formatBatasWaktu(awalStr, akhirStr) {
+            const fmt = (s) => {
+                const d = new Date(s + 'T00:00:00');
+                return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+            };
+            if (awalStr && akhirStr) return fmt(awalStr) + ' &ndash; ' + fmt(akhirStr);
+            if (awalStr) return 'Mulai ' + fmt(awalStr);
+            if (akhirStr) return 'Sampai ' + fmt(akhirStr);
+            return '';
+        }
+
         // Add a new campaign card (belum dikirim) for a Tahun Lulus to the Campaign list
-        function addNewCampaignCard(tahun, versiAlumni, versiPl) {
+        function addNewCampaignCard(tahun, versiAlumni, versiPl, jadwal) {
             const campaignList = document.querySelector('#kuesioner-campaign .qnaire-lists');
             if (!campaignList) return;
+            jadwal = jadwal || {};
 
             const now = new Date();
             const dateStr = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
 
             const phases = [
-                { label: 'Exit Survey', versi: versiAlumni, overridable: true },
-                { label: 'GS-I', versi: versiAlumni, overridable: true },
-                { label: 'Pengguna Lulusan', versi: versiPl, overridable: false },
-                { label: 'GS-II', versi: versiAlumni, overridable: true }
+                { label: 'Exit Survey', versi: versiAlumni, overridable: true, jadwal: jadwal.exit },
+                { label: 'GS-I', versi: versiAlumni, overridable: true, jadwal: jadwal.gs1 },
+                { label: 'Pengguna Lulusan', versi: versiPl, overridable: false, note: 'Mengikuti jadwal GS-I' },
+                { label: 'GS-II', versi: versiAlumni, overridable: true, jadwal: jadwal.gs2 }
             ];
-            const phaseCells = phases.map(p => `
-                                    <div class="stat-tile stat-tile_neutral">
-                                        <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
-                                        <span class="stat-tile__value">-</span>
-                                        <span class="stat-tile__label">${p.label}</span>
-                                        <span class="stat-tile__sub">${p.versi} &middot; Menunggu</span>
-                                        ${p.overridable ? `<a href="#" class="link link_primary campaign-phase__override-link" style="text-transform: none; letter-spacing: normal; font-size: 0.75rem; margin-top: 0.125rem;" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, '${p.versi}', '${tahun}', '${p.label}');"><span class="icon icon-plus-mini"></span>Override</a>` : ''}
-                                    </div>`).join('');
+            const phaseCells = phases.map(p => {
+                const period = p.jadwal ? formatBatasWaktu(p.jadwal.awal, p.jadwal.akhir) : '';
+                return `
+                                    <div class="stat-tile stat-tile_neutral campaign-phase-tile">
+                                        <div class="stat-tile__head">
+                                            <span class="stat-tile__icon stat-tile__icon_neutral"><span class="icon icon-clock-mini"></span></span>
+                                            <div class="stat-tile__heading">
+                                                <span class="stat-tile__label">${p.label}</span>
+                                                <span class="stat-tile__sub">${p.versi} &middot; Menunggu</span>
+                                            </div>
+                                        </div>
+                                        <div class="stat-tile__body">
+                                            <span class="stat-tile__value">-</span>
+                                            ${period ? `<span class="stat-tile__period"><span class="icon icon-calendar-mini"></span>${period}</span>` : ''}
+                                            ${p.note ? `<span class="stat-tile__period"><span class="icon icon-arrow-path-mini"></span>${p.note}</span>` : ''}
+                                        </div>
+                                        <div class="stat-tile__foot">
+                                            ${p.overridable ? `<a href="#" class="link link_primary campaign-phase__override-link" data-toggle="modal" data-target="#modal-buat-override" onclick="return openBuatOverrideModal(event, '${p.versi}', '${tahun}', '${p.label}');"><span class="icon icon-plus-mini"></span>Override</a>` : ''}
+                                        </div>
+                                    </div>`;
+            }).join('');
 
             const newCard = document.createElement('div');
             newCard.id = 'campaign-card-' + tahun;
@@ -1782,7 +1922,7 @@
                         // wait for their own Batas Awal (GS-I/GS-II) or trigger otomatis (Pengguna Lulusan).
                         const firstPhaseTile = card.querySelector('.stat-tiles .stat-tile_neutral');
                         if (firstPhaseTile) {
-                            firstPhaseTile.className = 'stat-tile stat-tile_success';
+                            firstPhaseTile.className = 'stat-tile stat-tile_success campaign-phase-tile';
                             const icon = firstPhaseTile.querySelector('.stat-tile__icon');
                             if (icon) { icon.className = 'stat-tile__icon stat-tile__icon_success'; icon.innerHTML = '<span class="icon icon-check-circle-mini"></span>'; }
                             const value = firstPhaseTile.querySelector('.stat-tile__value');
