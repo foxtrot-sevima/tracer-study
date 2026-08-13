@@ -139,11 +139,16 @@
         </div>
     </div>
 
+    <div class="alert alert_helper" style="margin: 1rem 0;">
+        <div class="alert__content"><p class="alert__description">Lengkapi semua pertanyaan wajib di halaman ini dulu, baru tekan <strong>Lanjut</strong> di bawah.</p></div>
+    </div>
+
     <!-- Bottom nav -->
     <div style="display:flex;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--qn-neutral-200);">
         <a href="simulasi-g1-status.html" class="btn btn_outline">← Kembali</a>
-        <a href="simulasi-g1-kompetensi.html" class="btn btn_primary">Lanjut →</a>
+        <button class="btn btn_primary" id="btn-lanjut" disabled style="opacity:.5;cursor:not-allowed;" onclick="goToKompetensi()">Lanjut →</button>
     </div>
+    <p style="font-size:.72rem;color:var(--qn-neutral-400);text-align:right;margin-top:.25rem;" id="lanjut-hint">Lengkapi pertanyaan wajib di atas untuk melanjutkan</p>
 
 </div>
 
@@ -163,6 +168,35 @@
             });
         }
     });
+
+    // Enable "Lanjut" only once every required field on this page is filled - same gating
+    // pattern as simulasi-g1-status.html's checkFormComplete(), just without branch routing
+    // since this page always continues to Kompetensi next.
+    function checkFormComplete() {
+        const btn = document.getElementById('btn-lanjut');
+        const hint = document.getElementById('lanjut-hint');
+        let ok = true;
+
+        if (!document.querySelector('input[name="f18a"]:checked')) ok = false;
+        if (!document.getElementById('input-f18b').value.trim()) ok = false;
+        if (!document.getElementById('input-f18c').value.trim()) ok = false;
+        if (!document.getElementById('input-f18d').value) ok = false;
+        if (!document.querySelector('input[name="f14"]:checked')) ok = false;
+
+        btn.disabled = !ok;
+        btn.style.opacity = ok ? '1' : '.5';
+        btn.style.cursor = ok ? 'pointer' : 'not-allowed';
+        hint.style.display = ok ? 'none' : 'block';
+    }
+
+    function goToKompetensi() {
+        if (document.getElementById('btn-lanjut').disabled) return;
+        window.location.href = 'simulasi-g1-kompetensi.html';
+    }
+
+    document.addEventListener('input', checkFormComplete);
+    document.addEventListener('change', checkFormComplete);
+    document.addEventListener('DOMContentLoaded', checkFormComplete);
 </script>
 </body>
 </html>

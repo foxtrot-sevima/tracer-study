@@ -92,7 +92,7 @@
                 <div class="main__location">
                     <div class="main__wrapper">
                         <h1 class="main__title">Kuesioner Tracer Study</h1>
-                        <p class="main__subtitle">Satu kuesioner tunggal untuk seluruh wave, disusun dari pertanyaan Core &middot; Optional &middot; Specific</p>
+                        <p class="main__subtitle">Satu kuesioner tunggal untuk seluruh wave, disusun dari pertanyaan Core &middot; Optional &middot; Custom</p>
                     </div>
                 </div>
                 <div class="main__action">
@@ -282,7 +282,7 @@
         const waves = {
             exit:{label:'Wave Exit',when:'Saat baru lulus',dot:'#3b82f6',canAdd:true,
                 desc:'Pemutakhiran data individu lulusan. Regulasi (Kepmen 358/2025): tracer inti baru di G1, jadi Exit ringan.',
-                tierNote:'Pertanyaan <b>Core</b> tidak bisa dinonaktifkan - data kontak dibutuhkan untuk mengirim wave berikutnya, dan status pekerjaan pra-lulus dipakai IKU#2. Pertanyaan <b>Optional</b> bisa diaktifkan/nonaktifkan. Admin CDC dapat menambah pertanyaan <b>Specific</b> sendiri.<br><br>Pertanyaan di wave ini <b>tidak punya kode Dikti</b> - jawabannya jadi isian awal untuk Wave G1, bukan data yang dikirim ke Kemdiktisaintek.',
+                tierNote:'Pertanyaan <b>Core</b> tidak bisa dinonaktifkan - data kontak dibutuhkan untuk mengirim wave berikutnya, dan status pekerjaan pra-lulus dipakai IKU#2. Pertanyaan <b>Optional</b> bisa diaktifkan/nonaktifkan. Admin CDC dapat menambah pertanyaan <b>Custom</b> sendiri.<br><br>Pertanyaan di wave ini <b>tidak punya kode Dikti</b> - jawabannya jadi isian awal untuk Wave G1, bukan data yang dikirim ke Kemdiktisaintek.',
                 schedule:{type:'event',options:['Saat yudisium','1 minggu sebelum wisuda','Saat wisuda'],reminder:{interval:7,max:3}},
                 q:[['NIK (Nomor Induk Kependudukan)','core',1,'Isian teks (16 digit)','','Bagian dari 9 kolom Identitas pengiriman Dikti (Kode PT, Kode Prodi, NIM, Nama, HP, Email, Tahun Lulus, NIK, NPWP) - sebelumnya belum masuk mockup. Simpan sebagai teks, bukan angka, supaya digit nol depan tidak hilang.','nik',''],['NPWP','optional',0,'Isian teks','','Bagian dari blok Identitas - boleh kosong bila alumni belum memiliki NPWP.','npwp',''],['Alamat email aktif Anda saat ini','core',1,'Isian teks (email)','','','',''],['Nomor HP / WhatsApp aktif','core',1,'Isian teks (nomor)','','','',''],['Apakah Anda sudah bekerja atau berwirausaha sebelum lulus?','core',1,'Pilihan: Ya sudah bekerja / Ya sudah berwirausaha / Belum','','','',''],['Nama perusahaan/usaha, posisi, bidang industri, dan kisaran penghasilan','core',1,'Dropdown + input angka (muncul jika menjawab Ya)','','','',''],['Apa rencana utama Anda setelah lulus?','specific',0,'Pilihan ganda (bekerja / wirausaha / lanjut studi / lainnya)','','','',''],['Dukungan apa yang Anda harapkan dari kampus untuk membantu rencana Anda?','optional',0,'Multi-select (conditional per rencana: lowongan / CV / job fair / mentorship / beasiswa / dll)','','','',''],['Tautan profil LinkedIn Anda','specific',0,'Isian teks (URL)','','','','']]},
             g1:{label:'Wave G1',when:'Min. 1 tahun setelah lulus',dot:'#294A9A',canAdd:false,
@@ -376,11 +376,11 @@
                 ]},
             g2:{label:'Wave G2',when:'Lanjutan (berulang)',dot:'#8b5cf6',canAdd:true,
                 desc:'Pendalaman relevansi prodi/internal. Bisa dikirim berulang (tiap 2 tahun, maks 3 siklus). Pertanyaan yang sudah dijawab di G1 otomatis di-skip.',
-                tierNote:'Dominan tier <b>Optional</b> - kampus memilih yang relevan. Admin CDC dapat menambah pertanyaan Specific dan mengaktifkan/menonaktifkan Optional.',
+                tierNote:'Dominan tier <b>Optional</b> - kampus memilih yang relevan. Admin CDC dapat menambah pertanyaan Custom dan mengaktifkan/menonaktifkan Optional.',
                 schedule:{type:'month',value:48,min:24,max:72,presets:[24,48,72],repeat:true,repeatInterval:24,repeatIntervalPresets:[12,24,36],repeatMax:3,repeatMaxPresets:[2,3,5],reminder:{interval:7,max:3}},
                 q:[['Seberapa puas Anda terhadap kompetensi yang diperoleh selama kuliah?','optional',0,'Skala 1–5 (sangat tidak puas – sangat puas)','','','',''],['Apa saran Anda untuk perbaikan kurikulum program studi?','optional',0,'Isian teks panjang (paragraf)','','','',''],['Mata kuliah mana yang paling relevan dengan pekerjaan Anda saat ini?','optional',0,'Pilihan ganda (daftar mata kuliah prodi)','','','',''],['Pertanyaan tambahan dari program studi Anda','specific',0,'Disesuaikan oleh Admin CDC','','','','']]}
         };
-        const tierLabel={core:'Core',optional:'Optional',specific:'Specific'};
+        const tierLabel={core:'Core',optional:'Optional',specific:'Custom'};
         // core = locked/protected (green, same as kuesioner-builder.html's locked-Core badge),
         // optional = neutral-emphasis toggleable (blue), specific/custom = admin-editable (amber) -
         // same success/primary/warning semantics as v2.1/b's tier badges.

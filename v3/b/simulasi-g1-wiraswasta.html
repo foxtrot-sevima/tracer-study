@@ -232,33 +232,108 @@
                 </div>
             </div>
 
+            <!-- Section 9 (Optional - Proses Pencarian Kerja): admin CDC boleh menonaktifkan
+                 seluruh blok ini. Tidak ada pertanyaan di sini yang wajib. -->
+            <div class="tsf-question">
+                <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; background: var(--qn-neutral-50, #f9fafb); border-radius: 0.5rem;">
+                    <span class="icon icon-puzzle-piece-mini" aria-hidden="true" style="color: var(--qn-neutral-400);"></span>
+                    <p style="margin: 0; font-size: 0.8125rem; color: var(--qn-neutral-500, #6b7280);">Pertanyaan opsional di bawah ini dapat diaktifkan/dinonaktifkan oleh Admin CDC - tidak ada yang wajib diisi.</p>
+                </div>
+            </div>
+
+            <!-- f301+f302+f303 (varian Wiraswasta): kapan mulai MERENCANAKAN usaha ini - kode
+                 sama dengan varian Bekerja, redaksinya saja yang beda. -->
+            <div class="tsf-question" role="radiogroup" aria-labelledby="f301-label">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">10.</span>
+                    <p class="tsf-question__label" id="f301-label">Kapan Anda mulai merencanakan usaha yang sekarang Anda jalani?</p>
+                </div>
+                <div class="tsf-radio-group">
+                    <label class="form-control tsf-option" style="display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+                        <span style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="radio" class="form-control__radio" name="f301" id="f301-sebelum" value="sebelum_lulus" onchange="applyF301Logic(this.value)">
+                            <label for="f301-sebelum" class="form-control__label-radio">Kira-kira sebelum lulus</label>
+                        </span>
+                        <span style="display: flex; align-items: center; gap: 0.375rem;">
+                            <input type="number" id="input-f302" class="form-control__input" min="0" placeholder="cth. 2" style="width: 5rem;" disabled onclick="event.stopPropagation()">
+                            <span style="font-size: 0.8125rem; color: var(--qn-neutral-500, #6b7280);">bulan</span>
+                        </span>
+                    </label>
+                    <label class="form-control tsf-option" style="display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+                        <span style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="radio" class="form-control__radio" name="f301" id="f301-sesudah" value="sesudah_lulus" onchange="applyF301Logic(this.value)">
+                            <label for="f301-sesudah" class="form-control__label-radio">Kira-kira sesudah lulus</label>
+                        </span>
+                        <span style="display: flex; align-items: center; gap: 0.375rem;">
+                            <input type="number" id="input-f303" class="form-control__input" min="0" placeholder="cth. 3" style="width: 5rem;" disabled onclick="event.stopPropagation()">
+                            <span style="font-size: 0.8125rem; color: var(--qn-neutral-500, #6b7280);">bulan</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- f16: Alasan pekerjaan tidak sesuai pendidikan - kode dan opsi sama dengan varian
+                 Bekerja (13 kolom biner f1601-f1613 + f1614 teks Lainnya). f1601 "sudah sesuai"
+                 saling eksklusif dengan opsi lainnya. -->
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <span class="tsf-question__number" aria-hidden="true">11.</span>
+                    <p class="tsf-question__label" id="f16-label">Jika usaha Anda tidak sesuai pendidikan, mengapa Anda mengambilnya?</p>
+                </div>
+                <p class="tsf-question__desc">Jawaban bisa lebih dari satu - kecuali Anda memilih opsi pertama.</p>
+                <div class="tsf-checkbox-group" id="f16-checkbox-group">
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-1" value="sudah_sesuai" onchange="applyF16ExclusiveLogic(this)"><label for="f16-1" class="form-control__label-checkbox">Pertanyaan ini tidak relevan - usaha saya sekarang sudah sesuai dengan pendidikan saya</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-2" value="belum_dapat_sesuai"><label for="f16-2" class="form-control__label-checkbox">Saya belum mendapatkan peluang usaha yang lebih sesuai</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-3" value="prospek_karir"><label for="f16-3" class="form-control__label-checkbox">Di usaha ini saya memeroleh prospek karir yang baik</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-4" value="suka_area_lain"><label for="f16-4" class="form-control__label-checkbox">Saya lebih suka menjalankan usaha yang tidak ada hubungannya dengan pendidikan saya</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-5" value="dipromosikan"><label for="f16-5" class="form-control__label-checkbox">Usaha ini berkembang ke arah yang kurang berhubungan dengan pendidikan saya dibanding rencana awal</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-6" value="pendapatan_lebih_tinggi"><label for="f16-6" class="form-control__label-checkbox">Saya dapat memeroleh pendapatan yang lebih tinggi dari usaha ini</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-7" value="lebih_aman"><label for="f16-7" class="form-control__label-checkbox">Usaha saya saat ini lebih aman/terjamin</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-8" value="lebih_menarik"><label for="f16-8" class="form-control__label-checkbox">Usaha saya saat ini lebih menarik</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-9" value="jadwal_fleksibel"><label for="f16-9" class="form-control__label-checkbox">Usaha saya saat ini lebih memungkinkan saya mengambil pekerjaan tambahan/jadwal yang fleksibel, dll.</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-10" value="dekat_rumah"><label for="f16-10" class="form-control__label-checkbox">Usaha saya saat ini lokasinya lebih dekat dari rumah saya</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-11" value="menjamin_keluarga"><label for="f16-11" class="form-control__label-checkbox">Usaha saya saat ini dapat lebih menjamin kebutuhan keluarga saya</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-12" value="awal_karir"><label for="f16-12" class="form-control__label-checkbox">Pada awal merintis usaha ini, saya harus menjalankan usaha yang tidak berhubungan dengan pendidikan saya</label></label>
+                    <label class="tsf-option"><input type="checkbox" class="form-control__checkbox" id="f16-13" value="lainnya"><label for="f16-13" class="form-control__label-checkbox">Lainnya</label></label>
+                </div>
+            </div>
+
+            <div class="tsf-question tsf-conditional" id="lainnya-f16-checkbox-group-wrap" style="display: none;" aria-hidden="true">
+                <label for="input-lainnya-f16" class="tsf-question__label">Sebutkan alasan lainnya</label>
+                <div class="form-control" style="margin-top: 0.5rem;">
+                    <div class="form-control__group">
+                        <input type="text" id="input-lainnya-f16" class="form-control__input" placeholder="Tuliskan alasan Anda">
+                    </div>
+                </div>
+            </div>
+
             <!-- Data Atasan/Pemilik -->
             <div class="tsf-question">
                 <div class="tsf-question__label-row">
-                    <span class="tsf-question__number" aria-hidden="true">10.</span>
+                    <span class="tsf-question__number" aria-hidden="true">12.</span>
                     <p class="tsf-question__label">Data Atasan/Pemilik</p>
                 </div>
                 <p class="tsf-question__desc">Apabila Anda sendiri pemilik usahanya, isikan data Anda sendiri.</p>
                 <div class="grid cols-2" style="gap: 0.75rem;">
                     <div class="form-control">
                         <label class="form-control__label">Nama<span class="tsf-required" aria-label="Wajib">*</span></label>
-                        <div class="form-control__group"><input type="text" class="form-control__input" placeholder="Nama lengkap"></div>
+                        <div class="form-control__group"><input type="text" id="input-atasan-nama" class="form-control__input" placeholder="Nama lengkap"></div>
                     </div>
                     <div class="form-control">
                         <label class="form-control__label">Jabatan<span class="tsf-required" aria-label="Wajib">*</span></label>
-                        <div class="form-control__group"><input type="text" class="form-control__input" placeholder="Jabatan"></div>
+                        <div class="form-control__group"><input type="text" id="input-atasan-jabatan" class="form-control__input" placeholder="Jabatan"></div>
                     </div>
                     <div class="form-control">
                         <label class="form-control__label">Email<span class="tsf-required" aria-label="Wajib">*</span></label>
-                        <div class="form-control__group"><input type="email" class="form-control__input" placeholder="email@domain.com"></div>
+                        <div class="form-control__group"><input type="email" id="input-atasan-email" class="form-control__input" placeholder="email@domain.com"></div>
                     </div>
                     <div class="form-control">
                         <label class="form-control__label">No. Telp<span class="tsf-required" aria-label="Wajib">*</span></label>
-                        <div class="form-control__group"><input type="tel" class="form-control__input" placeholder="08xxxxxxxxxx"></div>
+                        <div class="form-control__group"><input type="tel" id="input-atasan-telp" class="form-control__input" placeholder="08xxxxxxxxxx"></div>
                     </div>
                     <div class="form-control" style="grid-column: 1 / -1;">
                         <label class="form-control__label">Alamat usaha<span class="tsf-required" aria-label="Wajib">*</span></label>
-                        <div class="form-control__group"><input type="text" class="form-control__input" placeholder="Alamat lengkap usaha"></div>
+                        <div class="form-control__group"><input type="text" id="input-atasan-alamat" class="form-control__input" placeholder="Alamat lengkap usaha"></div>
                     </div>
                 </div>
             </div>
@@ -266,11 +341,16 @@
         </div>
     </div>
 
+    <div class="alert alert_helper" style="margin: 1rem 0;">
+        <div class="alert__content"><p class="alert__description">Lengkapi semua pertanyaan wajib di halaman ini dulu, baru tekan <strong>Lanjut</strong> di bawah.</p></div>
+    </div>
+
     <!-- Bottom nav -->
     <div style="display:flex;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--qn-neutral-200);">
         <a href="simulasi-g1-status.html" class="btn btn_outline">← Kembali</a>
-        <a href="simulasi-g1-kompetensi.html" class="btn btn_primary">Lanjut →</a>
+        <button class="btn btn_primary" id="btn-lanjut" disabled style="opacity:.5;cursor:not-allowed;" onclick="goToKompetensi()">Lanjut →</button>
     </div>
+    <p style="font-size:.72rem;color:var(--qn-neutral-400);text-align:right;margin-top:.25rem;" id="lanjut-hint">Lengkapi pertanyaan wajib di atas untuk melanjutkan</p>
 
 </div>
 
@@ -280,6 +360,36 @@
     document.querySelectorAll('.select-default').forEach(function (el) {
         new Choices(el, { searchEnabled: false, itemSelectText: '', shouldSort: false });
     });
+
+    // f301 ("Kapan Anda mulai merencanakan usaha...") is one combined question - the inline
+    // month-count inputs (f302/f303) live inside their own option row and only enable when
+    // that row is selected. Same pattern as simulasi-g1-mencari.html's applyF301Logic.
+    function applyF301Logic(value) {
+        const input302 = document.getElementById('input-f302');
+        const input303 = document.getElementById('input-f303');
+        const showBefore = value === 'sebelum_lulus';
+        const showAfter = value === 'sesudah_lulus';
+
+        input302.disabled = !showBefore;
+        if (!showBefore) input302.value = '';
+
+        input303.disabled = !showAfter;
+        if (!showAfter) input303.value = '';
+    }
+
+    // f16: "Usaha sudah sesuai pendidikan" (f1601) is mutually exclusive with every other
+    // reason - checking it clears the rest and vice versa, per Bank-Soal-&-Logic-Interaktif-
+    // Prototype-KarirLink-v2.1b.md's handleExclusiveOption() rule for this exact question.
+    function applyF16ExclusiveLogic(el) {
+        const group = document.getElementById('f16-checkbox-group');
+        const others = group.querySelectorAll('input[type="checkbox"]:not(#f16-1)');
+        if (el.id === 'f16-1' && el.checked) {
+            others.forEach(function (c) { c.checked = false; c.dispatchEvent(new Event('change')); });
+        } else if (el.id !== 'f16-1' && el.checked) {
+            const sudahSesuai = document.getElementById('f16-1');
+            if (sudahSesuai.checked) { sudahSesuai.checked = false; sudahSesuai.dispatchEvent(new Event('change')); }
+        }
+    }
 
     function toggleLainnyaField(el) {
         const group = el.closest('.tsf-radio-group, .tsf-checkbox-group');
@@ -306,8 +416,53 @@
                 const opt = r.closest('.tsf-option');
                 if (opt) refreshOptionCard(opt);
             });
+        } else if (input && input.type === 'checkbox') {
+            const opt = input.closest('.tsf-option');
+            if (opt) refreshOptionCard(opt);
+            if (input.closest('.tsf-checkbox-group')) toggleLainnyaField(input);
         }
     });
+
+    // Enable "Lanjut" only once every required field on this page is filled - same gating
+    // pattern as simulasi-g1-status.html's checkFormComplete(), just without branch routing
+    // since this page always continues to Kompetensi next.
+    function checkFormComplete() {
+        const btn = document.getElementById('btn-lanjut');
+        const hint = document.getElementById('lanjut-hint');
+        let ok = true;
+
+        if (!document.querySelector('input[name="f5c"]:checked')) ok = false;
+
+        const f1101 = document.querySelector('input[name="f1101"]:checked');
+        if (!f1101) ok = false;
+        else if (f1101.value === 'lainnya' && !document.getElementById('input-lainnya-f1101').value.trim()) ok = false;
+
+        if (!document.querySelector('input[name="f5d"]:checked')) ok = false;
+        if (!document.getElementById('select-f5a1').value) ok = false;
+        if (!document.getElementById('select-f5a2').value) ok = false;
+        if (!document.getElementById('input-f5b').value.trim()) ok = false;
+        if (!document.getElementById('input-f505').value.trim()) ok = false;
+        if (!document.querySelector('input[name="f14"]:checked')) ok = false;
+        if (!document.querySelector('input[name="f15"]:checked')) ok = false;
+
+        ['input-atasan-nama', 'input-atasan-jabatan', 'input-atasan-email', 'input-atasan-telp', 'input-atasan-alamat'].forEach(function (id) {
+            if (!document.getElementById(id).value.trim()) ok = false;
+        });
+
+        btn.disabled = !ok;
+        btn.style.opacity = ok ? '1' : '.5';
+        btn.style.cursor = ok ? 'pointer' : 'not-allowed';
+        hint.style.display = ok ? 'none' : 'block';
+    }
+
+    function goToKompetensi() {
+        if (document.getElementById('btn-lanjut').disabled) return;
+        window.location.href = 'simulasi-g1-kompetensi.html';
+    }
+
+    document.addEventListener('input', checkFormComplete);
+    document.addEventListener('change', checkFormComplete);
+    document.addEventListener('DOMContentLoaded', checkFormComplete);
 </script>
 </body>
 </html>

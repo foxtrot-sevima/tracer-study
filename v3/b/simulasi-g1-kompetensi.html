@@ -35,6 +35,17 @@
         .tsf-question__desc { font-size: 0.9375rem; color: var(--qn-neutral-500, #6b7280); margin: 0.25rem 0 0.75rem; line-height: 1.5; }
         .tsf-required { color: var(--qn-danger-500, #ef4444); margin-left: 0.125rem; }
 
+        /* tsf-option / tsf-radio-group - same pattern as v3/b's other simulasi-g1-*.html branch pages */
+        .tsf-radio-group { display: flex; flex-direction: column; gap: 0.625rem; margin-top: 0.5rem; }
+        .tsf-option { display: block; border: 1.5px solid var(--qn-neutral-200, #e5e7eb); border-radius: 0.625rem; padding: 0.75rem 1rem; margin: 0 !important; cursor: pointer; transition: border-color .15s ease, background-color .15s ease; }
+        .tsf-option:hover { border-color: var(--qn-primary-300, #93c5fd); background: var(--qn-primary-50, #eff6ff); }
+        .tsf-option.tsf-option--checked { border-color: var(--qn-primary-500, #3b82f6); background: var(--qn-primary-50, #eff6ff); }
+
+        /* Native .switch reset so it fits inline in a card header instead of stacking as a block form field
+           (same override as v2.1/b's kuesioner-builder.html's Bank Soal on/off switches) */
+        .form-control.form-control_inline-switch { display: inline-flex; width: auto; padding-bottom: 0; margin: 0; flex-shrink: 0; }
+        .form-control.form-control_inline-switch .switch { padding-bottom: 0; }
+
         .tsf-scale-options { display: flex; gap: 0.375rem; flex-wrap: nowrap; justify-content: center; }
         .tsf-scale-input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
         .tsf-scale-label { flex: 1; min-width: 2.25rem; display: flex; align-items: center; justify-content: center; padding: 0.5rem 0.375rem; border: 1.5px solid var(--qn-neutral-200, #e5e7eb); border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-700, #374151); cursor: pointer; transition: all 0.15s ease; }
@@ -341,6 +352,73 @@
         </div>
     </div>
 
+    <!-- Section 10 (Optional Bundle Kemenkes): 4 pertanyaan tanpa kode Dikti, khusus institusi
+         kesehatan (mis. Poltekkes). Diaktifkan per institusi oleh Admin CDC - default nonaktif untuk
+         PT umum. Toggle switch pakai komponen .form-control_inline-switch yang sama dengan Bank Soal
+         on/off di v2.1/b's kuesioner-builder.html, bukan komponen baru. -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card__header" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+            <div>
+                <h2 class="card__title">Bundle Tambahan: Tenaga Kesehatan</h2>
+                <p style="margin:.25rem 0 0;font-size:.8125rem;color:var(--qn-neutral-500,#6b7280);">Opsional, tanpa kode Dikti - diaktifkan Admin CDC khusus institusi kesehatan. Default nonaktif untuk PT umum.</p>
+            </div>
+            <div class="form-control form-control_inline-switch">
+                <div class="switch">
+                    <input type="checkbox" class="form-control__switch" id="toggle-kemenkes" onchange="toggleKemenkesBundle(this)">
+                    <label for="toggle-kemenkes" class="form-control__label-switch"></label>
+                </div>
+            </div>
+        </div>
+        <div class="card__body" id="kemenkes-bundle" style="display: none;" aria-hidden="true">
+
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <p class="tsf-question__label" id="kmk1-label">Apakah Anda bekerja di fasilitas kesehatan (rumah sakit, puskesmas, klinik, dll)?</p>
+                </div>
+                <div class="tsf-radio-group" role="radiogroup" aria-labelledby="kmk1-label">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="kmk1" id="kmk1-ya" value="ya"><label for="kmk1-ya" class="form-control__label-radio">Ya</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="kmk1" id="kmk1-tidak" value="tidak"><label for="kmk1-tidak" class="form-control__label-radio">Tidak</label></label>
+                </div>
+            </div>
+
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <p class="tsf-question__label" id="kmk2-label">Bagaimana status STR (Surat Tanda Registrasi) Anda saat ini?</p>
+                </div>
+                <div class="tsf-radio-group" role="radiogroup" aria-labelledby="kmk2-label">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="kmk2" id="kmk2-aktif" value="aktif"><label for="kmk2-aktif" class="form-control__label-radio">Aktif</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="kmk2" id="kmk2-proses" value="proses"><label for="kmk2-proses" class="form-control__label-radio">Dalam proses</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="kmk2" id="kmk2-belum" value="belum"><label for="kmk2-belum" class="form-control__label-radio">Belum memiliki</label></label>
+                </div>
+            </div>
+
+            <div class="tsf-question">
+                <div class="tsf-question__label-row">
+                    <p class="tsf-question__label" id="kmk3-label">Apakah bidang kerja Anda sesuai dengan kompetensi tenaga kesehatan Anda?</p>
+                </div>
+                <div class="tsf-radio-group" role="radiogroup" aria-labelledby="kmk3-label">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="kmk3" id="kmk3-sesuai" value="sesuai"><label for="kmk3-sesuai" class="form-control__label-radio">Sesuai</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="kmk3" id="kmk3-tidak" value="tidak_sesuai"><label for="kmk3-tidak" class="form-control__label-radio">Tidak sesuai</label></label>
+                </div>
+            </div>
+
+            <div class="tsf-question" style="border-bottom: none; padding-bottom: 0.25rem;">
+                <div class="tsf-question__label-row">
+                    <p class="tsf-question__label" id="kmk4-label">Apakah Anda memiliki sertifikat kompetensi/profesi bidang kesehatan?</p>
+                </div>
+                <div class="tsf-radio-group" role="radiogroup" aria-labelledby="kmk4-label">
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="kmk4" id="kmk4-ya" value="ya"><label for="kmk4-ya" class="form-control__label-radio">Ya</label></label>
+                    <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="kmk4" id="kmk4-tidak" value="tidak"><label for="kmk4-tidak" class="form-control__label-radio">Tidak</label></label>
+                </div>
+            </div>
+
+            <div class="alert alert_helper" style="margin-top: 0.5rem;">
+                <div class="alert__content"><p class="alert__description">4 pertanyaan di atas tidak memiliki kode Dikti - tambahan internal khusus institusi kesehatan, tidak wajib diisi.</p></div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- Bottom nav -->
     <div style="display:flex;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--qn-neutral-200);">
         <a href="javascript:history.back()" class="btn btn_outline">← Kembali</a>
@@ -359,5 +437,36 @@
 </div>
 
 <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+<script>
+    // Section 10 (Optional Bundle Kemenkes) - default OFF, admin-toggled per institusi.
+    function toggleKemenkesBundle(el) {
+        const bundle = document.getElementById('kemenkes-bundle');
+        const on = el.checked;
+        bundle.style.display = on ? 'block' : 'none';
+        bundle.setAttribute('aria-hidden', on ? 'false' : 'true');
+        if (!on) {
+            document.querySelectorAll('#kemenkes-bundle input[type="radio"]').forEach(function (r) {
+                r.checked = false;
+                const opt = r.closest('.tsf-option');
+                if (opt) opt.classList.remove('tsf-option--checked');
+            });
+        }
+    }
+
+    function refreshOptionCard(el) {
+        if (!el) return;
+        const input = el.querySelector('input');
+        el.classList.toggle('tsf-option--checked', !!(input && input.checked));
+    }
+    document.addEventListener('change', function (e) {
+        const input = e.target;
+        if (input && input.type === 'radio' && input.name) {
+            document.querySelectorAll('input[type="radio"][name="' + input.name + '"]').forEach(function (r) {
+                const opt = r.closest('.tsf-option');
+                if (opt) refreshOptionCard(opt);
+            });
+        }
+    });
+</script>
 </body>
 </html>
