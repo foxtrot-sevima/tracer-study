@@ -32,6 +32,11 @@
            Informasi Alumni - meniru .alumni-hero__fact di alumni-detail.html. */
         .fact-row { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--qn-neutral-600); }
         .fact-row .icon { color: var(--qn-neutral-400); font-size: 1rem; flex-shrink: 0; }
+
+        /* Logo lowongan & mitra mengisi penuh kotaknya (object-fit: cover), senada
+           dengan gaya kartu di lowongan.html - bukan ikon kecil mengambang di tengah
+           kotak seperti default .job-card__logo/.mitra-cell__logo bawaan. */
+        .job-card__logo img, .mitra-cell__logo img { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -135,7 +140,7 @@
                                 <h3 style="font-size: 1.125rem; font-weight: 700; margin: 0 0 0.25rem; color: var(--qn-neutral-900);">Pangeran Dimas</h3>
                                 <p style="font-size: 0.8125rem; color: var(--qn-neutral-600); margin: 0 0 0.5rem; line-height: 1.4;">UI/UX Designer &middot; Antusias merancang pengalaman digital yang berdampak</p>
                                 <div style="display: flex; align-items: center; justify-content: center; gap: 0.375rem;">
-                                    <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="" style="width: 1.125rem; height: 1.125rem; border-radius: 0.25rem; object-fit: contain; border: 1px solid var(--qn-neutral-200);">
+                                    <img src="../assets/karirlink/images/users/logoipsum.webp" alt="" style="width: 1.125rem; height: 1.125rem; border-radius: 0.25rem; object-fit: cover; border: 1px solid var(--qn-neutral-200);">
                                     <span style="font-size: 0.8125rem; color: var(--qn-neutral-600);">PT Sentra Vidya Utama</span>
                                 </div>
                             </div>
@@ -304,7 +309,7 @@
                             <div style="display: flex; align-items: flex-start; justify-content: space-between;">
                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
                                     <span class="avatar avatar_sm">
-                                        <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="KarirLink">
+                                        <img src="../assets/karirlink/images/users/logoipsum.webp" alt="KarirLink">
                                     </span>
                                     <div>
                                         <p style="font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.25rem;">
@@ -347,7 +352,7 @@
                             <div style="display: flex; align-items: flex-start; justify-content: space-between;">
                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
                                     <span class="avatar avatar_sm">
-                                        <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="KarirLink">
+                                        <img src="../assets/karirlink/images/users/logoipsum.webp" alt="KarirLink">
                                     </span>
                                     <div>
                                         <p style="font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.25rem;">
@@ -385,7 +390,7 @@
                             <div style="display: flex; align-items: flex-start; justify-content: space-between;">
                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
                                     <span class="avatar avatar_sm">
-                                        <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="KarirLink">
+                                        <img src="../assets/karirlink/images/users/logoipsum.webp" alt="KarirLink">
                                     </span>
                                     <div>
                                         <p style="font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.25rem;">
@@ -431,7 +436,7 @@
                             </div>
                             <div style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 0.875rem; margin-bottom: 0.875rem; border-bottom: 1px solid var(--qn-neutral-100);">
                                 <div class="job-card__logo" style="margin: 0;">
-                                    <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Company Logo">
+                                    <img src="../assets/karirlink/images/users/logoipsum.webp" alt="Company Logo">
                                 </div>
                                 <div style="flex: 1; min-width: 0;">
                                     <p style="font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0 0 0.125rem;">UI/UX Designer</p>
@@ -441,7 +446,7 @@
                             </div>
                             <div style="display: flex; align-items: center; gap: 0.75rem;">
                                 <div class="job-card__logo" style="margin: 0;">
-                                    <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Company Logo">
+                                    <img src="../assets/karirlink/images/users/logoipsum.webp" alt="Company Logo">
                                 </div>
                                 <div style="flex: 1; min-width: 0;">
                                     <p style="font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0 0 0.125rem;">Backend Engineer</p>
@@ -451,7 +456,7 @@
                             </div>
                         </div>
                         <div class="card__footer" style="text-align: center;">
-                            <a href="../lowongan.html" class="link_primary">
+                            <a href="./lowongan.html" class="link_primary">
                                 Lihat Semua Lowongan
                                 <span class="icon icon-chevron-right-mini"></span>
                             </a>
@@ -466,19 +471,18 @@
                                 <h3>Perusahaan Mitra</h3>
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 1rem;">
-                                <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
                                     <div class="mitra-cell">
-                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Sentra Vidya Utama"></div>
+                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT Sentra Vidya Utama"></div>
                                         <div class="mitra-cell__info">
                                             <span class="mitra-cell__name">PT Sentra Vidya Utama</span>
                                             <span class="tag tag_outline tag_sm" style="align-self: flex-start; margin-top: 0.25rem;">Teknologi</span>
                                         </div>
                                     </div>
-                                    <span class="badge badge_primary">Baru</span>
                                 </div>
                                 <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
                                     <div class="mitra-cell">
-                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Fit Jaya Raya Tri"></div>
+                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT Fit Jaya Raya Tri"></div>
                                         <div class="mitra-cell__info">
                                             <span class="mitra-cell__name">PT Fit Jaya Raya Tri</span>
                                             <span class="tag tag_outline tag_sm" style="align-self: flex-start; margin-top: 0.25rem;">Manufaktur</span>
@@ -487,7 +491,7 @@
                                 </div>
                                 <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
                                     <div class="mitra-cell">
-                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT ABC"></div>
+                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT ABC"></div>
                                         <div class="mitra-cell__info">
                                             <span class="mitra-cell__name">PT ABC</span>
                                             <span class="tag tag_outline tag_sm" style="align-self: flex-start; margin-top: 0.25rem;">Jasa Keuangan</span>
