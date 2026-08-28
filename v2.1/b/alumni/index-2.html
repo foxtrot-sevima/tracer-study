@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/alumni/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda | Portal Karir Alumni</title>
+    <link rel="icon" href="../assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="../assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="../assets/karirlink/css/main.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/portal-karir.css">
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (navbar Alumni) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="../assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./index.html">
+                                <span class="icon icon-home"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="../tracer-study-form.html">
+                                <span class="icon icon-clipboard-document-check"></span>
+                                <span>Tracer Study</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="../lowongan.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Lowongan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="#lamaran-saya">
+                                <span class="icon icon-clipboard-document-list"></span>
+                                <span>Lamaran</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification"><span class="icon icon-bell"></span></button>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Ahmad Fauzi</span>
+                            <span class="header__user-role">Teknik Informatika &middot; 2023</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Ahmad Fauzi</span><span class="avatar__subtitle">Teknik Informatika &middot; 2023</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Profil Saya</a></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <div class="grid" style="gap: 1rem;">
+
+                <!-- [START] Left Sidebar: Profil -->
+                <div class="col-12 col-lg-3">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- Profile Card -->
+                    <div class="card">
+                        <div style="height: 3.5rem; background: linear-gradient(135deg, var(--qn-primary-500), var(--qn-primary-300)); border-radius: 0.75rem 0.75rem 0 0;"></div>
+                        <div class="card__body" style="text-align: center;">
+                            <span class="avatar avatar_lg" style="margin: -2.0625rem auto 0.75rem; display: inline-flex;">
+                                <img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Ahmad Fauzi">
+                            </span>
+                            <h3 style="font-size: 1.125rem; font-weight: 600; margin: 0 0 0.25rem;">Ahmad Fauzi</h3>
+                            <p style="font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 1rem;">Teknik Informatika &middot; Angkatan 2019</p>
+                            <div class="grid" style="gap: 0.5rem;">
+                                <div class="col-4">
+                                    <div class="stat-item">
+                                        <span class="stat-item__label">Lamaran</span>
+                                        <span class="stat-item__value">4</span>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-item">
+                                        <span class="stat-item__label">Disimpan</span>
+                                        <span class="stat-item__value">6</span>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-item">
+                                        <span class="stat-item__label">Profil</span>
+                                        <span class="stat-item__value">80%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <a href="#" class="btn btn_outline btn_sm btn_full">Lihat Profil Saya</a>
+                        </div>
+                    </div>
+
+                    <!-- Informasi Alumni -->
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title">Informasi Alumni</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="data-card">
+                                <div class="data-card__row">
+                                    <span class="data-card__label">Program Studi</span>
+                                    <span class="data-card__value">Teknik Informatika</span>
+                                </div>
+                                <div class="data-card__row">
+                                    <span class="data-card__label">Angkatan</span>
+                                    <span class="data-card__value">2019</span>
+                                </div>
+                                <div class="data-card__row">
+                                    <span class="data-card__label">Status Tracer Study</span>
+                                    <span class="data-card__value" style="color: var(--qn-danger-500);">Belum Mengisi</span>
+                                </div>
+                            </div>
+                            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--qn-neutral-100);">
+                                <p style="font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-700); margin: 0 0 0.5rem;">Keahlian</p>
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.375rem;">
+                                    <span class="tag tag_outline tag_sm">UI/UX Design</span>
+                                    <span class="tag tag_outline tag_sm">Project Management</span>
+                                    <span class="tag tag_outline tag_sm">Public Speaking</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Status Lamaran -->
+                    <div class="card" id="lamaran-saya">
+                        <div class="card__header">
+                            <h3 class="card__title">Status Lamaran</h3>
+                            <a href="#lamaran-saya" class="link_primary">Lihat Semua</a>
+                        </div>
+                        <div class="card__body">
+                            <div class="grid" style="gap: 0.5rem;">
+                                <div class="col-6">
+                                    <div class="stat-item">
+                                        <span class="stat-item__label">Diterima</span>
+                                        <span class="stat-item__value stat-item__value_success">1</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="stat-item">
+                                        <span class="stat-item__label">Menunggu</span>
+                                        <span class="stat-item__value">1</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="stat-item">
+                                        <span class="stat-item__label">Proses</span>
+                                        <span class="stat-item__value stat-item__value_warning">2</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="stat-item">
+                                        <span class="stat-item__label">Ditolak</span>
+                                        <span class="stat-item__value stat-item__value_danger">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- [END] Left Sidebar -->
+
+                <!-- [START] Center: Feed -->
+                <div class="col-12 col-lg-6">
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <!-- Tracer Study Reminder -->
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title">Lengkapi Tracer Study Anda</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="card-insight" style="margin-top: 0; align-items: center;">
+                                <div class="card-insight__icon card-insight__icon_warning"><span class="icon icon-exclaimation-circle-mini"></span></div>
+                                <p class="card-insight__text">Anda belum mengisi Tracer Study tahun ini. Bantu kampus memetakan jejak karir alumni dengan mengisi kuesioner singkat berikut.</p>
+                            </div>
+                            <a href="../tracer-study-form.html" class="btn btn_primary btn_sm" style="margin-top: 1rem;">
+                                <span class="icon icon-clipboard-document-check-mini"></span>
+                                <span class="btn__text">Isi Sekarang</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Kelengkapan Resume -->
+                    <div class="card">
+                        <div class="card__body" style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+                            <div class="progress-circle" style="--progress-circle-size: 5.5rem; --progress-circle-line-size: 0.5rem; flex-shrink: 0;">
+                                <div class="progress-circle__bar" data-percent-end="65"></div>
+                                <div class="progress-circle__label">
+                                    <div class="progress-circle__number">0%</div>
+                                </div>
+                            </div>
+                            <div style="flex: 1; min-width: 10rem;">
+                                <p style="font-weight: 600; margin: 0 0 0.25rem;">Kelengkapan Resume Kamu</p>
+                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0;">Terakhir diperbarui 40 menit yang lalu</p>
+                            </div>
+                            <a href="#" class="btn btn_outline btn_sm">
+                                <span class="icon icon-arrow-down-tray-mini"></span>
+                                <span class="btn__text">Unduh Resume</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Composer -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="form-control">
+                                <div class="form-control__group">
+                                    <textarea class="form-control__input" rows="3" placeholder="Tulis deskripsi disini..."></textarea>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+                                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    <button type="button" class="btn btn_outline btn_sm">
+                                        <span class="icon icon-photo-mini"></span>
+                                        <span class="btn__text">Foto</span>
+                                    </button>
+                                    <button type="button" class="btn btn_outline btn_sm">
+                                        <span class="icon icon-video-camera-mini"></span>
+                                        <span class="btn__text">Video</span>
+                                    </button>
+                                    <button type="button" class="btn btn_outline btn_sm">
+                                        <span class="icon icon-clipboard-document-list-mini"></span>
+                                        <span class="btn__text">Dokumen</span>
+                                    </button>
+                                </div>
+                                <button type="button" class="btn btn_primary btn_sm">Kirim</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feed Post 1 -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <span class="avatar avatar_sm">
+                                        <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="KarirLink">
+                                    </span>
+                                    <div>
+                                        <p style="font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.25rem;">
+                                            KarirLink
+                                            <span class="icon icon-check-badge-solid" style="font-size: 1rem; color: var(--qn-primary-400);"></span>
+                                        </p>
+                                        <p style="font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0;">Get Job Easy! &middot; 2 tahun yang lalu</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn_icon btn_outline btn_sm">
+                                    <span class="icon icon-ellipsis-vertical"></span>
+                                </button>
+                            </div>
+                            <p style="margin: 1rem 0; font-size: 0.875rem; color: var(--qn-neutral-700); line-height: 1.6;">
+                                Banyak lowongan magang buat kamu yang mau tingkatkan skill! 💪🏆<br>
+                                1. Architect Internship<br>
+                                2. Marketing &amp; Content - Paid Internship<br>
+                                3. Program Development - Paid Internship<br>
+                                4. Program Operations - Paid Internship<br><br>
+                                Jangan ketinggalan info lowongan kerja dan tips karir terbaru, langsung aja cek di
+                                <a href="#" class="link_primary">KarirLink.id</a> 🚀
+                            </p>
+                            <div style="display: flex; gap: 1rem; font-size: 0.75rem; color: var(--qn-neutral-500);">
+                                <span>2 suka</span>
+                                <span>1 komentar</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <div class="card__footer-inline">
+                                <button class="btn btn_outline btn_sm" style="flex: 1;"><span class="icon icon-heart-mini"></span><span class="btn__text">Suka</span></button>
+                                <button class="btn btn_outline btn_sm" style="flex: 1;"><span class="icon icon-chat-bubble-left-mini"></span><span class="btn__text">Komentar</span></button>
+                                <button class="btn btn_outline btn_sm" style="flex: 1;"><span class="icon icon-share-mini"></span><span class="btn__text">Bagikan</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feed Post 2 -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <span class="avatar avatar_sm">
+                                        <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="KarirLink">
+                                    </span>
+                                    <div>
+                                        <p style="font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.25rem;">
+                                            KarirLink
+                                            <span class="icon icon-check-badge-solid" style="font-size: 1rem; color: var(--qn-primary-400);"></span>
+                                        </p>
+                                        <p style="font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0;">Get Job Easy! &middot; 2 tahun yang lalu</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn_icon btn_outline btn_sm">
+                                    <span class="icon icon-ellipsis-vertical"></span>
+                                </button>
+                            </div>
+                            <p style="margin: 1rem 0; font-size: 0.875rem; color: var(--qn-neutral-700); line-height: 1.6;">
+                                Eh hati-hati, masih bingung memperkenalkan diri pas interview? Gimana jadinya coba? Kamu bingung, HR di buat bingung, auto gak lolos seleksi dong 😅<br><br>
+                                Nih, mending baca tips memperkenalkan diri saat interview, yuk cek disini.
+                            </p>
+                            <div style="display: flex; gap: 1rem; font-size: 0.75rem; color: var(--qn-neutral-500);">
+                                <span>1 suka</span>
+                                <span>0 komentar</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <div class="card__footer-inline">
+                                <button class="btn btn_outline btn_sm" style="flex: 1;"><span class="icon icon-heart-mini"></span><span class="btn__text">Suka</span></button>
+                                <button class="btn btn_outline btn_sm" style="flex: 1;"><span class="icon icon-chat-bubble-left-mini"></span><span class="btn__text">Komentar</span></button>
+                                <button class="btn btn_outline btn_sm" style="flex: 1;"><span class="icon icon-share-mini"></span><span class="btn__text">Bagikan</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feed Post 3 -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <span class="avatar avatar_sm">
+                                        <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="KarirLink">
+                                    </span>
+                                    <div>
+                                        <p style="font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.25rem;">
+                                            KarirLink
+                                            <span class="icon icon-check-badge-solid" style="font-size: 1rem; color: var(--qn-primary-400);"></span>
+                                        </p>
+                                        <p style="font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0;">Get Job Easy! &middot; 4 tahun yang lalu</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn_icon btn_outline btn_sm">
+                                    <span class="icon icon-ellipsis-vertical"></span>
+                                </button>
+                            </div>
+                            <p style="margin: 1rem 0; font-size: 0.875rem; color: var(--qn-neutral-700); line-height: 1.6;">
+                                Hallo sobat KarirLink 👋 buat kalian Mahasiswa atau Lulusan, kami punya fitur baru nih. Sekarang kalian bisa melihat dan mendaftar Event dari Perguruan Tinggi maupun Mitra Perusahaan kami, seperti Beasiswa, Kewirausahaan, dan Webinar 🎉
+                            </p>
+                            <div style="display: flex; gap: 1rem; font-size: 0.75rem; color: var(--qn-neutral-500);">
+                                <span>27 suka</span>
+                                <span>6 komentar</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <div class="card__footer-inline">
+                                <button class="btn btn_outline btn_sm" style="flex: 1;"><span class="icon icon-heart-mini"></span><span class="btn__text">Suka</span></button>
+                                <button class="btn btn_outline btn_sm" style="flex: 1;"><span class="icon icon-chat-bubble-left-mini"></span><span class="btn__text">Komentar</span></button>
+                                <button class="btn btn_outline btn_sm" style="flex: 1;"><span class="icon icon-share-mini"></span><span class="btn__text">Bagikan</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- [END] Center: Feed -->
+
+                <!-- [START] Right Sidebar -->
+                <div class="col-12 col-lg-3">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- Lowongan Untuk Anda -->
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title">Lowongan Untuk Anda</h3>
+                        </div>
+                    </div>
+
+                    <div class="card card_job">
+                        <div class="card__body">
+                            <div class="job-card__header">
+                                <div class="job-card__logo">
+                                    <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Company Logo">
+                                </div>
+                                <div class="job-card__info">
+                                    <h3 class="job-card__title">UI/UX Designer</h3>
+                                    <p class="job-card__company">PT Sentra Vidya Utama</p>
+                                </div>
+                            </div>
+                            <div class="job-card__meta">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Surabaya</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <span class="job-card__date">2 hari lalu</span>
+                            <button class="btn btn_primary btn_sm">Lamar</button>
+                        </div>
+                    </div>
+
+                    <div class="card card_job">
+                        <div class="card__body">
+                            <div class="job-card__header">
+                                <div class="job-card__logo">
+                                    <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Company Logo">
+                                </div>
+                                <div class="job-card__info">
+                                    <h3 class="job-card__title">Backend Engineer</h3>
+                                    <p class="job-card__company">PT Fit Jaya Raya Tri</p>
+                                </div>
+                            </div>
+                            <div class="job-card__meta">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Jakarta</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <span class="job-card__date">5 hari lalu</span>
+                            <button class="btn btn_primary btn_sm">Lamar</button>
+                        </div>
+                    </div>
+
+                    <a href="../lowongan.html" class="link_primary" style="display: flex; justify-content: center;">
+                        Lihat Semua Lowongan
+                        <span class="icon icon-chevron-right-mini"></span>
+                    </a>
+
+                    <!-- Perusahaan Mitra -->
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title">Perusahaan Mitra</h3>
+                            <a href="../perusahaan.html" class="link_primary">Lihat Semua</a>
+                        </div>
+                        <div class="card__body">
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+                                    <div class="mitra-cell">
+                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Sentra Vidya Utama"></div>
+                                        <div class="mitra-cell__info">
+                                            <span class="mitra-cell__name">PT Sentra Vidya Utama</span>
+                                            <span class="mitra-cell__category">Teknologi</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge badge_primary">Baru</span>
+                                </div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+                                    <div class="mitra-cell">
+                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Fit Jaya Raya Tri"></div>
+                                        <div class="mitra-cell__info">
+                                            <span class="mitra-cell__name">PT Fit Jaya Raya Tri</span>
+                                            <span class="mitra-cell__category">Manufaktur</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+                                    <div class="mitra-cell">
+                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT ABC"></div>
+                                        <div class="mitra-cell__info">
+                                            <span class="mitra-cell__name">PT ABC</span>
+                                            <span class="mitra-cell__category">Jasa Keuangan</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- [END] Right Sidebar -->
+
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript (dropdown, notifikasi, progress-circle semuanya lewat data-toggle/data-percent-end) -->
+    <script src="../assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+</body>
+</html>
