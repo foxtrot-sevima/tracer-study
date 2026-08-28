@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/alumni/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracer Study | Portal Karir Alumni</title>
+    <link rel="icon" href="../assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <link rel="stylesheet" href="../assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+    <link rel="stylesheet" href="../assets/karirlink/css/main.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/portal-karir.css">
+    <style>
+        /* Judul seksi beraksen satu ikon kecil - konsisten dengan Beranda alumni */
+        .section-title { display: flex; align-items: center; gap: 0.625rem; }
+        .section-title__icon { flex-shrink: 0; width: 1.75rem; height: 1.75rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 0.9375rem; }
+        .section-title__icon_primary { background: var(--qn-primary-100); color: var(--qn-primary-600); }
+        .section-title h3 { font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
+
+        /* Riwayat Pengisian sebagai timeline vertikal - titik + garis penghubung di kiri,
+           kartu bertinta warna di kanan - supaya urutan gelombang terasa seperti sebuah
+           perjalanan, bukan sekadar tumpukan baris datar (catatan: `.tag_success`/
+           `.tag_primary` yang dipakai versi lama tidak benar-benar terdefinisi di CSS
+           manapun, jadi status di situ tampil polos tanpa warna - diganti .status-pill). */
+        .ts-timeline__item { display: flex; gap: 1rem; }
+        .ts-timeline__marker { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+        .ts-timeline__dot { width: 2.75rem; height: 2.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; flex-shrink: 0; }
+        .ts-timeline__item--done .ts-timeline__dot { background: var(--qn-success-500); color: white; }
+        .ts-timeline__item--active .ts-timeline__dot { background: var(--qn-primary-500); color: white; box-shadow: 0 0 0 5px var(--qn-primary-100); }
+        .ts-timeline__item--inactive .ts-timeline__dot { background: var(--qn-neutral-100); color: var(--qn-neutral-400); border: 2px solid var(--qn-neutral-200); }
+        .ts-timeline__line { flex: 1; width: 2px; min-height: 1.25rem; background: var(--qn-neutral-200); margin: 0.375rem 0; }
+        .ts-timeline__body { flex: 1; min-width: 0; padding-bottom: 1.25rem; }
+
+        .status-pill { display: inline-flex; align-items: center; flex-shrink: 0; padding: 0.3125rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+        .status-pill_success { background: var(--qn-success-500); color: white; }
+        .status-pill_primary { background: var(--qn-primary-500); color: white; }
+        .status-pill_neutral { background: var(--qn-neutral-200); color: var(--qn-neutral-600); }
+
+        /* Manfaat Tracer Study - ikon bulat berwarna + judul + deskripsi singkat */
+        .benefit-row { display: flex; align-items: flex-start; gap: 0.875rem; }
+        .benefit-row__icon { flex-shrink: 0; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--qn-primary-100); color: var(--qn-primary-600); display: flex; align-items: center; justify-content: center; }
+        .benefit-row__title { font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0 0 0.125rem; }
+        .benefit-row__desc { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0; line-height: 1.5; }
+
+        /* Baris FAQ ringkas: pertanyaan tebal + jawaban singkat di bawahnya */
+        .faq-row + .faq-row { margin-top: 0.875rem; padding-top: 0.875rem; border-top: 1px solid var(--qn-neutral-100); }
+        .faq-row__q { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); margin: 0 0 0.25rem; }
+        .faq-row__a { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0; line-height: 1.5; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (navbar Alumni) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="../assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./index.html">
+                                <span class="icon icon-home"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./tracer-study.html">
+                                <span class="icon icon-clipboard-document-check"></span>
+                                <span>Tracer Study</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lowongan.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Lowongan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lamaran.html">
+                                <span class="icon icon-clipboard-document-list"></span>
+                                <span>Lamaran</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification"><span class="icon icon-bell"></span></button>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Pangeran Dimas</span>
+                            <span class="header__user-role">Teknik Informatika &middot; 2023</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Pangeran Dimas</span><span class="avatar__subtitle">Teknik Informatika &middot; 2023</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Profil Saya</a></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+
+            <!-- Hero -->
+            <div class="card" style="overflow: hidden; margin-bottom: 1.5rem;">
+                <div style="background: linear-gradient(120deg, var(--qn-primary-600) 0%, var(--qn-primary-500) 55%, var(--qn-primary-300) 100%); padding: 2rem 2.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;">
+                    <div style="min-width: 16rem; max-width: 40rem; flex: 1 1 22rem;">
+                        <h1 style="font-size: 1.5rem; font-weight: 700; color: white; margin: 0 0 0.5rem;">Tracer Study</h1>
+                        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.85); margin: 0 0 1.125rem; line-height: 1.6;">Ceritakan perjalanan kariermu setelah lulus. Jawabanmu membantu kampus meningkatkan kualitas pendidikan dan membuka lebih banyak peluang kerja sama industri untuk adik tingkat.</p>
+                        <a href="./tracer-study-form-gs1.html" class="btn btn_sm" style="display: inline-flex; background: white; color: var(--qn-primary-600);">
+                            <span class="icon icon-clipboard-document-check-mini"></span>
+                            <span class="btn__text">Isi GS-I Sekarang</span>
+                        </a>
+                    </div>
+                    <div style="text-align: center; background: rgba(255,255,255,0.15); border-radius: 0.75rem; padding: 1.25rem 2rem; flex-shrink: 0;">
+                        <span style="display: block; font-size: 2rem; font-weight: 700; color: white; line-height: 1.2;">1/3</span>
+                        <span style="font-size: 0.8125rem; color: rgba(255,255,255,0.85);">Gelombang Terisi</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid" style="gap: 1rem;">
+
+                <!-- [START] Left Sidebar -->
+                <div class="col-12 col-lg-3">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- Progres Tracer Study -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="section-title" style="margin-bottom: 1rem;">
+                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-chart-pie-mini"></span></span>
+                                <h3>Progres Kamu</h3>
+                            </div>
+                            <div class="chart-panel-row" style="flex-direction: column; gap: 1rem; padding: 1.25rem 1rem;">
+                                <div class="progress-circle" style="--progress-circle-size: 5.5rem; --progress-circle-line-size: 0.625rem;">
+                                    <div class="progress-circle__bar" data-percent-end="33"></div>
+                                    <div class="progress-circle__label">
+                                        <div class="progress-circle__number">0%</div>
+                                        <div class="progress-circle__title">Selesai</div>
+                                    </div>
+                                </div>
+                                <div class="chart-legend chart-legend_pill" style="width: 100%; margin-bottom: 0;">
+                                    <div class="chart-legend__item"><span class="chart-legend__color" style="background: var(--qn-success-500);"></span>Sudah Diisi &middot; 1</div>
+                                    <div class="chart-legend__item"><span class="chart-legend__color" style="background: var(--qn-primary-500);"></span>Sedang Aktif &middot; 1</div>
+                                    <div class="chart-legend__item"><span class="chart-legend__color" style="background: var(--qn-neutral-300);"></span>Belum Aktif &middot; 1</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Butuh Bantuan -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="section-title" style="margin-bottom: 0.75rem;">
+                                <span class="section-title__icon section-title__icon_neutral"><span class="icon icon-chat-bubble-left-right-mini"></span></span>
+                                <h3>Butuh Bantuan?</h3>
+                            </div>
+                            <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0 0 1rem; line-height: 1.5;">Ada kendala saat mengisi Tracer Study? Tim Karir siap membantu.</p>
+                            <a href="#" class="btn btn_outline btn_sm btn_full">
+                                <span class="icon icon-phone-mini"></span>
+                                <span class="btn__text">Hubungi Tim Karir</span>
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- [END] Left Sidebar -->
+
+                <!-- [START] Center -->
+                <div class="col-12 col-lg-6">
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <!-- Riwayat Pengisian -->
+                    <div>
+                        <div class="section-title" style="margin-bottom: 1rem;">
+                            <span class="section-title__icon section-title__icon_primary"><span class="icon icon-clipboard-document-list-mini"></span></span>
+                            <h3>Riwayat Pengisian</h3>
+                        </div>
+
+                        <!-- Exit Survey - Sudah Diisi -->
+                        <div class="ts-timeline__item ts-timeline__item--done">
+                            <div class="ts-timeline__marker">
+                                <span class="ts-timeline__dot"><span class="icon icon-check-mini"></span></span>
+                                <span class="ts-timeline__line"></span>
+                            </div>
+                            <div class="ts-timeline__body">
+                                <div class="card" style="background: var(--qn-success-100); border: none; box-shadow: none;">
+                                    <div class="card__body" style="padding: 1.125rem 1.25rem;">
+                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+                                            <div>
+                                                <p style="font-weight: 700; font-size: 0.9375rem; color: var(--qn-neutral-900); margin: 0 0 0.25rem;">Exit Survey</p>
+                                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-600); margin: 0;">Dikirim saat kelulusan &middot; Diisi pada 20 Agustus 2025</p>
+                                            </div>
+                                            <span class="status-pill status-pill_success">Sudah Diisi</span>
+                                        </div>
+                                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(14,147,132,0.2); flex-wrap: wrap;">
+                                            <span style="font-size: 0.75rem; color: var(--qn-neutral-600);">Dapat diedit sampai campaign ditutup</span>
+                                            <a href="./tracer-study-form-exit.html" class="btn btn_outline btn_sm">Edit Jawaban</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- GS-I - Sedang Aktif, belum diisi -->
+                        <div class="ts-timeline__item ts-timeline__item--active">
+                            <div class="ts-timeline__marker">
+                                <span class="ts-timeline__dot"><span class="icon icon-clock-mini"></span></span>
+                                <span class="ts-timeline__line"></span>
+                            </div>
+                            <div class="ts-timeline__body">
+                                <div class="card" style="background: var(--qn-primary-100); border: none; box-shadow: none;">
+                                    <div class="card__body" style="padding: 1.125rem 1.25rem;">
+                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+                                            <div>
+                                                <p style="font-weight: 700; font-size: 0.9375rem; color: var(--qn-neutral-900); margin: 0 0 0.25rem;">GS-I &middot; Tracer Study 1-2 Tahun Setelah Lulus</p>
+                                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-600); margin: 0;">Aktif sejak 12 Maret 2026 &middot; Menunggu jawaban Anda</p>
+                                            </div>
+                                            <span class="status-pill status-pill_primary">Sedang Aktif</span>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 0.625rem; margin-top: 1rem; padding: 0.625rem 0.875rem; background: rgba(255,255,255,0.6); border-radius: 0.5rem;">
+                                            <div class="card-insight__icon card-insight__icon_warning"><span class="icon icon-clock-mini"></span></div>
+                                            <span style="font-size: 0.8125rem; color: var(--qn-neutral-700);">Batas waktu pengisian tinggal <strong style="color: var(--qn-warning-400);">18 hari lagi</strong> &middot; ditutup 30 April 2026</span>
+                                        </div>
+                                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(15,106,245,0.2); flex-wrap: wrap;">
+                                            <span style="font-size: 0.75rem; color: var(--qn-neutral-600);">Dapat diisi sampai campaign ditutup</span>
+                                            <a href="./tracer-study-form-gs1.html" class="btn btn_primary btn_sm">Isi Sekarang</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- GS-II - Belum Aktif -->
+                        <div class="ts-timeline__item ts-timeline__item--inactive">
+                            <div class="ts-timeline__marker">
+                                <span class="ts-timeline__dot"><span class="icon icon-lock-closed-mini"></span></span>
+                            </div>
+                            <div class="ts-timeline__body">
+                                <div class="card" style="background: var(--qn-neutral-100); border: none; box-shadow: none;">
+                                    <div class="card__body" style="padding: 1.125rem 1.25rem;">
+                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+                                            <div>
+                                                <p style="font-weight: 700; font-size: 0.9375rem; color: var(--qn-neutral-500); margin: 0 0 0.25rem;">GS-II &middot; Tracer Study 4-5 Tahun Setelah Lulus</p>
+                                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0;">Survei akan aktif 4-5 tahun setelah lulus</p>
+                                            </div>
+                                            <span class="status-pill status-pill_neutral">Belum Aktif</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert_helper" style="margin-top: 1rem;">
+                            <div class="alert__content">
+                                <p class="alert__description">Gelombang <strong>GS-II</strong> akan aktif otomatis 4-5 tahun setelah kelulusan Anda dan muncul di halaman ini saat aktif.</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- [END] Center -->
+
+                <!-- [START] Right Sidebar -->
+                <div class="col-12 col-lg-3">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- Reward -->
+                    <div class="card" style="overflow: hidden;">
+                        <div style="background: var(--qn-warning-500); padding: 1.5rem 1.25rem; text-align: center;">
+                            <span class="icon icon-trophy" style="font-size: 2rem; color: white;"></span>
+                            <p style="font-weight: 700; color: white; margin: 0.625rem 0 0.25rem; font-size: 0.9375rem;">Lengkapi & Dapatkan E-Sertifikat</p>
+                            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.9); margin: 0; line-height: 1.5;">Isi semua gelombang aktif untuk klaim e-sertifikat partisipasi Tracer Study.</p>
+                        </div>
+                    </div>
+
+                    <!-- Kenapa Tracer Study Penting -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="section-title" style="margin-bottom: 1rem;">
+                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-information-circle-mini"></span></span>
+                                <h3>Kenapa Penting?</h3>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div class="benefit-row">
+                                    <span class="benefit-row__icon"><span class="icon icon-chart-bar-square-mini"></span></span>
+                                    <div>
+                                        <p class="benefit-row__title">Akreditasi Kampus</p>
+                                        <p class="benefit-row__desc">Jadi salah satu indikator penilaian akreditasi program studi.</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-row">
+                                    <span class="benefit-row__icon"><span class="icon icon-briefcase-mini"></span></span>
+                                    <div>
+                                        <p class="benefit-row__title">Peluang Kerja Sama</p>
+                                        <p class="benefit-row__desc">Dipakai mitra untuk membuka lowongan yang relevan dengan lulusan.</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-row">
+                                    <span class="benefit-row__icon"><span class="icon icon-user-group-mini"></span></span>
+                                    <div>
+                                        <p class="benefit-row__title">Jejaring Alumni</p>
+                                        <p class="benefit-row__desc">Menghubungkanmu dengan sesama alumni dan program karier lanjutan.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="section-title" style="margin-bottom: 1rem;">
+                                <span class="section-title__icon section-title__icon_neutral"><span class="icon icon-question-mark-circle-mini"></span></span>
+                                <h3>Pertanyaan Umum</h3>
+                            </div>
+                            <div class="faq-row">
+                                <p class="faq-row__q">Bisakah jawaban diubah setelah dikirim?</p>
+                                <p class="faq-row__a">Bisa, selama gelombang terkait masih aktif.</p>
+                            </div>
+                            <div class="faq-row">
+                                <p class="faq-row__q">Berapa lama waktu pengisian?</p>
+                                <p class="faq-row__a">Sekitar 10-15 menit tergantung jumlah pertanyaan.</p>
+                            </div>
+                            <div class="faq-row">
+                                <p class="faq-row__q">Apakah data saya aman?</p>
+                                <p class="faq-row__a">Ya, data hanya dipakai untuk kepentingan akademik dan tidak dipublikasikan secara personal.</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- [END] Right Sidebar -->
+
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="../assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+</body>
+</html>
