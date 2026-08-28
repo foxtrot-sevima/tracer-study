@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/alumni/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lowongan | Portal Karir Alumni</title>
+    <link rel="icon" href="../assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="../assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="../assets/karirlink/css/main.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/portal-karir.css">
+    <style>
+        /* Hero + search bar yang "menumpuk" di tepi bawah hero - pola dari halaman
+           lowongan publik Karirlink asli (karirlink.id), dibuat lebih ringkas untuk
+           konteks portal alumni. */
+        .vacancy-hero { position: relative; overflow: visible; margin-bottom: 3.5rem; }
+        .vacancy-hero__search { position: absolute; left: 1.5rem; right: 1.5rem; bottom: -2.75rem; box-shadow: 0 0.75rem 1.5rem rgba(16, 24, 40, 0.08); }
+
+        /* Watermark SEVIMA di pojok kanan-bawah kartu lowongan - diambil dari asset
+           asli karirlink.id/images/pattern-sevima-platform.svg yang dipakai di
+           .front-vacancy__card produksi, disalin ke aset lokal supaya tidak bergantung
+           pada domain luar. Memberi kesan kartu yang lebih "branded"/profesional,
+           bukan sekadar kartu putih polos ala LinkedIn generik. */
+        .card_job { position: relative; background-image: url(../assets/karirlink/images/pattern-sevima-platform.svg); background-repeat: no-repeat; background-position: bottom right; background-size: 11rem auto; overflow: hidden; }
+
+        /* Match badge - highlight seberapa relevan lowongan ini dengan profil alumni
+           (jurusan/minat), jadi elemen pertama yang menarik mata setelah header
+           sekaligus alasan konkret kenapa lowongan ini muncul untuk mereka. */
+        .job-card__match { display: flex; align-items: center; gap: 0.375rem; background: var(--qn-success-50); color: var(--qn-success-600); font-size: 0.75rem; font-weight: 600; padding: 0.4375rem 0.75rem; border-radius: 0.5rem; margin-bottom: 0.75rem; }
+        .job-card__match .icon { font-size: 0.9375rem; }
+
+        /* Skill chip - inti kebutuhan skill dalam sekali lihat, dibedakan dari tag
+           lokasi/tipe/gaji (outline) dan tag pendidikan/pengalaman supaya tidak
+           menyatu jadi satu tumpukan tag yang membingungkan. */
+        .job-card__skills { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 0.625rem; }
+        .job-card__skill { display: inline-flex; align-items: center; padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; background: var(--qn-neutral-100); color: var(--qn-neutral-600); }
+
+        /* Footer kartu: tanggal + jumlah pelamar ditumpuk kiri (bukti sosial ringan),
+           tombol Lamar tetap di kanan. */
+        .job-card__footer-info { display: flex; flex-direction: column; gap: 0.125rem; }
+        .job-card__applicants { font-size: 0.6875rem; color: var(--qn-neutral-400); display: flex; align-items: center; gap: 0.25rem; }
+
+        /* Logo mitra/universitas - pakai asset placeholder "logoipsum" untuk semua
+           kartu (belum ada logo asli per-mitra), dibungkus kotak bulat lembut senada
+           dengan .job-card__logo bawaan supaya tetap terlihat rapi meski satu gambar
+           dipakai berulang. */
+        .job-card__logo { background: var(--qn-neutral-50); }
+        .job-card__logo img { object-fit: cover; }
+
+        /* Ikon simpan: outline (icon-bookmark polos) saat belum disimpan, solid saat
+           sudah disimpan - "-mini" di set ikon ini sebenarnya varian solid/terisi,
+           bukan outline, jadi tidak dipakai untuk state default. */
+        .job-card__save { flex-shrink: 0; }
+        .job-card__save .icon-bookmark-solid { color: var(--qn-primary-500); }
+
+        /* Sidebar filter - accordion ringan tanpa animasi (menghindari konflik dobel-animasi
+           antara data-toggle="collapse" bawaan Quantum dengan transisi CSS kustom, seperti
+           yang sudah didokumentasikan di alumni.html). Toggle murni lewat hidden attribute. */
+        .filter-group + .filter-group { border-top: 1px solid var(--qn-neutral-100); margin-top: 0.25rem; padding-top: 0.25rem; }
+        .filter-group__toggle { width: 100%; display: flex; align-items: center; justify-content: space-between; background: none; border: none; padding: 0.75rem 0; font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); cursor: pointer; }
+        .filter-group__toggle .icon { color: var(--qn-neutral-400); transition: transform 0.2s ease; }
+        .filter-group__toggle[aria-expanded="false"] .icon { transform: rotate(-90deg); }
+        .filter-group__body { display: flex; flex-direction: column; gap: 0.625rem; padding-bottom: 0.875rem; }
+        .filter-group__body[hidden] { display: none; }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (navbar Alumni) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="../assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./index.html">
+                                <span class="icon icon-home"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./tracer-study.html">
+                                <span class="icon icon-clipboard-document-check"></span>
+                                <span>Tracer Study</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./lowongan.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Lowongan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lamaran.html">
+                                <span class="icon icon-clipboard-document-list"></span>
+                                <span>Lamaran</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification"><span class="icon icon-bell"></span></button>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Pangeran Dimas</span>
+                            <span class="header__user-role">Teknik Informatika &middot; 2023</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Pangeran Dimas</span><span class="avatar__subtitle">Teknik Informatika &middot; 2023</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="#">Profil Saya</a></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero + search bar (menumpuk di tepi bawah hero) - kartu pencarian
+                 sengaja jadi sibling di luar kartu hero (bukan anak dari kartu ber-
+                 overflow:hidden), supaya sudut membulat hero tetap terpotong rapi
+                 tapi kartu pencarian yang menumpuk di bawahnya tidak ikut terpotong. -->
+            <div class="vacancy-hero">
+                <div class="card" style="overflow: hidden;">
+                    <div style="background: linear-gradient(120deg, var(--qn-primary-600) 0%, var(--qn-primary-400) 100%); padding: 2.5rem 2rem 4.5rem; text-align: center;">
+                        <h1 style="font-size: 1.5rem; font-weight: 700; color: white; margin: 0 0 0.5rem;">Temukan Peluang Karier Terbaikmu</h1>
+                        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.85); margin: 0 auto; max-width: 34rem; line-height: 1.6;">Ratusan lowongan dari perusahaan &amp; instansi mitra Karirlink, dipilih sesuai jejak akademik dan minat kariermu.</p>
+                    </div>
+                </div>
+                <div class="card vacancy-hero__search">
+                    <div class="card__body" style="padding: 1rem 1.25rem;">
+                        <div class="grid" style="align-items: end; gap: 0.75rem;">
+                            <div class="col-12 col-sm-8">
+                                <div class="form-control" style="margin: 0;">
+                                    <label class="form-control__label">Cari Lowongan</label>
+                                    <div class="form-control__group">
+                                        <span data-input-icon="search"></span>
+                                        <input type="search" class="form-control__input" placeholder="Posisi, kata kunci, atau nama perusahaan..." style="padding-left: 2.75rem;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <button class="btn btn_primary btn_full">
+                                    <span class="icon icon-magnifying-glass-mini"></span>
+                                    <span class="btn__text">Cari Lowongan</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ringkasan hasil + tab Semua/Prioritas -->
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
+                <p style="font-size: 0.875rem; color: var(--qn-neutral-600); margin: 0;">Ditemukan <strong style="color: var(--qn-neutral-900);">128 lowongan</strong> aktif yang relevan dengan profilmu</p>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn_primary btn_sm">Semua Lowongan</button>
+                    <button class="btn btn_outline btn_sm">Lowongan Prioritas</button>
+                </div>
+            </div>
+
+            <div class="grid" style="gap: 1rem; align-items: start;">
+                <!-- [START] Filter Sidebar -->
+                <div class="col-12 col-lg-3">
+                    <div class="card">
+                        <div class="card__body" style="padding-bottom: 0.5rem;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.25rem;">
+                                <h3 style="font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0;">Filter</h3>
+                                <button type="button" class="btn btn_text btn_sm" onclick="document.querySelectorAll('.filter-group__body input[type=checkbox]').forEach(c => c.checked = false)">Reset</button>
+                            </div>
+
+                            <div class="filter-group">
+                                <button type="button" class="filter-group__toggle" aria-expanded="true" data-target="filter-jenis" onclick="toggleFilterGroup(this)">
+                                    <span>Jenis Pekerjaan</span>
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </button>
+                                <div class="filter-group__body" id="filter-jenis">
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="jenis-fulltime"><label for="jenis-fulltime" class="form-control__label-checkbox">Full-time</label></div>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="jenis-parttime"><label for="jenis-parttime" class="form-control__label-checkbox">Part-time</label></div>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="jenis-magang"><label for="jenis-magang" class="form-control__label-checkbox">Magang</label></div>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="jenis-freelance"><label for="jenis-freelance" class="form-control__label-checkbox">Freelance</label></div>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <button type="button" class="filter-group__toggle" aria-expanded="true" data-target="filter-pengalaman" onclick="toggleFilterGroup(this)">
+                                    <span>Tingkat Pengalaman</span>
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </button>
+                                <div class="filter-group__body" id="filter-pengalaman">
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="pengalaman-fresh"><label for="pengalaman-fresh" class="form-control__label-checkbox">Fresh Graduate</label></div>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="pengalaman-1-3"><label for="pengalaman-1-3" class="form-control__label-checkbox">1-3 Tahun</label></div>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="pengalaman-3-5"><label for="pengalaman-3-5" class="form-control__label-checkbox">3-5 Tahun</label></div>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="pengalaman-5plus"><label for="pengalaman-5plus" class="form-control__label-checkbox">5+ Tahun</label></div>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <button type="button" class="filter-group__toggle" aria-expanded="true" data-target="filter-kategori" onclick="toggleFilterGroup(this)">
+                                    <span>Kategori Pekerjaan</span>
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </button>
+                                <div class="filter-group__body" id="filter-kategori">
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="kategori-it"><label for="kategori-it" class="form-control__label-checkbox">IT &amp; Software</label></div>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="kategori-desain"><label for="kategori-desain" class="form-control__label-checkbox">Desain</label></div>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="kategori-marketing"><label for="kategori-marketing" class="form-control__label-checkbox">Marketing</label></div>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="kategori-finance"><label for="kategori-finance" class="form-control__label-checkbox">Finance</label></div>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="kategori-pendidikan"><label for="kategori-pendidikan" class="form-control__label-checkbox">Pendidikan</label></div>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <button type="button" class="filter-group__toggle" aria-expanded="false" data-target="filter-gaji" onclick="toggleFilterGroup(this)">
+                                    <span>Rentang Gaji</span>
+                                    <span class="icon icon-chevron-down-mini"></span>
+                                </button>
+                                <div class="filter-group__body" id="filter-gaji" hidden>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="gaji-1"><label for="gaji-1" class="form-control__label-checkbox">&lt; 5 Juta</label></div>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="gaji-2"><label for="gaji-2" class="form-control__label-checkbox">5-10 Juta</label></div>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="gaji-3"><label for="gaji-3" class="form-control__label-checkbox">10-15 Juta</label></div>
+                                    <div class="checkbox"><input type="checkbox" class="form-control__checkbox" id="gaji-4"><label for="gaji-4" class="form-control__label-checkbox">15 Juta+</label></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <button class="btn btn_primary btn_sm btn_full">Terapkan Filter</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- [END] Filter Sidebar -->
+
+                <!-- [START] Job Cards -->
+                <div class="col-12 col-lg-9">
+                <div class="grid" style="gap: 1rem;">
+                <!-- Job Card 1 -->
+                <div class="col-12 col-md-6">
+                    <div class="card card_job">
+                        <div class="card__body">
+                            <div class="job-card__header">
+                                <div class="job-card__logo">
+                                    <img src="../assets/karirlink/images/users/logoipsum.webp" alt="Logo Perusahaan">
+                                </div>
+                                <div class="job-card__info">
+                                    <h3 class="job-card__title">UI/UX Designer</h3>
+                                    <p class="job-card__company">PT Sentra Vidya Utama</p>
+                                </div>
+                                <button class="btn btn_icon btn_sm btn_outline job-card__save" title="Simpan lowongan">
+                                    <span class="icon icon-bookmark"></span>
+                                </button>
+                            </div>
+                            <div class="job-card__match">
+                                <span class="icon icon-sparkles-mini"></span>
+                                92% Match dengan profilmu
+                            </div>
+                            <div class="job-card__meta">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Surabaya</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>8-12 Juta</span>
+                            </div>
+                            <div class="job-card__meta" style="margin-top: 0.5rem;">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-academic-cap-mini"></span>S1 Desain/DKV</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-user-mini"></span>1-3 Tahun</span>
+                            </div>
+                            <div class="job-card__skills">
+                                <span class="job-card__skill">Figma</span>
+                                <span class="job-card__skill">Prototyping</span>
+                                <span class="job-card__skill">User Research</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <div class="job-card__footer-info">
+                                <span class="job-card__date">2 hari lalu</span>
+                                <span class="job-card__applicants"><span class="icon icon-users-mini"></span>24 pelamar</span>
+                            </div>
+                            <button class="btn btn_primary btn_sm">Lamar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job Card 2 -->
+                <div class="col-12 col-md-6">
+                    <div class="card card_job">
+                        <div class="card__body">
+                            <div class="job-card__header">
+                                <div class="job-card__logo">
+                                    <img src="../assets/karirlink/images/users/logoipsum.webp" alt="Logo Perusahaan">
+                                </div>
+                                <div class="job-card__info">
+                                    <h3 class="job-card__title">Backend Engineer</h3>
+                                    <p class="job-card__company">PT Fit Jaya Raya Tri</p>
+                                </div>
+                                <button class="btn btn_icon btn_sm btn_outline job-card__save" title="Simpan lowongan">
+                                    <span class="icon icon-bookmark"></span>
+                                </button>
+                            </div>
+                            <div class="job-card__match">
+                                <span class="icon icon-sparkles-mini"></span>
+                                88% Match dengan profilmu
+                            </div>
+                            <div class="job-card__meta">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Jakarta</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>12-18 Juta</span>
+                            </div>
+                            <div class="job-card__meta" style="margin-top: 0.5rem;">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-academic-cap-mini"></span>S1 Teknik Informatika</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-user-mini"></span>1-3 Tahun</span>
+                            </div>
+                            <div class="job-card__skills">
+                                <span class="job-card__skill">Node.js</span>
+                                <span class="job-card__skill">PostgreSQL</span>
+                                <span class="job-card__skill">REST API</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <div class="job-card__footer-info">
+                                <span class="job-card__date">3 hari lalu</span>
+                                <span class="job-card__applicants"><span class="icon icon-users-mini"></span>41 pelamar</span>
+                            </div>
+                            <button class="btn btn_primary btn_sm">Lamar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job Card 3 -->
+                <div class="col-12 col-md-6">
+                    <div class="card card_job">
+                        <div class="card__body">
+                            <div class="job-card__header">
+                                <div class="job-card__logo">
+                                    <img src="../assets/karirlink/images/users/logoipsum.webp" alt="Logo Perusahaan">
+                                </div>
+                                <div class="job-card__info">
+                                    <h3 class="job-card__title">Data Analyst</h3>
+                                    <p class="job-card__company">PT Cipta Karya Digital</p>
+                                </div>
+                                <button class="btn btn_icon btn_sm btn_outline job-card__save" title="Simpan lowongan">
+                                    <span class="icon icon-bookmark-solid"></span>
+                                </button>
+                            </div>
+                            <div class="job-card__match">
+                                <span class="icon icon-sparkles-mini"></span>
+                                95% Match dengan profilmu
+                            </div>
+                            <div class="job-card__meta">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Jakarta</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>10-15 Juta</span>
+                            </div>
+                            <div class="job-card__meta" style="margin-top: 0.5rem;">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-academic-cap-mini"></span>S1 Statistika/Matematika</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-user-mini"></span>Fresh Graduate</span>
+                            </div>
+                            <div class="job-card__skills">
+                                <span class="job-card__skill">SQL</span>
+                                <span class="job-card__skill">Excel</span>
+                                <span class="job-card__skill">Data Visualization</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <div class="job-card__footer-info">
+                                <span class="job-card__date">5 hari lalu</span>
+                                <span class="job-card__applicants"><span class="icon icon-users-mini"></span>18 pelamar</span>
+                            </div>
+                            <button class="btn btn_primary btn_sm">Lamar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job Card 4 -->
+                <div class="col-12 col-md-6">
+                    <div class="card card_job">
+                        <div class="card__body">
+                            <div class="job-card__header">
+                                <div class="job-card__logo">
+                                    <img src="../assets/karirlink/images/users/logoipsum.webp" alt="Logo Perusahaan">
+                                </div>
+                                <div class="job-card__info">
+                                    <h3 class="job-card__title">Marketing Officer</h3>
+                                    <p class="job-card__company">PT Nusantara Digital Kreasi</p>
+                                </div>
+                                <button class="btn btn_icon btn_sm btn_outline job-card__save" title="Simpan lowongan">
+                                    <span class="icon icon-bookmark"></span>
+                                </button>
+                            </div>
+                            <div class="job-card__match">
+                                <span class="icon icon-sparkles-mini"></span>
+                                81% Match dengan profilmu
+                            </div>
+                            <div class="job-card__meta">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Bandung</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>6-9 Juta</span>
+                            </div>
+                            <div class="job-card__meta" style="margin-top: 0.5rem;">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-academic-cap-mini"></span>S1 Semua Jurusan</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-user-mini"></span>Fresh Graduate</span>
+                            </div>
+                            <div class="job-card__skills">
+                                <span class="job-card__skill">Digital Marketing</span>
+                                <span class="job-card__skill">Content Strategy</span>
+                                <span class="job-card__skill">SEO</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <div class="job-card__footer-info">
+                                <span class="job-card__date">1 minggu lalu</span>
+                                <span class="job-card__applicants"><span class="icon icon-users-mini"></span>32 pelamar</span>
+                            </div>
+                            <button class="btn btn_primary btn_sm">Lamar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job Card 5 -->
+                <div class="col-12 col-md-6">
+                    <div class="card card_job">
+                        <div class="card__body">
+                            <div class="job-card__header">
+                                <div class="job-card__logo">
+                                    <img src="../assets/karirlink/images/users/logoipsum.webp" alt="Logo Perusahaan">
+                                </div>
+                                <div class="job-card__info">
+                                    <h3 class="job-card__title">Mobile Developer</h3>
+                                    <p class="job-card__company">PT Solusi Teknologi Nusa</p>
+                                </div>
+                                <button class="btn btn_icon btn_sm btn_outline job-card__save" title="Simpan lowongan">
+                                    <span class="icon icon-bookmark"></span>
+                                </button>
+                            </div>
+                            <div class="job-card__match">
+                                <span class="icon icon-sparkles-mini"></span>
+                                90% Match dengan profilmu
+                            </div>
+                            <div class="job-card__meta">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Jakarta</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>14-20 Juta</span>
+                            </div>
+                            <div class="job-card__meta" style="margin-top: 0.5rem;">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-academic-cap-mini"></span>S1 Teknik Informatika</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-user-mini"></span>1-3 Tahun</span>
+                            </div>
+                            <div class="job-card__skills">
+                                <span class="job-card__skill">Flutter</span>
+                                <span class="job-card__skill">Kotlin</span>
+                                <span class="job-card__skill">REST API</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <div class="job-card__footer-info">
+                                <span class="job-card__date">1 minggu lalu</span>
+                                <span class="job-card__applicants"><span class="icon icon-users-mini"></span>27 pelamar</span>
+                            </div>
+                            <button class="btn btn_primary btn_sm">Lamar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job Card 6 -->
+                <div class="col-12 col-md-6">
+                    <div class="card card_job">
+                        <div class="card__body">
+                            <div class="job-card__header">
+                                <div class="job-card__logo">
+                                    <img src="../assets/karirlink/images/users/logoipsum.webp" alt="Logo Perusahaan">
+                                </div>
+                                <div class="job-card__info">
+                                    <h3 class="job-card__title">Magang IT Support</h3>
+                                    <p class="job-card__company">Universitas Nusantara Sevima</p>
+                                </div>
+                                <button class="btn btn_icon btn_sm btn_outline job-card__save" title="Simpan lowongan">
+                                    <span class="icon icon-bookmark"></span>
+                                </button>
+                            </div>
+                            <div class="job-card__match">
+                                <span class="icon icon-sparkles-mini"></span>
+                                97% Match dengan profilmu
+                            </div>
+                            <div class="job-card__meta">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Surabaya</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Magang</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>2-3 Juta</span>
+                            </div>
+                            <div class="job-card__meta" style="margin-top: 0.5rem;">
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-academic-cap-mini"></span>D3/S1 Semua Jurusan</span>
+                                <span class="tag tag_outline tag_sm"><span class="icon icon-user-mini"></span>Semester Akhir</span>
+                            </div>
+                            <div class="job-card__skills">
+                                <span class="job-card__skill">Troubleshooting</span>
+                                <span class="job-card__skill">Networking</span>
+                                <span class="job-card__skill">Customer Service</span>
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <div class="job-card__footer-info">
+                                <span class="job-card__date">2 minggu lalu</span>
+                                <span class="job-card__applicants"><span class="icon icon-users-mini"></span>12 pelamar</span>
+                            </div>
+                            <button class="btn btn_primary btn_sm">Lamar</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+                <!-- [END] Job Cards -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-wrapper" style="margin-top: 2rem; text-align: center;">
+                <nav class="pagination">
+                    <button class="pagination__btn" disabled><span class="icon icon-chevron-left-mini"></span></button>
+                    <span class="pagination__info">Halaman 1 dari 11</span>
+                    <button class="pagination__btn"><span class="icon icon-chevron-right-mini"></span></button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="../assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        function toggleFilterGroup(btn) {
+            var expanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', String(!expanded));
+            var body = document.getElementById(btn.getAttribute('data-target'));
+            if (body) body.hidden = expanded;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.job-card__save').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    var icon = this.querySelector('.icon');
+                    icon.classList.toggle('icon-bookmark');
+                    icon.classList.toggle('icon-bookmark-solid');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
