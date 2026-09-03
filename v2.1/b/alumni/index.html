@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beranda | Portal Karir Alumni</title>
+    <title>Beranda | Karirlink</title>
     <link rel="icon" href="../assets/karirlink/images/logo/karirlink-colored-square.webp">
     <link rel="stylesheet" href="../assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
     <link rel="stylesheet" href="../assets/karirlink/css/main.css">
@@ -18,7 +18,7 @@
         /* Banner profil - rasio standar 800x200 (8:2 = 4:1). Pakai aspect-ratio, bukan
            height tetap, supaya lebar banner tetap mengikuti kolom tempatnya dipasang
            (sidebar sempit, halaman penuh, dst.) tapi proporsinya selalu sama. */
-        .profile-cover { width: 100%; aspect-ratio: 8 / 2; background: linear-gradient(135deg, var(--qn-primary-600), var(--qn-primary-300)); border-radius: 0.75rem 0.75rem 0 0; }
+        .profile-cover { width: 100%; aspect-ratio: 8 / 2; border-radius: 0.75rem 0.75rem 0 0; overflow: hidden; line-height: 0; }
 
         /* Judul seksi beraksen satu ikon kecil - pola yang sama dengan alumni-detail.html,
            supaya ikon dipakai secukupnya (satu per kartu) alih-alih di setiap baris. */
@@ -110,7 +110,7 @@
                             </div>
                         </li>
                         <li class="dropdown__line"></li>
-                        <li class="dropdown__item"><a href="#">Profil Saya</a></li>
+                        <li class="dropdown__item"><a href="./profil.html">Profil Saya</a></li>
                         <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
                         <li class="dropdown__line"></li>
                         <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
@@ -131,8 +131,15 @@
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
                     <!-- Profile Card (klik untuk buka profil, gaya LinkedIn) -->
                     <div class="card">
-                        <a href="#" class="profile-card-link" style="display: block; text-decoration: none; color: inherit; border-radius: 0.75rem 0.75rem 0 0;">
-                            <div class="profile-cover"></div>
+                        <a href="./profil.html" class="profile-card-link" style="display: block; text-decoration: none; color: inherit; border-radius: 0.75rem 0.75rem 0 0;">
+                            <div class="profile-cover">
+                                <svg width="100%" height="100%" viewBox="0 0 552 138" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Foto sampul" style="display: block;">
+                                    <path fill="#d9e5e7" d="M0 0h315v138H0z"/>
+                                    <path fill="#a0b4b7" d="M347 0v106h31V81l57 57H315V0zM378 0v41l41-41z"/>
+                                    <path fill="#bfd3d6" d="M315 137v1zM463 0l-60 61 77 77h-45l-57-57v25h-31V0h31v41l41-41z"/>
+                                    <path fill="#a0b4b7" d="M552 138h-72l-77-77 60-61h89z"/>
+                                </svg>
+                            </div>
                             <div class="card__body" style="text-align: center; padding-bottom: 0;">
                                 <span class="avatar avatar_lg" style="margin: -2.0625rem auto 0.75rem; display: inline-flex;">
                                     <img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Pangeran Dimas">
@@ -235,7 +242,7 @@
                             </div>
                         </div>
                         <div class="card__footer" style="text-align: center;">
-                            <a href="#lamaran-saya" class="link_primary">
+                            <a href="./lamaran.html" class="link_primary">
                                 Lihat Semua Lamaran
                                 <span class="icon icon-chevron-right-mini"></span>
                             </a>

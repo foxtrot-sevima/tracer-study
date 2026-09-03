@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/alumni/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI/UX Designer di PT Sentra Vidya Utama | Karirlink</title>
+    <link rel="icon" href="../assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="../assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="../assets/karirlink/css/main.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/portal-karir.css">
+    <style>
+        /* Breakpoint kustom sama seperti lowongan.html - breakpoint bawaan Quantum
+           (col-lg dst) baru aktif di ~1335px, terlalu tinggi untuk laptop/tablet biasa.
+           Default mobile (span 12) HARUS lewat class, bukan inline style - inline
+           style menang atas media query manapun sehingga override 992px di bawah
+           tidak akan pernah kepakai kalau default-nya inline (bug yang sama pernah
+           kejadian di lowongan.html). */
+        #detail-main-col, #detail-sidebar-col { grid-column: span 12; }
+        @media (min-width: 992px) {
+            #detail-main-col { grid-column: span 8; }
+            #detail-sidebar-col { grid-column: span 4; }
+        }
+
+        /* Watermark SEVIMA - identik dengan .card_job di lowongan.html, dipakai lagi
+           di kartu header lowongan supaya terasa satu keluarga visual. */
+        .job-detail-header { position: relative; background-image: url(../assets/karirlink/images/pattern-sevima-platform.svg); background-repeat: no-repeat; background-position: bottom right; background-size: 11rem auto; overflow: hidden; }
+        .job-detail-header__logo { width: 4.5rem; height: 4.5rem; border-radius: 0.75rem; border: 1px solid var(--qn-neutral-200); overflow: hidden; flex-shrink: 0; background: var(--qn-neutral-50); }
+        .job-detail-header__logo img { width: 100%; height: 100%; object-fit: cover; }
+
+        .job-card__match { display: flex; align-items: center; gap: 0.375rem; background: var(--qn-success-50); color: var(--qn-success-600); font-size: 0.75rem; font-weight: 600; padding: 0.4375rem 0.75rem; border-radius: 0.5rem; }
+        .job-card__match .icon { font-size: 0.9375rem; }
+        .job-card__skill { display: inline-flex; align-items: center; padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; background: var(--qn-neutral-100); color: var(--qn-neutral-600); }
+
+        /* Judul seksi beraksen satu ikon kecil - pola yang sama dipakai di seluruh
+           halaman alumni (index.html, tracer-study.html). */
+        .section-title { display: flex; align-items: center; gap: 0.625rem; }
+        .section-title__icon { flex-shrink: 0; width: 1.75rem; height: 1.75rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 0.9375rem; }
+        .section-title__icon_primary { background: var(--qn-primary-100); color: var(--qn-primary-600); }
+        .section-title__icon_neutral { background: var(--qn-neutral-100); color: var(--qn-neutral-500); }
+        .section-title h3 { font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
+
+        /* Daftar tanggung jawab/kualifikasi - baris dengan ikon centang, bukan bullet
+           polos, supaya terasa lebih hidup & mudah dipindai. */
+        .detail-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+        .detail-list li { display: flex; align-items: flex-start; gap: 0.625rem; font-size: 0.875rem; color: var(--qn-neutral-700); line-height: 1.6; }
+        .detail-list li .icon { flex-shrink: 0; margin-top: 0.1875rem; color: var(--qn-primary-500); font-size: 1rem; }
+
+        /* Manfaat/fasilitas - ikon bulat berwarna + judul + deskripsi singkat, pola
+           yang sama dengan .benefit-row di tracer-study.html. */
+        .benefit-row { display: flex; align-items: flex-start; gap: 0.875rem; }
+        .benefit-row__icon { flex-shrink: 0; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--qn-primary-100); color: var(--qn-primary-600); display: flex; align-items: center; justify-content: center; }
+        .benefit-row__title { font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0 0 0.125rem; }
+        .benefit-row__desc { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0; line-height: 1.5; }
+
+        /* Lowongan serupa - kartu bordered mini, senada dengan .card_job di
+           lowongan.html (logo + judul + perusahaan + tag), bukan cuma baris teks
+           polos - supaya konsisten dengan bahasa visual kartu lowongan di seluruh
+           portal, cuma diperkecil untuk konteks sidebar. */
+        .detail-similar-card { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.75rem; border: 1px solid var(--qn-neutral-100); border-radius: 0.625rem; text-decoration: none; transition: border-color 0.15s ease, box-shadow 0.15s ease; }
+        .detail-similar-card:hover { border-color: var(--qn-primary-300); box-shadow: 0 2px 10px rgba(16,24,40,0.06); }
+        .detail-similar-card__logo { width: 2.75rem; height: 2.75rem; border-radius: 0.5rem; border: 1px solid var(--qn-neutral-200); overflow: hidden; flex-shrink: 0; background: var(--qn-neutral-50); }
+        .detail-similar-card__logo img { width: 100%; height: 100%; object-fit: cover; }
+        .detail-similar-card__title { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0 0 0.125rem; }
+        .detail-similar-card__company { font-size: 0.75rem; color: var(--qn-neutral-500); margin: 0; }
+        .detail-similar-card__tags { display: flex; flex-wrap: wrap; gap: 0.3125rem; margin-top: 0.5rem; }
+
+        /* Ringkasan Lowongan - kotak-kotak kecil ala dashboard (ikon avatar +
+           label + value) dalam grid 2 kolom, bukan daftar baris tipis - lebih
+           mudah dipindai sekilas, meniru pola ".vacancy-detail__container" di
+           halaman detail lowongan Karirlink asli. */
+        .detail-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.625rem; }
+        .detail-stat-box { display: flex; align-items: center; gap: 0.625rem; padding: 0.75rem; border: 1px solid var(--qn-neutral-100); border-radius: 0.625rem; min-width: 0; }
+        .detail-stat-box__icon { flex-shrink: 0; width: 2.25rem; height: 2.25rem; border-radius: 0.5rem; background: var(--qn-primary-100); color: var(--qn-primary-600); display: flex; align-items: center; justify-content: center; font-size: 1.0625rem; }
+        .detail-stat-box__label { display: block; font-size: 0.6875rem; color: var(--qn-neutral-500); margin: 0 0 0.125rem; }
+        .detail-stat-box__value { font-size: 0.8125rem; font-weight: 700; color: var(--qn-neutral-900); margin: 0; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        #detail-sidebar-col { position: sticky; top: 1rem; align-self: start; }
+        @media (max-width: 991px) { #detail-sidebar-col { position: static; } }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (navbar Alumni) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="../assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./index.html">
+                                <span class="icon icon-home"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./tracer-study.html">
+                                <span class="icon icon-clipboard-document-check"></span>
+                                <span>Tracer Study</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./lowongan.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Lowongan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lamaran.html">
+                                <span class="icon icon-clipboard-document-list"></span>
+                                <span>Lamaran</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification"><span class="icon icon-bell"></span></button>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Pangeran Dimas</span>
+                            <span class="header__user-role">Teknik Informatika &middot; 2023</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Pangeran Dimas</span><span class="avatar__subtitle">Teknik Informatika &middot; 2023</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="./profil.html">Profil Saya</a></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+            <a href="./lowongan.html" class="link_primary" style="display: inline-flex; align-items: center; gap: 0.375rem; margin-bottom: 1rem; text-decoration: none;">
+                <span class="icon icon-arrow-left-mini"></span>
+                Kembali ke Daftar Lowongan
+            </a>
+
+            <!-- Alert sukses melamar - tersembunyi sampai tombol Lamar diklik -->
+            <div class="alert alert_success" id="alert-applied" style="display: none; margin-bottom: 1rem; align-items: center;">
+                <div class="alert__content">
+                    <p class="alert__description">Lamaran berhasil dikirim! Kamu bisa memantau statusnya di halaman <a href="./lamaran.html" class="link" style="font-weight: 600;">Lamaran</a>.</p>
+                </div>
+                <button type="button" class="btn btn_icon btn_sm" onclick="document.getElementById('alert-applied').style.display='none'">
+                    <span class="icon icon-x-mark-mini"></span>
+                </button>
+            </div>
+
+            <div class="grid" style="gap: 1rem; align-items: start;">
+                <!-- [START] Main Column -->
+                <div id="detail-main-col">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+
+                        <!-- Header Lowongan -->
+                        <div class="card job-detail-header">
+                            <div class="card__body">
+                                <div style="display: flex; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+                                    <div class="job-detail-header__logo">
+                                        <img src="../assets/karirlink/images/users/logoipsum.webp" alt="Logo Perusahaan">
+                                    </div>
+                                    <div style="flex: 1; min-width: 16rem;">
+                                        <h1 style="font-size: 1.375rem; font-weight: 700; color: var(--qn-neutral-900); margin: 0 0 0.25rem;">UI/UX Designer</h1>
+                                        <p style="font-size: 0.9375rem; color: var(--qn-neutral-600); margin: 0 0 0.75rem;">PT Sentra Vidya Utama</p>
+                                        <div class="job-card__match" style="display: inline-flex;">
+                                            <span class="icon icon-sparkles-mini"></span>
+                                            92% Match dengan profilmu
+                                        </div>
+                                    </div>
+                                    <button class="btn btn_icon btn_outline job-card__save" id="save-job-btn" title="Simpan lowongan">
+                                        <span class="icon icon-bookmark"></span>
+                                    </button>
+                                </div>
+
+                                <div class="job-card__meta" style="margin-top: 1.25rem;">
+                                    <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Surabaya</span>
+                                    <span class="tag tag_outline tag_sm"><span class="icon icon-briefcase-mini"></span>Full-time</span>
+                                    <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>8-12 Juta</span>
+                                    <span class="tag tag_outline tag_sm"><span class="icon icon-academic-cap-mini"></span>S1 Desain/DKV</span>
+                                    <span class="tag tag_outline tag_sm"><span class="icon icon-user-mini"></span>1-3 Tahun</span>
+                                </div>
+
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 0.875rem;">
+                                    <span class="job-card__skill">Figma</span>
+                                    <span class="job-card__skill">Prototyping</span>
+                                    <span class="job-card__skill">User Research</span>
+                                </div>
+
+                                <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem; font-size: 0.75rem; color: var(--qn-neutral-400);">
+                                    <span style="display: flex; align-items: center; gap: 0.25rem;"><span class="icon icon-clock-mini"></span>Diposting 2 hari lalu</span>
+                                    <span style="display: flex; align-items: center; gap: 0.25rem;"><span class="icon icon-users-mini"></span>24 pelamar</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Deskripsi Pekerjaan -->
+                        <div class="card">
+                            <div class="card__body">
+                                <div class="section-title" style="margin-bottom: 0.875rem;">
+                                    <span class="section-title__icon section-title__icon_primary"><span class="icon icon-document-text-mini"></span></span>
+                                    <h3>Deskripsi Pekerjaan</h3>
+                                </div>
+                                <p style="font-size: 0.875rem; color: var(--qn-neutral-700); line-height: 1.7; margin: 0;">PT Sentra Vidya Utama sedang mencari seorang <strong>UI/UX Designer</strong> untuk bergabung dengan tim produk kami. Kamu akan bertanggung jawab merancang pengalaman pengguna yang intuitif dan antarmuka yang menarik untuk berbagai produk digital perusahaan, mulai dari riset pengguna hingga pengujian prototipe, serta bekerja sama erat dengan tim Product Manager dan Engineer.</p>
+                            </div>
+                        </div>
+
+                        <!-- Tanggung Jawab -->
+                        <div class="card">
+                            <div class="card__body">
+                                <div class="section-title" style="margin-bottom: 1rem;">
+                                    <span class="section-title__icon section-title__icon_primary"><span class="icon icon-clipboard-document-list-mini"></span></span>
+                                    <h3>Tanggung Jawab</h3>
+                                </div>
+                                <ul class="detail-list">
+                                    <li><span class="icon icon-check-mini"></span>Merancang wireframe, mockup, dan prototype interaktif untuk fitur produk baru</li>
+                                    <li><span class="icon icon-check-mini"></span>Melakukan riset pengguna (user research) dan usability testing secara berkala</li>
+                                    <li><span class="icon icon-check-mini"></span>Berkolaborasi dengan Product Manager dan Engineer untuk memastikan implementasi desain sesuai spesifikasi</li>
+                                    <li><span class="icon icon-check-mini"></span>Membangun dan menjaga konsistensi design system perusahaan</li>
+                                    <li><span class="icon icon-check-mini"></span>Menganalisis feedback pengguna untuk terus menyempurnakan pengalaman produk</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Kualifikasi -->
+                        <div class="card">
+                            <div class="card__body">
+                                <div class="section-title" style="margin-bottom: 1rem;">
+                                    <span class="section-title__icon section-title__icon_primary"><span class="icon icon-academic-cap-mini"></span></span>
+                                    <h3>Kualifikasi</h3>
+                                </div>
+                                <ul class="detail-list">
+                                    <li><span class="icon icon-check-mini"></span>Minimal S1 Desain Komunikasi Visual, Desain Produk, atau bidang terkait</li>
+                                    <li><span class="icon icon-check-mini"></span>Pengalaman 1-3 tahun sebagai UI/UX Designer, diutamakan di industri teknologi</li>
+                                    <li><span class="icon icon-check-mini"></span>Mahir menggunakan Figma dan tools desain kolaboratif lainnya</li>
+                                    <li><span class="icon icon-check-mini"></span>Memahami prinsip dasar User-Centered Design dan Design Thinking</li>
+                                    <li><span class="icon icon-check-mini"></span>Memiliki portofolio yang menunjukkan proses desain end-to-end</li>
+                                    <li><span class="icon icon-check-mini"></span>Kemampuan komunikasi dan kolaborasi lintas tim yang baik</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Benefit -->
+                        <div class="card">
+                            <div class="card__body">
+                                <div class="section-title" style="margin-bottom: 1rem;">
+                                    <span class="section-title__icon section-title__icon_primary"><span class="icon icon-gift-mini"></span></span>
+                                    <h3>Benefit & Fasilitas</h3>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                    <div class="benefit-row">
+                                        <span class="benefit-row__icon"><span class="icon icon-heart-mini"></span></span>
+                                        <div>
+                                            <p class="benefit-row__title">BPJS Kesehatan & Ketenagakerjaan</p>
+                                            <p class="benefit-row__desc">Perlindungan kesehatan dan jaminan sosial ketenagakerjaan penuh.</p>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-row">
+                                        <span class="benefit-row__icon"><span class="icon icon-arrow-trending-up-mini"></span></span>
+                                        <div>
+                                            <p class="benefit-row__title">Jenjang Karier yang Jelas</p>
+                                            <p class="benefit-row__desc">Program pengembangan karier terstruktur untuk setiap level posisi.</p>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-row">
+                                        <span class="benefit-row__icon"><span class="icon icon-home-mini"></span></span>
+                                        <div>
+                                            <p class="benefit-row__title">Fleksibilitas Kerja Hybrid</p>
+                                            <p class="benefit-row__desc">Kombinasi kerja dari kantor dan rumah sesuai kebutuhan tim.</p>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-row">
+                                        <span class="benefit-row__icon"><span class="icon icon-book-open-mini"></span></span>
+                                        <div>
+                                            <p class="benefit-row__title">Pelatihan & Pengembangan Diri</p>
+                                            <p class="benefit-row__desc">Akses ke kursus, sertifikasi, dan mentoring internal.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- [END] Main Column -->
+
+                <!-- [START] Sidebar -->
+                <div id="detail-sidebar-col">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+
+                        <!-- CTA Lamar -->
+                        <div class="card">
+                            <div class="card__body">
+                                <button type="button" class="btn btn_primary btn_full" id="apply-btn" onclick="handleApply()">
+                                    <span class="icon icon-paper-airplane-mini"></span>
+                                    <span class="btn__text">Lamar Sekarang</span>
+                                </button>
+                                <p style="font-size: 0.75rem; color: var(--qn-neutral-400); text-align: center; margin: 0.75rem 0 0;">Batas lamaran: 30 hari lagi</p>
+                            </div>
+                        </div>
+
+                        <!-- Ringkasan Lowongan -->
+                        <div class="card">
+                            <div class="card__body">
+                                <div class="section-title" style="margin-bottom: 0.5rem;">
+                                    <span class="section-title__icon section-title__icon_neutral"><span class="icon icon-information-circle-mini"></span></span>
+                                    <h3>Ringkasan Lowongan</h3>
+                                </div>
+                                <div class="detail-stat-grid">
+                                    <div class="detail-stat-box">
+                                        <span class="detail-stat-box__icon"><span class="icon icon-banknotes-mini"></span></span>
+                                        <div style="min-width: 0;">
+                                            <span class="detail-stat-box__label">Gaji</span>
+                                            <p class="detail-stat-box__value">8-12 Juta</p>
+                                        </div>
+                                    </div>
+                                    <div class="detail-stat-box">
+                                        <span class="detail-stat-box__icon"><span class="icon icon-map-pin-mini"></span></span>
+                                        <div style="min-width: 0;">
+                                            <span class="detail-stat-box__label">Lokasi</span>
+                                            <p class="detail-stat-box__value">Surabaya</p>
+                                        </div>
+                                    </div>
+                                    <div class="detail-stat-box">
+                                        <span class="detail-stat-box__icon"><span class="icon icon-briefcase-mini"></span></span>
+                                        <div style="min-width: 0;">
+                                            <span class="detail-stat-box__label">Tipe Kerja</span>
+                                            <p class="detail-stat-box__value">Full-time</p>
+                                        </div>
+                                    </div>
+                                    <div class="detail-stat-box">
+                                        <span class="detail-stat-box__icon"><span class="icon icon-user-mini"></span></span>
+                                        <div style="min-width: 0;">
+                                            <span class="detail-stat-box__label">Pengalaman</span>
+                                            <p class="detail-stat-box__value">1-3 Tahun</p>
+                                        </div>
+                                    </div>
+                                    <div class="detail-stat-box">
+                                        <span class="detail-stat-box__icon"><span class="icon icon-academic-cap-mini"></span></span>
+                                        <div style="min-width: 0;">
+                                            <span class="detail-stat-box__label">Pendidikan</span>
+                                            <p class="detail-stat-box__value">S1 Desain/DKV</p>
+                                        </div>
+                                    </div>
+                                    <div class="detail-stat-box">
+                                        <span class="detail-stat-box__icon"><span class="icon icon-tag-mini"></span></span>
+                                        <div style="min-width: 0;">
+                                            <span class="detail-stat-box__label">Kategori</span>
+                                            <p class="detail-stat-box__value">Desain</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tentang Perusahaan -->
+                        <div class="card">
+                            <div class="card__body">
+                                <div class="section-title" style="margin-bottom: 1rem;">
+                                    <span class="section-title__icon section-title__icon_neutral"><span class="icon icon-building-office-mini"></span></span>
+                                    <h3>Tentang Perusahaan</h3>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.875rem;">
+                                    <div class="detail-similar-card__logo">
+                                        <img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT Sentra Vidya Utama">
+                                    </div>
+                                    <div>
+                                        <p class="detail-similar-card__title" style="margin-bottom: 0.25rem;">PT Sentra Vidya Utama</p>
+                                        <span class="tag tag_outline tag_sm">Teknologi</span>
+                                    </div>
+                                </div>
+                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); line-height: 1.6; margin: 0 0 1rem;">Perusahaan teknologi yang berfokus pada pengembangan solusi digital untuk sektor pendidikan dan ketenagakerjaan di Indonesia.</p>
+                                <a href="./lowongan.html" class="btn btn_outline btn_sm btn_full">Lihat Semua Lowongan Perusahaan</a>
+                            </div>
+                        </div>
+
+                        <!-- Lowongan Serupa -->
+                        <div class="card">
+                            <div class="card__body">
+                                <div class="section-title" style="margin-bottom: 1rem;">
+                                    <span class="section-title__icon section-title__icon_neutral"><span class="icon icon-squares-2x2-mini"></span></span>
+                                    <h3>Lowongan Serupa</h3>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                    <a href="./lowongan-detail.html" class="detail-similar-card">
+                                        <div class="detail-similar-card__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="Logo Perusahaan"></div>
+                                        <div style="min-width: 0;">
+                                            <p class="detail-similar-card__title">Data Analyst</p>
+                                            <p class="detail-similar-card__company">PT Cipta Karya Digital</p>
+                                            <div class="detail-similar-card__tags">
+                                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Jakarta</span>
+                                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>10-15 Juta</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="./lowongan-detail.html" class="detail-similar-card">
+                                        <div class="detail-similar-card__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="Logo Perusahaan"></div>
+                                        <div style="min-width: 0;">
+                                            <p class="detail-similar-card__title">Marketing Officer</p>
+                                            <p class="detail-similar-card__company">PT Nusantara Digital Kreasi</p>
+                                            <div class="detail-similar-card__tags">
+                                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Bandung</span>
+                                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>6-9 Juta</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="./lowongan-detail.html" class="detail-similar-card">
+                                        <div class="detail-similar-card__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="Logo Perusahaan"></div>
+                                        <div style="min-width: 0;">
+                                            <p class="detail-similar-card__title">Mobile Developer</p>
+                                            <p class="detail-similar-card__company">PT Solusi Teknologi Nusa</p>
+                                            <div class="detail-similar-card__tags">
+                                                <span class="tag tag_outline tag_sm"><span class="icon icon-map-pin-mini"></span>Jakarta</span>
+                                                <span class="tag tag_outline tag_sm"><span class="icon icon-banknotes-mini"></span>14-20 Juta</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- [END] Sidebar -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="../assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        function handleApply() {
+            var btn = document.getElementById('apply-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="icon icon-check-circle-mini"></span><span class="btn__text">Lamaran Terkirim</span>';
+            document.getElementById('alert-applied').style.display = 'flex';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('save-job-btn').addEventListener('click', function() {
+            var icon = this.querySelector('.icon');
+            icon.classList.toggle('icon-bookmark');
+            icon.classList.toggle('icon-bookmark-solid');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <base href="/v2.1/b/alumni/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lamaran Saya | Karirlink</title>
+    <link rel="icon" href="../assets/karirlink/images/logo/karirlink-colored-square.webp">
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="../assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="../assets/karirlink/css/main.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/portal-karir.css">
+    <style>
+        /* Halaman ini personal (bukan discovery/promosi seperti Lowongan), jadi
+           sengaja tidak pakai hero besar - cukup judul + subjudul ringkas supaya
+           user langsung sampai ke daftar lamarannya. Satu-satunya kontrol filter
+           adalah tab status (nav-tab bawaan) dengan jumlah lamaran langsung di
+           tiap tab, supaya user tidak perlu menebak "menu ini ngapain" atau
+           berpindah antar beberapa kontrol berbeda untuk hal yang sama. */
+        .page-head { margin-bottom: 1.25rem; }
+        .page-head h1 { font-size: 1.375rem; font-weight: 700; color: var(--qn-neutral-900); margin: 0 0 0.25rem; }
+        .page-head p { font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0; }
+
+        /* Badge jumlah di tiap tab status - alasan konkret kenapa user perlu buka
+           tab tertentu ("Proses (2)") tanpa harus klik dulu untuk tahu isinya. */
+        .nav-tab__count { display: inline-flex; align-items: center; justify-content: center; min-width: 1.125rem; height: 1.125rem; padding: 0 0.3125rem; border-radius: 9999px; background: var(--qn-neutral-200); color: var(--qn-neutral-600); font-size: 0.6875rem; font-weight: 700; margin-left: 0.375rem; }
+        .nav-tab__item.active .nav-tab__count { background: var(--qn-primary-500); color: white; }
+
+        /* Kartu lamaran - list-row (bukan grid card ala Lowongan) supaya gampang
+           dipindai dari atas ke bawah seperti daftar notifikasi/transaksi, dengan
+           info terpenting (posisi, status, langkah selanjutnya) selalu di tempat
+           yang sama pada tiap kartu. */
+        .app-card + .app-card { margin-top: 1rem; }
+        /* .card__footer bawaan TIDAK flex secara default (beda dari .card_job
+           .card__footer di lowongan.html yang sudah di-scope sendiri) - kalau
+           tidak di-override di sini, tombol .btn (yang defaultnya display:flex,
+           jadi selebar induknya) akan menumpuk vertikal & selebar kartu, bukan
+           sejajar di kanan/kiri seperti yang dimaksud. */
+        .app-card .card__footer { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+        .app-card__top { display: flex; gap: 0.875rem; align-items: flex-start; }
+        .app-card__logo { width: 3rem; height: 3rem; border-radius: 0.625rem; overflow: hidden; flex-shrink: 0; background: var(--qn-neutral-50); border: 1px solid var(--qn-neutral-100); }
+        .app-card__logo img { width: 100%; height: 100%; object-fit: cover; }
+        .app-card__title { font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
+        .app-card__company { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0.125rem 0 0; }
+        .app-card__applied { font-size: 0.75rem; color: var(--qn-neutral-400); margin: 0.375rem 0 0; display: flex; align-items: center; gap: 0.3125rem; flex-wrap: wrap; }
+
+        /* Stepper progres - alasan utama halaman ini "cepat dipahami": user tinggal
+           lihat titik mana yang terisi, tanpa perlu membaca istilah status dulu.
+           Garis penghubung diwarnai primary hanya kalau node SEBELUMNYA sudah
+           selesai (class .line-done ditambahkan manual per kartu sesuai progres),
+           supaya bagian yang belum tercapai tetap abu-abu netral. */
+        .app-steps { display: flex; margin: 1rem 0 0.125rem; }
+        .app-steps__node { flex: 1; text-align: center; position: relative; padding: 0 0.125rem; }
+        .app-steps__node:not(:first-child)::before { content: ''; position: absolute; top: 0.6875rem; right: 50%; width: 100%; height: 2px; background: var(--qn-neutral-200); z-index: 0; }
+        .app-steps__node.line-done::before { background: var(--qn-primary-400); }
+        .app-steps__dot { position: relative; z-index: 1; width: 1.5rem; height: 1.5rem; border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; background: var(--qn-neutral-100); color: var(--qn-neutral-400); border: 2px solid white; }
+        .app-steps__node.is-done .app-steps__dot { background: var(--qn-primary-500); color: white; }
+        .app-steps__node.is-success .app-steps__dot { background: var(--qn-success-500); color: white; }
+        .app-steps__node.is-rejected .app-steps__dot { background: var(--qn-danger-500); color: white; }
+        .app-steps__node.is-current .app-steps__dot { background: white; color: var(--qn-primary-600); border-color: var(--qn-primary-500); box-shadow: 0 0 0 3px var(--qn-primary-100); }
+        .app-steps__label { font-size: 0.6875rem; color: var(--qn-neutral-400); margin-top: 0.375rem; display: block; }
+        .app-steps__node.is-done .app-steps__label { color: var(--qn-neutral-700); font-weight: 600; }
+        .app-steps__node.is-current .app-steps__label { color: var(--qn-primary-600); font-weight: 600; }
+        .app-steps__node.is-success .app-steps__label { color: var(--qn-success-600); font-weight: 600; }
+        .app-steps__node.is-rejected .app-steps__label { color: var(--qn-danger-600); font-weight: 600; }
+
+        /* Catatan langkah-selanjutnya - satu kalimat manusiawi yang menjelaskan
+           status dengan bahasa biasa, bukan cuma istilah di badge/stepper. Ini
+           elemen paling penting di kartu untuk menghindari user bingung "abis ini
+           ngapain". */
+        .app-card__note { display: flex; gap: 0.625rem; align-items: flex-start; background: var(--qn-neutral-50); border-radius: 0.625rem; padding: 0.75rem 0.875rem; margin-top: 0.875rem; font-size: 0.8125rem; color: var(--qn-neutral-700); line-height: 1.55; }
+        .app-card__note .icon { flex-shrink: 0; margin-top: 0.1875rem; color: var(--qn-neutral-400); }
+        .app-card__note_success { background: var(--qn-success-50); color: var(--qn-success-800, #065f46); }
+        .app-card__note_success .icon { color: var(--qn-success-600); }
+        .app-card__note_warning { background: var(--qn-warning-50, #fffbeb); color: var(--qn-warning-800, #78350f); }
+        .app-card__note_warning .icon { color: var(--qn-warning-600, #d97706); }
+
+        .link_danger { display: inline-flex; align-items: center; gap: 0.25rem; color: var(--qn-danger-500); font-size: 0.8125rem; font-weight: 600; text-decoration: none; }
+        .link_danger:hover { color: var(--qn-danger-600); text-decoration: underline; }
+
+        @media (max-width: 480px) {
+            .app-card__top { flex-wrap: wrap; }
+            .app-steps__label { font-size: 0.625rem; }
+        }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <!-- [START] Header (navbar Alumni) -->
+    <header class="header header_compact">
+        <div class="header__left">
+            <div class="header__group">
+                <a href="./index.html" class="header__identity">
+                    <img class="header__logo" src="../assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo" height="40">
+                    <img class="header__logo header__logo_square" src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
+                </a>
+            </div>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item">
+                            <a class="nav__link" href="./index.html">
+                                <span class="icon icon-home"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./tracer-study.html">
+                                <span class="icon icon-clipboard-document-check"></span>
+                                <span>Tracer Study</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lowongan.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Lowongan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./lamaran.html">
+                                <span class="icon icon-clipboard-document-list"></span>
+                                <span>Lamaran</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification"><span class="icon icon-bell"></span></button>
+                </div>
+            </div>
+            <div class="dropdown dropdown_nav dropdown_profile">
+                <button class="header__user" data-toggle="dropdown">
+                    <span class="header__user-wrapper">
+                        <span class="header__user-avatar">
+                            <span class="avatar avatar_sm">
+                                <img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="User Avatar" width="44">
+                            </span>
+                        </span>
+                        <span class="header__user-info">
+                            <span class="header__user-name">Pangeran Dimas</span>
+                            <span class="header__user-role">Teknik Informatika &middot; 2023</span>
+                        </span>
+                    </span>
+                    <span class="icon icon-chevron-down-solid"></span>
+                </button>
+                <div class="dropdown__box dropdown__box_menu-end">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__avatar">
+                            <div class="avatar avatar_sm">
+                                <div class="avatar__circle"><img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt=""></div>
+                                <div class="avatar__text"><span class="avatar__title">Pangeran Dimas</span><span class="avatar__subtitle">Teknik Informatika &middot; 2023</span></div>
+                            </div>
+                        </li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item"><a href="./profil.html">Profil Saya</a></li>
+                        <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
+                        <li class="dropdown__line"></li>
+                        <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- [END] Header -->
+
+    <!-- [START] Main Content -->
+    <main class="main">
+        <div class="container">
+
+            <div class="page-head">
+                <h1>Lamaran Saya</h1>
+                <p>Pantau progres semua lamaran kerjamu di satu tempat, mulai dari terkirim sampai keputusan akhir.</p>
+            </div>
+
+            <!-- Tab Status - satu-satunya kontrol penyaring di halaman ini, lengkap
+                 dengan jumlah lamaran di tiap tab supaya user tahu isinya sebelum
+                 klik. -->
+            <div class="card card_empty">
+                <nav class="nav-tab">
+                    <ul class="nav-tab__wrapper">
+                        <li class="nav-tab__item active" data-toggle="tab" data-target="#tab-semua">Semua<span class="nav-tab__count">4</span></li>
+                        <li class="nav-tab__item" data-toggle="tab" data-target="#tab-menunggu">Menunggu<span class="nav-tab__count">1</span></li>
+                        <li class="nav-tab__item" data-toggle="tab" data-target="#tab-proses">Proses<span class="nav-tab__count">2</span></li>
+                        <li class="nav-tab__item" data-toggle="tab" data-target="#tab-diterima">Diterima<span class="nav-tab__count">1</span></li>
+                        <li class="nav-tab__item" data-toggle="tab" data-target="#tab-ditolak">Ditolak<span class="nav-tab__count">0</span></li>
+                    </ul>
+                </nav>
+
+                <div class="tab-content">
+
+                    <!-- ============ TAB: SEMUA ============ -->
+                    <div class="tab-pane active" id="tab-semua" style="padding-top: 1rem;">
+
+                        <!-- Lamaran 1: Diterima -->
+                        <div class="card app-card">
+                            <div class="card__body">
+                                <div class="app-card__top">
+                                    <div class="app-card__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT Sentra Vidya Utama"></div>
+                                    <div style="flex: 1; min-width: 0;">
+                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+                                            <div>
+                                                <h3 class="app-card__title"><a href="./lowongan-detail.html" style="color: inherit; text-decoration: none;">UI/UX Designer</a></h3>
+                                                <p class="app-card__company">PT Sentra Vidya Utama &middot; Surabaya</p>
+                                            </div>
+                                            <span class="badge badge_success">Diterima</span>
+                                        </div>
+                                        <p class="app-card__applied"><span class="icon icon-calendar-mini"></span>Dilamar 12 Agu 2026 &middot; Diperbarui 28 Agu 2026</p>
+                                    </div>
+                                </div>
+                                <div class="app-steps">
+                                    <div class="app-steps__node is-done"><span class="app-steps__dot"><span class="icon icon-check-mini"></span></span><span class="app-steps__label">Melamar</span></div>
+                                    <div class="app-steps__node is-done line-done"><span class="app-steps__dot"><span class="icon icon-check-mini"></span></span><span class="app-steps__label">Ditinjau</span></div>
+                                    <div class="app-steps__node is-done line-done"><span class="app-steps__dot"><span class="icon icon-check-mini"></span></span><span class="app-steps__label">Interview</span></div>
+                                    <div class="app-steps__node is-success line-done"><span class="app-steps__dot"><span class="icon icon-check-badge-mini"></span></span><span class="app-steps__label">Diterima</span></div>
+                                </div>
+                                <div class="app-card__note app-card__note_success">
+                                    <span class="icon icon-sparkles-mini"></span>
+                                    <span>Selamat! Kamu <strong>diterima</strong> untuk posisi ini. Tim HR PT Sentra Vidya Utama akan menghubungimu lewat email untuk proses onboarding.</span>
+                                </div>
+                            </div>
+                            <div class="card__footer" style="justify-content: flex-end;">
+                                <a href="./lowongan-detail.html" class="btn btn_outline btn_sm">Lihat Lowongan</a>
+                                <button type="button" class="btn btn_primary btn_sm"><span class="icon icon-chat-bubble-left-right-mini"></span><span class="btn__text">Hubungi HR</span></button>
+                            </div>
+                        </div>
+
+                        <!-- Lamaran 2: Proses (interview terjadwal) -->
+                        <div class="card app-card">
+                            <div class="card__body">
+                                <div class="app-card__top">
+                                    <div class="app-card__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT Fit Jaya Raya Tri"></div>
+                                    <div style="flex: 1; min-width: 0;">
+                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+                                            <div>
+                                                <h3 class="app-card__title"><a href="./lowongan-detail.html" style="color: inherit; text-decoration: none;">Backend Engineer</a></h3>
+                                                <p class="app-card__company">PT Fit Jaya Raya Tri &middot; Jakarta</p>
+                                            </div>
+                                            <span class="badge badge_warning">Proses</span>
+                                        </div>
+                                        <p class="app-card__applied"><span class="icon icon-calendar-mini"></span>Dilamar 20 Agu 2026 &middot; Diperbarui 1 Sep 2026</p>
+                                    </div>
+                                </div>
+                                <div class="app-steps">
+                                    <div class="app-steps__node is-done"><span class="app-steps__dot"><span class="icon icon-check-mini"></span></span><span class="app-steps__label">Melamar</span></div>
+                                    <div class="app-steps__node is-done line-done"><span class="app-steps__dot"><span class="icon icon-check-mini"></span></span><span class="app-steps__label">Ditinjau</span></div>
+                                    <div class="app-steps__node is-current line-done"><span class="app-steps__dot"><span class="icon icon-clock-mini"></span></span><span class="app-steps__label">Interview</span></div>
+                                    <div class="app-steps__node"><span class="app-steps__dot">4</span><span class="app-steps__label">Keputusan</span></div>
+                                </div>
+                                <div class="app-card__note app-card__note_warning">
+                                    <span class="icon icon-clock-mini"></span>
+                                    <span>Kamu <strong>lolos tahap review</strong>. Interview terjadwal <strong>5 Sep 2026, pukul 10:00 WIB</strong> via Zoom - cek email untuk link undangan.</span>
+                                </div>
+                            </div>
+                            <div class="card__footer" style="justify-content: space-between;">
+                                <a href="#" class="link_danger"><span class="icon icon-x-mark-mini"></span>Batalkan Lamaran</a>
+                                <a href="./lowongan-detail.html" class="btn btn_outline btn_sm">Lihat Lowongan</a>
+                            </div>
+                        </div>
+
+                        <!-- Lamaran 3: Proses (ditinjau HR) -->
+                        <div class="card app-card">
+                            <div class="card__body">
+                                <div class="app-card__top">
+                                    <div class="app-card__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT Solusi Teknologi Nusa"></div>
+                                    <div style="flex: 1; min-width: 0;">
+                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+                                            <div>
+                                                <h3 class="app-card__title"><a href="./lowongan-detail.html" style="color: inherit; text-decoration: none;">Mobile Developer</a></h3>
+                                                <p class="app-card__company">PT Solusi Teknologi Nusa &middot; Bandung</p>
+                                            </div>
+                                            <span class="badge badge_warning">Proses</span>
+                                        </div>
+                                        <p class="app-card__applied"><span class="icon icon-calendar-mini"></span>Dilamar 25 Agu 2026 &middot; Diperbarui 27 Agu 2026</p>
+                                    </div>
+                                </div>
+                                <div class="app-steps">
+                                    <div class="app-steps__node is-done"><span class="app-steps__dot"><span class="icon icon-check-mini"></span></span><span class="app-steps__label">Melamar</span></div>
+                                    <div class="app-steps__node is-current line-done"><span class="app-steps__dot"><span class="icon icon-clock-mini"></span></span><span class="app-steps__label">Ditinjau</span></div>
+                                    <div class="app-steps__node"><span class="app-steps__dot">3</span><span class="app-steps__label">Interview</span></div>
+                                    <div class="app-steps__node"><span class="app-steps__dot">4</span><span class="app-steps__label">Keputusan</span></div>
+                                </div>
+                                <div class="app-card__note app-card__note_warning">
+                                    <span class="icon icon-clock-mini"></span>
+                                    <span>Lamaranmu sedang <strong>ditinjau</strong> oleh tim rekrutmen. Proses ini biasanya memakan waktu 3-5 hari kerja.</span>
+                                </div>
+                            </div>
+                            <div class="card__footer" style="justify-content: space-between;">
+                                <a href="#" class="link_danger"><span class="icon icon-x-mark-mini"></span>Batalkan Lamaran</a>
+                                <a href="./lowongan-detail.html" class="btn btn_outline btn_sm">Lihat Lowongan</a>
+                            </div>
+                        </div>
+
+                        <!-- Lamaran 4: Menunggu -->
+                        <div class="card app-card">
+                            <div class="card__body">
+                                <div class="app-card__top">
+                                    <div class="app-card__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT Cipta Karya Digital"></div>
+                                    <div style="flex: 1; min-width: 0;">
+                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+                                            <div>
+                                                <h3 class="app-card__title"><a href="./lowongan-detail.html" style="color: inherit; text-decoration: none;">Data Analyst</a></h3>
+                                                <p class="app-card__company">PT Cipta Karya Digital &middot; Surabaya</p>
+                                            </div>
+                                            <span class="badge badge_secondary">Menunggu</span>
+                                        </div>
+                                        <p class="app-card__applied"><span class="icon icon-calendar-mini"></span>Dilamar 1 Sep 2026 &middot; Diperbarui 1 Sep 2026</p>
+                                    </div>
+                                </div>
+                                <div class="app-steps">
+                                    <div class="app-steps__node is-current"><span class="app-steps__dot"><span class="icon icon-clock-mini"></span></span><span class="app-steps__label">Melamar</span></div>
+                                    <div class="app-steps__node"><span class="app-steps__dot">2</span><span class="app-steps__label">Ditinjau</span></div>
+                                    <div class="app-steps__node"><span class="app-steps__dot">3</span><span class="app-steps__label">Interview</span></div>
+                                    <div class="app-steps__node"><span class="app-steps__dot">4</span><span class="app-steps__label">Keputusan</span></div>
+                                </div>
+                                <div class="app-card__note">
+                                    <span class="icon icon-inbox-mini"></span>
+                                    <span>Lamaranmu sudah <strong>terkirim</strong> dan sedang menunggu untuk ditinjau oleh tim rekrutmen PT Cipta Karya Digital.</span>
+                                </div>
+                            </div>
+                            <div class="card__footer" style="justify-content: space-between;">
+                                <a href="#" class="link_danger"><span class="icon icon-x-mark-mini"></span>Batalkan Lamaran</a>
+                                <a href="./lowongan-detail.html" class="btn btn_outline btn_sm">Lihat Lowongan</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- ============ TAB: MENUNGGU ============ -->
+                    <div class="tab-pane" id="tab-menunggu" style="padding-top: 1rem;">
+                        <div class="card app-card">
+                            <div class="card__body">
+                                <div class="app-card__top">
+                                    <div class="app-card__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT Cipta Karya Digital"></div>
+                                    <div style="flex: 1; min-width: 0;">
+                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+                                            <div>
+                                                <h3 class="app-card__title"><a href="./lowongan-detail.html" style="color: inherit; text-decoration: none;">Data Analyst</a></h3>
+                                                <p class="app-card__company">PT Cipta Karya Digital &middot; Surabaya</p>
+                                            </div>
+                                            <span class="badge badge_secondary">Menunggu</span>
+                                        </div>
+                                        <p class="app-card__applied"><span class="icon icon-calendar-mini"></span>Dilamar 1 Sep 2026 &middot; Diperbarui 1 Sep 2026</p>
+                                    </div>
+                                </div>
+                                <div class="app-steps">
+                                    <div class="app-steps__node is-current"><span class="app-steps__dot"><span class="icon icon-clock-mini"></span></span><span class="app-steps__label">Melamar</span></div>
+                                    <div class="app-steps__node"><span class="app-steps__dot">2</span><span class="app-steps__label">Ditinjau</span></div>
+                                    <div class="app-steps__node"><span class="app-steps__dot">3</span><span class="app-steps__label">Interview</span></div>
+                                    <div class="app-steps__node"><span class="app-steps__dot">4</span><span class="app-steps__label">Keputusan</span></div>
+                                </div>
+                                <div class="app-card__note">
+                                    <span class="icon icon-inbox-mini"></span>
+                                    <span>Lamaranmu sudah <strong>terkirim</strong> dan sedang menunggu untuk ditinjau oleh tim rekrutmen PT Cipta Karya Digital.</span>
+                                </div>
+                            </div>
+                            <div class="card__footer" style="justify-content: space-between;">
+                                <a href="#" class="link_danger"><span class="icon icon-x-mark-mini"></span>Batalkan Lamaran</a>
+                                <a href="./lowongan-detail.html" class="btn btn_outline btn_sm">Lihat Lowongan</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============ TAB: PROSES ============ -->
+                    <div class="tab-pane" id="tab-proses" style="padding-top: 1rem;">
+                        <div class="card app-card">
+                            <div class="card__body">
+                                <div class="app-card__top">
+                                    <div class="app-card__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT Fit Jaya Raya Tri"></div>
+                                    <div style="flex: 1; min-width: 0;">
+                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+                                            <div>
+                                                <h3 class="app-card__title"><a href="./lowongan-detail.html" style="color: inherit; text-decoration: none;">Backend Engineer</a></h3>
+                                                <p class="app-card__company">PT Fit Jaya Raya Tri &middot; Jakarta</p>
+                                            </div>
+                                            <span class="badge badge_warning">Proses</span>
+                                        </div>
+                                        <p class="app-card__applied"><span class="icon icon-calendar-mini"></span>Dilamar 20 Agu 2026 &middot; Diperbarui 1 Sep 2026</p>
+                                    </div>
+                                </div>
+                                <div class="app-steps">
+                                    <div class="app-steps__node is-done"><span class="app-steps__dot"><span class="icon icon-check-mini"></span></span><span class="app-steps__label">Melamar</span></div>
+                                    <div class="app-steps__node is-done line-done"><span class="app-steps__dot"><span class="icon icon-check-mini"></span></span><span class="app-steps__label">Ditinjau</span></div>
+                                    <div class="app-steps__node is-current line-done"><span class="app-steps__dot"><span class="icon icon-clock-mini"></span></span><span class="app-steps__label">Interview</span></div>
+                                    <div class="app-steps__node"><span class="app-steps__dot">4</span><span class="app-steps__label">Keputusan</span></div>
+                                </div>
+                                <div class="app-card__note app-card__note_warning">
+                                    <span class="icon icon-clock-mini"></span>
+                                    <span>Kamu <strong>lolos tahap review</strong>. Interview terjadwal <strong>5 Sep 2026, pukul 10:00 WIB</strong> via Zoom - cek email untuk link undangan.</span>
+                                </div>
+                            </div>
+                            <div class="card__footer" style="justify-content: space-between;">
+                                <a href="#" class="link_danger"><span class="icon icon-x-mark-mini"></span>Batalkan Lamaran</a>
+                                <a href="./lowongan-detail.html" class="btn btn_outline btn_sm">Lihat Lowongan</a>
+                            </div>
+                        </div>
+
+                        <div class="card app-card">
+                            <div class="card__body">
+                                <div class="app-card__top">
+                                    <div class="app-card__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT Solusi Teknologi Nusa"></div>
+                                    <div style="flex: 1; min-width: 0;">
+                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+                                            <div>
+                                                <h3 class="app-card__title"><a href="./lowongan-detail.html" style="color: inherit; text-decoration: none;">Mobile Developer</a></h3>
+                                                <p class="app-card__company">PT Solusi Teknologi Nusa &middot; Bandung</p>
+                                            </div>
+                                            <span class="badge badge_warning">Proses</span>
+                                        </div>
+                                        <p class="app-card__applied"><span class="icon icon-calendar-mini"></span>Dilamar 25 Agu 2026 &middot; Diperbarui 27 Agu 2026</p>
+                                    </div>
+                                </div>
+                                <div class="app-steps">
+                                    <div class="app-steps__node is-done"><span class="app-steps__dot"><span class="icon icon-check-mini"></span></span><span class="app-steps__label">Melamar</span></div>
+                                    <div class="app-steps__node is-current line-done"><span class="app-steps__dot"><span class="icon icon-clock-mini"></span></span><span class="app-steps__label">Ditinjau</span></div>
+                                    <div class="app-steps__node"><span class="app-steps__dot">3</span><span class="app-steps__label">Interview</span></div>
+                                    <div class="app-steps__node"><span class="app-steps__dot">4</span><span class="app-steps__label">Keputusan</span></div>
+                                </div>
+                                <div class="app-card__note app-card__note_warning">
+                                    <span class="icon icon-clock-mini"></span>
+                                    <span>Lamaranmu sedang <strong>ditinjau</strong> oleh tim rekrutmen. Proses ini biasanya memakan waktu 3-5 hari kerja.</span>
+                                </div>
+                            </div>
+                            <div class="card__footer" style="justify-content: space-between;">
+                                <a href="#" class="link_danger"><span class="icon icon-x-mark-mini"></span>Batalkan Lamaran</a>
+                                <a href="./lowongan-detail.html" class="btn btn_outline btn_sm">Lihat Lowongan</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============ TAB: DITERIMA ============ -->
+                    <div class="tab-pane" id="tab-diterima" style="padding-top: 1rem;">
+                        <div class="card app-card">
+                            <div class="card__body">
+                                <div class="app-card__top">
+                                    <div class="app-card__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT Sentra Vidya Utama"></div>
+                                    <div style="flex: 1; min-width: 0;">
+                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
+                                            <div>
+                                                <h3 class="app-card__title"><a href="./lowongan-detail.html" style="color: inherit; text-decoration: none;">UI/UX Designer</a></h3>
+                                                <p class="app-card__company">PT Sentra Vidya Utama &middot; Surabaya</p>
+                                            </div>
+                                            <span class="badge badge_success">Diterima</span>
+                                        </div>
+                                        <p class="app-card__applied"><span class="icon icon-calendar-mini"></span>Dilamar 12 Agu 2026 &middot; Diperbarui 28 Agu 2026</p>
+                                    </div>
+                                </div>
+                                <div class="app-steps">
+                                    <div class="app-steps__node is-done"><span class="app-steps__dot"><span class="icon icon-check-mini"></span></span><span class="app-steps__label">Melamar</span></div>
+                                    <div class="app-steps__node is-done line-done"><span class="app-steps__dot"><span class="icon icon-check-mini"></span></span><span class="app-steps__label">Ditinjau</span></div>
+                                    <div class="app-steps__node is-done line-done"><span class="app-steps__dot"><span class="icon icon-check-mini"></span></span><span class="app-steps__label">Interview</span></div>
+                                    <div class="app-steps__node is-success line-done"><span class="app-steps__dot"><span class="icon icon-check-badge-mini"></span></span><span class="app-steps__label">Diterima</span></div>
+                                </div>
+                                <div class="app-card__note app-card__note_success">
+                                    <span class="icon icon-sparkles-mini"></span>
+                                    <span>Selamat! Kamu <strong>diterima</strong> untuk posisi ini. Tim HR PT Sentra Vidya Utama akan menghubungimu lewat email untuk proses onboarding.</span>
+                                </div>
+                            </div>
+                            <div class="card__footer" style="justify-content: flex-end;">
+                                <a href="./lowongan-detail.html" class="btn btn_outline btn_sm">Lihat Lowongan</a>
+                                <button type="button" class="btn btn_primary btn_sm"><span class="icon icon-chat-bubble-left-right-mini"></span><span class="btn__text">Hubungi HR</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============ TAB: DITOLAK (contoh empty state) ============ -->
+                    <div class="tab-pane" id="tab-ditolak" style="padding-top: 1rem;">
+                        <div class="empty-state">
+                            <span class="icon icon-face-smile" style="font-size: 3rem; color: var(--qn-neutral-300);"></span>
+                            <h3 class="empty-state__title">Belum Ada Lamaran yang Ditolak</h3>
+                            <p class="empty-state__desc">Kabar baik! Semua lamaranmu masih berjalan atau berhasil. Terus pantau halaman ini untuk update terbaru.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__copyright-wrapper">
+                <div class="footer__logo-wrapper">
+                    <img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="" class="footer__logo">
+                </div>
+                <p class="footer__copyright">© 2005-2025 SEVIMA. All Rights Reserved</p>
+            </div>
+            <p class="footer__brand-name">SEVIMA Platform</p>
+        </footer>
+    </main>
+    <!-- [END] Main Content -->
+
+    <!-- Quantum JavaScript -->
+    <script src="../assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+</body>
+</html>
