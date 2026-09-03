@@ -183,8 +183,11 @@
 
             <!-- f502: Masa tunggu - shown for status Bekerja/Wiraswasta/Melanjutkan Pendidikan -->
             <div class="tsf-question tsf-conditional">
-                <label for="input-f502" class="tsf-question__label">Masa tunggu mendapatkan pekerjaan</label>
-                <p class="tsf-question__desc">Muncul jika status: Bekerja, Wiraswasta, atau Melanjutkan Pendidikan.</p>
+                <label for="input-f502" class="tsf-question__label" id="label-f502">Masa tunggu mendapatkan pekerjaan</label>
+                <p class="tsf-question__desc">Muncul jika status: Bekerja, Wiraswasta, atau Melanjutkan Pendidikan. Redaksi menyesuaikan cabang:<br>
+                    <b>Bekerja:</b> "Apakah Anda mendapatkan pekerjaan pertama sebelum lulus?"<br>
+                    <b>Wiraswasta:</b> "Apakah Anda sudah mulai berwirausaha sebelum lulus?"<br>
+                    <b>Melanjutkan Pendidikan:</b> "Kapan Anda mulai melanjutkan pendidikan setelah lulus?"</p>
                 <div class="tsf-radio-group">
                     <label class="form-control tsf-option"><input type="radio" class="form-control__radio" name="f502-gate" id="f502-sebelum" value="sebelum_lulus" onchange="applyF502Logic(this.value)"><label for="f502-sebelum" class="form-control__label-radio">Ya, sebelum lulus</label></label>
                     <label class="form-control tsf-option" style="display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
