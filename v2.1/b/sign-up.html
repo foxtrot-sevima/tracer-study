@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <!-- Google tag (gtag.js) - flow_version lets GA4 Explore reports segment/compare
+         this version against the others being A/B tested. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-46BCSZ3W2G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-46BCSZ3W2G', { 'flow_version': 'v2.1b' });
+    </script>
+    <base href="/v2.1/b/">
+    <link rel="icon" href="assets/karirlink/images/logo/karirlink-colored-square.webp">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar | KarirLink</title>
+
+    <!-- Quantum CSS -->
+    <link rel="stylesheet" href="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.css">
+
+    <!-- Karirlink CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        /* Sama dengan sign-in.html - komponen "Advanced Login" bawaan Quantum,
+           layout & style di-mirror dari halaman itu supaya konsisten. */
+        .main_advanced-login { min-height: 100vh; }
+        .advanced-login__form { justify-content: center; }
+        .advanced-login__form .form-login { max-width: 500px; }
+        .advanced-login__illustration { background: linear-gradient(135deg, var(--qn-primary-600) 0%, var(--qn-primary-400) 100%); }
+        .advanced-login__illustration-pattern circle, .advanced-login__illustration-pattern rect { fill: white; }
+
+        .auth-divider { display: flex; align-items: center; gap: 0.75rem; margin: 0.75rem 0; }
+        .auth-divider hr { flex: 1; border: none; border-top: 1px solid var(--qn-neutral-200); margin: 0; }
+        .auth-divider span { font-size: 0.75rem; color: var(--qn-neutral-500); white-space: nowrap; }
+
+        .auth-google-btn { width: 100%; display: inline-flex !important; align-items: center; justify-content: center; gap: 0.5rem; }
+
+        .auth-signup-cta { text-align: center; margin: 1rem 0 0; }
+        .auth-signup-cta__primary { font-size: 0.8125rem; color: var(--qn-neutral-700); line-height: 1.6; margin: 0; }
+
+        @media (max-width: 640px) {
+            .header-login { display: none !important; }
+            .footer-login { flex-direction: column; justify-content: center !important; text-align: center; }
+            .footer-login > div { justify-content: center; flex-wrap: wrap; }
+            .footer-login__text { white-space: normal !important; }
+        }
+    </style>
+</head>
+<body class="body body_kl-white">
+    <div class="layout-overlay"></div>
+    <main class="main main_advanced-login">
+        <!-- Left: Form -->
+        <div class="advanced-login__form" style="display: flex; flex-direction: column;">
+            <div class="header-login" style="width: 100%; justify-content: center;">
+                <div class="header-login__logo" style="max-width: 8rem;">
+                    <img src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo">
+                </div>
+                <span class="header-login__separator"></span>
+                <h1 class="header-login__name">Karirlink</h1>
+            </div>
+
+            <div class="form-login" style="margin: auto 0;">
+                <div class="form-login__content">
+                    <div class="form-login__content-wrapper" style="padding-bottom: 1rem;">
+                        <h2 class="form-login__content-title" style="padding-bottom: 1rem;">Daftar ke KarirLink</h2>
+                        <p class="form-login__content-subtitle">Selangkah lagi menuju Karir impianmu. Lengkapi data berikut untuk membuat akun.</p>
+                    </div>
+                    <div class="form-login__content-main">
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem; padding-bottom: 1rem;">
+                            <button type="button" class="btn btn_outline auth-google-btn">
+                                <svg width="18" height="18" viewBox="0 0 18 18" style="flex-shrink: 0;">
+                                    <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84c-.21 1.13-.85 2.09-1.8 2.73v2.27h2.92c1.71-1.57 2.68-3.88 2.68-6.64z"/>
+                                    <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.17l-2.92-2.27c-.81.54-1.85.86-3.04.86-2.34 0-4.32-1.58-5.03-3.71H.96v2.33C2.44 15.98 5.48 18 9 18z"/>
+                                    <path fill="#FBBC05" d="M3.97 10.71c-.18-.54-.28-1.11-.28-1.71s.1-1.17.28-1.71V4.96H.96A8.99 8.99 0 0 0 0 9c0 1.45.35 2.83.96 4.04l3.01-2.33z"/>
+                                    <path fill="#EA4335" d="M9 3.58c1.32 0 2.51.45 3.44 1.35l2.59-2.59C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58z"/>
+                                </svg>
+                                <span class="btn__text">Daftar dengan Google</span>
+                            </button>
+                            <button type="button" class="btn btn_outline auth-google-btn">
+                                <span class="icon icon-shield-check-mini" style="color: var(--qn-primary-500);"></span>
+                                <span class="btn__text">Daftar dengan SIAKAD</span>
+                            </button>
+                        </div>
+
+                        <div class="auth-divider">
+                            <hr><span>atau dengan</span><hr>
+                        </div>
+
+                        <form id="signupForm" onsubmit="handleSignup(event)">
+                            <div class="form-control">
+                                <label for="input_name" class="form-control__label">Nama <span class="important">*</span></label>
+                                <div class="form-control__group">
+                                    <input type="text" id="input_name" name="name" placeholder="Masukkan Nama Anda" required autocomplete="name" class="form-control__input">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-control">
+                                <label for="input_email" class="form-control__label">Email <span class="important">*</span></label>
+                                <div class="form-control__group">
+                                    <span data-input-icon="email"></span>
+                                    <input type="email" id="input_email" name="email" placeholder="Masukkan Email Anda" required autocomplete="email" class="form-control__input" style="padding-left: 2.75rem;">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-control">
+                                <label for="input_password" class="form-control__label">Password <span class="important">*</span></label>
+                                <div class="form-control__group">
+                                    <input type="password" id="input_password" name="password" placeholder="Masukkan Password Anda" required autocomplete="new-password" class="form-control__input">
+                                    <span data-visibility="input" data-type="password"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-control">
+                                <label for="input_password_confirm" class="form-control__label">Konfirmasi Password <span class="important">*</span></label>
+                                <div class="form-control__group">
+                                    <input type="password" id="input_password_confirm" name="password_confirmation" placeholder="Masukkan konfirmasi password Anda" required autocomplete="new-password" class="form-control__input">
+                                    <span data-visibility="input" data-type="password"></span>
+                                </div>
+                            </div>
+
+                            <button id="button__signup" type="submit" class="btn btn_primary" style="width: 100%;">
+                                <span class="btn__text">Daftar</span>
+                            </button>
+                        </form>
+
+                        <div class="auth-signup-cta">
+                            <p class="auth-signup-cta__primary">
+                                Sudah punya akun?
+                                <a href="./sign-in.html" class="link" style="font-weight: 600; text-decoration: none;">Masuk</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-login gap-2" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div class="footer-login__logo" style="flex-grow: 0;">
+                        <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="Logo SEVIMA">
+                    </div>
+                    <p class="footer-login__text" style="flex-grow: 0; white-space: nowrap;">&copy; 2005-2025 SEVIMA. All Rights Reserved</p>
+                </div>
+                <div class="footer-login__language" style="flex-grow: 0;">
+                    <a href="#" style="font-weight: 400; text-decoration: none; color: var(--qn-neutral-500);">Syarat dan Ketentuan</a>
+                    <span style="color: var(--qn-neutral-300);">|</span>
+                    <a href="#" style="font-weight: 400; text-decoration: none; color: var(--qn-neutral-500);">Kebijakan Privasi</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Illustration (sama seperti sign-in.html) -->
+        <div class="advanced-login__wrapper">
+            <div class="advanced-login__illustration">
+                <div class="advanced-login__separator">
+                    <div class="advanced-login__separator-top"></div>
+                    <div class="advanced-login__separator-top-corner-middle"></div>
+                    <div class="advanced-login__separator-top-corner-top"></div>
+                    <div class="advanced-login__separator-top-corner-bottom"></div>
+                    <div class="advanced-login__separator-bottom"></div>
+                    <div class="advanced-login__separator-bottom-corner-middle"></div>
+                    <div class="advanced-login__separator-bottom-corner-top"></div>
+                    <div class="advanced-login__separator-bottom-corner-bottom"></div>
+                </div>
+                <svg class="advanced-login__illustration-pattern" width="100%" height="100%" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" fill="none" style="position: absolute; inset: 0; opacity: 0.08;">
+                    <circle cx="330" cy="420" r="7"/>
+                    <circle cx="60" cy="480" r="5"/>
+                    <circle cx="300" cy="620" r="9"/>
+                    <circle cx="120" cy="700" r="6"/>
+                    <rect x="220" y="500" width="44" height="44" rx="12"/>
+                    <rect x="70" y="600" width="32" height="32" rx="9"/>
+                </svg>
+                <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 3rem;">
+                    <div style="text-align: center; color: white; max-width: 22rem;">
+                        <span class="icon icon-briefcase" style="font-size: 3rem;"></span>
+                        <h2 style="font-size: 1.375rem; font-weight: 700; color: white; margin: 1.25rem 0 0.5rem;">Satu Akun, Semua Peluang Karier</h2>
+                        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.85); margin: 0;">Isi Tracer Study, temukan lowongan, dan pantau lamaranmu - semuanya dalam satu Portal Karir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Quantum JavaScript -->
+    <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
+    <script>
+        function handleSignup(event) {
+            event.preventDefault();
+            window.location.href = 'alumni/index.html';
+        }
+    </script>
+</body>
+</html>

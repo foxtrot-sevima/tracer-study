@@ -23,116 +23,227 @@
     <!-- Karirlink CSS -->
     <link rel="stylesheet" href="assets/css/main.css">
     <style>
-        /* Layout-only: split-screen auth shell (Quantum has no opinion on this) */
-        body.register-body { min-height: 100vh; display: flex; }
-        .register-form-side { width: 100%; display: flex; flex-direction: column; justify-content: center; padding: 3rem 2rem; }
-        .register-illustration-side { display: none; width: 50%; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--qn-primary-50) 0%, var(--qn-primary-100) 100%); }
-        @media (min-width: 992px) {
-            .register-form-side { width: 50%; padding: 3rem 4rem; }
-            .register-illustration-side { display: flex; }
+        /* Sama persis dengan sign-up.html - komponen "Advanced Login" bawaan Quantum,
+           supaya seluruh alur auth (alumni & mitra) terasa satu keluarga produk yang
+           sama, bukan dua shell custom yang berbeda. */
+        .main_advanced-login { min-height: 100vh; }
+        .advanced-login__form { justify-content: center; }
+        .advanced-login__form .form-login { max-width: 500px; }
+        .advanced-login__illustration { background: linear-gradient(135deg, var(--qn-primary-600) 0%, var(--qn-primary-400) 100%); }
+        .advanced-login__illustration-pattern circle, .advanced-login__illustration-pattern rect { fill: white; }
+
+        @media (max-width: 640px) {
+            .header-login { display: none !important; }
+            .footer-login { flex-direction: column; justify-content: center !important; text-align: center; }
+            .footer-login > div { justify-content: center; flex-wrap: wrap; }
+            .footer-login__text { white-space: normal !important; }
         }
-        .register-password-toggle { position: absolute; top: 50%; right: 0.875rem; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--qn-neutral-400); padding: 0.25rem; }
-        .register-password-toggle:hover { color: var(--qn-neutral-600); }
+
+        /* Judul tiap seksi form (Informasi Kontak / Informasi Perusahaan) - garis
+           pemisah di atas seksi kedua dst supaya form panjang tetap mudah dipindai. */
+        .form-register-section { margin: 0 0 0.875rem; }
+        .form-register-section + .form-register-section { margin-top: 0.5rem; padding-top: 1.5rem; border-top: 1px solid var(--qn-neutral-100); }
+        .form-register-section__title { font-size: 0.875rem; font-weight: 700; color: var(--qn-neutral-900); margin: 0 0 0.25rem; }
+        .form-register-section__desc { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0; line-height: 1.5; }
     </style>
 </head>
-<body class="body body_kl-white register-body">
-    <!-- Left Side: Form -->
-    <div class="register-form-side">
-        <!-- Logo -->
-        <div style="margin-bottom: 2rem;">
-            <img src="assets/karirlink/images/logo/karirlink-colored-square.webp" height="40" alt="Karirlink Logo">
+<body class="body body_kl-white">
+    <div class="layout-overlay"></div>
+    <main class="main main_advanced-login">
+        <!-- Left: Form -->
+        <div class="advanced-login__form" style="display: flex; flex-direction: column;">
+            <div class="header-login" style="width: 100%; justify-content: center;">
+                <div class="header-login__logo" style="max-width: 8rem;">
+                    <img src="assets/karirlink/images/logo/karirlink-colored.webp" alt="Karirlink Logo">
+                </div>
+                <span class="header-login__separator"></span>
+                <h1 class="header-login__name">Karirlink</h1>
+            </div>
+
+            <div class="form-login" style="margin: auto 0;">
+                <div class="form-login__content">
+                    <div class="form-login__content-wrapper" style="padding-bottom: 1rem;">
+                        <h2 class="form-login__content-title" style="padding-bottom: 1rem;">Dapatkan Undangan ke KarirLink</h2>
+                        <p class="form-login__content-subtitle">Lengkapi data di bawah ini, tim kami akan meninjau dan mengirimkan undangan bergabung ke perusahaan Anda.</p>
+                    </div>
+                    <div class="form-login__content-main">
+                        <div id="register-form-wrapper">
+                        <form id="registerForm" onsubmit="handleRegister(event)">
+                            <div class="form-register-section">
+                                <h3 class="form-register-section__title">Informasi Kontak</h3>
+                                <p class="form-register-section__desc">KarirLink akan menghubungi Anda melalui email untuk proses verifikasi</p>
+                            </div>
+
+                            <div class="form-control">
+                                <label for="input_pic_name" class="form-control__label">Nama Lengkap PIC <span class="important">*</span></label>
+                                <div class="form-control__group">
+                                    <input type="text" id="input_pic_name" name="pic_name" placeholder="Masukkan Nama Lengkap Anda" required autocomplete="name" class="form-control__input">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-control">
+                                <label for="input_pic_position" class="form-control__label">Jabatan PIC <span class="important">*</span></label>
+                                <div class="form-control__group">
+                                    <input type="text" id="input_pic_position" name="pic_position" placeholder="Masukkan Jabatan Anda" required class="form-control__input">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-control">
+                                <label for="input_pic_email" class="form-control__label">Email PIC <span class="important">*</span></label>
+                                <div class="form-control__group">
+                                    <span data-input-icon="email"></span>
+                                    <input type="email" id="input_pic_email" name="pic_email" placeholder="Masukkan Email Anda" required autocomplete="email" class="form-control__input" style="padding-left: 2.75rem;">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-control">
+                                <label for="input_pic_phone" class="form-control__label">No HP PIC <span class="important">*</span></label>
+                                <div class="form-control__group">
+                                    <input type="tel" id="input_pic_phone" name="pic_phone" placeholder="Masukkan Nomor Handphone Anda" required autocomplete="tel" class="form-control__input">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-register-section">
+                                <h3 class="form-register-section__title">Informasi Perusahaan</h3>
+                                <p class="form-register-section__desc">Data ini membantu tim kami memverifikasi dan mempercepat proses persetujuan mitra</p>
+                            </div>
+
+                            <div class="form-control">
+                                <label for="input_company_name" class="form-control__label">Nama Perusahaan <span class="important">*</span></label>
+                                <div class="form-control__group">
+                                    <input type="text" id="input_company_name" name="company_name" placeholder="Masukkan Nama Perusahaan Anda" required class="form-control__input">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-control">
+                                <label for="input_company_website" class="form-control__label">Website / Link Perusahaan</label>
+                                <div class="form-control__group">
+                                    <input type="url" id="input_company_website" name="company_website" placeholder="Contoh: https://perusahaan-anda.com" class="form-control__input">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-control">
+                                <label for="input_company_npwp" class="form-control__label">NPWP Perusahaan <span class="important">*</span></label>
+                                <div class="form-control__group">
+                                    <input type="text" inputmode="numeric" id="input_company_npwp" name="company_npwp" placeholder="Masukkan NPWP Perusahaan Anda" required class="form-control__input">
+                                    <span data-clear="input"></span>
+                                </div>
+                            </div>
+
+                            <div class="grid" style="gap: 1rem;">
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-control">
+                                        <label for="input_company_industry" class="form-control__label">Industri</label>
+                                        <select id="input_company_industry" name="company_industry" class="form-control__input">
+                                            <option value="" selected>Pilih industri</option>
+                                            <option value="teknologi">Teknologi/IT</option>
+                                            <option value="manufaktur">Manufaktur</option>
+                                            <option value="keuangan">Jasa Keuangan</option>
+                                            <option value="pendidikan">Pendidikan</option>
+                                            <option value="kesehatan">Kesehatan</option>
+                                            <option value="lainnya">Lainnya</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-control">
+                                        <label for="input_company_size" class="form-control__label">Jumlah Karyawan</label>
+                                        <select id="input_company_size" name="company_size" class="form-control__input">
+                                            <option value="" selected>Pilih rentang</option>
+                                            <option value="1-10">1-10 orang</option>
+                                            <option value="11-50">11-50 orang</option>
+                                            <option value="51-200">51-200 orang</option>
+                                            <option value="201+">201+ orang</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-control">
+                                <label for="input_company_address" class="form-control__label">Alamat Perusahaan <span class="important">*</span></label>
+                                <div class="form-control__group">
+                                    <textarea id="input_company_address" name="company_address" placeholder="Masukkan Alamat Perusahaan Anda" required rows="2" class="form-control__input"></textarea>
+                                </div>
+                            </div>
+
+                            <button id="button__register" type="submit" class="btn btn_primary" style="width: 100%;">
+                                <span class="btn__text">Ajukan Permintaan Undangan</span>
+                            </button>
+                        </form>
+                        </div>
+
+                        <!-- Ditampilkan setelah form dikirim - permintaan masuk antrean tinjauan
+                             admin, jadi tidak langsung lanjut ke onboarding seperti alur lama. -->
+                        <div id="register-success" style="text-align: center; padding: 1rem 0;" hidden>
+                            <span class="icon icon-check-circle-solid" style="font-size: 3rem; color: var(--qn-success-500);"></span>
+                            <h2 style="font-size: 1.125rem; font-weight: 700; color: var(--qn-neutral-900); margin: 1rem 0 0.5rem;">Permintaan Terkirim!</h2>
+                            <p style="font-size: 0.875rem; color: var(--qn-neutral-500); margin: 0 0 1.5rem; line-height: 1.6;">Tim KarirLink akan meninjau data perusahaan Anda dan mengirimkan undangan ke email PIC dalam 1x24 jam kerja.</p>
+                            <a href="./sign-in.html" class="btn btn_outline" style="width: 100%;">Kembali ke Halaman Masuk</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-login gap-2" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div class="footer-login__logo" style="flex-grow: 0;">
+                        <img src="assets/vendors/quantum-v2.2.1-202310260001/assets/images/logos/sevima.png" alt="Logo SEVIMA">
+                    </div>
+                    <p class="footer-login__text" style="flex-grow: 0; white-space: nowrap;">&copy; 2005-2025 SEVIMA. All Rights Reserved</p>
+                </div>
+                <div class="footer-login__language" style="flex-grow: 0;">
+                    <a href="#" style="font-weight: 400; text-decoration: none; color: var(--qn-neutral-500);">Syarat dan Ketentuan</a>
+                    <span style="color: var(--qn-neutral-300);">|</span>
+                    <a href="#" style="font-weight: 400; text-decoration: none; color: var(--qn-neutral-500);">Kebijakan Privasi</a>
+                </div>
+            </div>
         </div>
 
-        <!-- Heading -->
-        <div style="margin-bottom: 2rem;">
-            <h1 style="font-size: 1.75rem; font-weight: 600; color: var(--qn-neutral-800); margin: 0;">Selamat Datang,</h1>
-            <h2 style="font-size: 1.75rem; font-weight: 700; color: var(--qn-primary-500); margin: 0;">PT Foxtrot</h2>
-            <p style="font-size: 0.875rem; color: var(--qn-neutral-500); margin-top: 0.75rem;">Masukkan NPWP perusahaan dan buat password baru untuk mulai bergabung</p>
+        <!-- Right: Illustration (sama seperti sign-up.html, teks disesuaikan untuk mitra perusahaan) -->
+        <div class="advanced-login__wrapper">
+            <div class="advanced-login__illustration">
+                <div class="advanced-login__separator">
+                    <div class="advanced-login__separator-top"></div>
+                    <div class="advanced-login__separator-top-corner-middle"></div>
+                    <div class="advanced-login__separator-top-corner-top"></div>
+                    <div class="advanced-login__separator-top-corner-bottom"></div>
+                    <div class="advanced-login__separator-bottom"></div>
+                    <div class="advanced-login__separator-bottom-corner-middle"></div>
+                    <div class="advanced-login__separator-bottom-corner-top"></div>
+                    <div class="advanced-login__separator-bottom-corner-bottom"></div>
+                </div>
+                <svg class="advanced-login__illustration-pattern" width="100%" height="100%" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" fill="none" style="position: absolute; inset: 0; opacity: 0.08;">
+                    <circle cx="330" cy="420" r="7"/>
+                    <circle cx="60" cy="480" r="5"/>
+                    <circle cx="300" cy="620" r="9"/>
+                    <circle cx="120" cy="700" r="6"/>
+                    <rect x="220" y="500" width="44" height="44" rx="12"/>
+                    <rect x="70" y="600" width="32" height="32" rx="9"/>
+                </svg>
+                <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 3rem;">
+                    <div style="text-align: center; color: white; max-width: 22rem;">
+                        <span class="icon icon-building-office" style="font-size: 3rem;"></span>
+                        <h2 style="font-size: 1.375rem; font-weight: 700; color: white; margin: 1.25rem 0 0.5rem;">Satu Platform, Ribuan Talenta Siap Kerja</h2>
+                        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.85); margin: 0;">Pasang lowongan, temukan kandidat terbaik, dan kelola kerja sama kampus - semuanya dalam satu Portal Mitra.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- Form -->
-        <form id="registerForm" onsubmit="handleRegister(event)">
-            <!-- Email -->
-            <div class="form-control" style="margin-bottom: 1.25rem;">
-                <label class="form-control__label">Email</label>
-                <div class="form-control__group">
-                    <input type="email" class="form-control__input" value="ptfoxtrot@yopmail.com" disabled>
-                </div>
-            </div>
-
-            <!-- NPWP -->
-            <div class="form-control" style="margin-bottom: 1.25rem;">
-                <label class="form-control__label">NPWP Perusahaan</label>
-                <div class="form-control__group">
-                    <input type="number" class="form-control__input" placeholder="Masukkan NPWP perusahaan">
-                </div>
-            </div>
-
-            <!-- Kata Sandi -->
-            <div class="form-control" style="margin-bottom: 1.25rem;">
-                <label class="form-control__label">Kata Sandi <span style="color: var(--qn-danger-500);">*</span></label>
-                <div class="form-control__group" style="position: relative;">
-                    <input type="password" id="password" class="form-control__input" placeholder="Masukkan kata sandi" required>
-                    <button type="button" class="register-password-toggle" onclick="togglePassword('password', 'eyeIcon1')">
-                        <span class="icon icon-eye" id="eyeIcon1"></span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Ulangi Kata Sandi -->
-            <div class="form-control" style="margin-bottom: 1.5rem;">
-                <label class="form-control__label">Ulangi Kata Sandi Anda <span style="color: var(--qn-danger-500);">*</span></label>
-                <div class="form-control__group" style="position: relative;">
-                    <input type="password" id="confirmPassword" class="form-control__input" placeholder="Ulangi kata sandi Anda" required>
-                    <button type="button" class="register-password-toggle" onclick="togglePassword('confirmPassword', 'eyeIcon2')">
-                        <span class="icon icon-eye" id="eyeIcon2"></span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn_primary btn_block">Gabung Sekarang</button>
-        </form>
-    </div>
-
-    <!-- Right Side: Illustration -->
-    <div class="register-illustration-side">
-        <svg width="280" height="320" viewBox="0 0 280 320" fill="none">
-            <circle cx="140" cy="160" r="120" fill="var(--qn-primary-500)" opacity="0.08"/>
-            <ellipse cx="140" cy="260" rx="50" ry="30" fill="var(--qn-primary-500)" opacity="0.2"/>
-            <rect x="115" y="170" width="50" height="70" rx="10" fill="var(--qn-primary-500)" opacity="0.3"/>
-            <circle cx="140" cy="140" r="35" fill="var(--qn-primary-500)" opacity="0.3"/>
-            <rect x="90" y="230" width="100" height="8" rx="4" fill="var(--qn-primary-500)" opacity="0.4"/>
-            <rect x="100" y="200" width="80" height="30" rx="4" fill="var(--qn-primary-500)" opacity="0.25"/>
-            <circle cx="60" cy="100" r="4" fill="var(--qn-primary-500)" opacity="0.2"/>
-            <circle cx="220" cy="80" r="6" fill="var(--qn-primary-500)" opacity="0.15"/>
-            <circle cx="240" cy="200" r="3" fill="var(--qn-primary-500)" opacity="0.2"/>
-            <circle cx="50" cy="220" r="5" fill="var(--qn-primary-500)" opacity="0.15"/>
-            <rect x="200" y="120" width="30" height="40" rx="4" fill="var(--qn-primary-500)" opacity="0.2"/>
-            <rect x="206" y="130" width="18" height="3" rx="1.5" fill="var(--qn-primary-500)" opacity="0.3"/>
-            <rect x="206" y="137" width="14" height="3" rx="1.5" fill="var(--qn-primary-500)" opacity="0.3"/>
-            <rect x="206" y="144" width="18" height="3" rx="1.5" fill="var(--qn-primary-500)" opacity="0.3"/>
-        </svg>
-    </div>
+    </main>
 
     <!-- Quantum JavaScript -->
     <script src="assets/vendors/quantum-v2.2.1-202310260001/assets/release/qn-202310260001.js"></script>
     <script>
-        function togglePassword(inputId, iconId) {
-            const input = document.getElementById(inputId);
-            const icon = document.getElementById(iconId);
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.className = 'icon icon-eye-slash';
-            } else {
-                input.type = 'password';
-                icon.className = 'icon icon-eye';
-            }
-        }
-
         function handleRegister(event) {
             event.preventDefault();
-            window.location.href = 'company-onboarding.html';
+            document.getElementById('register-form-wrapper').hidden = true;
+            document.getElementById('register-success').hidden = false;
         }
     </script>
 </body>
