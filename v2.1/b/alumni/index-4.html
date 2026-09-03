@@ -15,6 +15,11 @@
         /* Afordansi hover kartu profil yang bisa diklik (pengganti tombol "Lihat Profil Saya") */
         .profile-card-link:hover { background: var(--qn-neutral-50); }
 
+        /* Banner profil - rasio standar 800x200 (8:2 = 4:1). Pakai aspect-ratio, bukan
+           height tetap, supaya lebar banner tetap mengikuti kolom tempatnya dipasang
+           (sidebar sempit, halaman penuh, dst.) tapi proporsinya selalu sama. */
+        .profile-cover { width: 100%; aspect-ratio: 8 / 2; border-radius: 0.75rem 0.75rem 0 0; overflow: hidden; line-height: 0; }
+
         /* Judul seksi beraksen satu ikon kecil - pola yang sama dengan alumni-detail.html,
            supaya ikon dipakai secukupnya (satu per kartu) alih-alih di setiap baris. */
         .section-title { display: flex; align-items: center; gap: 0.625rem; }
@@ -27,6 +32,11 @@
            Informasi Alumni - meniru .alumni-hero__fact di alumni-detail.html. */
         .fact-row { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--qn-neutral-600); }
         .fact-row .icon { color: var(--qn-neutral-400); font-size: 1rem; flex-shrink: 0; }
+
+        /* Logo lowongan & mitra mengisi penuh kotaknya (object-fit: cover), senada
+           dengan gaya kartu di lowongan.html - bukan ikon kecil mengambang di tengah
+           kotak seperti default .job-card__logo/.mitra-cell__logo bawaan. */
+        .job-card__logo img, .mitra-cell__logo img { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -49,19 +59,19 @@
                             </a>
                         </li>
                         <li class="nav__item">
-                            <a class="nav__link" href="../tracer-study-form.html">
+                            <a class="nav__link" href="./tracer-study.html">
                                 <span class="icon icon-clipboard-document-check"></span>
                                 <span>Tracer Study</span>
                             </a>
                         </li>
                         <li class="nav__item">
-                            <a class="nav__link" href="../lowongan.html">
+                            <a class="nav__link" href="./lowongan.html">
                                 <span class="icon icon-briefcase"></span>
                                 <span>Lowongan</span>
                             </a>
                         </li>
                         <li class="nav__item">
-                            <a class="nav__link" href="#lamaran-saya">
+                            <a class="nav__link" href="./lamaran.html">
                                 <span class="icon icon-clipboard-document-list"></span>
                                 <span>Lamaran</span>
                             </a>
@@ -100,7 +110,7 @@
                             </div>
                         </li>
                         <li class="dropdown__line"></li>
-                        <li class="dropdown__item"><a href="#">Profil Saya</a></li>
+                        <li class="dropdown__item"><a href="./profil.html">Profil Saya</a></li>
                         <li class="dropdown__item"><a href="#">Pengaturan Akun</a></li>
                         <li class="dropdown__line"></li>
                         <li class="dropdown__item dropdown__item_danger"><a href="#"><span class="icon icon-arrow-left-on-rectangle-mini"></span>Keluar</a></li>
@@ -121,18 +131,33 @@
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
                     <!-- Profile Card (klik untuk buka profil, gaya LinkedIn) -->
                     <div class="card">
-                        <a href="#" class="profile-card-link" style="display: block; text-decoration: none; color: inherit; border-radius: 0.75rem 0.75rem 0 0;">
-                            <div style="height: 3.5rem; background: linear-gradient(135deg, var(--qn-primary-600), var(--qn-primary-300)); border-radius: 0.75rem 0.75rem 0 0;"></div>
+                        <a href="./profil.html" class="profile-card-link" style="display: block; text-decoration: none; color: inherit; border-radius: 0.75rem 0.75rem 0 0;">
+                            <div class="profile-cover">
+                                <svg width="100%" height="100%" viewBox="0 0 552 138" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Foto sampul" style="display: block;">
+                                    <path fill="#d9e5e7" d="M0 0h315v138H0z"/>
+                                    <path fill="#a0b4b7" d="M347 0v106h31V81l57 57H315V0zM378 0v41l41-41z"/>
+                                    <path fill="#bfd3d6" d="M315 137v1zM463 0l-60 61 77 77h-45l-57-57v25h-31V0h31v41l41-41z"/>
+                                    <path fill="#a0b4b7" d="M552 138h-72l-77-77 60-61h89z"/>
+                                </svg>
+                            </div>
                             <div class="card__body" style="text-align: center; padding-bottom: 0;">
                                 <span class="avatar avatar_lg" style="margin: -2.0625rem auto 0.75rem; display: inline-flex;">
                                     <img src="../assets/vendors/quantum-v2.2.1-202310260001/assets/images/example-profile.jpg" alt="Pangeran Dimas">
                                 </span>
-                                <h3 style="font-size: 1.125rem; font-weight: 700; margin: 0 0 0.125rem; color: var(--qn-neutral-900);">Pangeran Dimas</h3>
-                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0;">Teknik Informatika &middot; Angkatan 2019</p>
+                                <h3 style="font-size: 1.125rem; font-weight: 700; margin: 0 0 0.25rem; color: var(--qn-neutral-900);">Pangeran Dimas</h3>
+                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-600); margin: 0 0 0.5rem; line-height: 1.4;">UI/UX Designer &middot; Antusias merancang pengalaman digital yang berdampak</p>
+                                <div style="display: flex; align-items: center; justify-content: center; gap: 0.375rem;">
+                                    <img src="../assets/karirlink/images/users/logoipsum.webp" alt="" style="width: 1.125rem; height: 1.125rem; border-radius: 0.25rem; object-fit: cover; border: 1px solid var(--qn-neutral-200);">
+                                    <span style="font-size: 0.8125rem; color: var(--qn-neutral-600);">PT Sentra Vidya Utama</span>
+                                </div>
                             </div>
                         </a>
                         <div class="card__body" style="padding-top: 0.75rem;">
                             <div style="display: flex; flex-direction: column; gap: 0.625rem; padding-top: 0.75rem; border-top: 1px solid var(--qn-neutral-100);">
+                                <div class="fact-row">
+                                    <span class="icon icon-academic-cap-mini"></span>
+                                    <span>Teknik Informatika &middot; Angkatan 2019</span>
+                                </div>
                                 <div class="fact-row">
                                     <span class="icon icon-identification-mini"></span>
                                     <span>NIM 1934010042</span>
@@ -217,7 +242,7 @@
                             </div>
                         </div>
                         <div class="card__footer" style="text-align: center;">
-                            <a href="#lamaran-saya" class="link_primary">
+                            <a href="./lamaran.html" class="link_primary">
                                 Lihat Semua Lamaran
                                 <span class="icon icon-chevron-right-mini"></span>
                             </a>
@@ -236,7 +261,7 @@
                             <div class="card-insight" style="margin-top: 0; align-items: center; padding-bottom: 1.25rem; margin-bottom: 1.25rem; border-radius: 0; background: none; border-bottom: 1px solid var(--qn-neutral-100);">
                                 <div class="card-insight__icon card-insight__icon_warning"><span class="icon icon-exclaimation-circle-mini"></span></div>
                                 <p class="card-insight__text" style="flex: 1;">Anda belum mengisi <strong>Tracer Study</strong> tahun ini.</p>
-                                <a href="../tracer-study-form.html" class="btn btn_primary btn_sm">Isi Sekarang</a>
+                                <a href="./tracer-study.html" class="btn btn_primary btn_sm">Isi Sekarang</a>
                             </div>
                             <div style="display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
                                 <div class="progress-circle" style="--progress-circle-size: 4rem; --progress-circle-line-size: 0.375rem; flex-shrink: 0;">
@@ -291,7 +316,7 @@
                             <div style="display: flex; align-items: flex-start; justify-content: space-between;">
                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
                                     <span class="avatar avatar_sm">
-                                        <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="KarirLink">
+                                        <img src="../assets/karirlink/images/users/logoipsum.webp" alt="KarirLink">
                                     </span>
                                     <div>
                                         <p style="font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.25rem;">
@@ -334,7 +359,7 @@
                             <div style="display: flex; align-items: flex-start; justify-content: space-between;">
                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
                                     <span class="avatar avatar_sm">
-                                        <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="KarirLink">
+                                        <img src="../assets/karirlink/images/users/logoipsum.webp" alt="KarirLink">
                                     </span>
                                     <div>
                                         <p style="font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.25rem;">
@@ -372,7 +397,7 @@
                             <div style="display: flex; align-items: flex-start; justify-content: space-between;">
                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
                                     <span class="avatar avatar_sm">
-                                        <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="KarirLink">
+                                        <img src="../assets/karirlink/images/users/logoipsum.webp" alt="KarirLink">
                                     </span>
                                     <div>
                                         <p style="font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.25rem;">
@@ -418,7 +443,7 @@
                             </div>
                             <div style="display: flex; align-items: center; gap: 0.75rem; padding-bottom: 0.875rem; margin-bottom: 0.875rem; border-bottom: 1px solid var(--qn-neutral-100);">
                                 <div class="job-card__logo" style="margin: 0;">
-                                    <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Company Logo">
+                                    <img src="../assets/karirlink/images/users/logoipsum.webp" alt="Company Logo">
                                 </div>
                                 <div style="flex: 1; min-width: 0;">
                                     <p style="font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0 0 0.125rem;">UI/UX Designer</p>
@@ -428,7 +453,7 @@
                             </div>
                             <div style="display: flex; align-items: center; gap: 0.75rem;">
                                 <div class="job-card__logo" style="margin: 0;">
-                                    <img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Company Logo">
+                                    <img src="../assets/karirlink/images/users/logoipsum.webp" alt="Company Logo">
                                 </div>
                                 <div style="flex: 1; min-width: 0;">
                                     <p style="font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0 0 0.125rem;">Backend Engineer</p>
@@ -438,7 +463,7 @@
                             </div>
                         </div>
                         <div class="card__footer" style="text-align: center;">
-                            <a href="../lowongan.html" class="link_primary">
+                            <a href="./lowongan.html" class="link_primary">
                                 Lihat Semua Lowongan
                                 <span class="icon icon-chevron-right-mini"></span>
                             </a>
@@ -453,19 +478,18 @@
                                 <h3>Perusahaan Mitra</h3>
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 1rem;">
-                                <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
                                     <div class="mitra-cell">
-                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Sentra Vidya Utama"></div>
+                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT Sentra Vidya Utama"></div>
                                         <div class="mitra-cell__info">
                                             <span class="mitra-cell__name">PT Sentra Vidya Utama</span>
                                             <span class="tag tag_outline tag_sm" style="align-self: flex-start; margin-top: 0.25rem;">Teknologi</span>
                                         </div>
                                     </div>
-                                    <span class="badge badge_primary">Baru</span>
                                 </div>
                                 <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
                                     <div class="mitra-cell">
-                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT Fit Jaya Raya Tri"></div>
+                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT Fit Jaya Raya Tri"></div>
                                         <div class="mitra-cell__info">
                                             <span class="mitra-cell__name">PT Fit Jaya Raya Tri</span>
                                             <span class="tag tag_outline tag_sm" style="align-self: flex-start; margin-top: 0.25rem;">Manufaktur</span>
@@ -474,7 +498,7 @@
                                 </div>
                                 <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
                                     <div class="mitra-cell">
-                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="PT ABC"></div>
+                                        <div class="mitra-cell__logo"><img src="../assets/karirlink/images/users/logoipsum.webp" alt="PT ABC"></div>
                                         <div class="mitra-cell__info">
                                             <span class="mitra-cell__name">PT ABC</span>
                                             <span class="tag tag_outline tag_sm" style="align-self: flex-start; margin-top: 0.25rem;">Jasa Keuangan</span>
