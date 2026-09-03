@@ -41,12 +41,23 @@
         .profile-header__cover svg { display: block; }
         .profile-header__cover-edit { position: absolute; top: 0.875rem; right: 0.875rem; width: 2rem; height: 2rem; border-radius: 50%; background: rgba(255,255,255,0.9); border: none; display: flex; align-items: center; justify-content: center; color: var(--qn-neutral-700); cursor: pointer; }
         .profile-header__body { padding: 0 1.5rem 1.5rem; position: relative; }
-        .profile-header__avatar-wrap { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: -3.5rem; }
+        /* align-items: flex-end (bukan flex-start) - avatar & tombol aksi sama-sama
+           di baris ini (yang ketarik naik -3.5rem supaya avatar menimpa banner),
+           tapi tombolnya dijejerkan ke BAWAH baris (sejajar dasar avatar, yang
+           sudah berada di area putih di bawah cover), bukan ke atas baris
+           (sejajar puncak avatar, yang masih menimpa cover). */
+        .profile-header__avatar-wrap { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: -3.5rem; }
         .profile-header__avatar-box { position: relative; flex-shrink: 0; }
         .profile-header__avatar { display: block; width: 7rem; height: 7rem; border-radius: 50%; object-fit: cover; border: 4px solid white; box-shadow: 0 2px 10px rgba(0,0,0,0.15); background: white; }
         .profile-header__avatar-edit { position: absolute; bottom: 0.25rem; right: 0.25rem; width: 1.75rem; height: 1.75rem; border-radius: 50%; background: white; border: 1px solid var(--qn-neutral-200); display: flex; align-items: center; justify-content: center; color: var(--qn-neutral-600); cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.12); }
-        .profile-header__actions { display: flex; gap: 0.5rem; flex-wrap: wrap; padding-top: 0.75rem; }
+        .profile-header__actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
         .btn_pill { border-radius: 9999px !important; }
+        /* Mobile: tombol aksi jadi icon-only (bulat, tanpa label) supaya tidak
+           wrap jadi 2 baris & bikin header terasa sesak di layar sempit. */
+        @media (max-width: 640px) {
+            .profile-header__actions .btn__text { display: none; }
+            .profile-header__actions .btn { width: 2.25rem; padding: 0; justify-content: center; }
+        }
         .profile-header__grid { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.875rem; }
         .profile-header__name-row { display: flex; align-items: center; gap: 0.5rem; }
         .profile-header__name { font-size: 1.375rem; font-weight: 700; color: var(--qn-neutral-900); margin: 0; }
@@ -250,6 +261,9 @@
                                             <span class="icon icon-camera-mini"></span>
                                         </button>
                                     </div>
+                                    <!-- Tombol aksi - sejajar dasar avatar (align-items:flex-end
+                                         di .profile-header__avatar-wrap), jadi otomatis berada di
+                                         area putih bawah banner, bukan menimpa foto sampul. -->
                                     <div class="profile-header__actions">
                                         <button type="button" class="btn btn_primary btn_sm btn_pill">
                                             <span class="icon icon-briefcase-mini"></span>
