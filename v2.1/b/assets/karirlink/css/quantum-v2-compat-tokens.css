@@ -1,0 +1,64 @@
+/*
+ * Compat shim - Migrasi Quantum v2.2.1 -> v3.4.0
+ * =================================================
+ * Bundle Quantum v3.4.0 TIDAK punya nama token pendek gaya lama
+ * (var(--qn-primary-500), var(--qn-neutral-100), dst) - sudah diverifikasi
+ * langsung (grep) di quantum.bundle.min.css: nol kecocokan. Token warna di v3
+ * memakai nama panjang gaya DTCG (--qn-colors-semantic-fill-success-default)
+ * atau variabel Bootstrap (--bs-primary/success/danger/warning, cuma 4 warna,
+ * tanpa skala neutral 100-900).
+ *
+ * Project ini punya 1.875 titik pemakaian var(--qn-*) gaya lama tersebar di
+ * 3 file CSS custom + hampir semua file HTML (inline <style>). Daripada
+ * menulis ulang semuanya satu per satu (risiko regresi visual sangat tinggi
+ * di puluhan halaman yang sudah dipoles berkali-kali), file ini re-declare
+ * ulang nama token lama dengan HEX VALUE YANG SAMA PERSIS seperti yang ada
+ * di vendor lama (assets/vendors/quantum-v2.2.1-202310260001/.../qn-202310260001.css)
+ * - jadi tampilan warna tetap identik walau vendor CSS-nya sudah diganti.
+ *
+ * WAJIB di-load SETELAH <link> ke qn-3.4.0.css supaya override ini menang
+ * (walau sebenarnya ini bukan "override" beneran - nama variabelnya memang
+ * tidak dipakai sama sekali oleh bundle v3, jadi urutan load tidak kritis,
+ * tapi tetap taruh belakangan sebagai konvensi "layer custom di atas vendor").
+ */
+:root {
+    --qn-primary-100: #F1F6FE;
+    --qn-primary-200: #ABC9F5;
+    --qn-primary-300: #4E91F6;
+    --qn-primary-400: #0F6AF5;
+    --qn-primary-500: #074BB2;
+    --qn-primary-600: #094093;
+
+    --qn-neutral-100: #F8FAFC;
+    --qn-neutral-200: #EEF2F6;
+    --qn-neutral-300: #E3E8EF;
+    --qn-neutral-400: #CDD5DF;
+    --qn-neutral-500: #9AA4B2;
+    --qn-neutral-600: #697586;
+    --qn-neutral-700: #4B5565;
+    --qn-neutral-800: #364152;
+    --qn-neutral-900: #202939;
+
+    --qn-success-100: #F0FDF9;
+    --qn-success-200: #99F6E0;
+    --qn-success-300: #2ED3B7;
+    --qn-success-400: #15B79E;
+    --qn-success-500: #0E9384;
+    --qn-success-600: #125D56;
+
+    --qn-warning-100: #FFF7E9;
+    --qn-warning-200: #FEE5BD;
+    --qn-warning-300: #FCC564;
+    --qn-warning-400: #EF9600;
+    --qn-warning-500: #D18300;
+    --qn-warning-600: #A15C07;
+
+    --qn-danger-100: #FBE2DD;
+    --qn-danger-200: #F8C4BC;
+    --qn-danger-300: #EF6954;
+    --qn-danger-400: #EC3D27;
+    --qn-danger-500: #C02413;
+    --qn-danger-600: #9B1D0F;
+
+    --qn-white: #FFFFFF;
+}

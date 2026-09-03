@@ -1,0 +1,84 @@
+/*
+ * Compat shim (bagian 2) - Migrasi Quantum v2.2.1 -> v3.4.0
+ * =================================================
+ * `.btn_primary`, `.btn_outline`, `.badge_success`, dst adalah MODIFIER
+ * (bukan struktur/BEM-element seperti `.header__left`), jadi bisa di-tulis
+ * ulang di sini persis nama class lama, tanpa perlu menyentuh HTML sama
+ * sekali - beda dengan komponen struktural (header/nav/dropdown/avatar)
+ * yang markup-nya sendiri berubah total dan harus di-rebuild per halaman.
+ *
+ * Nilai visual (padding/height/warna) diambil dari resep asli di
+ * assets/vendors/quantum-v2.2.1-202310260001/.../qn-202310260001.css,
+ * memakai variabel dari quantum-v2-compat-tokens.css (WAJIB di-load
+ * SEBELUM file ini). Ini menutup ~1.000+ pemakaian .btn_*/.badge_* di
+ * seluruh HTML tanpa migrasi manual satu-satu.
+ *
+ * .tag_outline SENGAJA tidak ada di sini - dicek, class itu memang sudah
+ * tidak punya definisi apa pun bahkan di vendor lama (no-op murni),
+ * `.tag` polos sudah terlihat seperti outline (putih + border).
+ */
+
+/* ---------- Button ---------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+    height: 2.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn__text { display: inline-flex; align-items: center; }
+
+.btn_primary { background-color: var(--qn-primary-500); border-color: var(--qn-primary-500); color: #fff; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.btn_primary:hover { background-color: var(--qn-primary-600); border-color: var(--qn-primary-600); }
+.btn_outline { background-color: #fff; border-color: var(--qn-neutral-300); color: var(--qn-neutral-900); font-weight: 500; }
+.btn_outline:hover { background-color: var(--qn-neutral-100); }
+.btn_danger { background-color: var(--qn-danger-500); border-color: var(--qn-danger-500); color: #fff; font-weight: 600; }
+.btn_success { background-color: var(--qn-success-500); border-color: var(--qn-success-500); color: #fff; font-weight: 600; }
+
+.btn_sm { height: 2.25rem; padding: 0.5rem 0.875rem; font-size: 0.875rem; line-height: 1.25rem; }
+.btn_xs { height: 2.125rem; padding: 0.5rem 0.875rem; font-size: 0.75rem; line-height: 1.125rem; }
+
+.btn_icon { width: 2.5rem; height: 2.5rem; padding: 0; flex-shrink: 0; }
+.btn_icon.btn_sm { width: 2.25rem; height: 2.25rem; }
+.btn_icon.btn_xs { width: 2.125rem; height: 2.125rem; }
+
+.btn_pill { border-radius: 9999px !important; }
+.btn_block, .btn_full-width, .btn_full { display: flex; width: 100%; }
+
+/* ---------- Badge ---------- */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    width: fit-content;
+    border: 1.5px solid transparent;
+    border-radius: 1rem;
+    padding: 0.125rem 0.5rem;
+    height: 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: inherit;
+    background-color: transparent;
+}
+.badge_success { background-color: var(--qn-success-500); border-color: var(--qn-success-500); color: var(--qn-white); }
+.badge_warning { background-color: var(--qn-warning-400); border-color: var(--qn-warning-400); color: var(--qn-white); }
+.badge_danger { background-color: var(--qn-danger-400); border-color: var(--qn-danger-400); color: var(--qn-white); }
+.badge_primary { background-color: var(--qn-primary-400); border-color: var(--qn-primary-400); color: var(--qn-white); }
+.badge_default { background-color: var(--qn-neutral-700); border-color: var(--qn-neutral-700); color: var(--qn-white); }
+.badge_secondary,
+.badge_secondary-primary { background-color: var(--qn-primary-100); border-color: var(--qn-primary-100); color: var(--qn-primary-600); }
+.badge_secondary-success { background-color: var(--qn-success-100); border-color: var(--qn-success-100); color: var(--qn-success-600); }
+.badge_secondary-warning { background-color: var(--qn-warning-100); border-color: var(--qn-warning-100); color: var(--qn-warning-600); }
+.badge_secondary-default { background-color: var(--qn-neutral-100); border-color: var(--qn-neutral-100); color: var(--qn-neutral-700); }
+.badge_sm { padding: 0 0.5rem; height: 1.125rem; gap: 0.25rem; font-size: 0.75rem; line-height: 1.125rem; }
+.badge__dot { display: inline-block; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: currentColor; flex-shrink: 0; }
