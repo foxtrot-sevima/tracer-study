@@ -37,41 +37,6 @@
            dengan gaya kartu di lowongan.html - bukan ikon kecil mengambang di tengah
            kotak seperti default .job-card__logo/.mitra-cell__logo bawaan. */
         .job-card__logo img, .mitra-cell__logo img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* [SAMPLING] Navbar alumni - menu utama dipusatkan (bukan menempel di
-           samping logo seperti bawaan .header__left) - .header sudah position:fixed
-           jadi cukup jadi acuan positioning absolute utk nav tanpa perlu ubah
-           struktur flex .header__left/.header__right sama sekali. Icon notifikasi
-           dihapus dari .header__right, jadi cuma tersisa dropdown profil di kanan. */
-        .header_compact .header__nav-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
-        @media (max-width: 900px) { .header_compact .header__nav-center { display: none; } }
-
-        /* [SAMPLING] Bottom nav bar ala aplikasi mobile - nav atas disembunyikan
-           di <900px (lihat rule di atas), diganti tab bar ini yang nempel di
-           bawah layar. Quantum v2.2.1 tidak punya komponen bottom-nav bawaan,
-           jadi dibangun manual dari nol, dipasang HANYA lewat @media (bukan
-           dihapus/disembunyikan di desktop pakai JS) supaya tidak ada elemen
-           tersembunyi yang ikut ke-generate percuma di layar besar. */
-        .kl-bottom-nav { display: none; }
-        @media (max-width: 900px) {
-            .kl-bottom-nav {
-                display: flex;
-                position: fixed;
-                bottom: 0; left: 0; right: 0;
-                z-index: 1005;
-                background: white;
-                border-top: 1px solid var(--qn-neutral-200);
-                box-shadow: 0 -2px 12px rgba(16,24,40,0.08);
-                padding-bottom: env(safe-area-inset-bottom, 0);
-            }
-            .kl-bottom-nav__item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.1875rem; padding: 0.5rem 0.25rem 0.4375rem; text-decoration: none; color: var(--qn-neutral-400); font-size: 0.6875rem; font-weight: 500; }
-            .kl-bottom-nav__item .icon { font-size: 1.375rem; }
-            .kl-bottom-nav__item.active { color: var(--qn-primary-500); }
-            /* Ruang ekstra di bawah konten supaya tab bar fixed tidak menutupi
-               baris terakhir/footer - .container bawaan cuma punya padding-bottom
-               kecil (1.25rem), tidak cukup utk tinggi tab bar (~3.75rem). */
-            .container { padding-bottom: 5.5rem !important; }
-        }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -84,38 +49,43 @@
                     <img class="header__logo header__logo_square" src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
                 </a>
             </div>
-        </div>
-        <div class="header__navigation header__nav-center">
-            <nav class="nav">
-                <ul class="nav__list" data-more-text="Lainnya">
-                    <li class="nav__item active">
-                        <a class="nav__link" href="./index.html">
-                            <span class="icon icon-home"></span>
-                            <span>Beranda</span>
-                        </a>
-                    </li>
-                    <li class="nav__item">
-                        <a class="nav__link" href="./tracer-study.html">
-                            <span class="icon icon-clipboard-document-check"></span>
-                            <span>Tracer Study</span>
-                        </a>
-                    </li>
-                    <li class="nav__item">
-                        <a class="nav__link" href="./lowongan.html">
-                            <span class="icon icon-briefcase"></span>
-                            <span>Lowongan</span>
-                        </a>
-                    </li>
-                    <li class="nav__item">
-                        <a class="nav__link" href="./lamaran.html">
-                            <span class="icon icon-clipboard-document-list"></span>
-                            <span>Lamaran</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <div class="header__navigation">
+                <nav class="nav">
+                    <ul class="nav__list" data-more-text="Lainnya">
+                        <li class="nav__item active">
+                            <a class="nav__link" href="./index.html">
+                                <span class="icon icon-home"></span>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./tracer-study.html">
+                                <span class="icon icon-clipboard-document-check"></span>
+                                <span>Tracer Study</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lowongan.html">
+                                <span class="icon icon-briefcase"></span>
+                                <span>Lowongan</span>
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="./lamaran.html">
+                                <span class="icon icon-clipboard-document-list"></span>
+                                <span>Lamaran</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
         <div class="header__right">
+            <div class="header__action">
+                <div class="dropdown dropdown_nav dropdown_notification">
+                    <button class="btn btn_icon btn_nav" data-toggle="dropdown" id="kl-nav-notification"><span class="icon icon-bell"></span></button>
+                </div>
+            </div>
             <div class="dropdown dropdown_nav dropdown_profile">
                 <button class="header__user" data-toggle="dropdown">
                     <span class="header__user-wrapper">
@@ -150,27 +120,6 @@
         </div>
     </header>
     <!-- [END] Header -->
-
-    <!-- [START] Bottom Nav (mobile only, <900px - lihat .kl-bottom-nav) -->
-    <nav class="kl-bottom-nav">
-        <a href="./index.html" class="kl-bottom-nav__item active">
-            <span class="icon icon-home"></span>
-            <span>Beranda</span>
-        </a>
-        <a href="./tracer-study.html" class="kl-bottom-nav__item">
-            <span class="icon icon-clipboard-document-check"></span>
-            <span>Tracer Study</span>
-        </a>
-        <a href="./lowongan.html" class="kl-bottom-nav__item">
-            <span class="icon icon-briefcase"></span>
-            <span>Lowongan</span>
-        </a>
-        <a href="./lamaran.html" class="kl-bottom-nav__item">
-            <span class="icon icon-clipboard-document-list"></span>
-            <span>Lamaran</span>
-        </a>
-    </nav>
-    <!-- [END] Bottom Nav -->
 
     <!-- [START] Main Content -->
     <main class="main">
