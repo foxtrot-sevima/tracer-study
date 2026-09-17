@@ -18,24 +18,21 @@
         .section-title__icon_primary { background: var(--qn-primary-100); color: var(--qn-primary-600); }
         .section-title h3 { font-size: 0.9375rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0; }
 
-        /* Halaman ini adalah versi POV Mahasiswa (belum lulus) - Tracer Study belum
-           bisa diisi sama sekali, tapi halamannya tetap ditampilkan (bukan disembunyikan
-           total) supaya mahasiswa tahu programnya ada dan apa yang menanti setelah lulus.
-           Semua elemen interaktif (tombol isi/edit) dikunci - dipakai gaya yang sama
-           dengan status "Belum Aktif" di versi alumni (dot gembok abu-abu, kartu netral). */
-        .ts-timeline__item { display: flex; gap: 1rem; }
-        .ts-timeline__marker { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-        .ts-timeline__dot { width: 2.75rem; height: 2.75rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; flex-shrink: 0; }
-        .ts-timeline__item--locked .ts-timeline__dot { background: var(--qn-neutral-100); color: var(--qn-neutral-400); border: 2px solid var(--qn-neutral-200); }
-        .ts-timeline__line { flex: 1; width: 2px; min-height: 1.25rem; background: var(--qn-neutral-200); margin: 0.375rem 0; }
-        .ts-timeline__body { flex: 1; min-width: 0; padding-bottom: 1.25rem; }
+        /* Halaman ini POV Mahasiswa (belum lulus) - disamakan strukturnya dengan
+           tracer-study.html versi alumni (layout 2 kolom, tanpa sidebar kiri, tanpa
+           FAQ/Butuh Bantuan/Reward), tapi semua gelombang tampil "Terkunci" karena
+           belum ada satupun yang bisa diisi sebelum status kelulusan tercatat. */
+        #ts-main-col, #ts-sidebar-col { grid-column: span 12; }
+        @media (min-width: 992px) {
+            #ts-main-col { grid-column: span 8; }
+            #ts-sidebar-col { grid-column: span 4; }
+        }
 
-        .status-pill { display: inline-flex; align-items: center; gap: 0.25rem; flex-shrink: 0; padding: 0.3125rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
-        .status-pill_neutral { background: var(--qn-neutral-200); color: var(--qn-neutral-600); }
-
-        /* Tombol yang dikunci - tampil seperti tombol biasa tapi non-interaktif,
-           supaya jelas kalau aksi ini memang belum bisa dipakai (bukan rusak). */
-        .btn_locked { opacity: 0.6; pointer-events: none; cursor: not-allowed; }
+        /* Daftar gelombang - sama seperti tracer-study.html (rp-list/card_qnaire-list/tag),
+           semua border kiri netral karena semua status di halaman ini "Terkunci". */
+        .rp-list { display: flex; flex-direction: column; gap: 1rem; }
+        .rp-item { border-left: 0.25rem solid transparent; }
+        .rp-item--inactive { border-left-color: var(--qn-neutral-200); }
 
         /* Manfaat Tracer Study - ikon bulat berwarna + judul + deskripsi singkat */
         .benefit-row { display: flex; align-items: flex-start; gap: 0.875rem; }
@@ -43,17 +40,14 @@
         .benefit-row__title { font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0 0 0.125rem; }
         .benefit-row__desc { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0; line-height: 1.5; }
 
-        /* Baris FAQ ringkas: pertanyaan tebal + jawaban singkat di bawahnya */
-        .faq-row + .faq-row { margin-top: 0.875rem; padding-top: 0.875rem; border-top: 1px solid var(--qn-neutral-100); }
-        .faq-row__q { font-size: 0.8125rem; font-weight: 600; color: var(--qn-neutral-800); margin: 0 0 0.25rem; }
-        .faq-row__a { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0; line-height: 1.5; }
-
-        /* Status "Terkunci" di sidebar kiri - ganti progress-circle (tidak relevan
-           untuk mahasiswa aktif karena belum ada progres apapun) dengan ikon + pesan. */
+        /* Status "Terkunci" di sidebar - ganti progress-circle punya alumni (tidak
+           relevan karena belum ada progres apapun) dengan ikon gembok + pesan. */
         .locked-status { text-align: center; padding: 1.25rem 1rem; }
         .locked-status__icon { width: 3.5rem; height: 3.5rem; border-radius: 50%; background: var(--qn-neutral-100); color: var(--qn-neutral-400); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 0.875rem; }
         .locked-status__title { font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-800); margin: 0 0 0.375rem; }
         .locked-status__desc { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0; line-height: 1.5; }
+        .header_compact .header__nav-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+        @media (max-width: 900px) { .header_compact .header__nav-center { display: none; } }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -66,36 +60,36 @@
                     <img class="header__logo header__logo_square" src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
                 </a>
             </div>
-            <div class="header__navigation">
-                <nav class="nav">
-                    <ul class="nav__list" data-more-text="Lainnya">
-                        <li class="nav__item">
-                            <a class="nav__link" href="./index.html">
-                                <span class="icon icon-home"></span>
-                                <span>Beranda</span>
-                            </a>
-                        </li>
-                        <li class="nav__item active">
-                            <a class="nav__link" href="./tracer-study-mahasiswa.html">
-                                <span class="icon icon-clipboard-document-check"></span>
-                                <span>Tracer Study</span>
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="./lowongan.html">
-                                <span class="icon icon-briefcase"></span>
-                                <span>Lowongan</span>
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="./lamaran.html">
-                                <span class="icon icon-clipboard-document-list"></span>
-                                <span>Lamaran</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+        </div>
+        <div class="header__navigation header__nav-center">
+            <nav class="nav">
+                <ul class="nav__list" data-more-text="Lainnya">
+                    <li class="nav__item">
+                        <a class="nav__link" href="./index.html">
+                            <span class="icon icon-home"></span>
+                            <span>Beranda</span>
+                        </a>
+                    </li>
+                    <li class="nav__item active">
+                        <a class="nav__link" href="./tracer-study-mahasiswa.html">
+                            <span class="icon icon-clipboard-document-check"></span>
+                            <span>Tracer Study</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a class="nav__link" href="./lowongan.html">
+                            <span class="icon icon-briefcase"></span>
+                            <span>Lowongan</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a class="nav__link" href="./lamaran.html">
+                            <span class="icon icon-clipboard-document-list"></span>
+                            <span>Lamaran</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class="header__right">
             <div class="header__action">
@@ -142,16 +136,13 @@
     <main class="main">
         <div class="container">
 
-            <!-- Hero (netral, tanpa CTA aktif - hanya badge status terkunci) -->
+            <!-- Hero (netral, tanpa CTA - hanya badge status terkunci di kanan,
+                 sama seperti hero alumni yang sudah tidak punya tombol lagi) -->
             <div class="card" style="overflow: hidden; margin-bottom: 1.5rem;">
-                <div style="background: linear-gradient(120deg, var(--qn-neutral-700) 0%, var(--qn-neutral-600) 55%, var(--qn-neutral-400) 100%); padding: 2rem 2.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;">
-                    <div style="min-width: 16rem; max-width: 40rem; flex: 1 1 22rem;">
-                        <h1 style="font-size: 1.5rem; font-weight: 700; color: white; margin: 0 0 0.5rem;">Tracer Study</h1>
-                        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.85); margin: 0 0 1.125rem; line-height: 1.6;">Tracer Study adalah survei perjalanan karier yang diisi alumni setelah lulus. Sebagai mahasiswa aktif, kamu belum bisa mengisinya sekarang - halaman ini akan otomatis terbuka begitu status kelulusanmu tercatat di sistem kampus.</p>
-                        <span class="btn btn_sm btn_locked" style="display: inline-flex; background: rgba(255,255,255,0.15); color: white;">
-                            <span class="icon icon-lock-closed-mini"></span>
-                            <span class="btn__text">Tersedia Setelah Lulus</span>
-                        </span>
+                <div style="background: linear-gradient(120deg, var(--qn-neutral-700) 0%, var(--qn-neutral-600) 55%, var(--qn-neutral-400) 100%); padding: 2.5rem 2rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;">
+                    <div style="min-width: 18rem; flex: 1;">
+                        <h1 style="font-size: 1.625rem; font-weight: 700; color: white; margin: 0 0 0.5rem;">Tracer Study</h1>
+                        <p style="font-size: 0.9375rem; color: rgba(255,255,255,0.85); max-width: 34rem; margin: 0; line-height: 1.6;">Tracer Study adalah survei perjalanan karier yang diisi alumni setelah lulus. Sebagai mahasiswa aktif, kamu belum bisa mengisinya sekarang - halaman ini akan otomatis terbuka begitu status kelulusanmu tercatat di sistem kampus.</p>
                     </div>
                     <div style="text-align: center; background: rgba(255,255,255,0.15); border-radius: 0.75rem; padding: 1.25rem 2rem; flex-shrink: 0;">
                         <span class="icon icon-lock-closed" style="display: block; font-size: 1.75rem; color: white; margin-bottom: 0.25rem;"></span>
@@ -160,46 +151,10 @@
                 </div>
             </div>
 
-            <div class="grid" style="gap: 1rem;">
+            <div class="grid" style="gap: 1rem; align-items: start;">
 
-                <!-- [START] Left Sidebar -->
-                <div class="col-12 col-lg-3">
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                    <!-- Status Kamu -->
-                    <div class="card">
-                        <div class="card__body">
-                            <div class="section-title" style="margin-bottom: 1rem;">
-                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-chart-pie-mini"></span></span>
-                                <h3>Status Kamu</h3>
-                            </div>
-                            <div class="locked-status">
-                                <div class="locked-status__icon"><span class="icon icon-lock-closed-mini"></span></div>
-                                <p class="locked-status__title">Mahasiswa Aktif</p>
-                                <p class="locked-status__desc">Progres Tracer Study akan muncul di sini setelah status kelulusanmu tercatat.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Butuh Bantuan -->
-                    <div class="card">
-                        <div class="card__body">
-                            <div class="section-title" style="margin-bottom: 0.75rem;">
-                                <span class="section-title__icon section-title__icon_neutral"><span class="icon icon-chat-bubble-left-right-mini"></span></span>
-                                <h3>Butuh Bantuan?</h3>
-                            </div>
-                            <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0 0 1rem; line-height: 1.5;">Ada pertanyaan seputar Tracer Study atau proses kelulusan? Tim Karir siap membantu.</p>
-                            <a href="#" class="btn btn_outline btn_sm btn_full">
-                                <span class="icon icon-phone-mini"></span>
-                                <span class="btn__text">Hubungi Tim Karir</span>
-                            </a>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <!-- [END] Left Sidebar -->
-
-                <!-- [START] Center -->
-                <div class="col-12 col-lg-6">
+                <!-- [START] Konten Utama -->
+                <div id="ts-main-col">
                     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                     <!-- Riwayat Pengisian - semua gelombang terkunci -->
                     <div>
@@ -208,63 +163,54 @@
                             <h3>Riwayat Pengisian</h3>
                         </div>
 
-                        <!-- Exit Survey - Terkunci -->
-                        <div class="ts-timeline__item ts-timeline__item--locked">
-                            <div class="ts-timeline__marker">
-                                <span class="ts-timeline__dot"><span class="icon icon-lock-closed-mini"></span></span>
-                                <span class="ts-timeline__line"></span>
-                            </div>
-                            <div class="ts-timeline__body">
-                                <div class="card" style="background: var(--qn-neutral-100); border: none; box-shadow: none;">
-                                    <div class="card__body" style="padding: 1.125rem 1.25rem;">
-                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
-                                            <div>
-                                                <p style="font-weight: 700; font-size: 0.9375rem; color: var(--qn-neutral-500); margin: 0 0 0.25rem;">Exit Survey</p>
-                                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0;">Dikirim otomatis saat kamu dinyatakan lulus</p>
+                        <div class="rp-list">
+                            <!-- Exit Survey - Terkunci -->
+                            <div class="card card_qnaire-list rp-item rp-item--inactive">
+                                <div class="card__body">
+                                    <div class="card__body-left">
+                                        <div class="card__header">
+                                            <div class="card__header-wrapper">
+                                                <span class="card__title" style="color: var(--qn-neutral-500);">Exit Survey</span>
+                                                <p class="card__desc">Dikirim otomatis saat kamu dinyatakan lulus</p>
                                             </div>
-                                            <span class="status-pill status-pill_neutral"><span class="icon icon-lock-closed-mini"></span>Terkunci</span>
                                         </div>
+                                    </div>
+                                    <div class="card__body-right">
+                                        <span class="tag tag_neutral"><span class="icon icon-lock-closed-mini"></span> Terkunci</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- GS-I - Terkunci -->
-                        <div class="ts-timeline__item ts-timeline__item--locked">
-                            <div class="ts-timeline__marker">
-                                <span class="ts-timeline__dot"><span class="icon icon-lock-closed-mini"></span></span>
-                                <span class="ts-timeline__line"></span>
-                            </div>
-                            <div class="ts-timeline__body">
-                                <div class="card" style="background: var(--qn-neutral-100); border: none; box-shadow: none;">
-                                    <div class="card__body" style="padding: 1.125rem 1.25rem;">
-                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
-                                            <div>
-                                                <p style="font-weight: 700; font-size: 0.9375rem; color: var(--qn-neutral-500); margin: 0 0 0.25rem;">GS-I &middot; Tracer Study 1-2 Tahun Setelah Lulus</p>
-                                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0;">Aktif 1-2 tahun setelah tanggal kelulusanmu</p>
+                            <!-- GS-I - Terkunci -->
+                            <div class="card card_qnaire-list rp-item rp-item--inactive">
+                                <div class="card__body">
+                                    <div class="card__body-left">
+                                        <div class="card__header">
+                                            <div class="card__header-wrapper">
+                                                <span class="card__title" style="color: var(--qn-neutral-500);">GS-I &middot; Tracer Study 1-2 Tahun Setelah Lulus</span>
+                                                <p class="card__desc">Aktif 1-2 tahun setelah tanggal kelulusanmu</p>
                                             </div>
-                                            <span class="status-pill status-pill_neutral"><span class="icon icon-lock-closed-mini"></span>Terkunci</span>
                                         </div>
+                                    </div>
+                                    <div class="card__body-right">
+                                        <span class="tag tag_neutral"><span class="icon icon-lock-closed-mini"></span> Terkunci</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- GS-II - Terkunci -->
-                        <div class="ts-timeline__item ts-timeline__item--locked">
-                            <div class="ts-timeline__marker">
-                                <span class="ts-timeline__dot"><span class="icon icon-lock-closed-mini"></span></span>
-                            </div>
-                            <div class="ts-timeline__body">
-                                <div class="card" style="background: var(--qn-neutral-100); border: none; box-shadow: none;">
-                                    <div class="card__body" style="padding: 1.125rem 1.25rem;">
-                                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap;">
-                                            <div>
-                                                <p style="font-weight: 700; font-size: 0.9375rem; color: var(--qn-neutral-500); margin: 0 0 0.25rem;">GS-II &middot; Tracer Study 4-5 Tahun Setelah Lulus</p>
-                                                <p style="font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0;">Aktif 4-5 tahun setelah tanggal kelulusanmu</p>
+                            <!-- GS-II - Terkunci -->
+                            <div class="card card_qnaire-list rp-item rp-item--inactive">
+                                <div class="card__body">
+                                    <div class="card__body-left">
+                                        <div class="card__header">
+                                            <div class="card__header-wrapper">
+                                                <span class="card__title" style="color: var(--qn-neutral-500);">GS-II &middot; Tracer Study 4-5 Tahun Setelah Lulus</span>
+                                                <p class="card__desc">Aktif 4-5 tahun setelah tanggal kelulusanmu</p>
                                             </div>
-                                            <span class="status-pill status-pill_neutral"><span class="icon icon-lock-closed-mini"></span>Terkunci</span>
                                         </div>
+                                    </div>
+                                    <div class="card__body-right">
+                                        <span class="tag tag_neutral"><span class="icon icon-lock-closed-mini"></span> Terkunci</span>
                                     </div>
                                 </div>
                             </div>
@@ -282,17 +228,23 @@
                     </div>
                     </div>
                 </div>
-                <!-- [END] Center -->
+                <!-- [END] Konten Utama -->
 
-                <!-- [START] Right Sidebar -->
-                <div class="col-12 col-lg-3">
+                <!-- [START] Sidebar -->
+                <div id="ts-sidebar-col">
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
-                    <!-- Reward (preview, belum bisa diklaim) -->
-                    <div class="card" style="overflow: hidden;">
-                        <div style="background: var(--qn-neutral-500); padding: 1.5rem 1.25rem; text-align: center;">
-                            <span class="icon icon-trophy" style="font-size: 2rem; color: white;"></span>
-                            <p style="font-weight: 700; color: white; margin: 0.625rem 0 0.25rem; font-size: 0.9375rem;">E-Sertifikat Menanti Setelah Lulus</p>
-                            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.9); margin: 0; line-height: 1.5;">Lengkapi semua gelombang Tracer Study sebagai alumni untuk klaim e-sertifikat partisipasi.</p>
+                    <!-- Status Kamu -->
+                    <div class="card">
+                        <div class="card__body">
+                            <div class="section-title" style="margin-bottom: 1rem;">
+                                <span class="section-title__icon section-title__icon_primary"><span class="icon icon-chart-pie-mini"></span></span>
+                                <h3>Status Kamu</h3>
+                            </div>
+                            <div class="locked-status">
+                                <div class="locked-status__icon"><span class="icon icon-lock-closed-mini"></span></div>
+                                <p class="locked-status__title">Mahasiswa Aktif</p>
+                                <p class="locked-status__desc">Progres Tracer Study akan muncul di sini setelah status kelulusanmu tercatat.</p>
+                            </div>
                         </div>
                     </div>
 
@@ -328,31 +280,9 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- FAQ -->
-                    <div class="card">
-                        <div class="card__body">
-                            <div class="section-title" style="margin-bottom: 1rem;">
-                                <span class="section-title__icon section-title__icon_neutral"><span class="icon icon-question-mark-circle-mini"></span></span>
-                                <h3>Pertanyaan Umum</h3>
-                            </div>
-                            <div class="faq-row">
-                                <p class="faq-row__q">Kenapa saya belum bisa mengisi Tracer Study?</p>
-                                <p class="faq-row__a">Tracer Study khusus untuk alumni. Kamu bisa mengisinya setelah dinyatakan lulus dan statusnya tercatat di sistem kampus.</p>
-                            </div>
-                            <div class="faq-row">
-                                <p class="faq-row__q">Apa yang harus saya lakukan sekarang?</p>
-                                <p class="faq-row__a">Tidak ada - cukup tunggu sampai kamu lulus, halaman ini akan otomatis terbuka.</p>
-                            </div>
-                            <div class="faq-row">
-                                <p class="faq-row__q">Berapa lama waktu pengisian nanti?</p>
-                                <p class="faq-row__a">Sekitar 10-15 menit tergantung jumlah pertanyaan.</p>
-                            </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
-                <!-- [END] Right Sidebar -->
+                <!-- [END] Sidebar -->
 
             </div>
         </div>
