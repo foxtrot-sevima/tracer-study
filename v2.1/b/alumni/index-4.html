@@ -37,6 +37,8 @@
            dengan gaya kartu di lowongan.html - bukan ikon kecil mengambang di tengah
            kotak seperti default .job-card__logo/.mitra-cell__logo bawaan. */
         .job-card__logo img, .mitra-cell__logo img { width: 100%; height: 100%; object-fit: cover; }
+        .header_compact .header__nav-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+        @media (max-width: 900px) { .header_compact .header__nav-center { display: none; } }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -49,36 +51,36 @@
                     <img class="header__logo header__logo_square" src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
                 </a>
             </div>
-            <div class="header__navigation">
-                <nav class="nav">
-                    <ul class="nav__list" data-more-text="Lainnya">
-                        <li class="nav__item active">
-                            <a class="nav__link" href="./index.html">
-                                <span class="icon icon-home"></span>
-                                <span>Beranda</span>
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="./tracer-study.html">
-                                <span class="icon icon-clipboard-document-check"></span>
-                                <span>Tracer Study</span>
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="./lowongan.html">
-                                <span class="icon icon-briefcase"></span>
-                                <span>Lowongan</span>
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="./lamaran.html">
-                                <span class="icon icon-clipboard-document-list"></span>
-                                <span>Lamaran</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+        </div>
+        <div class="header__navigation header__nav-center">
+            <nav class="nav">
+                <ul class="nav__list" data-more-text="Lainnya">
+                    <li class="nav__item active">
+                        <a class="nav__link" href="./index.html">
+                            <span class="icon icon-home"></span>
+                            <span>Beranda</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a class="nav__link" href="./tracer-study.html">
+                            <span class="icon icon-clipboard-document-check"></span>
+                            <span>Tracer Study</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a class="nav__link" href="./lowongan.html">
+                            <span class="icon icon-briefcase"></span>
+                            <span>Lowongan</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a class="nav__link" href="./lamaran.html">
+                            <span class="icon icon-clipboard-document-list"></span>
+                            <span>Lamaran</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class="header__right">
             <div class="header__action">

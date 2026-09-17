@@ -33,6 +33,8 @@
         .benefit-row__icon { flex-shrink: 0; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--qn-primary-100); color: var(--qn-primary-600); display: flex; align-items: center; justify-content: center; }
         .benefit-row__title { font-size: 0.875rem; font-weight: 600; color: var(--qn-neutral-900); margin: 0 0 0.125rem; }
         .benefit-row__desc { font-size: 0.8125rem; color: var(--qn-neutral-500); margin: 0; line-height: 1.5; }
+        .header_compact .header__nav-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+        @media (max-width: 900px) { .header_compact .header__nav-center { display: none; } }
     </style>
 </head>
 <body class="body body_kl-white">
@@ -45,36 +47,36 @@
                     <img class="header__logo header__logo_square" src="../assets/karirlink/images/logo/karirlink-colored-square.webp" alt="Karirlink Logo" height="32">
                 </a>
             </div>
-            <div class="header__navigation">
-                <nav class="nav">
-                    <ul class="nav__list" data-more-text="Lainnya">
-                        <li class="nav__item">
-                            <a class="nav__link" href="./index.html">
-                                <span class="icon icon-home"></span>
-                                <span>Beranda</span>
-                            </a>
-                        </li>
-                        <li class="nav__item active">
-                            <a class="nav__link" href="./tracer-study.html">
-                                <span class="icon icon-clipboard-document-check"></span>
-                                <span>Tracer Study</span>
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="./lowongan.html">
-                                <span class="icon icon-briefcase"></span>
-                                <span>Lowongan</span>
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a class="nav__link" href="./lamaran.html">
-                                <span class="icon icon-clipboard-document-list"></span>
-                                <span>Lamaran</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+        </div>
+        <div class="header__navigation header__nav-center">
+            <nav class="nav">
+                <ul class="nav__list" data-more-text="Lainnya">
+                    <li class="nav__item">
+                        <a class="nav__link" href="./index.html">
+                            <span class="icon icon-home"></span>
+                            <span>Beranda</span>
+                        </a>
+                    </li>
+                    <li class="nav__item active">
+                        <a class="nav__link" href="./tracer-study.html">
+                            <span class="icon icon-clipboard-document-check"></span>
+                            <span>Tracer Study</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a class="nav__link" href="./lowongan.html">
+                            <span class="icon icon-briefcase"></span>
+                            <span>Lowongan</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a class="nav__link" href="./lamaran.html">
+                            <span class="icon icon-clipboard-document-list"></span>
+                            <span>Lamaran</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class="header__right">
             <div class="header__action">
